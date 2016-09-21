@@ -1,0 +1,53 @@
+h1. Textile Cheat Sheet
+
+
+
+| Header (h1) | h1. |
+| Header (h2) | h2. |
+| Header (h3) | h3. |
+| link (aligned) | @"text":http://url@, @!>pic.png!@ |
+| picture link | @!http://url!@ |
+| code block |  &#60;pre&gt; &lt;/pre&gt; |
+| **bold** | &#42;&#42;bold&#42;&#42; |
+| *bold* | &#42;bold&#42; |
+| _italic_ | &#95;italic&#95; |
+| @literal@ | &#64;literal&#64; |
+| paragraph alignment | @p<.@, @p=.@, @p>.@ |
+| paragraph indent | @p(.@, @p((.@, ..., @p().@, ..., @p)).@, @p).@ |
+| dot list | @*@, @**@, ... |
+| numbered list | @#@, @##@, ... |
+| block quote | @bq.@ |
+
+
+h2. Tables
+
+<pre>
+|_. attribute list |_. ...  |
+| val | ue |
+
+
+|\2. spans two cols |
+| col 1 | col 2 |
+
+|/3. spans 3 rows | a |
+| b |
+| c |
+</pre>
+
+|_. attribute list |_. ...  |
+| val | ue |
+
+
+|\2. spans two cols |
+| col 1 | col 2 |
+
+|/3. spans 3 rows | a |
+| b |
+| c |
+
+h3. References
+
+* "Textile Quick Reference":http://redcloth.org/hobix.com/textile/quick.html
+* "A Textile Reference":http://redcloth.org/hobix.com/textile/
+
+h6. ~2015-10-20~
