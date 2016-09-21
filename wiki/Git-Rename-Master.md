@@ -25,5 +25,9 @@ git push --delete origin master   # delete remote master
 git remote prune origin           # delete the remote tracking branch
 ```
 
+## NOTE
+
+Apparantly GitHub does not allow wikis to be anything other than the master branch.
+
 ###### 2016-09-21
 
