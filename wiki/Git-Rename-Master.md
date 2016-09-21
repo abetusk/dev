@@ -15,7 +15,7 @@ fail because GitHub won't let you delete the default branch, which is stil `mast
 In order to successfully be able to delete the remote `master` branch, you have to set the default
 branch on GitHub to be the newly created branch (i.e. `release`).
 
-![GitHub Edit Default Branches Admin Web Page](img/gh-branches.png)
+![GitHub Edit Default Branches Admin Web Page](/img/gh-branches.png)
 
 After the default branch has been changed to the newly created branch (`release` in this case), issuing
 the following commands will now work:
