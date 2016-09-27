@@ -28,6 +28,7 @@ git remote prune origin           # delete the remote tracking branch
 ## NOTE
 
 Apparantly GitHub does not allow wikis to be anything other than the master branch.
+This is why I had to move to my own hosting service to continue this dev blog.
 
 ###### 2016-09-21
 

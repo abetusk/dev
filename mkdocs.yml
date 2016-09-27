@@ -1,0 +1,21 @@
+site_name: dev
+pages:
+  - index.md
+  - "Textile-Cheat-Sheet.md"
+  - "Image-Resize.md"
+  - "Screenshots-Screencasts-Animated-Gifs.md"
+  - "ffmpeg-notes.md"
+  - "Unix-y-notes.md"
+  - "lattice-reduction.md"
+  - "GCode-Conversion.md"
+  - "Git-Rename-Master.md"
+  - "MkDocs-Quickstart.md"
+
+docs_dir: 'wiki'
+theme_dir: 'dev_theme'
+extra_css:
+  - css/styles.css
+  - css/pygment_trac.css
+extra:
+  #base : "/dev"
+  base : "/"

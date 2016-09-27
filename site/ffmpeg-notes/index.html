@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>dev blog</title>
+
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/pygment_trac.css">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <header>
+        <h1>Dev Blog</h1>
+
+        <table>
+          <body>
+            <tr><td><a href="/">./dev</a></td></tr>
+            <tr><td><a href="/Textile-Cheat-Sheet">Textile Cheat Sheet</a></td></tr>
+            <tr><td><a href="/Image-Resize">Scahng images, animated GIFs in Gimp</a></td></tr>
+            <tr><td><a href="/Screenshots-Screencasts-Animated-Gifs">Screenshots, Screencasts, Animated Gifs</a></td></tr>
+            <tr><td><a href="/ffmpeg-notes">ffmpeg Notes</a></td></tr>
+            <tr><td><a href="/Unix-y-notes">Unix-y Notes</a></td></tr>
+            <tr><td><a href="/lattice-reduction">Lattice Reduction Notes</a></td></tr>
+            <tr><td><a href="/GCode-Conversion">PS/SVG to GCode Conversion</a></td></tr>
+            <tr><td><a href="/Git-Rename-Master">Change Git default 'master' branch to 'release'</a></td></tr>
+          </body>
+        </table>
+
+      </header>
+      <section>
+
+        <h3 id="video-cropping">Video Cropping</h3>
+<p><code>-qscale</code> sets the compression level (?) (higher is more compression).
+<code>crop</code> is width, height, start x, start y.</p>
+<pre><code class="bash">ffmpeg -i inp.mp4 -qscale 10  -filter:v &quot;crop=in_w:in_h-63:0:63&quot; out.mp4
+</code></pre>
+
+<h6 id="2015-11-05">2015-11-05</h6>
+
+      </section>
+      <footer>
+        <p><small> Original heme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+      </footer>
+
+    </div>
+    <script src="/js/scale.fix.js"></script>
+  </body
+</html>

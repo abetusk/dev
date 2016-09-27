@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>dev blog</title>
+
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/pygment_trac.css">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <header>
+        <h1>Dev Blog</h1>
+
+        <table>
+          <body>
+            <tr><td><a href="/">./dev</a></td></tr>
+            <tr><td><a href="/Textile-Cheat-Sheet">Textile Cheat Sheet</a></td></tr>
+            <tr><td><a href="/Image-Resize">Scahng images, animated GIFs in Gimp</a></td></tr>
+            <tr><td><a href="/Screenshots-Screencasts-Animated-Gifs">Screenshots, Screencasts, Animated Gifs</a></td></tr>
+            <tr><td><a href="/ffmpeg-notes">ffmpeg Notes</a></td></tr>
+            <tr><td><a href="/Unix-y-notes">Unix-y Notes</a></td></tr>
+            <tr><td><a href="/lattice-reduction">Lattice Reduction Notes</a></td></tr>
+            <tr><td><a href="/GCode-Conversion">PS/SVG to GCode Conversion</a></td></tr>
+            <tr><td><a href="/Git-Rename-Master">Change Git default 'master' branch to 'release'</a></td></tr>
+          </body>
+        </table>
+
+      </header>
+      <section>
+
+        <h2 id="renaming-master-branch-to-release">Renaming <code>master</code> branch to <code>release</code></h2>
+<p>From <a href="http://stackoverflow.com/questions/8762601/how-do-i-rename-my-git-master-branch-to-release">Adam Dymitruk on SO</a></p>
+<pre><code>git checkout -b release master    # create and switch to the release branch
+git push -u origin release        # push the release branch to the remote and track it
+git branch -d master              # delete local master
+</code></pre>
+
+<p>If you're using GitHub (as I am), issuing the next needed comman (<code>git push --delete origin master</code>) will
+fail because GitHub won't let you delete the default branch, which is stil <code>master</code>.</p>
+<p>In order to successfully be able to delete the remote <code>master</code> branch, you have to set the default
+branch on GitHub to be the newly created branch (i.e. <code>release</code>).</p>
+<p><img alt="GitHub Edit Default Branches Admin Web Page" src="../img/gh-branches.png" /></p>
+<p>After the default branch has been changed to the newly created branch (<code>release</code> in this case), issuing
+the following commands will now work:</p>
+<pre><code>git push --delete origin master   # delete remote master
+git remote prune origin           # delete the remote tracking branch
+</code></pre>
+
+<h2 id="note">NOTE</h2>
+<p>Apparantly GitHub does not allow wikis to be anything other than the master branch.
+This is why I had to move to my own hosting service to continue this dev blog.</p>
+<h6 id="2016-09-21">2016-09-21</h6>
+
+      </section>
+      <footer>
+        <p><small> Original heme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+      </footer>
+
+    </div>
+    <script src="/js/scale.fix.js"></script>
+  </body
+</html>

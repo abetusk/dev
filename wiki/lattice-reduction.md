@@ -10,11 +10,11 @@ bounds on how far it is from the different norm.
 
 #### References
 
-* http://mathoverflow.net/questions/37563/other-norms-for-lattice-reduction-techniques-lll-pslq
-* http://cstheory.stackexchange.com/questions/890/other-norms-for-lattice-reduction-techniques-lll-pslq
-* http://www.cs.elte.hu/~lovasz/scans/genbasisred.pdf
-* http://www.cims.nyu.edu/~regev/papers/lpnorm.pdf
-* http://web.eecs.umich.edu/~cpeikert/pubs/lp_norms.pdf
-* https://www.cdc.informatik.tu-darmstadt.de/reports/reports/Vanya_Ivanova.bachelor.pdf
+* [Other norms for Lattice reduction techniques (LLL, PSLQ)?](http://mathoverflow.net/questions/37563/other-norms-for-lattice-reduction-techniques-lll-pslq)
+* [Other norms for Lattice reduction techniques (LLL, PSLQ)?](http://cstheory.stackexchange.com/questions/890/other-norms-for-lattice-reduction-techniques-lll-pslq)
+* ["The generalized basis reduction algorithm" by Laszlo Lovasz and Herbert Scarf](http://www.cs.elte.hu/~lovasz/scans/genbasisred.pdf)
+* ["Lattice Problems and Norm Embeddings" by Oded Regev and Ricky Rosen](http://www.cims.nyu.edu/~regev/papers/lpnorm.pdf)
+* ["Limits on the Hardness of Lattice Problems in lp Norms" by Chris Peikert](http://web.eecs.umich.edu/~cpeikert/pubs/lp_norms.pdf)
+* ["Lattice Basis Reduction in Infinity Norm" by Vanya Ivanova (Bachelor Thesis)](https://www.cdc.informatik.tu-darmstadt.de/reports/reports/Vanya_Ivanova.bachelor.pdf)
 
 ###### 2015-11-30

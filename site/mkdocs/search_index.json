@@ -1,0 +1,254 @@
+{
+    "docs": [
+        {
+            "location": "/", 
+            "text": "dev\n\n\n\n\nTextile Cheat Sheet\n\n\nScaling images, animated GIFs in Gimp\n\n\nScreenshots, Screencasts, Animated Gifs\n\n\nffmpeg Notes\n\n\nUnix-y Notes\n\n\nLattice Reduction Notes\n\n\nPS/SVG to GCode Conversion\n\n\nChange Git default 'master' branch to 'release'", 
+            "title": "Home"
+        }, 
+        {
+            "location": "/#dev", 
+            "text": "Textile Cheat Sheet  Scaling images, animated GIFs in Gimp  Screenshots, Screencasts, Animated Gifs  ffmpeg Notes  Unix-y Notes  Lattice Reduction Notes  PS/SVG to GCode Conversion  Change Git default 'master' branch to 'release'", 
+            "title": "dev"
+        }, 
+        {
+            "location": "/Textile-Cheat-Sheet/", 
+            "text": "h1. Textile Cheat Sheet\n\n\n| Header (h1) | h1. |\n| Header (h2) | h2. |\n| Header (h3) | h3. |\n| link (aligned) | @\"text\":http://url@, @!\npic.png!@ |\n| picture link | @!http://url!@ |\n| code block |  \npre\n \n/pre\n |\n| \nbold\n | \nbold\n |\n| \nbold\n | \nbold\n |\n| \nitalic\n | \nitalic\n |\n| @literal@ | \nliteral\n |\n| paragraph alignment | @p\n.@, @p=.@, @p\n.@ |\n| paragraph indent | @p(.@, @p((.@, ..., @p().@, ..., @p)).@, @p).@ |\n| dot list | @\n@, @\n*@, ... |\n| numbered list | @#@, @##@, ... |\n| block quote | @bq.@ |\n\n\nh2. Tables\n\n\n\n|_. attribute list |_. ...  |\n| val | ue |\n\n|\\2. spans two cols |\n| col 1 | col 2 |\n\n|/3. spans 3 rows | a |\n| b |\n| c |\n\n\n\n\n|\n. attribute list |\n. ...  |\n| val | ue |\n\n\n|\\2. spans two cols |\n| col 1 | col 2 |\n\n\n|/3. spans 3 rows | a |\n| b |\n| c |\n\n\nh3. References\n\n\n\n\n\"Textile Quick Reference\":http://redcloth.org/hobix.com/textile/quick.html\n\n\n\"A Textile Reference\":http://redcloth.org/hobix.com/textile/\n\n\n\n\nh6. ~2015-10-20~", 
+            "title": "Textile Cheat Sheet"
+        }, 
+        {
+            "location": "/Image-Resize/", 
+            "text": "Resize with Imagemagick\n\n\nUsing Imagemagick's @convert@ tool, you can resize an image but Imagemagick\ndoes interpolation so the resulting image can look pretty bad.\n\n\nFor example, using the input (animated) gif:\n\n\n\n\nAnd issuing the command to resize it by a factor of 4:\n\n\n$ convert tree_anim_inp.gif -scale 128x128 tree_anim_ugly.gif\n\n\n\n\nproduces the interpolated (and ugly) picture:\n\n\n\n\nInstead, use the \nscale\n command:\n\n\n$ convert tree_anim_inp.gif -scale 400% tree_anim_out.gif\n\n\n\n\n\n\nReference\n\n\n\n\nImageMagick resize without interpolation\n\n\n\n\n\n\nSaving animated GIFs in Gimp\n\n\nSave as a \n.gif\n file extension.  When exporting, there will be an option to save as an animation:\n\n\n\n\nCheck it and you should have an animated GIF.\n\n\n2015-10-27", 
+            "title": "Image Resize"
+        }, 
+        {
+            "location": "/Image-Resize/#resize-with-imagemagick", 
+            "text": "Using Imagemagick's @convert@ tool, you can resize an image but Imagemagick\ndoes interpolation so the resulting image can look pretty bad.  For example, using the input (animated) gif:   And issuing the command to resize it by a factor of 4:  $ convert tree_anim_inp.gif -scale 128x128 tree_anim_ugly.gif  produces the interpolated (and ugly) picture:   Instead, use the  scale  command:  $ convert tree_anim_inp.gif -scale 400% tree_anim_out.gif", 
+            "title": "Resize with Imagemagick"
+        }, 
+        {
+            "location": "/Image-Resize/#reference", 
+            "text": "ImageMagick resize without interpolation", 
+            "title": "Reference"
+        }, 
+        {
+            "location": "/Image-Resize/#saving-animated-gifs-in-gimp", 
+            "text": "Save as a  .gif  file extension.  When exporting, there will be an option to save as an animation:   Check it and you should have an animated GIF.", 
+            "title": "Saving animated GIFs in Gimp"
+        }, 
+        {
+            "location": "/Image-Resize/#2015-10-27", 
+            "text": "", 
+            "title": "2015-10-27"
+        }, 
+        {
+            "location": "/Screenshots-Screencasts-Animated-Gifs/", 
+            "text": "Screencasts\n\n\nI've found \nkazam\n to work very well.\n\n\n$ sudo apt-get install kazam\n$ kazam\n\n\n\n\nScreenshots\n\n\nGimp\n\n\nFile-\nCreate-\nScreenshot\n\n\nImageMagick\n\n\n$ import -window root screenshot.png\n\n\n\n\nAnimated Gifs\n\n\nImageMagick\n\n\n$ convert -delay 1 -layers optimize inp*.png anim.gif\n\n\n\n\nQuick and dirty way to create animated Gifs from a window\n\n\n$ winid=`xwininfo | grep -o 'Window id: [^ ]* ' | cut -f3 -d' '` ; echo $winid\n\n\n\n\nClick on the window in question and make sure the portion of the\nwindow you want to record is exposed.\n\n\n$ for x in {1..10}\ndo\n  import  -window $winid out$x.png\n  sleep 0.1\ndone\n\n\n\n\nOnce the \nout{1..10}.png\n files are created, coalesce them into an animated Gif:\n\n\n$ convert -delay 1 -layers optimize out*.png anim.gif\n\n\n\n\nUsing ImageMagick is sometimes slow.  Using \nkazam\n (and only capturing a window) will create an \nmp4\n file that can be exploded:\n\n\n$ ffmpeg -i inp.mp4 pic%03d.jpg\n$ for x in `ls pic*.jpg`\ndo\n  mogrify -crop 1000x700+0+70 $x\ndone\n$ convert -layers optimize pic*.jpg out.gif\n\n\n\n\nWhere \nmogrify\n alters the image file in place and \n-crop\n crops the top pixels (to get rid of the tabs and URL if it's a web browser, say).\n\n\nSometimes ImageMagick has a lot of issues when trying to create an animated Gif, especially if there are many frames.  Instead, you can use \nffmpeg\n directly (see \nSO\n):\n\n\n$ palette=\n/tmp/palette.png\n\n$ filters=\nfps=15,scale=320:-1:flags=lanczos\n\n$ ffmpeg -i input.mp4 -vf \n$filters,palettegen\n -y $palette\n$ ffmpeg -i input.mp4 -i $palette -lavfi \n$filters [x]; [x][1:v] paletteuse\n -y output.gif\n\n\n\n\nffmpeg\n can apparently also directly create (large) animated Gifs:\n\n\n$ ffmpeg -i input.mp4 large_output.gif\n\n\n\n\nTo reduce the \nlarge_output.gif\n, \ngifsicle\n can be used:\n\n\n$ gifsicle -O1 --loop large_output.gif \n slim_output.gif\n\n\n\n\nthough \ngifsicle\n looks to have some problems compressing well.\n\n\nTo take a sub range of pictures from \ngifsicle\n, you can do something like:\n\n\n$ gifsicle -U inp.gif '#50-73' \n out50-73.gif\n\n\n\n\nWhere the \n#\n specifies the frame range and the \n-U\n (unoptimize) option is needed to get rid of artifacts that appear to happen when selecting from a mid range of frames.\n\n\nrecommended workflow\n\n\n\n\ncapture with \nkazam\n\n\nuse the above script to convert from \n.mp4\n to animated Gif with \nffmpeg\n\n\n\n\n2015-11-01", 
+            "title": "Screenshots Screencasts Animated Gifs"
+        }, 
+        {
+            "location": "/Screenshots-Screencasts-Animated-Gifs/#screencasts", 
+            "text": "I've found  kazam  to work very well.  $ sudo apt-get install kazam\n$ kazam", 
+            "title": "Screencasts"
+        }, 
+        {
+            "location": "/Screenshots-Screencasts-Animated-Gifs/#screenshots", 
+            "text": "", 
+            "title": "Screenshots"
+        }, 
+        {
+            "location": "/Screenshots-Screencasts-Animated-Gifs/#gimp", 
+            "text": "File- Create- Screenshot", 
+            "title": "Gimp"
+        }, 
+        {
+            "location": "/Screenshots-Screencasts-Animated-Gifs/#imagemagick", 
+            "text": "$ import -window root screenshot.png", 
+            "title": "ImageMagick"
+        }, 
+        {
+            "location": "/Screenshots-Screencasts-Animated-Gifs/#animated-gifs", 
+            "text": "", 
+            "title": "Animated Gifs"
+        }, 
+        {
+            "location": "/Screenshots-Screencasts-Animated-Gifs/#imagemagick_1", 
+            "text": "$ convert -delay 1 -layers optimize inp*.png anim.gif", 
+            "title": "ImageMagick"
+        }, 
+        {
+            "location": "/Screenshots-Screencasts-Animated-Gifs/#quick-and-dirty-way-to-create-animated-gifs-from-a-window", 
+            "text": "$ winid=`xwininfo | grep -o 'Window id: [^ ]* ' | cut -f3 -d' '` ; echo $winid  Click on the window in question and make sure the portion of the\nwindow you want to record is exposed.  $ for x in {1..10}\ndo\n  import  -window $winid out$x.png\n  sleep 0.1\ndone  Once the  out{1..10}.png  files are created, coalesce them into an animated Gif:  $ convert -delay 1 -layers optimize out*.png anim.gif  Using ImageMagick is sometimes slow.  Using  kazam  (and only capturing a window) will create an  mp4  file that can be exploded:  $ ffmpeg -i inp.mp4 pic%03d.jpg\n$ for x in `ls pic*.jpg`\ndo\n  mogrify -crop 1000x700+0+70 $x\ndone\n$ convert -layers optimize pic*.jpg out.gif  Where  mogrify  alters the image file in place and  -crop  crops the top pixels (to get rid of the tabs and URL if it's a web browser, say).  Sometimes ImageMagick has a lot of issues when trying to create an animated Gif, especially if there are many frames.  Instead, you can use  ffmpeg  directly (see  SO ):  $ palette= /tmp/palette.png \n$ filters= fps=15,scale=320:-1:flags=lanczos \n$ ffmpeg -i input.mp4 -vf  $filters,palettegen  -y $palette\n$ ffmpeg -i input.mp4 -i $palette -lavfi  $filters [x]; [x][1:v] paletteuse  -y output.gif  ffmpeg  can apparently also directly create (large) animated Gifs:  $ ffmpeg -i input.mp4 large_output.gif  To reduce the  large_output.gif ,  gifsicle  can be used:  $ gifsicle -O1 --loop large_output.gif   slim_output.gif  though  gifsicle  looks to have some problems compressing well.  To take a sub range of pictures from  gifsicle , you can do something like:  $ gifsicle -U inp.gif '#50-73'   out50-73.gif  Where the  #  specifies the frame range and the  -U  (unoptimize) option is needed to get rid of artifacts that appear to happen when selecting from a mid range of frames.  recommended workflow   capture with  kazam  use the above script to convert from  .mp4  to animated Gif with  ffmpeg", 
+            "title": "Quick and dirty way to create animated Gifs from a window"
+        }, 
+        {
+            "location": "/Screenshots-Screencasts-Animated-Gifs/#2015-11-01", 
+            "text": "", 
+            "title": "2015-11-01"
+        }, 
+        {
+            "location": "/ffmpeg-notes/", 
+            "text": "Video Cropping\n\n\n-qscale\n sets the compression level (?) (higher is more compression).\n\ncrop\n is width, height, start x, start y.\n\n\nffmpeg -i inp.mp4 -qscale 10  -filter:v \ncrop=in_w:in_h-63:0:63\n out.mp4\n\n\n\n\n2015-11-05", 
+            "title": "Ffmpeg notes"
+        }, 
+        {
+            "location": "/ffmpeg-notes/#video-cropping", 
+            "text": "-qscale  sets the compression level (?) (higher is more compression). crop  is width, height, start x, start y.  ffmpeg -i inp.mp4 -qscale 10  -filter:v  crop=in_w:in_h-63:0:63  out.mp4", 
+            "title": "Video Cropping"
+        }, 
+        {
+            "location": "/ffmpeg-notes/#2015-11-05", 
+            "text": "", 
+            "title": "2015-11-05"
+        }, 
+        {
+            "location": "/Unix-y-notes/", 
+            "text": "Remove highlights from less search\n\n\nESC\n \nu\n\n\nGzip without timestamps\n\n\nBy default, gzip keeps timestamp information for the file you're compressing.  This is problematic when you want reproducibility.\n\n\n$ gzip -n inp.txt\n\n\n\n\nThis will create a file \ninp.txt.gz\n that, when uncompressed, will create a file with the current system timestamp.\n\n\nAs far as I know, \nbgzip\n does not keep file timestamp information.\n\n\nRead lines in a bash script\n\n\nhttp://stackoverflow.com/questions/10929453/bash-scripting-read-file-line-by-line\n\n\n#!/bin/bash\nwhile IFS='' read -r line || [[ -n \n$line\n ]]; do\n    echo $line\ndone \n \n( echo -e \nthis small script\\nreads multiple\\n lines\n )\n\n\n\n\n\n\nIFS='' (or IFS=) prevents leading/trailing whitespace from being trimmed.\n-r prevents backslash escapes from being interpreted.\n|| [[ -n $line ]] prevents the last line from being ignored if it doesn't end with a \\n (since read returns a non-zero exit code when it encounters EOF).\n\n\n\n\nsometimes you can just get away with this:\n\n\n#!/bin/bash\nwhile read line ; do\n  echo $line\ndone \n \n( echo -e \nthis small script\\nreads multiple\\n lines\n )\n\n\n\n\nDiff two streams\n\n\n$ diff \n( echo -e \nstream\\na\n ) \n( echo -e \nstream\\nb\n )\n2c2\n\n a\n---\n\n b\n\n\n\n\nFind all files ending in \n.md\n and do an \nls -l\n\n\n$ find . -type f -name '*.md' -exec ls -l {} \\;\n\n\n\n\nPut pairs of lines on their own line\n\n\n$ echo -e 'a\\nb\\nc\\nd\\ne\\nf' | paste - - | tr '\\t' ' '\na b\nc d\ne f\n\n\n\n\nDifferences, overlaps in two files\n\n\n$ comm \n( echo -e 'c\\na\\nb\\nd' | sort ) \n( echo -e 'e\\nb\\nd' | sort )\na\n                b\nc\n                d\n        e\n\n\n\n\nPrint formatted columns\n\n\n$ echo -e \ncolumn_0\\tcol1\\na\\tbbbb\\n\n\ncolumn_0        col1\na       bbbb\n$ echo -e \ncolumn_0\\tcol1\\na\\tbbbb\\n\n | column -t\ncolumn_0  col1\na         bbbb\n\n\n\n\nbgzip\n\n\n$ bgzip -i inp.txt\n$ bgzip --stdout --offset 100 --size 32 inp.txt.gz\n\n\n\n\nparallel\n\n\n#!/bin/bash\nfunction process {\n  z=$1\n  time ( echo sleeping $z \n sleep $z \n echo waking up \n($z)\n )\n}\nexport -f process\n\ntime echo -e '1\\n3\\n4' | parallel --max-procs 2 process {}\n\n\n\n\nsleeping 1\nwaking up (1)\n\nreal    0m1.002s\nuser    0m0.000s\nsys 0m0.000s\nsleeping 3\nwaking up (3)\n\nreal    0m3.002s\nuser    0m0.000s\nsys 0m0.000s\nsleeping 4\nwaking up (4)\n\nreal    0m4.003s\nuser    0m0.000s\nsys 0m0.000s\n\nreal    0m5.603s\nuser    0m0.140s\nsys 0m0.072s\n\n\n\n\nxargs (parallel)\n\n\n#!/bin/bash\nfunction process {\n  z=$1\n  time ( echo sleeping $z \n sleep $z \n echo waking up \n($z)\n )\n}\nexport -f process\n\ntime echo -e '1\\n3\\n4' | xargs -n 1 -P 2 -I{} bash -c 'process {}'\n\n\n\n\nsleeping 1\nsleeping 3\nwaking up (1)\n\nreal    0m1.003s\nuser    0m0.000s\nsys 0m0.000s\nsleeping 4\nwaking up (3)\n\nreal    0m3.002s\nuser    0m0.000s\nsys 0m0.000s\nwaking up (4)\n\nreal    0m4.003s\nuser    0m0.000s\nsys 0m0.000s\n\nreal    0m5.019s\nuser    0m0.000s\nsys 0m0.000s\n\n\n\n\n2016-01-23", 
+            "title": "Unix y notes"
+        }, 
+        {
+            "location": "/Unix-y-notes/#remove-highlights-from-less-search", 
+            "text": "ESC   u", 
+            "title": "Remove highlights from less search"
+        }, 
+        {
+            "location": "/Unix-y-notes/#gzip-without-timestamps", 
+            "text": "By default, gzip keeps timestamp information for the file you're compressing.  This is problematic when you want reproducibility.  $ gzip -n inp.txt  This will create a file  inp.txt.gz  that, when uncompressed, will create a file with the current system timestamp.  As far as I know,  bgzip  does not keep file timestamp information.", 
+            "title": "Gzip without timestamps"
+        }, 
+        {
+            "location": "/Unix-y-notes/#read-lines-in-a-bash-script", 
+            "text": "http://stackoverflow.com/questions/10929453/bash-scripting-read-file-line-by-line  #!/bin/bash\nwhile IFS='' read -r line || [[ -n  $line  ]]; do\n    echo $line\ndone    ( echo -e  this small script\\nreads multiple\\n lines  )   IFS='' (or IFS=) prevents leading/trailing whitespace from being trimmed.\n-r prevents backslash escapes from being interpreted.\n|| [[ -n $line ]] prevents the last line from being ignored if it doesn't end with a \\n (since read returns a non-zero exit code when it encounters EOF).   sometimes you can just get away with this:  #!/bin/bash\nwhile read line ; do\n  echo $line\ndone    ( echo -e  this small script\\nreads multiple\\n lines  )", 
+            "title": "Read lines in a bash script"
+        }, 
+        {
+            "location": "/Unix-y-notes/#diff-two-streams", 
+            "text": "$ diff  ( echo -e  stream\\na  )  ( echo -e  stream\\nb  )\n2c2  a\n---  b", 
+            "title": "Diff two streams"
+        }, 
+        {
+            "location": "/Unix-y-notes/#find-all-files-ending-in-md-and-do-an-ls-l", 
+            "text": "$ find . -type f -name '*.md' -exec ls -l {} \\;", 
+            "title": "Find all files ending in .md and do an ls -l"
+        }, 
+        {
+            "location": "/Unix-y-notes/#put-pairs-of-lines-on-their-own-line", 
+            "text": "$ echo -e 'a\\nb\\nc\\nd\\ne\\nf' | paste - - | tr '\\t' ' '\na b\nc d\ne f", 
+            "title": "Put pairs of lines on their own line"
+        }, 
+        {
+            "location": "/Unix-y-notes/#differences-overlaps-in-two-files", 
+            "text": "$ comm  ( echo -e 'c\\na\\nb\\nd' | sort )  ( echo -e 'e\\nb\\nd' | sort )\na\n                b\nc\n                d\n        e", 
+            "title": "Differences, overlaps in two files"
+        }, 
+        {
+            "location": "/Unix-y-notes/#print-formatted-columns", 
+            "text": "$ echo -e  column_0\\tcol1\\na\\tbbbb\\n \ncolumn_0        col1\na       bbbb\n$ echo -e  column_0\\tcol1\\na\\tbbbb\\n  | column -t\ncolumn_0  col1\na         bbbb", 
+            "title": "Print formatted columns"
+        }, 
+        {
+            "location": "/Unix-y-notes/#bgzip", 
+            "text": "$ bgzip -i inp.txt\n$ bgzip --stdout --offset 100 --size 32 inp.txt.gz", 
+            "title": "bgzip"
+        }, 
+        {
+            "location": "/Unix-y-notes/#parallel", 
+            "text": "#!/bin/bash\nfunction process {\n  z=$1\n  time ( echo sleeping $z   sleep $z   echo waking up  ($z)  )\n}\nexport -f process\n\ntime echo -e '1\\n3\\n4' | parallel --max-procs 2 process {}  sleeping 1\nwaking up (1)\n\nreal    0m1.002s\nuser    0m0.000s\nsys 0m0.000s\nsleeping 3\nwaking up (3)\n\nreal    0m3.002s\nuser    0m0.000s\nsys 0m0.000s\nsleeping 4\nwaking up (4)\n\nreal    0m4.003s\nuser    0m0.000s\nsys 0m0.000s\n\nreal    0m5.603s\nuser    0m0.140s\nsys 0m0.072s", 
+            "title": "parallel"
+        }, 
+        {
+            "location": "/Unix-y-notes/#xargs-parallel", 
+            "text": "#!/bin/bash\nfunction process {\n  z=$1\n  time ( echo sleeping $z   sleep $z   echo waking up  ($z)  )\n}\nexport -f process\n\ntime echo -e '1\\n3\\n4' | xargs -n 1 -P 2 -I{} bash -c 'process {}'  sleeping 1\nsleeping 3\nwaking up (1)\n\nreal    0m1.003s\nuser    0m0.000s\nsys 0m0.000s\nsleeping 4\nwaking up (3)\n\nreal    0m3.002s\nuser    0m0.000s\nsys 0m0.000s\nwaking up (4)\n\nreal    0m4.003s\nuser    0m0.000s\nsys 0m0.000s\n\nreal    0m5.019s\nuser    0m0.000s\nsys 0m0.000s", 
+            "title": "xargs (parallel)"
+        }, 
+        {
+            "location": "/Unix-y-notes/#2016-01-23", 
+            "text": "", 
+            "title": "2016-01-23"
+        }, 
+        {
+            "location": "/lattice-reduction/", 
+            "text": "Lattice Reduction\n\n\nThere seem to be two main methods of using lattice reduction\ntechniques for other norms.  The first looks to be to use\na linear programming step in place of the 'weak reduction' step\n(the Gram-Schmidt reduction step).  The second is embedding\nthe base in a higher dimension with extra structure and giving\nbounds on how far it is from the different norm.\n\n\nReferences\n\n\n\n\nhttp://mathoverflow.net/questions/37563/other-norms-for-lattice-reduction-techniques-lll-pslq\n\n\nhttp://cstheory.stackexchange.com/questions/890/other-norms-for-lattice-reduction-techniques-lll-pslq\n\n\nhttp://www.cs.elte.hu/~lovasz/scans/genbasisred.pdf\n\n\nhttp://www.cims.nyu.edu/~regev/papers/lpnorm.pdf\n\n\nhttp://web.eecs.umich.edu/~cpeikert/pubs/lp_norms.pdf\n\n\nhttps://www.cdc.informatik.tu-darmstadt.de/reports/reports/Vanya_Ivanova.bachelor.pdf\n\n\n\n\n2015-11-30", 
+            "title": "Lattice reduction"
+        }, 
+        {
+            "location": "/lattice-reduction/#lattice-reduction", 
+            "text": "There seem to be two main methods of using lattice reduction\ntechniques for other norms.  The first looks to be to use\na linear programming step in place of the 'weak reduction' step\n(the Gram-Schmidt reduction step).  The second is embedding\nthe base in a higher dimension with extra structure and giving\nbounds on how far it is from the different norm.", 
+            "title": "Lattice Reduction"
+        }, 
+        {
+            "location": "/lattice-reduction/#references", 
+            "text": "http://mathoverflow.net/questions/37563/other-norms-for-lattice-reduction-techniques-lll-pslq  http://cstheory.stackexchange.com/questions/890/other-norms-for-lattice-reduction-techniques-lll-pslq  http://www.cs.elte.hu/~lovasz/scans/genbasisred.pdf  http://www.cims.nyu.edu/~regev/papers/lpnorm.pdf  http://web.eecs.umich.edu/~cpeikert/pubs/lp_norms.pdf  https://www.cdc.informatik.tu-darmstadt.de/reports/reports/Vanya_Ivanova.bachelor.pdf", 
+            "title": "References"
+        }, 
+        {
+            "location": "/lattice-reduction/#2015-11-30", 
+            "text": "", 
+            "title": "2015-11-30"
+        }, 
+        {
+            "location": "/GCode-Conversion/", 
+            "text": "GCode Conversion Tools\n\n\nAt one point, I had good success with an Inkscape plugin called \nGcodetools\n but\nit seems to have succumbed to bit-rot and doesn't work on my current Ubuntu installation (16.04).\n\n\nI'm settling on a rough toolchain that takes some base format (PostScript/PDF/SVG/etc.), converts\nto \"GNUPlot format\" then converts to GCocde.\n\n\nBasic Workflow\n\n\n\n\nOrig -\n SVG\n   Create object in whatevber tool and export to SVG\n\n\nSVG  -\n PS\n    Use \nrsvg-convert\n to convert from SVG to PostScript\n\n\nPS   -\n GP\n    Use \npstoedit\n to convert to \"gnuplot\" polygon format\n\n\nGP   -\n GCode\n Order the polygons properly, removing duplicate boundaries and convert to GCode using \nclipcli\n, convert from GNUPlot format to GCode using \ngp2ngc\n and then rescale using other cli GCode tools.\n\n\n\n\nInstallation\n\n\nSome tools of relevance are:\n\n\n\n\nrsvg-convert\n\n\npstoedit\n\n\nclipcli\n\n\nabes_cnc_utilities\n\n\ngrecode\n\n\n\n\nUnder Ubuntu, some of the tools can be installed via:\n\n\nsudo apt-get install pstoedit librsvg2-bin\n\n\n\n\nConversion\n\n\nThough this is pretty hodge-podge, there are a few things to consider:\n\n\n\n\npstoedit\n loses units when converting to \nRS274\n GCode.  I believe this only considers PostScript with \"pixel\" units, regardless of original units, then converts a pixel to 1/72 inches.  A post scale has to be done if using \npstoedit\n to rescale to the appropriate units\n\n\nEven if \npstoedit\n is used, this creates a problem when trying to cut out shapes in the correct order.  \nclipcli\n has an option to print out polygons in 'tree' order which should print the inner polygons first.\n\n\nI'll be using some of the tools that I've created below to rescale/etc. but in theory anything could be used, including (maybe the more standard and robust?) \ngrecode\n as linked above.\n\n\n\n\nThe following is an example script to convert an input SVG file into GCode:\n\n\ninpsvg=\n$1\n\nsf=`echo '72/25.4' | bc -l`\npremul=`echo 1000000 | bc -l`\ninvmul=`echo \n1/$premul\n | bc -l`\n\nfrapid=\n\nfslow=\nF800\n\nS=\n1.0\n\n\nif [[ \n$inpsvg\n == \n ]] ; then\n  echo \nprovide input svg\n\n  exit 1\nfi\n\nrawtype=`file $inpsvg`\nchecktype=`file -b $inpsvg | cut -f1 -d' '`\nif [[ \n$checktype\n != \nSVG\n ]] ; then\n  echo -e \nfile $inpsvg is of type:\\n\\n$rawtype\\n\\nNnot an SVG file? Exiting.\\n\n\n  exit 1\nfi\n\nbn=`basename $inpsvg .svg`\n\necho \ncreating $bn.ps\n\nrsvg-convert -f ps -o $bn.ps $inpsvg\n\npstoedit -f gnuplot $bn.ps $bn.gp\nclipcli -s $bn.gp -F -x $premul -T \n ${bn}-ord.gp\n\nsfx_slow=\n$frapid S$S\n\nsfx_rapid=\n$fslow S0\n\n\necho gp2ngc -i ${bn}-ord.gp -s \n$invmul\n --sfx-rapid \n$sfx_rapid\n --sfx-slow \n$sfx_slow\n -o ${bn}.ngc\ngp2ngc -i ${bn}-ord.gp --sfx-rapid \n$sfx_rapid\n --sfx-slow \n$sfx_slow\n | ngc_scale -s \n$invmul\n \n ${bn}.ngc\n\n\n\n\nMisc.\n\n\nIn theory, \npstoedit\n can be used to create GCode but \npstoedit\n converts to the \nRS274\n standard.  Among other things, the \nRS274\n includes variables so a substitution step needs to be involved in order to \"normalize\" to something that other GCode interpreters can understand (for example, the smoothieboard or grbl).\n\n\nThere's still the problem of polygon ordering but assuming that's not an issue, the following is a \"hacky\" script does the substitution  (no nested expressions, no non-trivial functions, run at your own risk):\n\n\n#!/usr/bin/python\n#\n# regexp substitution of variables.\n# Uses Python's \neval\n to evaluate interior\n# after variable substitution.\n#\n# AGPLv3 license\n#\nimport sys\nimport re\n\nvar_map = {}\n\n# variable decleration\n#\nvar_decl_pat = re.compile( r'\\s*#(\\d+)\\s*=\\s*([^\\s]+)\\s*(\\([^\\)]*\\))?\\s*$' )\n\n# not [], [], not []\n#\nexpr_pat = re.compile( r'([^\\[]*)\\[([^\\]]*)\\]([^\\[]*)' )\n\n# not #*, #\\d+, not #*\n#\nvar_sub_pat = re.compile( r'([^#]*)(#\\d+)([^#]*)' )\n\n# consider comments separately to avoid matching '#' and\n# other special characters\n#\ncomment_pat = re.compile( r'\\([^\\)]*\\)' )\n\nline_no = 0\nfor line in sys.stdin:\n  line_no += 1\n\n  line = line.rstrip()\n  comments = \n\n  for (comment) in re.findall(comment_pat, line):\n    comments = comments + comment\n\n  line = re.sub(comment_pat, '', line)\n  m = re.match(var_decl_pat, line)\n  if m:\n    var_map[ \n#\n + str(m.group(1)) ] = str(m.group(2))\n    continue\n\n  varsub_line = \n\n  for (pfx, var_subs, sfx) in re.findall(var_sub_pat, line):\n    if var_subs in var_map:\n      pass\n    else:\n      print \n ERROR on line\n, line_no, \n, no variable mapping for\n, var_subs\n      sys.exit(1)\n      continue\n\n    varsub_line += pfx\n    varsub_line += var_map[var_subs]\n    varsub_line += sfx\n\n  if varsub_line == \n:\n    varsub_line = line\n\n  xpr_match = re.search(expr_pat, varsub_line)\n  if not xpr_match:\n    print varsub_line + comments\n    continue\n\n  cur_line = \n\n  for (pfx, xpr, sfx) in re.findall(expr_pat, varsub_line):\n    xpr_val = eval(xpr)\n    cur_line += pfx + str(xpr_val) + sfx\n\n  print cur_line +  comments\n\n\n\n\n2016-09-19", 
+            "title": "GCode Conversion"
+        }, 
+        {
+            "location": "/GCode-Conversion/#gcode-conversion-tools", 
+            "text": "At one point, I had good success with an Inkscape plugin called  Gcodetools  but\nit seems to have succumbed to bit-rot and doesn't work on my current Ubuntu installation (16.04).  I'm settling on a rough toolchain that takes some base format (PostScript/PDF/SVG/etc.), converts\nto \"GNUPlot format\" then converts to GCocde.", 
+            "title": "GCode Conversion Tools"
+        }, 
+        {
+            "location": "/GCode-Conversion/#basic-workflow", 
+            "text": "Orig -  SVG    Create object in whatevber tool and export to SVG  SVG  -  PS     Use  rsvg-convert  to convert from SVG to PostScript  PS   -  GP     Use  pstoedit  to convert to \"gnuplot\" polygon format  GP   -  GCode  Order the polygons properly, removing duplicate boundaries and convert to GCode using  clipcli , convert from GNUPlot format to GCode using  gp2ngc  and then rescale using other cli GCode tools.", 
+            "title": "Basic Workflow"
+        }, 
+        {
+            "location": "/GCode-Conversion/#installation", 
+            "text": "Some tools of relevance are:   rsvg-convert  pstoedit  clipcli  abes_cnc_utilities  grecode   Under Ubuntu, some of the tools can be installed via:  sudo apt-get install pstoedit librsvg2-bin", 
+            "title": "Installation"
+        }, 
+        {
+            "location": "/GCode-Conversion/#conversion", 
+            "text": "Though this is pretty hodge-podge, there are a few things to consider:   pstoedit  loses units when converting to  RS274  GCode.  I believe this only considers PostScript with \"pixel\" units, regardless of original units, then converts a pixel to 1/72 inches.  A post scale has to be done if using  pstoedit  to rescale to the appropriate units  Even if  pstoedit  is used, this creates a problem when trying to cut out shapes in the correct order.   clipcli  has an option to print out polygons in 'tree' order which should print the inner polygons first.  I'll be using some of the tools that I've created below to rescale/etc. but in theory anything could be used, including (maybe the more standard and robust?)  grecode  as linked above.   The following is an example script to convert an input SVG file into GCode:  inpsvg= $1 \nsf=`echo '72/25.4' | bc -l`\npremul=`echo 1000000 | bc -l`\ninvmul=`echo  1/$premul  | bc -l`\n\nfrapid= \nfslow= F800 \nS= 1.0 \n\nif [[  $inpsvg  ==   ]] ; then\n  echo  provide input svg \n  exit 1\nfi\n\nrawtype=`file $inpsvg`\nchecktype=`file -b $inpsvg | cut -f1 -d' '`\nif [[  $checktype  !=  SVG  ]] ; then\n  echo -e  file $inpsvg is of type:\\n\\n$rawtype\\n\\nNnot an SVG file? Exiting.\\n \n  exit 1\nfi\n\nbn=`basename $inpsvg .svg`\n\necho  creating $bn.ps \nrsvg-convert -f ps -o $bn.ps $inpsvg\n\npstoedit -f gnuplot $bn.ps $bn.gp\nclipcli -s $bn.gp -F -x $premul -T   ${bn}-ord.gp\n\nsfx_slow= $frapid S$S \nsfx_rapid= $fslow S0 \n\necho gp2ngc -i ${bn}-ord.gp -s  $invmul  --sfx-rapid  $sfx_rapid  --sfx-slow  $sfx_slow  -o ${bn}.ngc\ngp2ngc -i ${bn}-ord.gp --sfx-rapid  $sfx_rapid  --sfx-slow  $sfx_slow  | ngc_scale -s  $invmul    ${bn}.ngc", 
+            "title": "Conversion"
+        }, 
+        {
+            "location": "/GCode-Conversion/#misc", 
+            "text": "In theory,  pstoedit  can be used to create GCode but  pstoedit  converts to the  RS274  standard.  Among other things, the  RS274  includes variables so a substitution step needs to be involved in order to \"normalize\" to something that other GCode interpreters can understand (for example, the smoothieboard or grbl).  There's still the problem of polygon ordering but assuming that's not an issue, the following is a \"hacky\" script does the substitution  (no nested expressions, no non-trivial functions, run at your own risk):  #!/usr/bin/python\n#\n# regexp substitution of variables.\n# Uses Python's  eval  to evaluate interior\n# after variable substitution.\n#\n# AGPLv3 license\n#\nimport sys\nimport re\n\nvar_map = {}\n\n# variable decleration\n#\nvar_decl_pat = re.compile( r'\\s*#(\\d+)\\s*=\\s*([^\\s]+)\\s*(\\([^\\)]*\\))?\\s*$' )\n\n# not [], [], not []\n#\nexpr_pat = re.compile( r'([^\\[]*)\\[([^\\]]*)\\]([^\\[]*)' )\n\n# not #*, #\\d+, not #*\n#\nvar_sub_pat = re.compile( r'([^#]*)(#\\d+)([^#]*)' )\n\n# consider comments separately to avoid matching '#' and\n# other special characters\n#\ncomment_pat = re.compile( r'\\([^\\)]*\\)' )\n\nline_no = 0\nfor line in sys.stdin:\n  line_no += 1\n\n  line = line.rstrip()\n  comments =  \n  for (comment) in re.findall(comment_pat, line):\n    comments = comments + comment\n\n  line = re.sub(comment_pat, '', line)\n  m = re.match(var_decl_pat, line)\n  if m:\n    var_map[  #  + str(m.group(1)) ] = str(m.group(2))\n    continue\n\n  varsub_line =  \n  for (pfx, var_subs, sfx) in re.findall(var_sub_pat, line):\n    if var_subs in var_map:\n      pass\n    else:\n      print   ERROR on line , line_no,  , no variable mapping for , var_subs\n      sys.exit(1)\n      continue\n\n    varsub_line += pfx\n    varsub_line += var_map[var_subs]\n    varsub_line += sfx\n\n  if varsub_line ==  :\n    varsub_line = line\n\n  xpr_match = re.search(expr_pat, varsub_line)\n  if not xpr_match:\n    print varsub_line + comments\n    continue\n\n  cur_line =  \n  for (pfx, xpr, sfx) in re.findall(expr_pat, varsub_line):\n    xpr_val = eval(xpr)\n    cur_line += pfx + str(xpr_val) + sfx\n\n  print cur_line +  comments", 
+            "title": "Misc."
+        }, 
+        {
+            "location": "/GCode-Conversion/#2016-09-19", 
+            "text": "", 
+            "title": "2016-09-19"
+        }, 
+        {
+            "location": "/Git-Rename-Master/", 
+            "text": "Renaming \nmaster\n branch to \nrelease\n\n\nFrom \nAdam Dymitruk on SO\n\n\ngit checkout -b release master    # create and switch to the release branch\ngit push -u origin release        # push the release branch to the remote and track it\ngit branch -d master              # delete local master\n\n\n\n\nIf you're using GitHub (as I am), issuing the next needed comman (\ngit push --delete origin master\n) will\nfail because GitHub won't let you delete the default branch, which is stil \nmaster\n.\n\n\nIn order to successfully be able to delete the remote \nmaster\n branch, you have to set the default\nbranch on GitHub to be the newly created branch (i.e. \nrelease\n).\n\n\n\n\nAfter the default branch has been changed to the newly created branch (\nrelease\n in this case), issuing\nthe following commands will now work:\n\n\ngit push --delete origin master   # delete remote master\ngit remote prune origin           # delete the remote tracking branch\n\n\n\n\nNOTE\n\n\nApparantly GitHub does not allow wikis to be anything other than the master branch.\nThis is why I had to move to my own hosting service to continue this dev blog.\n\n\n2016-09-21", 
+            "title": "Git Rename Master"
+        }, 
+        {
+            "location": "/Git-Rename-Master/#renaming-master-branch-to-release", 
+            "text": "From  Adam Dymitruk on SO  git checkout -b release master    # create and switch to the release branch\ngit push -u origin release        # push the release branch to the remote and track it\ngit branch -d master              # delete local master  If you're using GitHub (as I am), issuing the next needed comman ( git push --delete origin master ) will\nfail because GitHub won't let you delete the default branch, which is stil  master .  In order to successfully be able to delete the remote  master  branch, you have to set the default\nbranch on GitHub to be the newly created branch (i.e.  release ).   After the default branch has been changed to the newly created branch ( release  in this case), issuing\nthe following commands will now work:  git push --delete origin master   # delete remote master\ngit remote prune origin           # delete the remote tracking branch", 
+            "title": "Renaming master branch to release"
+        }, 
+        {
+            "location": "/Git-Rename-Master/#note", 
+            "text": "Apparantly GitHub does not allow wikis to be anything other than the master branch.\nThis is why I had to move to my own hosting service to continue this dev blog.", 
+            "title": "NOTE"
+        }, 
+        {
+            "location": "/Git-Rename-Master/#2016-09-21", 
+            "text": "", 
+            "title": "2016-09-21"
+        }, 
+        {
+            "location": "/MkDocs-Quickstart/", 
+            "text": "MkDocs Static Site - Quickstart\n\n\nsudo pip install mkdocs\nmkdocs new $site\ncd $site\n\n\n\n\nAssume the following all work under \n$site\n.\n\n\nCreate the directory structure:\n\n\nmkdir custom_theme doc/css doc/js\nwget https://raw.githubusercontent.com/abetusk/minimal/master/stylesheets/pygment_trac.css -O doc/css/pygment_trac.css\nwget https://raw.githubusercontent.com/abetusk/minimal/master/stylesheets/styles.css -O doc/css/styles.css\nwget https://raw.githubusercontent.com/abetusk/minimal/master/javascripts/scale.fix.js -O doc/js/scale.fix.js\n\n\n\n\nmkdocs.yml\n using the \nminimal theme\n:\n\n\nsite_name: Site Name\npages:\n  - Home: index.md\ntheme_dir: 'custom_theme'\n\n\n\n\nMkDocs uses \njinja2\n for\ntemplates.\n\n\nmkdocs build\n\n\n\n\nsite\n should now hold the static site.", 
+            "title": "MkDocs Quickstart"
+        }, 
+        {
+            "location": "/MkDocs-Quickstart/#mkdocs-static-site-quickstart", 
+            "text": "sudo pip install mkdocs\nmkdocs new $site\ncd $site  Assume the following all work under  $site .  Create the directory structure:  mkdir custom_theme doc/css doc/js\nwget https://raw.githubusercontent.com/abetusk/minimal/master/stylesheets/pygment_trac.css -O doc/css/pygment_trac.css\nwget https://raw.githubusercontent.com/abetusk/minimal/master/stylesheets/styles.css -O doc/css/styles.css\nwget https://raw.githubusercontent.com/abetusk/minimal/master/javascripts/scale.fix.js -O doc/js/scale.fix.js  mkdocs.yml  using the  minimal theme :  site_name: Site Name\npages:\n  - Home: index.md\ntheme_dir: 'custom_theme'  MkDocs uses  jinja2  for\ntemplates.  mkdocs build  site  should now hold the static site.", 
+            "title": "MkDocs Static Site - Quickstart"
+        }
+    ]
+}
