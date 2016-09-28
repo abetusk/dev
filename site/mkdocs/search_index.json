@@ -12,8 +12,28 @@
         }, 
         {
             "location": "/Textile-Cheat-Sheet/", 
-            "text": "h1. Textile Cheat Sheet\n\n\n| Header (h1) | h1. |\n| Header (h2) | h2. |\n| Header (h3) | h3. |\n| link (aligned) | @\"text\":http://url@, @!\npic.png!@ |\n| picture link | @!http://url!@ |\n| code block |  \npre\n \n/pre\n |\n| \nbold\n | \nbold\n |\n| \nbold\n | \nbold\n |\n| \nitalic\n | \nitalic\n |\n| @literal@ | \nliteral\n |\n| paragraph alignment | @p\n.@, @p=.@, @p\n.@ |\n| paragraph indent | @p(.@, @p((.@, ..., @p().@, ..., @p)).@, @p).@ |\n| dot list | @\n@, @\n*@, ... |\n| numbered list | @#@, @##@, ... |\n| block quote | @bq.@ |\n\n\nh2. Tables\n\n\n\n|_. attribute list |_. ...  |\n| val | ue |\n\n|\\2. spans two cols |\n| col 1 | col 2 |\n\n|/3. spans 3 rows | a |\n| b |\n| c |\n\n\n\n\n|\n. attribute list |\n. ...  |\n| val | ue |\n\n\n|\\2. spans two cols |\n| col 1 | col 2 |\n\n\n|/3. spans 3 rows | a |\n| b |\n| c |\n\n\nh3. References\n\n\n\n\n\"Textile Quick Reference\":http://redcloth.org/hobix.com/textile/quick.html\n\n\n\"A Textile Reference\":http://redcloth.org/hobix.com/textile/\n\n\n\n\nh6. ~2015-10-20~", 
+            "text": "Textile Cheat Sheet\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHeader (h1)\n\n\nh1.\n\n\n\n\n\n\nHeader (h2)\n\n\nh2.\n\n\n\n\n\n\nHeader (h3)\n\n\nh3.\n\n\n\n\n\n\nlink (aligned)\n\n\n@\"text\":http://url@, @!\npic.png!@\n\n\n\n\n\n\npicture link\n\n\n@!http://url!@\n\n\n\n\n\n\ncode block\n\n\npre\n \n/pre\n\n\n\n\n\n\nbold\n\n\nbold\n\n\n\n\n\n\nbold\n\n\nbold\n\n\n\n\n\n\nitalic\n\n\nitalic\n\n\n\n\n\n\nliteral\n\n\nliteral\n\n\n\n\n\n\nparagraph alignment\n\n\n@p\n.@, @p=.@, @p\n.@\n\n\n\n\n\n\nparagraph indent\n\n\n@p(.@, @p((.@, ..., @p().@, ..., @p)).@, @p).@\n\n\n\n\n\n\ndot list\n\n\n@*@, @**@, ...\n\n\n\n\n\n\nnumbered list\n\n\n@#@, @##@, ...\n\n\n\n\n\n\nblock quote\n\n\n@bq.@\n\n\n\n\n\n\n\n\nTables\n\n\n|_. attribute list |_. ...  |\n| val | ue |\n\n\n|\\2. spans two cols |\n| col 1 | col 2 |\n\n|/3. spans 3 rows | a |\n| b |\n| c |\n\n\n\n\n\nReferences\n\n\n\n\nTextile Quick Reference\n\n\nA Textile Reference\n\n\n\n\n2015-10-20", 
             "title": "Textile Cheat Sheet"
+        }, 
+        {
+            "location": "/Textile-Cheat-Sheet/#textile-cheat-sheet", 
+            "text": "Header (h1)  h1.    Header (h2)  h2.    Header (h3)  h3.    link (aligned)  @\"text\":http://url@, @! pic.png!@    picture link  @!http://url!@    code block  pre   /pre    bold  bold    bold  bold    italic  italic    literal  literal    paragraph alignment  @p .@, @p=.@, @p .@    paragraph indent  @p(.@, @p((.@, ..., @p().@, ..., @p)).@, @p).@    dot list  @*@, @**@, ...    numbered list  @#@, @##@, ...    block quote  @bq.@", 
+            "title": "Textile Cheat Sheet"
+        }, 
+        {
+            "location": "/Textile-Cheat-Sheet/#tables", 
+            "text": "|_. attribute list |_. ...  |\n| val | ue |\n\n\n|\\2. spans two cols |\n| col 1 | col 2 |\n\n|/3. spans 3 rows | a |\n| b |\n| c |", 
+            "title": "Tables"
+        }, 
+        {
+            "location": "/Textile-Cheat-Sheet/#references", 
+            "text": "Textile Quick Reference  A Textile Reference", 
+            "title": "References"
+        }, 
+        {
+            "location": "/Textile-Cheat-Sheet/#2015-10-20", 
+            "text": "", 
+            "title": "2015-10-20"
         }, 
         {
             "location": "/Image-Resize/", 
@@ -167,7 +187,7 @@
         }, 
         {
             "location": "/lattice-reduction/", 
-            "text": "Lattice Reduction\n\n\nThere seem to be two main methods of using lattice reduction\ntechniques for other norms.  The first looks to be to use\na linear programming step in place of the 'weak reduction' step\n(the Gram-Schmidt reduction step).  The second is embedding\nthe base in a higher dimension with extra structure and giving\nbounds on how far it is from the different norm.\n\n\nReferences\n\n\n\n\nhttp://mathoverflow.net/questions/37563/other-norms-for-lattice-reduction-techniques-lll-pslq\n\n\nhttp://cstheory.stackexchange.com/questions/890/other-norms-for-lattice-reduction-techniques-lll-pslq\n\n\nhttp://www.cs.elte.hu/~lovasz/scans/genbasisred.pdf\n\n\nhttp://www.cims.nyu.edu/~regev/papers/lpnorm.pdf\n\n\nhttp://web.eecs.umich.edu/~cpeikert/pubs/lp_norms.pdf\n\n\nhttps://www.cdc.informatik.tu-darmstadt.de/reports/reports/Vanya_Ivanova.bachelor.pdf\n\n\n\n\n2015-11-30", 
+            "text": "Lattice Reduction\n\n\nThere seem to be two main methods of using lattice reduction\ntechniques for other norms.  The first looks to be to use\na linear programming step in place of the 'weak reduction' step\n(the Gram-Schmidt reduction step).  The second is embedding\nthe base in a higher dimension with extra structure and giving\nbounds on how far it is from the different norm.\n\n\nReferences\n\n\n\n\nOther norms for Lattice reduction techniques (LLL, PSLQ)?\n\n\nOther norms for Lattice reduction techniques (LLL, PSLQ)?\n\n\n\"The generalized basis reduction algorithm\" by Laszlo Lovasz and Herbert Scarf\n\n\n\"Lattice Problems and Norm Embeddings\" by Oded Regev and Ricky Rosen\n\n\n\"Limits on the Hardness of Lattice Problems in lp Norms\" by Chris Peikert\n\n\n\"Lattice Basis Reduction in Infinity Norm\" by Vanya Ivanova (Bachelor Thesis)\n\n\n\n\n2015-11-30", 
             "title": "Lattice reduction"
         }, 
         {
@@ -177,7 +197,7 @@
         }, 
         {
             "location": "/lattice-reduction/#references", 
-            "text": "http://mathoverflow.net/questions/37563/other-norms-for-lattice-reduction-techniques-lll-pslq  http://cstheory.stackexchange.com/questions/890/other-norms-for-lattice-reduction-techniques-lll-pslq  http://www.cs.elte.hu/~lovasz/scans/genbasisred.pdf  http://www.cims.nyu.edu/~regev/papers/lpnorm.pdf  http://web.eecs.umich.edu/~cpeikert/pubs/lp_norms.pdf  https://www.cdc.informatik.tu-darmstadt.de/reports/reports/Vanya_Ivanova.bachelor.pdf", 
+            "text": "Other norms for Lattice reduction techniques (LLL, PSLQ)?  Other norms for Lattice reduction techniques (LLL, PSLQ)?  \"The generalized basis reduction algorithm\" by Laszlo Lovasz and Herbert Scarf  \"Lattice Problems and Norm Embeddings\" by Oded Regev and Ricky Rosen  \"Limits on the Hardness of Lattice Problems in lp Norms\" by Chris Peikert  \"Lattice Basis Reduction in Infinity Norm\" by Vanya Ivanova (Bachelor Thesis)", 
             "title": "References"
         }, 
         {

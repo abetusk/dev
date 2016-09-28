@@ -13,9 +13,6 @@ pages:
 
 docs_dir: 'wiki'
 theme_dir: 'dev_theme'
-extra_css:
-  - css/styles.css
-  - css/pygment_trac.css
 extra:
-  #base : "/dev"
+  #base : "/dev/"
   base : "/"
