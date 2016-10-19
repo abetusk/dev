@@ -22,13 +22,14 @@
           <body>
             <tr><td><a href="/dev/">./dev</a></td></tr>
             <tr><td><a href="/dev/Textile-Cheat-Sheet">Textile Cheat Sheet</a></td></tr>
-            <tr><td><a href="/dev/Image-Resize">Scahng images, animated GIFs in Gimp</a></td></tr>
+            <tr><td><a href="/dev/Image-Resize">Scaling images, animated GIFs in Gimp</a></td></tr>
             <tr><td><a href="/dev/Screenshots-Screencasts-Animated-Gifs">Screenshots, Screencasts, Animated Gifs</a></td></tr>
             <tr><td><a href="/dev/ffmpeg-notes">ffmpeg Notes</a></td></tr>
             <tr><td><a href="/dev/Unix-y-notes">Unix-y Notes</a></td></tr>
             <tr><td><a href="/dev/lattice-reduction">Lattice Reduction Notes</a></td></tr>
             <tr><td><a href="/dev/GCode-Conversion">PS/SVG to GCode Conversion</a></td></tr>
             <tr><td><a href="/dev/Git-Rename-Master">Change Git default 'master' branch to 'release'</a></td></tr>
+            <tr><td><a href="/dev/MkDocs-Quickstart">mkdocs Quickstart</a></td></tr>
           </body>
         </table>
 
@@ -43,25 +44,43 @@ cd $site
 
 <p>Assume the following all work under <code>$site</code>.</p>
 <p>Create the directory structure:</p>
-<pre><code>mkdir custom_theme doc/css doc/js
-wget https://raw.githubusercontent.com/abetusk/minimal/master/stylesheets/pygment_trac.css -O doc/css/pygment_trac.css
-wget https://raw.githubusercontent.com/abetusk/minimal/master/stylesheets/styles.css -O doc/css/styles.css
-wget https://raw.githubusercontent.com/abetusk/minimal/master/javascripts/scale.fix.js -O doc/js/scale.fix.js
+<pre><code>mkdir dev_theme dev_theme/css dev_theme/js
+wget https://raw.githubusercontent.com/abetusk/minimal/master/stylesheets/pygment_trac.css -O dev_theme/css/pygment_trac.css
+wget https://raw.githubusercontent.com/abetusk/minimal/master/stylesheets/styles.css -O dev_theme/css/styles.css
+wget https://raw.githubusercontent.com/abetusk/minimal/master/javascripts/scale.fix.js -O dev_theme/js/scale.fix.js
 </code></pre>
 
 <p><code>mkdocs.yml</code> using the <a href="https://github.com/orderedlist/minimal">minimal theme</a>:</p>
-<pre><code>site_name: Site Name
+<pre><code>site_name: dev
 pages:
-  - Home: index.md
-theme_dir: 'custom_theme'
+  - index.md
+  - &quot;Textile-Cheat-Sheet.md&quot;
+  - &quot;Image-Resize.md&quot;
+  - &quot;Screenshots-Screencasts-Animated-Gifs.md&quot;
+  - &quot;ffmpeg-notes.md&quot;
+  - &quot;Unix-y-notes.md&quot;
+  - &quot;lattice-reduction.md&quot;
+  - &quot;GCode-Conversion.md&quot;
+  - &quot;Git-Rename-Master.md&quot;
+  - &quot;MkDocs-Quickstart.md&quot;
+
+docs_dir: 'wiki'
+theme_dir: 'dev_theme'
+extra:
+  base : &quot;/dev/&quot;
 </code></pre>
 
 <p>MkDocs uses <a href="http://jinja.pocoo.org/docs/dev/templates/">jinja2</a> for
 templates.</p>
+<p>To test (note, you need to change <code>config.extra.base</code> for this setup):</p>
+<pre><code>mkdocs serve
+</code></pre>
+
+<p>To build the static site in the <code>site</code> subdir:</p>
 <pre><code>mkdocs build
 </code></pre>
 
-<p><code>site</code> should now hold the static site.</p>
+<h6 id="2016-09-28">2016-09-28</h6>
 
       </section>
       <footer>

@@ -9,3 +9,4 @@ dev
 * [Lattice Reduction Notes](lattice-reduction)
 * [PS/SVG to GCode Conversion](GCode-Conversion)
 * [Change Git default 'master' branch to 'release'](Git-Rename-Master)
+* [MkDocs Quickstart](MkDocs-Quickstart.md)

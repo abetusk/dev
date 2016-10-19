@@ -2,12 +2,12 @@
     "docs": [
         {
             "location": "/", 
-            "text": "dev\n\n\n\n\nTextile Cheat Sheet\n\n\nScaling images, animated GIFs in Gimp\n\n\nScreenshots, Screencasts, Animated Gifs\n\n\nffmpeg Notes\n\n\nUnix-y Notes\n\n\nLattice Reduction Notes\n\n\nPS/SVG to GCode Conversion\n\n\nChange Git default 'master' branch to 'release'", 
+            "text": "dev\n\n\n\n\nTextile Cheat Sheet\n\n\nScaling images, animated GIFs in Gimp\n\n\nScreenshots, Screencasts, Animated Gifs\n\n\nffmpeg Notes\n\n\nUnix-y Notes\n\n\nLattice Reduction Notes\n\n\nPS/SVG to GCode Conversion\n\n\nChange Git default 'master' branch to 'release'\n\n\nMkDocs Quickstart", 
             "title": "Home"
         }, 
         {
             "location": "/#dev", 
-            "text": "Textile Cheat Sheet  Scaling images, animated GIFs in Gimp  Screenshots, Screencasts, Animated Gifs  ffmpeg Notes  Unix-y Notes  Lattice Reduction Notes  PS/SVG to GCode Conversion  Change Git default 'master' branch to 'release'", 
+            "text": "Textile Cheat Sheet  Scaling images, animated GIFs in Gimp  Screenshots, Screencasts, Animated Gifs  ffmpeg Notes  Unix-y Notes  Lattice Reduction Notes  PS/SVG to GCode Conversion  Change Git default 'master' branch to 'release'  MkDocs Quickstart", 
             "title": "dev"
         }, 
         {
@@ -262,13 +262,18 @@
         }, 
         {
             "location": "/MkDocs-Quickstart/", 
-            "text": "MkDocs Static Site - Quickstart\n\n\nsudo pip install mkdocs\nmkdocs new $site\ncd $site\n\n\n\n\nAssume the following all work under \n$site\n.\n\n\nCreate the directory structure:\n\n\nmkdir custom_theme doc/css doc/js\nwget https://raw.githubusercontent.com/abetusk/minimal/master/stylesheets/pygment_trac.css -O doc/css/pygment_trac.css\nwget https://raw.githubusercontent.com/abetusk/minimal/master/stylesheets/styles.css -O doc/css/styles.css\nwget https://raw.githubusercontent.com/abetusk/minimal/master/javascripts/scale.fix.js -O doc/js/scale.fix.js\n\n\n\n\nmkdocs.yml\n using the \nminimal theme\n:\n\n\nsite_name: Site Name\npages:\n  - Home: index.md\ntheme_dir: 'custom_theme'\n\n\n\n\nMkDocs uses \njinja2\n for\ntemplates.\n\n\nmkdocs build\n\n\n\n\nsite\n should now hold the static site.", 
+            "text": "MkDocs Static Site - Quickstart\n\n\nsudo pip install mkdocs\nmkdocs new $site\ncd $site\n\n\n\n\nAssume the following all work under \n$site\n.\n\n\nCreate the directory structure:\n\n\nmkdir dev_theme dev_theme/css dev_theme/js\nwget https://raw.githubusercontent.com/abetusk/minimal/master/stylesheets/pygment_trac.css -O dev_theme/css/pygment_trac.css\nwget https://raw.githubusercontent.com/abetusk/minimal/master/stylesheets/styles.css -O dev_theme/css/styles.css\nwget https://raw.githubusercontent.com/abetusk/minimal/master/javascripts/scale.fix.js -O dev_theme/js/scale.fix.js\n\n\n\n\nmkdocs.yml\n using the \nminimal theme\n:\n\n\nsite_name: dev\npages:\n  - index.md\n  - \nTextile-Cheat-Sheet.md\n\n  - \nImage-Resize.md\n\n  - \nScreenshots-Screencasts-Animated-Gifs.md\n\n  - \nffmpeg-notes.md\n\n  - \nUnix-y-notes.md\n\n  - \nlattice-reduction.md\n\n  - \nGCode-Conversion.md\n\n  - \nGit-Rename-Master.md\n\n  - \nMkDocs-Quickstart.md\n\n\ndocs_dir: 'wiki'\ntheme_dir: 'dev_theme'\nextra:\n  base : \n/dev/\n\n\n\n\n\nMkDocs uses \njinja2\n for\ntemplates.\n\n\nTo test (note, you need to change \nconfig.extra.base\n for this setup):\n\n\nmkdocs serve\n\n\n\n\nTo build the static site in the \nsite\n subdir:\n\n\nmkdocs build\n\n\n\n\n2016-09-28", 
             "title": "MkDocs Quickstart"
         }, 
         {
             "location": "/MkDocs-Quickstart/#mkdocs-static-site-quickstart", 
-            "text": "sudo pip install mkdocs\nmkdocs new $site\ncd $site  Assume the following all work under  $site .  Create the directory structure:  mkdir custom_theme doc/css doc/js\nwget https://raw.githubusercontent.com/abetusk/minimal/master/stylesheets/pygment_trac.css -O doc/css/pygment_trac.css\nwget https://raw.githubusercontent.com/abetusk/minimal/master/stylesheets/styles.css -O doc/css/styles.css\nwget https://raw.githubusercontent.com/abetusk/minimal/master/javascripts/scale.fix.js -O doc/js/scale.fix.js  mkdocs.yml  using the  minimal theme :  site_name: Site Name\npages:\n  - Home: index.md\ntheme_dir: 'custom_theme'  MkDocs uses  jinja2  for\ntemplates.  mkdocs build  site  should now hold the static site.", 
+            "text": "sudo pip install mkdocs\nmkdocs new $site\ncd $site  Assume the following all work under  $site .  Create the directory structure:  mkdir dev_theme dev_theme/css dev_theme/js\nwget https://raw.githubusercontent.com/abetusk/minimal/master/stylesheets/pygment_trac.css -O dev_theme/css/pygment_trac.css\nwget https://raw.githubusercontent.com/abetusk/minimal/master/stylesheets/styles.css -O dev_theme/css/styles.css\nwget https://raw.githubusercontent.com/abetusk/minimal/master/javascripts/scale.fix.js -O dev_theme/js/scale.fix.js  mkdocs.yml  using the  minimal theme :  site_name: dev\npages:\n  - index.md\n  -  Textile-Cheat-Sheet.md \n  -  Image-Resize.md \n  -  Screenshots-Screencasts-Animated-Gifs.md \n  -  ffmpeg-notes.md \n  -  Unix-y-notes.md \n  -  lattice-reduction.md \n  -  GCode-Conversion.md \n  -  Git-Rename-Master.md \n  -  MkDocs-Quickstart.md \n\ndocs_dir: 'wiki'\ntheme_dir: 'dev_theme'\nextra:\n  base :  /dev/   MkDocs uses  jinja2  for\ntemplates.  To test (note, you need to change  config.extra.base  for this setup):  mkdocs serve  To build the static site in the  site  subdir:  mkdocs build", 
             "title": "MkDocs Static Site - Quickstart"
+        }, 
+        {
+            "location": "/MkDocs-Quickstart/#2016-09-28", 
+            "text": "", 
+            "title": "2016-09-28"
         }
     ]
 }
