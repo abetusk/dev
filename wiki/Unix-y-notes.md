@@ -2,6 +2,12 @@
 
 `ESC` `u`
 
+### Jump to line in less
+
+`ng` - Jump to line `n` relative to top of file
+
+`nG` - Jump to line `n` relative to bottom of file
+
 ### Gzip without timestamps
 
 By default, gzip keeps timestamp information for the file you're compressing.  This is problematic when you want reproducibility.
