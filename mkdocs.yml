@@ -14,5 +14,10 @@ pages:
 docs_dir: 'wiki'
 theme_dir: 'dev_theme'
 extra:
-  #base : "/dev/"
-  base : "/"
+  # for production
+  #
+  base : "/dev/"
+
+  # to test
+  #
+  #base : "/"
