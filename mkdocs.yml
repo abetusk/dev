@@ -11,6 +11,7 @@ pages:
   - "Git-Rename-Master.md"
   - "MkDocs-Quickstart.md"
   - "GPG-Notes.md"
+  - "Git-Notes.md"
 
 docs_dir: 'wiki'
 theme_dir: 'dev_theme'

@@ -349,6 +349,71 @@
             "location": "/GPG-Notes/#2017-02-09", 
             "text": "", 
             "title": "2017-02-09"
+        }, 
+        {
+            "location": "/Git-Notes/", 
+            "text": "Git User Settings\n\n\nLocal:\n\n\n$ git config user.name\nabevoid\n$ git config user.email\nabevoid@abevoid.com\n$ git config user.name abetusk\nabetusk\n$ git config user.email abetusk@mechaelephant.com\nabetusk@mechaelephant.com\n$ git config user.name\nabetusk\n$ git config user.email\nabetusk@mechaelephant.com\n\n\n\n\nGlobal:\n\n\n$ git config --global user.name\nabevoid\n$ git config --global user.email\nabevoid@abevoid.com\n$ git config --global user.name abetusk\nabetusk\n$ git config --global user.email abetusk@mechaelephant.com\nabetusk@mechaelephant.com\n$ git config --global user.name\nabetusk\n$ git config --global user.email\nabetusk@mechaelephant.com\n\n\n\n\nGit Log\n\n\ngit log --decorate=full --graph\n\n\n\n\nMerge Branches and Keep DAG History\n\n\ngit checkout -b alt-branch\n...\ngit commit\ngit checkout fin-branch\ngit merge --no-ff alt-branch\n\n\n\n\nCreating and Deleting Branches\n\n\ngit checkout -b x-branch\n...\ngit commit \ngit push -u origin x-branch\ngit checkout release\ngit merge --no-ff x-branch\ngit commit \ngit push\n...\ngit branch -d x-branch\ngit push origin :x-branch\n\n\n\n\nDestroy Local Changes To Files\n\n\ngit fetch ; git reset --hard origin/release\n\n\n\n\nComparing Changes\n\n\nLocal changes since last commit:\n\n\ngit diff\n\n\n\n\nTwo commits ago:\n\n\ngit diff HEAD^^\n\n\n\n\nor:\n\n\ngit diff HEAD@{2}\n\n\n\n\nRestore File\n\n\nSingle file:\n\n\ngit checkout -- fn\n\n\n\n\nEverything in a repo:\n\n\n#!/bin/bash\n\nfor f in `git ls-files -d`\ndo\n\n  echo restoring $f\n  git checkout -- $f\n\ndone\n\n\n\n\nCaching Git Password\n\n\ngit config --global credentail.helper 'cache --timeout=3600'\n\n\n\n\nClear Git Credential Cache (Clear Git Cached Password)\n\n\ngit credential-cache exit\n\n\n\n\nTracking Remote Branch\n\n\ngit remote add origin https://github.com/user/repo.git\n\n\n\n\ngit remote -v\n\n\n\n\nChecking Out Submodules\n\n\ngit clone --recursive https://github.com/user/repo\n\n\n\n\ngit submodule update --init --recursive\n\n\n\n\n2017-02-10", 
+            "title": "Git Notes"
+        }, 
+        {
+            "location": "/Git-Notes/#git-user-settings", 
+            "text": "Local:  $ git config user.name\nabevoid\n$ git config user.email\nabevoid@abevoid.com\n$ git config user.name abetusk\nabetusk\n$ git config user.email abetusk@mechaelephant.com\nabetusk@mechaelephant.com\n$ git config user.name\nabetusk\n$ git config user.email\nabetusk@mechaelephant.com  Global:  $ git config --global user.name\nabevoid\n$ git config --global user.email\nabevoid@abevoid.com\n$ git config --global user.name abetusk\nabetusk\n$ git config --global user.email abetusk@mechaelephant.com\nabetusk@mechaelephant.com\n$ git config --global user.name\nabetusk\n$ git config --global user.email\nabetusk@mechaelephant.com", 
+            "title": "Git User Settings"
+        }, 
+        {
+            "location": "/Git-Notes/#git-log", 
+            "text": "git log --decorate=full --graph", 
+            "title": "Git Log"
+        }, 
+        {
+            "location": "/Git-Notes/#merge-branches-and-keep-dag-history", 
+            "text": "git checkout -b alt-branch\n...\ngit commit\ngit checkout fin-branch\ngit merge --no-ff alt-branch", 
+            "title": "Merge Branches and Keep DAG History"
+        }, 
+        {
+            "location": "/Git-Notes/#creating-and-deleting-branches", 
+            "text": "git checkout -b x-branch\n...\ngit commit \ngit push -u origin x-branch\ngit checkout release\ngit merge --no-ff x-branch\ngit commit \ngit push\n...\ngit branch -d x-branch\ngit push origin :x-branch", 
+            "title": "Creating and Deleting Branches"
+        }, 
+        {
+            "location": "/Git-Notes/#destroy-local-changes-to-files", 
+            "text": "git fetch ; git reset --hard origin/release", 
+            "title": "Destroy Local Changes To Files"
+        }, 
+        {
+            "location": "/Git-Notes/#comparing-changes", 
+            "text": "Local changes since last commit:  git diff  Two commits ago:  git diff HEAD^^  or:  git diff HEAD@{2}", 
+            "title": "Comparing Changes"
+        }, 
+        {
+            "location": "/Git-Notes/#restore-file", 
+            "text": "Single file:  git checkout -- fn  Everything in a repo:  #!/bin/bash\n\nfor f in `git ls-files -d`\ndo\n\n  echo restoring $f\n  git checkout -- $f\n\ndone", 
+            "title": "Restore File"
+        }, 
+        {
+            "location": "/Git-Notes/#caching-git-password", 
+            "text": "git config --global credentail.helper 'cache --timeout=3600'", 
+            "title": "Caching Git Password"
+        }, 
+        {
+            "location": "/Git-Notes/#clear-git-credential-cache-clear-git-cached-password", 
+            "text": "git credential-cache exit", 
+            "title": "Clear Git Credential Cache (Clear Git Cached Password)"
+        }, 
+        {
+            "location": "/Git-Notes/#tracking-remote-branch", 
+            "text": "git remote add origin https://github.com/user/repo.git  git remote -v", 
+            "title": "Tracking Remote Branch"
+        }, 
+        {
+            "location": "/Git-Notes/#checking-out-submodules", 
+            "text": "git clone --recursive https://github.com/user/repo  git submodule update --init --recursive", 
+            "title": "Checking Out Submodules"
+        }, 
+        {
+            "location": "/Git-Notes/#2017-02-10", 
+            "text": "", 
+            "title": "2017-02-10"
         }
     ]
 }
