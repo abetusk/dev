@@ -11,3 +11,4 @@ dev
 * [Change Git default 'master' branch to 'release'](Git-Rename-Master)
 * [MkDocs Quickstart](MkDocs-Quickstart.md)
 * [GPG Notes](GPG-Notes.md)
+* [Git Notes](Git-Notes.md)
