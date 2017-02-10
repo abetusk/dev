@@ -17,8 +17,8 @@ theme_dir: 'dev_theme'
 extra:
   # for production
   #
-  #base : "/dev/"
+  base : "/dev/"
 
   # to test
   #
-  base : "/"
+  #base : "/"
