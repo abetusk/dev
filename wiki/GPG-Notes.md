@@ -59,6 +59,12 @@ gpg --import private.key
 gpg -e -u "Sender ID" -r "Recipient ID" plaintext-message
 ```
 
+'human readable' ASCII armor encrypted message:
+
+```
+gpg -a -e -u "Sender ID" -r "Recipient ID" plaintext-message
+```
+
 ### Decrypt Message
 
 ```
