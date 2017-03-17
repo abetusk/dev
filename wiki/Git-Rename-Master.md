@@ -9,7 +9,7 @@ git push -u origin release        # push the release branch to the remote and tr
 git branch -d master              # delete local master
 ```
 
-If you're using GitHub (as I am), issuing the next needed comman (`git push --delete origin master`) will
+If you're using GitHub (as I am), issuing the next needed command (`git push --delete origin master`) will
 fail because GitHub won't let you delete the default branch, which is stil `master`.
 
 In order to successfully be able to delete the remote `master` branch, you have to set the default
