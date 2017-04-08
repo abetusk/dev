@@ -91,6 +91,10 @@ fi
 
 bn=`basename $inpsvg .svg`
 
+# causes duplicate paths otherwise
+#
+sed -i 's/fill=&quot;[^&quot;]*&quot;/fill=&quot;none&quot;/g' $inpsvg
+
 echo &quot;creating $bn.ps&quot;
 rsvg-convert -f ps -o $bn.ps $inpsvg
 
