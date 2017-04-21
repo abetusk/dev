@@ -1,4 +1,4 @@
-[Dev Bloc](http://mechaelephant.com/dev/)
+[Dev Blog](http://mechaelephant.com/dev/)
 ===
 
 Overview
