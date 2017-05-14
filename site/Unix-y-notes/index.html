@@ -180,20 +180,21 @@ sys 0m0.000s
 </code></pre>
 
 <h3 id="sort-on-multiple-fields">sort on multiple fields</h3>
-<pre><code class="bash">$ echo -e &quot;5,cats,meow\n7,cute,mew\n2,cats,mewmew\n10,cats,meowmeowmeow\n2,cute,4youn\n8,cute,4ever&quot;
-,meow
+<pre><code class="bash">$ echo -e &quot;5,cats,meow\n7,cute,mew\n2,cats,mewmew\n10,cats,meowmeowmeow\n2,cute,4you\n8,cute,4ever&quot;
+5,cats,meow
 7,cute,mew
 2,cats,mewmew
 10,cats,meowmeowmeow
-2,cute,4youn
+2,cute,4you
 8,cute,4ever
-$ echo -e &quot;5,cats,meow\n7,cute,mew\n2,cats,mewmew\n10,cats,meowmeowmeow\n2,cute,4youn\n8,cute,4ever&quot; | sort -k2,2 -k1,1nr -t,
+$ echo -e &quot;5,cats,meow\n7,cute,mew\n2,cats,mewmew\n10,cats,meowmeowmeow\n2,cute,4you\n8,cute,4ever&quot; | \
+  sort -k2,2 -k1,1nr -t,
 10,cats,meowmeowmeow
 5,cats,meow
 2,cats,mewmew
 8,cute,4ever
 7,cute,mew
-2,cute,4youn
+2,cute,4you
 </code></pre>
 
 <ul>
