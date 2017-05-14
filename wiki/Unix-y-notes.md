@@ -178,20 +178,21 @@ sys	0m0.000s
 ### sort on multiple fields
 
 ```bash
-$ echo -e "5,cats,meow\n7,cute,mew\n2,cats,mewmew\n10,cats,meowmeowmeow\n2,cute,4youn\n8,cute,4ever"
-,meow
+$ echo -e "5,cats,meow\n7,cute,mew\n2,cats,mewmew\n10,cats,meowmeowmeow\n2,cute,4you\n8,cute,4ever"
+5,cats,meow
 7,cute,mew
 2,cats,mewmew
 10,cats,meowmeowmeow
-2,cute,4youn
+2,cute,4you
 8,cute,4ever
-$ echo -e "5,cats,meow\n7,cute,mew\n2,cats,mewmew\n10,cats,meowmeowmeow\n2,cute,4youn\n8,cute,4ever" | sort -k2,2 -k1,1nr -t,
+$ echo -e "5,cats,meow\n7,cute,mew\n2,cats,mewmew\n10,cats,meowmeowmeow\n2,cute,4you\n8,cute,4ever" | \
+  sort -k2,2 -k1,1nr -t,
 10,cats,meowmeowmeow
 5,cats,meow
 2,cats,mewmew
 8,cute,4ever
 7,cute,mew
-2,cute,4youn
+2,cute,4you
 ```
 
 
