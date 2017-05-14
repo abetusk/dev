@@ -179,7 +179,28 @@ user    0m0.000s
 sys 0m0.000s
 </code></pre>
 
-<h6 id="2016-01-23">2016-01-23</h6>
+<h3 id="sort-on-multiple-fields">sort on multiple fields</h3>
+<pre><code class="bash">$ echo -e &quot;5,cats,meow\n7,cute,mew\n2,cats,mewmew\n10,cats,meowmeowmeow\n2,cute,4youn\n8,cute,4ever&quot;
+,meow
+7,cute,mew
+2,cats,mewmew
+10,cats,meowmeowmeow
+2,cute,4youn
+8,cute,4ever
+$ echo -e &quot;5,cats,meow\n7,cute,mew\n2,cats,mewmew\n10,cats,meowmeowmeow\n2,cute,4youn\n8,cute,4ever&quot; | sort -k2,2 -k1,1nr -t,
+10,cats,meowmeowmeow
+5,cats,meow
+2,cats,mewmew
+8,cute,4ever
+7,cute,mew
+2,cute,4youn
+</code></pre>
+
+<ul>
+<li><code>-t</code> field</li>
+<li><code>-k&lt;start&gt;,&lt;stop&gt;&lt;opt&gt;</code> key start and stop position along with opt (in the above <code>n</code> for numeric, <code>r</code> for reverse)</li>
+</ul>
+<h6 id="2017-05-14">2017-05-14</h6>
 
       </section>
       <footer>
