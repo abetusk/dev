@@ -12,3 +12,4 @@ dev
 * [MkDocs Quickstart](MkDocs-Quickstart.md)
 * [GPG Notes](GPG-Notes.md)
 * [Git Notes](Git-Notes.md)
+* [Shannon Entropy](Shannon-Entropy.md)
