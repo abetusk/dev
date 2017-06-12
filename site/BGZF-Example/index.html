@@ -1,0 +1,169 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>dev blog</title>
+
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <header>
+        <h1>Dev Blog</h1>
+
+        <table>
+          <body>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
+            <tr><td><a href="/dev/Textile-Cheat-Sheet">Textile Cheat Sheet</a></td></tr>
+            <tr><td><a href="/dev/Image-Resize">Scaling images, animated GIFs in Gimp</a></td></tr>
+            <tr><td><a href="/dev/Screenshots-Screencasts-Animated-Gifs">Screenshots, Screencasts, Animated Gifs</a></td></tr>
+            <tr><td><a href="/dev/ffmpeg-notes">ffmpeg Notes</a></td></tr>
+            <tr><td><a href="/dev/Unix-y-notes">Unix-y Notes</a></td></tr>
+            <tr><td><a href="/dev/lattice-reduction">Lattice Reduction Notes</a></td></tr>
+            <tr><td><a href="/dev/GCode-Conversion">PS/SVG to GCode Conversion</a></td></tr>
+            <tr><td><a href="/dev/Git-Rename-Master">Change Git default 'master' branch to 'release'</a></td></tr>
+            <tr><td><a href="/dev/MkDocs-Quickstart">mkdocs Quickstart</a></td></tr>
+            <tr><td><a href="/dev/GPG-Notes">GPG Notes</a></td></tr>
+            <tr><td><a href="/dev/Git-Notes">Git Notes</a></td></tr>
+            <tr><td><a href="/dev/Shannon-Entropy">Shannon Entropy</a></td></tr>
+            <tr><td><a href="/dev/Enabling-Server-HTTPS">Enabling Server HTTPS</a></td></tr>
+            <tr><td><a href="/dev/BGZF-Example">BGZF Example</a></td></tr>
+
+            <tr> <td> <br> <br> <br> <p><small> Original heme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p> </td> </tr>
+          </body>
+        </table>
+
+      </header>
+      <section>
+
+        <h1 id="bgzf-example">BGZF Example</h1>
+<p><code>BGZIP</code> allows for quick random access to a <code>bgzip</code> file by creating an index.
+As an example, here is a way to compress a file with <code>bgzip</code> and access a random
+portion of it:</p>
+<pre><code>$ ls -la
+total 685104
+drwxrwxr-x 2 abetusk abetusk      4096 Jun 12 17:33 .
+drwxrwxr-x 5 abetusk abetusk      4096 Jun 12 17:33 ..
+-rw-rw-r-- 1 abetusk abetusk 701533731 Jun 12 17:33 hu826751.gff
+$ bgzip -i hu826751.gff 
+$ ls
+hu826751.gff.gz  hu826751.gff.gz.gzi
+$ bgzip -h
+
+Version: 1.4.1
+Usage:   bgzip [OPTIONS] [FILE] ...
+Options:
+   -b, --offset INT        decompress at virtual file pointer (0-based uncompressed offset)
+   -c, --stdout            write on standard output, keep original files unchanged
+   -d, --decompress        decompress
+   -f, --force             overwrite files without asking
+   -h, --help              give this help
+   -i, --index             compress and create BGZF index
+   -I, --index-name FILE   name of BGZF index file [file.gz.gzi]
+   -r, --reindex           (re)index compressed file
+   -g, --rebgzip           use an index file to bgzip a file
+   -s, --size INT          decompress INT bytes (uncompressed size)
+   -@, --threads INT       number of compression threads to use [1]
+
+$ time bgzip -b 100000000 -s 100 hu826751.gff.gz
+54      .       +       .       alleles C/T;db_xref dbsnp.120:rs11035863;ref_allele C
+chr11   CGI     REF     40509955        40510029        .       +       .
+real    0m0.009s
+user    0m0.004s
+sys     0m0.004s
+</code></pre>
+
+<h2 id="c-example">C Example</h2>
+<p>Here's a <code>C</code> example:</p>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;stdint.h&gt;
+
+#include &quot;bgzf.h&quot;
+
+#include &lt;vector&gt;
+#include &lt;string&gt;
+
+int main(int argc, char **argv) {
+  int i, j, k, r;
+  BGZF *bgzfp;
+  std::string ifn, idx_fn;
+  int64_t pos=-1;
+  char buf[1024];
+  ssize_t s;
+  size_t buflen=1024;
+
+  if (argc&lt;2) {
+    printf(&quot;provide bgzip file\n&quot;);
+    exit(-1);
+  }
+  ifn = argv[1];
+
+  printf(&quot;loading bgzip file %s\n&quot;, ifn.c_str());
+  bgzfp = bgzf_open(ifn.c_str(), &quot;r&quot;);
+  if (!bgzfp) {
+    fprintf(stderr, &quot;error opening file %s\n&quot;, ifn.c_str());
+    exit(1);
+  }
+
+  printf(&quot;loading index bgzip file %s%s\n&quot;, ifn.c_str(), &quot;.gzi&quot;);
+  r = bgzf_index_load(bgzfp, ifn.c_str(), &quot;.gzi&quot;);
+  printf(&quot;got %i\n&quot;, r);
+
+  r = bgzf_useek(bgzfp, 100000000, SEEK_SET);
+  printf(&quot;got %i\n&quot;, r);
+  if (r&lt;0) {
+    perror(&quot;...&quot;);
+    exit(-1);
+  }
+  s = bgzf_read(bgzfp, buf, sizeof(char)*buflen);
+  printf(&quot;...%i\n&quot;, (int)s);
+
+  printf(&quot;---\n&quot;);
+  for (i=0; i&lt;s; i++) { printf(&quot;%c&quot;, buf[i]); }
+  printf(&quot;\n---\n&quot;);
+
+  bgzf_close(bgzfp);
+
+}
+</code></pre>
+
+<p>To compile:</p>
+<pre><code>g++ -I $HTSDIR/htslib-1.4.1/htslib -lhts bgzf-example.cpp -o bgzf-example -L $HTSLIB/htslib-1.4.1 -lhts
+</code></pre>
+
+<p>To run:</p>
+<pre><code>LD_LIBRARY_PATH=$HOME/htslib-1.4.1 ./bgzf-example hu826751.gff.gz
+</code></pre>
+
+<p>Which assumes the <code>hu826751.gff.gz.gzi</code> file is in the same directory as the <code>hu826751.gff.gz</code> file.</p>
+<p>This assumes <code>htslib</code> is installed under the directory pointed to by the <code>HTSLIB</code> environment variable.</p>
+<p>See the <a href="https://github.com/samtools/htslib">htslib</a> repo for details on how to download and install.</p>
+<h6 id="2017-06-12">2017-06-12</h6>
+
+      </section>
+
+      <!--
+      <footer>
+        <p><small> Original heme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+      </footer>
+      -->
+
+    </div>
+    <script src="/dev/js/scale.fix.js"></script>
+  </body
+</html>
