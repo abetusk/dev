@@ -14,6 +14,7 @@ pages:
   - "Git-Notes.md"
   - "Shannon-Entropy.md"
   - "Enabling-Server-HTTPS.md"
+  - "BGZF-Example.md"
 
 docs_dir: 'wiki'
 theme_dir: 'dev_theme'

@@ -13,3 +13,5 @@ dev
 * [GPG Notes](GPG-Notes.md)
 * [Git Notes](Git-Notes.md)
 * [Shannon Entropy](Shannon-Entropy.md)
+* [Enabling Server HTTPS](Enabling-Server-HTTPS.md)
+* [BGZF Example](BGZF-Example.md)
