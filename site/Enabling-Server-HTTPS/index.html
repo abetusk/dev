@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>dev blog</title>
+
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <header>
+        <h1>Dev Blog</h1>
+
+        <table>
+          <body>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
+            <tr><td><a href="/dev/Textile-Cheat-Sheet">Textile Cheat Sheet</a></td></tr>
+            <tr><td><a href="/dev/Image-Resize">Scaling images, animated GIFs in Gimp</a></td></tr>
+            <tr><td><a href="/dev/Screenshots-Screencasts-Animated-Gifs">Screenshots, Screencasts, Animated Gifs</a></td></tr>
+            <tr><td><a href="/dev/ffmpeg-notes">ffmpeg Notes</a></td></tr>
+            <tr><td><a href="/dev/Unix-y-notes">Unix-y Notes</a></td></tr>
+            <tr><td><a href="/dev/lattice-reduction">Lattice Reduction Notes</a></td></tr>
+            <tr><td><a href="/dev/GCode-Conversion">PS/SVG to GCode Conversion</a></td></tr>
+            <tr><td><a href="/dev/Git-Rename-Master">Change Git default 'master' branch to 'release'</a></td></tr>
+            <tr><td><a href="/dev/MkDocs-Quickstart">mkdocs Quickstart</a></td></tr>
+            <tr><td><a href="/dev/GPG-Notes">GPG Notes</a></td></tr>
+            <tr><td><a href="/dev/Git-Notes">Git Notes</a></td></tr>
+            <tr><td><a href="/dev/Shannon-Entropy">Shannon Entropy</a></td></tr>
+            <tr><td><a href="/dev/Enabling-Server-HTTPS">Enabling Server HTTPS</a></td></tr>
+            <tr><td><a href="/dev/BGZF-Example">BGZF Example</a></td></tr>
+
+            <tr> <td> <br> <br> <br> <p><small> Original heme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p> </td> </tr>
+          </body>
+        </table>
+
+      </header>
+      <section>
+
+        <h1 id="enabling-https-using-lets-encrypt">Enabling HTTPS Using Let's Encrypt</h1>
+<p><a href="https://letsencrypt.org/">Let's Encrypt</a> is a certificate authority that
+gives out digital certificates to the community free of charge.</p>
+<p>Using thir <a href="https://letsencrypt.org/getting-started/">"shell access"</a> method,
+one can install a program called <a href="https://certbot.eff.org/">certbot</a> that
+gives quick start instructions for installing and running certbot to
+issue a certificate for your host and system.</p>
+<p>Detailed below is what I did for some of my servers (HAProxy on Ubuntu and
+Apache on Ubuntu).</p>
+<h2 id="haproxy-on-ubuntu">HAProxy on Ubuntu</h2>
+<pre><code>sudo apt-get install software-properties-common
+sudo add-apt-repository ppa:certbot/certbot
+sudo apt-get update
+sudo apt-get install certbot 
+</code></pre>
+
+<pre><code>certbot certonly --webroot -w /var/www -d meowcad.com -d www.meowcad.com
+</code></pre>
+
+<p>I had to create a <code>meow.pem</code> for my version of HAProxy to work:</p>
+<pre><code>cd /etc/letsencrypt/live/meowcad.com
+cat private.pem fullchain.pem &gt; meow.pem
+</code></pre>
+
+<h2 id="apache-on-ubuntu">Apache on Ubuntu</h2>
+<pre><code>sudo apt-get install software-properties-common
+sudo add-apt-repository ppa:certbot/certbot
+sudo apt-get update
+sudo apt-get install python-certbot-apache 
+</code></pre>
+
+<pre><code>certbot certonly -n --agree-tos --email $EMAIL --domain mechaelephant.com --domain www.mechaelephant.com --webroot --webroot-path /var/www/  --expand
+</code></pre>
+
+<h2 id="notes">Notes</h2>
+<ul>
+<li>Make sure to add the extra domain so that both <code>www.domain.com</code> and <code>domain.com</code> work.</li>
+<li>If you've already issued a certificate and want to add a domain like I needed to for <code>www.mechalephant.com</code>, adding the domain <code>mechaelephant.com</code> because
+  I forgot the non <code>www</code> prefixed web page, then I think the <code>--expand</code> flag will work to add an additional domain.</li>
+<li>I'm still not sure how to renew or automatically renew the certs...</li>
+</ul>
+<h6 id="2017-06-12">2017-06-12</h6>
+
+      </section>
+
+      <!--
+      <footer>
+        <p><small> Original heme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+      </footer>
+      -->
+
+    </div>
+    <script src="/dev/js/scale.fix.js"></script>
+  </body
+</html>
