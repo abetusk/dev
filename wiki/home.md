@@ -15,3 +15,5 @@ dev
 * [Shannon Entropy](Shannon-Entropy.md)
 * [Enabling Server HTTPS](Enabling-Server-HTTPS.md)
 * [BGZF Example](BGZF-Example.md)
+* [C Project Template](C-Project-Template.md)
+* [Project Organization](Project-Organization.md)
