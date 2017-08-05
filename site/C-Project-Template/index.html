@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>dev blog</title>
+
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <header>
+        <h1>Dev Blog</h1>
+
+        <table>
+          <body>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
+            <tr><td><a href="/dev/Textile-Cheat-Sheet">Textile Cheat Sheet</a></td></tr>
+            <tr><td><a href="/dev/Image-Resize">Scaling images, animated GIFs in Gimp</a></td></tr>
+            <tr><td><a href="/dev/Screenshots-Screencasts-Animated-Gifs">Screenshots, Screencasts, Animated Gifs</a></td></tr>
+            <tr><td><a href="/dev/ffmpeg-notes">ffmpeg Notes</a></td></tr>
+            <tr><td><a href="/dev/Unix-y-notes">Unix-y Notes</a></td></tr>
+            <tr><td><a href="/dev/lattice-reduction">Lattice Reduction Notes</a></td></tr>
+            <tr><td><a href="/dev/GCode-Conversion">PS/SVG to GCode Conversion</a></td></tr>
+            <tr><td><a href="/dev/Git-Rename-Master">Change Git default 'master' branch to 'release'</a></td></tr>
+            <tr><td><a href="/dev/MkDocs-Quickstart">mkdocs Quickstart</a></td></tr>
+            <tr><td><a href="/dev/GPG-Notes">GPG Notes</a></td></tr>
+            <tr><td><a href="/dev/Git-Notes">Git Notes</a></td></tr>
+            <tr><td><a href="/dev/Shannon-Entropy">Shannon Entropy</a></td></tr>
+            <tr><td><a href="/dev/Enabling-Server-HTTPS">Enabling Server HTTPS</a></td></tr>
+            <tr><td><a href="/dev/BGZF-Example">BGZF Example</a></td></tr>
+            <tr><td><a href="/dev/C-Project-Template">C Project Template</a></td></tr>
+            <tr><td><a href="/dev/Project-Organization">Project Organization</a></td></tr>
+
+            <tr> <td> <br> <br> <br> <p><small> Original heme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p> </td> </tr>
+          </body>
+        </table>
+
+      </header>
+      <section>
+
+        <h1 id="example-c-project-template">Example C Project Template</h1>
+<p>This is a basic template for using automake tools for creating the <code>configure</code> and <code>Makefile</code>
+in a C/C++ program.</p>
+<h2 id="requirements">Requirements</h2>
+<ul>
+<li><code>automake</code> - e.g. <code>sudo apt-get install automake</code></li>
+<li><code>gcc</code></li>
+</ul>
+<h2 id="mainc"><code>main.c</code></h2>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int main(int argc, char **argv) {
+  printf(&quot;hello, friend\n&quot;);
+}
+</code></pre>
+
+<h2 id="configurein"><code>configure.in</code></h2>
+<pre><code>AC_INIT([hellofriend], [0.1], [abetusk@mechaelephant.com])
+AM_INIT_AUTOMAKE
+AC_PROG_CC
+AC_CONFIG_FILES([Makefile])
+AC_OUTPUT
+</code></pre>
+
+<h2 id="makefileam"><code>Makefile.am</code></h2>
+<pre><code>AUTOMAKE_OPTIONS = foreign
+bin_PROGRAMS = hellofriend
+hellofriend_SOURCES = main.c
+</code></pre>
+
+<h2 id="run-automake">Run automake</h2>
+<pre><code>aclocal
+autoconf
+automake --add-missing
+</code></pre>
+
+<h2 id="configure-make-make-install"><code>configure, make, make install</code></h2>
+<pre><code>./configure
+make
+make install
+</code></pre>
+
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://robots.thoughtbot.com/the-magic-behind-configure-make-make-install">The magic behind configure, make, make install</a></li>
+</ul>
+<h6 id="2017-08-05">2017-08-05</h6>
+
+      </section>
+
+      <!--
+      <footer>
+        <p><small> Original heme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+      </footer>
+      -->
+
+    </div>
+    <script src="/dev/js/scale.fix.js"></script>
+  </body
+</html>
