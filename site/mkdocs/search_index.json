@@ -2,18 +2,13 @@
     "docs": [
         {
             "location": "/", 
-            "text": "dev\n\n\n\n\nTextile Cheat Sheet\n\n\nScaling images, animated GIFs in Gimp\n\n\nScreenshots, Screencasts, Animated Gifs\n\n\nffmpeg Notes\n\n\nUnix-y Notes\n\n\nLattice Reduction Notes\n\n\nPS/SVG to GCode Conversion\n\n\nChange Git default 'master' branch to 'release'\n\n\nMkDocs Quickstart\n\n\nGPG Notes\n\n\nGit Notes\n\n\nShannon Entropy\n\n\nEnabling Server HTTPS\n\n\nBGZF Example\n\n\n HEAD\n\n\nKelly Criterion\n\n\n\n\nFile Naming Conventions\n\n\n\n\nC Project Template\n\n\nProject Organization\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n48bb8929a2e5450fe827f6720d3f799b17494fd1", 
+            "text": "dev\n\n\n\n\nTextile Cheat Sheet\n\n\nScaling images, animated GIFs in Gimp\n\n\nScreenshots, Screencasts, Animated Gifs\n\n\nffmpeg Notes\n\n\nUnix-y Notes\n\n\nLattice Reduction Notes\n\n\nPS/SVG to GCode Conversion\n\n\nChange Git default 'master' branch to 'release'\n\n\nMkDocs Quickstart\n\n\nGPG Notes\n\n\nGit Notes\n\n\nShannon Entropy\n\n\nEnabling Server HTTPS\n\n\nBGZF Example\n\n\nC Project Template\n\n\nProject Organization\n\n\nKelly Criterion\n\n\nFile Naming Conventions", 
             "title": "Home"
         }, 
         {
             "location": "/#dev", 
-            "text": "Textile Cheat Sheet  Scaling images, animated GIFs in Gimp  Screenshots, Screencasts, Animated Gifs  ffmpeg Notes  Unix-y Notes  Lattice Reduction Notes  PS/SVG to GCode Conversion  Change Git default 'master' branch to 'release'  MkDocs Quickstart  GPG Notes  Git Notes  Shannon Entropy  Enabling Server HTTPS  BGZF Example   HEAD  Kelly Criterion", 
+            "text": "Textile Cheat Sheet  Scaling images, animated GIFs in Gimp  Screenshots, Screencasts, Animated Gifs  ffmpeg Notes  Unix-y Notes  Lattice Reduction Notes  PS/SVG to GCode Conversion  Change Git default 'master' branch to 'release'  MkDocs Quickstart  GPG Notes  Git Notes  Shannon Entropy  Enabling Server HTTPS  BGZF Example  C Project Template  Project Organization  Kelly Criterion  File Naming Conventions", 
             "title": "dev"
-        }, 
-        {
-            "location": "/#file-naming-conventions", 
-            "text": "C Project Template  Project Organization        48bb8929a2e5450fe827f6720d3f799b17494fd1", 
-            "title": "File Naming Conventions"
         }, 
         {
             "location": "/Textile-Cheat-Sheet/", 

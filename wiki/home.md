@@ -15,10 +15,7 @@ dev
 * [Shannon Entropy](Shannon-Entropy.md)
 * [Enabling Server HTTPS](Enabling-Server-HTTPS.md)
 * [BGZF Example](BGZF-Example.md)
-<<<<<<< HEAD
-* [Kelly Criterion](Kelly-Criterion.md)
-* [File Naming Conventions](File-Naming-Conventions.md)
-=======
 * [C Project Template](C-Project-Template.md)
 * [Project Organization](Project-Organization.md)
->>>>>>> 48bb8929a2e5450fe827f6720d3f799b17494fd1
+* [Kelly Criterion](Kelly-Criterion.md)
+* [File Naming Conventions](File-Naming-Conventions.md)
