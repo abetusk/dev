@@ -15,8 +15,13 @@ pages:
   - "Shannon-Entropy.md"
   - "Enabling-Server-HTTPS.md"
   - "BGZF-Example.md"
+<<<<<<< HEAD
+  - "Kelly-Criterion.md"
+  - "File-Naming-Conventions.md"
+=======
   - "C-Project-Template.md"
   - "Project-Organization.md"
+>>>>>>> 48bb8929a2e5450fe827f6720d3f799b17494fd1
 
 docs_dir: 'wiki'
 theme_dir: 'dev_theme'

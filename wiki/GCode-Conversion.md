@@ -9,7 +9,7 @@ to "GNUPlot format" then converts to GCocde.
 
 ## Basic Workflow
 
-* `Orig -> SVG`   Create object in whatevber tool and export to SVG
+* `Orig -> SVG`   Create object in whatever tool and export to SVG
 * `SVG  -> PS`    Use `rsvg-convert` to convert from SVG to PostScript
 * `PS   -> GP`    Use `pstoedit` to convert to "gnuplot" polygon format
 * `GP   -> GCode` Order the polygons properly, removing duplicate boundaries and convert to GCode using `clipcli`, convert from GNUPlot format to GCode using `gp2ngc` and then rescale using other cli GCode tools.
