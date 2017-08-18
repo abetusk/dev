@@ -58,23 +58,51 @@
       </header>
       <section>
 
-        <h3 id="lattice-reduction">Lattice Reduction</h3>
-<p>There seem to be two main methods of using lattice reduction
-techniques for other norms.  The first looks to be to use
-a linear programming step in place of the 'weak reduction' step
-(the Gram-Schmidt reduction step).  The second is embedding
-the base in a higher dimension with extra structure and giving
-bounds on how far it is from the different norm.</p>
-<h4 id="references">References</h4>
+        <h1 id="file-naming-conventions">File Naming Conventions</h1>
+<p>Three principles:</p>
 <ul>
-<li><a href="http://mathoverflow.net/questions/37563/other-norms-for-lattice-reduction-techniques-lll-pslq">Other norms for Lattice reduction techniques (LLL, PSLQ)?</a></li>
-<li><a href="http://cstheory.stackexchange.com/questions/890/other-norms-for-lattice-reduction-techniques-lll-pslq">Other norms for Lattice reduction techniques (LLL, PSLQ)?</a></li>
-<li><a href="http://www.cs.elte.hu/~lovasz/scans/genbasisred.pdf">"The generalized basis reduction algorithm" by Laszlo Lovasz and Herbert Scarf</a></li>
-<li><a href="http://www.cims.nyu.edu/~regev/papers/lpnorm.pdf">"Lattice Problems and Norm Embeddings" by Oded Regev and Ricky Rosen</a></li>
-<li><a href="http://web.eecs.umich.edu/~cpeikert/pubs/lp_norms.pdf">"Limits on the Hardness of Lattice Problems in lp Norms" by Chris Peikert</a></li>
-<li><a href="https://www.cdc.informatik.tu-darmstadt.de/reports/reports/Vanya_Ivanova.bachelor.pdf">"Lattice Basis Reduction in Infinity Norm" by Vanya Ivanova (Bachelor Thesis)</a></li>
+<li>Machine readable</li>
+<li>Human Readable</li>
+<li>Plays well with default ordering</li>
 </ul>
-<h6 id="2015-11-30">2015-11-30</h6>
+<h2 id="conventions">Conventions</h2>
+<ul>
+<li><code>-</code> (dash) separate words in concept</li>
+<li><code>_</code> (underscore) separate units of meta-data</li>
+<li>pad numbers to allow for default file sort</li>
+<li>use YYYY-MM-DD or YYYYMMDD format for dates (<a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>)</li>
+<li>put dates first to help with default ordering (where appropriate)</li>
+<li>prefer lower case to mixed case</li>
+<li>prefer upper case to mixed case</li>
+<li>prefer consistent case</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<h3 id="good">Good</h3>
+<pre><code>2017-08-18_article01.md
+2017-08-18_article02.md
+2017-08-18_article10.md
+2016-01-08_roy_wg.vcf.gz
+2016-02-14_priss_wg.vcf.gz
+2016-06-12_zora_wg.vcf.gz
+2017-04-10_leon_wg.vcf.gz
+</code></pre>
+
+<h3 id="bad">Bad</h3>
+<pre><code>acticle1.md
+article2.md
+article10.md
+priss2142015.vcf.gz
+leon17410.vcf.gz
+zora16612.vcf.gz
+roy1618.vcf.gz
+priss16214.vcf.gz
+</code></pre>
+
+<h2 id="references">References</h2>
+<ul>
+<li><a href="http://www2.stat.duke.edu/~rcs46/lectures_2015/01-markdown-git/slides/naming-slides/naming-slides.pdf">naming things by Jenny Bryan</a></li>
+</ul>
+<h6 id="2017-08-18">2017-08-18</h6>
 
       </section>
 

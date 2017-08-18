@@ -58,23 +58,40 @@
       </header>
       <section>
 
-        <h3 id="lattice-reduction">Lattice Reduction</h3>
-<p>There seem to be two main methods of using lattice reduction
-techniques for other norms.  The first looks to be to use
-a linear programming step in place of the 'weak reduction' step
-(the Gram-Schmidt reduction step).  The second is embedding
-the base in a higher dimension with extra structure and giving
-bounds on how far it is from the different norm.</p>
-<h4 id="references">References</h4>
-<ul>
-<li><a href="http://mathoverflow.net/questions/37563/other-norms-for-lattice-reduction-techniques-lll-pslq">Other norms for Lattice reduction techniques (LLL, PSLQ)?</a></li>
-<li><a href="http://cstheory.stackexchange.com/questions/890/other-norms-for-lattice-reduction-techniques-lll-pslq">Other norms for Lattice reduction techniques (LLL, PSLQ)?</a></li>
-<li><a href="http://www.cs.elte.hu/~lovasz/scans/genbasisred.pdf">"The generalized basis reduction algorithm" by Laszlo Lovasz and Herbert Scarf</a></li>
-<li><a href="http://www.cims.nyu.edu/~regev/papers/lpnorm.pdf">"Lattice Problems and Norm Embeddings" by Oded Regev and Ricky Rosen</a></li>
-<li><a href="http://web.eecs.umich.edu/~cpeikert/pubs/lp_norms.pdf">"Limits on the Hardness of Lattice Problems in lp Norms" by Chris Peikert</a></li>
-<li><a href="https://www.cdc.informatik.tu-darmstadt.de/reports/reports/Vanya_Ivanova.bachelor.pdf">"Lattice Basis Reduction in Infinity Norm" by Vanya Ivanova (Bachelor Thesis)</a></li>
-</ul>
-<h6 id="2015-11-30">2015-11-30</h6>
+        <h2 id="kelly-criterion">Kelly Criterion</h2>
+<p>The Wikipedia article on the <a href="https://en.wikipedia.org/wiki/Kelly_criterion">Kelly criterion</a> might
+say more, but here is a simple derivation.</p>
+<p>Assuming you have a coin with probability $p$ of coming up heads and odds of $b:1$, the Kelly
+criterion states:</p>
+<p>$$
+f^* = \frac{bp-q}{b}
+$$</p>
+<p>Where $f^*$ is the fraction of your money pot the Kelly criterion tells you to bet and $q=1-p$.</p>
+<p>That is:</p>
+<p>$$
+f^* = \frac{bp-(1-p)}{b} \
+    = \frac{p(b+1)-1}{b}
+$$</p>
+<p>Assuming the strategy is to bet a fraction of your bank roll every round, with $W_0$ as the initial
+bank roll, $n$ time units and $W_n$ as your winnings at time $n$:</p>
+<p>$$
+W_n = (1 + br)^{pn} (1 - r)^{(1-p)n} W_0
+$$</p>
+<p>Taking logarithms, setting the derivative with respect to $r$ and solving:</p>
+<p>$$
+\begin{array}
+.   &amp; \frac{d}{dr} \ln(W_n) &amp;= \frac{d}{dr} ( pn \ln(1+br) + (1-p)n \ln(1-r) + \ln(W_0) ) \\
+\to &amp; 0                   &amp;= \frac{pnb}{1+br} - \frac{(1-p)n}{1-r} \\
+\to &amp; \frac{(1-p)n}{1-r}  &amp;= \frac{pnb}{1+br} \\
+\to &amp; \frac{1-p}{1-r}     &amp;= \frac{pb}{1+br} \\
+\to &amp; (1-p) (1+br)        &amp;= pb (1-r) \\
+\to &amp; 1 - p + br - pbr  &amp;= pb - pbr \\
+\to &amp; 1 - p + br        &amp;= pb \\
+\to &amp; r                 &amp;= \frac{pb + p - 1}{b} \\
+\to &amp; r                 &amp;= \frac{b(p + 1) - 1}{b} \\
+\end{array}
+$$</p>
+<h6 id="2017-08-18">2017-08-18</h6>
 
       </section>
 
