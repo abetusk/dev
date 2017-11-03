@@ -44,6 +44,10 @@ a good handle on.  They need to be driven by the L298 H-bridge chip.
 
 ### Hardware
 
+* [MaslowCNC BOM](https://github.com/MaslowCNC/Mechanics/blob/master/BOM.txt)
+
+* [MaslowCNC Mechanical Equivalent Parts](https://github.com/MaslowCNC/Mechanics/wiki/DIY-Kit-Mechanical-Equivalent-Parts)
+
 * Ordered two Diablo 1/4 in. Up Spiral Router Bits from [Home Depot](https://www.homedepot.com/p/Diablo-1-4-in-Up-Spiral-Router-Bit-DR75101/204073552).  Cost was about $20 each.
 
 
