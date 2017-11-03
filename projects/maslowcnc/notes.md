@@ -33,9 +33,11 @@ a good handle on.  They need to be driven by the L298 H-bridge chip.
 
 #### Ebay 12V Reversible High Torque Turbo Worm Geared Motor Encoder 10/20/30/40/100RPM
 
-![ebay-12v-hitorque-worm-encoder photo](https://raw.githubusercontent.com/abetusk/dev/release/projects/maslowcnc/img/ebay-12v-hitorque-worm-encoder_photo.png)
+![ebay-12v-hitorque-worm-encoder Photo](https://raw.githubusercontent.com/abetusk/dev/release/projects/maslowcnc/img/ebay-12v-hitorque-worm-encoder_photo.png)
 
-![ebay-12v-hitorque-worm-encoder spec](https://raw.githubusercontent.com/abetusk/dev/release/projects/maslowcnc/img/ebay-12v-hitorque-worm-encoder_spec.png)
+![ebay-12v-hitorque-worm-encoder CAD](https://raw.githubusercontent.com/abetusk/dev/release/projects/maslowcnc/img/ebay-12v-hitorque-worm-encoder_cad.png)
+
+![ebay-12v-hitorque-worm-encoder Spec](https://raw.githubusercontent.com/abetusk/dev/release/projects/maslowcnc/img/ebay-12v-hitorque-worm-encoder_spec.png)
 
 [Ebay link](https://www.ebay.com/itm/DC-12V-Reversible-High-Torque-Turbo-Worm-Geared-Motor-Encoder-10-20-30-40-100RPM/182326886308)
 
@@ -43,6 +45,5 @@ a good handle on.  They need to be driven by the L298 H-bridge chip.
 ### Hardware
 
 * Ordered two Diablo 1/4 in. Up Spiral Router Bits from [Home Depot](https://www.homedepot.com/p/Diablo-1-4-in-Up-Spiral-Router-Bit-DR75101/204073552).  Cost was about $20 each.
-
 
 
