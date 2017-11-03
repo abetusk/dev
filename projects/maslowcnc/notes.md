@@ -6,6 +6,8 @@ MaslowCNC Notes
 
 * Kit is unavailable, so trying to source materials ourselves.
 
+---
+
 ### Electronics
 
 * Ordered a few different options for motors.
@@ -41,6 +43,7 @@ a good handle on.  They need to be driven by the L298 H-bridge chip.
 
 [Ebay link](https://www.ebay.com/itm/DC-12V-Reversible-High-Torque-Turbo-Worm-Geared-Motor-Encoder-10-20-30-40-100RPM/182326886308)
 
+---
 
 ### Hardware
 
