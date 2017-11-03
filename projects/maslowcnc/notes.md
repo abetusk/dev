@@ -21,21 +21,21 @@ a good handle on.  They need to be driven by the L298 H-bridge chip.
 
 #### GW4058-31ZY
 
-![GW4058-31ZY Photo](https://raw.githubusercontent.com/abetusk/dev/projects/maslowcnc/img/GW4058-31ZY_photo.png)
+![GW4058-31ZY Photo](https://raw.githubusercontent.com/abetusk/dev/release/projects/maslowcnc/img/GW4058-31ZY_photo.png)
 
-![GW4058-31ZY CAD](https://raw.githubusercontent.com/abetusk/dev/projects/maslowcnc/img/GW4058-31ZY_cad.png)
+![GW4058-31ZY CAD](https://raw.githubusercontent.com/abetusk/dev/release/projects/maslowcnc/img/GW4058-31ZY_cad.png)
 
-![GW4058-31ZY Spec](https://raw.githubusercontent.com/abetusk/dev/projects/maslowcnc/img/GW4058-31ZY_spec.png)
+![GW4058-31ZY Spec](https://raw.githubusercontent.com/abetusk/dev/release/projects/maslowcnc/img/GW4058-31ZY_spec.png)
 
-![GW4058-31ZY Pinout](https://raw.githubusercontent.com/abetusk/dev/projects/maslowcnc/img/GW4058-31ZY_pinout.png)
+![GW4058-31ZY Pinout](https://raw.githubusercontent.com/abetusk/dev/release/projects/maslowcnc/img/GW4058-31ZY_pinout.png)
 
 [AliExpress link](https://www.aliexpress.com/item/GW4058-31ZY-DC-worm-gear-motor-With-Magnetic-Bipolar-hall-encoder-CW-CCW/32829395257.html)
 
 #### Ebay 12V Reversible High Torque Turbo Worm Geared Motor Encoder 10/20/30/40/100RPM
 
-![ebay-12v-hitorque-worm-encoder photo](https://raw.githubusercontent.com/abetusk/dev/projects/maslowcnc/img/ebay-12v-hitorque-worm-encoder_photo.png)
+![ebay-12v-hitorque-worm-encoder photo](https://raw.githubusercontent.com/abetusk/dev/release/projects/maslowcnc/img/ebay-12v-hitorque-worm-encoder_photo.png)
 
-![ebay-12v-hitorque-worm-encoder spec](https://raw.githubusercontent.com/abetusk/dev/projects/maslowcnc/img/ebay-12v-hitorque-worm-encoder_spec.png)
+![ebay-12v-hitorque-worm-encoder spec](https://raw.githubusercontent.com/abetusk/dev/release/projects/maslowcnc/img/ebay-12v-hitorque-worm-encoder_spec.png)
 
 [Ebay link](https://www.ebay.com/itm/DC-12V-Reversible-High-Torque-Turbo-Worm-Geared-Motor-Encoder-10-20-30-40-100RPM/182326886308)
 
