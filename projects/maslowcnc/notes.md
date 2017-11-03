@@ -50,4 +50,6 @@ a good handle on.  They need to be driven by the L298 H-bridge chip.
 
 * Ordered two Diablo 1/4 in. Up Spiral Router Bits from [Home Depot](https://www.homedepot.com/p/Diablo-1-4-in-Up-Spiral-Router-Bit-DR75101/204073552).  Cost was about $20 each.
 
+* Ordered four GW31Z motor brackets from [Ebay](https://www.ebay.com/itm/GW31ZY-GW370-DC-Geared-Block-gear-Motor-bracket-Horizontal-mount-Paint-TH-3mm/182655289000).
 
+![motor bracket cad](https://raw.githubusercontent.com/abetusk/dev/release/projects/maslowcnc/img/motor-bracket_cad.jpg)
