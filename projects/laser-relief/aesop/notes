@@ -1,0 +1,9 @@
+https://archive.org/stream/fablesofsopsel00kely#page/20/mode/2up
+
+
+For some reason Inkscape refuses to save svgs as the proper size, resulting
+in a rescaled svg after the path trace.
+The magic number looks to be 25.4/90 (90dpi being the default for Inkscape somewhere)
+that can be used to rescale after it's been converted to svg.
+I could also use the 'pngtopnm | potrace' trick, which might be easier.
+
