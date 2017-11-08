@@ -64,6 +64,8 @@ For reference, the motor the MaslowCNC folks shipped with their kits is the ET-W
 
 From the product page on [AliBaba.com](https://etonm.en.alibaba.com/product/60665360361-803643106/ET_WGM58AE_with_7PPR_encoder_12v_20_6rpm_30kg_cm_CNC_Machine_dc_electric_motor.html):
 
+|   |   |
+|---|---|
 | Product | Name ET-WGM58AE with 7PPR encoder 12v 20.6rpm 30kg.cm CNC Machine dc electric motor with CE,ROHS ISO9001:2008 14001 |
 | Material | stainless steel |
 | Voltage | 3-24v |
