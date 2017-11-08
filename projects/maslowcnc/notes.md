@@ -56,3 +56,21 @@ a good handle on.  They need to be driven by the L298 H-bridge chip.
 * Ordered four GW31Z motor brackets from [Ebay](https://www.ebay.com/itm/GW31ZY-GW370-DC-Geared-Block-gear-Motor-bracket-Horizontal-mount-Paint-TH-3mm/182655289000).
 
 ![motor bracket cad](https://raw.githubusercontent.com/abetusk/dev/release/projects/maslowcnc/img/motor-bracket_cad.jpg)
+
+2017-11-08
+---
+
+For reference, the motor the MaslowCNC folks shipped with their kits is the ET-WGM58AE motor.
+
+From the product page on [AliBaba.com](https://etonm.en.alibaba.com/product/60665360361-803643106/ET_WGM58AE_with_7PPR_encoder_12v_20_6rpm_30kg_cm_CNC_Machine_dc_electric_motor.html):
+
+| Product | Name ET-WGM58AE with 7PPR encoder 12v 20.6rpm 30kg.cm CNC Machine dc electric motor with CE,ROHS ISO9001:2008 14001 |
+| Material | stainless steel |
+| Voltage | 3-24v |
+| speed | 1-100rpm |
+| Torque | 1-80kg.cm |
+| Advantage | small dimension,low noise, low price |
+| Certification | CE, ROHS |
+| Application | electric lock, Autonatic dustbin,electric valve, lifting system, lift TV;electric curtain/blinds, CNC Machine |
+
+So the MaslowCNC one has 7 pulses per revolution (7PPR) whereas the GW4058-31ZY looks to have 11PPR.
