@@ -62,7 +62,7 @@ base.
 
 We took the two 18" pieces and attached them to the base with 12" sticking
 out the ends, leaving 6" underneath, temporary keeping them in place
-with an assortment of c-clamps quick grip bar clamps.
+with an assortment of c-clamps.
 We put two wood screws in at a 1" distance from the edges of each corner
 that the 6" piece overlapped with the plywood board.
 
@@ -70,7 +70,7 @@ that the 6" piece overlapped with the plywood board.
 ![temporary foot attachment](https://raw.githubusercontent.com/abetusk/dev/release/projects/maslowcnc/build/2017-11-15/img/single/processed/2016_0108_085113_001.jpg)
 
 For the two 39 3/8" motor mounting pieces, we measured 20" away from the corner
-of the backing plywood board, keeping them in place with a vise.
+of the backing plywood board, keeping them in place with a one-handed quick-grip bar clamp.
 As in the picture for the Maslow instructions, the 39 3/8" motor mounting pieces
 come out of the 'side' of the backing plywood board.
 We traced a rough outline of the 39 3/8" motor mounting pieces on the backing
