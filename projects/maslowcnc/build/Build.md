@@ -45,8 +45,9 @@ We used the [printout provided by the Maslow assembly guide](https://github.com/
 taped that to the cutout piece and drilled five holes, one for the
 center and four for the L bracket positions.
 The center hole was done with a hole saw that we had.
-The other four holes were counter sunk with a 1/4" drill and then
-drilled out with a 3/8" bit.
+The other four holes were counter sunk with a 7/8" diameter spade bit to
+a depth of 1/4".
+Once countersunk, the holes were drilled out with a 3/8" bit.
 
 ![temporary sled back](https://raw.githubusercontent.com/abetusk/dev/release/projects/maslowcnc/build/2017-11-15/img/single/processed/2016_0108_085232_007.jpg)
 
