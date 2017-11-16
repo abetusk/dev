@@ -44,7 +44,7 @@ We used the same side to cut out a 8 1/2" x 11" temporary sled.
 We used the [printout provided by the Maslow assembly guide](https://github.com/MaslowCNC/Mechanics/blob/master/tempSled.pdf)
 taped that to the cutout piece and drilled five holes, one for the
 center and four for the L bracket positions.
-The center hole was done with a hole saw that we had.
+The center hole was done with a 2" hole saw that we had.
 The other four holes were counter sunk with a 7/8" diameter spade bit to
 a depth of 1/4".
 Once countersunk, the holes were drilled out with a 3/8" bit.
@@ -62,7 +62,7 @@ base.
 
 We took the two 18" pieces and attached them to the base with 12" sticking
 out the ends, leaving 6" underneath, temporary keeping them in place
-with a vise.
+with an assortment of c-clamps quick grip bar clamps.
 We put two wood screws in at a 1" distance from the edges of each corner
 that the 6" piece overlapped with the plywood board.
 
