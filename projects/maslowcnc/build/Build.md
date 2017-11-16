@@ -6,6 +6,8 @@ Temporary Frame Build
 
 ###### 2016-11-15
 
+
+
 We still don't have the motors or the L brackets for the sled.
 We got the lumber and built the temporary frame in anticipation.
 We tried to follow as closely as possible the
@@ -96,3 +98,5 @@ That's it for today!
 Now we wait for the motors, L brackets and the router.
 
 ![...](https://raw.githubusercontent.com/abetusk/dev/release/projects/maslowcnc/build/2017-11-15/img/single/processed/2016_0108_085132_003.jpg)
+
+[![time lapse video](https://youtu.be/vi/e31k2gRvhZ0/0.jpg)](https://www.youtube.com/watch?v=e31k2gRvhZ0)
