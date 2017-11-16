@@ -1,0 +1,86 @@
+solid Onshape
+  facet normal -1 0 0
+    outer loop
+      vertex 0 -227.881 5.58735
+      vertex 0 156.123 1793.62
+      vertex 0 -190.63 -2.41272
+    endloop
+  endfacet
+  facet normal -1 0 0
+    outer loop
+      vertex 0 156.123 1793.62
+      vertex 0 193.373 1785.62
+      vertex 0 -190.63 -2.41272
+    endloop
+  endfacet
+  facet normal 1 0 0
+    outer loop
+      vertex 88.9 156.123 1793.62
+      vertex 88.9 -227.881 5.58735
+      vertex 88.9 193.373 1785.62
+    endloop
+  endfacet
+  facet normal 1 0 0
+    outer loop
+      vertex 88.9 -227.881 5.58735
+      vertex 88.9 -190.63 -2.41272
+      vertex 88.9 193.373 1785.62
+    endloop
+  endfacet
+  facet normal 0 0.977707 -0.209976
+    outer loop
+      vertex 88.9 193.373 1785.62
+      vertex 88.9 -190.63 -2.41272
+      vertex 0 193.373 1785.62
+    endloop
+  endfacet
+  facet normal 0 0.977707 -0.209976
+    outer loop
+      vertex 88.9 -190.63 -2.41272
+      vertex 0 -190.63 -2.41272
+      vertex 0 193.373 1785.62
+    endloop
+  endfacet
+  facet normal 0 0.209977 0.977706
+    outer loop
+      vertex 88.9 156.123 1793.62
+      vertex 88.9 193.373 1785.62
+      vertex 0 156.123 1793.62
+    endloop
+  endfacet
+  facet normal 0 0.209977 0.977706
+    outer loop
+      vertex 88.9 193.373 1785.62
+      vertex 0 193.373 1785.62
+      vertex 0 156.123 1793.62
+    endloop
+  endfacet
+  facet normal 0 -0.977707 0.209976
+    outer loop
+      vertex 88.9 -227.881 5.58735
+      vertex 88.9 156.123 1793.62
+      vertex 0 -227.881 5.58735
+    endloop
+  endfacet
+  facet normal 0 -0.977707 0.209976
+    outer loop
+      vertex 88.9 156.123 1793.62
+      vertex 0 156.123 1793.62
+      vertex 0 -227.881 5.58735
+    endloop
+  endfacet
+  facet normal 0 -0.209976 -0.977707
+    outer loop
+      vertex 88.9 -190.63 -2.41272
+      vertex 88.9 -227.881 5.58735
+      vertex 0 -190.63 -2.41272
+    endloop
+  endfacet
+  facet normal 0 -0.209976 -0.977707
+    outer loop
+      vertex 88.9 -227.881 5.58735
+      vertex 0 -227.881 5.58735
+      vertex 0 -190.63 -2.41272
+    endloop
+  endfacet
+endsolid Onshape

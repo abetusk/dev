@@ -1,0 +1,86 @@
+solid Onshape
+  facet normal 0 1 0
+    outer loop
+      vertex -348.415 0 1695.56
+      vertex -386.515 0 1695.56
+      vertex -348.415 0 1784.46
+    endloop
+  endfacet
+  facet normal 0 1 0
+    outer loop
+      vertex -386.515 0 1695.56
+      vertex -386.515 0 1784.46
+      vertex -348.415 0 1784.46
+    endloop
+  endfacet
+  facet normal 0 -1 0
+    outer loop
+      vertex -386.515 -101.6 1695.56
+      vertex -348.415 -101.6 1695.56
+      vertex -386.515 -101.6 1784.46
+    endloop
+  endfacet
+  facet normal 0 -1 0
+    outer loop
+      vertex -348.415 -101.6 1695.56
+      vertex -348.415 -101.6 1784.46
+      vertex -386.515 -101.6 1784.46
+    endloop
+  endfacet
+  facet normal 0 0 1
+    outer loop
+      vertex -386.515 -101.6 1784.46
+      vertex -348.415 -101.6 1784.46
+      vertex -386.515 0 1784.46
+    endloop
+  endfacet
+  facet normal 0 0 1
+    outer loop
+      vertex -348.415 -101.6 1784.46
+      vertex -348.415 0 1784.46
+      vertex -386.515 0 1784.46
+    endloop
+  endfacet
+  facet normal 1 0 0
+    outer loop
+      vertex -348.415 -101.6 1784.46
+      vertex -348.415 -101.6 1695.56
+      vertex -348.415 0 1784.46
+    endloop
+  endfacet
+  facet normal 1 0 0
+    outer loop
+      vertex -348.415 -101.6 1695.56
+      vertex -348.415 0 1695.56
+      vertex -348.415 0 1784.46
+    endloop
+  endfacet
+  facet normal -1 0 0
+    outer loop
+      vertex -386.515 -101.6 1695.56
+      vertex -386.515 -101.6 1784.46
+      vertex -386.515 0 1695.56
+    endloop
+  endfacet
+  facet normal -1 0 0
+    outer loop
+      vertex -386.515 -101.6 1784.46
+      vertex -386.515 0 1784.46
+      vertex -386.515 0 1695.56
+    endloop
+  endfacet
+  facet normal 0 0 -1
+    outer loop
+      vertex -348.415 -101.6 1695.56
+      vertex -386.515 -101.6 1695.56
+      vertex -348.415 0 1695.56
+    endloop
+  endfacet
+  facet normal 0 0 -1
+    outer loop
+      vertex -386.515 -101.6 1695.56
+      vertex -386.515 0 1695.56
+      vertex -348.415 0 1695.56
+    endloop
+  endfacet
+endsolid Onshape
