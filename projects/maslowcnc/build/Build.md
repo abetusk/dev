@@ -20,7 +20,7 @@ Three 10 foot 2x4 beams gave:
 * 2x 18" pieces
 * 2x 6" pieces
 
-![https://raw.githubusercontent.com/abetusk/dev/release/projects/maslowcnc/build/2017-11-15/img/single/processed_0108_060106_002.jpg](cut beams)
+![cut beams](https://raw.githubusercontent.com/abetusk/dev/release/projects/maslowcnc/build/2017-11-15/img/single/processed_0108_060106_002.jpg)
 
 For the 57" pieces, we used one 10' beam and measured from each end,
 leaving about a 6" piece in the middle.
@@ -32,12 +32,12 @@ process again to get the rest of the pieces we needed.
 In addition to the two 11x8 feet plywood boards, we purchased a
 thin 1/4" interface board to protect the backing spoiler board.
 
-![https://raw.githubusercontent.com/abetusk/dev/release/projects/maslowcnc/build/2017-11-15/img/single/processed_0108_060111_003.jpg](interface board)
+![interface board](https://raw.githubusercontent.com/abetusk/dev/release/projects/maslowcnc/build/2017-11-15/img/single/processed_0108_060111_003.jpg)
 
 We laid out one of the plywood sheets onto two saw horses and cut out
 two 5 1/2" squares from the corner for the motor mounts.
 
-![https://raw.githubusercontent.com/abetusk/dev/release/projects/maslowcnc/build/2017-11-15/img/single/processed_0108_060052_001.jpg](motor mounts)
+![motor mounts](https://raw.githubusercontent.com/abetusk/dev/release/projects/maslowcnc/build/2017-11-15/img/single/processed_0108_060052_001.jpg)
 
 We used the same side to cut out a 8 1/2" x 11" temporary sled.
 We used the [printout provided by the Maslow assembly guide](https://github.com/MaslowCNC/Mechanics/blob/master/tempSled.pdf)
@@ -47,9 +47,9 @@ The center hole was done with a hole saw that we had.
 The other four holes were counter sunk with a 1/4" drill and then
 drilled out with a 3/8" bit.
 
-![https://raw.githubusercontent.com/abetusk/dev/release/projects/maslowcnc/build/2017-11-15/img/single/processed_0108_085232_007.jpg](temporary sled back)
+![temporary sled back](https://raw.githubusercontent.com/abetusk/dev/release/projects/maslowcnc/build/2017-11-15/img/single/processed_0108_085232_007.jpg)
 
-![https://raw.githubusercontent.com/abetusk/dev/release/projects/maslowcnc/build/2017-11-15/img/single/processed_0108_085238_008.jpg](temporary sled front)
+![temporary sled front](https://raw.githubusercontent.com/abetusk/dev/release/projects/maslowcnc/build/2017-11-15/img/single/processed_0108_085238_008.jpg)
 
 We made sure to counter sink on the 'smooth' side, making the rough side
 facing 'out'.
@@ -65,7 +65,7 @@ We put two wood screws in at a 1" distance from the edges of each corner
 that the 6" piece overlapped with the plywood board.
 
 
-![https://raw.githubusercontent.com/abetusk/dev/release/projects/maslowcnc/build/2017-11-15/img/single/processed_0108_085113_001.jpg](temporary foot attachment)
+![temporary foot attachment](https://raw.githubusercontent.com/abetusk/dev/release/projects/maslowcnc/build/2017-11-15/img/single/processed_0108_085113_001.jpg)
 
 For the two 39 3/8" motor mounting pieces, we measured 20" away from the corner
 of the backing plywood board, keeping them in place with a vise.
@@ -76,7 +76,7 @@ plywood board.
 We made pencil croses inside of the trace, leaving 1" clearences on the sides.
 We used a total of 5 wood screws to fasten the arm.
 
-![https://raw.githubusercontent.com/abetusk/dev/release/projects/maslowcnc/build/2017-11-15/img/single/processed_0108_085208_005.jpg](39 3/8" motor mounting arm)
+![39 3/8" motor mounting arm](https://raw.githubusercontent.com/abetusk/dev/release/projects/maslowcnc/build/2017-11-15/img/single/processed_0108_085208_005.jpg)
 
 Once the 39 3/8" motor mounting pieces were attached, we attached the 5 1/2" motor
 mounting pieces to them.
@@ -85,12 +85,12 @@ and screwed in 6 staggered wood screws to attach them.
 We made sure the hole meant for the chain was positioned as far away from the
 plywood backing and the 39 3/8" motor mounting piece.
 
-![https://raw.githubusercontent.com/abetusk/dev/release/projects/maslowcnc/build/2017-11-15/img/single/processed_0108_085143_004.jpg](motor mounting platform)
+![motor mounting platform](https://raw.githubusercontent.com/abetusk/dev/release/projects/maslowcnc/build/2017-11-15/img/single/processed_0108_085143_004.jpg)
 
-![https://raw.githubusercontent.com/abetusk/dev/release/projects/maslowcnc/build/2017-11-15/img/single/processed_0108_085216_006.jpg](motor mounting platform)
+![motor mounting platform](https://raw.githubusercontent.com/abetusk/dev/release/projects/maslowcnc/build/2017-11-15/img/single/processed_0108_085216_006.jpg)
 
 
 That's it for today!
 Now we wait for the motors, L brackets and the router.
 
-![https://raw.githubusercontent.com/abetusk/dev/release/projects/maslowcnc/build/2017-11-15/img/single/processed_0108_085132_003.jpg](...)
+![...](https://raw.githubusercontent.com/abetusk/dev/release/projects/maslowcnc/build/2017-11-15/img/single/processed_0108_085132_003.jpg)
