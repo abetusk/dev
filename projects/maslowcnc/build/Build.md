@@ -4,6 +4,7 @@ Maslow CNC Build
 Temporary Frame Build
 ---
 
+###### 2016-11-15
 
 We still don't have the motors or the L brackets for the sled.
 We got the lumber and built the temporary frame in anticipation.
