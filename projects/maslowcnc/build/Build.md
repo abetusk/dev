@@ -62,7 +62,7 @@ base.
 
 We took the two 18" pieces and attached them to the base with 12" sticking
 out the ends, leaving 6" underneath, temporary keeping them in place
-with an assortment of c-clamps.
+with c-clamps.
 We put two wood screws in at a 1" distance from the edges of each corner
 that the 6" piece overlapped with the plywood board.
 
