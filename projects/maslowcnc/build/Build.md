@@ -99,4 +99,4 @@ Now we wait for the motors, L brackets and the router.
 
 ![...](https://raw.githubusercontent.com/abetusk/dev/release/projects/maslowcnc/build/2017-11-15/img/single/processed/2016_0108_085132_003.jpg)
 
-[![time lapse video](https://img.youtube.com/vi/e31k2gRvhZ0/0.jpg)](https://www.youtube.com/watch?v=e31k2gRvhZ0)
+[![time lapse video](https://img.youtube.com/vi/lqqxK5Ojtyg/0.jpg)](https://www.youtube.com/watch?v=lqqxK5Ojtyg)
