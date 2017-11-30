@@ -21,6 +21,8 @@ a good handle on.  They need to be driven by the L298 H-bridge chip.
 * Ordered [MaslowCNC's Arduino 2560 motor shield](http://www.maslowcnc.com/store/arduino-shield) which has the L298 chips on them to drive the motors.  Cost was about $30.
 * Ordered two Arduino 2560 clones, the Elegoo MEGA 2560 R3 board ATMega2560 ATMEGA16U2 + USB, from [Amazon](https://www.amazon.com/Elegoo-Board-ATmega2560-ATMEGA16U2-Arduino/dp/B01H4ZLZLQ/ref=sr_1_1) (I ordered the black one).  Cost was about $16 each.
 
+---
+
 #### GW4058-31ZY
 
 ![GW4058-31ZY Photo](https://raw.githubusercontent.com/abetusk/dev/release/projects/maslowcnc/img/GW4058-31ZY_photo.png)
@@ -32,6 +34,8 @@ a good handle on.  They need to be driven by the L298 H-bridge chip.
 ![GW4058-31ZY Pinout](https://raw.githubusercontent.com/abetusk/dev/release/projects/maslowcnc/img/GW4058-31ZY_pinout.png)
 
 [AliExpress link](https://www.aliexpress.com/item/GW4058-31ZY-DC-worm-gear-motor-With-Magnetic-Bipolar-hall-encoder-CW-CCW/32829395257.html)
+
+---
 
 #### Ebay 12V Reversible High Torque Turbo Worm Geared Motor Encoder 10/20/30/40/100RPM
 
