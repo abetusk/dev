@@ -11,7 +11,7 @@ For example, using the input (animated) gif:
 And issuing the command to resize it by a factor of 4:
 
 ```bash
-$ convert tree_anim_inp.gif -scale 128x128 tree_anim_ugly.gif
+$ convert tree_anim_inp.gif -resize 400% tree_anim_ugly.gif
 ```
 
 produces the interpolated (and ugly) picture:
