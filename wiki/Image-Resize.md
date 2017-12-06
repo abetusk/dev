@@ -1,7 +1,7 @@
 Resize with Imagemagick
 ---
 
-Using Imagemagick's @convert@ tool, you can resize an image but Imagemagick
+Using Imagemagick's `convert` tool, you can resize an image but Imagemagick
 does interpolation so the resulting image can look pretty bad.
 
 For example, using the input (animated) gif:
