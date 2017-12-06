@@ -54,12 +54,12 @@
       <section>
 
         <h2 id="resize-with-imagemagick">Resize with Imagemagick</h2>
-<p>Using Imagemagick's @convert@ tool, you can resize an image but Imagemagick
+<p>Using Imagemagick's <code>convert</code> tool, you can resize an image but Imagemagick
 does interpolation so the resulting image can look pretty bad.</p>
 <p>For example, using the input (animated) gif:</p>
 <p><img alt="Input (small) animated gif" src="../img/2015-10-27/tree_anim_inp.gif" /></p>
 <p>And issuing the command to resize it by a factor of 4:</p>
-<pre><code class="bash">$ convert tree_anim_inp.gif -scale 128x128 tree_anim_ugly.gif
+<pre><code class="bash">$ convert tree_anim_inp.gif -resize 400% tree_anim_ugly.gif
 </code></pre>
 
 <p>produces the interpolated (and ugly) picture:</p>

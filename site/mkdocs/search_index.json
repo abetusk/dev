@@ -37,12 +37,12 @@
         }, 
         {
             "location": "/Image-Resize/", 
-            "text": "Resize with Imagemagick\n\n\nUsing Imagemagick's @convert@ tool, you can resize an image but Imagemagick\ndoes interpolation so the resulting image can look pretty bad.\n\n\nFor example, using the input (animated) gif:\n\n\n\n\nAnd issuing the command to resize it by a factor of 4:\n\n\n$ convert tree_anim_inp.gif -scale 128x128 tree_anim_ugly.gif\n\n\n\n\nproduces the interpolated (and ugly) picture:\n\n\n\n\nInstead, use the \nscale\n command:\n\n\n$ convert tree_anim_inp.gif -scale 400% tree_anim_out.gif\n\n\n\n\n\n\nReference\n\n\n\n\nImageMagick resize without interpolation\n\n\n\n\n\n\nSaving animated GIFs in Gimp\n\n\nSave as a \n.gif\n file extension.  When exporting, there will be an option to save as an animation:\n\n\n\n\nCheck it and you should have an animated GIF.\n\n\n2015-10-27", 
+            "text": "Resize with Imagemagick\n\n\nUsing Imagemagick's \nconvert\n tool, you can resize an image but Imagemagick\ndoes interpolation so the resulting image can look pretty bad.\n\n\nFor example, using the input (animated) gif:\n\n\n\n\nAnd issuing the command to resize it by a factor of 4:\n\n\n$ convert tree_anim_inp.gif -resize 400% tree_anim_ugly.gif\n\n\n\n\nproduces the interpolated (and ugly) picture:\n\n\n\n\nInstead, use the \nscale\n command:\n\n\n$ convert tree_anim_inp.gif -scale 400% tree_anim_out.gif\n\n\n\n\n\n\nReference\n\n\n\n\nImageMagick resize without interpolation\n\n\n\n\n\n\nSaving animated GIFs in Gimp\n\n\nSave as a \n.gif\n file extension.  When exporting, there will be an option to save as an animation:\n\n\n\n\nCheck it and you should have an animated GIF.\n\n\n2015-10-27", 
             "title": "Image Resize"
         }, 
         {
             "location": "/Image-Resize/#resize-with-imagemagick", 
-            "text": "Using Imagemagick's @convert@ tool, you can resize an image but Imagemagick\ndoes interpolation so the resulting image can look pretty bad.  For example, using the input (animated) gif:   And issuing the command to resize it by a factor of 4:  $ convert tree_anim_inp.gif -scale 128x128 tree_anim_ugly.gif  produces the interpolated (and ugly) picture:   Instead, use the  scale  command:  $ convert tree_anim_inp.gif -scale 400% tree_anim_out.gif", 
+            "text": "Using Imagemagick's  convert  tool, you can resize an image but Imagemagick\ndoes interpolation so the resulting image can look pretty bad.  For example, using the input (animated) gif:   And issuing the command to resize it by a factor of 4:  $ convert tree_anim_inp.gif -resize 400% tree_anim_ugly.gif  produces the interpolated (and ugly) picture:   Instead, use the  scale  command:  $ convert tree_anim_inp.gif -scale 400% tree_anim_out.gif", 
             "title": "Resize with Imagemagick"
         }, 
         {
