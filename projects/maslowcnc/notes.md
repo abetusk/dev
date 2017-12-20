@@ -79,4 +79,16 @@ From the product page on [AliBaba.com](https://etonm.en.alibaba.com/product/6066
 | Certification | CE, ROHS |
 | Application | electric lock, Autonatic dustbin,electric valve, lifting system, lift TV;electric curtain/blinds, CNC Machine |
 
+
+|   |   |
+|---|---|
+| Product Model | GW4058-31ZY turbine worm gearing motor |
+| Size | 40 * 36 * 125mm (without shaft and terminal) |
+| Axis length | 15.0MM |
+| Shaft diameter | 8mm, D-axis, double ball bearing positioning structure |
+| Voltage | 6-24v |
+| Weight | about 380g |
+| Wiring specifications | PH2.0-6PIN terminal connector |
+| Encoder specifications | A B biphase encoder, 11 line basic signal, voltage 3.3V or 5.0V |
+
 So the MaslowCNC one has 7 pulses per revolution (7PPR) whereas the GW4058-31ZY looks to have 11PPR.
