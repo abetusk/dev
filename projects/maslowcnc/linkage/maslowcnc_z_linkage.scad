@@ -83,8 +83,10 @@ module dingy(base_length,
     translate([base_length/2,0]) circle(d=circle_d);
     translate([-base_length/2.0 + 4.35 + hole_l_a/2, 0])
       square([hole_l_a, hole_w_a], center=true);
-    translate([-base_length/2.0 + 4.35 + hole_l_a + hole_l_b/2,0])
+    translate([-base_length/2.0 + 4.35 + hole_l_a + hole_l_b/2,0, 0])
       square([hole_l_b, hole_w_b], center=true);
+    translate([-base_length/2.0 + 4.35 + hole_l_a + hole_l_b, 0])
+      circle(d=hole_w_b);
   }
 }
 
@@ -141,10 +143,11 @@ lll=182;
 translate([0, -8*w]) saw_end_linkage(lll, w, saw_h, 6.5);
 
 // g2, g2
+cross_tab_width = 9.2;
 translate([0, -10*w])
-  linkage_cross(18.75, w, 6, 9, 8.75, 6.5);
+  linkage_cross(18.75, w, 6, cross_tab_width, 8.75, 6.5);
 translate([3*w, -10*w])
-  linkage_cross(18.75, w, 6, 9, 8.75, 6.5);
+  linkage_cross(18.75, w, 6, cross_tab_width, 8.75, 6.5);
   
 // c1 c3, d2
 
@@ -157,11 +160,13 @@ translate([12*w,-10*w])
   difference() { circle(d=18.75); circle(d=9.7); }
 
 // g1, g1, g3, g3
+dingy_l = 60.5 - w/2;
+fudge = 0.5;
 translate([0, -12*w])
-  dingy(52, w, 6.5, 6, 9.75, 9.4,7.45);
+  dingy(dingy_l, w, 6.5, 6, cross_tab_width + fudge,, 9, 7.45);
 translate([4*w, -12*w])
-  dingy(52, w, 6.5, 6, 9.75, 9.4,7.45);
+  dingy(dingy_l, w, 6.5, 6, cross_tab_width + fudge, 9, 7.45);
 translate([0, -14*w])
-  dingy(52, w, 6.5, 6, 9.75, 9.4,7.45);
+  dingy(dingy_l, w, 6.5, 6, cross_tab_width + fudge, 9, 7.45);
 translate([4*w, -14*w])
-  dingy(52, w, 6.5, 6, 9.75, 9.4,7.45);
+  dingy(dingy_l, w, 6.5, 6, cross_tab_width + fudge, 9, 7.45);
