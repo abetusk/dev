@@ -110,7 +110,8 @@ module linkage_cross(base_length,
 
 
 // a2, f2
-w=18.75;
+//w=18.75;
+w=20;
 l=247-w;
 translate([0, 0*w]) circle_end_linkage(l, w, 6.5, 6.5, 9.15);
 translate([0, 2*w]) circle_end_linkage(l, w, 6.5, 6.5, 9.15);
@@ -139,7 +140,8 @@ translate([l+3*w, 4*w]) circle_saw_end_linkage(ll, w, saw_h, center_hole_p, 6.5,
 translate([l+3*w, 6*w]) circle_saw_end_linkage(ll, w, saw_h, center_hole_p, 6.5, 6.5);
 
 // b2
-lll=182;
+//lll=182;
+lll=230;
 translate([0, -8*w]) saw_end_linkage(lll, w, saw_h, 6.5);
 
 // g2, g2

@@ -2,12 +2,12 @@
     "docs": [
         {
             "location": "/", 
-            "text": "dev\n\n\n\n\nTextile Cheat Sheet\n\n\nScaling images, animated GIFs in Gimp\n\n\nScreenshots, Screencasts, Animated Gifs\n\n\nffmpeg Notes\n\n\nUnix-y Notes\n\n\nLattice Reduction Notes\n\n\nPS/SVG to GCode Conversion\n\n\nChange Git default 'master' branch to 'release'\n\n\nMkDocs Quickstart\n\n\nGPG Notes\n\n\nGit Notes\n\n\nShannon Entropy\n\n\nEnabling Server HTTPS\n\n\nBGZF Example\n\n\nC Project Template\n\n\nProject Organization\n\n\nKelly Criterion\n\n\nFile Naming Conventions", 
+            "text": "dev\n\n\n\n\nTextile Cheat Sheet\n\n\nScaling images, animated GIFs in Gimp\n\n\nScreenshots, Screencasts, Animated Gifs\n\n\nffmpeg Notes\n\n\nUnix-y Notes\n\n\nLattice Reduction Notes\n\n\nPS/SVG to GCode Conversion\n\n\nChange Git default 'master' branch to 'release'\n\n\nMkDocs Quickstart\n\n\nGPG Notes\n\n\nGit Notes\n\n\nShannon Entropy\n\n\nEnabling Server HTTPS\n\n\nBGZF Example\n\n\nC Project Template\n\n\nProject Organization\n\n\nKelly Criterion\n\n\nFile Naming Conventions\n\n\nLoose Standards for Command Line Options\n\n\nPCB Notes", 
             "title": "Home"
         }, 
         {
             "location": "/#dev", 
-            "text": "Textile Cheat Sheet  Scaling images, animated GIFs in Gimp  Screenshots, Screencasts, Animated Gifs  ffmpeg Notes  Unix-y Notes  Lattice Reduction Notes  PS/SVG to GCode Conversion  Change Git default 'master' branch to 'release'  MkDocs Quickstart  GPG Notes  Git Notes  Shannon Entropy  Enabling Server HTTPS  BGZF Example  C Project Template  Project Organization  Kelly Criterion  File Naming Conventions", 
+            "text": "Textile Cheat Sheet  Scaling images, animated GIFs in Gimp  Screenshots, Screencasts, Animated Gifs  ffmpeg Notes  Unix-y Notes  Lattice Reduction Notes  PS/SVG to GCode Conversion  Change Git default 'master' branch to 'release'  MkDocs Quickstart  GPG Notes  Git Notes  Shannon Entropy  Enabling Server HTTPS  BGZF Example  C Project Template  Project Organization  Kelly Criterion  File Naming Conventions  Loose Standards for Command Line Options  PCB Notes", 
             "title": "dev"
         }, 
         {
@@ -679,6 +679,41 @@
             "location": "/File-Naming-Conventions/#2017-08-18", 
             "text": "", 
             "title": "2017-08-18"
+        }, 
+        {
+            "location": "/Command-Line-Option-Loose-Standard/", 
+            "text": "Loose Standards for Command Line Options\n\n\n\n\n\n\n\n\noption\n\n\ndescription\n\n\n\n\n\n\n\n\n\n\n-a\n\n\nall\n\n\n\n\n\n\n-b\n\n\nbuffer / block size\n\n\n\n\n\n\n-c\n\n\ncomand\n\n\n\n\n\n\n-d\n\n\ndebug or delete\n\n\n\n\n\n\n-D\n\n\ndefine\n\n\n\n\n\n\n-e\n\n\nexecute\n\n\n\n\n\n\n-f\n\n\nfile (input)\n\n\n\n\n\n\n-h\n\n\nhelp\n\n\n\n\n\n\n-i\n\n\ninteractive / initialize\n\n\n\n\n\n\n-I\n\n\ninclude\n\n\n\n\n\n\n-k\n\n\nkeep / kill\n\n\n\n\n\n\n-l\n\n\nlist / load / login / length / lock\n\n\n\n\n\n\n-m\n\n\nmessage / mode\n\n\n\n\n\n\n-n\n\n\nnumber\n\n\n\n\n\n\n-o\n\n\noutput\n\n\n\n\n\n\n-p\n\n\nport / protocol\n\n\n\n\n\n\n-q\n\n\nquiet\n\n\n\n\n\n\n-r / -R\n\n\nrecurse\n\n\n\n\n\n\n-s\n\n\nsilent / subject\n\n\n\n\n\n\n-t\n\n\ntag\n\n\n\n\n\n\n-u\n\n\nuser\n\n\n\n\n\n\n-v\n\n\nverbose / version\n\n\n\n\n\n\n-V\n\n\nversion\n\n\n\n\n\n\n-w\n\n\nwidth / warning\n\n\n\n\n\n\n-x\n\n\ndebug / extract\n\n\n\n\n\n\n-y\n\n\nyes\n\n\n\n\n\n\n-z\n\n\ncompress\n\n\n\n\n\n\n\n\nReferences\n\n\n\n\ntaoup ch. 10\n\n\n\n\n2017-12-25", 
+            "title": "Command Line Option Loose Standard"
+        }, 
+        {
+            "location": "/Command-Line-Option-Loose-Standard/#loose-standards-for-command-line-options", 
+            "text": "option  description      -a  all    -b  buffer / block size    -c  comand    -d  debug or delete    -D  define    -e  execute    -f  file (input)    -h  help    -i  interactive / initialize    -I  include    -k  keep / kill    -l  list / load / login / length / lock    -m  message / mode    -n  number    -o  output    -p  port / protocol    -q  quiet    -r / -R  recurse    -s  silent / subject    -t  tag    -u  user    -v  verbose / version    -V  version    -w  width / warning    -x  debug / extract    -y  yes    -z  compress", 
+            "title": "Loose Standards for Command Line Options"
+        }, 
+        {
+            "location": "/Command-Line-Option-Loose-Standard/#references", 
+            "text": "taoup ch. 10", 
+            "title": "References"
+        }, 
+        {
+            "location": "/Command-Line-Option-Loose-Standard/#2017-12-25", 
+            "text": "", 
+            "title": "2017-12-25"
+        }, 
+        {
+            "location": "/PCB-Notes/", 
+            "text": "PCB Notes\n\n\nCopper thickness is commonly expressed in \noz\n, for example \n1 oz Cu\n.\nThis is shorthand for the height of copper if spread over a square foot\nsurface.\n\n\nTo calculate the height for \n1 oz\n \nCu\n, we need a few conversions:\n\n\n\n\n$ 1\\ \\mathrm{oz} = 0.0625\\ \\mathrm{lbs}$\n\n\n$\\mathrm{Cu}\\ \\mathrm{density} = 8.96 \\frac{\\mathrm{g}}{\\mathrm{cm}^3} $\n\n\n$ 1\\ \\mathrm{g} \\approx 0.00220462\\ \\mathrm{lbs} $\n\n\n$ 1\\ \\mathrm{cm} \\approx 0.393701\\ \\mathrm{in} $\n\n\n\n\nThis implies:\n\n\n\n\n$\\mathrm{Cu}\\ \\mathrm{density} = \\frac{8.96 \\cdot 0.00220462\\ \\mathrm{lbs}}{(0.393701^3)\\ \\mathrm{in}^3} \\approx 0.324 \\frac{\\mathrm{lbs}}{\\mathrm{in}^3} $\n\n\n$ h\\ \\mathrm{in} = \\frac{1\\ \\mathrm{oz}}{ 1\\ \\mathrm{ft}^2 } = \\frac{0.0625\\ \\mathrm{lbs}}{ 144\\ \\mathrm{in}^2 } \\approx .00134 $\n\n\n\n\nOr, in general,\n\n\n$$ z\\ \\mathrm{oz}\\ \\mathrm{Cu} \\rightarrow z \\cdot 1.34\\ \\mathrm{mil} $$\n\n\nWhere $1\\ \\mathrm{mil} = \\frac{1}{1000}\\ \\mathrm{in}$.\n\n\n2018-02-03", 
+            "title": "PCB Notes"
+        }, 
+        {
+            "location": "/PCB-Notes/#pcb-notes", 
+            "text": "Copper thickness is commonly expressed in  oz , for example  1 oz Cu .\nThis is shorthand for the height of copper if spread over a square foot\nsurface.  To calculate the height for  1 oz   Cu , we need a few conversions:   $ 1\\ \\mathrm{oz} = 0.0625\\ \\mathrm{lbs}$  $\\mathrm{Cu}\\ \\mathrm{density} = 8.96 \\frac{\\mathrm{g}}{\\mathrm{cm}^3} $  $ 1\\ \\mathrm{g} \\approx 0.00220462\\ \\mathrm{lbs} $  $ 1\\ \\mathrm{cm} \\approx 0.393701\\ \\mathrm{in} $   This implies:   $\\mathrm{Cu}\\ \\mathrm{density} = \\frac{8.96 \\cdot 0.00220462\\ \\mathrm{lbs}}{(0.393701^3)\\ \\mathrm{in}^3} \\approx 0.324 \\frac{\\mathrm{lbs}}{\\mathrm{in}^3} $  $ h\\ \\mathrm{in} = \\frac{1\\ \\mathrm{oz}}{ 1\\ \\mathrm{ft}^2 } = \\frac{0.0625\\ \\mathrm{lbs}}{ 144\\ \\mathrm{in}^2 } \\approx .00134 $   Or, in general,  $$ z\\ \\mathrm{oz}\\ \\mathrm{Cu} \\rightarrow z \\cdot 1.34\\ \\mathrm{mil} $$  Where $1\\ \\mathrm{mil} = \\frac{1}{1000}\\ \\mathrm{in}$.", 
+            "title": "PCB Notes"
+        }, 
+        {
+            "location": "/PCB-Notes/#2018-02-03", 
+            "text": "", 
+            "title": "2018-02-03"
         }
     ]
 }

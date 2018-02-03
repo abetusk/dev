@@ -19,6 +19,8 @@ pages:
   - "C-Project-Template.md"
   - "Project-Organization.md"
   - "File-Naming-Conventions.md"
+  - "Command-Line-Option-Loose-Standard.md"
+  - "PCB-Notes.md"
 
 docs_dir: 'wiki'
 theme_dir: 'dev_theme'

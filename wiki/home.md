@@ -19,3 +19,5 @@ dev
 * [Project Organization](Project-Organization.md)
 * [Kelly Criterion](Kelly-Criterion.md)
 * [File Naming Conventions](File-Naming-Conventions.md)
+* [Loose Standards for Command Line Options](Command-Line-Option-Loose-Standard.md)
+* [PCB Notes](PCB-Notes.md)
