@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>dev blog</title>
+
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <header>
+        <h1>Dev Blog</h1>
+
+        <table>
+          <body>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
+            <!--
+            <tr><td><a href="/dev/Textile-Cheat-Sheet">Textile Cheat Sheet</a></td></tr>
+            <tr><td><a href="/dev/Image-Resize">Scaling images, animated GIFs in Gimp</a></td></tr>
+            <tr><td><a href="/dev/Screenshots-Screencasts-Animated-Gifs">Screenshots, Screencasts, Animated Gifs</a></td></tr>
+            <tr><td><a href="/dev/ffmpeg-notes">ffmpeg Notes</a></td></tr>
+            <tr><td><a href="/dev/Unix-y-notes">Unix-y Notes</a></td></tr>
+            <tr><td><a href="/dev/lattice-reduction">Lattice Reduction Notes</a></td></tr>
+            <tr><td><a href="/dev/GCode-Conversion">PS/SVG to GCode Conversion</a></td></tr>
+            <tr><td><a href="/dev/Git-Rename-Master">Change Git default 'master' branch to 'release'</a></td></tr>
+            <tr><td><a href="/dev/MkDocs-Quickstart">mkdocs Quickstart</a></td></tr>
+            <tr><td><a href="/dev/GPG-Notes">GPG Notes</a></td></tr>
+            <tr><td><a href="/dev/Git-Notes">Git Notes</a></td></tr>
+            <tr><td><a href="/dev/Shannon-Entropy">Shannon Entropy</a></td></tr>
+            <tr><td><a href="/dev/Enabling-Server-HTTPS">Enabling Server HTTPS</a></td></tr>
+            <tr><td><a href="/dev/BGZF-Example">BGZF Example</a></td></tr>
+            -->
+
+            <tr>
+              <td>
+                <br /> <br /> <br />
+                <p><small> Original heme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+
+                <br />
+                <p>
+                Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
+                <br />
+
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
+                </p>
+              </td>
+            </tr>
+          </body>
+        </table>
+
+      </header>
+      <section>
+
+        <h1 id="pcb-notes">PCB Notes</h1>
+<p>Copper thickness is commonly expressed in <code>oz</code>, for example <code>1 oz Cu</code>.
+This is shorthand for the height of copper if spread over a square foot
+surface.</p>
+<p>To calculate the height for <code>1 oz</code> <code>Cu</code>, we need a few conversions:</p>
+<ul>
+<li>$ 1\ \mathrm{oz} = 0.0625\ \mathrm{lbs}$</li>
+<li>$\mathrm{Cu}\ \mathrm{density} = 8.96 \frac{\mathrm{g}}{\mathrm{cm}^3} $</li>
+<li>$ 1\ \mathrm{g} \approx 0.00220462\ \mathrm{lbs} $</li>
+<li>$ 1\ \mathrm{cm} \approx 0.393701\ \mathrm{in} $</li>
+</ul>
+<p>This implies:</p>
+<ul>
+<li>$\mathrm{Cu}\ \mathrm{density} = \frac{8.96 \cdot 0.00220462\ \mathrm{lbs}}{(0.393701^3)\ \mathrm{in}^3} \approx 0.324 \frac{\mathrm{lbs}}{\mathrm{in}^3} $</li>
+<li>$ h\ \mathrm{in} = \frac{1\ \mathrm{oz}}{ 1\ \mathrm{ft}^2 } = \frac{0.0625\ \mathrm{lbs}}{ 144\ \mathrm{in}^2 } \approx .00134 $</li>
+</ul>
+<p>Or, in general,</p>
+<p>$$ z\ \mathrm{oz}\ \mathrm{Cu} \rightarrow z \cdot 1.34\ \mathrm{mil} $$</p>
+<p>Where $1\ \mathrm{mil} = \frac{1}{1000}\ \mathrm{in}$.</p>
+<h6 id="2018-02-03">2018-02-03</h6>
+
+      </section>
+
+      <!--
+      <footer>
+        <p><small> Original heme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+      </footer>
+      -->
+
+    </div>
+    <script src="/dev/js/scale.fix.js"></script>
+  </body
+</html>
