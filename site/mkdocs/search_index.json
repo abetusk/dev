@@ -2,12 +2,12 @@
     "docs": [
         {
             "location": "/", 
-            "text": "dev\n\n\n\n\nTextile Cheat Sheet\n\n\nScaling images, animated GIFs in Gimp\n\n\nScreenshots, Screencasts, Animated Gifs\n\n\nffmpeg Notes\n\n\nUnix-y Notes\n\n\nLattice Reduction Notes\n\n\nPS/SVG to GCode Conversion\n\n\nChange Git default 'master' branch to 'release'\n\n\nMkDocs Quickstart\n\n\nGPG Notes\n\n\nGit Notes\n\n\nShannon Entropy\n\n\nEnabling Server HTTPS\n\n\nBGZF Example\n\n\nC Project Template\n\n\nProject Organization\n\n\nKelly Criterion\n\n\nFile Naming Conventions\n\n\nLoose Standards for Command Line Options\n\n\nPCB Notes", 
+            "text": "dev\n\n\n\n\nTextile Cheat Sheet\n\n\nScaling images, animated GIFs in Gimp\n\n\nScreenshots, Screencasts, Animated Gifs\n\n\nffmpeg Notes\n\n\nUnix-y Notes\n\n\nLattice Reduction Notes\n\n\nPS/SVG to GCode Conversion\n\n\nChange Git default 'master' branch to 'release'\n\n\nMkDocs Quickstart\n\n\nGPG Notes\n\n\nGit Notes\n\n\nShannon Entropy\n\n\nEnabling Server HTTPS\n\n\nBGZF Example\n\n\nC Project Template\n\n\nProject Organization\n\n\nKelly Criterion\n\n\nFile Naming Conventions\n\n\nLoose Standards for Command Line Options\n\n\nPCB Notes\n\n\nElements of Coding Style", 
             "title": "Home"
         }, 
         {
             "location": "/#dev", 
-            "text": "Textile Cheat Sheet  Scaling images, animated GIFs in Gimp  Screenshots, Screencasts, Animated Gifs  ffmpeg Notes  Unix-y Notes  Lattice Reduction Notes  PS/SVG to GCode Conversion  Change Git default 'master' branch to 'release'  MkDocs Quickstart  GPG Notes  Git Notes  Shannon Entropy  Enabling Server HTTPS  BGZF Example  C Project Template  Project Organization  Kelly Criterion  File Naming Conventions  Loose Standards for Command Line Options  PCB Notes", 
+            "text": "Textile Cheat Sheet  Scaling images, animated GIFs in Gimp  Screenshots, Screencasts, Animated Gifs  ffmpeg Notes  Unix-y Notes  Lattice Reduction Notes  PS/SVG to GCode Conversion  Change Git default 'master' branch to 'release'  MkDocs Quickstart  GPG Notes  Git Notes  Shannon Entropy  Enabling Server HTTPS  BGZF Example  C Project Template  Project Organization  Kelly Criterion  File Naming Conventions  Loose Standards for Command Line Options  PCB Notes  Elements of Coding Style", 
             "title": "dev"
         }, 
         {
@@ -714,6 +714,81 @@
             "location": "/PCB-Notes/#2018-02-03", 
             "text": "", 
             "title": "2018-02-03"
+        }, 
+        {
+            "location": "/Coding-Style/", 
+            "text": "Elements of Coding Style\n\n\nThis is meant as a light style guide for coding.\nRules here are guides and not meant to be used\nwhen common sense dictates otherwise.\n\n\nThe following rules are mostly semantic and are\ndone with a 'polyglot' point of view even though\nJavaScript is mostly used for coding examples.\n\n\nThese are coding format rules that I mostly\ngravitate towards and is my attempt at formalizing\nthem in some way.\n\n\nPrefer two space indentation to tab or four spaces\n\n\nTwo space indentation should be preferred to four spaces or tabs for indentation.\nFour spaces causes code to gravitate too far to the right.\nTabs are inconsistently rendered, annoying to manipulate and camouflage themselves\nas spaces.\n\n\nfunction f() {\n  console.log(\nhello\n);\n  if (true) {\n    console.log(\nhello, friend\n);\n  }\n}\n\n\n\n\nPrefer start block token on the same line as control statements and function headings\n\n\nFor languages that have a start block token, a \n{\n say,\nprefer to put them on the same line as the function heading.\nPutting start blocks only increases vertical length with no real\nbenefit.\nIf breaks in text are needed, add returns as needed.\n\n\nfunction f() {\n\n  for (var i=0; i\n1; i++) {\n    console.log(\nhello\n);\n  }\n\n}\n\n\n\n\nEncase conditional blocks within block tokens even if the language allows otherwise\n\n\nEven if the language allows you to forgo block tokens to encase the control block\nof a conditional, encase them in the block tokens anyway.\nIf statements are extended, it's an easy mistake to think the added code\nfalls within the same conditional if not encased in the block tokens.\n\n\n  if (true) {\n    console.log(\nhello\n);\n  }\n\n\n\n\nPlace small conditional statements on a single line\n\n\nIf the conditional expression and statement body is small enough, place it all on the same line.\nIf the line is too long, this should be avoided but for small statements, terseness wins\nover beauty.\n\n\n  if (true) { console.log(\nhello\n; }\n\n\n\n\nPrefer alternate \nelse\n conditionals on their own line\n\n\nFor ease of reading, put \nelse\n and \nelse if\n conditionals on their own line.\nEach alternate conditional is easier to read, align and comment if necessary\nif they're as independent as possible from the surrounding sibling conditionals.\n\n\n  if (ok) {\n    console.log(\nhello\n);\n  }\n  else if (ko) {\n    console.log(\ngoodbye\n);\n  }\n  else {\n    console.log(\nhello and goodbye\n);\n  }\n\n\n\n\nPrefer ternary conditional assignment over \nif/else\n assignment\n\n\nIf the language allows for ternary expressions, use them for alternate assignments.\nTerseness wins out over beauty.\n\n\n  var v = ( vv ? true : false );\n\n\n\n\nPrefer putting comments at the top of statement blocks and put a blank comment line after the comment text\n\n\nComments should appear on their own line, indented appropriately, above the logic\nit's commenting on, where appropriate.\nIn the cases that comments need to go into a statement block instead of above\nit, they should appear at the top of the statement block.\nInline comments should be avoided.\n\n\nComments should describe what the high level concept of a piece of code is.\nThe least it should do is to remind the author of the intent of the code were it to be\nrevisited after a time.\nComment blocks should have a trailing 'blank' comment line to ease of reading.\n\n\nPrefer not to put comments inline with code\nDon't put comments \n\n\n  // If everything is 'ok',\n  // provide a friendly greeting.\n  //\n  if (ok) {\n    console.log(\nhello\n);\n  }\n\n\n\n\nEnd of function returns should have no blank line between the ending block token\n\n\nTrailing newlines after the last return should be culled for conciseness.\n\n\nfunction f() {\n\n  console.log(\nhello\n);\n\n  return true;\n}\n\n\n\n\nNo trailing whitespace at end of lines\n\n\nTrailing whitespace should be culled at the end of the line.\nUse whitespace highlighting in your editor to notice it.\n\n\nWhen doing many variable assignments, align them for readability\n\n\nWhen assigning variables values, on initialization say, prefer\nto format them so they can easily be read by aligning the equals\nsign and putting multiple variables on a single line if need be.\nSmall differences are more noticeable when aligned in this way.\nStructure and intent of why the variables are being assigned\nis sometimes more apparent when aligned properly.\n\n\nAdd space between the end of the variable and the \n=\n if need be.\nGroup in blocks to ease readability.\n\n\n  var x00 = 0, x01 = 1,\n      x10 = 1, x11 = 0;\n\n  var mammal  = 'cat',\n      reptile = 'chameleon',\n      fish    = 'catfish',\n      insect  = 'ladybug',\n\n      dinosaur         = 'brontosaurus',\n      extinct_elephant = 'woolly mammoth';\n\n\n\n\n\nSpace between parent expression and nested sub expressions, aligning inner expressions with proper indentation.  Place Boolean operations at end of line, where appropriate.\n\n\nFor a parent control statement expression, put a space between the outer parenthesis and the inner expression.\nFor the expressions within the control statement, align them for readability with proper indentation\nif the control is nested.\n\n\nBoolean tokens should be placed at the end of the line so the first relevant piece of information\non the line is relevant logic.\n\n\nNested multi-line conditionals are hard enough to read, try to ease the cognitive load on the reader\nas much as possible.\n\n\nfunction f(v) {\n  var k=0;\n  while ( (v\n10) \n\n          (k\nv) \n\n          ( ((k+v) \n 100) || \n            ((k-v) \n 50) ) ) {\n    console.log(\nhello\n);\n  }\n}\n\n\n\n\nUse parenthesis for explicit order of operations\n\n\nUse parenthesis to explicitly show what the order of\noperations should be for an expression or statement.\nIt puts a lot of cognitive load on the reader to\nremember which order of operations takes precedence\nin the language that the code is written in.\n\n\nSometimes order of operations aren't the same\nbetween languages.\nSometimes a token is overloaded and mean different\nthings in different contexts, often within the same\nline.\n\n\nEase the readers burden by explicitly spelling it out\nfor them.\n\n\n  while ( ((*p) != 0) \n\n          ((5*(*p)) \n 100) ) {\n    p++;\n  }\n\n\n\n\n2018-02-17", 
+            "title": "Coding Style"
+        }, 
+        {
+            "location": "/Coding-Style/#elements-of-coding-style", 
+            "text": "This is meant as a light style guide for coding.\nRules here are guides and not meant to be used\nwhen common sense dictates otherwise.  The following rules are mostly semantic and are\ndone with a 'polyglot' point of view even though\nJavaScript is mostly used for coding examples.  These are coding format rules that I mostly\ngravitate towards and is my attempt at formalizing\nthem in some way.", 
+            "title": "Elements of Coding Style"
+        }, 
+        {
+            "location": "/Coding-Style/#prefer-two-space-indentation-to-tab-or-four-spaces", 
+            "text": "Two space indentation should be preferred to four spaces or tabs for indentation.\nFour spaces causes code to gravitate too far to the right.\nTabs are inconsistently rendered, annoying to manipulate and camouflage themselves\nas spaces.  function f() {\n  console.log( hello );\n  if (true) {\n    console.log( hello, friend );\n  }\n}", 
+            "title": "Prefer two space indentation to tab or four spaces"
+        }, 
+        {
+            "location": "/Coding-Style/#prefer-start-block-token-on-the-same-line-as-control-statements-and-function-headings", 
+            "text": "For languages that have a start block token, a  {  say,\nprefer to put them on the same line as the function heading.\nPutting start blocks only increases vertical length with no real\nbenefit.\nIf breaks in text are needed, add returns as needed.  function f() {\n\n  for (var i=0; i 1; i++) {\n    console.log( hello );\n  }\n\n}", 
+            "title": "Prefer start block token on the same line as control statements and function headings"
+        }, 
+        {
+            "location": "/Coding-Style/#encase-conditional-blocks-within-block-tokens-even-if-the-language-allows-otherwise", 
+            "text": "Even if the language allows you to forgo block tokens to encase the control block\nof a conditional, encase them in the block tokens anyway.\nIf statements are extended, it's an easy mistake to think the added code\nfalls within the same conditional if not encased in the block tokens.    if (true) {\n    console.log( hello );\n  }", 
+            "title": "Encase conditional blocks within block tokens even if the language allows otherwise"
+        }, 
+        {
+            "location": "/Coding-Style/#place-small-conditional-statements-on-a-single-line", 
+            "text": "If the conditional expression and statement body is small enough, place it all on the same line.\nIf the line is too long, this should be avoided but for small statements, terseness wins\nover beauty.    if (true) { console.log( hello ; }", 
+            "title": "Place small conditional statements on a single line"
+        }, 
+        {
+            "location": "/Coding-Style/#prefer-alternate-else-conditionals-on-their-own-line", 
+            "text": "For ease of reading, put  else  and  else if  conditionals on their own line.\nEach alternate conditional is easier to read, align and comment if necessary\nif they're as independent as possible from the surrounding sibling conditionals.    if (ok) {\n    console.log( hello );\n  }\n  else if (ko) {\n    console.log( goodbye );\n  }\n  else {\n    console.log( hello and goodbye );\n  }", 
+            "title": "Prefer alternate else conditionals on their own line"
+        }, 
+        {
+            "location": "/Coding-Style/#prefer-ternary-conditional-assignment-over-ifelse-assignment", 
+            "text": "If the language allows for ternary expressions, use them for alternate assignments.\nTerseness wins out over beauty.    var v = ( vv ? true : false );", 
+            "title": "Prefer ternary conditional assignment over if/else assignment"
+        }, 
+        {
+            "location": "/Coding-Style/#prefer-putting-comments-at-the-top-of-statement-blocks-and-put-a-blank-comment-line-after-the-comment-text", 
+            "text": "Comments should appear on their own line, indented appropriately, above the logic\nit's commenting on, where appropriate.\nIn the cases that comments need to go into a statement block instead of above\nit, they should appear at the top of the statement block.\nInline comments should be avoided.  Comments should describe what the high level concept of a piece of code is.\nThe least it should do is to remind the author of the intent of the code were it to be\nrevisited after a time.\nComment blocks should have a trailing 'blank' comment line to ease of reading.  Prefer not to put comments inline with code\nDon't put comments     // If everything is 'ok',\n  // provide a friendly greeting.\n  //\n  if (ok) {\n    console.log( hello );\n  }", 
+            "title": "Prefer putting comments at the top of statement blocks and put a blank comment line after the comment text"
+        }, 
+        {
+            "location": "/Coding-Style/#end-of-function-returns-should-have-no-blank-line-between-the-ending-block-token", 
+            "text": "Trailing newlines after the last return should be culled for conciseness.  function f() {\n\n  console.log( hello );\n\n  return true;\n}", 
+            "title": "End of function returns should have no blank line between the ending block token"
+        }, 
+        {
+            "location": "/Coding-Style/#no-trailing-whitespace-at-end-of-lines", 
+            "text": "Trailing whitespace should be culled at the end of the line.\nUse whitespace highlighting in your editor to notice it.", 
+            "title": "No trailing whitespace at end of lines"
+        }, 
+        {
+            "location": "/Coding-Style/#when-doing-many-variable-assignments-align-them-for-readability", 
+            "text": "When assigning variables values, on initialization say, prefer\nto format them so they can easily be read by aligning the equals\nsign and putting multiple variables on a single line if need be.\nSmall differences are more noticeable when aligned in this way.\nStructure and intent of why the variables are being assigned\nis sometimes more apparent when aligned properly.  Add space between the end of the variable and the  =  if need be.\nGroup in blocks to ease readability.    var x00 = 0, x01 = 1,\n      x10 = 1, x11 = 0;\n\n  var mammal  = 'cat',\n      reptile = 'chameleon',\n      fish    = 'catfish',\n      insect  = 'ladybug',\n\n      dinosaur         = 'brontosaurus',\n      extinct_elephant = 'woolly mammoth';", 
+            "title": "When doing many variable assignments, align them for readability"
+        }, 
+        {
+            "location": "/Coding-Style/#space-between-parent-expression-and-nested-sub-expressions-aligning-inner-expressions-with-proper-indentation-place-boolean-operations-at-end-of-line-where-appropriate", 
+            "text": "For a parent control statement expression, put a space between the outer parenthesis and the inner expression.\nFor the expressions within the control statement, align them for readability with proper indentation\nif the control is nested.  Boolean tokens should be placed at the end of the line so the first relevant piece of information\non the line is relevant logic.  Nested multi-line conditionals are hard enough to read, try to ease the cognitive load on the reader\nas much as possible.  function f(v) {\n  var k=0;\n  while ( (v 10)  \n          (k v)  \n          ( ((k+v)   100) || \n            ((k-v)   50) ) ) {\n    console.log( hello );\n  }\n}", 
+            "title": "Space between parent expression and nested sub expressions, aligning inner expressions with proper indentation.  Place Boolean operations at end of line, where appropriate."
+        }, 
+        {
+            "location": "/Coding-Style/#use-parenthesis-for-explicit-order-of-operations", 
+            "text": "Use parenthesis to explicitly show what the order of\noperations should be for an expression or statement.\nIt puts a lot of cognitive load on the reader to\nremember which order of operations takes precedence\nin the language that the code is written in.  Sometimes order of operations aren't the same\nbetween languages.\nSometimes a token is overloaded and mean different\nthings in different contexts, often within the same\nline.  Ease the readers burden by explicitly spelling it out\nfor them.    while ( ((*p) != 0)  \n          ((5*(*p))   100) ) {\n    p++;\n  }", 
+            "title": "Use parenthesis for explicit order of operations"
+        }, 
+        {
+            "location": "/Coding-Style/#2018-02-17", 
+            "text": "", 
+            "title": "2018-02-17"
         }
     ]
 }

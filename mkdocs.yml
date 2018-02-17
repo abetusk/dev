@@ -21,6 +21,7 @@ pages:
   - "File-Naming-Conventions.md"
   - "Command-Line-Option-Loose-Standard.md"
   - "PCB-Notes.md"
+  - "Coding-Style.md"
 
 docs_dir: 'wiki'
 theme_dir: 'dev_theme'
