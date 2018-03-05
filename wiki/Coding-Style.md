@@ -120,9 +120,6 @@ The least it should do is to remind the author of the intent of the code were it
 revisited after a time.
 Comment blocks should have a trailing 'blank' comment line to ease of reading.
 
-Prefer not to put comments inline with code
-Don't put comments 
-
 
 ```
   // If everything is 'ok',
@@ -181,7 +178,7 @@ Group in blocks to ease readability.
 
 ```
 
-Space between parent expression and nested sub expressions, aligning inner expressions with proper indentation.  Place Boolean operations at end of line, where appropriate.
+Place a single space between parent expression and nested sub expressions, aligning inner expressions with proper indentation.  Place Boolean operations at end of line, where appropriate.
 ---
 
 For a parent control statement expression, put a space between the outer parenthesis and the inner expression.
@@ -231,5 +228,19 @@ for them.
     p++;
   }
 ```
+
+Contents of commenting
+---
+
+Comments should be a high level description of what the code does.
+The code describes what the code does so a comments job is to
+enlighten what the code is doing and give motivation for why
+it's doing it, not repeat the logic verbatim.
+
+A good rule of thumb is to write a comment that you will be
+able to understand in 6 months time (or whatever unit of time
+causes forgetfulness) should you look at the code again.
+
+
 
 ###### 2018-02-17
