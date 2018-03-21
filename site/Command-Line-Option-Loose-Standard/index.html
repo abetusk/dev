@@ -185,9 +185,16 @@
 </tr>
 </tbody>
 </table>
+<p>From an answer on <a href="https://stackoverflow.com/questions/2199624/should-the-command-line-usage-be-printed-on-stdout-or-stderr">SO</a>,
+a good convention seems to be:</p>
+<ul>
+<li>When no options are given, show help and print to <code>stderr</code> with an error code</li>
+<li>When the <code>-h</code> or <code>--help</code> option are given, provide help on <code>stdout</code> and give no error</li>
+</ul>
 <h2 id="references">References</h2>
 <ul>
 <li><a href="http://www.catb.org/esr/writings/taoup/html/ch10s05.html">taoup ch. 10</a></li>
+<li><a href="https://stackoverflow.com/questions/2199624/should-the-command-line-usage-be-printed-on-stdout-or-stderr">SO: Should the command line “usage” be printed on stdout or stderr?</a></li>
 </ul>
 <h6 id="2017-12-25">2017-12-25</h6>
 

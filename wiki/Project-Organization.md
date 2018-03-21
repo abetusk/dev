@@ -10,7 +10,7 @@ Directory Structure
 | File or Directory | Description | Misc |
 | --- | --- | --- |
 | `src/` | Source files. | |
-| `dist/` | Should remain empty in repo.  Populated on compilation. | |
+| `dist/` or `bin/` | Should remain empty in repo.  Populated on compilation. | |
 | `tests/` | Test suite. | |
 | `examples/` | Example usage | |
 | `README.md` | Project description | |
