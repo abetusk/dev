@@ -213,8 +213,8 @@ Data
 | Chord | data | example |
 |-------|------|---------|
 | major | `[+0,+4,+7]` | `[c,e,g]` |
-| minor | `[0,+3,+7]` | `[c,d#,g]` |
-| diminished | `[0,3,6]` | `[c,d#,f#]` |
+| minor | `[+0,+3,+7]` | `[c,d#,g]` |
+| diminished | `[+0,+3,+6]` | `[c,d#,f#]` |
 
 
 
