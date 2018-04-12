@@ -92,10 +92,115 @@ Timbre
   It's unclear to me what sound effect this has.  Maybe a "highlight" of
   frequencies right at the cutoff value?
 
+### Examples
+
+#### "Stranger Things Synth" 0
+
+A close approximation of the "Stranger Things" arpeggiator:
+
+```
+  var poly_synth = new Tone.PolySynth(2, Tone.MonoSynth);
+
+  poly_synth.set({
+    "envelope"  : { "attack"  : 0.005, "decay"  : 0.35 , "sustain"  : 0.0 , "release"  : 0.45 },
+    "oscillator": { "type":"pwm", "modulationFrequency":0.85},
+    "filter" : { "Q"  : 1 , "type" : "lowpass" , "frequency": 6000, "rolloff"  : -24 },
+    "filterEnvelope" : {
+      "attack" : 0.005 , "decay" : 0.86 , "sustain" : 0.0 , "release" : 0.56 ,
+      "baseFrequency" : 200 , "octaves" : 8, "exponent" : 30
+    }
+
+  });
+
+  poly_synth.voices[0].oscillator.modulationFrequency.value = 0.8;
+  poly_synth.voices[0].frequency.value = "C3";
+
+  poly_synth.voices[1].detune.value = 10;
+  poly_synth.voices[1].oscillator.modulationFrequency.value = 0.8;
+  poly_synth.voices[1].frequency.value = "C4";
+
+  var synth_gain = new Tone.Gain();
+  synth_gain.gain.value = 0.25;
+
+  poly_synth.connect(synth_gain);
+  synth_gain.toMaster();
+```
+
+The sweep is on the filter cutoff frequency.
+
+```
+var f = 30;
+poly_synth.set({"filter": { "frequency": f}});
+```
+
+Without filter sweeping, here is an arpeggiator:
+
+```
+function stephen_things_arp(synth) {
+  var now = 2;
+  var scale = 1.33;
+  var note = ["c2", "e2", "g2", "b2", "c3", "b2", "g2", "e2"];
+
+  for (var ii=0; ii<20; ii++) {
+    for (var jj=0; jj<note.length; jj++) {
+      if (note[jj] == "") { continue; }
+      synth.triggerAttackRelease([note[jj], note[jj]], 1/16, now + scale*(ii + jj/note.length), 1);
+    }
+  }
+
+}
+
+```
+
+#### "Stranger Things Synth" 1
+
+To get the more "bassy" synth, the following is maybe a good approximation?:
+
+
+```
+  var poly_synth = new Tone.PolySynth(3, Tone.MonoSynth);
+
+  poly_synth.set({
+    "envelope"  : { "attack"  : 0.5 , "decay"  : 0.5 , "sustain"  : 0.95, "release"  : 0.6 },
+    "oscillator": { "type":"pwm", "modulationFrequency":0.5},
+    "filter" : { "Q"  : 0, "type" : "lowpass" , "rolloff"  : -12, "frequency": 3000},
+    "filterEnvelope" : {
+      "attack" : 0.5 , "decay" : 0.72 , "sustain" : 0.0 , "release" : 0.0 ,
+      "baseFrequency" : 200 , "octaves" : 0 , "exponent" : 30
+    }
+  });
+
+  poly_synth.voices[0].oscillator.modulationFrequency.value = 0.5;
+
+  poly_synth.voices[1].detune.value = -5;
+  poly_synth.voices[1].oscillator.modulationFrequency.value = 0.25;
+
+  poly_synth.voices[2].detune.value = 6;
+  poly_synth.voices[2].oscillator.modulationFrequency.value = 0.75;
+
+  var synth_gain = new Tone.Gain();
+  synth_gain.gain.value = 0.125;
+
+  var synth_reverb = new Tone.Freeverb();
+  synth_reverb.roomSize.value = 0.15;
+  synth_reverb.wet.value = 0.25;
+
+  poly_synth.chain(synth_gain, synth_reverb);
+  synth_reverb.toMaster();
+```
+
+```
+poly_synth.triggerAttackRelease(["e3", "g3", "b3"], 10, "+0.05");
+poly_synth.set({"filter":{"frequency":50}});
+poly_synth.triggerAttackRelease(["e3", "g3", "b3"], 10, "+0.05");
+```
+
 Melody
 ---
 
 ![key-layout](img/key-fundamental-group.png)
+
+
 
 Data
 ---
@@ -127,3 +232,12 @@ Glossary
 | `time signature` | Two numbers where the upper one represents the number of "beats" in a bar and the lower represents the inverse note length (power of 2). | `3/8`, 3 beats per bar with each note being an `eighth` note |
 | `diatonic chords` | chords that fit in a key |
 
+
+References
+---
+
+* [Studiologic Sledge Tutorial 39 Stranger Things](https://www.youtube.com/watch?v=HGufVBDfPvs)
+* [Musical Chord Progression Arpeggiator](https://codepen.io/jakealbaugh/full/qNrZyw)
+* [Turing-Tunes](https://github.com/maximecb/Turing-Tunes)
+* [Melodique](https://github.com/maximecb/Melodique)
+* [Tone.js](https://tonejs.github.io/)
