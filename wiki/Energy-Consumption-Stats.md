@@ -16,7 +16,7 @@ As of now, for consumer deep cycle lead acid batteries, it's about <span>$</span
 At 36kWh, thats about <span>$</span>5400.
 
 A LiFePO4 32650 5.5Ah 3.2V rechargeable battery goes for ~<span>$</span>120.00 / 80 units.
-At 36kWh, that works out to about `(120 / (80*5.5*3.2)) * 36000 = <span>$</span>3070`
+At 36kWh, that works out to about `(120 / (80*5.5*3.2)) * 36000 = $3070`
 
 This does not include all the control hardware and electronics that are needed
 for proper usage.
