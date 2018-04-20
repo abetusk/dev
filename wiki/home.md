@@ -22,3 +22,4 @@ dev
 * [Loose Standards for Command Line Options](Command-Line-Option-Loose-Standard.md)
 * [PCB Notes](PCB-Notes.md)
 * [Elements of Coding Style](Coding-Style.md)
+* [Energy Consumption Stats](Energy-Consumption-Stats.md)

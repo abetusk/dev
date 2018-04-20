@@ -29,7 +29,6 @@ Future
 
 * [Galactic Scale Energy](https://dothemath.ucsd.edu/2011/07/galactic-scale-energy/)
 * [Annual Energy Review](https://www.eia.gov/totalenergy/data/annual/index.php)
-* [https://www.eia.gov/totalenergy/data/annual/index.php)
 
 Interestingly, I think the blog post was trying to point out the absurdity of
 continue economic growth but I take it as a rough time frame for our progression
@@ -38,7 +37,7 @@ on moving up the Kardashev scale.
 There's some talk about wealth and CO2 emissions going hand in hand, with
 some suggesting [a total civilization collapse](https://www.earth-syst-dynam.net/3/1/2012/esd-3-1-2012.html) (from ["Decline of the Empire" blog](http://www.declineoftheempire.com/2012/01/wealth-and-energy-consumption-are-inseparable.html)).
 
-One post claims [20-30x less CO2 than coal](https://www.mnn.com/green-tech/research-innovations/blogs/how-much-co2-does-one-solar-panel-create),
+One post claims solar produces [20-30x less CO2 than coal](https://www.mnn.com/green-tech/research-innovations/blogs/how-much-co2-does-one-solar-panel-create),
 so I'm not sure if apocalyptic forecasts are to be believed.
 
 ###### 2017-09-21

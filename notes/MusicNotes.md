@@ -201,6 +201,11 @@ Melody
 ![key-layout](img/key-fundamental-group.png)
 
 
+Simple Algorithms
+---
+
+
+
 
 Data
 ---
@@ -241,3 +246,13 @@ References
 * [Turing-Tunes](https://github.com/maximecb/Turing-Tunes)
 * [Melodique](https://github.com/maximecb/Melodique)
 * [Tone.js](https://tonejs.github.io/)
+
+Melody References
+---
+
+* [computoser](http://computoser.com/), [github](https://github.com/Glamdring/computoser), [paper](https://arxiv.org/pdf/1412.3079.pdf)
+* [SO: "How to algorithmically find a chord progression for an infinite arbitrary melody?"](https://music.stackexchange.com/questions/11923/how-to-algorithmically-find-a-chord-progression-for-an-infinite-arbitrary-melody)
+* [SO: "How can I generate nice-sounding random chord progressions?"](https://music.stackexchange.com/questions/3788/how-can-i-generate-nice-sounding-random-chord-progressions?rq=1)
+* [SO: "Guide-lines for creating a simple chord-progression?"](https://music.stackexchange.com/questions/14812/guide-lines-for-creating-a-simple-chord-progression?rq=1)
+* [musictheory.net](https://www.musictheory.net/lessons)
+* [musictheory.net: Common Chord Progressions](https://www.musictheory.net/lessons/57)

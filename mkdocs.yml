@@ -22,6 +22,7 @@ pages:
   - "Command-Line-Option-Loose-Standard.md"
   - "PCB-Notes.md"
   - "Coding-Style.md"
+  - "Energy-Consumption-Stats.md"
 
 docs_dir: 'wiki'
 theme_dir: 'dev_theme'
