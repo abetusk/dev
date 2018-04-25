@@ -198,7 +198,7 @@ poly_synth.triggerAttackRelease(["e3", "g3", "b3"], 10, "+0.05");
 Melody
 ---
 
-![key-layout](img/key-fundamental-group.png)
+![key-layout](img/key-fundamental-group-500px.png)
 
 ![cleff-and-treble](img/Bass_and_Treble_clef.svg)
 
