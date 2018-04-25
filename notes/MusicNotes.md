@@ -200,6 +200,8 @@ Melody
 
 ![key-layout](img/key-fundamental-group.png)
 
+![cleff-and-treble](img/Bass_and_Treble_clef.svg)
+
 
 Simple Algorithms
 ---
