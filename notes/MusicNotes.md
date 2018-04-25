@@ -246,6 +246,8 @@ References
 * [Turing-Tunes](https://github.com/maximecb/Turing-Tunes)
 * [Melodique](https://github.com/maximecb/Melodique)
 * [Tone.js](https://tonejs.github.io/)
+* [Paul Adenot: Elements of Dance Muisc JSConf.Asia 2015](https://youtu.be/Ww0jTafmd_w)
+* [teoria](https://github.com/saebekassebil/teoria)
 
 Melody References
 ---
