@@ -207,21 +207,90 @@ Simple Algorithms
 ---
 
 
+#### inversion
+
+`[a,b,c] -> [b,c,a+12]`
+
+#### misc.
+
+|   name   | description   |
+|----------|---------------|
+| ostinato | repeat melody |
+| augmentation | repeat and increase length by 2x  |
+| diminution | repeat and descrease length by 1/2x |
+| note subtraction | repeat and remove a note each time |
+| note addition | repeat and adda note each time |
+| note metamorphosis | repeat and alter a note each time |
+| static harmony | change on chord to another interpolating between chords that are minimal distance away from each other |
+| phasing | playing two versions of the same melody where one is truncated relative to the other |
+| rhythmic displacement | changing a note loudness on each repetition |
+
+#### diatonic chords
+
+```
+function list_chords(note_key) {
+  var k = 0;
+  var chord = { "major" : [0,4,7], "minor" : [0,3,7], "diminished" : [0,3,6] };
+  var note_map = ["c", "c#", "d", "d#", "e", "f", "f#", "g", "g#", "a", "a#", "b" ];
+  var key_map = {};
+
+  for (k=0; k<note_key.length; k++) { key_map[note_key[k]] = 1; }
+  for (var note_root = 0; note_root<12; note_root++) {
+    for (var chord_name in chord) {
+      for (k=0; k<chord[chord_name].length; k++) {
+        var x = (note_root + chord[chord_name][k]) % 12;
+        if (key_map[x] != 1) { break; }
+      }
+      if (k==chord[chord_name].length) {
+        console.log( note_map[note_root], chord_name );
+      }
+    }
+  }
+
+}
+
+var key = {
+  "major" : [0,2,4,5,7,9,11],
+  "minor" : [0,2,3,5,7,8,10]
+}
+
+console.log("\nmajor key:");
+list_chords(key.major);
+
+console.log("\n---");
+console.log("minorkey:");
+list_chords(key.minor);
+
+```
 
 
 Data
 ---
 
+
+|  c  | c#/db |  d  | d#/eb |  e  |  f  | f#/gb |  g  | g#/ab |  a  | a#/bb |  b   |
+|-----|-------|-----|-------|-----|-----|-------|-----|-------|-----|-------|------|
+| `0` |   `1` | `2` |   `3` | `4` | `5` |   `6` | `7` |   `8` | `9` |  `10` | `11` |
+
 | Key | data |
 |-----|------|
 | major | `[0,2,4,5,7,9,11]` |
 | minor | `[0,2,3,5,7,8,10]` |
+| harmonic minor | `[0,2,3,5,7,,11,12]` |
+| melodic minor | `[0,2,3,5,7,9,11,12]` |
+
+|    tonic     |   super-tonic |   mediant    |  sub-dominant |    dominant  | submediant   |
+|--------------|---------------|--------------|---------------|--------------|--------------|
+| `scale[0%n]` | `scale[1%n]`  | `scale[2%n]` | `scale[3%n]`  | `scale[4%n]` | `scale[5%n]` |
 
 | Chord | data | example |
 |-------|------|---------|
 | major | `[+0,+4,+7]` | `[c,e,g]` |
 | minor | `[+0,+3,+7]` | `[c,d#,g]` |
+| augmented | `[+0,+4,+8]` | `[c,e,g#]` |
 | diminished | `[+0,+3,+6]` | `[c,d#,f#]` |
+| major 7th | `[+0,+4,+7,+11]` | `[c,e,g,b]` |
+
 
 
 
@@ -250,6 +319,7 @@ References
 * [Tone.js](https://tonejs.github.io/)
 * [Paul Adenot: Elements of Dance Muisc JSConf.Asia 2015](https://youtu.be/Ww0jTafmd_w)
 * [teoria](https://github.com/saebekassebil/teoria)
+* [Web Audio Weekly](http://www.webaudioweekly.com/)
 
 Melody References
 ---
@@ -260,3 +330,9 @@ Melody References
 * [SO: "Guide-lines for creating a simple chord-progression?"](https://music.stackexchange.com/questions/14812/guide-lines-for-creating-a-simple-chord-progression?rq=1)
 * [musictheory.net](https://www.musictheory.net/lessons)
 * [musictheory.net: Common Chord Progressions](https://www.musictheory.net/lessons/57)
+
+Music Theory References
+---
+
+* [Lightnote: How Music Works](https://www.lightnote.co/)
+* [Creating a Synthwave Score](https://modeaudio.com/magazine/the-joy-of-arps-creating-a-synthwave-score)
