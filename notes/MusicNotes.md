@@ -376,7 +376,7 @@ Drums
 
 *Four on the floor*: `b...b...b...b...`
 
-Human heart beat ~100 bpm
+Human heart beat ~60-100 bpm
 
 
 
