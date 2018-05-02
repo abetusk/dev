@@ -195,6 +195,108 @@ poly_synth.set({"filter":{"frequency":50}});
 poly_synth.triggerAttackRelease(["e3", "g3", "b3"], 10, "+0.05");
 ```
 
+#### "Stranger Things Synth" 2
+
+This one is a bit more complicated since it has a noise synth attached
+to it as well.
+I don't know of an idiomatic way of triggering two synths tied together.
+
+
+```
+function custom_noise_synth() {
+  var noise_synth = new Tone.NoiseSynth();
+  var filt = new Tone.Filter({"Q":5, "frequency":950, "type":"lowpass", "rolloff":-24,});
+  var filt_env = new Tone.FrequencyEnvelope( {
+       "attack" : 0.025 , "decay" : 8.0 , "sustain" : 0.0 , "release" : 0.03 ,
+      "baseFrequency" : 200 , "octaves" : 5.5, "exponent" : 0
+  };
+
+  noise_synth.envelope.attach = 0.005;
+  noise_synth.envelope.decay= 8.0;
+  noise_synth.envelope.sustain = 0.0;
+  noise_synth.envelope.release= 0.08;
+
+  filt_env.connect(filt.frequency);
+
+  var reverb = new Tone.Freeverb();
+  reverb.roomSize.value = 0.45;
+  reverb.wet.value = 0.35;
+
+  var gain = new Tone.Gain();
+  gain.gain.value = 0.125;
+
+  noise_synth.chain(reverb, filt, gain);
+  gain.connect(Tone.Master);
+  noise_synth.volume.value = -2;
+
+  var x = {
+    "synth":noise_synth,
+    "filterEnvelope":filt_env,
+    "triggerAttackRelease": (function(a,b) { return function(l,t,v) {
+      a.triggerAttackRelease(l,t,v);
+      b.triggerAttackRelease(l,t,v);
+    } })(noise_synth, filt_env)
+  };
+
+  return x;
+}
+
+function stranger_synth_2() {
+  var poly_synth = new Tone.PolySynth(4, Tone.MonoSynth);
+
+  poly_synth.set({
+    "envelope"  : { "attack"  : 0.05 , "decay"  : 8 , "sustain"  : 0.0, "release"  : 0.08 },
+    "oscillator": { "type":"pwm", "modulationFrequency":0.5},
+    "filter" : { "Q"  : 0, "type" : "lowpass" , "rolloff"  : -12, "frequency": 300},
+    "filterEnvelope" :{
+      "attack" : 0.005 , "decay" : 8.0 , "sustain" : 0.0 , "release" : 0.03 ,
+      "baseFrequency" : 200 , "octaves" : 1 , "exponent" : 0
+    }
+
+  });
+
+  poly_synth.voices[0].frequency.value = "C4";
+  poly_synth.voices[0].oscillator.modulationFrequency.value = 0.8;
+
+  poly_synth.voices[0].frequency.value = "C3";
+  poly_synth.voices[1].detune.value = 1;
+  poly_synth.voices[1].oscillator.modulationFrequency.value = 0.6;
+
+  poly_synth.voices[2].set({"oscillator":{"type":"fmsine", "modulationType":"sine", "modulationIndex":3 }});
+
+
+  var gain = new Tone.Gain();
+  gain.gain.value = 0.125;
+
+  var reverb = new Tone.Freeverb();
+  reverb.roomSize.value = 0.15;
+  reverb.wet.value = 0.25;
+
+  var chorus = new Tone.Chorus(30, 0.1);
+
+  poly_synth.chain(reverb, chorus, gain);
+  gain.toMaster();
+
+  var noise_synth = custom_noise_synth();
+
+  var x = {
+    "synth" : poly_synth,
+    "noise_synth": noise_synth,
+    "triggerAttackRelease": (function(a,b) { return function(n,l,t,v) {
+      a.triggerAttackRelease(n,l,t,v);
+      b.triggerAttackRelease(l,t,v);
+    } })(poly_synth, noise_synth)
+  };
+
+  return x;
+}
+```
+
+```
+var s2 = stranger_synth_2();
+s2.triggerAttackRelease("C4", 3, Tone.now());
+```
+
 Melody
 ---
 
