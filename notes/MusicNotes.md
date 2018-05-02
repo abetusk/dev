@@ -263,6 +263,20 @@ list_chords(key.minor);
 
 ```
 
+Drums
+---
+
+* `H` High hat (open hat)
+* `h` Closed hi hat (closed hat)
+* `c` Clap
+* `s` Snare
+* `b` Bass (kick)
+
+*Four on the floor*: `b...b...b...b...`
+
+Human heart beat ~100 bpm
+
+
 
 Data
 ---
@@ -291,6 +305,15 @@ Data
 | diminished | `[+0,+3,+6]` | `[c,d#,f#]` |
 | major 7th | `[+0,+4,+7,+11]` | `[c,e,g,b]` |
 
+| Mode | data | example |
+|------|------|---------|
+| Aeolian | `[0,+2,+3,+5,+7,+8,+10,+12]` | `[c,d,eb,f,g,a,c]` |
+| Locrian | `[0,+1,+3,+5,+6,+8,+10,+12]` | `[c,db,eb,fb,gb,ab,c]` |
+| Ionian | `[0,+2,+4,+5,+7,+9,+11,+12]` | `[c,d,e,f,g,a,c]` |
+| Dorian | `[0,+2,+3,+5,+7,++9,+10,+12]` | `[c,d,eb,f,g,ab,c]` |
+| Phyrgian | `[0,+1,+3,+5,+7,+8,+10,+12]` | `[c,db,eb,f,gb,ab,c]` |
+| Lydian | `[0,+2,+4,+6,+7,+9,+11,+12]` | `[c,d,e,f#,g,a,c]` |
+| Mixolydian | `[0,+2,+4,+5,+7,+9,+10,+12]` | `[c,d,e,f,g,ab,c]` |
 
 
 
@@ -320,6 +343,7 @@ References
 * [Paul Adenot: Elements of Dance Muisc JSConf.Asia 2015](https://youtu.be/Ww0jTafmd_w)
 * [teoria](https://github.com/saebekassebil/teoria)
 * [Web Audio Weekly](http://www.webaudioweekly.com/)
+* [Tonal](https://github.com/danigb/tonal)
 
 Melody References
 ---
