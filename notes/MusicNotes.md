@@ -446,6 +446,7 @@ References
 * [teoria](https://github.com/saebekassebil/teoria)
 * [Web Audio Weekly](http://www.webaudioweekly.com/)
 * [Tonal](https://github.com/danigb/tonal)
+* [Open Music Theory](http://openmusictheory.com)
 
 Melody References
 ---
