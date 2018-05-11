@@ -463,3 +463,4 @@ Music Theory References
 
 * [Lightnote: How Music Works](https://www.lightnote.co/)
 * [Creating a Synthwave Score](https://modeaudio.com/magazine/the-joy-of-arps-creating-a-synthwave-score)
+* [An Introduction to Species Counterpoint](http://homepage.eircom.net/~gerfmcc/SpeciesOne.html)
