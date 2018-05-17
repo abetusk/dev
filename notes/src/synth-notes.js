@@ -39,6 +39,8 @@ function stranger_synth_0() {
   return x;
 }
 
+//arp
+//
 function stranger_synth_0b() {
 
   var poly_synth = new Tone.PolySynth(3, Tone.MonoSynth);
@@ -66,21 +68,28 @@ function stranger_synth_0b() {
   poly_synth.voices[2].frequency.value = "C4";
 
   var synth_gain = new Tone.Gain();
-  synth_gain.gain.value = 0.125;
+  synth_gain.gain.value = 0.155;
+  //synth_gain.gain.value = 0.25;
 
   var synth_delay = new Tone.FeedbackDelay(0.08135);
+  synth_delay.delayTime.value = 0.1;
 
   //var synth_reverb = new Tone.JCReverb();
   //synth_reverb.roomSize.value = 0.125;
   //synth_reverb.wet.value = 0.13;
 
   var synth_reverb = new Tone.Freeverb();
-  synth_reverb.roomSize.value = 0.125;
+  //synth_reverb.roomSize.value = 0.125;
+  //synth_reverb.wet.value = 0.33;
+
+  synth_reverb.roomSize.value = 0.25;
   synth_reverb.wet.value = 0.33;
 
   var synth_chorus = new Tone.Chorus();
+  synth_chorus.delayTime = 3;
 
-  poly_synth.chain(synth_delay, synth_chorus, synth_gain);
+  //poly_synth.chain(synth_delay, synth_reverb, synth_chorus, synth_gain);
+  poly_synth.chain(synth_chorus, synth_reverb, synth_gain);
   //poly_synth.chain(synth_gain);
   synth_gain.toMaster();
 
@@ -88,6 +97,7 @@ function stranger_synth_0b() {
     "synth":poly_synth,
     "gain":synth_gain,
     "reverb":synth_reverb,
+    "chorus":synth_chorus,
     "delay":synth_delay,
     "triggerAttackRelease": (function(a) { return function(n,l,t,v) {
       a.triggerAttackRelease(n,l,t,v);
@@ -197,7 +207,6 @@ function stranger_synth_1b() {
   synth_reverb.wet.value = 0.25;
 
   var synth_chorus = new Tone.Chorus();
-  //synth_chorus
 
   var synth_gain = new Tone.Gain();
   synth_gain.gain.value = 0.125;
@@ -371,6 +380,8 @@ for (var r=0; r<10; r++) {
 function play_midi(synth, midi_tune, t0) {
   t0 = ((typeof t0 === "undefined") ? Tone.now() : t0);
 
+  console.log(">>>", Tone.now(), t0);
+
   var track = midi_tune.tracks;
 
   var fudge = 0.98;
@@ -383,6 +394,7 @@ function play_midi(synth, midi_tune, t0) {
         note.push(track[ii].name);
       }
     }
+
     //synth.triggerAttackRelease(track[ii].name, track[ii].duration, track[ii].time + t0, track[ii].velocity);
     //synth.triggerAttackRelease(note, fudge*track[ii].duration, track[ii].time + t0, track[ii].velocity);
     synth.triggerAttackRelease(note, fudge*track[ii].duration, track[ii].time + t0, track[ii].velocity);
@@ -460,6 +472,61 @@ function playit(arp_synth, bass_synth, midi_arp, midi_bass, arp_filt_sched, bass
   Tone.Transport.start();
 }
 
+function play_sampled(instrument, fs_notes) {
+  var idx=0;
+
+  for (var ii=0; ii<fs_notes.length; ii++) {
+    instrument[idx].start(Tone.now() + fs_notes[ii].t);
+    idx = (idx+1)%instrument.length;
+  }
+
+}
+
+function playtune(instruments, tune) {
+
+
+  if (typeof tune.bass !== "undefined") {
+    play_midi(instruments.bass, tune.bass.midi);
+  }
+
+  if (typeof tune.arp !== "undefined") {
+    play_midi(instruments.arp, tune.arp.midi);
+  }
+
+  var idx=0;
+  if (typeof tune.drum !== "undefined") {
+
+    play_sampled(instruments.kick, tune.drum.kick);
+    play_sampled(instruments.snare, tune.drum.snare);
+    play_sampled(instruments.hihat, tune.drum.hihat);
+    play_sampled(instruments.clap, tune.drum.clap);
+    play_sampled(instruments.closedhat, tune.drum.closedhat);
+
+    /*
+    idx=0;
+    for (var ii=0; ii<tune.drum.snare.length; ii++) {
+      instruments.snare[0].start(Tone.now() + tune.drum.snare[ii].t);
+      idx = (idx+1)%instruments.kick.length;
+    }
+
+    for (var ii=0; ii<tune.drum.hihat.length; ii++) {
+      instruments.hihat[0].start(Tone.now() + tune.drum.hihat[ii].t);
+    }
+
+    for (var ii=0; ii<tune.drum.clap.length; ii++) {
+      instruments.clap[0].start(Tone.now() + tune.drum.clap[ii].t);
+    }
+
+    for (var ii=0; ii<tune.drum.closedhat.length; ii++) {
+      instruments.closedhat[0].start(Tone.now() + tune.drum.closedhat[ii].t);
+    }
+    */
+
+  }
+
+
+}
+
 var kick = [];
 kick.push( new Tone.Player({ "url":"./data/drum/kick/260484__soneproject__electribe-kicks-slice-b0.wav", "loop":false}).toMaster() );
 kick.push( new Tone.Player({ "url":"./data/drum/kick/260537__soneproject__electribe-kicks-slice-59.wav", "loop":false}).toMaster() );
@@ -484,6 +551,18 @@ var s0b = stranger_synth_0b();
 var s1b = stranger_synth_1b();
 var s2 = stranger_synth_2();
 //stephen_things(s0, notes);
+
+var instruments = {
+  "bass" : s1b,
+  "arp": s0b,
+  "kick":kick,
+  "snare":snare,
+  "clap":clap,
+  "hihat":hihat,
+  "closedhat":closedhat
+};
+
+//playtune(instruments, tune);
 
 //playit(s0, s1, midi_arp_tune, midi_bass_tune, tune.arp_filt_sched, tune.bass_filt_sched, 3)
 

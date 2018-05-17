@@ -219,6 +219,8 @@ FamiliarSynths.prototype.replicate = function(notes, del) {
 
 function ok() {
   var fs = new FamiliarSynths();
+  var permute_arp = false;
+  permute_arp = true;
 
   var tempo = 90;
   var s_per_bar = 60/tempo;
@@ -226,7 +228,10 @@ function ok() {
   var nbar = 90;
   var npb = 4;
 
+  var base_mkey = [0,+2,+4,+5,+7,+9,+11];
   var mkey = [0,+2,+4,+5,+7,+9,+11,12];
+
+  console.log(mkey);
 
   // set up basic arp battern
   //
@@ -234,6 +239,7 @@ function ok() {
   var arp_info = {
     "n" : 5,
     "type": "looped",
+    "midi": {},
     "midiNote": [],
     "noteTune": [],
     "idx" : []
@@ -244,16 +250,16 @@ function ok() {
   //
   for (var ii=0; ii<arp_info.n; ii++) { arp_info.idx.push(ii); }
 
-  console.log(JSON.stringify(arp_info));
-
   // permute randomely
   //
-  var n = arp_info.idx.length;
-  for (var ii=0; ii<arp_info.idx.length; ii++) {
-    var p = ii + Math.floor(Math.random()*(n-ii));
-    var t = arp_info.idx[p];
-    arp_info.idx[p] = arp_info.idx[ii];
-    arp_info.idx[ii] = t;
+  if (permute_arp) {
+    var n = arp_info.idx.length;
+    for (var ii=0; ii<arp_info.idx.length; ii++) {
+      var p = ii + Math.floor(Math.random()*(n-ii));
+      var t = arp_info.idx[p];
+      arp_info.idx[p] = arp_info.idx[ii];
+      arp_info.idx[ii] = t;
+    }
   }
 
   // and reflect if it's looped
@@ -268,11 +274,14 @@ function ok() {
   if (arp_info.type=="looped") { del_b=2; }
 
   var m = arp_info.idx.length;
-  var base_midi = fs.note2midi("c2");
+  //var base_midi = fs.note2midi("c2");
+  var base_midi = fs.note2midi("c3");
 
   // choose a random starting point in our key
   //
   var base_idx = Math.floor(Math.random()*m);
+
+  console.log("arp base_midi", base_midi, "base_idx", base_idx);
 
   // Set up the midi note (without velocity or timing)
   //
@@ -299,15 +308,20 @@ function ok() {
     cur_t += 1/6;
   }
 
-  //DEBUG
-  console.log(JSON.stringify(arp_info));
+  var arp_fs = new FamiliarSynths();
+  arp_info.midi = arp_fs.convertToMIDI(arp_info.noteTune);
 
-  //--
+  //DEBUG
+  //console.log(JSON.stringify(arp_info));
+
+  // ---
+  // bass
+  // ---
 
   var bass_info = {
     "n" : 4,
     "type":"",
-    "pattern": [[],[]],
+    "pattern": [],
     "inote": [],
     "midiNote":[],
     "noteTune":[],
@@ -316,57 +330,133 @@ function ok() {
 
   // for the bass, go down an active from the arpeggio
   //
-  base_midi = fs.note2midi("c1");
+  //base_midi = fs.note2midi("c1");
+  base_midi -= 12;
 
   var del_bass = Math.floor( Math.random()*2 ) + 1;
-  if (Math.random() < 0.5) { del_bass = -del_bass; }
+  var del_bass1 = Math.floor( Math.random()*2 ) + 1;
+  if (Math.random() < 0.5) {
+    del_bass  = -del_bass;
+    del_bass1 = -del_bass1;
+  }
 
-  bass_info.pattern[0].push(base_idx);
-  bass_info.pattern[0].push(base_idx + del_bass);
-  bass_info.pattern[0].push(base_idx + 2*del_bass);
+  var pat = [];
 
-  bass_info.pattern[1].push(base_idx);
-  bass_info.pattern[1].push(base_idx + del_bass);
-  bass_info.pattern[1].push(base_idx);
-  bass_info.pattern[1].push(base_idx - del_bass);
+  //error condition?
+  //base_idx = 7, del_bass = -2, del_bass1 = 1
+
+  pat = [];
+  pat.push(base_idx);
+  pat.push(base_idx);
+  pat.push(base_idx);
+  pat.push(base_idx);
+  pat.push(base_idx);
+  pat.push(base_idx);
+  pat.push(base_idx);
+  pat.push(base_idx);
+  pat.push(base_idx + del_bass);
+  pat.push(base_idx + del_bass);
+  pat.push(base_idx + del_bass);
+  pat.push(base_idx + del_bass);
+
+  /*
+  pat.push(base_idx - del_bass);
+  pat.push(base_idx - del_bass);
+  pat.push(base_idx - del_bass);
+  pat.push(base_idx - del_bass);
+  */
+
+  pat.push(base_idx - del_bass1);
+  pat.push(base_idx - del_bass1);
+  pat.push(base_idx - del_bass1);
+  pat.push(base_idx - del_bass1);
+
+  bass_info.pattern.push(pat);
+
+  pat = [];
+  pat.push(base_idx);
+  pat.push(base_idx + del_bass);
+  pat.push(base_idx + 2*del_bass);
+  bass_info.pattern.push(pat);
+
+  pat = [];
+  pat.push(base_idx);
+  pat.push(base_idx + del_bass);
+  pat.push(base_idx);
+  pat.push(base_idx - del_bass);
+  bass_info.pattern.push(pat);
 
   console.log(JSON.stringify(bass_info));
 
+  var note_sec = s_per_bar / npb;
+  var play_note_sec = s_per_bar / npb;
+
+  cur_t = 0;
+  var pat_idx = 0, note_idx=0;
   for (var ii=0; ii<nbar; ii++) {
 
-    for (var jj=0; jj<npb; jj++) {
-      if ((jj==0) && ((ii%2)==0)) {
-        //bass_info.midiNote.push( fs.midi2note( mkey[base_idx]
-      }
-    }
-  }
-
-  var p_idx = 0, p_pos=0;
-
-  for (var ii=0; ii<nbar; ii++) {
-
-    if (p_pos==0) {
-      if (ii==0) { p_idx = 0; }
-      else {
-        p_idx = Math.floor(Math.random()*bass_info.pattern.length);
-      }
-    }
-
-    // follow array...
-    //
     /*
-    for (jj=0; jj<npb; jj++) {
-      if (jj==0) {
-        var note = fs.note( fs.midi2note( bass_info.midiNote[ii]), cur_t, s_per_bar, 0.9 );
-        bass_info.noteTune.push( note );
-      }
+    for (var jj=0; jj<npb; jj++) {
+      var rel_idx = bass_info.pattern[pat_idx][note_idx];
+      var rel_note = base_mkey[(rel_idx+base_mkey.length)%base_mkey.length];
+      if (rel_idx<0) { rel_note -= 12; }
+      else if (rel_idx>=12) { rel_note += 12; }
 
-      cur_t += (s_per_bar/npb);
+      var note = fs.note( fs.midi2note( base_midi + rel_note), cur_t, play_note_sec, 0.9 );
+      bass_info.noteTune.push(note);
+
+      cur_t += note_sec;
+
+      note_idx = (note_idx+1) % bass_info.pattern[pat_idx].length;
     }
     */
+
+    note_sec = 2*s_per_bar / npb;
+    play_note_sec = note_sec;
+    play_note_sec = 0.75 * note_sec;
+    for (var jj=0; jj<npb; jj+=2) {
+      var rel_idx = bass_info.pattern[pat_idx][note_idx];
+      var rel_note = base_mkey[(rel_idx+base_mkey.length)%base_mkey.length];
+
+      if (rel_idx<0) { rel_note -= 12; }
+      else if (rel_idx>=base_mkey.length) { rel_note += 12; }
+
+      var note = fs.note( fs.midi2note( base_midi + rel_note), cur_t, play_note_sec, 0.9 );
+      bass_info.noteTune.push(note);
+
+      cur_t += note_sec;
+
+      note_idx = (note_idx+1) % bass_info.pattern[pat_idx].length;
+    }
+
+    /*
+    note_sec = 4*s_per_bar / npb;
+    play_note_sec = note_sec;
+    for (var jj=0; jj<npb; jj+=4) {
+      var rel_idx = bass_info.pattern[pat_idx][note_idx];
+      var rel_note = base_mkey[(rel_idx+base_mkey.length)%base_mkey.length];
+      if (rel_idx<0) { rel_note -= 12; }
+      else if (rel_idx>=12) { rel_note += 12; }
+
+      var note = fs.note( fs.midi2note( base_midi + rel_note), cur_t, play_note_sec, 0.9 );
+      bass_info.noteTune.push(note);
+
+      cur_t += note_sec;
+
+      note_idx = (note_idx+1) % bass_info.pattern[pat_idx].length;
+    }
+    */
+
+    //note_idx = (note_idx+1) % bass_info.pattern[pat_idx].length;
   }
 
-  //for (var bar_idx
+  var fs_bass = new FamiliarSynths();
+  bass_info.midi = fs_bass.convertToMIDI(bass_info.noteTune);
+
+
+  // ----
+  // drums
+  // ----
 
   var drum_info = {
     "kick" : [],
@@ -376,23 +466,40 @@ function ok() {
     "clap":[]
   };
 
-  var cur_t
+  cur_t=0;
   for (var ii=0; ii<nbar; ii++) {
     for (jj=0; jj<npb; jj++) {
       if (jj==0) {
-        drum_info.kick.push( fs.midi2note("c0"), cur_t, 1/6, 0.9 );
+        drum_info.kick.push( fs.note("c0", cur_t, 1/6, 0.9) );
+        //drum_info.kick.push( fs.note("c0", cur_t + 1/12, 1/6, 0.9) );
+      }
+      //if (jj==1) { drum_info.kick.push( fs.note("c0", cur_t, 1/6, 0.9) ); }
+
+      //if (jj==3) { drum_info.closedhat.push( fs.note("c0", cur_t, 1/6, 0.9) ); }
+
+      if (jj==1) { drum_info.snare.push( fs.note("c0", cur_t, 1/6, 0.9) ); }
+      if (jj==2) { drum_info.kick.push( fs.note("c0", cur_t, 1/6, 0.9) ); }
+
+      if ((ii%2)==0) {
+        if ((ii%4)==0) {
+          if (jj==3) { drum_info.hihat.push( fs.note("c0", cur_t, 1/6, 0.9) ); }
+        } else {
+          if (jj==3) { drum_info.closedhat.push( fs.note("c0", cur_t, 1/6, 0.9) ); }
+        }
       }
 
-      if (jj==3) {
-        drum_info.closedhat.push( fs.midi2note("c0"), cur_t, 1/6, 0.9 );
+      if (ii > (nbar-5) ) {
+        drum_info.clap.push( fs.note("c0", cur_t, 1/6, 0.9) );
       }
+
 
       cur_t += (s_per_bar/npb);
     }
   }
 
 
-  return { "arp":arp_info, "drum":drum_info };
+  return { "bass": bass_info, "arp":arp_info, "drum":drum_info };
+  //return { "arp":arp_info, "drum":drum_info };
 }
 
 function xx() {
@@ -449,7 +556,7 @@ function xx() {
 
   console.log(JSON.stringify(bass_bar));
 
-  console.log(">>>", root_bass_note, root_bass_midi);
+  //console.log(">>>", root_bass_note, root_bass_midi);
   console.log(mScale);
 }
 
@@ -1316,7 +1423,7 @@ function experiment1() {
 
   n_phrase = nnotes / (arp.length * m.timeSignature[0]);
 
-  console.log(">>arp, n_phrase", n_phrase, "dt", dt);
+  //console.log(">>arp, n_phrase", n_phrase, "dt", dt);
 
   notedur=1/16;
   t = 0;
@@ -1443,7 +1550,7 @@ function experiment0() {
   var n_phrase = nbar / phrase_bar_len;
   var t = 0;
 
-  console.log(">>bass n_phrase", n_phrase);
+  //console.log(">>bass n_phrase", n_phrase);
 
   for (var p=0; p<n_phrase; p++) {
 
@@ -1497,7 +1604,7 @@ function experiment0() {
 
   n_phrase = nnotes / (arp.length * m.timeSignature[0]);
 
-  console.log(">>arp, n_phrase", n_phrase, "dt", dt);
+  //console.log(">>arp, n_phrase", n_phrase, "dt", dt);
 
   notedur=1/16;
   t = 0;
