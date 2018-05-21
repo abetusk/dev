@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Familiar Synths</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/jquery-ui.css">
+
+    <!-- Custom styles for this template -->
+    <link href="css/logo-nav.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          Familiar Synths
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarResponsive"
+          aria-controls="navbarResponsive"
+          aria-expanded="false"
+          aria-label="Toggle navigation">
+
+          <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+
+          <ul class="navbar-nav ml-auto">
+
+            <!--
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="#">Services</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+            -->
+
+          </ul>
+
+        </div>
+
+      </div>
+
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <h1 class="mt-5">Tune</h1>
+      <hr>
+
+      <div class='row text-center'>
+        <div class='col-sm-2'> </div>
+        <div class='col-sm-2'>arp (s0b)</div>
+        <div class='col-sm-2'> </div>
+        <div class='col-sm-2'>bass (s1b)</div>
+        <div class='col-sm-2'> </div>
+        <div class='col-sm-2'>lead (s2)</div>
+      </div>
+
+      <div class='row text-center'>
+
+        <div class='col-sm-2'> gain </div>
+
+        <div class='col-sm-2'>
+          <div id='i0s0'></div>
+        </div>
+
+        <div class='col-sm-2'> </div>
+
+        <div class='col-sm-2'>
+          <div id='i1s0'></div>
+        </div>
+
+        <div class='col-sm-2'> </div>
+
+        <div class='col-sm-2'>
+          <div id='i2s0'></div>
+        </div>
+
+      </div>
+
+      <div class='row text-center'>
+        <div class='col-sm-2'> lowpass frequency </div>
+        <div class='col-sm-2'> <div id='i0s1'></div> </div>
+        <div class='col-sm-2'> </div>
+        <div class='col-sm-2'> <div id='i1s1'></div> </div>
+        <div class='col-sm-2'> </div>
+        <div class='col-sm-2'> <div id='i2s1'></div> </div>
+      </div>
+
+      <div class='row text-center'>
+        <div class='col-sm-2'> amp-attack </div>
+        <div class='col-sm-2'> <div id='i0s2'></div> </div>
+        <div class='col-sm-2'> </div>
+        <div class='col-sm-2'> <div id='i1s2'></div> </div>
+        <div class='col-sm-2'> </div>
+        <div class='col-sm-2'> <div id='i2s2'></div> </div>
+      </div>
+
+      <div class='row text-center'>
+        <div class='col-sm-2'> amp-decay </div>
+        <div class='col-sm-2'> <div id='i0s3'></div> </div>
+        <div class='col-sm-2'> </div>
+        <div class='col-sm-2'> <div id='i1s3'></div> </div>
+        <div class='col-sm-2'> </div>
+        <div class='col-sm-2'> <div id='i2s3'></div> </div>
+      </div>
+
+      <div class='row text-center'>
+        <div class='col-sm-2'> amp-sustain </div>
+        <div class='col-sm-2'> <div id='i0s4'></div> </div>
+        <div class='col-sm-2'> </div>
+        <div class='col-sm-2'> <div id='i1s4'></div> </div>
+        <div class='col-sm-2'> </div>
+        <div class='col-sm-2'> <div id='i2s4'></div> </div>
+      </div>
+
+      <div class='row text-center'>
+        <div class='col-sm-2'> amp-release </div>
+        <div class='col-sm-2'> <div id='i0s5'></div> </div>
+        <div class='col-sm-2'> </div>
+        <div class='col-sm-2'> <div id='i1s5'></div> </div>
+        <div class='col-sm-2'> </div>
+        <div class='col-sm-2'> <div id='i2s5'></div> </div>
+      </div>
+
+      <div class='row text-center'>
+        <div class='col-sm-2'> freq-attack </div>
+        <div class='col-sm-2'> <div id='i0s6'></div> </div>
+        <div class='col-sm-2'> </div>
+        <div class='col-sm-2'> <div id='i1s6'></div> </div>
+        <div class='col-sm-2'> </div>
+        <div class='col-sm-2'> <div id='i2s6'></div> </div>
+      </div>
+
+      <div class='row text-center'>
+        <div class='col-sm-2'> freq-decay </div>
+        <div class='col-sm-2'> <div id='i0s7'></div> </div>
+        <div class='col-sm-2'> </div>
+        <div class='col-sm-2'> <div id='i1s7'></div> </div>
+        <div class='col-sm-2'> </div>
+        <div class='col-sm-2'> <div id='i2s7'></div> </div>
+      </div>
+
+      <div class='row text-center'>
+        <div class='col-sm-2'> freq-sustain </div>
+        <div class='col-sm-2'> <div id='i0s8'></div> </div>
+        <div class='col-sm-2'> </div>
+        <div class='col-sm-2'> <div id='i1s8'></div> </div>
+        <div class='col-sm-2'> </div>
+        <div class='col-sm-2'> <div id='i2s8'></div> </div>
+      </div>
+
+      <div class='row text-center'>
+        <div class='col-sm-2'> freq-release </div>
+        <div class='col-sm-2'> <div id='i0s9'></div> </div>
+        <div class='col-sm-2'> </div>
+        <div class='col-sm-2'> <div id='i1s9'></div> </div>
+        <div class='col-sm-2'> </div>
+        <div class='col-sm-2'> <div id='i2s9'></div> </div>
+      </div>
+
+      <hr>
+
+      <div class='row text-center'>
+        <div class='col-sm-2'> </div>
+        <div class='col-sm-2'>kick</div>
+        <div class='col-sm-2'>hihat</div>
+        <div class='col-sm-2'>closedhat</div>
+        <div class='col-sm-2'>snare</div>
+        <div class='col-sm-2'>clap</div>
+      </div>
+
+      <div class='row text-center'>
+
+        <div class='col-sm-2'> gain </div>
+
+        <div class='col-sm-2'> <div id='i3s0'></div> </div>
+        <div class='col-sm-2'> <div id='i4s0'></div> </div>
+        <div class='col-sm-2'> <div id='i5s0'></div> </div>
+        <div class='col-sm-2'> <div id='i6s0'></div> </div>
+        <div class='col-sm-2'> <div id='i7s0'></div> </div>
+
+      </div>
+
+    </div>
+
+    <!-- /.container -->
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <script type='text/javascript' src='Tone.js'></script>
+    <script type='text/javascript' src='synth-notes.js'></script>
+    <script type='text/javascript' src='familiar-synths.js'></script>
+
+    <script>
+
+      $("#i0s0").slider({ "value": 0.5, "min":0, "max":1.0, "step":1/32,
+        "create":function(ev,ui) {
+          $("#i0s0").slider("value", uiSliderGet("arp", "gain"));
+        },
+        "slide": function(ev, ui) {
+          uiSlider_cb("arp", "gain", ui.value);
+        }
+      });
+
+      $("#i1s0").slider({ "value": 0.5, "min":0, "max":1.0, "step":1/32,
+        "create":function(ev,ui) {
+          $("#i1s0").slider("value", uiSliderGet("bass", "gain"));
+        },
+        "slide": function(ev, ui) {
+          uiSlider_cb("bass", "gain", ui.value);
+        }
+      });
+
+      $("#i2s0").slider({ "value": 0.5, "min":0, "max":1.0, "step":1/32,
+        "create":function(ev,ui) { $("#i2s0").slider("value", uiSliderGet("lead", "gain")); },
+        "slide": function(ev, ui) {
+          uiSlider_cb("lead", "gain", ui.value);
+        }
+      });
+
+      // ---
+      // drums
+
+      $("#i3s0").slider({ "value": 0.5, "min":0, "max":1.0, "step":1/32,
+        "create":function(ev,ui) { $("#i3s0").slider("value", uiSliderGet("kick", "gain")); },
+        "slide": function(ev, ui) {
+          uiSlider_cb("kick", "gain", ui.value);
+        }
+      });
+
+      $("#i4s0").slider({ "value": 0.5, "min":0, "max":1.0, "step":1/32,
+        "create":function(ev,ui) { $("#i4s0").slider("value", uiSliderGet("hihat", "gain")); },
+        "slide": function(ev, ui) {
+          uiSlider_cb("hihat", "gain", ui.value);
+        }
+      });
+
+      $("#i5s0").slider({ "value": 0.5, "min":0, "max":1.0, "step":1/32,
+        "create":function(ev,ui) { $("#i5s0").slider("value", uiSliderGet("closedhat", "gain")); },
+        "slide": function(ev, ui) {
+          uiSlider_cb("closedhat", "gain", ui.value);
+        }
+      });
+
+      $("#i6s0").slider({ "value": 0.5, "min":0, "max":1.0, "step":1/32,
+        "create":function(ev,ui) { $("#i6s0").slider("value", uiSliderGet("snare", "gain")); },
+        "slide": function(ev, ui) {
+          uiSlider_cb("snare", "gain", ui.value);
+        }
+      });
+
+      $("#i7s0").slider({ "value": 0.5, "min":0, "max":1.0, "step":1/32,
+        "create":function(ev,ui) { $("#i7s0").slider("value", uiSliderGet("clap", "gain")); },
+        "slide": function(ev, ui) {
+          uiSlider_cb("clap", "gain", ui.value);
+        }
+      });
+
+      //----
+
+      $("#i0s1").slider({ "value": 10000, "min":300, "max":20000, "step":1/32,
+        "create":function(ev,ui) { $("#i0s1").slider("value", uiSliderGet("arp", "filter")); },
+        "slide": function(ev, ui) {
+          uiSlider_cb("arp", "filter", ui.value);
+        }
+      });
+
+      $("#i1s1").slider({ "value": 10000, "min":300, "max":20000, "step":1/32,
+        "create":function(ev,ui) { $("#i1s1").slider("value", uiSliderGet("bass", "filter")); },
+        "slide": function(ev, ui) {
+          uiSlider_cb("bass", "filter", ui.value);
+        }
+      });
+
+      $("#i2s1").slider({ "value": 10000, "min":300, "max":20000, "step":1/32,
+        "create":function(ev,ui) { $("#i2s1").slider("value", uiSliderGet("lead", "filter")); },
+        "slide": function(ev, ui) {
+          uiSlider_cb("lead", "filter", ui.value);
+        }
+      });
+
+      //----
+
+/*
+      $("#i0s2").slider({ "value": 0.5, "min":0, "max":5, "step":1/32,
+        "create":function(ev,ui) { $("#i0s2").slider("value", uiSliderGet("arp", "amplitude-attack")); },
+        "slide": function(ev, ui) {
+          uiSlider_cb("arp", "amplitude-attack", ui.value);
+        }
+      });
+
+      $("#i1s2").slider({ "value": 0.5, "min":0, "max":5, "step":1/32,
+        "create":function(ev,ui) { $("#i1s2").slider("value", uiSliderGet("bass", "amplitude-attack")); },
+        "slide": function(ev, ui) {
+          uiSlider_cb("bass", "amplitude-attack", ui.value);
+        }
+      });
+
+      $("#i2s2").slider({ "value": 0.5, "min":0, "max":5, "step":1/32,
+        "create":function(ev,ui) { $("#i2s2").slider("value", uiSliderGet("lead", "amplitude-attack")); },
+        "slide": function(ev, ui) {
+          uiSlider_cb("lead", "amplitude-attack", ui.value);
+        }
+      });
+
+
+      //----
+
+      $("#i0s3").slider({ "value": 0.5, "min":0, "max":5, "step":1/32,
+        "create":function(ev,ui) { $("#i0s3").slider("value", uiSliderGet("arp", "amplitude-decay")); },
+        "slide": function(ev, ui) {
+          uiSlider_cb("arp", "amplitude-decay", ui.value);
+        }
+      });
+
+      $("#i1s3").slider({ "value": 0.5, "min":0, "max":5, "step":1/32,
+        "create":function(ev,ui) { $("#i1s3").slider("value", uiSliderGet("bass", "amplitude-decay")); },
+        "slide": function(ev, ui) {
+          uiSlider_cb("bass", "amplitude-decay", ui.value);
+        }
+      });
+
+      $("#i2s3").slider({ "value": 0.5, "min":0, "max":5, "step":1/32,
+        "create":function(ev,ui) { $("#i2s3").slider("value", uiSliderGet("lead", "amplitude-decay")); },
+        "slide": function(ev, ui) {
+          uiSlider_cb("lead", "amplitude-decay", ui.value);
+        }
+      });
+      */
+
+var start_s = 2;
+var cur_s = start_s;
+var stype = ["attack", "decay", "sustain", "release"];
+var inst_name = ["arp", "bass", "lead"];
+
+for (var ii=0; ii<stype.length; ii++) {
+  for (var inst=0; inst<3; inst++) {
+    var id = "#i" + inst + "s" + cur_s;
+    var max_val = 5.0;
+    if (stype[ii] == "sustain") { max_val = 1.0; }
+
+    $(id).slider({"value":0.5, "min":0, "max":max_val, "step":1/32,
+      "create":function(ev,ui) { $(id).slider("value", uiSliderGet(inst_name[inst], "amplitude-" + stype[ii])); },
+      "slide": (function(_x,_y) {
+        return function(ev, ui) { uiSlider_cb(_x, "amplitude-" + _y, ui.value); };
+      })(inst_name[inst], stype[ii])
+    });
+  }
+  cur_s +=1;
+}
+    
+
+    </script>
+
+  </body>
+
+</html>

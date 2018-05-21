@@ -220,7 +220,7 @@ FamiliarSynths.prototype.replicate = function(notes, del) {
 function ok() {
   var fs = new FamiliarSynths();
   var permute_arp = false;
-  permute_arp = true;
+  //permute_arp = true;
 
   var tempo = 90;
   var s_per_bar = 60/tempo;
@@ -253,6 +253,7 @@ function ok() {
   // permute randomely
   //
   if (permute_arp) {
+    console.log("???");
     var n = arp_info.idx.length;
     for (var ii=0; ii<arp_info.idx.length; ii++) {
       var p = ii + Math.floor(Math.random()*(n-ii));
@@ -283,18 +284,51 @@ function ok() {
 
   console.log("arp base_midi", base_midi, "base_idx", base_idx);
 
+  var arp_bar_mask = [];
+  for (var ii=0; ii<nbar; ii++) { arp_bar_mask.push('.'); }
+  for (var ii=0; ii<nbar; ii+=del_b) {
+
+    //if (ii < (nbar/6)) {
+    if (ii < 16) {
+      arp_bar_mask[ii]='.';
+      arp_bar_mask[ii+1]='.';
+      continue;
+    }
+    //else if (ii > (nbar - (nbar/12))) {
+    else if (ii > (nbar - 8)) {
+      arp_bar_mask[ii]='.';
+      arp_bar_mask[ii+1]='.';
+      continue;
+    }
+
+
+    for (var jj=0; jj<del_b; jj++) {
+      arp_bar_mask[ii+jj]='i';
+
+    }
+  }
+
+  console.log(arp_bar_mask);
+
+
   // Set up the midi note (without velocity or timing)
   //
   for (var ii=0; ii<nbar; ii+=del_b) {
 
-    for (var jj=0; jj<npb; jj++) {
-      arp_info.midiNote.push( mkey[arp_info.idx[(jj+base_idx)%m]] + base_midi );
-      if ((jj+base_idx) > m) { arp_info.midiNote[ arp_info.midiNote.length-1 ] += 12; }
-    }
+    for (var d=0; d<del_b; d++) {
 
-    for (var jj=npb; jj<2*npb; jj++) {
-      arp_info.midiNote.push( mkey[arp_info.idx[(jj+base_idx)%m]] + base_midi );
-      if ((jj-npb+base_idx) > m) { arp_info.midiNote[ arp_info.midiNote.length-1 ] += 12; }
+      if ((ii+d) >= nbar) { continue; }
+
+      for (var jj=0; jj<npb; jj++) {
+
+        if (arp_bar_mask[ii+d] == '.') { arp_info.midiNote.push(null); continue; }
+        else if (arp_bar_mask[ii+d] == 'i') {
+          arp_info.midiNote.push( mkey[arp_info.idx[(jj+base_idx)%m]] + base_midi );
+          if ((jj+base_idx) > m) { arp_info.midiNote[ arp_info.midiNote.length-1 ] += 12; }
+        }
+
+      }
+
     }
 
   }
@@ -303,8 +337,10 @@ function ok() {
   //
   var cur_t = 0;
   for (var ii=0; ii<arp_info.midiNote.length; ii++) {
-    var note = fs.note( fs.midi2note(arp_info.midiNote[ii]), cur_t, 1/6, 0.9 );
-    arp_info.noteTune.push( note );
+    if (arp_info.midiNote[ii] != null) {
+      var note = fs.note( fs.midi2note(arp_info.midiNote[ii]), cur_t, 1/6, 0.9 );
+      arp_info.noteTune.push( note );
+    }
     cur_t += 1/6;
   }
 
@@ -341,10 +377,7 @@ function ok() {
   }
 
   var pat = [];
-
-  //error condition?
-  //base_idx = 7, del_bass = -2, del_bass1 = 1
-
+  
   pat = [];
   pat.push(base_idx);
   pat.push(base_idx);
@@ -359,18 +392,29 @@ function ok() {
   pat.push(base_idx + del_bass);
   pat.push(base_idx + del_bass);
 
-  /*
-  pat.push(base_idx - del_bass);
-  pat.push(base_idx - del_bass);
-  pat.push(base_idx - del_bass);
-  pat.push(base_idx - del_bass);
-  */
-
   pat.push(base_idx - del_bass1);
   pat.push(base_idx - del_bass1);
   pat.push(base_idx - del_bass1);
   pat.push(base_idx - del_bass1);
 
+  bass_info.pattern.push(pat);
+
+  pat = [];
+  pat.push(base_idx);
+  pat.push(base_idx);
+  pat.push(base_idx);
+  pat.push(base_idx);
+  pat.push(base_idx + del_bass);
+  pat.push(base_idx + del_bass);
+  pat.push(base_idx - del_bass1);
+  pat.push(base_idx - del_bass1);
+  bass_info.pattern.push(pat);
+
+  pat = [];
+  pat.push(base_idx);
+  pat.push(base_idx);
+  pat.push(base_idx + del_bass);
+  pat.push(base_idx - del_bass);
   bass_info.pattern.push(pat);
 
   pat = [];
@@ -391,16 +435,22 @@ function ok() {
   var note_sec = s_per_bar / npb;
   var play_note_sec = s_per_bar / npb;
 
+  var pat_ele_per_bar = 2;
+
   cur_t = 0;
   var pat_idx = 0, note_idx=0;
   for (var ii=0; ii<nbar; ii++) {
 
+    // trying to generalize...
     /*
-    for (var jj=0; jj<npb; jj++) {
+    note_sec = pat_ele_per_bar * s_per_bar / npb;
+    play_note_sec = 0.75*note_sec;
+    for (var jj=0; j<npb; jj+=pat_ele_per_bar) {
       var rel_idx = bass_info.pattern[pat_idx][note_idx];
       var rel_note = base_mkey[(rel_idx+base_mkey.length)%base_mkey.length];
+
       if (rel_idx<0) { rel_note -= 12; }
-      else if (rel_idx>=12) { rel_note += 12; }
+      else if (rel_idx>=base_mkey.length) { rel_note += 12; }
 
       var note = fs.note( fs.midi2note( base_midi + rel_note), cur_t, play_note_sec, 0.9 );
       bass_info.noteTune.push(note);
@@ -411,10 +461,40 @@ function ok() {
     }
     */
 
-    note_sec = 2*s_per_bar / npb;
+    // old...
+    //
+    /*
+    var pat_ele_len = 4;
+    note_sec = pat_ele_len*s_per_bar / npb;
     play_note_sec = note_sec;
-    play_note_sec = 0.75 * note_sec;
-    for (var jj=0; jj<npb; jj+=2) {
+    play_note_sec = 0.95 * note_sec;
+    pat_idx=1;
+    for (var jj=0; jj<npb; jj+=pat_ele_len) {
+      var rel_idx = bass_info.pattern[pat_idx][note_idx];
+      var rel_note = base_mkey[(rel_idx+base_mkey.length)%base_mkey.length];
+      if (rel_idx<0) { rel_note -= 12; }
+      else if (rel_idx>=base_mkey.length) { rel_note += 12; }
+
+      var note = fs.note( fs.midi2note( base_midi + rel_note), cur_t, play_note_sec, 0.9 );
+      bass_info.noteTune.push(note);
+
+      cur_t += note_sec;
+
+      note_idx = (note_idx+1) % bass_info.pattern[pat_idx].length;
+    }
+    */
+
+    // experimental
+    //
+    pat_idx=2;
+    note_sec = 8*s_per_bar / npb;
+    play_note_sec = 0.5 * note_sec;
+
+    if (ii%2) { continue; }
+
+    console.log(note_sec, play_note_sec, s_per_bar, npb);
+
+    for (var jj=0; jj<1; jj+=4) {
       var rel_idx = bass_info.pattern[pat_idx][note_idx];
       var rel_note = base_mkey[(rel_idx+base_mkey.length)%base_mkey.length];
 
@@ -429,6 +509,29 @@ function ok() {
       note_idx = (note_idx+1) % bass_info.pattern[pat_idx].length;
     }
 
+    // current
+    /*
+    note_sec = 2*s_per_bar / npb;
+    play_note_sec = note_sec;
+    play_note_sec = 0.95 * note_sec;
+    for (var jj=0; jj<npb; jj+=2) {
+      var rel_idx = bass_info.pattern[pat_idx][note_idx];
+      var rel_note = base_mkey[(rel_idx+base_mkey.length)%base_mkey.length];
+
+      if (rel_idx<0) { rel_note -= 12; }
+      else if (rel_idx>=base_mkey.length) { rel_note += 12; }
+
+      var note = fs.note( fs.midi2note( base_midi + rel_note), cur_t, play_note_sec, 0.9 );
+      bass_info.noteTune.push(note);
+
+      cur_t += note_sec;
+
+      note_idx = (note_idx+1) % bass_info.pattern[pat_idx].length;
+    }
+    */
+
+    // old...
+    //
     /*
     note_sec = 4*s_per_bar / npb;
     play_note_sec = note_sec;
@@ -436,7 +539,7 @@ function ok() {
       var rel_idx = bass_info.pattern[pat_idx][note_idx];
       var rel_note = base_mkey[(rel_idx+base_mkey.length)%base_mkey.length];
       if (rel_idx<0) { rel_note -= 12; }
-      else if (rel_idx>=12) { rel_note += 12; }
+      else if (rel_idx>=base_mkey.length) { rel_note += 12; }
 
       var note = fs.note( fs.midi2note( base_midi + rel_note), cur_t, play_note_sec, 0.9 );
       bass_info.noteTune.push(note);
@@ -463,41 +566,126 @@ function ok() {
     "snare": [],
     "hihat":[],
     "closedhat":[],
-    "clap":[]
-  };
+    "clap":[],
 
-  cur_t=0;
-  for (var ii=0; ii<nbar; ii++) {
-    for (jj=0; jj<npb; jj++) {
-      if (jj==0) {
-        drum_info.kick.push( fs.note("c0", cur_t, 1/6, 0.9) );
-        //drum_info.kick.push( fs.note("c0", cur_t + 1/12, 1/6, 0.9) );
-      }
-      //if (jj==1) { drum_info.kick.push( fs.note("c0", cur_t, 1/6, 0.9) ); }
+    "flourish": {
+      "act" : [
+        { "intro" : [8,14], "lead": [14,16], "body":[16,nbar-4], "outro":[nbar-4,nbar] },
+        { },
+        { },
+      ]
+    },
 
-      //if (jj==3) { drum_info.closedhat.push( fs.note("c0", cur_t, 1/6, 0.9) ); }
-
-      if (jj==1) { drum_info.snare.push( fs.note("c0", cur_t, 1/6, 0.9) ); }
-      if (jj==2) { drum_info.kick.push( fs.note("c0", cur_t, 1/6, 0.9) ); }
-
-      if ((ii%2)==0) {
-        if ((ii%4)==0) {
-          if (jj==3) { drum_info.hihat.push( fs.note("c0", cur_t, 1/6, 0.9) ); }
-        } else {
-          if (jj==3) { drum_info.closedhat.push( fs.note("c0", cur_t, 1/6, 0.9) ); }
+    "actSection" : function(act_idx, bar_idx) {
+      for (var key in this.flourish.act[act_idx]) {
+        if ((bar_idx >= this.flourish.act[act_idx][key][0]) &&
+            (bar_idx < this.flourish.act[act_idx][key][1])) {
+          return key;
         }
       }
+      return "default";
+    }
+  };
 
-      if (ii > (nbar-5) ) {
-        drum_info.clap.push( fs.note("c0", cur_t, 1/6, 0.9) );
+
+  var drum_bar_mask = [];
+  for (var ii=0; ii<nbar; ii++) { drum_bar_mask.push('....'); }
+  for (var ii=0; ii<nbar; ii++) {
+
+    var section = drum_info.actSection(0, ii);
+
+    if (section=="default") { continue; }
+
+    if (section=="intro") {
+
+      if ((ii%4)==0)      { drum_bar_mask[ii] = 'b.b.'; }
+      else if ((ii%4)==1) { drum_bar_mask[ii] = "c..."; }
+      else if ((ii%4)==2) { drum_bar_mask[ii] = "b..."; }
+      else if ((ii%4)==3) { drum_bar_mask[ii] = "c..."; }
+
+      continue;
+    }
+
+    if (section=="lead") {
+
+      if ((ii%2)==0) { drum_bar_mask[ii] = 'bbbb'; }
+      else           { drum_bar_mask[ii] = 'c.c.'; }
+
+      continue;
+    }
+
+    if (section=="body") {
+
+      if ((ii%4)==0)      { drum_bar_mask[ii] = 'b.b.'; }
+      else if ((ii%4)==1) { drum_bar_mask[ii] = "s.b."; }
+      else if ((ii%4)==2) { drum_bar_mask[ii] = "b.b."; }
+      else if ((ii%4)==3) { drum_bar_mask[ii] = "s.b."; }
+
+      continue;
+    }
+
+    if (section == "outro") {
+      drum_bar_mask[ii] = 'c.c.';
+      continue;
+    }
+
+  }
+
+  cur_t=0;
+  var kick_fudge = 0,
+      snare_fudge = 0,
+      hihat_fudge = 0,
+      closedhat_fudge = 0,
+      clap_fudge = 0;
+
+  for (var ii=0; ii<nbar; ii++) {
+
+    if (ii>0) {
+      kick_fudge = -0.08;
+      snare_fudge = -0.08;
+      clap_fudge = -0.08;
+      closedhat_fudge = -0.08;
+      hihat_fudge = -0.08;
+    }
+
+    var drum_parts = drum_bar_mask[ii].split('|');
+    if (drum_parts.length==1) {
+      drum_parts = drum_bar_mask[ii].split('');
+    }
+
+    var drum_t = cur_t;
+
+    //for (jj=0; jj<npb; jj++) {
+    for (var jj=0; jj<drum_parts.length; jj++) {
+
+      if (jj >= drum_parts.length) {
+      }
+      if (drum_parts[jj].includes('.')) {
+      }
+      if (drum_parts[jj].includes('b')) {
+        drum_info.kick.push( fs.note("c0", drum_t+kick_fudge, 1/6, 0.9) );
+      }
+      if (drum_parts[jj].includes('H')) {
+        drum_info.hihat.push( fs.note("c0", drum_t+hihat_fudge, 1/6, 0.9) );
+      }
+      if (drum_parts[jj].includes('h')) {
+        drum_info.closedhat.push( fs.note("c0", drum_t+closedhat_fudge, 1/6, 0.9) );
+      }
+      if (drum_parts[jj].includes('s')) {
+        drum_info.snare.push( fs.note("c0", drum_t+snare_fudge, 1/6, 0.9) );
+      }
+      if (drum_parts[jj].includes('c')) {
+        drum_info.clap.push( fs.note("c0", drum_t+clap_fudge, 1/6, 0.9) );
       }
 
-
-      cur_t += (s_per_bar/npb);
+      drum_t += (s_per_bar/drum_parts.length);
     }
+
+    cur_t += s_per_bar;
   }
 
 
+  //return { "bass": bass_info, "drum":drum_info };
   return { "bass": bass_info, "arp":arp_info, "drum":drum_info };
   //return { "arp":arp_info, "drum":drum_info };
 }

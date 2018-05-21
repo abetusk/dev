@@ -1,3 +1,169 @@
+
+function forgotten_tears_synth() {
+  var poly_synth = new Tone.PolySynth(2, Tone.MonoSynth);
+
+  poly_synth.set({
+    "envelope"  : { "attack"  : 0.5, "decay"  : 0.05 , "sustain"  : 1.0 , "release"  : 0.45 },
+    "oscillator": { "type":"sawtooth" },
+    "filter" : { "Q"  : 1 , "type" : "lowpass" , "frequency": 3000, "rolloff"  : -24 },
+    "filterEnvelope" : {
+      "attack" : 0.005 , "decay" : 0.86 , "sustain" : 0.0 , "release" : 0.56 ,
+      "baseFrequency" : 200 , "octaves" : 8, "exponent" : 30
+    }
+
+  });
+
+  poly_synth.voices[0].frequency.value = "C3";
+
+  poly_synth.voices[1].detune.value = 5;
+  poly_synth.voices[1].frequency.value = "C3";
+
+  var lfo = [];
+
+  // I guess it adds to the frequency?
+  //
+  lfo.push(new Tone.LFO(1, -2, 2));
+  lfo.push(new Tone.LFO(1.25, -1,1));
+
+  lfo[0].connect(poly_synth.voices[0].oscillator.frequency);
+  lfo[1].connect(poly_synth.voices[1].oscillator.frequency);
+
+  lfo[0].start();
+  lfo[1].start();
+
+  var delay = new Tone.FeedbackDelay(0.4);
+
+  var reverb = new Tone.JCReverb(0.4);
+  reverb.wet.value = 0.25;
+
+  var gain = new Tone.Gain();
+  gain.gain.value = 0.50;
+
+  var compressor = new Tone.Compressor();
+
+  var fin_gain = new Tone.Gain();
+  fin_gain.gain.value = 0.25;
+
+  poly_synth.chain(delay, reverb, gain, compressor, fin_gain);
+  fin_gain.toMaster();
+
+  return {
+    "compressor":compressor,
+    "reverb":reverb,
+    "pre_gain":gain,
+    "gain":fin_gain,
+    "synth": poly_synth,
+    "lfo" : lfo,
+    "triggerAttackRelease": (function(a) { return function(n,l,t,v) {
+      a.triggerAttackRelease(n,l,t,v);
+    } })(poly_synth)
+  };
+}
+
+function play_forgotten_tears() {
+  octave = 4;
+
+  var note     = [ "e4", "f#4", "c#4",  "b3",    "",
+                   "e4", "f#4",  "a4", "g#4", "f#4", "g#4", "",
+                   "b4", "c#5", "a#4", "f#4",  "a4",  "e5" ];
+  var note_dur = [    1,    1,      2,     3,     2,
+                      2,    1,      2,   0.5,   0.5,     2,  2,
+                      2,    1,      2,     1,     2,     3  ];
+
+  var tune=[];
+  for (var ii=0; ii<note.length; ii++) {
+    tune.push([note[ii], note_dur[ii]]);
+  }
+  
+  var synth_bank = [],
+      synth_bank_max = 2;
+  for (var ii=0; ii<synth_bank_max; ii++) {
+    synth_bank.push(forgotten_tears_synth());
+  }
+
+  var sched_id = [];
+
+  var cur_dt = 0;
+  var bank_idx=0;
+  for (var ii=0; ii<tune.length; ii++) {
+    if (tune[ii][0] == "") { cur_dt += tune[ii][1]; continue; }
+
+    var sid =
+      Tone.Transport.scheduleOnce( (function(syn, note, note_dt) {
+        return function(t) { syn.triggerAttackRelease([note, note], note_dt, t); };
+      })(synth_bank[bank_idx], tune[ii][0], tune[ii][1]), cur_dt);
+
+    sched_id.push(sid);
+
+    cur_dt += tune[ii][1];
+    bank_idx  = (bank_idx+1)%synth_bank.length;
+  }
+
+
+  Tone.Transport.start();
+
+  return sched_id;
+}
+
+
+//----------
+//----------
+//----------
+
+function bell_synth() {
+  var synth = new Tone.MonoSynth();
+
+  synth.set({
+    "frequency" : "C4",
+    "detune" : 0 ,
+    "oscillator" : {
+      "type" : "sine"
+    },
+    "filter" : {
+      "Q" : 1,
+      "frequency" : 500,
+      "type" : "lowpass",
+      "rolloff" : -24
+    },
+    "envelope" : {
+      "attack" : 0.05,
+      "decay" : 0.0,
+      "sustain" : 1.0,
+			//"releaseCurve": "exponential"
+      "release" : 2
+    }  ,
+    "filterEnvelope" : {
+      "attack" : 0.05,
+      "decay" : 0.0,
+      "sustain" : 1.0,
+      "release" : 2,
+      "baseFrequency" : 200,
+      "octaves" : 7,
+      "exponent" : 2
+    }
+  });
+
+	var gain = new Tone.Gain();
+  gain.gain.value = 0.125;
+
+  synth.chain(gain);
+  gain.toMaster();
+
+  return {
+    "gain":gain,
+    "synth":synth,
+    "triggerAttackRelease": (function(a) { return function(n,l,t,v) {
+      a.triggerAttackRelease(n,l,t,v);
+    } })(synth)
+  };
+
+}
+
+
+//----------
+//----------
+//----------
+
 function stranger_synth_0() {
 
   var poly_synth = new Tone.PolySynth(2, Tone.MonoSynth);
@@ -14,7 +180,6 @@ function stranger_synth_0() {
   });
 
   poly_synth.voices[0].oscillator.modulationFrequency.value = 0.8;
-
   poly_synth.voices[0].frequency.value = "C3";
 
   poly_synth.voices[1].detune.value = 10;
@@ -88,6 +253,146 @@ function stranger_synth_0b() {
   var synth_chorus = new Tone.Chorus();
   synth_chorus.delayTime = 3;
 
+  var fin_gain = new Tone.Gain();
+  fin_gain.gain.value = 1.0;
+
+  poly_synth.chain(synth_chorus, synth_reverb, synth_gain, fin_gain);
+  fin_gain.toMaster();
+
+  var x = {
+    "synth":poly_synth,
+    "pre-gain":synth_gain,
+    "gain":fin_gain,
+    "reverb":synth_reverb,
+    "chorus":synth_chorus,
+    "delay":synth_delay,
+    "triggerAttackRelease": (function(a) { return function(n,l,t,v) {
+      a.triggerAttackRelease(n,l,t,v);
+    } })(poly_synth)
+  };
+
+  //return poly_synth;
+  return x;
+}
+
+function stranger_synth_0c() {
+
+  var poly_synth = new Tone.PolySynth(3, Tone.MonoSynth);
+
+  poly_synth.set({
+    "envelope"  : { "attack"  : 0.15, "decay"  : 0.015 , "sustain"  : 1.0 , "release"  : 0.9 },
+    "oscillator": { "type":"pwm", "modulationFrequency":0.85},
+    "filter" : { "Q"  : 0 , "type" : "lowpass" , "frequency": 4000, "rolloff"  : -12},
+    "filterEnvelope" : {
+      "attack" : 0.15, "decay" : 0.015, "sustain" : 1.0 , "release" : 0.93 ,
+      "baseFrequency" : 200 , "octaves" : 1, "exponent" : 10
+    }
+
+  });
+
+  poly_synth.voices[0].oscillator.modulationFrequency.value = 0.8;
+  poly_synth.voices[0].frequency.value = "C3";
+
+  poly_synth.voices[1].detune.value = 20;
+  poly_synth.voices[1].oscillator.modulationFrequency.value = 0.8;
+  poly_synth.voices[1].frequency.value = "C4";
+
+  poly_synth.voices[2].set({"oscillator":{"type":"sawtooth"}});
+  poly_synth.voices[2].detune.value = -2;
+  poly_synth.voices[2].frequency.value = "C4";
+
+  var synth_gain = new Tone.Gain();
+  synth_gain.gain.value = 0.25;
+  //synth_gain.gain.value = 0.25;
+
+  var synth_delay = new Tone.FeedbackDelay(0.14);
+  //synth_delay.delayTime.value = 0.08;
+
+  //var synth_reverb = new Tone.Freeverb();
+  //synth_reverb.roomSize.value = 0.125;
+  //synth_reverb.wet.value = 0.33;
+  var synth_reverb = new Tone.JCReverb(0.14);
+  synth_reverb.wet.value = 0.25;
+
+
+  var synth_chorus = new Tone.Chorus();
+  synth_chorus.delayTime = 3;
+
+  var compressor = new Tone.Compressor();
+
+  var fin_gain = new Tone.Gain();
+  fin_gain.gain.value = 1.0;
+
+  //poly_synth.chain(synth_delay, synth_reverb, synth_chorus, synth_gain, compressor, fin_gain);
+  poly_synth.chain(synth_gain, synth_delay, synth_reverb, compressor, fin_gain);
+  //poly_synth.chain(synth_delay, synth_chorus, synth_reverb, synth_gain);
+  fin_gain.toMaster();
+
+  var x = {
+    "synth":poly_synth,
+    "pre-gain":synth_gain,
+    "compressor":compressor,
+    "gain":fin_gain,
+    "reverb":synth_reverb,
+    "chorus":synth_chorus,
+    "delay":synth_delay,
+    "triggerAttackRelease": (function(a) { return function(n,l,t,v) {
+      a.triggerAttackRelease(n,l,t,v);
+    } })(poly_synth)
+  };
+
+  return x;
+}
+
+//arp
+//
+function gsynth_0() {
+
+  var poly_synth = new Tone.PolySynth(3, Tone.MonoSynth);
+
+  poly_synth.set({
+    "envelope"  : { "attack"  : 0.005, "decay"  : 0.5 , "sustain"  : 0.0 , "release"  : 0.0 },
+    "oscillator": { "type":"pwm", "modulationFrequency":0.85},
+    "filter" : { "Q"  : 0 , "type" : "lowpass" , "frequency": 9000, "rolloff"  : -12},
+    "filterEnvelope" : {
+      "attack" : 0.05, "decay" : 1.06 , "sustain" : 0.0 , "release" : 0.03 ,
+      "baseFrequency" : 200 , "octaves" : 6, "exponent" : 30
+    }
+
+  });
+
+  poly_synth.voices[0].oscillator.modulationFrequency.value = 0.8;
+  poly_synth.voices[0].frequency.value = "C3";
+
+  poly_synth.voices[1].detune.value = 20;
+  poly_synth.voices[1].oscillator.modulationFrequency.value = 0.8;
+  poly_synth.voices[1].frequency.value = "C4";
+
+  poly_synth.voices[2].set({"oscillator":{"type":"sawtooth"}});
+  poly_synth.voices[2].detune.value = -2;
+  poly_synth.voices[2].frequency.value = "C4";
+
+  var synth_gain = new Tone.Gain();
+  synth_gain.gain.value = 0.155;
+  //synth_gain.gain.value = 0.25;
+
+  var synth_delay = new Tone.FeedbackDelay(0.08135);
+  synth_delay.delayTime.value = 0.1;
+
+  //var synth_reverb = new Tone.JCReverb();
+  //synth_reverb.roomSize.value = 0.125;
+  //synth_reverb.wet.value = 0.13;
+
+  var synth_reverb = new Tone.Freeverb();
+  //synth_reverb.roomSize.value = 0.125;
+  //synth_reverb.wet.value = 0.33;
+
+  synth_reverb.roomSize.value = 0.25;
+  synth_reverb.wet.value = 0.33;
+
+  var synth_chorus = new Tone.Chorus();
+  synth_chorus.delayTime = 3;
+
   //poly_synth.chain(synth_delay, synth_reverb, synth_chorus, synth_gain);
   poly_synth.chain(synth_chorus, synth_reverb, synth_gain);
   //poly_synth.chain(synth_gain);
@@ -108,6 +413,14 @@ function stranger_synth_0b() {
   return x;
 }
 
+//--------------
+//--------------
+//--------------
+//--------------
+
+
+// bass
+//
 function stranger_synth_1() {
   var poly_synth = new Tone.PolySynth(3, Tone.MonoSynth);
 
@@ -139,8 +452,8 @@ function stranger_synth_1() {
   var synth_gain = new Tone.Gain();
   synth_gain.gain.value = 0.125;
 
-	poly_synth.chain(synth_reverb, synth_gain);
-	synth_gain.toMaster();
+  poly_synth.chain(synth_reverb, synth_gain);
+  synth_gain.toMaster();
 
   var x = {
     "synth":poly_synth,
@@ -157,18 +470,6 @@ function stranger_synth_1() {
 function stranger_synth_1b() {
   var poly_synth = new Tone.PolySynth(3, Tone.MonoSynth);
 
-  /*
-  poly_synth.set({
-    "envelope"  : { "attack"  : 0.5 , "decay"  : 0.5 , "sustain"  : 0.95, "release"  : 0.6 },
-    "oscillator": { "type":"pwm", "modulationFrequency":0.5},
-    "filter" : { "Q"  : 0, "type" : "lowpass" , "rolloff"  : -12, "frequency": 300},
-    "filterEnvelope" : {
-      "attack" : 0.5 , "decay" : 0.72 , "sustain" : 0.0 , "release" : 0.0 ,
-      "baseFrequency" : 200 , "octaves" : 0 , "exponent" : 30
-    }
-  });
-  */
-
   poly_synth.set({
     "envelope"  : { "attack"  : 0.125 , "decay"  : 0.5 , "sustain"  : 0.95, "release"  : 0.6 },
     "oscillator": { "type":"pwm", "modulationFrequency":0.5},
@@ -179,24 +480,11 @@ function stranger_synth_1b() {
     }
   });
 
-  /*
-  poly_synth.set({
-    "envelope"  : { "attack"  : 0.05 , "decay"  : 0.5 , "sustain"  : 0.8, "release"  : 0.6 },
-    "oscillator": { "type":"pwm", "modulationFrequency":0.5},
-    "filter" : { "Q"  : 0, "type" : "lowpass" , "rolloff"  : -12, "frequency": 2000},
-    "filterEnvelope" : {
-      "attack" : 0.05 , "decay" : 1.72 , "sustain" : 0.0 , "release" : 0.0 ,
-      "baseFrequency" : 200 , "octaves" : 10, "exponent" : 3 
-    }
-  });
-  */
-
   poly_synth.voices[0].oscillator.modulationFrequency.value = 0.5;
   
   poly_synth.voices[1].detune.value = -5;
   poly_synth.voices[1].oscillator.modulationFrequency.value = 0.25;
 
-  //poly_synth.voices[2].detune.value = 6;
   poly_synth.voices[2].detune.value = 21;
   poly_synth.voices[2].oscillator.modulationFrequency.value = 0.75;
 
@@ -211,13 +499,75 @@ function stranger_synth_1b() {
   var synth_gain = new Tone.Gain();
   synth_gain.gain.value = 0.125;
 
-	poly_synth.chain(synth_chorus, synth_gain);
-	synth_gain.toMaster();
+  poly_synth.chain(synth_chorus, synth_gain);
+  synth_gain.toMaster();
 
   var x = {
     "synth":poly_synth,
     "gain":synth_gain,
     "reverb":synth_reverb,
+    "triggerAttackRelease": (function(a) { return function(n,l,t,v) {
+      a.triggerAttackRelease(n,l,t,v);
+    } })(poly_synth)
+  };
+
+  return x;
+}
+
+function stranger_synth_1c() {
+  var poly_synth = new Tone.PolySynth(3, Tone.MonoSynth);
+
+  poly_synth.set({
+    "envelope"  : { "attack"  : 0.25 , "decay"  : 0.5 , "sustain"  : 0.95, "release"  : 1.6 },
+    "oscillator": { "type":"pwm", "modulationFrequency":0.5},
+    "filter" : { "Q"  : 0, "type" : "lowpass" , "rolloff"  : -12, "frequency": 2000},
+    "filterEnvelope" : {
+      "attack" : 0.125 , "decay" : 0.72 , "sustain" : 0.95 , "release" : 1.0 ,
+      "baseFrequency" : 200 , "octaves" : 0 , "exponent" : 30
+    }
+  });
+
+  poly_synth.voices[0].oscillator.modulationFrequency.value = 0.5;
+  
+  poly_synth.voices[1].detune.value = -5;
+  poly_synth.voices[1].oscillator.modulationFrequency.value = 0.25;
+
+  poly_synth.voices[2].detune.value = 21;
+  poly_synth.voices[2].oscillator.modulationFrequency.value = 0.75;
+
+  //----
+
+  //var synth_reverb = new Tone.Freeverb();
+  //synth_reverb.roomSize.value = 0.15;
+  //synth_reverb.wet.value = 0.25;
+
+  var delay = new Tone.FeedbackDelay(0.4);
+  var synth_reverb = new Tone.JCReverb(0.4);
+  synth_reverb.wet.value = 0.35;
+
+  var synth_chorus = new Tone.Chorus();
+
+  var synth_gain = new Tone.Gain();
+  synth_gain.gain.value = 0.25;
+
+  var fin_gain = new Tone.Gain();
+  fin_gain.gain.value = 1.0;
+
+  var compressor = new Tone.Compressor();
+
+  //poly_synth.chain(delay, synth_reverb, synth_chorus, synth_gain, compressor, fin_gain);
+  poly_synth.chain(delay, synth_reverb, synth_gain, compressor, fin_gain);
+  fin_gain.toMaster();
+
+  //----
+
+  var x = {
+    "delay":delay,
+    "synth":poly_synth,
+    "pre-gain": synth_gain,
+    "gain":fin_gain,
+    "reverb":synth_reverb,
+    "compressor":compressor,
     "triggerAttackRelease": (function(a) { return function(n,l,t,v) {
       a.triggerAttackRelease(n,l,t,v);
     } })(poly_synth)
@@ -325,6 +675,7 @@ function stranger_synth_2() {
   var noise_synth = custom_noise_synth();
 
   var x = {
+    "gain": gain,
     "synth" : poly_synth,
     "noise_synth": noise_synth,
     "triggerAttackRelease": (function(a,b) { return function(n,l,t,v) {
@@ -380,7 +731,43 @@ for (var r=0; r<10; r++) {
 function play_midi(synth, midi_tune, t0) {
   t0 = ((typeof t0 === "undefined") ? Tone.now() : t0);
 
-  console.log(">>>", Tone.now(), t0);
+  var track = midi_tune.tracks;
+
+  var fudge = 0.98;
+
+  var sched_id = [];
+
+  for (var ii=0; ii<track.length; ii++) {
+    var note = track[ii].name;
+    if (synth.synth.voices.length>1) {
+      note = [];
+      for (var jj=0; jj<synth.synth.voices.length; jj++) {
+        note.push(track[ii].name);
+      }
+    }
+
+    //synth.triggerAttackRelease(track[ii].name, track[ii].duration, track[ii].time + t0, track[ii].velocity);
+    //synth.triggerAttackRelease(note, fudge*track[ii].duration, track[ii].time + t0, track[ii].velocity);
+
+    var sid =
+      Tone.Transport.scheduleOnce( (function(syn, nt, note_dur, v) {
+          return function(t) {
+            syn.triggerAttackRelease(nt, note_dur, t, v);
+          }
+        })(synth, note, fudge*track[ii].duration, track[ii].velocity),
+        track[ii].time);
+
+    sched_id.push(sid);
+  }
+
+  Tone.Transport.start();
+
+  return  sched_id;
+
+}
+
+function play_midi_tar(synth, midi_tune, t0) {
+  t0 = ((typeof t0 === "undefined") ? Tone.now() : t0);
 
   var track = midi_tune.tracks;
 
@@ -465,10 +852,6 @@ function playit(arp_synth, bass_synth, midi_arp, midi_bass, arp_filt_sched, bass
   play_midi(arp_synth, midi_arp, Tone.now() );
   play_midi(bass_synth, midi_bass, Tone.now() );
 
-  //Tone.Transport.schedule( function(t) {  console.log("cp0", t); }, 1);
-  //Tone.Transport.schedule( function(t) {  console.log("cp1", t); }, 2);
-  //Tone.Transport.schedule( function(t) {  console.log("cp2", t); }, 3);
-
   Tone.Transport.start();
 }
 
@@ -476,7 +859,7 @@ function play_sampled(instrument, fs_notes) {
   var idx=0;
 
   for (var ii=0; ii<fs_notes.length; ii++) {
-    instrument[idx].start(Tone.now() + fs_notes[ii].t);
+    instrument[idx].player.start(Tone.now() + fs_notes[ii].t);
     idx = (idx+1)%instrument.length;
   }
 
@@ -527,34 +910,177 @@ function playtune(instruments, tune) {
 
 }
 
-var kick = [];
-kick.push( new Tone.Player({ "url":"./data/drum/kick/260484__soneproject__electribe-kicks-slice-b0.wav", "loop":false}).toMaster() );
-kick.push( new Tone.Player({ "url":"./data/drum/kick/260537__soneproject__electribe-kicks-slice-59.wav", "loop":false}).toMaster() );
-kick.push( new Tone.Player({ "url":"./data/drum/kick/91682__zinzan-101__jd-kick.wav", "loop":false}).toMaster() );
+function setup_drum(url, volume) {
+  volume = ((typeof volume === "undefined") ? 1 : volume);
+  var gain = new Tone.Gain();
+  var player = new Tone.Player({ "url":url, "loop":false});
 
-var snare = [];
-snare.push( new Tone.Player({ "url":"./data/drum/snare/422444__akustika__bdr-104.wav", "loop":false}).toMaster() );
+  gain.gain.value = volume;
 
-var hihat = [];
-hihat.push( new Tone.Player({ "url":"./data/drum/hi_hat/404894__gnuoctathorpe__hihat-5.wav","loop":false}).toMaster() );
+  player.chain(gain);
+  gain.toMaster();
 
-var clap = [];
-clap.push( new Tone.Player({ "url":"./data/drum/clap/208875__adammusic18__hand-clap.wav", "loop":false}).toMaster() );
+  return {
+    "player": player,
+    "gain": gain
+  };
+}
 
-var closedhat = [];
-closedhat.push( new Tone.Player({ "url":"./data/drum/closed_hat/250530__waveplay__hi-hat.wav", "loop":false}).toMaster() );
+var drum_url = {
+  "kick": [
+    //"./data/drum/kick/91682__zinzan-101__jd-kick.wav",
+    //"./data/drum/kick/260537__soneproject__electribe-kicks-slice-59.wav",
+    "./data/drum/kick/260484__soneproject__electribe-kicks-slice-b0.wav"
+  ],
 
+  "snare": [
+    "./data/drum/snare/422444__akustika__bdr-104.wav"
+  ],
+
+  "hihat": [
+    "./data/drum/hi_hat/404894__gnuoctathorpe__hihat-5.wav"
+  ],
+
+  "clap": [
+    "./data/drum/clap/208875__adammusic18__hand-clap.wav"
+  ],
+
+  "closedhat": [
+    "./data/drum/closed_hat/250530__waveplay__hi-hat.wav"
+  ]
+
+};
+
+function uiSlider_cb(instrument, type, value) {
+  var synth = {};
+
+  if      (instrument == "arp") { synth = instruments.arp; }
+  else if (instrument == "bass") { synth = instruments.bass; }
+  else if (instrument == "lead") { synth = instruments.lead; }
+  else if (instrument == "kick")      { instruments.kick[0].gain.gain.value = value; return; }
+  else if (instrument == "hihat")     { instruments.hihat[0].gain.gain.value = value; return; }
+  else if (instrument == "closedhat") { instruments.closedhat[0].gain.gain.value = value; return; }
+  else if (instrument == "snare")     { instruments.snare[0].gain.gain.value = value; return; }
+  else if (instrument == "clap")      { instruments.clap[0].gain.gain.value = value; return; }
+  else {
+    console.log("unknown instrument", instrument);
+    return;
+  }
+
+  if (type == "gain") {
+    synth.gain.gain.value = value;
+  }
+  else if (type == "filter") {
+    synth.synth.set({"filter":{"frequency":value}});
+  }
+  else if (type == "amplitude-decay") {
+    synth.synth.set({"envelope":{"decay":value}});
+  }
+
+}
+
+function uiSliderGet(instrument, type) {
+  var synth = {};
+
+  if      (instrument == "arp") { synth = instruments.arp; }
+  else if (instrument == "bass") { synth = instruments.bass; }
+  else if (instrument == "lead") { synth = instruments.lead; }
+  else if (instrument == "kick")      { return instruments.kick[0].gain.gain.value ; }
+  else if (instrument == "hihat")     { return instruments.hihat[0].gain.gain.value ; }
+  else if (instrument == "closedhat") { return instruments.closedhat[0].gain.gain.value ; }
+  else if (instrument == "snare")     { return instruments.snare[0].gain.gain.value ; }
+  else if (instrument == "clap")      { return instruments.clap[0].gain.gain.value ; }
+  else {
+    console.log("unknown instrument", instrument);
+    return;
+  }
+
+  var type_parts = type.split("-");
+
+  if (type == "gain") {
+    return synth.gain.gain.value;
+  }
+  else if (type == "filter") {
+    var jo = synth.synth.get("filter");
+
+    if ("filter" in jo) {
+      if ("frequency" in jo.filter) {
+        return jo.filter.frequency;
+      }
+    }
+  }
+
+  else if (type_parts[0]== "amplitude") {
+
+    var subtype = ["attack", "decay", "sustain", "release"];
+    for (var ii=0; ii<subtype.length; ii++) {
+
+      if (type_parts[1] == subtype[ii]) {
+        var jo = synth.synth.get("envelope");
+        if (("envelope" in jo) && (subtype[ii] in jo.envelope)) {
+          return jo.envelope[subtype[ii]];
+        }
+
+      }
+    }
+
+  }
+
+  else if (type_parts[0] == "frequency") {
+    var subtype = ["attack", "decay", "sustain", "release"];
+    for (var ii=0; ii<subtype.length; ii++) {
+
+      if (type_parts[1] == subtype[ii]) {
+        var jo = synth.synth.get("filterEnvelope");
+        if (("filterEnvelope" in jo) && (subtype[ii] in jo.filterEnvelope)) {
+          return jo.filterEnvelope[subtype[ii]];
+        }
+
+      }
+    }
+
+  }
+
+  return;
+}
+
+//playtune(instruments, ok_data);
+
+//playtune(instruments, tune);
+
+//playit(s0, s1, midi_arp_tune, midi_bass_tune, tune.arp_filt_sched, tune.bass_filt_sched, 3)
+
+
+var kick = [],
+    snare = [],
+    hihat = [],
+    closedhat = [],
+    clap = [];
+
+for (var ii=0; ii<drum_url.kick.length; ii++) { kick.push( setup_drum(drum_url.kick[ii]) ); }
+for (var ii=0; ii<drum_url.snare.length; ii++) { snare.push( setup_drum(drum_url.snare[ii]) ); }
+for (var ii=0; ii<drum_url.hihat.length; ii++) { hihat.push( setup_drum(drum_url.hihat[ii]) ); }
+for (var ii=0; ii<drum_url.closedhat.length; ii++) { closedhat.push( setup_drum(drum_url.closedhat[ii]) ); }
+for (var ii=0; ii<drum_url.clap.length; ii++) { clap.push( setup_drum(drum_url.clap[ii]) ); }
 
 var s0 = stranger_synth_0();
 var s0b = stranger_synth_0b();
+var s0c = stranger_synth_0c();
 //var s1 = stranger_synth_1();
 var s1b = stranger_synth_1b();
+var s1c = stranger_synth_1c();
 var s2 = stranger_synth_2();
 //stephen_things(s0, notes);
 
+function tune_init(instruments) {
+  instruments.arp.synth.set({"filter":{"frequency":500}});
+  instruments.arp.gain.gain.value = 0.125;
+}
+
 var instruments = {
-  "bass" : s1b,
+  "bass" : s1c,
   "arp": s0b,
+  "lead": s2,
   "kick":kick,
   "snare":snare,
   "clap":clap,
@@ -562,7 +1088,5 @@ var instruments = {
   "closedhat":closedhat
 };
 
-//playtune(instruments, tune);
-
-//playit(s0, s1, midi_arp_tune, midi_bass_tune, tune.arp_filt_sched, tune.bass_filt_sched, 3)
+tune_init(instruments);
 
