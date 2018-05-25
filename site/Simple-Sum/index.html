@@ -66,32 +66,84 @@
       </header>
       <section>
 
-        <h2 id="dev">dev</h2>
-<ul>
-<li><a href="./Textile-Cheat-Sheet">Textile Cheat Sheet</a></li>
-<li><a href="./Image-Resize">Scaling images, animated GIFs in Gimp</a></li>
-<li><a href="./Screenshots-Screencasts-Animated-Gifs">Screenshots, Screencasts, Animated Gifs</a></li>
-<li><a href="./ffmpeg-notes">ffmpeg Notes</a></li>
-<li><a href="./Unix-y-notes">Unix-y Notes</a></li>
-<li><a href="./lattice-reduction">Lattice Reduction Notes</a></li>
-<li><a href="./GCode-Conversion">PS/SVG to GCode Conversion</a></li>
-<li><a href="./Git-Rename-Master">Change Git default 'master' branch to 'release'</a></li>
-<li><a href="MkDocs-Quickstart/">MkDocs Quickstart</a></li>
-<li><a href="GPG-Notes/">GPG Notes</a></li>
-<li><a href="Git-Notes/">Git Notes</a></li>
-<li><a href="Shannon-Entropy/">Shannon Entropy</a></li>
-<li><a href="Enabling-Server-HTTPS/">Enabling Server HTTPS</a></li>
-<li><a href="BGZF-Example/">BGZF Example</a></li>
-<li><a href="C-Project-Template/">C Project Template</a></li>
-<li><a href="Project-Organization/">Project Organization</a></li>
-<li><a href="Kelly-Criterion/">Kelly Criterion</a></li>
-<li><a href="File-Naming-Conventions/">File Naming Conventions</a></li>
-<li><a href="Command-Line-Option-Loose-Standard/">Loose Standards for Command Line Options</a></li>
-<li><a href="PCB-Notes/">PCB Notes</a></li>
-<li><a href="Coding-Style/">Elements of Coding Style</a></li>
-<li><a href="Energy-Consumption-Stats/">Energy Consumption Stats</a></li>
-<li><a href="Simple-Sum/">Simple Sums</a></li>
-</ul>
+        <h1 id="simple-sums">Simple Sums</h1>
+<p>$$ 0 &lt; p &lt; 1, p  \in \mathbb{R}$$</p>
+<hr />
+<p>$$
+\begin{align}
+\sum_{k=0}^{\infty} p^k = \frac{1}{1-p}
+\end{align}
+$$</p>
+<p>Proof:</p>
+<p>$$
+\begin{align}
+S &amp; = \sum_{k=0}^{\infty} p^k
+\end{align}
+$$</p>
+<p>$$
+\begin{align}
+\sum_{k=0}^{\infty} p^k &amp; = 1 + \sum_{k=1}^{\infty} p^k
+\end{align}
+$$</p>
+<p>$$
+\begin{align}
+p S &amp;= \sum_{k=0}^{\infty} p^{k+1} \\
+ &amp;= \sum_{k=1}^{\infty} p^k \\
+\end{align}
+$$</p>
+<p>$$
+\begin{align}
+S - p S   &amp;= 1 \\
+S &amp;= \frac{1}{1-p} \\
+\end{align}
+$$</p>
+<hr />
+<p>$$
+\begin{align}
+\sum_{k=0}^{s-1} p^k = \frac{1-p^s}{1-p} \\
+\sum_{k=s}^{\infty} p^k = \frac{p^s}{1-p}
+\end{align}
+$$</p>
+<p>Proof:</p>
+<p>$$
+\begin{align}
+\sum_{k=0}^{s-1} p^k &amp;= \sum_{k=0}^{\infty} p^k - \sum_{k=s}^{\infty} p^k \\
+  &amp;= \sum_{k=0}^{\infty} p^k - p^s \sum_{k=0}^{\infty} p^k \\
+  &amp;= \frac{1}{1-p} - \frac{p^s}{1-p} \\
+  &amp;= \frac{1 - p^s}{1-p} \\
+\end{align}
+$$</p>
+<p>$$
+\begin{align}
+\sum_{k=s}^{\infty} p^k &amp;= p^s \sum_{k=0}^{\infty} p^k \\
+   &amp;= \frac{p^s}{1-p} \\
+\end{align}
+$$</p>
+<hr />
+<p>$$
+\begin{align}
+\sum_{k=0}^{\infty} k p^k = \frac{p}{(1-p)^2}
+\end{align}
+$$</p>
+<p>Proof:</p>
+<p>$$
+\begin{align}
+S' &amp;= \sum_{k=0}^{\infty} k p^k \\
+p S' &amp;= \sum_{k=0}^{\infty} k p^{k+1} \\
+ &amp;= \sum_{k=1}^{\infty} (k - 1) p^{k} \\
+ &amp;=  \sum_{k=1} k p^k - \sum_{k=1} p^k \\
+ &amp;=  S' - \frac{p}{1-p} \\
+p S' - S' &amp;= - \frac{p}{1-p} \\
+S' (p - 1) &amp;= - \frac{p}{1-p} \\
+S' (1 - p) &amp;= \frac{p}{1-p} \\
+S' &amp;= \frac{p}{(1-p)^2} \\
+\end{align}
+$$</p>
+<p>$$
+\begin{align}
+\end{align}
+$$</p>
+<h6 id="2018-05-25">2018-05-25</h6>
 
       </section>
 

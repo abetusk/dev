@@ -23,3 +23,4 @@ dev
 * [PCB Notes](PCB-Notes.md)
 * [Elements of Coding Style](Coding-Style.md)
 * [Energy Consumption Stats](Energy-Consumption-Stats.md)
+* [Simple Sums](Simple-Sum.md)
