@@ -66,54 +66,72 @@
       </header>
       <section>
 
-        <h1 id="example-c-project-template">Example C Project Template</h1>
-<p>This is a basic template for using automake tools for creating the <code>configure</code> and <code>Makefile</code>
-in a C/C++ program.</p>
-<h2 id="requirements">Requirements</h2>
-<ul>
-<li><code>automake</code> - e.g. <code>sudo apt-get install automake</code></li>
-<li><code>gcc</code></li>
-</ul>
-<h2 id="mainc"><code>main.c</code></h2>
-<pre><code>#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-
-int main(int argc, char **argv) {
-  printf(&quot;hello, friend\n&quot;);
+        <h2 id="fisher-yates-shuffle">Fisher-Yates Shuffle</h2>
+<p>The <a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm</a> is used to create a random permutation.
+The derivation is relatively straight forward:</p>
+<pre><code>function fisher_yates_shuffle(a) {
+  var t, n = a.length;
+  for (var i=0; i&lt;(n-1); i++) {
+    var idx = i + Math.floor(Math.random()*(n-i));
+    t = a[i];
+    a[i] = a[idx];
+    a[idx] = t;
+  }
 }
 </code></pre>
 
-<h2 id="configurein"><code>configure.in</code></h2>
-<pre><code>AC_INIT([hellofriend], [0.1], [abetusk@mechaelephant.com])
-AM_INIT_AUTOMAKE
-AC_PROG_CC
-AC_CONFIG_FILES([Makefile])
-AC_OUTPUT
+<p>We choose the first element at random, then
+proceed to choose subsequent entries from the remaining elements.</p>
+<p>As a spot check, we can confirm that there are $n!$ configurations
+yielding approximately $ n (lg(n) - 1) $ bits of entropy.
+Each poll of the random number generator is for $ lg(n-i) $ bits
+over $n-1$ entries:</p>
+<p>$$ lg(2) + lg(3) + \cdots + lg(n) = \sum_{k=1}^{n} lg(k) = lg(n!) $$</p>
+<h2 id="the-wrong-way">The Wrong Way</h2>
+<p>One can consider the following incorrect way to do the shuffle:</p>
+<pre><code>function nofish_shuffle(a) {
+  var t, n = a.length;
+  for (var i=0; i&lt;n; i++) {
+    var idx = Math.floor(Math.random()*n);
+    t = a[i];
+    a[i] = a[idx];
+    a[idx] = t;
+  }
+}
 </code></pre>
 
-<h2 id="makefileam"><code>Makefile.am</code></h2>
-<pre><code>AUTOMAKE_OPTIONS = foreign
-bin_PROGRAMS = hellofriend
-hellofriend_SOURCES = main.c
+<p>or a slight variant:</p>
+<pre><code>function noyaks_shuffle(a) {
+  var t, n = a.length;
+  for (var i=0; i&lt;n; i++) {
+    var idx = Math.floor(Math.random()*(n-1));
+    if (idx==i) { idx = n-1; }
+    t = a[i];
+    a[i] = a[idx];
+    a[idx] = t;
+  }
+}
 </code></pre>
 
-<h2 id="run-automake">Run automake</h2>
-<pre><code>aclocal
-autoconf
-automake --add-missing
-</code></pre>
-
-<h2 id="configure-make-make-install"><code>configure, make, make install</code></h2>
-<pre><code>./configure
-make
-make install
-</code></pre>
-
-<h2 id="references">References</h2>
-<ul>
-<li><a href="https://robots.thoughtbot.com/the-magic-behind-configure-make-make-install">The magic behind configure, make, make install</a></li>
-</ul>
-<h6 id="2017-08-05">2017-08-05</h6>
+<p>Where the difference in <code>nofish_shuffle</code> and <code>noyaks_shuffle</code>
+is to skip the current index when considering which element to permute.</p>
+<p>A friend of mine suggested an nice proof to show the above two
+shuffle algorithms provide incorrect results.</p>
+<p>As above, there are $n!$ possible shuffles we want to choose from, with
+equal probability.
+Since <code>nofish_shuffle</code> is choosing each element to permute from the whole
+array, there are $n^n$ possible choices for the permutation with the
+understanding that there might be some overlap.</p>
+<p>Producing multiple configurations is permissible so long as <code>nofish_shuffle</code>
+would produce an equal distribution for each of the $n!$ configurations.
+Since $ n! \nmid n^n $ for $n&gt;2$, there must be some configurations that
+appear more often by the pigeonhole principle.</p>
+<p><code>noyaks_shuffle</code> doesn't fare much better since there are $n^{n-1}$ possible
+configurations and $n! \nmid n^{n-1}$ for $n&gt;2$.</p>
+<p>Though hidden in such a large configuration space, both <code>nofish_shuffle</code>
+and <code>noyaks_shuffle</code> produce configurations that are not uniformly
+distributed.</p>
+<h6 id="2018-06-13">2018-06-13</h6>
 
       </section>
 
