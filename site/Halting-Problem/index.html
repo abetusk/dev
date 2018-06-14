@@ -66,54 +66,42 @@
       </header>
       <section>
 
-        <h1 id="example-c-project-template">Example C Project Template</h1>
-<p>This is a basic template for using automake tools for creating the <code>configure</code> and <code>Makefile</code>
-in a C/C++ program.</p>
-<h2 id="requirements">Requirements</h2>
+        <h2 id="halting-problem">Halting Problem</h2>
+<p>The Halting Problem asks whether there exists a program
+that can take other programs as input and determine whether
+that program will loop forever or halt.</p>
+<p>Assume such a program exists and call it <code>HP</code>.</p>
+<p>The program <code>HP(P,X)</code> assumes:</p>
 <ul>
-<li><code>automake</code> - e.g. <code>sudo apt-get install automake</code></li>
-<li><code>gcc</code></li>
+<li><code>HP</code> is a <em>finite</em> program</li>
+<li><code>HP</code> stops in finite time</li>
+<li><code>HP</code> takes as input, <code>P</code>, a program of finite length and input, <code>X</code>, also of finite length</li>
+<li><code>HP</code> can access inifinite memory such as the tape in a Turing Machine model</li>
 </ul>
-<h2 id="mainc"><code>main.c</code></h2>
-<pre><code>#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
+<p>Consider the program <code>SPITE</code>:</p>
+<pre><code>SPITE(P) {
 
-int main(int argc, char **argv) {
-  printf(&quot;hello, friend\n&quot;);
+  if (HP(P,P) reports P halts in P as input) {
+    while (true) {} // loop forever
+  }
+
+  else if (HP(P,P) reports P loops forever on P as input) {
+    halt // return
+  }
+
 }
 </code></pre>
 
-<h2 id="configurein"><code>configure.in</code></h2>
-<pre><code>AC_INIT([hellofriend], [0.1], [abetusk@mechaelephant.com])
-AM_INIT_AUTOMAKE
-AC_PROG_CC
-AC_CONFIG_FILES([Makefile])
-AC_OUTPUT
-</code></pre>
-
-<h2 id="makefileam"><code>Makefile.am</code></h2>
-<pre><code>AUTOMAKE_OPTIONS = foreign
-bin_PROGRAMS = hellofriend
-hellofriend_SOURCES = main.c
-</code></pre>
-
-<h2 id="run-automake">Run automake</h2>
-<pre><code>aclocal
-autoconf
-automake --add-missing
-</code></pre>
-
-<h2 id="configure-make-make-install"><code>configure, make, make install</code></h2>
-<pre><code>./configure
-make
-make install
-</code></pre>
-
-<h2 id="references">References</h2>
+<p>When we run <code>SPITE(SPITE)</code> (<code>SPITE</code> with itself as input), there are two cases:</p>
 <ul>
-<li><a href="https://robots.thoughtbot.com/the-magic-behind-configure-make-make-install">The magic behind configure, make, make install</a></li>
+<li><code>SPITE(SPITE)</code> halts, in which case the first condition would have been
+  hit, contradicitng the subsequent action of looping forever.</li>
+<li><code>SPITE(SPITE)</code> loops forever, in which case the second condition would have
+  been hit, contradicting the subsequent action of halting.</li>
 </ul>
-<h6 id="2017-08-05">2017-08-05</h6>
+<p>We get a contradiciton for the possibility of running <code>SPITE</code> correctly
+on itself, proving the impossibility of <code>HP</code> with our given assumptions.</p>
+<h6 id="2018-06-13">2018-06-13</h6>
 
       </section>
 

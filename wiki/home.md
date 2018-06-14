@@ -25,3 +25,4 @@ dev
 * [Energy Consumption Stats](Energy-Consumption-Stats.md)
 * [Simple Sums](Simple-Sum.md)
 * [Fisher Yates Shuffle](Fisher-Yates-Shuffle.md)
+* [Halting Problem](Halting-Problem.md)

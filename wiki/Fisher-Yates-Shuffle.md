@@ -72,11 +72,11 @@ understanding that there might be some overlap.
 
 Producing multiple configurations is permissible so long as `nofish_shuffle`
 would produce an equal distribution for each of the $n!$ configurations.
-Since $ n! \nd n^n $ for $n>2$, there must be some configurations that
+Since $ n! \nmid n^n $ for $n>2$, there must be some configurations that
 appear more often by the pigeonhole principle.
 
 `noyaks_shuffle` doesn't fare much better since there are $n^{n-1}$ possible
-configurations and $n! \nd n^{n-1}$ for $n>2$.
+configurations and $n! \nmid n^{n-1}$ for $n>2$.
 
 Though hidden in such a large configuration space, both `nofish_shuffle`
 and `noyaks_shuffle` produce configurations that are not uniformly

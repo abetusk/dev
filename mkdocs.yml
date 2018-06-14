@@ -25,6 +25,7 @@ pages:
   - "Energy-Consumption-Stats.md"
   - "Simple-Sum.md"
   - "Fisher-Yates-Shuffle.md"
+  - "Halting-Problem.md"
 
 docs_dir: 'wiki'
 theme_dir: 'dev_theme'
