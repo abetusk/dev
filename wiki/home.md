@@ -24,3 +24,4 @@ dev
 * [Elements of Coding Style](Coding-Style.md)
 * [Energy Consumption Stats](Energy-Consumption-Stats.md)
 * [Simple Sums](Simple-Sum.md)
+* [Fisher Yates Shuffle](Fisher-Yates-Shuffle.md)
