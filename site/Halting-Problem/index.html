@@ -66,26 +66,25 @@
       </header>
       <section>
 
-        <h2 id="halting-problem">Halting Problem</h2>
-<p>The Halting Problem asks whether there exists a program
-that can take other programs as input and determine whether
-that program will loop forever or halt.</p>
+        <h1 id="halting-problem">Halting Problem</h1>
+<p>The Halting Problem asks whether there exists a program that takes other programs
+as input and determines whether they loop forever or halt.</p>
 <p>Assume such a program exists and call it <code>HP</code>.</p>
 <p>The program <code>HP(P,X)</code> assumes:</p>
 <ul>
-<li><code>HP</code> is a <em>finite</em> program</li>
+<li><code>HP</code> is a finite program</li>
 <li><code>HP</code> stops in finite time</li>
-<li><code>HP</code> takes as input, <code>P</code>, a program of finite length and input, <code>X</code>, also of finite length</li>
-<li><code>HP</code> can access inifinite memory such as the tape in a Turing Machine model</li>
+<li><code>HP</code> takes as input a program, <code>P</code>, with input, <code>X</code>, both of finite length</li>
+<li><code>HP</code> can access infinite memory such as a tape in a Turing Machine model</li>
 </ul>
-<p>Consider the program <code>SPITE</code>:</p>
+<p>Consider the program SPITE:</p>
 <pre><code>SPITE(P) {
 
-  if (HP(P,P) reports P halts in P as input) {
+  if (HP(P,P) reports P halts with P as input) {
     while (true) {} // loop forever
   }
 
-  else if (HP(P,P) reports P loops forever on P as input) {
+  else if (HP(P,P) reports P loops forever with P as input) {
     halt // return
   }
 
@@ -94,13 +93,10 @@ that program will loop forever or halt.</p>
 
 <p>When we run <code>SPITE(SPITE)</code> (<code>SPITE</code> with itself as input), there are two cases:</p>
 <ul>
-<li><code>SPITE(SPITE)</code> halts, in which case the first condition would have been
-  hit, contradicitng the subsequent action of looping forever.</li>
-<li><code>SPITE(SPITE)</code> loops forever, in which case the second condition would have
-  been hit, contradicting the subsequent action of halting.</li>
+<li><code>SPITE(SPITE)</code> halts, in which case the first condition would have been hit, contradicting the subsequent action of looping forever.</li>
+<li><code>SPITE(SPITE)</code> loops forever, in which case the second condition would have been hit, contradicting the subsequent action of halting.</li>
 </ul>
-<p>We get a contradiciton for the possibility of running <code>SPITE</code> correctly
-on itself, proving the impossibility of <code>HP</code> with our given assumptions.</p>
+<p>No matter the path we take, we get a contradiction, proving the impossibility of <code>HP</code> existing with our given assumptions.</p>
 <h6 id="2018-06-13">2018-06-13</h6>
 
       </section>
