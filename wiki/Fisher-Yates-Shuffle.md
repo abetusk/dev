@@ -43,7 +43,7 @@ function nofish_shuffle(a) {
 }
 ```
 
-or a slight variant:
+a slight variant:
 
 ```
 function noyaks_shuffle(a) {
@@ -58,8 +58,25 @@ function noyaks_shuffle(a) {
 }
 ```
 
+and another:
+
+```
+function nomaar_shuffle(a) {
+  var t, n = a.length;
+  for (var i=0; i<n; i++) {
+    var idx0 = Math.floor(Math.random()*n);
+    var idx1 = Math.floor(Math.random()*n);
+    t = a[idx0];
+    a[idx0] = a[idx1];
+    a[idx1] = t;
+  }
+}
+```
+
 Where the difference in `nofish_shuffle` and `noyaks_shuffle`
 is to skip the current index when considering which element to permute.
+`nomaar_shuffle` is yet another variant where each two elements are
+chosen at random and swapped $n$ times.
 
 A friend of mine suggested an nice proof to show the above two
 shuffle algorithms provide incorrect results.
@@ -67,8 +84,8 @@ shuffle algorithms provide incorrect results.
 As above, there are $n!$ possible shuffles we want to choose from, with
 equal probability.
 Since `nofish_shuffle` is choosing each element to permute from the whole
-array, there are $n^n$ possible choices for the permutation with the
-understanding that there might be some overlap.
+array, there are $n^n$ possible choices for the permutation, where
+some permutations might be represented more than once.
 
 Producing multiple configurations is permissible so long as `nofish_shuffle`
 would produce an equal distribution for each of the $n!$ configurations.
@@ -76,10 +93,12 @@ Since $ n! \nmid n^n $ for $n>2$, there must be some configurations that
 appear more often by the pigeonhole principle.
 
 `noyaks_shuffle` doesn't fare much better since there are $n^{n-1}$ possible
-configurations and $n! \nmid n^{n-1}$ for $n>2$.
+choices of permutation schedules and $n! \nmid n^{n-1}$ for $n>2$.
+The same type of analysis works for the `nomaar_shuffle` by noticing
+that the number of permutation schedules is $n^{2 n}$ and that still $n! \nmid n^{2 n}$.
 
-Though hidden in such a large configuration space, both `nofish_shuffle`
-and `noyaks_shuffle` produce configurations that are not uniformly
+Though hidden in such a large configuration space, `nofish_shuffle`,
+`noyaks_shuffle` and `nomaar_shuffle` produce configurations that are not uniformly
 distributed.
 
 ###### 2018-06-13
