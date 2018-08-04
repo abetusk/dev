@@ -26,3 +26,5 @@ dev
 * [Simple Sums](Simple-Sum.md)
 * [Fisher Yates Shuffle](Fisher-Yates-Shuffle.md)
 * [Halting Problem](Halting-Problem.md)
+* [Assorted Small Probability Problems](Assorted-Small-Probability-Problems.md)
+* [Probability Notes](Probability-Notes.md)

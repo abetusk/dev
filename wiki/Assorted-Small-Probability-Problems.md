@@ -1,25 +1,6 @@
 Assorted Small Probability Problems
 ===
 
-Independence of expectation (finite)
----
-
-$$
-\begin{align}
-E[ X + Y ] & = \int \int (s + t) \Pr\\{ X = s \  \& \ Y = t \\} \ ds \ dt \\\\
- & = \int \int s \Pr \\{ X = s \ \& \  Y = t \\} \ ds \ dt + \int \int t \Pr \\{ X = s \ \& \ Y = t \\} \ ds \ dt \\\\
- & = \int \int s \Pr \\{ X = s \ \& \ Y = t \\} \ dt \ ds + \int \int t \Pr \\{ X = s \ \& \ Y = t \\} \ ds \ dt \\\\
- & = \int s \Pr \\{ X = s \\} \ ds + \int t \Pr \\{ Y = t \\} \ dt \\\\
- & = E[X] + E[Y]
-\end{align}
-$$
-
-Induction can be used to extend to the general case:
-
-$$
-E[ \sum_{k=0}^{n-1} X_k ] = \sum_{k=0}^{n-1} E[X_k]
-$$
-
 Coupon Collector
 ---
 
@@ -84,10 +65,11 @@ Q_{n,m} & = \prod_{t=1}^{n} (1 - \frac{t}{m}) \\\\
 $$
 
 $$
-\begin{align}
-p & \approx 1 - \exp( -\frac{n (n+1)}{2 m} ) \\\\
- & \to \log \frac{1}{1-p} & \approx \frac{ n (n+1)}{2 m}
-\end{align}
+p \approx 1 - \exp( -\frac{n (n+1)}{2 m} )
+$$
+
+$$
+\to \log \frac{1}{1-p} \approx \frac{ n (n+1)}{2 m}
 $$
 
 For $n >> 1$ we can approximate further:
@@ -181,7 +163,7 @@ that fixes position $k$, then the number of permutations is:
 $$
 \begin{align}
  & |S| - |F_0 \cup F_1 \cup F_2 \cup \dots \cup F_{n-1}| \\\\
- & = |S| - \sum_{k=0}^{n-1} |F_k| + \sum_{k=0}^{n-1} \sum_{k'=k+1}^{n-1} |F_k \cap F_{k'}| \dots |F_0 \cap F_1 \cap \dots \cap F_{n-1}|
+ & = |S| - \sum_{k=0}^{n-1} |F_k| + \sum_{k=0}^{n-1} \sum_{k'=k+1}^{n-1} |F_k \cap F_{k'}| - \dots + (-1)^{n-1} |F_0 \cap F_1 \cap \dots \cap F_{n-1}|
 \end{align}
 $$
 
@@ -189,7 +171,8 @@ Symmetry of the sets allows us to consolidate the counts:
 
 $$
 \begin{align}
- & = n! - \binom{n}{1} (n-1)! + \binom{n}{2} (n-2)! - \binom{n}{3} (n-3)! \dots \binom{n}{n} 1! \\\\
+ & = n! - \binom{n}{1} (n-1)! + \binom{n}{2} (n-2)! - \binom{n}{3} (n-3)! + \dots + (-1)^{n-1} \binom{n}{n} 1! \\\\
+ & = \sum_{k=0}^{n-1} (-1)^k \binom{n}{k} (n-k)!  \\\\
  & = n! ( \sum_{k=0}^{n} \frac{ (-1)^k }{ k! } ) \\\\
  & \approx n! e^{-1}
 \end{align}
@@ -250,7 +233,7 @@ The total number of permutations is $n!$, so the resulting probability of having
 greater than $\lfloor \frac{n}{2} \rfloor$ is:
 
 $$
-1 - 100! (H_{n} - H_{\lfloor \frac{n}{2} \rfloor + 1})
+1 - (H_{n} - H_{\lfloor \frac{n}{2} \rfloor + 1})
 $$
 
 Since

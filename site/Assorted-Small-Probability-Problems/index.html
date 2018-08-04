@@ -1,0 +1,277 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>dev blog</title>
+
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js", "TeX/AMSsymbols.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <header>
+        <h1>Dev Blog</h1>
+
+        <table>
+          <body>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
+            <!--
+            <tr><td><a href="/dev/Textile-Cheat-Sheet">Textile Cheat Sheet</a></td></tr>
+            <tr><td><a href="/dev/Image-Resize">Scaling images, animated GIFs in Gimp</a></td></tr>
+            <tr><td><a href="/dev/Screenshots-Screencasts-Animated-Gifs">Screenshots, Screencasts, Animated Gifs</a></td></tr>
+            <tr><td><a href="/dev/ffmpeg-notes">ffmpeg Notes</a></td></tr>
+            <tr><td><a href="/dev/Unix-y-notes">Unix-y Notes</a></td></tr>
+            <tr><td><a href="/dev/lattice-reduction">Lattice Reduction Notes</a></td></tr>
+            <tr><td><a href="/dev/GCode-Conversion">PS/SVG to GCode Conversion</a></td></tr>
+            <tr><td><a href="/dev/Git-Rename-Master">Change Git default 'master' branch to 'release'</a></td></tr>
+            <tr><td><a href="/dev/MkDocs-Quickstart">mkdocs Quickstart</a></td></tr>
+            <tr><td><a href="/dev/GPG-Notes">GPG Notes</a></td></tr>
+            <tr><td><a href="/dev/Git-Notes">Git Notes</a></td></tr>
+            <tr><td><a href="/dev/Shannon-Entropy">Shannon Entropy</a></td></tr>
+            <tr><td><a href="/dev/Enabling-Server-HTTPS">Enabling Server HTTPS</a></td></tr>
+            <tr><td><a href="/dev/BGZF-Example">BGZF Example</a></td></tr>
+            -->
+
+            <tr>
+              <td>
+                <br /> <br /> <br />
+                <p><small> Original heme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+
+                <br />
+                <p>
+                Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
+                <br />
+
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
+                </p>
+              </td>
+            </tr>
+          </body>
+        </table>
+
+      </header>
+      <section>
+
+        <h1 id="assorted-small-probability-problems">Assorted Small Probability Problems</h1>
+<h2 id="coupon-collector">Coupon Collector</h2>
+<p>Find the expected time, $T$, to wait to collect $n$ different coupons, each appearing with probability $\frac{1}{n}$.</p>
+<p>Assign the random variable $X_t$ to be the time taken to see a new coupon once $t$ have already been collected.</p>
+<p>$$ X_0 = 1 $$</p>
+<p>$$
+\begin{align}
+E[X_t] &amp; = \sum_{k=1}^{\infty} k (\frac{t}{n})^{k-1} (1 - \frac{t}{n}) \\
+  &amp; = (1 - \frac{t}{n}) ( \sum_{k=0}^{\infty} k (\frac{t}{n})^k + \sum_{k=0}^{\infty} (\frac{t}{n})^k ) \\
+  &amp; = (1 - \frac{t}{n}) ( \frac{ \frac{t}{n}  }{ (1 - \frac{t}{n} )^2 } + \frac{1}{1 - \frac{t}{n}} ) \\
+  &amp; = \frac{n}{n-t}
+\end{align}
+$$</p>
+<p>$$
+E[T] = E[ \sum_{t=0}^{n-1} X_t ]
+$$</p>
+<p>Since the expectation is independent</p>
+<p>$$
+\begin{align}
+E[ \sum_{t=0}^{n-1} X_t ] &amp; = \sum_{t=0}^{n-1} E[X_t] \\
+ &amp; = \frac{n}{n} + \frac{n}{n-1} + \frac{n}{n-2} + \cdots + \frac{n}{1} \\
+ &amp; = \sum_{t=0}^{n-1} \frac{n}{n-t} \\
+ &amp; = n ( \sum_{t=0}^{n-1} \frac{1}{n-t} ) \\
+ &amp; = n \cdot H_n
+\end{align}
+$$</p>
+<p>Where $H_n$ is the $n$-th harmonic number.</p>
+<p>$$
+\begin{align}
+E[T] &amp; = n \cdot H_n \\
+ &amp; = n \log n + \gamma n + \frac{1}{2} + O(\frac{1}{n}) \\
+ &amp; \approx n \log n &amp; 
+\end{align}
+$$</p>
+<h2 id="birthday-problem">Birthday Problem</h2>
+<p>$n$ people are assigned a random integer uniformly at random from $[1,m]$.
+For a given probability $p$, what is the relationship to $n$ and $m$ that
+at least two people have the same number.</p>
+<ul>
+<li>$Q_{n,m}$ the probability that no two of $n$ people with $m$ numbers have a number in common</li>
+</ul>
+<p>$$
+\begin{align}
+Q_{n,m} &amp; = \prod_{t=1}^{n} (1 - \frac{t}{m}) \\
+ &amp; \le \prod_{t=1}^{n} e^{-\frac{t}{m}} \\
+ &amp; = \exp( -\sum_{t=1}^{n} \frac{t}{m} ) \\
+ &amp; = \exp( -\frac{ {n+1 \choose 2 } }{m} ) \\
+ &amp; = \exp( -\frac{n (n+1)}{2 m} )
+\end{align}
+$$</p>
+<p>$$
+p \approx 1 - \exp( -\frac{n (n+1)}{2 m} )
+$$</p>
+<p>$$
+\to \log \frac{1}{1-p} \approx \frac{ n (n+1)}{2 m}
+$$</p>
+<p>For $n &gt;&gt; 1$ we can approximate further:</p>
+<p>$$
+\begin{align}
+ &amp; \to \log \frac{1}{1-p} \approx \frac{ n^2 }{2 m} \\
+ &amp; \to n \approx \sqrt{ 2 m \log \frac{1}{1-p} } \\
+\end{align}
+$$</p>
+<p>For $m=365$ we get $n \approx 22.494...$.</p>
+<h2 id="best-choice-problem">Best Choice Problem</h2>
+<p>$n$ candidates, with each that can be ranked relative to the others.
+The candidates file in one at a time and are ranked relative to the candidates
+already seen.
+When each candidate is first seen, a decision is made to accept or reject them.</p>
+<p>Find the optimal stopping point to maximize the likelihood of getting the ideal candidate.</p>
+<p>One strategy is a "wait then choose" strategy, where $r$ of $n$ candidates are considered
+and then the next candidate chosen that is better than all of the $r$ previously seen.</p>
+<p>With this in mind, the probability becomes:</p>
+<p>$$
+\begin{align}
+P(r) &amp; = \sum_{k=1}^{n} \Pr \{ \text{ candidate k chosen } \&amp; \text{ candidate k is best } \} \\
+ &amp; = \sum_{k=1}^{n} \Pr \{ \text{ next best candidate in} \in [1 \dots r] | \text{ candidate k is best } \} \\
+ &amp; = \sum_{k=r+1}^{n} \frac{r}{k-1} \cdot \frac{1}{n} \\
+ &amp; = \frac{r}{n} \sum_{k=r}^{n-1} \frac{1}{k} \\
+ &amp; = \frac{r}{n} ( H_{n-1} - H_{r} )
+\end{align}
+$$</p>
+<p>Consider</p>
+<p>$$
+\begin{align}
+f(r) &amp; = \frac{r}{n} ( H_{n-1} - H_{r} ) \\
+ &amp; \approx \frac{r}{n} ( \ln(n) - \ln(r) )
+\end{align}
+$$</p>
+<p>If $f(r)$ was continuous and had a single global maximum in the range of $[1 \dots n]$,
+we could find the maximum by evaluating the derivative of $f(r)$ at 0.</p>
+<p>That is:</p>
+<p>$$
+\begin{align}
+ \frac{d}{dr} f(r) &amp; \approx \frac{d}{dr} ( \frac{r}{n} ( \ln(n) - \ln(r) ) \\
+ &amp; = \ln(n) - \ln(r) - 1
+\end{align}
+$$</p>
+<p>$$
+\begin{align}
+\to &amp; \ln(n) - \ln(r) - 1 &amp; = 0 \\
+\to &amp; \frac{r}{n} = \frac{1}{e}
+\end{align}
+$$</p>
+<p>Meaning, the best strategy is to wait to see $\frac{n}{e}$ candidates and then take the
+next best one.</p>
+<h2 id="hat-derangement">Hat Derangement</h2>
+<p>$n$ people each take a random hat out of a bag after throwing them all in.
+Find the probability of no person getting their own hat back.</p>
+<p>A crude way to do this is just consider the probability of a person randomly choosing a hat
+without considering the previously drawn hats.
+Using this approximation, there are $(1-\frac{1}{n})$ choices for some other hat,
+leaving the probability of no person chooses their own hat as:</p>
+<p>$$
+(1 - \frac{1}{n})^{n} \to \frac{1}{e}
+$$</p>
+<p>The more complete solution is to make an inclusion-exclusion argument
+by counting the number of possibilities.
+Call $S$ the set of all permutations, and $F_k$ be the set of all permutations
+that fixes position $k$, then the number of permutations is:</p>
+<p>$$
+\begin{align}
+ &amp; |S| - |F_0 \cup F_1 \cup F_2 \cup \dots \cup F_{n-1}| \\
+ &amp; = |S| - \sum_{k=0}^{n-1} |F_k| + \sum_{k=0}^{n-1} \sum_{k'=k+1}^{n-1} |F_k \cap F_{k'}| - \dots + (-1)^{n-1} |F_0 \cap F_1 \cap \dots \cap F_{n-1}|
+\end{align}
+$$</p>
+<p>Symmetry of the sets allows us to consolidate the counts:</p>
+<p>$$
+\begin{align}
+ &amp; = n! - \binom{n}{1} (n-1)! + \binom{n}{2} (n-2)! - \binom{n}{3} (n-3)! + \dots + (-1)^{n-1} \binom{n}{n} 1! \\
+ &amp; = \sum_{k=0}^{n-1} (-1)^k \binom{n}{k} (n-k)!  \\
+ &amp; = n! ( \sum_{k=0}^{n} \frac{ (-1)^k }{ k! } ) \\
+ &amp; \approx n! e^{-1}
+\end{align}
+$$</p>
+<p>Since there are $n!$ total configurations, the probability of a permutation not leaving any position fixed is:</p>
+<p>$$
+\begin{align}
+ &amp; = \frac{n! e^{-1} }{n!}  \\
+ &amp; = \frac{1}{e}
+\end{align}
+$$</p>
+<h2 id="labeled-box-problem">Labeled Box Problem</h2>
+<p>There are $n$ boxes each assigned randomly a unique number from $1$ to $n$ (inclusive) and
+$n$ participants each assigned a unique number from $1$ to $n$ (inclusive).
+Each participant can examine half of the boxes, with the ability to choose later
+boxes depending on what was seen previously.
+No participant is allowed to communicate once the process starts.</p>
+<p>Find a reasonable lower bound on the probability of each participant seeing their own
+number.</p>
+<p>By considering the numbers in the boxes as permutations, each participant can
+start with the box position of the number they've been assigned and continue on,
+jumping to the subsequent box positions from the revealed number after each box opening.</p>
+<p>The probability each participant sees their own number in this process is the the chance
+that the "box permutation" has a maximum cycle less than or equal to $\lfloor \frac{n}{2} \rfloor$.</p>
+<p>The trivial cycle permutation $(1,2,3,\dots,n)$ has $\binom{n}{l}$ ways to choose a
+particular cycle of length $l$.
+In disjoint cycle notation, it should be clear that for a cycle of length $l$, there are
+$l!$ different presentations.
+The remaining elements can be permuted arbitrarily yielding the number of cycles of length $l$:</p>
+<p>$$
+\begin{align}
+&amp; \binom{n}{l}  \cdot l! \cdot (n-l)! \\
+&amp; = \frac{n!}{l}
+\end{align}
+$$</p>
+<p>Summing over all cycles of length $l &gt; \lfloor \frac{n}{2} \rfloor$:</p>
+<p>$$
+\begin{align}
+ &amp; \sum_{l=\lfloor \frac{n}{2} \rfloor +1} \frac{n!}{l} \\
+ &amp; = n! \sum_{l=\lfloor \frac{n}{2} \rfloor + 1} \frac{1}{l} \\
+ &amp; = n! ( H_n - H_{\lfloor \frac{n}{2} \rfloor + 1} )
+\end{align}
+$$</p>
+<p>The total number of permutations is $n!$, so the resulting probability of having no cycle
+greater than $\lfloor \frac{n}{2} \rfloor$ is:</p>
+<p>$$
+1 - (H_{n} - H_{\lfloor \frac{n}{2} \rfloor + 1})
+$$</p>
+<p>Since</p>
+<p>$$ \lim_{n \to \infty} (H_n - \ln n) = \gamma $$</p>
+<p>we get:</p>
+<p>$$
+\begin{align}
+ &amp; \lim_{n \to \infty} ( 1 - (H_{n} - H_{\lfloor \frac{n}{2} \rfloor + 1} ) ) \\
+ &amp; = 1 - (\gamma - \gamma) - \ln 2 \\
+ &amp; = 1 - \ln 2
+\end{align}
+$$</p>
+<h2 id="unfair-coin">Unfair Coin</h2>
+<p>Given an unfair coin with unknown probability $p$ of landing heads, find a reasonably efficient
+process that yields $0.5$ probability and estimate the time it takes to 'draw'
+from the resulting fair distribution.</p>
+<p>$$
+\Pr \{ H T \} = \Pr \{ T H \} = p (1-p) = (1-p) p
+$$</p>
+
+      </section>
+
+      <!--
+      <footer>
+        <p><small> Original heme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+      </footer>
+      -->
+
+    </div>
+    <script src="/dev/js/scale.fix.js"></script>
+  </body
+</html>
