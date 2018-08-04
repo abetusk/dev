@@ -35,6 +35,23 @@ $$
 E[ \sum_{k=0}^{n-1} X_k ] = \sum_{k=0}^{n-1} E[X_k]
 $$
 
+Bayes' Theorem
+---
+
+
+$$
+\Pr\\{ A | B \\} = \frac{ \Pr\\{ A \& B \\} }{ \Pr\\{ B \\} }
+$$
+
+$$
+\Pr\\{ B | A \\} = \frac{ \Pr\\{ A \& B \\} }{ \Pr\\{ A \\} }
+$$
+
+$$
+\Pr\\{ A | B \\} = \frac{ \Pr\\{ B | A \\} \Pr\\{ A \\} }{ \Pr\\{ B \\} }
+$$
+
+
 Variance
 ---
 
