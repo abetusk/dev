@@ -75,8 +75,13 @@ as input and determines whether they loop forever or halt.</p>
 <li><code>HP</code> is a finite program</li>
 <li><code>HP</code> stops in finite time</li>
 <li><code>HP</code> takes as input a program, <code>P</code>, with input, <code>X</code>, both of finite length</li>
-<li><code>HP</code> can access infinite memory such as a tape in a Turing Machine model</li>
+<li><code>HP</code> can access arbitrarily long memory such as a tape in a Turing Machine model.</li>
 </ul>
+<p>Though a bit far afield from the current topic, there also needs to be constraints on
+the time it takes to access distant memory so as not to 'hide' computation in memory
+access.
+For example, assuming memory is a linear tape and the time to reach a distance, <code>d</code>,
+from the current location takes time proportional to <code>d</code>.</p>
 <p>Consider the program SPITE:</p>
 <pre><code>SPITE(P) {
 

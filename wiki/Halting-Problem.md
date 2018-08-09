@@ -12,7 +12,13 @@ The program `HP(P,X)` assumes:
 * `HP` is a finite program
 * `HP` stops in finite time
 * `HP` takes as input a program, `P`, with input, `X`, both of finite length
-* `HP` can access infinite memory such as a tape in a Turing Machine model
+* `HP` can access arbitrarily long memory such as a tape in a Turing Machine model.
+
+Though a bit far afield from the current topic, there also needs to be constraints on
+the time it takes to access distant memory so as not to 'hide' computation in memory
+access.
+For example, assuming memory is a linear tape and the time to reach a distance, `d`,
+from the current location takes time proportional to `d`.
 
 Consider the program SPITE:
 
