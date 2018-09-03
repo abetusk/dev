@@ -17,3 +17,4 @@ wiki todo
 * Methods of generating power laws (exponential increase, exponential decrease)
 * Saddle point technique
 * Basic number theory, proof infinity of primes, chinese remainder theorem
+* Shannon circuit counting arguments

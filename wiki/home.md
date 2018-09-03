@@ -28,3 +28,4 @@ dev
 * [Halting Problem](Halting-Problem.md)
 * [Assorted Small Probability Problems](Assorted-Small-Probability-Problems.md)
 * [Probability Notes](Probability-Notes.md)
+* [Amdahl's Law](Amdahls-Law.md)

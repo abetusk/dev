@@ -2,12 +2,12 @@
     "docs": [
         {
             "location": "/", 
-            "text": "dev\n\n\n\n\nTextile Cheat Sheet\n\n\nScaling images, animated GIFs in Gimp\n\n\nScreenshots, Screencasts, Animated Gifs\n\n\nffmpeg Notes\n\n\nUnix-y Notes\n\n\nLattice Reduction Notes\n\n\nPS/SVG to GCode Conversion\n\n\nChange Git default 'master' branch to 'release'\n\n\nMkDocs Quickstart\n\n\nGPG Notes\n\n\nGit Notes\n\n\nShannon Entropy\n\n\nEnabling Server HTTPS\n\n\nBGZF Example\n\n\nC Project Template\n\n\nProject Organization\n\n\nKelly Criterion\n\n\nFile Naming Conventions\n\n\nLoose Standards for Command Line Options\n\n\nPCB Notes\n\n\nElements of Coding Style\n\n\nEnergy Consumption Stats\n\n\nSimple Sums\n\n\nFisher Yates Shuffle\n\n\nHalting Problem\n\n\nAssorted Small Probability Problems\n\n\nProbability Notes", 
+            "text": "dev\n\n\n\n\nTextile Cheat Sheet\n\n\nScaling images, animated GIFs in Gimp\n\n\nScreenshots, Screencasts, Animated Gifs\n\n\nffmpeg Notes\n\n\nUnix-y Notes\n\n\nLattice Reduction Notes\n\n\nPS/SVG to GCode Conversion\n\n\nChange Git default 'master' branch to 'release'\n\n\nMkDocs Quickstart\n\n\nGPG Notes\n\n\nGit Notes\n\n\nShannon Entropy\n\n\nEnabling Server HTTPS\n\n\nBGZF Example\n\n\nC Project Template\n\n\nProject Organization\n\n\nKelly Criterion\n\n\nFile Naming Conventions\n\n\nLoose Standards for Command Line Options\n\n\nPCB Notes\n\n\nElements of Coding Style\n\n\nEnergy Consumption Stats\n\n\nSimple Sums\n\n\nFisher Yates Shuffle\n\n\nHalting Problem\n\n\nAssorted Small Probability Problems\n\n\nProbability Notes\n\n\nAmdahl's Law", 
             "title": "Home"
         }, 
         {
             "location": "/#dev", 
-            "text": "Textile Cheat Sheet  Scaling images, animated GIFs in Gimp  Screenshots, Screencasts, Animated Gifs  ffmpeg Notes  Unix-y Notes  Lattice Reduction Notes  PS/SVG to GCode Conversion  Change Git default 'master' branch to 'release'  MkDocs Quickstart  GPG Notes  Git Notes  Shannon Entropy  Enabling Server HTTPS  BGZF Example  C Project Template  Project Organization  Kelly Criterion  File Naming Conventions  Loose Standards for Command Line Options  PCB Notes  Elements of Coding Style  Energy Consumption Stats  Simple Sums  Fisher Yates Shuffle  Halting Problem  Assorted Small Probability Problems  Probability Notes", 
+            "text": "Textile Cheat Sheet  Scaling images, animated GIFs in Gimp  Screenshots, Screencasts, Animated Gifs  ffmpeg Notes  Unix-y Notes  Lattice Reduction Notes  PS/SVG to GCode Conversion  Change Git default 'master' branch to 'release'  MkDocs Quickstart  GPG Notes  Git Notes  Shannon Entropy  Enabling Server HTTPS  BGZF Example  C Project Template  Project Organization  Kelly Criterion  File Naming Conventions  Loose Standards for Command Line Options  PCB Notes  Elements of Coding Style  Energy Consumption Stats  Simple Sums  Fisher Yates Shuffle  Halting Problem  Assorted Small Probability Problems  Probability Notes  Amdahl's Law", 
             "title": "dev"
         }, 
         {
@@ -959,6 +959,21 @@
             "location": "/Probability-Notes/#2018-08-04", 
             "text": "", 
             "title": "2018-08-04"
+        }, 
+        {
+            "location": "/Amdahls-Law/", 
+            "text": "Amdahl's Law\n\n\n\n\n$T_s$ - Time for a serial task\n\n\n$p$ - portion of a task that can be parallelized ($ p \\in [0,1]$)\n\n\n$n$ - number of processes that can be used to parallelize\n\n\n$T_{p,n}$ - Time for a parallel task with $p$ and $n$\n\n\n$F_{p,n} = \\frac{T_s}{T_{p,n}} $ - Speedup factor for $p$ and $n$\n\n\n\n\n$$\nT_{p,n} = T_s (1-p) + \\frac{T_s p}{n} \\\\\n\\to \\frac{T_{p,n}}{T_s} = 1 - p + \\frac{p}{n} \\\\\n\\to \\frac{T_s}{T_{p,n}} = \\frac{1}{ 1 - p + \\frac{p}{n} } \\\\\n\\to F_{p,n} = \\frac{1}{ 1 - p + \\frac{p}{n} }\n$$\n\n\nFor a completely serial task ($p=0$):\n\n\n$$\nF_{p,n} = \\frac{1}{ 1 - 0 + \\frac{0}{n} } = 1\n$$\n\n\nFor a completely parallel task ($p=1$):\n\n\n$$\nF_{p,n} = \\frac{1}{ 1 - 1 + \\frac{1}{n} }\n = \\frac{1}{ \\frac{1}{n} }\n = n\n$$\n\n\nWhen $n \n 1$:\n\n\n$$\nF_{p,n} = \\frac{1}{ 1 - p + \\frac{p}{n} } = \\frac{n}{ n - n p + p } \\\\\n \\approx \\frac{n}{n -n p} = \\frac{1}{1-p}\n$$\n\n\n2018-09-03", 
+            "title": "Amdahls Law"
+        }, 
+        {
+            "location": "/Amdahls-Law/#amdahls-law", 
+            "text": "$T_s$ - Time for a serial task  $p$ - portion of a task that can be parallelized ($ p \\in [0,1]$)  $n$ - number of processes that can be used to parallelize  $T_{p,n}$ - Time for a parallel task with $p$ and $n$  $F_{p,n} = \\frac{T_s}{T_{p,n}} $ - Speedup factor for $p$ and $n$   $$\nT_{p,n} = T_s (1-p) + \\frac{T_s p}{n} \\\\\n\\to \\frac{T_{p,n}}{T_s} = 1 - p + \\frac{p}{n} \\\\\n\\to \\frac{T_s}{T_{p,n}} = \\frac{1}{ 1 - p + \\frac{p}{n} } \\\\\n\\to F_{p,n} = \\frac{1}{ 1 - p + \\frac{p}{n} }\n$$  For a completely serial task ($p=0$):  $$\nF_{p,n} = \\frac{1}{ 1 - 0 + \\frac{0}{n} } = 1\n$$  For a completely parallel task ($p=1$):  $$\nF_{p,n} = \\frac{1}{ 1 - 1 + \\frac{1}{n} }\n = \\frac{1}{ \\frac{1}{n} }\n = n\n$$  When $n   1$:  $$\nF_{p,n} = \\frac{1}{ 1 - p + \\frac{p}{n} } = \\frac{n}{ n - n p + p } \\\\\n \\approx \\frac{n}{n -n p} = \\frac{1}{1-p}\n$$", 
+            "title": "Amdahl's Law"
+        }, 
+        {
+            "location": "/Amdahls-Law/#2018-09-03", 
+            "text": "", 
+            "title": "2018-09-03"
         }
     ]
 }
