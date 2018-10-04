@@ -133,3 +133,13 @@ a re-login before it takes effect.
 After loggin out and logging back in, connecting to the Arduino from Ground Control worked and was able to
 test motors.
 
+### References
+
+* [MaslowCNC Assembly Guide](https://www.maslowcnc.com/assemblyguide)
+* [Maslow Electronics](http://maslowcommunitygarden.org/Electronics.html?instructions=true)
+* [Maslow Firmware](http://maslowcommunitygarden.org/Firmware.html?instructions=true) ([1.23](https://github.com/MaslowCNC/Firmware/archive/v1.23.tar.gz))
+* [Maslow Ground Control](http://maslowcommunitygarden.org/GroundControl.html?instructions=true) ([Linux Instructions](http://maslowcommunitygarden.org/GroundControl.html?instructions=true), [GroundControl.zip](https://github.com/MaslowCNC/GroundControl/archive/1f3bfc6f044595f977958d6dac3b95ef834e7031.zip))
+* [Maslow Choose A Frame Design](https://github.com/MaslowCNC/Mechanics/wiki/Choose-A-Frame-Design) ([Default Frame](http://maslowcommunitygarden.org/The-Default-Frame.html?instructions=True))
+* [Maslow Ring System Sled](http://maslowcommunitygarden.org/Maslow-Ring-System.html?instructions=true)
+
+
