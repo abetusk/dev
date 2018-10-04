@@ -92,3 +92,44 @@ From the product page on [AliBaba.com](https://etonm.en.alibaba.com/product/6066
 | Encoder specifications | A B biphase encoder, 11 line basic signal, voltage 3.3V or 5.0V |
 
 So the MaslowCNC one has 7 pulses per revolution (7PPR) whereas the GW4058-31ZY looks to have 11PPR.
+
+2018-10-04
+---
+
+Getting around to using kit.
+It looks like there's [been updates on the frame](https://github.com/MaslowCNC/Mechanics/wiki/Choose-A-Frame-Design) being used with some choices for cost and build time.
+I'm going to try for the [recommended frame](http://maslowcommunitygarden.org/The-Default-Frame.html?instructions=True).
+
+The parts list is as follows:
+
+| Quantity | Description |
+|----------|-------------|
+| 1        | Rigdig r2202 router (11A, 2HP, 1/2 in., corded, fixed base). Home Depot says they have one for ~$160 in my area |
+| 6        | 10' 2x4 |
+| 2        | 8' 2x4 |
+| 2        | 3/4" plywood sheet (8'x4') |
+| 2        | bricks |
+| 1        | wood glue |
+
+
+As a note, I had problems getting Ground Control to run, saying that Kivy was not recent enough (I had 1.9.0 and
+it expected 1.9.1).
+After following the suggestions listed on the [kivy.org installation page](https://kivy.org/doc/stable/installation/installation-linux.html) it worked.
+A brief overview is:
+
+```
+$ sudo add-apt-repository ppa:kivy-team/kivy
+$ sudo apt-get install python-kivy
+```
+
+Note, I'm on Ubuntu 16.04.
+
+After installing the firmware and getting Ground Control to work, doing a 'test motors and encoders' had the motors
+turn and gave a predictable error that the z-axis wasn't available (I had only attached the X and Y axies).
+
+Installed Ground Control on my laptop as well.
+I had trouble connecting until I remembered that adding my user to the `tty` and `dialout` group requires
+a re-login before it takes effect.
+After loggin out and logging back in, connecting to the Arduino from Ground Control worked and was able to
+test motors.
+
