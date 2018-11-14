@@ -94,7 +94,8 @@ clipcli -F -x $C -s $tmpfn > $tmpofn.0
 clipcli -O 1 -R $toolRC -s $tmpofn.0 > $tmpofn.1
 gp2ngc --preset maslow --premul $iC -i $tmpofn.1 > outline.ngc
 
-cat out_holes.ngc inset.ngc outline.ngc > fin.ngc
+cat <( echo "G21" ) out_holes.ngc inset.ngc outline.ngc > fin.ngc
 grecode -cw fin.ngc > fin90.ngc
+grecode -shift -1050 450 fin90.ngc > fin90_s.ngc
 rm -f $tmpfn $tmpofn $tmpofn.0 $tmpofn.1 $tmpofn.2 $tmpofn.3
 
