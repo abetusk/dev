@@ -14,6 +14,7 @@ b=`basename $fn .svg`
 svg2ngc $fn
 
 echo "G0 F$RAPIDSPEED" > ${b}-cleaned.ngc
+echo "G1 F$CUTSPEED" >> ${b}-cleaned.ngc
 
 ngc_translate -f ${b}.ngc -x 15 -y 15 -S -U | \
   sed 's/F800/ F'$CUTSPEED'/g' | \
