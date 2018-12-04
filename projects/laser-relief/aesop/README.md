@@ -1,6 +1,10 @@
 The Crow
 ===
 
+![crow picture](png/crow.png)
+
+![final assembly](doc/img/preview.jpg)
+
 This is an art project to design a laser cut relief drawing.
 All source and art files in this directory and it's sub-directories
 are provided under a CC0 license.
@@ -11,7 +15,9 @@ in two versions from archive.org ([version 1](https://archive.org/details/fables
 ([version 2](https://archive.org/details/fablesofsopsel00kely)).
 The original book has fallen out of copyright.
 
-The source material was modified to focuse on the crow and the tree.
+The source material was modified to focus on the crow and the tree with other elements of the
+original art being removed to focus on these elements.
+See the [orig directory](orig) for the original picture before modification.
 
 
 Methodology
@@ -29,6 +35,8 @@ The image was passed through a threshold to get rid of the off-white background.
 The lower portion that included the fox and the city scape as well
 as the "piece of cheese" that's being released from the crow's beak were erased.
 
+![threshold crow](png/crow-threshold.png)
+
 ### Layer Creation
 
 Four layers were decided on.
@@ -41,11 +49,20 @@ As the relief portions that are hidden from the contours from layers above it,
 that portion need not be etched.
 
 A combination of the 'lasso' cut and pasting then removing were used to create each layser.
-The portions of the layer that 'connect't to the layer below it were shaped to
+The portions of the layer that 'connect' to the layer below it were shaped to
 make the transition as undertandable as possible.
-For example, the branch from layer 0, the top most layer, to the branch in layer 1, the
-layer directly underneath, was shaped in an approximation of an ellipse to provide
+For example, the end of the branch from layer 0 (the top layer) to the branch in layer 1 (the
+layer directly underneath) was shaped in an approximation of an ellipse to provide
 a pleasing transition.
+
+Each of the layers along with their mask can be seen below:
+
+| Layer | Relief | Mask |
+|-------|--------|------|
+| 0 | ![layer0 relief](layers/layer0-relief.png) | ![layer0 mask](layers/layer0-mask.png) |
+| 1 | ![layer1 relief](layers/layer1-relief.png) | ![layer1 mask](layers/layer1-mask.png) |
+| 2 | ![layer2 relief](layers/layer2-relief.png) | ![layer2 mask](layers/layer2-mask.png) |
+| 3 | ![layer2 relief](layers/layer2-relief.png) | n/a |
 
 ### Conversion to GCode
 
