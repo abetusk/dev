@@ -179,7 +179,7 @@ was applied.
 
 This was let sit for 15-30mins and the step was repeated for the layer below it.
 
-![layer 3 glue application](doc/img/layer-3-glue-applicaiton.jpg)
+![layer 3 glue application](doc/img/layer-3-glue-application.jpg)
 
 ![layer 3 glue](doc/img/layer-3-glue.jpg)
 
