@@ -62,7 +62,7 @@ Each of the layers along with their mask can be seen below:
 | 0 | ![layer0 relief](layers/layer0-relief.png) | ![layer0 mask](layers/layer0-mask.png) |
 | 1 | ![layer1 relief](layers/layer1-relief.png) | ![layer1 mask](layers/layer1-mask.png) |
 | 2 | ![layer2 relief](layers/layer2-relief.png) | ![layer2 mask](layers/layer2-mask.png) |
-| 3 | ![layer2 relief](layers/layer2-relief.png) | n/a |
+| 3 | ![layer3 relief](layers/layer3-relief.png) | n/a |
 
 ### Conversion to GCode
 
