@@ -48,9 +48,9 @@ Each mask at a lower level includes the portion above it to provide structural s
 As the relief portions that are hidden from the contours from layers above it,
 that portion need not be etched.
 
-A combination of the 'lasso' cut and pasting then removing were used to create each layser.
+A combination of the 'lasso' cut and pasting then removing were used to create each layer.
 The portions of the layer that 'connect' to the layer below it were shaped to
-make the transition as undertandable as possible.
+make the transition as understandable as possible.
 For example, the end of the branch from layer 0 (the top layer) to the branch in layer 1 (the
 layer directly underneath) was shaped in an approximation of an ellipse to provide
 a pleasing transition.
@@ -77,7 +77,7 @@ Each of the four layers was converted and saved to a separate GCode file.
 
 Other tools could be used to convert the mask to an outline cut, for example
 Inkscape, but I decided on a command line tool option.
-The command line tool `pngtopnm` and `potrace` were used to create a PostScript contour file,
+The command line tool `pngtopnm` and `potrace` were used to create a Postscript contour file,
 which was then fed to `clipcli` to order the polygons properly and `gp2ngc` to convert
 to GCode.
 
@@ -165,7 +165,7 @@ Some relevant points:
 * All resulting GCode files are offset by 30mm in both the x and y axies
 * `box.ngc` was created by hand by copying the outer most box of one of the GCode files
 * Cutting speed is 800 (mm / minute)
-* The engraving speed and power are inhereted from whatever LaserWeb4 used (in this case full power, 4000 (mm/minute) speed)
+* The engraving speed and power are inherited from whatever LaserWeb4 used (in this case full power, 4000 (mm/minute) speed)
 
 ### Cutting and Assembly
 
@@ -213,7 +213,7 @@ The hinge holes that aren't screwed can be used to put wire or string through so
 
 The backing was then glued to the back of the piece.
 
-![backing glue applicaiton](doc/img/backing-glue.jpg)
+![backing glue application](doc/img/backing-glue.jpg)
 
 ![backing glue](doc/img/backing.jpg)
 
