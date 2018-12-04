@@ -152,31 +152,59 @@ Some relevant points:
 
 ### Cutting and Assembly
 
-*this has yet to be done*
 
-A complete run was done to create each of the four layers.
+A complete run was done to create each of the four layers, as can be seen below:
+
+![all layers](doc/img/cut-pieces.jpg)
+
+![first 3 layers](doc/img/layers-1-2-3.jpg)
+
 Maple wood was used as that's been reported as having the best results in terms of
 engraving.
 Transfer tape was put over the wood to minimize burn marks on the unetched and uncut
 portions of the wood.
 
-Once an initial cut is done, the templates can be used as a mask to spray paint stock wood
-for coloring.
-Paper masking can be used if more complex coloring needs to be done.
-Spray painting for color need not be done if the wood coloring is found to be sufficient aesthetically.
-
-Once each layer has been etched and cut, they can be assembled.
 The registration of each layer can be done easily as the negative space that was left
 unetched in the lower layers should line up with the cuts from layers above it.
 
-Each layer was glued to the layer above it, starting at the lowest layer (layer 3) and working up.
+Each layer was glued to the layer above it, starting with the top layer and working down.
+First wood glue was used applied to the unetched parts of layer and the glued to the layer above it.
 
-### Odds and Ends
+![layer 2 glue application](doc/img/layer-2-glue-application.jpg)
 
-*this has yet to be done*
+The layer was then aligned and small grips were attached to make sure there was pressure where the glue
+was applied.
 
-Once the piece has been glued together, a wire can be installed on the back.
+![layer 2 glue](doc/img/layer-2-glue.jpg)
 
+This was let sit for 15-30mins and the step was repeated for the layer below it.
+
+![layer 3 glue application](doc/img/layer-3-glue-applicaiton.jpg)
+
+![layer 3 glue](doc/img/layer-3-glue.jpg)
+
+Once the top three layers have been glued, the glue was applied to the bottom and aligned on the back plate.
+
+![backplate glue application](doc/img/glue-backplate-application.jpg)
+
+![backplate glue](doc/img/glue-backplate.jpg)
+
+A small rectangular piece was cut and hinges were screwed into it.
+The hinge holes that aren't screwed can be used to put wire or string through so the piece can be hung.
+
+![hinge backing](doc/img/backing-hing.jpg)
+
+The backing was then glued to the back of the piece.
+
+![backing glue applicaiton](doc/img/backing-glue.jpg)
+
+![backing glue](doc/img/backing.jpg)
+
+![backing glue (front)](doc/img/glue-backing.jpg)
+
+One could finish the wood to provide better protection.
+
+![final assembly](doc/img/final-assembly.jpg)
 
 
 References
