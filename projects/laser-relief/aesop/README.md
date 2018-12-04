@@ -192,7 +192,7 @@ Once the top three layers have been glued, the glue was applied to the bottom an
 A small rectangular piece was cut and hinges were screwed into it.
 The hinge holes that aren't screwed can be used to put wire or string through so the piece can be hung.
 
-![hinge backing](doc/img/backing-hing.jpg)
+![hinge backing](doc/img/backing-hinge.jpg)
 
 The backing was then glued to the back of the piece.
 
