@@ -29,6 +29,9 @@ pages:
   - "Assorted-Small-Probability-Problems.md"
   - "Probability-Notes.md"
   - "Amdahls-Law.md"
+  - "Is-It-Really-Open.md"
+  - "Number-Theory-Notes.md"
+  - "Arbitrary-Binary-Functions.md"
 
 docs_dir: 'wiki'
 theme_dir: 'dev_theme'

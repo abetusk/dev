@@ -11,6 +11,19 @@ import cv2.aruco as aruco
 
 import math
 
+from numpy import linalg as LA
+
+def transform(m, v):
+  s = []
+  for r in range(len(m)):
+    s.append(0)
+    for c in range(len(m[r])):
+      s[r] += m[r][c] * v[c]
+  return s
+
+
+
+
 ## https://stackoverflow.com/a/34374437/4002265 by Mark Dickinson
 ##
 def rotate(origin, point, angle):
@@ -39,7 +52,6 @@ if len(sys.argv) > 1:
     fn1 = sys.argv[2]
 
 print "# using", fn0, fn1
-print "# origin (", origin[0], origin[1], ")"
 img0 = cv2.imread(fn0)
 img1 = cv2.imread(fn1)
 
@@ -49,6 +61,10 @@ if len(sys.argv) > 4:
 else:
   origin[0] = img0.shape[1]/2
   origin[1] = img0.shape[0]/2
+
+print "# img0:", img0.shape, ", img1:", img1.shape
+
+print "# origin (", origin[0], origin[1], ")"
 
 aruco_dict = aruco.Dictionary_get(aruco.DICT_4X4_250)
 param = aruco.DetectorParameters_create()
@@ -143,6 +159,39 @@ print "affine-partial 2d (true) estimated-del:", z[0][0][2], z[0][1][2]
 
 print ""
 
+## experiment with eigenvector/value/center enstimation
+##
+
+print y[0]
+
+M = [ [y[0][0][0], y[0][0][1], y[0][0][2]],
+      [y[0][1][0], y[0][1][1], y[0][1][2]],
+      [ 0.0, 0.0, 1.0 ] ]
+
+M_c = np.array( [ [y[0][0][0], y[0][0][1], y[0][0][2]],
+                  [y[0][1][0], y[0][1][1], y[0][1][2]],
+                  [ 0.0, 0.0, 1.0 ] ] )
+
+M_ct = np.array( [ [y[0][0][0], y[0][1][0], 0.0],
+                  [y[0][0][1], y[0][1][1], 0.0],
+                  [ y[0][0][2], y[0][1][2], 1.0] ] )
+print M_c
+
+eig = LA.eig(M_c)
+for k in range( eig[0].shape[0] ):
+  print k, eig[0][k], eig[1][k]
+
+print "..."
+eig = LA.eig(M_ct)
+for k in range( eig[0].shape[0] ):
+  print k, eig[0][k], eig[1][k]
+
+#eig_w, eig_v = LA.eig(M_c)
+#print eig_v
+#print eig_w
+
+
+
 
 ### DEBUG
 ### DEBUG
@@ -165,6 +214,25 @@ dxy = rotate([0,0], origin, rad_ang)
 
 dxy[0] += calc_dxy[0]
 dxy[1] += calc_dxy[1]
+
+
+first_iter = True
+minxy = [0,0]
+min_del = 0.0
+for xx in range(0, img0.shape[1], 1):
+  for yy in range(0, img0.shape[0], 1):
+    #est_dxy = rotate([0,0], [xx,yy], rad_ang)
+    t_dxy = transform( M, [ xx, yy, 1 ] )
+
+    #print "[", xx, yy, "] (", LA.norm(t), ") ->", est_dxy
+
+    cur_del = LA.norm( [ xx - t_dxy[0], yy - t_dxy[1] ] )
+
+    if first_iter or (cur_del < min_del):
+      minxy = [xx, yy]
+      min_del = cur_del
+    first_iter = False
+print "# est_rotation_point:", minxy, "(", min_del, ")" 
 
 #print "...", dxy
 

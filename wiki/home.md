@@ -29,3 +29,6 @@ dev
 * [Assorted Small Probability Problems](Assorted-Small-Probability-Problems.md)
 * [Probability Notes](Probability-Notes.md)
 * [Amdahl's Law](Amdahls-Law.md)
+* [Is It Really Open](Is-It-Really-Open.md)
+* [Number Theory Notes](Number-Theory-Notes.md)
+* [Arbitrary Binary Functions](Arbitrary-Binary-Functions.md)

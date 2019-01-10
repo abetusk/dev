@@ -69,6 +69,9 @@ module inner_plate() {
 
 module holder() {
   
+  holder_cam_diam = CAM_DIAM-0.25;
+  hd = holder_cam_diam;
+  
   ds = (CAM_FIX_H - CAM_FIX_W)/2;
   difference() {
     translate([0,-ds]) square([CAM_FIX_W, CAM_FIX_H], center=true);
@@ -80,7 +83,7 @@ module holder() {
     translate([ dx,  0]) circle(SCREW_DIAM/2, $fn=FN);
     translate([-dx,  0]) circle(SCREW_DIAM/2, $fn=FN);
     
-    translate([0,-CAM_DIAM/2]) circle(CAM_DIAM/2, $fn=FN);
+    translate([0,-CAM_DIAM/2]) circle(hd/2, $fn=FN);
     
     translate([0,-CAM_FIX_W]) square([CAM_FIX_SPACE, CAM_FIX_H-CAM_DIAM/2], center=true);
     
@@ -90,8 +93,18 @@ module holder() {
   
 }
 
-inner_plate();
-translate([OUTER_DIAM/2 + INNER_DIAM/2 + 5, 0]) outer_plate();
+module render_all() {
+  inner_plate();
+  translate([OUTER_DIAM/2 + INNER_DIAM/2 + 5, 0]) outer_plate();
 
-translate([105, CAM_DIAM/2]) holder();
-translate([35, 50]) rotate(90, [0,0,1]) holder();
+  translate([105, CAM_DIAM/2]) holder();
+  translate([35, 50]) rotate(90, [0,0,1]) holder();
+}
+
+module render_holder() {
+  holder();
+  translate([25,0]) holder();
+}
+
+//render_all();
+render_holder();
