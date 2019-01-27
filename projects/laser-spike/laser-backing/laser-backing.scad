@@ -32,6 +32,9 @@ pwm_length_screw_ds = 56;
 pwm_width_screw_ds = 19;
 pwm_hole_diam = 3.5;
 
+strain_relief_hole_ds = 16;
+strain_relief_width = 20;
+strain_relief_height = 16;
 
 FN=25;
 
@@ -95,11 +98,18 @@ module lzr_housing0_hole() {
   translate([bx2,by2]) translate([0,sf_screw_center_ds]) circle(hole_diam/2, $fn=FN);
 }
 
+module strain_relief_hole() {
+  r = hole_diam/2;
+  translate([-strain_relief_hole_ds, 0]) circle(r, $fn=FN);
+  translate([ strain_relief_hole_ds, 0]) circle(r, $fn=FN);
+}
+
 module lzr_housing0_base() {
   buf_diam = 8;
   difference() {
     lzr_housing0_hull();
     lzr_housing0_hole();
+    translate([82,170]) rotate(-45, [0,0,1]) strain_relief_hole();
   };
 }
 
@@ -119,6 +129,9 @@ module lzr_housing0_top() {
     lzr_housing0_hull();
     lzr_housing0_hole();
     translate([4.5,22]) pwm_hole();
+    translate([82,170]) rotate(-45, [0,0,1]) strain_relief_hole();
+    translate([120,45]) rotate(90,[0,0,1]) strain_relief_hole();
+    translate([10,130]) rotate(90,[0,0,1]) strain_relief_hole();
   };
 }
 
@@ -167,12 +180,79 @@ module lzr_housing1_top() {
     lzr_housing1_hull();
     lzr_housing1_hole();
     translate([0,l/2 - l2/2 ]) pwm_hole();
+    translate([55,90]) rotate(90,[0,0,1]) strain_relief_hole();
+    translate([30,20]) strain_relief_hole();
+    translate([30,170]) strain_relief_hole();
   }
 }
 
-lzr_housing0_base();
-translate([160,0]) lzr_housing0_top();
-translate([0,220]) lzr_housing1_base();
-translate([90,220]) lzr_housing1_top();
+module strain_relief() {
+  ds = strain_relief_hole_ds;
+  dh = strain_relief_height;
+  difference() {
+    hull() {
+      translate([-ds,0]) circle(dh/2, $fn=FN);
+      translate([ ds,0]) circle(dh/2, $fn=FN);
+    };
+    
+    translate([-ds,0]) circle(hole_diam/2, $fn=FN);
+    translate([ ds,0]) circle(hole_diam/2, $fn=FN);
+  };
+}
 
+
+module placement0() {
+  translate([200,0]) rotate(90,[0,0,1]) lzr_housing0_base();
+  translate([410,0]) rotate(90,[0,0,1]) lzr_housing0_top();
+  translate([200,155]) rotate(90,[0,0,1]) lzr_housing1_base();
+  translate([410,155]) rotate(90, [0,0,1]) lzr_housing1_top();
+
+  translate([50,135]) strain_relief();
+  translate([15,120]) rotate(90,[0,0,1]) strain_relief();
+
+  translate([260,135]) strain_relief();
+  translate([220,120]) rotate(90,[0,0,1]) strain_relief();
+}
+
+module placement1a() {
+  translate([200,0]) rotate(90,[0,0,1]) lzr_housing0_base();
+  translate([200,155]) rotate(90,[0,0,1]) lzr_housing1_base();
+
+  translate([50,135]) strain_relief();
+  translate([15,120]) rotate(90,[0,0,1]) strain_relief();
+
+}
+
+module placement1b() {
+
+  translate([270,0]) rotate(90,[0,0,1]) lzr_housing0_top();
+  translate([110,]) lzr_housing1_top();
+
+  translate([120,135]) strain_relief();
+  translate([85,120]) rotate(90,[0,0,1]) strain_relief();
+}
+
+module placement2a() {
+  //translate([200,0]) rotate(90,[0,0,1]) lzr_housing1_base();
+  translate([200,0]) rotate(90,[0,0,1]) lzr_housing1_top();
+  translate([200,80]) rotate(90,[0,0,1]) lzr_housing1_top();
+  translate([220,30]) rotate(90,[0,0,1]) strain_relief();
+  translate([220,80]) rotate(90,[0,0,1]) strain_relief();
+}
+
+module placement2b() {
+  translate([200,0]) rotate(90,[0,0,1]) lzr_housing0_base();
+  translate([15,120]) rotate(90,[0,0,1]) strain_relief();
+  translate([50,135]) strain_relief();
+}
+
+module placement2c() {
+  translate([200,0]) rotate(90,[0,0,1]) lzr_housing0_top();
+  translate([15,120]) rotate(90,[0,0,1]) strain_relief();
+  translate([50,135]) strain_relief();
+}
+
+placement2a();
+//placement2c();
+//placement2c();
 
