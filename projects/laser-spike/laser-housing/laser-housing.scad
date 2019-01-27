@@ -17,15 +17,18 @@ side_x = outer_r + small_r - 1.0;
 module top() {
   
   difference() {
+
     hull() {
       circle(outer_r, $fn=FN);
       translate([ side_x,0]) circle(small_r, $fn=FN);
-      translate([-side_x,0]) circle(small_r, $fn=FN);    
+      rotate(120, [0,0,1]) translate([side_x,0]) circle(small_r, $fn=FN);    
+      rotate(-120, [0,0,1]) translate([side_x,0]) circle(small_r, $fn=FN);    
     };
     
     circle(LZR_D/2, $fn=FN);
     translate([ side_x,0]) circle(SCREW_R, $fn=FN);
-    translate([-side_x,0]) circle(SCREW_R, $fn=FN);
+    rotate( 120, [0,0,1]) translate([ side_x,0]) circle(SCREW_R, $fn=FN);
+    rotate(-120, [0,0,1]) translate([ side_x,0]) circle(SCREW_R, $fn=FN);
 
   };
 }
@@ -35,12 +38,14 @@ module mid() {
     hull() {
       circle(outer_r, $fn=FN);
       translate([ side_x,0]) circle(small_r, $fn=FN);
-      translate([-side_x,0]) circle(small_r, $fn=FN);    
+      rotate( 120, [0,0,1]) translate([ side_x,0]) circle(small_r, $fn=FN);    
+      rotate(-120, [0,0,1]) translate([ side_x,0]) circle(small_r, $fn=FN);    
     };
     
     circle(BODY_D/2, $fn=FN);
     translate([ side_x,0]) circle(SCREW_R, $fn=FN);
-    translate([-side_x,0]) circle(SCREW_R, $fn=FN);
+    rotate( 120, [0,0,1]) translate([ side_x,0]) circle(SCREW_R, $fn=FN);
+    rotate(-120, [0,0,1]) translate([ side_x,0]) circle(SCREW_R, $fn=FN);
 
   };
 }
@@ -50,12 +55,14 @@ module bot() {
     hull() {
       circle(outer_r, $fn=FN);
       translate([ side_x,0]) circle(small_r, $fn=FN);
-      translate([-side_x,0]) circle(small_r, $fn=FN);    
+      rotate( 120, [0,0,1]) translate([ side_x,0]) circle(small_r, $fn=FN);    
+      rotate(-120, [0,0,1]) translate([ side_x,0]) circle(small_r, $fn=FN);    
     };
     
     square([BODY_D+1, WEDGE_W], center=true);
     translate([ side_x,0]) circle(SCREW_R, $fn=FN);
-    translate([-side_x,0]) circle(SCREW_R, $fn=FN);
+    rotate( 120, [0,0,1]) translate([ side_x,0]) circle(SCREW_R, $fn=FN);
+    rotate(-120, [0,0,1]) translate([ side_x,0]) circle(SCREW_R, $fn=FN);
   };
 }
 
@@ -65,7 +72,8 @@ module bot_relief() {
     hull() {
       circle(outer_r, $fn=FN);
       translate([ side_x,0]) circle(small_r, $fn=FN);
-      translate([-side_x,0]) circle(small_r, $fn=FN);    
+      rotate( 120, [0,0,1]) translate([ side_x,0]) circle(small_r, $fn=FN);    
+      rotate(-120, [0,0,1]) translate([ side_x,0]) circle(small_r, $fn=FN);    
     };
     
     circle(1, $fn=FN);
@@ -74,11 +82,12 @@ module bot_relief() {
     
     // screw holes
     translate([ side_x,0]) circle(SCREW_R, $fn=FN);
-    translate([-side_x,0]) circle(SCREW_R, $fn=FN);
+    rotate( 120, [0,0,1]) translate([ side_x,0]) circle(SCREW_R, $fn=FN);
+    rotate(-120, [0,0,1]) translate([ side_x,0]) circle(SCREW_R, $fn=FN);
   };
 }
 
-dx = 3*BODY_D;
+dx = 2.5*BODY_D;
 dy = 2*BODY_D;
 
 // 1 top
@@ -87,18 +96,19 @@ dy = 2*BODY_D;
 // 1 strain relief
 
 top();
-translate([0,dy]) mid();
+
 translate([dx,0]) bot();
 translate([2*dx,0]) bot();
-translate([2*dx,dy]) bot();
 
-translate([  dx, dy]) bot_relief();
+translate([2,dy]) rotate(180, [0,0,1]) mid();
+translate([2.1*dx,dy]) rotate(180, [0,0,1])  bot();
+translate([1.1*dx, dy]) rotate(180, [0,0,1]) bot_relief();
 
 translate([0,2*dy]) mid();
 translate([dx,2*dy]) mid();
 translate([2*dx,2*dy]) mid();
 
 
-translate([0*dx,3*dy]) mid();
-translate([1*dx,3*dy]) mid();
-translate([2*dx,3*dy]) mid();
+translate([2,3*dy]) rotate(180, [0,0,1]) mid();
+translate([1.1*dx,3*dy]) rotate(180, [0,0,1]) mid();
+translate([2.1*dx,3*dy]) rotate(180, [0,0,1]) mid();
