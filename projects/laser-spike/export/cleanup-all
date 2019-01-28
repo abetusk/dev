@@ -25,7 +25,8 @@ function ngc_position {
 
   tfn=`mktemp`
 
-  grecode -shift "$shiftx" "$shifty" $ifn > $tfn
+  grecode -shift "$shiftx" "$shifty" $ifn | \
+    grep -v '^(' > $tfn
   mv $tfn $ifn
 
   rm -f $tfn
