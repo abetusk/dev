@@ -47,6 +47,7 @@ module mid() {
     rotate( 120, [0,0,1]) translate([ side_x,0]) circle(SCREW_R, $fn=FN);
     rotate(-120, [0,0,1]) translate([ side_x,0]) circle(SCREW_R, $fn=FN);
 
+    square([BODY_D+1, WEDGE_W], center=true);
   };
 }
 
@@ -95,20 +96,27 @@ dy = 2*BODY_D;
 // 3 bot
 // 1 strain relief
 
+module print9() {
 top();
 
 translate([dx,0]) bot();
 translate([2*dx,0]) bot();
 
 translate([2,dy]) rotate(180, [0,0,1]) mid();
-translate([2.1*dx,dy]) rotate(180, [0,0,1])  bot();
-translate([1.1*dx, dy]) rotate(180, [0,0,1]) bot_relief();
+translate([2.1*dx,dy]) rotate(180, [0,0,1])  mid();
+//translate([1.1*dx, dy]) rotate(180, [0,0,1]) bot_relief();
+translate([1.1*dx, dy]) rotate(180, [0,0,1]) mid();
 
 translate([0,2*dy]) mid();
 translate([dx,2*dy]) mid();
 translate([2*dx,2*dy]) mid();
+}
 
+print9();
+translate([2.1*dx,5.1*dy]) rotate(180,[0,0,1]) print9();
 
+/*
 translate([2,3*dy]) rotate(180, [0,0,1]) mid();
 translate([1.1*dx,3*dy]) rotate(180, [0,0,1]) mid();
 translate([2.1*dx,3*dy]) rotate(180, [0,0,1]) mid();
+*/

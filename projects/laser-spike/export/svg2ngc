@@ -14,7 +14,7 @@ premul=`echo "1000000" | bc -l`
 invmul=`echo "( 1 / $premul ) * $sf" | bc -l`
 
 frapid="F8000"
-fslow="F400"
+fslow="F600"
 S="1.0"
 
 if [[ "$inpsvg" == "" ]] ; then
