@@ -96,6 +96,7 @@ dy = 2*BODY_D;
 // 3 bot
 // 1 strain relief
 
+
 module print9() {
 top();
 
@@ -112,8 +113,74 @@ translate([dx,2*dy]) mid();
 translate([2*dx,2*dy]) mid();
 }
 
-print9();
-translate([2.1*dx,5.1*dy]) rotate(180,[0,0,1]) print9();
+module print_col_4() {
+  print9();
+  translate([2.1*dx,5.1*dy]) rotate(180,[0,0,1]) print9();
+  translate([0,6.1*dy]) print9();
+  translate([2.1*dx,11.1*dy]) rotate(180,[0,0,1]) print9();
+}
+
+module print_group_4x6() {
+  print_col_4();
+  translate([3*dx, 0]) print_col_4();
+  translate([6*dx, 0]) print_col_4();
+  translate([9*dx, 0]) print_col_4();
+  translate([12*dx, 0]) print_col_4();
+  translate([15*dx, 0]) print_col_4();
+  
+  translate([0*dx,12.2*dy]) mid();
+  translate([1*dx,12.2*dy]) mid();
+  translate([2*dx,12.2*dy]) mid();
+  translate([3*dx,12.2*dy]) mid();
+  translate([4*dx,12.2*dy]) mid();
+  translate([5*dx,12.2*dy]) mid();
+  translate([6*dx,12.2*dy]) mid();
+  translate([7*dx,12.2*dy]) mid();
+  translate([8*dx,12.2*dy]) mid();
+  translate([9*dx,12.2*dy]) mid();
+  translate([10*dx,12.2*dy]) mid();
+  translate([11*dx,12.2*dy]) mid();
+  translate([12*dx,12.2*dy]) mid();
+  translate([13*dx,12.2*dy]) mid();
+  translate([14*dx,12.2*dy]) mid();
+  translate([15*dx,12.2*dy]) mid();
+  translate([16*dx,12.2*dy]) mid();
+  translate([17*dx,12.2*dy]) mid();
+  translate([18*dx,12.2*dy]) mid();
+  translate([19*dx,12.2*dy]) mid();
+  
+  translate([18*dx,0]) mid();
+  translate([18.2*dx,dy]) rotate(180,[0,0,1]) mid();
+  translate([18*dx,2*dy]) mid();
+  translate([18.2*dx,3*dy]) rotate(180,[0,0,1]) mid();
+  translate([18*dx,4*dy]) mid();
+  translate([18.2*dx,5*dy]) rotate(180,[0,0,1]) mid();
+  translate([18*dx,6*dy]) mid();
+  translate([18.2*dx,7*dy]) rotate(180,[0,0,1]) mid();
+  translate([18*dx,8*dy]) mid();
+  translate([18.2*dx,9*dy]) rotate(180,[0,0,1]) mid();
+  translate([18*dx,10*dy]) mid();
+  translate([18.2*dx,11*dy]) rotate(180,[0,0,1]) mid();
+  
+
+  translate([19*dx,0]) mid();
+  translate([19.2*dx,dy]) rotate(180,[0,0,1]) mid();
+  translate([19*dx,2*dy]) mid();
+  translate([19.2*dx,3*dy]) rotate(180,[0,0,1]) mid();
+  translate([19*dx,4*dy]) mid();
+  translate([19.2*dx,5*dy]) rotate(180,[0,0,1]) mid();
+  translate([19*dx,6*dy]) mid();
+  translate([19.2*dx,7*dy]) rotate(180,[0,0,1]) mid();
+  translate([19*dx,8*dy]) mid();
+  translate([19.2*dx,9*dy]) rotate(180,[0,0,1]) mid();
+  translate([19*dx,10*dy]) mid();
+  translate([19.2*dx,11*dy]) rotate(180,[0,0,1]) mid();
+
+}
+
+print_group_4x6();
+//print9();
+//translate([2.1*dx,5.1*dy]) rotate(180,[0,0,1]) print9();
 
 /*
 translate([2,3*dy]) rotate(180, [0,0,1]) mid();
