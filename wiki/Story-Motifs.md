@@ -115,5 +115,23 @@ Maybe it's that there are really two main characters, Henry and Eliza, where Hen
 initial journey is to raise Eliza up and morphs into a fight to keep Eliza whereas
 Eliza's journey is to improve her life.
 
+Notes
+---
+
+### Romantic Comedies (City Formula)
+
+* Supporting characters to love interest are not viable options for dating (married, gay, etc.)
+* External force brings pair to reluctantly work together
+* Initial refusal of emotional attachment until (usually silent) acceptance that they feel for each other
+* Conflict happens where usually one party makes a mis-step and drives the love interest apart, often as a direct result
+  of the external force that brought them together in the first place putting pressure on them
+* "Defeat" stage where characters wallow in their loss
+* "Realization" where the character that made the mis-step comes to their senses, apologizes, makes it right and
+  asks for forgiveness
+* Acceptance where characters end up together
+
+
+
 ###### 2019-01-06
+
 
