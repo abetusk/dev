@@ -3,13 +3,14 @@
 HOLE_DIAM = 2;
 BACKING_SCREW_dW = 49;
 BACKING_SCREW_dH = 58;
-BACKING_BORDER_R = 4;
+//BACKING_BORDER_R = 4;
+BACKING_BORDER_R  = 4;
 
 THICKNESS = 3;
 
 USB_WIRE_D = 6;
 
-backing_h = BACKING_SCREW_dH + 2*BACKING_BORDER_R;
+backing_h = BACKING_SCREW_dH + 2*BACKING_BORDER_R + 10;
 backing_w = BACKING_SCREW_dW + 2*BACKING_BORDER_R;
 
 bot_support_l = BACKING_SCREW_dH/3;
@@ -40,12 +41,22 @@ FN=50;
 
 module backing() {
   ds = (led_holder_outer_d + led_holder_inner_d)/4;
+  
+  dw = backing_w - 2*BACKING_BORDER_R;
+  dh = backing_h - 2*BACKING_BORDER_R;
   difference() {
     hull() {
-      translate([-BACKING_SCREW_dW/2, BACKING_SCREW_dH/2]) circle(BACKING_BORDER_R, $fn=FN);
-      translate([ BACKING_SCREW_dW/2, BACKING_SCREW_dH/2]) circle(BACKING_BORDER_R, $fn=FN);
-      translate([ BACKING_SCREW_dW/2,-BACKING_SCREW_dH/2]) circle(BACKING_BORDER_R, $fn=FN);
-      translate([-BACKING_SCREW_dW/2,-BACKING_SCREW_dH/2]) circle(BACKING_BORDER_R, $fn=FN);
+      //translate([-BACKING_SCREW_dW/2, BACKING_SCREW_dH/2]) circle(BACKING_BORDER_R, $fn=FN);
+      //translate([ BACKING_SCREW_dW/2, BACKING_SCREW_dH/2]) circle(BACKING_BORDER_R, $fn=FN);
+      //translate([ BACKING_SCREW_dW/2,-BACKING_SCREW_dH/2]) circle(BACKING_BORDER_R, $fn=FN);
+      //translate([-BACKING_SCREW_dW/2,-BACKING_SCREW_dH/2]) circle(BACKING_BORDER_R, $fn=FN);
+
+      translate([ dw/2, dh/2]) circle(BACKING_BORDER_R, $fn=FN);
+      translate([-dw/2, dh/2]) circle(BACKING_BORDER_R, $fn=FN);
+      translate([-dw/2,-dh/2]) circle(BACKING_BORDER_R, $fn=FN);
+      translate([ dw/2,-dh/2]) circle(BACKING_BORDER_R, $fn=FN);
+
+
     };
     translate([-BACKING_SCREW_dW/2, BACKING_SCREW_dH/2]) circle(HOLE_DIAM/2, $fn=FN);
     translate([ BACKING_SCREW_dW/2, BACKING_SCREW_dH/2]) circle(HOLE_DIAM/2, $fn=FN);
@@ -250,8 +261,8 @@ module base_support_angle() {
 
 module realize_0()  {
   backing();
-  translate([BASE_OUTER_DIAM,0]) base_top();
-  translate([0,BASE_OUTER_DIAM]) base_mid();
+  translate([BASE_OUTER_DIAM-10,0]) base_top();
+  translate([0,BASE_OUTER_DIAM-5]) base_mid();
   
   translate([80,60]) led_strap();
   translate([80,90]) led_strap();
@@ -275,12 +286,12 @@ module realize_0()  {
   translate([210,80]) base_support();
   
   translate([210,50]) base_support_angle();
-  translate([245,50]) base_support_angle();
+  translate([215,25]) base_support_angle();
 
-  translate([240, 100]) backing_support();
-  translate([240, 80]) backing_support();
+  translate([210, 5]) backing_support();
+  translate([210, -15]) backing_support();
 
-  translate([180,0]) base_bot();
+  translate([160,0]) base_bot();
 }
 
 realize_0();

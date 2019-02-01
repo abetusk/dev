@@ -2,7 +2,7 @@
 
 fn="$1"
 export RAPIDSPEED=3100
-export CUTSPEED=300
+export CUTSPEED=400
 
 if [[ "$fn" == "" ]] ; then
   echo "provide file"
@@ -17,10 +17,11 @@ echo "G0 F$RAPIDSPEED" > ${b}-cleaned.ngc
 
 ngc_translate -f ${b}.ngc -x 15 -y 15 -S -U | \
   sed 's/F800/ F'$CUTSPEED'/g' | \
+  grep -v '^(' | \
   sed 's/S/ S/g' >> ${b}-cleaned.ngc
 
 cat ${b}-cleaned.ngc | \
   sed 's/F'$CUTSPEED'/F3000/g' | \
   sed 's/S1.0/S0.4/g' > ${b}-cleaned-test.ngc
 
-
+mv ${b}-cleaned.ngc ${b}.ngc
