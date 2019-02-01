@@ -124,11 +124,15 @@ module pwm_hole() {
 }
 
 module lzr_housing0_top() {
-  
+  pwm_t_x = 4.5 - 3.5/(sqrt(2)*2);
+  pwm_t_y = 22 - 3.5/(sqrt(2)*2);
   difference() {
     lzr_housing0_hull();
     lzr_housing0_hole();
-    translate([4.5,22]) pwm_hole();
+    
+    //translate([4.5,22]) pwm_hole();
+    translate([pwm_t_x,pwm_t_y]) pwm_hole();
+    
     translate([82,170]) rotate(-45, [0,0,1]) strain_relief_hole();
     translate([120,45]) rotate(90,[0,0,1]) strain_relief_hole();
     translate([10,130]) rotate(90,[0,0,1]) strain_relief_hole();
@@ -173,13 +177,20 @@ module lzr_housing1_top() {
   w = gikfun_long_width;
   l = gikfun_long_length;
   
+  
   l2 = pwm_length_screw_ds;
   w2 = pwm_width_screw_ds;
+
+  pwm_t_x = 3.5/sqrt(2);
+  pwm_t_y = l/2 - l2/2 + 3.5/sqrt(2);
 
   difference() {
     lzr_housing1_hull();
     lzr_housing1_hole();
-    translate([0,l/2 - l2/2 ]) pwm_hole();
+    
+    //translate([0,l/2 - l2/2 ]) pwm_hole();
+    translate([pwm_t_x, pwm_t_y]) pwm_hole();
+    
     translate([55,90]) rotate(90,[0,0,1]) strain_relief_hole();
     translate([30,20]) strain_relief_hole();
     translate([30,170]) strain_relief_hole();
