@@ -394,6 +394,11 @@ Data
 | minor | `[0,2,3,5,7,8,10]` |
 | harmonic minor | `[0,2,3,5,7,11,12]` |
 | melodic minor | `[0,2,3,5,7,9,11,12]` |
+| minor pentatonic | `[0,3,5,7,10]` |
+| major pentatonic | `[0,2,4,7,9]` |
+| egyptian | `[0,2,5,7,10]` |
+| blues minor | `[0,3,5,8,10]` |
+| blues major | `[0,2,5,7,9]` |
 
 |    tonic     |   super-tonic |   mediant    |  sub-dominant |    dominant  | submediant   |
 |--------------|---------------|--------------|---------------|--------------|--------------|
