@@ -297,6 +297,30 @@ var s2 = stranger_synth_2();
 s2.triggerAttackRelease("C4", 3, Tone.now());
 ```
 
+#### Strange Sonic-Pi
+
+```
+use_bpm 180
+
+melody = (ring :C2, :E2, :G2, :B2, :C3, :B2, :G2, :E2) #major
+
+dt = 0.125/2
+slidetime_a = Array.new(8) { |t| t = dt*(t+1) }
+slidetime = (ring *(slidetime_a.concat slidetime_a.reverse()[1,6]))
+
+live_loop :strange do
+  idx = tick
+
+  co = slidetime[idx]
+  use_synth :dsaw
+  #use_synth_defaults sustain: 0.5, release: 0.5
+  #sn = play melody[idx], cutoff: 120
+  sn = play melody[idx], cutoff: 120, sustain: 0.5, release: 0.5
+  control sn, cutoff: 80, cutoff_slide: co
+  sleep 0.5
+end
+```
+
 Melody
 ---
 
@@ -312,6 +336,29 @@ Simple Algorithms
 #### inversion
 
 `[a,b,c] -> [b,c,a+12]`
+
+#### 'peddling'
+
+Staying on the root note in a scale/mode and then
+'jumping' to other chords within the same scale
+before returning to the root note.
+While on the root note, the note is played in
+a sequence of short notes (4 quarter notes per bar, say).
+
+#### simple chord progression (for major scale only?)
+
+* 4 measures
+* start a measure with the root major chord
+* end with a major chord that isn't the root
+* interpolate with other chords in between
+
+Example:
+
+```
+I -> iii -> ii -> V
+I -> iii -> ii -> IV
+I -> vi -> V -> V
+```
 
 #### misc.
 
@@ -392,8 +439,8 @@ Data
 |-----|------|
 | major | `[0,2,4,5,7,9,11]` |
 | minor | `[0,2,3,5,7,8,10]` |
-| harmonic minor | `[0,2,3,5,7,11,12]` |
-| melodic minor | `[0,2,3,5,7,9,11,12]` |
+| harmonic minor | `[0,2,3,5,7,8,11]` |
+| melodic minor | `[0,2,3,5,7,9,11]` |
 | minor pentatonic | `[0,3,5,7,10]` |
 | major pentatonic | `[0,2,4,7,9]` |
 | egyptian | `[0,2,5,7,10]` |
@@ -409,19 +456,21 @@ Data
 | major | `[+0,+4,+7]` | `[c,e,g]` |
 | minor | `[+0,+3,+7]` | `[c,d#,g]` |
 | augmented | `[+0,+4,+8]` | `[c,e,g#]` |
-| diminished | `[+0,+3,+6]` | `[c,d#,f#]` |
+| diminished / diminished triad | `[+0,+3,+6]` | `[c,d#,f#]` |
+| (full) diminished / diminished 7th (`dim7`) | `[+0,+3,+6,+9]` | `[c,d#,f#,a]` |
+| (half) diminished / minor 7 flat 5 (`m7b5`) | `[+0,+3,+6,+10]` | `[c,d#,f#,a#]` |
 | major 7th | `[+0,+4,+7,+11]` | `[c,e,g,b]` |
 
 
-| Mode | data | example | step sequence |
-|------|------|---------|---------------|
-| ionian | `[0,2,4,5,7,9,11]` | `[c,d,e,f,g,a,b]` |       `[2,2,1,2,2,2,1]` |
-| dorian | `[0,2,3,5,7,9,10]` | `[c,d,d#,f,g,a,a#]` |     `[2,1,2,2,2,1,2]` |
-| phyrgian | `[0,1,3,5,7,8,10]` | `[c,c#,d#,f,g,g#,a#]` | `[1,2,2,2,1,2,2]` |
-| lydian | `[0,2,4,6,7,9,11]` | `[c,d,e,f#,g,a,b]` |      `[2,2,2,1,2,2,1]` |
-| mixolydian | `[0,2,4,5,7,9,10]` | `[c,d,e,f,g,a,a#]` |  `[2,2,1,2,2,1,2]` |
-| aeolian | `[0,2,3,5,7,8,10]` | `[c,d,d#,f,g,g#,a#]` |   `[2,1,2,2,1,2,2]` |
-| locrian | `[0,1,3,5,6,8,10]` | `[c,c#,d#,f,f#,g#,a#]` | `[1,2,2,1,2,2,2]` |
+| Mode | data | example | step sequence | "mood" |
+|------|------|---------|---------------|--------|
+| ionian | `[0,2,4,5,7,9,11]` | `[c,d,e,f,g,a,b]` |       `[2,2,1,2,2,2,1]` | happy/bland |
+| dorian | `[0,2,3,5,7,9,10]` | `[c,d,d#,f,g,a,a#]` |     `[2,1,2,2,2,1,2]` | mellow/smooth |
+| phrygian | `[0,1,3,5,7,8,10]` | `[c,c#,d#,f,g,g#,a#]` | `[1,2,2,2,1,2,2]` | dark/tense |
+| lydian | `[0,2,4,6,7,9,11]` | `[c,d,e,f#,g,a,b]` |      `[2,2,2,1,2,2,1]` | sci-fi/spacy |
+| mixolydian | `[0,2,4,5,7,9,10]` | `[c,d,e,f,g,a,a#]` |  `[2,2,1,2,2,1,2]` | bright/upbeat |
+| aeolian | `[0,2,3,5,7,8,10]` | `[c,d,d#,f,g,g#,a#]` |   `[2,1,2,2,1,2,2]` | dark/sad |
+| locrian | `[0,1,3,5,6,8,10]` | `[c,c#,d#,f,f#,g#,a#]` | `[1,2,2,1,2,2,2]` | ? |
 
 | 2-chord progression | code | description |
 |---------------------|------|-------------|
@@ -436,7 +485,6 @@ Data
 | `[+0,+3,+7] [+6,+9,+13]` | m6m | Danger |
 | `[+0,+3,+7] [+8,+11,+15]` | m8m | Evil |
 
-
 Glossary
 ---
 
@@ -450,6 +498,8 @@ Glossary
 | `scale` | a set of musical notes ordered by frequency | `c b a g f e d` |
 | `time signature` | Two numbers where the upper one represents the number of "beats" in a bar and the lower represents the inverse note length (power of 2). | `3/8`, 3 beats per bar with each note being an `eighth` note |
 | `diatonic chords` | chords that fit in a key |
+| `gallop` | an eight followed by two sixteenth notes (`[1/8,1/16,1/16]`) |
+| `reverse gallop` | two sixteenth notes followed by an eight note (`[1/16,1/16,1/8]`) |
 
 
 References
