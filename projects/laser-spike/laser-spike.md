@@ -153,7 +153,7 @@ This might mean making a 'test cable' to test each of the laser diodes.
 Use your laser cutter to cut the laser diode housing.
 I used 1/16" black acrylic.
 My laser cutter has an effective work area of 8"x12" which allows a sheet of
-black acrylic to cut out approximately 20 laser diode housings.
+black acrylic to cut out approximately 20 laser diode housings per run.
 
 Though probably obvious to people who use laser cutters more than I do, make
 sure to take off the paper protection for the acrylic sheets.
@@ -176,7 +176,7 @@ it's and outer, inner or backing piece, for ease of assembly later.
 After the laser diodes have been cabled and the laser diode housings have all been cut,
 it's time to assemble the laser diode in it's housing.
 This won't be the complete housing as there's a final backing piece that won't be put
-until the laser diode is attached to the jacket but most of the laser diode assembly
+on until the laser diode is attached to the jacket but most of the laser diode assembly
 is done in this step.
 
 Prepare the 128 cabled laser diodes along with the pile of acrylic housing pieces and
@@ -229,9 +229,10 @@ I initially did this with tape.
 After the first few rows had been placed, I found the tape was mostly not necessary
 as it's easy to judge where the to place the laser diodes by eye.
 
-The basic procedure is to use a template middle plate of the laser housing to
-poke four holes per laser diode in the jacket, three for the M2 screws and one
-in the center for the cable.
+Use a middle plate of the laser housing as a guide to
+poke four holes per laser diode in the jacket.
+The outer three holes are for the M2 screws to hold the housing in place
+and the center hole is for the laser diode wiring to go through.
 I use an antique walnut cracker but any sharp pointed object will do to create
 the holes in the jacket.
 
@@ -248,7 +249,7 @@ it's possible to get access to them without completely turning the arm inside ou
 
 When turning the arm inside out, take care to try not to damage the laser
 diodes.
-The should be moderately resilient (after all, that's one of the reasons they
+The laser diodes in their housings should be moderately resilient (after all, that's one of the reasons they
 were designed) but it's best to still be as careful as possible.
 
 When the underside has been accessed, place a center laser housing plate on
@@ -258,6 +259,7 @@ Screw the plate on with three M2 screws.
 
 Once all the laser diodes have been attached, if possible, test each laser
 diode to make sure they still function.
+
 Testing earlier in the process helps weed out potential problems down the line.
 Engineering and electronics are hard to do in general and when there's the added
 element of electronics attached to clothing that's bending, bumping, moving and
@@ -267,13 +269,13 @@ Considering the quantity of elements involved in the project, failure can
 be expected, so make sure to have a few extra laser diodes on hand so that
 when failures are detected, the laser diodes can be replaced.
 
-Understand that part failure is part of the process and don't get
+Understand that component failure is part of the process and don't get
 demotivated when things break or don't initially work.
-Failure is to be expected, planned for and compensated for by testing
+Failure is to be expected, planned and compensated for by testing
 and making sure there are replacement parts handy.
 
 Once all the laser diodes are attached and we have some reasonable expectation
-that they function, it's time to move on to the creating the electronics
+that they function, it's time to move on to creating the electronics
 that will drive the laser diodes.
 
 Electronics Assembly
