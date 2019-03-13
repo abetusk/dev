@@ -58,7 +58,7 @@ Materials
 
 * 50x 2pin male/female JST 2.5mm connectors ([Amazon](https://www.amazon.com/Pieces-2-54mm-JST-XHR-Connector-Female/dp/B0731NHS9R/), [EBay](https://www.ebay.com/itm/100-pcs-of-PH-2-0mm-2-Pin-Right-Angle-JST-Socket-Male-Connector/152686455882))
 * 5x 6pin male/female JST connectors ([Amazon](https://www.amazon.com/Pieces-2-54mm-JST-XHR-Connector-Female/dp/B077LYP4T9/))
-* 150x JST 1.5mm male/female pair ([Amazon](https://www.amazon.com/gp/product/B013JRWCBU/), [EBay](https://www.ebay.com/itm/50-Sets-Mini-Micro-JST-1-5mm-ZH-2-Pin-Connector-Plug-With-Wires-Cables-150mm/332287106091))
+* 150x JST 1.25mm male/female pair ([Amazon](https://www.amazon.com/gp/product/B013JRWCBU/), [EBay](https://www.ebay.com/itm/50-Sets-Mini-Micro-JST-1-5mm-ZH-2-Pin-Connector-Plug-With-Wires-Cables-150mm/332287106091))
 * 6 colors of 24 AWG wire, stranded 300V (10ft) ([Amazon](https://www.amazon.com/Stranded-Nano-Flexible-Insulated-Electrical/dp/B07DCV7BDD/))
 * 2 colors of 24 AWG wire, stranded 300V (200ft) ([Amazon](https://www.amazon.com/Remington-Industries-24UL1007STRBLA-Stranded-Diameter/dp/B00NB3SYB0/), [Amazon](https://www.amazon.com/Remington-Industries-24UL1007STRWHI-Stranded-Diameter/dp/B00NB3T6LM/))
 * 2 colors of 24 AWG wire, solid core (10ft) ([Amazon](https://www.amazon.com/Electrical-tinned-copper-electric-CBAZY/dp/B07HRLQVGM/))
@@ -125,7 +125,7 @@ the laser diode and relief for the laser diode wires.
 
 ### Attach Laser Diode Cabling
 
-After testing each laser diode to make sure they work, solder a male  JST 1.5mm 2pin header
+After testing each laser diode to make sure they work, solder a male  JST 1.25mm 2pin header
 to each of the ends of the laser diode.
 I've found best results by cutting the edge of the wires off, stripping them and then wrapping and
 soldering them.
@@ -235,7 +235,7 @@ in the center for the cable.
 I use an antique walnut cracker but any sharp pointed object will do to create
 the holes in the jacket.
 
-The center hole for the cable needs to be bigger than the rest as the JST 1.5mm
+The center hole for the cable needs to be bigger than the rest as the JST 1.25mm
 male header is bigger than the M2 screws.
 I've found that enlarging the hole with a pair of needle nose pliers works well.
 
@@ -896,7 +896,7 @@ If the cable is the issue, replace that portion of it.
 
 Sometimes the cabling is tight in the arms and through use the stresses of normal movement cause
 connections to break.
-Since the laser diodes are connected by a small JST 1.5mm connector, the connector should disengage
+Since the laser diodes are connected by a small JST 1.25mm connector, the connector should disengage
 rather than wire snapping or housing cracking.
 In this case, the connection can be re-established by re-connecting the laser diode to it's cable
 but it keeps getting disconnected, it might be good to choose a different connection scheme so
