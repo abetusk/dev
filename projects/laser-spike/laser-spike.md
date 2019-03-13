@@ -233,7 +233,7 @@ the laser diodes.
 | ![LD jacket mount 6](img/ld-jacket-mount-6.jpg) | ![LD jacket mount 7](img/ld-jacket-mount-7.jpg) |
 | ![LD jacket mount 8](img/ld-jacket-mount-8.jpg) | ![LD jacket guide 0](img/jacket-laser-diode-layout.jpg) |
 | ![LD jacket guide 1](img/jacket-laser-diode-layout.1.jpg) | ![LD jacket guide 2](img/jacket-laser-diode-layout.2.jpg) |
-| ![LD jacket guide 3](img/jacket-laser-diode-layout.3.jpg) | |
+
 
 Once the 128 laser diodes have been put in their housing, it's time to attach
 them to the jacket.
