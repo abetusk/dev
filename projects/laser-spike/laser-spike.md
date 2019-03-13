@@ -125,6 +125,11 @@ the laser diode and relief for the laser diode wires.
 
 ### Attach Laser Diode Cabling
 
+| | |
+|---|---|
+| ![LD wire 0](img/ld-wire-0.jpg) | ![LD wire 1](img/ld-wire-1.jpg) |
+| ![LD wire 2](img/ld-wire-2.jpg) | ![LD wire 3](img/ld-wire-3.jpg) |
+
 After testing each laser diode to make sure they work, solder a male  JST 1.25mm 2pin header
 to each of the ends of the laser diode.
 I've found best results by cutting the edge of the wires off, stripping them and then wrapping and
@@ -173,6 +178,13 @@ it's and outer, inner or backing piece, for ease of assembly later.
 
 ### Assemble Laser Diode Housing
 
+| | |
+|---|---|
+| ![LD housing 0](img/ld-housing-0.jpg) | ![LD housing 1](img/ld-housing-1.jpg) |
+| ![LD housing 2](img/ld-housing-2.jpg) | ![LD housing 3](img/ld-housing-3.jpg) |
+| ![LD housing 4](img/ld-housing-4.jpg) | ![LD housing 5](img/ld-housing-5.jpg) |
+| ![LD housing 6](img/ld-housing-6.jpg) | ![LD housing 7](img/ld-housing-7.jpg) |
+
 After the laser diodes have been cabled and the laser diode housings have all been cut,
 it's time to assemble the laser diode in it's housing.
 This won't be the complete housing as there's a final backing piece that won't be put
@@ -212,6 +224,16 @@ Any future iteration of this project should provide a better solution to housing
 the laser diodes.
 
 ### Attach Laser Diodes to Jacket
+
+| | |
+|---|---|
+| ![LD jacket mount 0](img/ld-jacket-mount-0.jpg) | ![LD jacket mount 1](img/ld-jacket-mount-1.jpg) |
+| ![LD jacket mount 2](img/ld-jacket-mount-2.jpg) | ![LD jacket mount 3](img/ld-jacket-mount-3.jpg) |
+| ![LD jacket mount 4](img/ld-jacket-mount-4.jpg) | ![LD jacket mount 5](img/ld-jacket-mount-5.jpg) |
+| ![LD jacket mount 6](img/ld-jacket-mount-6.jpg) | ![LD jacket mount 7](img/ld-jacket-mount-7.jpg) |
+| ![LD jacket mount 8](img/ld-jacket-mount-8.jpg) | ![LD jacket guide 0](img/jacket-laser-diode-layout.jpg) |
+| ![LD jacket guide 1](img/jacket-laser-diode-layout.1.jpg) | ![LD jacket guide 2](img/jacket-laser-diode-layout.2.jpg) |
+| ![LD jacket guide 3](img/jacket-laser-diode-layout.3.jpg) | |
 
 Once the 128 laser diodes have been put in their housing, it's time to attach
 them to the jacket.
@@ -306,6 +328,16 @@ The power toggle is provided for ease of use.
 
 ### Power Cable
 
+| | |
+|---|---|
+| ![power cable 0](img/power-cable-0.jpg) | ![power cable 1](img/power-cable-1.jpg) |
+| ![power cable 2](img/power-cable-2.jpg) | ![power cable 3](img/power-cable-3.jpg) |
+| ![power cable 4](img/power-cable-4.jpg) | ![power cable 5](img/power-cable-5.jpg) |
+| ![power cable 6](img/power-cable-6.jpg) | ![power cable 7](img/power-cable-7.jpg) |
+| ![power cable 8](img/power-cable-8.jpg) | ![power cable 9](img/power-cable-9.jpg) |
+| ![power cable a](img/power-cable-a.jpg) | ![power cable b](img/power-cable-b.jpg) |
+| ![power cable c](img/power-cable-c.jpg) | ![power cable d](img/power-cable-d.jpg) |
+
 For safety and convenience reasons, a cable for the 2s LiPo battery is created and connected.
 It's sometimes easy to accidentally create a short when soldering or prototyping.
 Should a short happen without a fuse in line with the LiPo battery, the battery often has
@@ -364,6 +396,15 @@ Attach the battery to the power cable.
 
 ### Power Regulators
 
+| | |
+|---|---|
+| ![power breakout 0](img/power-breakout-0.jpg) | ![power breakout 1](img/power-breakout-1.jpg) |
+| ![power breakout 2](img/power-breakout-2.jpg) | ![power breakout 3](img/power-breakout-3.jpg) |
+| ![power breakout 4](img/power-breakout-4.jpg) | ![power breakout 5](img/power-breakout-5.jpg) |
+| ![power breakout 6](img/power-breakout-6.jpg) | ![power breakout 7](img/power-breakout-7.jpg) |
+| ![power breakout 8](img/power-breakout-8.jpg) | |
+
+
 We'll now build the breakout board for the power regulators.
 The laser diodes should draw around 1mA each, making the whole
 system draw around ~200mA as an upper bound.
@@ -405,6 +446,12 @@ The last 2-pin female header is for the output of the BEC that goes to power the
 Use connecting wires to make sure all power is routed to the appropriate places.
 
 ### Arduino and Input Breakout
+
+| | |
+|---|---|
+| ![Arduino breakout 0](img/arduino-breakout-0.jpg) | ![Arduino breakout 1](img/arduino-breakout-1.jpg) |
+| ![Arduino breakout 2](img/arduino-breakout-2.jpg) | ![Arduino breakout 3](img/arduino-breakout-3.jpg) |
+
 
 An Arduino Nano provides the main processing power that takes input from the microphone
 and joystick and communicates with the PWM drivers.
@@ -605,6 +652,11 @@ The orientation provides a safety check to make sure shorts or improper connecti
 
 ### Power, I2C, Joystick and Microphone Connections
 
+| | |
+|---|---|
+| ![mic joystick 0](img/mic-joystick-0.jpg) | ![mic joystick 1](img/mic-joystick-1.jpg) |
+| ![mic joystick 2](img/mic-joystick-2.jpg) | ![mic joystick 3](img/mic-joystick-3.jpg) |
+
 Power from the regulators needs to get to the Arduino and PWM controllers.
 The Arduino Nano also needs to communicate to the PWM drivers.
 The joystick and microphone need extension cables.
@@ -632,6 +684,10 @@ The stranded wire is much more moveable and is better suited to providing power 
 communication between elements that don't reside on the same proto-board.
 
 ### Wiring and Routing for the Laser Diodes
+
+| | |
+|---|---|
+| ![inside arm wiring](img/wiring-arm-inside.jpg) |
 
 The laser diodes are grouped into four that are powered and controlled from a single PWM driver line.
 The cables for this are a JST 2.5mm male header on one end that break out into 4 JST 1.25mm female headers.
