@@ -49,6 +49,8 @@ Materials
 * 5V 3A BEC ([Amazon](https://www.amazon.com/Ship-Hobbywing-Switch-mode-UBEC-Lowest/dp/B008ZNWOYY/), [EBay](https://www.ebay.com/itm/3A-RC-Ubec-5V-6V-BEC-Full-5A-Shielding-Antijamming-Switching-Regulator-New-US/362502124866))
 * 7.4V 850mAh LiPo battery ([Amazon](https://www.amazon.com/SoloGood-850mAh-Battery-Connector-Racing/dp/B07L9VFMMJ/))
 * XT30 Connectors ([Amazon](https://www.amazon.com/Finware-Upgrade-Female-Connectors-Battery/dp/B074S7NH3H/))
+* 20 gauge in line fuse holder ([Amazon](https://www.amazon.com/2-pack-Gauge-Fuse-Holders-FUSES/dp/B01MQP96S3/))
+* Rocker switch ([Amazon](https://www.amazon.com/XiangLv-Solder-Rocker-Switch-Toggle/dp/B07B9RPLZD/))
 * 2s LiPo charger ([Amazon](https://www.amazon.com/RC-Battery-Balancer-Charger-7-4-11-1V/dp/B06XR87987/))
 * 2x Gikfun Proto-Boards ([Amazon](https://www.amazon.com/gp/product/B071WC2BCF))
 * 1x protoboard ([Amazon](https://www.amazon.com/gp/product/B00LLO4Q7W/))
@@ -56,7 +58,7 @@ Materials
 
 * 50x 2pin male/female JST 2.5mm connectors ([Amazon](https://www.amazon.com/Pieces-2-54mm-JST-XHR-Connector-Female/dp/B0731NHS9R/), [EBay](https://www.ebay.com/itm/100-pcs-of-PH-2-0mm-2-Pin-Right-Angle-JST-Socket-Male-Connector/152686455882))
 * 5x 6pin male/female JST connectors ([Amazon](https://www.amazon.com/Pieces-2-54mm-JST-XHR-Connector-Female/dp/B077LYP4T9/))
-* 150x JST 1.5mm male/female pair ([Amazon](https://www.amazon.com/gp/product/B013JRWCBU/ref=ppx_yo_dt_b_asin_title_o07_s00), [EBay](https://www.ebay.com/itm/50-Sets-Mini-Micro-JST-1-5mm-ZH-2-Pin-Connector-Plug-With-Wires-Cables-150mm/332287106091))
+* 150x JST 1.5mm male/female pair ([Amazon](https://www.amazon.com/gp/product/B013JRWCBU/), [EBay](https://www.ebay.com/itm/50-Sets-Mini-Micro-JST-1-5mm-ZH-2-Pin-Connector-Plug-With-Wires-Cables-150mm/332287106091))
 * 6 colors of 24 AWG wire, stranded 300V (10ft) ([Amazon](https://www.amazon.com/Stranded-Nano-Flexible-Insulated-Electrical/dp/B07DCV7BDD/))
 * 2 colors of 24 AWG wire, stranded 300V (200ft) ([Amazon](https://www.amazon.com/Remington-Industries-24UL1007STRBLA-Stranded-Diameter/dp/B00NB3SYB0/), [Amazon](https://www.amazon.com/Remington-Industries-24UL1007STRWHI-Stranded-Diameter/dp/B00NB3T6LM/))
 * 2 colors of 24 AWG wire, solid core (10ft) ([Amazon](https://www.amazon.com/Electrical-tinned-copper-electric-CBAZY/dp/B07HRLQVGM/))
@@ -78,6 +80,8 @@ Materials
 * Velcro tie ([Amazon](https://www.amazon.com/Attmu-Reusable-Fastening-Microfiber-6-Inch/dp/B00O9VKVFK/))
 * Snaps (optional) ([Amazon](https://www.amazon.com/LIHAO-Pliers-Plastic-Buttons-Crafting/dp/B0734WN4RW/))
 * Scissors ([Amazon](https://www.amazon.com/Scotch-1448-Precision-Scissor-8-Inches/dp/B001BKHHGS/))
+* Cable ties ([Amazon](https://www.amazon.com/TR-Industrial-TR88302-Multi-Purpose-Cable/dp/B01018DC96/))
+* Cable clamp ([Amazon](https://www.amazon.com/LICTOP-R-Type-Fasteners-Tubing-Management/dp/B07P3ZKG45/))
 
 A quick note: Amazon generally offers quicker shipping than the EBay alternative but often at 2-10 times the cost.
 I've found there's often minimal difference in quality between the items I order on Amazon and EBay.
