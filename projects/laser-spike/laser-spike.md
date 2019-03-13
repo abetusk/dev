@@ -4,7 +4,7 @@ Laser Spiked Jacket
 Intro
 ---
 
-After seeing Wei Chieh Shi's laser jacket design, I wanted to create my own.
+After seeing [Wei Chieh Shi's laser jacket design](https://shihweichieh.com/laser-jacket-for-yoshii-kazuya), I wanted to create my own.
 These instructions show how to modify a jacket to add laser diodes
 and control them electronically to produce different laser light patterns.
 The laser diodes give the jacket an appearance of being "spiky", like having
@@ -16,8 +16,8 @@ The concept and execution is relatively simple but care has to be taken to
 make sure that the electronics, wiring and other aspects of the jacket don't
 fail when in use.
 Much of the subtlety and complexity of the project is providing proper wire
-routing and making sure that proper strain relief and support for the electronics
-and connections is provided so it's resilient under normal wear.
+routing and making sure that strain relief for the electronics
+and connections is provided so that it's resilient under normal wear.
 
 Assuming the basic parts are available (soldering iron, multimeter, wire strippers,
 laser cutter, etc.) I would estimate that this project is about $300 in raw materials and about 20 hours worth
@@ -58,7 +58,7 @@ Materials
 
 * 50x 2pin male/female JST 2.5mm connectors ([Amazon](https://www.amazon.com/Pieces-2-54mm-JST-XHR-Connector-Female/dp/B0731NHS9R/), [EBay](https://www.ebay.com/itm/100-pcs-of-PH-2-0mm-2-Pin-Right-Angle-JST-Socket-Male-Connector/152686455882))
 * 5x 6pin male/female JST connectors ([Amazon](https://www.amazon.com/Pieces-2-54mm-JST-XHR-Connector-Female/dp/B077LYP4T9/))
-* 150x JST 1.5mm male/female pair ([Amazon](https://www.amazon.com/gp/product/B013JRWCBU/), [EBay](https://www.ebay.com/itm/50-Sets-Mini-Micro-JST-1-5mm-ZH-2-Pin-Connector-Plug-With-Wires-Cables-150mm/332287106091))
+* 150x JST 1.25mm male/female pair ([Amazon](https://www.amazon.com/gp/product/B013JRWCBU/), [EBay](https://www.ebay.com/itm/50-Sets-Mini-Micro-JST-1-5mm-ZH-2-Pin-Connector-Plug-With-Wires-Cables-150mm/332287106091))
 * 6 colors of 24 AWG wire, stranded 300V (10ft) ([Amazon](https://www.amazon.com/Stranded-Nano-Flexible-Insulated-Electrical/dp/B07DCV7BDD/))
 * 2 colors of 24 AWG wire, stranded 300V (200ft) ([Amazon](https://www.amazon.com/Remington-Industries-24UL1007STRBLA-Stranded-Diameter/dp/B00NB3SYB0/), [Amazon](https://www.amazon.com/Remington-Industries-24UL1007STRWHI-Stranded-Diameter/dp/B00NB3T6LM/))
 * 2 colors of 24 AWG wire, solid core (10ft) ([Amazon](https://www.amazon.com/Electrical-tinned-copper-electric-CBAZY/dp/B07HRLQVGM/))
@@ -125,7 +125,7 @@ the laser diode and relief for the laser diode wires.
 
 ### Attach Laser Diode Cabling
 
-After testing each laser diode to make sure they work, solder a male  JST 1.5mm 2pin header
+After testing each laser diode to make sure they work, solder a male  JST 1.25mm 2pin header
 to each of the ends of the laser diode.
 I've found best results by cutting the edge of the wires off, stripping them and then wrapping and
 soldering them.
@@ -153,7 +153,7 @@ This might mean making a 'test cable' to test each of the laser diodes.
 Use your laser cutter to cut the laser diode housing.
 I used 1/16" black acrylic.
 My laser cutter has an effective work area of 8"x12" which allows a sheet of
-black acrylic to cut out approximately 20 laser diode housings.
+black acrylic to cut out approximately 20 laser diode housings per run.
 
 Though probably obvious to people who use laser cutters more than I do, make
 sure to take off the paper protection for the acrylic sheets.
@@ -176,7 +176,7 @@ it's and outer, inner or backing piece, for ease of assembly later.
 After the laser diodes have been cabled and the laser diode housings have all been cut,
 it's time to assemble the laser diode in it's housing.
 This won't be the complete housing as there's a final backing piece that won't be put
-until the laser diode is attached to the jacket but most of the laser diode assembly
+on until the laser diode is attached to the jacket but most of the laser diode assembly
 is done in this step.
 
 Prepare the 128 cabled laser diodes along with the pile of acrylic housing pieces and
@@ -229,13 +229,14 @@ I initially did this with tape.
 After the first few rows had been placed, I found the tape was mostly not necessary
 as it's easy to judge where the to place the laser diodes by eye.
 
-The basic procedure is to use a template middle plate of the laser housing to
-poke four holes per laser diode in the jacket, three for the M2 screws and one
-in the center for the cable.
+Use a middle plate of the laser housing as a guide to
+poke four holes per laser diode in the jacket.
+The outer three holes are for the M2 screws to hold the housing in place
+and the center hole is for the laser diode wiring to go through.
 I use an antique walnut cracker but any sharp pointed object will do to create
 the holes in the jacket.
 
-The center hole for the cable needs to be bigger than the rest as the JST 1.5mm
+The center hole for the cable needs to be bigger than the rest as the JST 1.25mm
 male header is bigger than the M2 screws.
 I've found that enlarging the hole with a pair of needle nose pliers works well.
 
@@ -248,7 +249,7 @@ it's possible to get access to them without completely turning the arm inside ou
 
 When turning the arm inside out, take care to try not to damage the laser
 diodes.
-The should be moderately resilient (after all, that's one of the reasons they
+The laser diodes in their housings should be moderately resilient (after all, that's one of the reasons they
 were designed) but it's best to still be as careful as possible.
 
 When the underside has been accessed, place a center laser housing plate on
@@ -258,6 +259,7 @@ Screw the plate on with three M2 screws.
 
 Once all the laser diodes have been attached, if possible, test each laser
 diode to make sure they still function.
+
 Testing earlier in the process helps weed out potential problems down the line.
 Engineering and electronics are hard to do in general and when there's the added
 element of electronics attached to clothing that's bending, bumping, moving and
@@ -267,13 +269,13 @@ Considering the quantity of elements involved in the project, failure can
 be expected, so make sure to have a few extra laser diodes on hand so that
 when failures are detected, the laser diodes can be replaced.
 
-Understand that part failure is part of the process and don't get
+Understand that component failure is part of the process and don't get
 demotivated when things break or don't initially work.
-Failure is to be expected, planned for and compensated for by testing
+Failure is to be expected, planned and compensated for by testing
 and making sure there are replacement parts handy.
 
 Once all the laser diodes are attached and we have some reasonable expectation
-that they function, it's time to move on to the creating the electronics
+that they function, it's time to move on to creating the electronics
 that will drive the laser diodes.
 
 Electronics Assembly
@@ -291,7 +293,7 @@ Currently, there are three modes:
 * Graphic Equalizer - use the microphone input to get graphic equalizer data to control the laser diode project pattern
 * Joystick Controlled - use the joystick to control the laser diodes directly
 
-Each output of the PWM driver is fed into four laser diodes.
+Each output line of the PWM driver is fed into four laser diodes.
 
 The laser diodes are powered by a 5V 3A "battery elimination circuit" (BEC).
 The Arduino Nano and all of the logic on the peripherals are powered by a 5V buck converter.
@@ -304,7 +306,7 @@ The power toggle is provided for ease of use.
 
 ### Power Cable
 
-For safety and convenience reasons, a cable for the 2s LiPo battery created and connected.
+For safety and convenience reasons, a cable for the 2s LiPo battery is created and connected.
 It's sometimes easy to accidentally create a short when soldering or prototyping.
 Should a short happen without a fuse in line with the LiPo battery, the battery often has
 the potentially to push upwards of 25A through the connection.
@@ -315,15 +317,15 @@ With the fuse in place, I've had no fires or explosions, so I would highly recom
 this safety feature in.
 
 I've found the 20 AWG fuse holder to be a good wire size.
-Larger AWG and it becomes unwieldy to attach to other cables.
+Larger gauges become unwieldy to attach to other cables.
 
-Solder one end of the 20 AWG fuse holder is into the positive lead of a female XT30 connector.
+Solder one end of the 20 AWG fuse holder into the positive lead of a female XT30 connector.
 In line with the fuse holder, on the end that isn't connected to the battery,
 solder a power toggle switch wire.
 For both, make sure to feed the heat shrink on before soldering.
 
 For all attached wiring, I think the [Lineman splice](https://en.wikipedia.org/wiki/Western_Union_splice)
-technique to use.
+is a good technique to strive towards.
 When the wires are wrapped together well, add drop of flux and solder them together.
 Once soldered, give the wires a decent yank to make sure they're attached well.
 
@@ -371,7 +373,8 @@ compared to the power draw of the rest of the electronics, separate
 regulators have been used to make sure the laser diode power and
 the electronics power are as isolated as possible.
 Without this isolation, the Arduino might star to act weird
-and other input devices might have undesirable noise.
+and other input devices might function incorrectly due to to the noisiness of
+the circuit.
 
 The breakout board diverts power from the batter to a 5V buck
 converter and to the 5V 3A BEC.
@@ -388,12 +391,12 @@ For the BEC, cut off the ends and re-attach two 2-pin JST 2.5mm male headers,
 making sure the positive lead is on the left side of the header if looking at
 the header with the notch side visible.
 
-Solder two 8x1 row female headers onto the protoboard.
+Solder two 6x1 row female headers onto the protoboard.
 Make the vertical spacing of the headers a matching distance to the height of the buck converter.
 The headers will provide the seating for the buck converter.
 
 Solder five 2-pin female headers to the protoboard, one at the top for the battery
-power in, three on the right for the batter power out to the BEC and one last one on the left
+power in, three on the right for the battery power out to the BEC and one last one on the left
 for the output of the 5V regulator.
 
 Two of the three 2-pin female headers on the right are for the input and output of the BEC.
@@ -468,12 +471,12 @@ are needed.
 The line coming out of the 2n2222 transistor is used to power the laser diode through a female JST 2.5mm connector.
 The board's laser diode power is fed by the 5V 3A BEC output.
 The PWM controller's logic circuitry is powered by the 5V buck converter but
-is provided by 6 connector line that's used for it's I2C connection.
+is provided by the 6-pin connector that's used for it's I2C connection.
 
 There are two PWM controllers, each with their own proto-board.
 One PWM controller will be housed with the Arduino Nano breakout and the power
 regulator breakout.
-The other PWM controller will be on it's own and eventually placed on the other
+The other PWM controller will be on it's own housing and eventually placed on the other
 side of the jacket.
 
 Each PWM controller is located on either side of the jacket to provide better
@@ -481,7 +484,7 @@ access to the laser diodes they will drive.
 
 Each of the PWM controller is in charge of controlling 64 laser diodes.
 Since each output line of the PCA9685 PWM controller only has 16 lines, each output line
-provides power to a group of 4 laser diodes (16*4=64).
+provides power to a group of 4 laser diodes (16 * 4 = 64).
 The two PCA9685 PWM controllers control 64 laser diodes each which drives the total 128 laser diodes.
 
 As a note, even with the large proto-board the PWM controller is housed in,
@@ -498,8 +501,8 @@ further down, is a better method than soldering a complete top or bottom at once
 ### PCA9685 Module Soldering and Addressing
 
 Since there are two PCA9685 PWM controllers which are in communication with the Arduino Nano,
-they need to have separate addresses since they share the communication lines.
-One only one of the PCA9685 PWM controller, connect the low bit on the 'address' breakout pad.
+they need to have separate addresses since they share the communication lines (also known as a 'bus').
+On only one of the PCA9685 PWM controller, connect the low bit on the 'address' breakout pad.
 For the single PCA9685 PWM controller, this will change it's address to `0X41` (from the default `0x40`)
 so the Arduino Nano can address it independently.
 
@@ -507,7 +510,7 @@ Solder headers onto each of the two PCA9685 PWM controllers.
 Since we're only interested in the PWM output, only solder a single row of 1x4 headers for
 each of the four PWM output groupings on each of the PWM controllers.
 This will be the way the PCA9685 PWM controllers are seated on the breakout board.
-I find that using the same trick of seating the headers in something, the female headers where they'll eventually reside,
+I find that using the same trick of seating the headers in the female headers where they'll eventually reside
 helps keep them straight when soldering.
 
 I use a JST 2.5mm, oriented and locking 6 pin female connector on either side of the PCA9685 module.
@@ -518,11 +521,9 @@ module.
 
 Once the headers have been attached, create two 6 wire cables, one about 20cm in length and the other about
 75cm.
-I used an oriented, locking JST 2.5mm 6 pin connector 
-Make sure the ordering matches from the breakout of the Arduino Nano cable on the breakout board as well
-as the header output from the PCA9685 module.
-If for some reason the orientation was reversed, when creating the cable, the cable ordering can be reversed
-to accommodate.
+I used an oriented, locking JST 2.5mm 6 pin connector.
+Make sure the wire ordering from the breakout of the Arduino Nano cable onto the PCA9685 module lines up correctly.
+If for some reason the orientation was reversed or jumbled, re-order the cable wiring to accomodate.
 
 I like to use a cable shroud for long cables to keep them from tangling.
 I also try and use different colored cables to differentiate what their function is and
@@ -594,7 +595,7 @@ a wearable piece and a bulky jacket that is prone to failure.
 
 All wires that aren't soldered directly to proto-boards are stranded.
 With the exception of some of the battery wiring, all wire is 25 AWG.
-Where possible wires are put into a wire shroud to make sure they don't get tangles.
+Where possible wires are put into a wire shroud to make sure they don't get tangled.
 
 Except for the direct connections to the lasers,
 all headers are JST 2.5mm, locking and oriented.
@@ -628,7 +629,7 @@ All cables should be made out of 25 AWG stranded wire.
 Solid core wire is too stiff and not only restricts movement but has the potential
 to fray and break.
 The stranded wire is much more moveable and is better suited to providing power and
-communication through elements need wire connections that jump out of board.
+communication between elements that don't reside on the same proto-board.
 
 ### Wiring and Routing for the Laser Diodes
 
@@ -646,13 +647,13 @@ Each of the wires is put in a cable sleeve to prevent tangling.
 I've found 1/4" braided sleeving works well.
 
 To help route the sleeved wires through the arm and middle interface between the outer shell jacket and inner lining,
-I attached cable clamps, closed off with a cable-tie, that attach to some floating excess fabric.
+I attached cable clamps, closed off with a cable-tie, that attach to some floating excess fabric on the inside of the arm of the jacket.
 
 Care has to be taken to make sure the wiring is fed out of the arm properly.
 If the wiring loops around the lining, this will pinch the opening where an arm would go through
 making the jacket hard to put on and use.
 
-I tired labelling the wires so that I could trace back which group belonged to which wire but
+I tried labelling the wires so that I could trace back which group belonged to which wire but
 I didn't have much success.
 
 I would suggest testing the laser diodes with a CR2032 battery to make sure the laser diodes still work after
@@ -666,7 +667,7 @@ Once all the laser diodes are connected to their respective wires, it's time to 
 
 The PWM driver, along with other electronic components, such as the power converters
 and Arduino Nano, are seated in a laser cut electronic housing, consisting of
-two laser cut wood panels that has plastic tubing in the middle for spacing.
+two laser cut wood panels that have plastic tubing in the middle for spacing.
 The electronic housing is joined with various M3 screws.
 The M3 screws provide double duty, acting as spacers for the two housing panels
 and also provide support for the proto-board.
@@ -698,7 +699,7 @@ the nuts are hard to get off after the loctite is applied.
 
 Place the electronics enclosures in the middle between the jacket outer shell and the inner
 jacket lining.
-Use velcro ties to make sure the electronics enclosures are in place.
+Use velcro ties to make sure the electronics enclosures are securely in place.
 
 Feed the microphone out to a place that can be exposed to sound, puncturing a hole if need be.
 The joystick can be fed through the arm or be kept on the inside of the jacket, depending on
@@ -840,7 +841,7 @@ Also, make sure the battery is fully charged to rule out an empty battery as a p
 
 In my experience, this is most likely to intermittent power and so the above strategy of looking for
 loose or bad connections should be used.
-In rarer occasions, electrical noise sometimes causes the Arduino and other peripherals problems.
+In rarer occasions, electrical noise sometimes causes the Arduino and other problems in the peripheral electronics.
 Making sure the power is isolated by their own regulators is a good start but in the worst case, ferrite
 beads can be attached at choice locations to try and mitigate the noise.
 
@@ -896,7 +897,7 @@ If the cable is the issue, replace that portion of it.
 
 Sometimes the cabling is tight in the arms and through use the stresses of normal movement cause
 connections to break.
-Since the laser diodes are connected by a small JST 1.5mm connector, the connector should disengage
+Since the laser diodes are connected by a small JST 1.25mm connector, the connector should disengage
 rather than wire snapping or housing cracking.
 In this case, the connection can be re-established by re-connecting the laser diode to it's cable
 but it keeps getting disconnected, it might be good to choose a different connection scheme so
