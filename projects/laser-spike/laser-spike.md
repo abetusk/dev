@@ -19,7 +19,7 @@ Much of the subtlety and complexity of the project is providing proper wire
 routing and making sure that proper strain relief and support for the electronics
 and connections is provided so it's resilient under normal wear.
 
-Assuming the basic parts are available (soldering iron, multimeter, wire stripppers,
+Assuming the basic parts are available (soldering iron, multimeter, wire strippers,
 laser cutter, etc.) I would estimate that this project is about $300 in raw materials and about 20 hours worth
 of labor.
 What follows is the way I created the jacket you see here and the design, sourcing
@@ -31,7 +31,7 @@ Materials
 * Jacket ([Amazon](https://www.amazon.com/gp/product/B01GKGWBCM/))
 
 * Soldering Iron ([Amazon](https://www.amazon.com/Hakko-FX888D-23BY-Digital-Soldering-Station/dp/B00ANZRT4M/))
-* Mutlimeter ([Amazon](https://www.amazon.com/AstroAI-Digital-Multimeter-Voltage-Tester/dp/B01ISAMUA6/))
+* Multimeter ([Amazon](https://www.amazon.com/AstroAI-Digital-Multimeter-Voltage-Tester/dp/B01ISAMUA6/))
 * Solder ([Amazon](https://www.amazon.com/Kester-24-6337-0010-Rosin-Solder-SPOOL/dp/B00068IJWC/))
 * Wire Cutter ([Amazon](https://www.amazon.com/CHP-170-Stand-Off-Maximum-Cutting-Capacity/dp/B00FZPDG1K/))
 * Wire Strippers ([Amazon](https://www.amazon.com/WGGE-Professional-crimping-Multi-Tool-Multi-Function/dp/B073YG65N2/))
@@ -41,7 +41,7 @@ Materials
 * Nitrile Gloves (optional) ([Amazon](https://www.amazon.com/gp/product/B009D15X1S/))
 
 * Arduino Nano ([Amazon](https://www.amazon.com/ELEGOO-Arduino-ATmega328P-Without-Compatible/dp/B0713XK923/), [EBay](https://www.ebay.com/itm/5Pcs-USB-CH340G-Nano-V3-0-16M-5V-ATmega328P-Micro-Controller-Board-For-Arduino/222545056262))
-* Joystick Module ([Amazon](https://www.amazon.com/WGCD-Joystick-Breakout-Controller-Arduino/dp/B01N59MK0U/), [EBay]https://www.ebay.com/itm/2X-JoyStick-Breakout-Module-Shield-PS2-Joystick-Game-Controller-For-Arduino/382748157784))
+* Joystick Module ([Amazon](https://www.amazon.com/WGCD-Joystick-Breakout-Controller-Arduino/dp/B01N59MK0U/), [EBay](https://www.ebay.com/itm/2X-JoyStick-Breakout-Module-Shield-PS2-Joystick-Game-Controller-For-Arduino/382748157784))
 * Microphone ([Amazon](https://www.amazon.com/HiLetgo-Electret-Microphone-Amplifier-Adjustable/dp/B07DRGF8C2/))
 * 128x Laser Diode Module ([Amazon](https://www.amazon.com/DTOL-Laser-Diode-Module-650nm/dp/B00R73MC1S/), [EBay](https://www.ebay.com/itm/100pcs-Red-Dot-Laser-Diode-Module-5-Volt-5mW-650nm-Heads-New/173409416207))
 * 2x PCA9685 16 channel PWM drivers ([EBay](https://www.ebay.com/itm/PCA9685-16-Channel-12-bit-PWM-Servo-Driver-I2C-Interface-for-Arduino-Raspberry/201916673816))
@@ -55,13 +55,15 @@ Materials
 * 1x small protoboard ([Amazon](https://www.amazon.com/Gikfun-Solder-able-Breadboard-Arduino-Electronic/dp/B0778G64QZ/))
 
 * 50x 2pin male/female JST 2.5mm connectors ([Amazon](https://www.amazon.com/Pieces-2-54mm-JST-XHR-Connector-Female/dp/B0731NHS9R/), [EBay](https://www.ebay.com/itm/100-pcs-of-PH-2-0mm-2-Pin-Right-Angle-JST-Socket-Male-Connector/152686455882))
-* 5x 6pin male/female JST connectors ([Amazon](https://www.amazon.com/Pieces-2-54mm-JST-XHR-Connector-Female/dp/B077LYP4T9/), )
-* 150x JST 1.5mm male/femail pair ([Amazon](https://www.amazon.com/gp/product/B013JRWCBU/ref=ppx_yo_dt_b_asin_title_o07_s00), [EBay](https://www.ebay.com/itm/50-Sets-Mini-Micro-JST-1-5mm-ZH-2-Pin-Connector-Plug-With-Wires-Cables-150mm/332287106091))
+* 5x 6pin male/female JST connectors ([Amazon](https://www.amazon.com/Pieces-2-54mm-JST-XHR-Connector-Female/dp/B077LYP4T9/))
+* 150x JST 1.5mm male/female pair ([Amazon](https://www.amazon.com/gp/product/B013JRWCBU/ref=ppx_yo_dt_b_asin_title_o07_s00), [EBay](https://www.ebay.com/itm/50-Sets-Mini-Micro-JST-1-5mm-ZH-2-Pin-Connector-Plug-With-Wires-Cables-150mm/332287106091))
 * 6 colors of 24 AWG wire, stranded 300V (10ft) ([Amazon](https://www.amazon.com/Stranded-Nano-Flexible-Insulated-Electrical/dp/B07DCV7BDD/))
 * 2 colors of 24 AWG wire, stranded 300V (200ft) ([Amazon](https://www.amazon.com/Remington-Industries-24UL1007STRBLA-Stranded-Diameter/dp/B00NB3SYB0/), [Amazon](https://www.amazon.com/Remington-Industries-24UL1007STRWHI-Stranded-Diameter/dp/B00NB3T6LM/))
 * 2 colors of 24 AWG wire, solid core (10ft) ([Amazon](https://www.amazon.com/Electrical-tinned-copper-electric-CBAZY/dp/B07HRLQVGM/))
 * Engineer PA-21 Universal Crimping Pliers ([Amazon](https://www.amazon.com/Engineer-PA-21-Universal-Crimping-Pliers/dp/B002L6HJ8W/))
 * 1/4" braided cable sleeve ([Amazon](https://www.amazon.com/100ft-Expandable-Braided-Sleeving-braided/dp/B074GM1PK1/))
+* Heat Shrink Tubing ([Amazon](https://www.amazon.com/Ginsco-580-pcs-Assorted-Sleeving/dp/B01MFA3OFA/))
+* Heat Gun ([Amazon](https://www.amazon.com/Genesis-GHG1500A-Temperature-Nozzle-Attachments/dp/B00EU2T8GG/))
 
 * 12x 30mm M3 bolt & 20x 6mm M3 bolt ([Amazon](https://www.amazon.com/iExcell-Stainless-Internal-Drives-Socket/dp/B076GZQXHB))
 * 100x M3 nut ([Amazon](https://www.amazon.com/Shapenty-100PCS-Stainless-Female-Fastener/dp/B071NLDW56))
@@ -96,7 +98,7 @@ A joystick and microphone is used for input, with power being provided by a LiPo
 
 The basic components are:
 
-* Laser diode housing and attachement
+* Laser diode housing and attachment
 * Electronics
 * Electronics Housing
 * Wiring and connection
@@ -133,7 +135,7 @@ Once the wires are soldered together, put the heat shrink tube on and heat with 
 gun to give a good fit.
 
 If there's any exposed wires, cover with electrical tape.
-If for some reason the heat shrink tube is loose, you can alway sput another, larger,
+If for some reason the heat shrink tube is loose, you can always put another, larger,
 heat shrink tube around both and shrink to fit.
 
 Be gentle when handling the laser diodes as the wires connected to the laser come off easily.
@@ -162,8 +164,8 @@ but it's something to keep an eye on.
 
 After the housing has been cut, I've found that it's necessary to remove smaller interior
 pieces with a small pick.
-I like to prepare the acrylic pieces by putting them into groups dpeending on whether
-it's and outer, inner or backing piece, for ease of assembly laster.
+I like to prepare the acrylic pieces by putting them into groups depending on whether
+it's and outer, inner or backing piece, for ease of assembly later.
 
 ### Assemble Laser Diode Housing
 
@@ -194,7 +196,7 @@ the third M2 screw and put a nut on each of the three M2 screws.
 The idea is to screw the bottom plate on tight enough to keep the laser diode
 cables in place and relieve any forces that would yank on the wires coming out.
 
-Using acrylic for the housing and strain reilef is less than ideal as the acrylic
+Using acrylic for the housing and strain relief is less than ideal as the acrylic
 is very brittle and cracks easily.
 I've found that the bottom plate often cracks when screwing the nuts in place.
 As long as the acrylic bottom plate provides strain relief, even if it's cracked,
@@ -212,9 +214,9 @@ them to the jacket.
 First, open up the jacket lining to get access to the inner jacket shell.
 It's best to keep as much of the lining intact as possible as the lining
 provides shielding from the cabling to your skin when wearing the jacket
-and also provides a convienient place to put the electronics out of sight.
+and also provides a convenient place to put the electronics out of sight.
 
-I've found that takin the stitches out of the middle back is best.
+I've found that taking the stitches out of the middle back is best.
 The opening can be closed off later with snaps or velcro.
 
 A pattern is first marked on the outside of the jacket to decide where to place each of the
@@ -231,7 +233,7 @@ the holes in the jacket.
 
 The center hole for the cable needs to be bigger than the rest as the JST 1.5mm
 male header is bigger than the M2 screws.
-I've found that enlarging the hole with a pair of needle nose plyers works well.
+I've found that enlarging the hole with a pair of needle nose pliers works well.
 
 Once the laser diode housing's cable and three M2 screws have been fed through
 the holes, the inside of the jacket shell needs to be accessed to attach
@@ -252,7 +254,7 @@ Screw the plate on with three M2 screws.
 
 Once all the laser diodes have been attached, if possible, test each laser
 diode to make sure they still function.
-Testing earlier in the process helps weed out potential promblems down the line.
+Testing earlier in the process helps weed out potential problems down the line.
 Engineering and electronics are hard to do in general and when there's the added
 element of electronics attached to clothing that's bending, bumping, moving and
 flexing, it makes it all that much more probable that failure occurs.
@@ -288,17 +290,17 @@ Currently, there are three modes:
 Each output of the PWM driver is fed into four laser diodes.
 
 The laser diodes are powered by a 5V 3A "battery elimination circuit" (BEC).
-The Arduino Nano and all of the logic on the peripherals are powered by a 5V buck conververter.
+The Arduino Nano and all of the logic on the peripherals are powered by a 5V buck converter.
 The BEC and buck converter are powered by a LiPo 2s battery.
 The battery has an attachment of a 3A fuse and power toggle.
 
 As stated above, the fuse is a safety precaution to make sure that any accidental
-short circuit doesn't result in a catstrophic and potentially hazardous failure.
+short circuit doesn't result in a catastrophic and potentially hazardous failure.
 The power toggle is provided for ease of use.
 
 ### Power Cable
 
-For safety and convenience reasonse, a cable for the 2s LiPo battery created and connected.
+For safety and convenience reasons, a cable for the 2s LiPo battery created and connected.
 It's sometimes easy to accidentally create a short when soldering or prototyping.
 Should a short happen without a fuse in line with the LiPo battery, the battery often has
 the potentially to push upwards of 25A through the connection.
@@ -312,7 +314,7 @@ I've found the 20 AWG fuse holder to be a good wire size.
 Larger AWG and it becomes unwieldy to attach to other cables.
 
 Solder one end of the 20 AWG fuse holder is into the positive lead of a female XT30 connector.
-In line with the fuser holder, on the end that isn't connected to the battery,
+In line with the fuse holder, on the end that isn't connected to the battery,
 solder a power toggle switch wire.
 For both, make sure to feed the heat shrink on before soldering.
 
@@ -321,12 +323,12 @@ technique to use.
 When the wires are wrapped together well, add drop of flux and solder them together.
 Once soldered, give the wires a decent yank to make sure they're attached well.
 
-Once the wires are attahced firmly, feed the heat shrink tubing onto them
+Once the wires are attached firmly, feed the heat shrink tubing onto them
 and use the heat gun to shrink the tubing over the soldered joint.
-If you don't ahve any heat shrink tubing or forgot to put it on, wrap
+If you don't have any heat shrink tubing or forgot to put it on, wrap
 the exposed solder joint in electrical tape to make sure it's isolated.
 
-I put electrical tape aroudn the bottom of the toggle switch to make sure
+I put electrical tape around the bottom of the toggle switch to make sure
 any exposed leads are covered.
 
 Attach another lead to the negative end of the XT30 connector, making sure
@@ -341,10 +343,10 @@ to the battery wiring with a [Lineman splice](https://en.wikipedia.org/wiki/West
 is best.
 Once the wires have been spliced together, add a drop of flux
 and solder them together, making sure to put the heat tube on before soldering.
-Give the connection a yank to make sure the joint is good, resoldering
+Give the connection a yank to make sure the joint is good, re-soldering
 if necessary.
 
-Once the eonnector is soldered on, move the heat tubing over the exposed
+Once the connector is soldered on, move the heat tubing over the exposed
 joint and use the heat gun to shrink the heat tubing in place.
 
 I've found the cabling to be a bit loose, so I put a few cable ties
@@ -357,7 +359,7 @@ Attach the battery to the power cable.
 ### Power Regulators
 
 We'll now build the breakout board for the power regulators.
-The laser diodes should draw aroudn 1mA each, making the whole
+The laser diodes should draw around 1mA each, making the whole
 system draw around ~200mA as an upper bound.
 
 Since the power draw is significant and highly variable for the laser diodes
@@ -391,7 +393,7 @@ power in, three on the right for the batter power out to the BEC and one last on
 for the output of the 5V regulator.
 
 Two of the three 2-pin female headers on the right are for the input and output of the BEC.
-The last 2-pin femail header is for the output of the BEC that goes to power the laser diodes.
+The last 2-pin female header is for the output of the BEC that goes to power the laser diodes.
 
 Use connecting wires to make sure all power is routed to the appropriate places.
 
@@ -426,10 +428,10 @@ board, we can program it.
 
 ### Programming the Arduino Nano
 
-Connect the Arduino Nano to the computer with a USB cable and start the Aduino IDE.
+Connect the Arduino Nano to the computer with a USB cable and start the Arduino IDE.
 If not already installed, install the [Adafruit PWM library](https://github.com/adafruit/Adafruit-PWM-Servo-Driver-Library)
-and the [fourier transform, ffft,](https://github.com/adafruit/piccolo) library.
-If the libraries aren't available through the IDE, download a zip of each of the libararies
+and the [Fourier transform, ffft,](https://github.com/adafruit/piccolo) library.
+If the libraries aren't available through the IDE, download a zip of each of the libraries
 and place them in the Arduino library directory.
 See the [Arduino reference on libraries](https://www.arduino.cc/en/hacking/libraries) for more information.
 
@@ -443,7 +445,7 @@ The `laser-spike` program has a `DEBUG` flag that can be created to see serial o
 Later, when the breakout board for the laser diodes is created, we'll test to make sure things look
 good.
 If for some reason things aren't working down the road, uncommenting the `DEBUG` keyword can help
-track down where the error is occuring.
+track down where the error is occurring.
 
 ### PWM breakout
 
@@ -501,7 +503,7 @@ Solder headers onto each of the two PCA9685 PWM controllers.
 Since we're only interested in the PWM output, only solder a single row of 1x4 headers for
 each of the four PWM output groupings on each of the PWM controllers.
 This will be the way the PCA9685 PWM controllers are seated on the breakout board.
-I find that using the same trick of seating the headers in something, the femail headers where they'll eventually reside,
+I find that using the same trick of seating the headers in something, the female headers where they'll eventually reside,
 helps keep them straight when soldering.
 
 I use a JST 2.5mm, oriented and locking 6 pin female connector on either side of the PCA9685 module.
@@ -516,13 +518,11 @@ I used an oriented, locking JST 2.5mm 6 pin connector
 Make sure the ordering matches from the breakout of the Arduino Nano cable on the breakout board as well
 as the header output from the PCA9685 module.
 If for some reason the orientation was reversed, when creating the cable, the cable ordering can be reversed
-to accomodate.
+to accommodate.
 
 I like to use a cable shroud for long cables to keep them from tangling.
 I also try and use different colored cables to differentiate what their function is and
 to make it easier to determine if there was a cable ordering mismatch.
-
-
 
 Testing
 ---
@@ -561,7 +561,7 @@ After the power is turned on, an LED on the Arduino Nano should show as well as 
 the PCA9685 modules to indicate they are working.
 
 Connect the JST 2.5 2pin header and wires created above to an output header on the PWM driver breakout board.
-Connect the laser diode to the exposed wires and cnofirm that it's being powered.
+Connect the laser diode to the exposed wires and confirm that it's being powered.
 
 The default mode of the Arduino Nano should be the 'twinkle', so the laser diode should run through a cycle of
 ramping up power then going dim.
@@ -570,12 +570,12 @@ outage.
 
 Go through each connection to make sure they all work.
 
-Intermittant failures here will most likely crop up into outright failures down the road.
+Intermittent failures here will most likely crop up into outright failures down the road.
 Putting electronics into clothing and jostling them around provide ample opportunity for
-intermittant failures in a stable testing and development environment to become permanent failures
+intermittent failures in a stable testing and development environment to become permanent failures
 in a real world environment.
 
-Fixing issues at this stage, even if intermittant or hard to reproduce, will save heartache down
+Fixing issues at this stage, even if intermittent or hard to reproduce, will save heartache down
 the line when disassembly and debugging will be even more difficult.
 
 See the `Common Errors` section on help tracking down problems should any occur.
@@ -596,7 +596,7 @@ Except for the direct connections to the lasers,
 all headers are JST 2.5mm, locking and oriented.
 As previously stated, the locking is necessary to prevent disconnection from strain
 or movement.
-The orientation provides a safety check to make sure shorts or imporoper connections don't occur.
+The orientation provides a safety check to make sure shorts or improper connections don't occur.
 
 ### Power, I2C, Joystick and Microphone Connections
 
@@ -605,14 +605,14 @@ The Arduino Nano also needs to communicate to the PWM drivers.
 The joystick and microphone need extension cables.
 
 The laser diode power cabling is a group of four 2-pin JST 2.5mm male connectors.
-At least one length should be 75cm with the rest bing in the range of 20cm.
+At least one length should be 75cm with the rest being in the range of 20cm.
 The Arduino Nano power cable is a short 20cm cable of 2-pin JST 2.5mm male connectors.
 The right PWM controller also needs a short 20cm 2-pin JST 2.5mm male connector cable.
 
 The joystick connector is a length of about 50cm of a five wire JST 2.5mm pair
 of male headers.
 
-The microphone connector is a lenght of about 50cm of a 3pin JST 2.5mm pair of male headers.
+The microphone connector is a length of about 50cm of a 3pin JST 2.5mm pair of male headers.
 
 The PWM controllers need two cables of 6 wires, one of length about 20cm and the other of length
 about 75cm.
@@ -626,7 +626,7 @@ to fray and break.
 The stranded wire is much more moveable and is better suited to providing power and
 communication through elements need wire connections that jump out of board.
 
-### Wiromg amd Routing for the Laser Diodes
+### Wiring and Routing for the Laser Diodes
 
 The laser diodes are grouped into four that are powered and controlled from a single PWM driver line.
 The cables for this are a JST 2.5mm male header on one end that break out into 4 JST 1.25mm female headers.
@@ -642,7 +642,7 @@ Each of the wires is put in a cable sleeve to prevent tangling.
 I've found 1/4" braided sleeving works well.
 
 To help route the sleeved wires through the arm and middle interface between the outer shell jacket and inner lining,
-I attachedd cable clamps, closed off with a cable-tie, that attach to some floating excess fabric.
+I attached cable clamps, closed off with a cable-tie, that attach to some floating excess fabric.
 
 Care has to be taken to make sure the wiring is fed out of the arm properly.
 If the wiring loops around the lining, this will pinch the opening where an arm would go through
@@ -651,7 +651,7 @@ making the jacket hard to put on and use.
 I tired labelling the wires so that I could trace back which group belonged to which wire but
 I didn't have much success.
 
-I would suggest testing the leds with a CR2032 battery to make sure the laser diodes still work after
+I would suggest testing the laser diodes with a CR2032 battery to make sure the laser diodes still work after
 installation and hookup.
 
 
@@ -675,13 +675,13 @@ connections for the left arm are attached.
 
 It's a good idea to do a test run of the all the electronics connected to the laser diode
 to make sure things are working properly before the electronics housing is closed off and
-isntalled in the jacket.
+installed in the jacket.
 
 ### Strain Relief
 
 Once the electronic housing enclosures are bolted together, the wires should be wrapped around
 the strain relief gadgets on the top of the housing.
-This is necessary because stresses from normal movelment will wear the connectors on the protoboard
+This is necessary because stresses from normal movement will wear the connectors on the protoboard
 and could cause loose connections, breaks in power and other failures.
 
 The clamp should be screwed down so that it can withstand a decent yank from the wires.
@@ -709,7 +709,7 @@ sure no excessive wear or strain is put on the components.
 
 If there are any failures, either in the whole system or individual laser diodes, work through
 each until everything is working as expected.
-See the section ["Common Errors"](#common_errors) to work through some problems I tend to encouter.
+See the section ["Common Errors"](#common_errors) to work through some problems I tend to encounter.
 
 Wear It
 ---
@@ -724,18 +724,18 @@ Here is a list, in no particular order:
 
 * The laser diodes are 5mw and don't pose a significant risk to people eyesight.
   Though people shouldn't stare directly into the laser diode, it's akin to staring
-  straight into a flashligh...bad if done without looking away but no real danger
+  straight into a flashlight...bad if done without looking away but no real danger
   of being blinded by accident.
 * Strain relief is a must for all components involved. Without it, wires coming out
   of the laser diodes would be pulled off and connections on the protoboard would weaken.
 * Making sure the proto-board is backed onto a more stable substrate, like the laser
   cut wood housing, prevents flexing from the proto-board, which helps mitigate breaks,
-  weak joints and other failures from occuring.
+  weak joints and other failures from occurring.
 * The LiPo battery has a fuse in line with it preventing more than 3A to be produced.
   A friend suggested I do this after setting many of my projects on fire. Since I've
   been using the fuse in line with the LiPo, I'm happy to report that I haven't had one
   wire explode or any of my jackets catch on fire.
-* Without putting the main driving electronics on a separate regulartor from the
+* Without putting the main driving electronics on a separate regulator from the
   main power draw I've had the noise cause major
   problems, especially when there's communication or audio sensing involved.
   In this project and others, I make sure to power the electronics components (the Nano,
@@ -756,9 +756,9 @@ be more risk averse, **understand that the LiPo batteries involved in this proje
 
 **The LiPo battery has enough power to catch fire, explode and otherwise cause potentially sever bodily damage**.
 
-I personall believe the technology is safe enough to use (I am happy to wear the
-jackets I make) but shorts can cuase fires, water exposures can cause shorts or other
-potenially hazardous situations and battery puncture or rupture could cause severe bodily damage.
+I personally believe the technology is safe enough to use (I am happy to wear the
+jackets I make) but shorts can cause fires, water exposures can cause shorts or other
+potentially hazardous situations and battery puncture or rupture could cause severe bodily damage.
 
 Before I started using fuses as a safety measure, I've had
 wires explode and jackets catch fire because of shorts in my wiring (only in development,
@@ -794,17 +794,17 @@ To track down where the error is, consider the following steps:
 * Make sure the breakout board for power has the proper voltages at points you expect. This means testing witht he multi-meter that the
   voltage on the board before the regulator is what's expected to come out of the battery. Test the output of each of the regulators
   to make sure the voltage is the expected 5V. Often regulators die or are bad so they might need to be replaced. Also make sure the
-  regulators orietnation is correct (there should be an 'input' side that connects to the battery side and an 'output' side that connects
+  regulators orientation is correct (there should be an 'input' side that connects to the battery side and an 'output' side that connects
   to the rest of the electronics).
 * Test for continuity for the ground and power rails. That means every point on the other breakout boards that is power and ground should
   have continuity to the appropriate points on the source power output breakout board. If not, this could mean a bad connection on the
   breakout board in question or a wire that connects the power output.
 
-Most of the soldering is eseentially power management and making sure the proper power and ground rails get to where they need to
+Most of the soldering is essentially power management and making sure the proper power and ground rails get to where they need to
 go.
 This means that the most common error is a short or break in the power lines (at least that's what I've found in my experience).
 
-If power outages are still causing confusion, try disconnecting everything and then progressively connecting componentes until the failure
+If power outages are still causing confusion, try disconnecting everything and then progressively connecting components until the failure
 occurs.
 For example, disconnect the power breakout board from the other electronics and make sure the regulators in isolation are being powered
 correctly.
@@ -812,7 +812,7 @@ Once that's confirmed as working, add only the Arduino Nano breakout, then a sin
 
 It's good practice to also make sure the battery is fully charged.
 
-#### Things power on interimittantly
+#### Things power on intermittently
 
 This is one of the more frustrating problems and is hard to track down and debug because the problem is often hard to
 reproduce.
@@ -822,22 +822,22 @@ In certain orientations, there is physical contact creating the illusion of a pr
 stresses are applied, the joint falls out of contact and components stop working or power as a whole is broken.
 
 If this can be reproduced 'on the bench' then this can give a clue as to where the bad joint is.
-In general, it's good practice to go voer the solder connections to make sure they look good.
+In general, it's good practice to go over the solder connections to make sure they look good.
 This means making sure there is plenty of solder on the joints and that through holes are filled with solder.
 
 I've also found light wiggling to help track down weak connections.
 In the end, the electronics need to be housed and strain relief needs to be provided or these types of failures
-will almost surely occur but even with minimal stress on the circuit, sometimes loose connections cause intermittant
-failuers and should be tracked down as soon as possible to prevent headaches later on.
+will almost surely occur but even with minimal stress on the circuit, sometimes loose connections cause intermittent
+failures and should be tracked down as soon as possible to prevent headaches later on.
 
 Also, make sure the battery is fully charged to rule out an empty battery as a possibility.
 
-#### The Arduino keep resetting
+#### The Arduino keeps resetting
 
-In my experience, this is most likely to intermittant power and so the above strategy of looking for
+In my experience, this is most likely to intermittent power and so the above strategy of looking for
 loose or bad connections should be used.
-In rarer occasions, electrical noise sometimes casues the Arduino and other peripherals problems.
-Making sure the power is islated by their own regulators is a good start but in the worst case, ferrite
+In rarer occasions, electrical noise sometimes causes the Arduino and other peripherals problems.
+Making sure the power is isolated by their own regulators is a good start but in the worst case, ferrite
 beads can be attached at choice locations to try and mitigate the noise.
 
 If the failure can be reproduced consistently, this can give a good indication of what the underlying cause
@@ -852,7 +852,7 @@ doesn't display anything.
 For the joystick, connect the Arduino to your computer and turn on debugging. There should be output of what the joystick state
 is and make sure it's reading from the joystick.
 
-If it looks like the Arduino still isn't seeing the joystick, make sure the cable and connectionsa have continuity.
+If it looks like the Arduino still isn't seeing the joystick, make sure the cable and connections have continuity.
 Sometimes joysticks fail or are bad to begin with so in the worst case, use an Arduino in isolation to try and read
 from the analog pin that's connected to one of the joystick's axies to determine if it's the connection or the joystick
 that's failing.
@@ -863,9 +863,9 @@ proper Arduino pin and that power is being provided to the microphone module.
 The debug output for the Arduino Nano should also have microphone output so you can get a sense of whether there
 is something being read.
 
-The graphic equalizer has a dynamic volue in software to make sure it's trying to be insensitive to volume differences
+The graphic equalizer has a dynamic volume in software to make sure it's trying to be insensitive to volume differences
 and still produce output but it's limited in what it can do.
-Sometimes fiddling with the micrphone volume meter will work better to create a more satisfying light show.
+Sometimes fiddling with the microphone volume meter will work better to create a more satisfying light show.
 
 Microphone's fail or are sometimes bad, so a simple test is to try replacement to see if that fixes the issue.
 If things still aren't working, test the microphone in isolation with an Arduino that's hooked up to read from
@@ -884,7 +884,7 @@ I've found it easier to remove non-working laser diodes and replace them outrigh
 diodes.
 
 When tracking down individual laser diode failures, make sure to test the laser diode to confirm it's not
-working, or working intermittantly.
+working, or working intermittently.
 If the replacement laser diode is still not functioning, this could point to a bad cable connection and
 so testing continuity on the cable is a good next step.
 
