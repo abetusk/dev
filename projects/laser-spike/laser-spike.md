@@ -4,7 +4,7 @@ Laser Spiked Jacket
 Intro
 ---
 
-After seeing Wei Chieh Shi's laser jacket design, I wanted to create my own.
+After seeing [Wei Chieh Shi's laser jacket design](https://shihweichieh.com/laser-jacket-for-yoshii-kazuya), I wanted to create my own.
 These instructions show how to modify a jacket to add laser diodes
 and control them electronically to produce different laser light patterns.
 The laser diodes give the jacket an appearance of being "spiky", like having
@@ -16,8 +16,8 @@ The concept and execution is relatively simple but care has to be taken to
 make sure that the electronics, wiring and other aspects of the jacket don't
 fail when in use.
 Much of the subtlety and complexity of the project is providing proper wire
-routing and making sure that proper strain relief and support for the electronics
-and connections is provided so it's resilient under normal wear.
+routing and making sure that strain relief for the electronics
+and connections is provided so that it's resilient under normal wear.
 
 Assuming the basic parts are available (soldering iron, multimeter, wire strippers,
 laser cutter, etc.) I would estimate that this project is about $300 in raw materials and about 20 hours worth
