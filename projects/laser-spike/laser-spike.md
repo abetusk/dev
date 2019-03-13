@@ -293,7 +293,7 @@ Currently, there are three modes:
 * Graphic Equalizer - use the microphone input to get graphic equalizer data to control the laser diode project pattern
 * Joystick Controlled - use the joystick to control the laser diodes directly
 
-Each output of the PWM driver is fed into four laser diodes.
+Each output line of the PWM driver is fed into four laser diodes.
 
 The laser diodes are powered by a 5V 3A "battery elimination circuit" (BEC).
 The Arduino Nano and all of the logic on the peripherals are powered by a 5V buck converter.
@@ -306,7 +306,7 @@ The power toggle is provided for ease of use.
 
 ### Power Cable
 
-For safety and convenience reasons, a cable for the 2s LiPo battery created and connected.
+For safety and convenience reasons, a cable for the 2s LiPo battery is created and connected.
 It's sometimes easy to accidentally create a short when soldering or prototyping.
 Should a short happen without a fuse in line with the LiPo battery, the battery often has
 the potentially to push upwards of 25A through the connection.
@@ -317,15 +317,15 @@ With the fuse in place, I've had no fires or explosions, so I would highly recom
 this safety feature in.
 
 I've found the 20 AWG fuse holder to be a good wire size.
-Larger AWG and it becomes unwieldy to attach to other cables.
+Larger gauges become unwieldy to attach to other cables.
 
-Solder one end of the 20 AWG fuse holder is into the positive lead of a female XT30 connector.
+Solder one end of the 20 AWG fuse holder into the positive lead of a female XT30 connector.
 In line with the fuse holder, on the end that isn't connected to the battery,
 solder a power toggle switch wire.
 For both, make sure to feed the heat shrink on before soldering.
 
 For all attached wiring, I think the [Lineman splice](https://en.wikipedia.org/wiki/Western_Union_splice)
-technique to use.
+is a good technique to strive towards.
 When the wires are wrapped together well, add drop of flux and solder them together.
 Once soldered, give the wires a decent yank to make sure they're attached well.
 
@@ -373,7 +373,8 @@ compared to the power draw of the rest of the electronics, separate
 regulators have been used to make sure the laser diode power and
 the electronics power are as isolated as possible.
 Without this isolation, the Arduino might star to act weird
-and other input devices might have undesirable noise.
+and other input devices might function incorrectly due to to the noisiness of
+the circuit.
 
 The breakout board diverts power from the batter to a 5V buck
 converter and to the 5V 3A BEC.
@@ -390,12 +391,12 @@ For the BEC, cut off the ends and re-attach two 2-pin JST 2.5mm male headers,
 making sure the positive lead is on the left side of the header if looking at
 the header with the notch side visible.
 
-Solder two 8x1 row female headers onto the protoboard.
+Solder two 6x1 row female headers onto the protoboard.
 Make the vertical spacing of the headers a matching distance to the height of the buck converter.
 The headers will provide the seating for the buck converter.
 
 Solder five 2-pin female headers to the protoboard, one at the top for the battery
-power in, three on the right for the batter power out to the BEC and one last one on the left
+power in, three on the right for the battery power out to the BEC and one last one on the left
 for the output of the 5V regulator.
 
 Two of the three 2-pin female headers on the right are for the input and output of the BEC.
@@ -470,12 +471,12 @@ are needed.
 The line coming out of the 2n2222 transistor is used to power the laser diode through a female JST 2.5mm connector.
 The board's laser diode power is fed by the 5V 3A BEC output.
 The PWM controller's logic circuitry is powered by the 5V buck converter but
-is provided by 6 connector line that's used for it's I2C connection.
+is provided by the 6-pin connector that's used for it's I2C connection.
 
 There are two PWM controllers, each with their own proto-board.
 One PWM controller will be housed with the Arduino Nano breakout and the power
 regulator breakout.
-The other PWM controller will be on it's own and eventually placed on the other
+The other PWM controller will be on it's own housing and eventually placed on the other
 side of the jacket.
 
 Each PWM controller is located on either side of the jacket to provide better
@@ -483,7 +484,7 @@ access to the laser diodes they will drive.
 
 Each of the PWM controller is in charge of controlling 64 laser diodes.
 Since each output line of the PCA9685 PWM controller only has 16 lines, each output line
-provides power to a group of 4 laser diodes (16*4=64).
+provides power to a group of 4 laser diodes (16 * 4 = 64).
 The two PCA9685 PWM controllers control 64 laser diodes each which drives the total 128 laser diodes.
 
 As a note, even with the large proto-board the PWM controller is housed in,
@@ -500,8 +501,8 @@ further down, is a better method than soldering a complete top or bottom at once
 ### PCA9685 Module Soldering and Addressing
 
 Since there are two PCA9685 PWM controllers which are in communication with the Arduino Nano,
-they need to have separate addresses since they share the communication lines.
-One only one of the PCA9685 PWM controller, connect the low bit on the 'address' breakout pad.
+they need to have separate addresses since they share the communication lines (also known as a 'bus').
+On only one of the PCA9685 PWM controller, connect the low bit on the 'address' breakout pad.
 For the single PCA9685 PWM controller, this will change it's address to `0X41` (from the default `0x40`)
 so the Arduino Nano can address it independently.
 
@@ -509,7 +510,7 @@ Solder headers onto each of the two PCA9685 PWM controllers.
 Since we're only interested in the PWM output, only solder a single row of 1x4 headers for
 each of the four PWM output groupings on each of the PWM controllers.
 This will be the way the PCA9685 PWM controllers are seated on the breakout board.
-I find that using the same trick of seating the headers in something, the female headers where they'll eventually reside,
+I find that using the same trick of seating the headers in the female headers where they'll eventually reside
 helps keep them straight when soldering.
 
 I use a JST 2.5mm, oriented and locking 6 pin female connector on either side of the PCA9685 module.
@@ -520,11 +521,9 @@ module.
 
 Once the headers have been attached, create two 6 wire cables, one about 20cm in length and the other about
 75cm.
-I used an oriented, locking JST 2.5mm 6 pin connector 
-Make sure the ordering matches from the breakout of the Arduino Nano cable on the breakout board as well
-as the header output from the PCA9685 module.
-If for some reason the orientation was reversed, when creating the cable, the cable ordering can be reversed
-to accommodate.
+I used an oriented, locking JST 2.5mm 6 pin connector.
+Make sure the wire ordering from the breakout of the Arduino Nano cable onto the PCA9685 module lines up correctly.
+If for some reason the orientation was reversed or jumbled, re-order the cable wiring to accomodate.
 
 I like to use a cable shroud for long cables to keep them from tangling.
 I also try and use different colored cables to differentiate what their function is and
