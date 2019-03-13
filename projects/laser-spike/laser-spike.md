@@ -595,7 +595,7 @@ a wearable piece and a bulky jacket that is prone to failure.
 
 All wires that aren't soldered directly to proto-boards are stranded.
 With the exception of some of the battery wiring, all wire is 25 AWG.
-Where possible wires are put into a wire shroud to make sure they don't get tangles.
+Where possible wires are put into a wire shroud to make sure they don't get tangled.
 
 Except for the direct connections to the lasers,
 all headers are JST 2.5mm, locking and oriented.
@@ -629,7 +629,7 @@ All cables should be made out of 25 AWG stranded wire.
 Solid core wire is too stiff and not only restricts movement but has the potential
 to fray and break.
 The stranded wire is much more moveable and is better suited to providing power and
-communication through elements need wire connections that jump out of board.
+communication between elements that don't reside on the same proto-board.
 
 ### Wiring and Routing for the Laser Diodes
 
@@ -647,13 +647,13 @@ Each of the wires is put in a cable sleeve to prevent tangling.
 I've found 1/4" braided sleeving works well.
 
 To help route the sleeved wires through the arm and middle interface between the outer shell jacket and inner lining,
-I attached cable clamps, closed off with a cable-tie, that attach to some floating excess fabric.
+I attached cable clamps, closed off with a cable-tie, that attach to some floating excess fabric on the inside of the arm of the jacket.
 
 Care has to be taken to make sure the wiring is fed out of the arm properly.
 If the wiring loops around the lining, this will pinch the opening where an arm would go through
 making the jacket hard to put on and use.
 
-I tired labelling the wires so that I could trace back which group belonged to which wire but
+I tried labelling the wires so that I could trace back which group belonged to which wire but
 I didn't have much success.
 
 I would suggest testing the laser diodes with a CR2032 battery to make sure the laser diodes still work after
@@ -667,7 +667,7 @@ Once all the laser diodes are connected to their respective wires, it's time to 
 
 The PWM driver, along with other electronic components, such as the power converters
 and Arduino Nano, are seated in a laser cut electronic housing, consisting of
-two laser cut wood panels that has plastic tubing in the middle for spacing.
+two laser cut wood panels that have plastic tubing in the middle for spacing.
 The electronic housing is joined with various M3 screws.
 The M3 screws provide double duty, acting as spacers for the two housing panels
 and also provide support for the proto-board.
@@ -699,7 +699,7 @@ the nuts are hard to get off after the loctite is applied.
 
 Place the electronics enclosures in the middle between the jacket outer shell and the inner
 jacket lining.
-Use velcro ties to make sure the electronics enclosures are in place.
+Use velcro ties to make sure the electronics enclosures are securely in place.
 
 Feed the microphone out to a place that can be exposed to sound, puncturing a hole if need be.
 The joystick can be fed through the arm or be kept on the inside of the jacket, depending on
@@ -841,7 +841,7 @@ Also, make sure the battery is fully charged to rule out an empty battery as a p
 
 In my experience, this is most likely to intermittent power and so the above strategy of looking for
 loose or bad connections should be used.
-In rarer occasions, electrical noise sometimes causes the Arduino and other peripherals problems.
+In rarer occasions, electrical noise sometimes causes the Arduino and other problems in the peripheral electronics.
 Making sure the power is isolated by their own regulators is a good start but in the worst case, ferrite
 beads can be attached at choice locations to try and mitigate the noise.
 
