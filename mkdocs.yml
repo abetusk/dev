@@ -32,6 +32,7 @@ pages:
   - "Is-It-Really-Open.md"
   - "Number-Theory-Notes.md"
   - "Arbitrary-Binary-Functions.md"
+  - "Empirical-Laws.md"
 
 docs_dir: 'wiki'
 theme_dir: 'dev_theme'

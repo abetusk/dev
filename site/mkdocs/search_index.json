@@ -2,12 +2,12 @@
     "docs": [
         {
             "location": "/", 
-            "text": "dev\n\n\n\n\nTextile Cheat Sheet\n\n\nScaling images, animated GIFs in Gimp\n\n\nScreenshots, Screencasts, Animated Gifs\n\n\nffmpeg Notes\n\n\nUnix-y Notes\n\n\nLattice Reduction Notes\n\n\nPS/SVG to GCode Conversion\n\n\nChange Git default 'master' branch to 'release'\n\n\nMkDocs Quickstart\n\n\nGPG Notes\n\n\nGit Notes\n\n\nShannon Entropy\n\n\nEnabling Server HTTPS\n\n\nBGZF Example\n\n\nC Project Template\n\n\nProject Organization\n\n\nKelly Criterion\n\n\nFile Naming Conventions\n\n\nLoose Standards for Command Line Options\n\n\nPCB Notes\n\n\nElements of Coding Style\n\n\nEnergy Consumption Stats\n\n\nSimple Sums\n\n\nFisher Yates Shuffle\n\n\nHalting Problem\n\n\nAssorted Small Probability Problems\n\n\nProbability Notes\n\n\nAmdahl's Law\n\n\nIs It Really Open\n\n\nNumber Theory Notes\n\n\nArbitrary Binary Functions", 
+            "text": "dev\n\n\n\n\nTextile Cheat Sheet\n\n\nScaling images, animated GIFs in Gimp\n\n\nScreenshots, Screencasts, Animated Gifs\n\n\nffmpeg Notes\n\n\nUnix-y Notes\n\n\nLattice Reduction Notes\n\n\nPS/SVG to GCode Conversion\n\n\nChange Git default 'master' branch to 'release'\n\n\nMkDocs Quickstart\n\n\nGPG Notes\n\n\nGit Notes\n\n\nShannon Entropy\n\n\nEnabling Server HTTPS\n\n\nBGZF Example\n\n\nC Project Template\n\n\nProject Organization\n\n\nKelly Criterion\n\n\nFile Naming Conventions\n\n\nLoose Standards for Command Line Options\n\n\nPCB Notes\n\n\nElements of Coding Style\n\n\nEnergy Consumption Stats\n\n\nSimple Sums\n\n\nFisher Yates Shuffle\n\n\nHalting Problem\n\n\nAssorted Small Probability Problems\n\n\nProbability Notes\n\n\nAmdahl's Law\n\n\nIs It Really Open\n\n\nNumber Theory Notes\n\n\nArbitrary Binary Functions\n\n\nEmpirical Laws", 
             "title": "Home"
         }, 
         {
             "location": "/#dev", 
-            "text": "Textile Cheat Sheet  Scaling images, animated GIFs in Gimp  Screenshots, Screencasts, Animated Gifs  ffmpeg Notes  Unix-y Notes  Lattice Reduction Notes  PS/SVG to GCode Conversion  Change Git default 'master' branch to 'release'  MkDocs Quickstart  GPG Notes  Git Notes  Shannon Entropy  Enabling Server HTTPS  BGZF Example  C Project Template  Project Organization  Kelly Criterion  File Naming Conventions  Loose Standards for Command Line Options  PCB Notes  Elements of Coding Style  Energy Consumption Stats  Simple Sums  Fisher Yates Shuffle  Halting Problem  Assorted Small Probability Problems  Probability Notes  Amdahl's Law  Is It Really Open  Number Theory Notes  Arbitrary Binary Functions", 
+            "text": "Textile Cheat Sheet  Scaling images, animated GIFs in Gimp  Screenshots, Screencasts, Animated Gifs  ffmpeg Notes  Unix-y Notes  Lattice Reduction Notes  PS/SVG to GCode Conversion  Change Git default 'master' branch to 'release'  MkDocs Quickstart  GPG Notes  Git Notes  Shannon Entropy  Enabling Server HTTPS  BGZF Example  C Project Template  Project Organization  Kelly Criterion  File Naming Conventions  Loose Standards for Command Line Options  PCB Notes  Elements of Coding Style  Energy Consumption Stats  Simple Sums  Fisher Yates Shuffle  Halting Problem  Assorted Small Probability Problems  Probability Notes  Amdahl's Law  Is It Really Open  Number Theory Notes  Arbitrary Binary Functions  Empirical Laws", 
             "title": "dev"
         }, 
         {
@@ -1039,6 +1039,76 @@
             "location": "/Arbitrary-Binary-Functions/#arbitrary-binary-functions", 
             "text": "$$\nx \\in \\mathbb{B}^n \\\\\n \\\\\nf(X): \\{0,1\\}^n \\mapsto \\{0,1\\}\n$$  There are $2^{2^n}$ different binary functions.\nCan we approximate this with less than $\\frac{2^n}{2n}$ boolean gates?  The strategy to show we can't is to overcount the number of boolean gates.  $$\n\\begin{align}\n m     \\text{ boolean gates } (\\frac{2^n}{2n}) \\\\\n n     \\text{ inputs }\n\\end{align}\n$$  One gate has $\\binom{n+m}{2}$ choice of other gates that can connect to it (two inputs).  $$\n\\begin{align}\n \\binom{n+m}{2}   = \\frac{ (n+m) (n+m-1) }{2} \\\\\n   = \\frac{ n^2 + 2mn + n^2 - n - m }{2} \\\\\n \\frac{n^2 + 2mn + n^2 - n -m }{2}     (n + m)^2 \\\\\n     (c + n)m^2 \\\\\n\\end{align}\n$$  $((n+c)m^2)^m$ different combinations of boolean gates  $$\n\\lg = \\log_2\n$$  $$\n\\begin{align}\n \\lg[ ((n+c)m^2)^m]   = m \\lg((n+c)m^2) \\\\\n = \\frac{2^n}{2n} \\lg(\\frac{2^2n}{2n^2}(n+c) )   = \\frac{2^n}{2n} [ 2n + \\lg(\\frac{n+c}{2n^2}) ] \\\\\n = 2^n [1 - \\frac{ \\lg( \\frac{2n^2}{n+c} ) }{2n} ]     \\lg(2^{2^n}) = 2^n\n\\end{align}\n$$  Even when we overcount, we still can't the count large enough to represent all binary functions.", 
             "title": "Arbitrary Binary Functions"
+        }, 
+        {
+            "location": "/Empirical-Laws/", 
+            "text": "Empirical Laws\n\n\nGall's Law\n\n\n\n\nA complex system that works is invariably found to have evolved from a simple system that worked. A complex system designed from scratch never works and cannot be patched up to make it work. You have to start over with a working simple system.\n\n\n\n\nWikipedia\n\n\nGervais Principle\n\n\n\n\nSociopaths, in their own best interests, knowingly promote over-performing losers into middle-management, groom under-performing losers into sociopaths, and leave the average bare-minimum-effort losers to fend for themselves.\n\n\n\n\nNote: \"The Losers are not social losers (as in the opposite of \u201ccool\u201d), but people who have struck bad bargains economically \u2013 giving up capitalist striving for steady paychecks.\"\n\n\nSource\n\n\nMetcalfe's Law\n\n\n\n\nThe effect of a telecommunications network is proportional to the square of the number of connected users of the system.\n\n\n\n\nWikipedia\n\n\nMoore's Law\n\n\n\n\nThe number of transistors in a dense integrated circuit doubles about every two years.\n\n\n\n\nWikipedia\n\n\nOccam's Razor\n\n\n\n\nSimpler solutions are more likely to be correct than complex ones.\n\n\n\n\nWikipedia\n\n\nPareto's Principle\n\n\n\n\nFor many events, roughly 80% of the effects come from 20% of the causes.\n\n\n\n\nWikipedia\n\n\nPeter Principle\n\n\n\n\nPeople in a hierarchy tend to rise to their \"level of incompetence\".\n\n\n\n\nWikipedia\n\n\nSpolsky's Observation\n\n\n\n\nSmart companies try to commoditize their products' complements.\n\n\n\n\nNote: In this context, there are 'substitutes' and 'compliments', where\na substitute is a product you buy that replaces the core product and a compliment\nis a product you buy with the core product.\n\n\nSource\n\n\nUcaetano's Addendum to Spolsky's Observation\n\n\n\n\nCreate a desert of profitability around you.\n\n\n\n\nSource\n\n\nSwanson's Law\n\n\n\n\nThe price of solar photovoltaic modules tends to drop 20 percent for every doubling of cumulative shipped volume.\n\n\n\n\nNote: at present, costs halve at every 10 years.\n\n\nWikipedia\n\n\nWagner's Law\n\n\n\n\nThe advent of modern industrial society will result in increasing political pressure for social progress and increased allowance for social consideration by industry.\n\n\n\n\nWikipedia\n\n\n2019-03-18", 
+            "title": "Empirical Laws"
+        }, 
+        {
+            "location": "/Empirical-Laws/#empirical-laws", 
+            "text": "", 
+            "title": "Empirical Laws"
+        }, 
+        {
+            "location": "/Empirical-Laws/#galls-law", 
+            "text": "A complex system that works is invariably found to have evolved from a simple system that worked. A complex system designed from scratch never works and cannot be patched up to make it work. You have to start over with a working simple system.   Wikipedia", 
+            "title": "Gall's Law"
+        }, 
+        {
+            "location": "/Empirical-Laws/#gervais-principle", 
+            "text": "Sociopaths, in their own best interests, knowingly promote over-performing losers into middle-management, groom under-performing losers into sociopaths, and leave the average bare-minimum-effort losers to fend for themselves.   Note: \"The Losers are not social losers (as in the opposite of \u201ccool\u201d), but people who have struck bad bargains economically \u2013 giving up capitalist striving for steady paychecks.\"  Source", 
+            "title": "Gervais Principle"
+        }, 
+        {
+            "location": "/Empirical-Laws/#metcalfes-law", 
+            "text": "The effect of a telecommunications network is proportional to the square of the number of connected users of the system.   Wikipedia", 
+            "title": "Metcalfe's Law"
+        }, 
+        {
+            "location": "/Empirical-Laws/#moores-law", 
+            "text": "The number of transistors in a dense integrated circuit doubles about every two years.   Wikipedia", 
+            "title": "Moore's Law"
+        }, 
+        {
+            "location": "/Empirical-Laws/#occams-razor", 
+            "text": "Simpler solutions are more likely to be correct than complex ones.   Wikipedia", 
+            "title": "Occam's Razor"
+        }, 
+        {
+            "location": "/Empirical-Laws/#paretos-principle", 
+            "text": "For many events, roughly 80% of the effects come from 20% of the causes.   Wikipedia", 
+            "title": "Pareto's Principle"
+        }, 
+        {
+            "location": "/Empirical-Laws/#peter-principle", 
+            "text": "People in a hierarchy tend to rise to their \"level of incompetence\".   Wikipedia", 
+            "title": "Peter Principle"
+        }, 
+        {
+            "location": "/Empirical-Laws/#spolskys-observation", 
+            "text": "Smart companies try to commoditize their products' complements.   Note: In this context, there are 'substitutes' and 'compliments', where\na substitute is a product you buy that replaces the core product and a compliment\nis a product you buy with the core product.  Source", 
+            "title": "Spolsky's Observation"
+        }, 
+        {
+            "location": "/Empirical-Laws/#ucaetanos-addendum-to-spolskys-observation", 
+            "text": "Create a desert of profitability around you.   Source", 
+            "title": "Ucaetano's Addendum to Spolsky's Observation"
+        }, 
+        {
+            "location": "/Empirical-Laws/#swansons-law", 
+            "text": "The price of solar photovoltaic modules tends to drop 20 percent for every doubling of cumulative shipped volume.   Note: at present, costs halve at every 10 years.  Wikipedia", 
+            "title": "Swanson's Law"
+        }, 
+        {
+            "location": "/Empirical-Laws/#wagners-law", 
+            "text": "The advent of modern industrial society will result in increasing political pressure for social progress and increased allowance for social consideration by industry.   Wikipedia", 
+            "title": "Wagner's Law"
+        }, 
+        {
+            "location": "/Empirical-Laws/#2019-03-18", 
+            "text": "", 
+            "title": "2019-03-18"
         }
     ]
 }

@@ -32,3 +32,4 @@ dev
 * [Is It Really Open](Is-It-Really-Open.md)
 * [Number Theory Notes](Number-Theory-Notes.md)
 * [Arbitrary Binary Functions](Arbitrary-Binary-Functions.md)
+* [Empirical Laws](Empirical-Laws.md)
