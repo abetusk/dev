@@ -7,6 +7,12 @@ Empirical Laws
 
 [Wikipedia](https://en.wikipedia.org/wiki/John_Gall_(author))
 
+### Hanlon's Razor
+
+> Never attribute to malice that which is adequately explained by stupidity.
+
+[Wikipedia](https://en.wikipedia.org/wiki/Hanlon%27s_razor)
+
 ### Gervais Principle
 
 > Sociopaths, in their own best interests, knowingly promote over-performing losers into middle-management, groom under-performing losers into sociopaths, and leave the average bare-minimum-effort losers to fend for themselves.

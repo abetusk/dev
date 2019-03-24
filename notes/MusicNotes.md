@@ -328,6 +328,51 @@ Melody
 
 ![cleff-and-treble](img/Bass_and_Treble_clef.svg)
 
+This is an ongoing understanding but from what I've seen, the idea is that
+the melody can be broken down into two parts, the rhythm and the notes.
+As a heuristic, the rhythm accounts for a [high percentage](https://www.youtube.com/watch?v=tyDVmnEP6BE&t=6m5s) of the 'quality'
+of the melody (80%+)
+
+An equally spaced rhythm leads to a melody that sounds boring.
+Here are some basic rhythm patterns (sugested by [Dylan Laine](https://youtu.be/qlrLHhpp8-E)):
+
+
+```
+r0 = [ [1, 0.5, 0.5, 1, 1 ], [1, 0.5, 0.5, 1, 1 ], [1, 0.5, 0.5, 1, 1 ],  [4] ]
+r1 = [ [1, 1, 0.5, 0.5, 0.5, 0.5], [1, 1, 0.5, 0.5, 0.5, 0.5], [1, 1, 0.5, 0.5, 0.5, 0.5], [1, 1, 0.5, 0.5, 0.5, 0.5] ]
+r2 = [ [2, 2], [1, 1, 1, 1], [2,2], [1, 1, 1, 1] ]
+r3 = [ [3, 1], [2, 2], [3, 1], [2, 2], [3, 1], [2, 2] ]
+```
+
+Dylan Laine suggests a tactic as follows (as far as I can interpret it):
+
+* Choose your chord progression, one chord per bar
+* Pick two notes from the chord per bar and create a phrase
+* Choose a rhythm pattern for the phrase melody (maybe with a single multi-phrase repeetition and a varation at the end)
+
+
+[David Stewart](https://youtu.be/ktq_gOZU2VU) talks about a tactic to write a melody:
+
+* Start and end on the tonic of the key
+* Have a preference for small increments of notes instead of large leaps with a few leaps to add varation
+* The extreme note should be played once at 2/3 to 3/4 of the way through the melody
+* Phrases should be multiples of four
+
+Though not explicitely stated, ["LifeStyleDidIt - How To Make Melodies - With Chords"](https://www.youtube.com/watch?v=SVKigPPX6Zs) looks to be using
+a basic algorithm of:
+
+* Start with a chord progression
+* Choose 'anchor' notes from each of the chords
+* Interpolate, potentially across bars, from one anchor note to another, potentially merging interpolotaions
+
+From a cursory look, `LifeStyleDidIt` looks to be using many of the guidelines that `David Steward` uses in
+terms of extremal note placement and note incrememnts
+The start and end note guideline is violated but one interpretation is that the start and stop of the melody
+shares an extreme chord note.
+For example, the beginning chord is `[c5,d#5,g5]` and ending chord is `[d#5,g5,a#5]` and the starting and
+stopping melody notes are `c7` and `a#6` respectively.
+
+
 
 Simple Algorithms
 ---
@@ -425,7 +470,29 @@ Drums
 
 Human heart beat ~60-100 bpm
 
+Misc
+---
 
+[src](https://www.youtube.com/watch?v=UcmrgTNE9Cs)
+
+| Secion Name | Bar length |
+|-------------|------------|
+| intro | 4 |
+| verse | 16 |
+| (pre) | 4 |
+| chorus | 8 |
+| verse | 8 |
+| (pre) | 4 |
+| chorus | 8 |
+| bridge | 8 |
+| chorus | 8 |
+
+| voice | intro | verse | chorus | verse | chorus | bridge | chorus |
+|-------|-------|-------|--------|-------|--------|--------|--------|
+| singer|   -   | start | high   | verse0 | chorus0 | -    | chorus0 |
+| keyboard | hook | hook | chords| verse0 | chorus0 | chords | chorus0 |
+| guitar |
+| drums |
 
 Data
 ---
@@ -525,6 +592,8 @@ Melody References
 * [SO: "Guide-lines for creating a simple chord-progression?"](https://music.stackexchange.com/questions/14812/guide-lines-for-creating-a-simple-chord-progression?rq=1)
 * [musictheory.net](https://www.musictheory.net/lessons)
 * [musictheory.net: Common Chord Progressions](https://www.musictheory.net/lessons/57)
+* [Dylan Laine - How To Wriate A Melody](https://youtu.be/qlrLHhpp8-E)
+* [David Steward - How to Wriate a Melody](https://youtu.be/ktq_gOZU2VU)
 
 Music Theory References
 ---
@@ -532,3 +601,5 @@ Music Theory References
 * [Lightnote: How Music Works](https://www.lightnote.co/)
 * [Creating a Synthwave Score](https://modeaudio.com/magazine/the-joy-of-arps-creating-a-synthwave-score)
 * [An Introduction to Species Counterpoint](http://homepage.eircom.net/~gerfmcc/SpeciesOne.html)
+
+
