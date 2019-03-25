@@ -1,6 +1,11 @@
 Laser Spiked Jacket
 ===
 
+ ![club stage shot](img/laser-club-stage.png)
+ 
+ [![video](img/club-youtube-preview.png)](https://youtu.be/JvzV8-crT5Y)
+
+
 Intro
 ---
 
@@ -25,8 +30,16 @@ of labor.
 What follows is the way I created the jacket you see here and the design, sourcing
 and implementation is open for improvement.
 
+Depending on the battery used, the jacket can operate for about an hour or two continuously.
+Spare batteries can be carried around and used to replace the depleted batteries if need be.
+
 Materials
 ---
+
+| | | |
+|---|---|---|
+| ![jacket](img/materials-jacket.jpg) | ![crimp, heat gun, headers](img/materials-crimp-heat.jpg) | ![soldering tools](img/materials-iron-solder-flux.jpg) |
+| ![wire, fuse, electronics](img/materials-wire-nano.jpg) | | |
 
 * Jacket ([Amazon](https://www.amazon.com/gp/product/B01GKGWBCM/))
 
@@ -129,6 +142,7 @@ the laser diode and relief for the laser diode wires.
 |---|---|
 | ![LD wire 0](img/ld-wire-0.jpg) | ![LD wire 1](img/ld-wire-1.jpg) |
 | ![LD wire 2](img/ld-wire-2.jpg) | ![LD wire 3](img/ld-wire-3.jpg) |
+| ![laser cabling 0](img/laser-cabling-0.jpg) | ![laser cabling 1](img/laser-cabling-1.jpg) |
 
 After testing each laser diode to make sure they work, solder a male  JST 1.25mm 2pin header
 to each of the ends of the laser diode.
@@ -503,6 +517,7 @@ track down where the error is occurring.
 
 ### PWM breakout
 
+
 The PCA9685 PWM controllers are not directly soldered on to the protoboard,
 instead they are seated on headers.
 The laser diodes aren't directly driven by the PWM controller and are powered
@@ -546,6 +561,19 @@ soldering, first doing only one side of the top and bottom wires, then progressi
 further down, is a better method than soldering a complete top or bottom at once.
 
 ### PCA9685 Module Soldering and Addressing
+
+
+| | |
+|---|---|
+| ![pwm breakout 0](img/pwm-breakout-0.jpg) | ![pwm breakout 1](img/pwm-breakout-1.jpg) |
+| ![pwm breakout 2](img/pwm-breakout-2.jpg) | ![adafruit pac9685 addressing](img/adafruit_products_2012_10_13_IMG_0692-1024.jpg) |
+| ![pwm breakout 3](img/pwm-breakout-3.jpg) | ![pwm breakout 4](img/pwm-breakout-4.jpg) |
+| ![pwm breakout 5](img/pwm-breakout-5.jpg) | ![pwm breakout 6](img/pwm-breakout-6.jpg) |
+| ![pwm breakout 7](img/pwm-breakout-7.jpg) | ![pwm breakout 8](img/pwm-breakout-8.jpg) |
+| ![pwm breakout 9](img/pwm-breakout-9.jpg) | ![pwm breakout a](img/pwm-breakout-a.jpg) |
+| ![pwm breakout b](img/pwm-breakout-b.jpg) | ![pwm breakout c](img/pwm-breakout-c.jpg) |
+| ![pwm breakout d](img/pwm-breakout-d.jpg) | ![pwm breakout e](img/pwm-breakout-e.jpg) |
+
 
 Since there are two PCA9685 PWM controllers which are in communication with the Arduino Nano,
 they need to have separate addresses since they share the communication lines (also known as a 'bus').
