@@ -116,7 +116,7 @@ hidden in the interface between the outer jacket shell and the inner lining.
 A joystick and microphone are used for input.
 Power is provided by a LiPo rechargeable battery.
 
-In the above schmeatic, LEDs are used in place of the laser diodes.
+In the above schematic, LEDs are used in place of the laser diodes.
 The laser diode modules have their own internal circuitry so don't need current limiting resistors like an LED normally would.
 
 The basic components are:
@@ -263,7 +263,7 @@ provides shielding from the cabling to your skin when wearing the jacket
 and also provides a convenient place to put the electronics out of sight.
 
 I've found that taking the stitches out of the middle back is best.
-The opening can be closed off later with snaps or velcro.
+The opening can be closed off later with snaps or Velcro.
 
 A pattern is first marked on the outside of the jacket to decide where to place each of the
 laser diodes.
@@ -600,11 +600,16 @@ module.
 
 ### PCA9685 Module Cabling
 
+| | |
+|---|---|
+| ![laser cabling 0](img/laser-cabling-0.jpg) | ![laser cabling 1](img/laser-cabling-1.jpg) |
+
+
 Once the headers have been attached, create two 6 wire cables, one about 20cm in length and the other about
 75cm.
 I used an oriented, locking JST 2.5mm 6 pin connector.
 Make sure the wire ordering from the breakout of the Arduino Nano cable onto the PCA9685 module lines up correctly.
-If for some reason the orientation was reversed or jumbled, re-order the cable wiring to accomodate.
+If for some reason the orientation was reversed or jumbled, re-order the cable wiring to accommodate.
 
 I like to use a cable shroud for long cables to keep them from tangling.
 I also try and use different colored cables to differentiate what their function is and
@@ -669,14 +674,8 @@ See the `Common Errors` section on help tracking down problems should any occur.
 Cabling and Connections
 ---
 
-| | |
-|---|---|
-| ![laser cabling 0](img/laser-cabling-0.jpg) | ![laser cabling 1](img/laser-cabling-1.jpg) |
-
-Though it might seem dry or inconsequential, cabling turns out to be a major factor
-in the functionality an aesthetics of this project.
-Making sure the wiring is routed properly, has proper strain relief and is compact is the difference between
-a wearable piece and a bulky jacket that is prone to failure.
+Routing and giving structural support for cables in the jacket helps with wear and
+wearability.
 
 All wires that aren't soldered directly to proto-boards are stranded.
 With the exception of some of the battery wiring, all wire is 25 AWG.
@@ -687,6 +686,20 @@ all headers are JST 2.5mm, locking and oriented.
 As previously stated, the locking is necessary to prevent disconnection from strain
 or movement.
 The orientation provides a safety check to make sure shorts or improper connections don't occur.
+
+Multiple layers of strain relief of provided to try an minimize the possibility of wire
+fraying or solder joint breakage.
+The electronics housing have strain relief supports to rout cables through to provide strain
+relief from the soldered connectors.
+The jacket has cable clamps to guide the cables and provide support.
+The laser diode housing provides strain relief for the laser diodes.
+
+Even with all the strain relief and cable routing, it's possible to tear wires or
+break connections.
+Some care has to be taken when putting on the jacket to not catch fingers on wires
+through the lining.
+The jacket is resilient enough to wear and dance around in but motions that are too
+jarring to impact that is too high will cause damage.
 
 ### Power, I2C, Joystick and Microphone Connections
 
@@ -747,7 +760,7 @@ Care has to be taken to make sure the wiring is fed out of the arm properly.
 If the wiring loops around the lining, this will pinch the opening where an arm would go through
 making the jacket hard to put on and use.
 
-I tried labelling the wires so that I could trace back which group belonged to which wire but
+I tried labeling the wires so that I could trace back which group belonged to which wire but
 I didn't have much success.
 
 I would suggest testing the laser diodes with a CR2032 battery to make sure the laser diodes still work after
@@ -793,13 +806,13 @@ the nuts are hard to get off after the loctite is applied.
 
 Place the electronics enclosures in the middle between the jacket outer shell and the inner
 jacket lining.
-Use velcro ties to make sure the electronics enclosures are securely in place.
+Use Velcro ties to make sure the electronics enclosures are securely in place.
 
 Feed the microphone out to a place that can be exposed to sound, puncturing a hole if need be.
 The joystick can be fed through the arm or be kept on the inside of the jacket, depending on
 preference.
 
-Use either velcro or snaps to close the lining that was cut open.
+Use either Velcro or snaps to close the lining that was cut open.
 
 Once all the components are in place, try wearing the jacket to make sure things are working
 properly.
@@ -865,6 +878,29 @@ never while actually wearing them out to events).
 
 **Do your research to make sure you understand the risks involved and what level of risk you are comfortable with.**
 
+Here's a short list of what I think were the major drawbacks that I ran into with my approach and what I would
+do differently:
+
+* The housing for the laser diodes is laser cut out of black 1/16" acrylic sheets. The acrylic is brittle
+  and breaks easily. The strain relief plate often cracks when screwing the housing in place. In any potential
+  future iteration, I would try to use either 3d printing a housing or laser cut wood which then could be spray
+  painted for color and wear resistance.
+* The protoboards are large and clunky. I would try to fabricate a custom PCB to reduce size and cost.
+* On one arm, I put each PWM line into it's own sheathing and for the other I put two PWM lines through a single
+  sheath. Doubling up the PWM lines per housing sheath uses a lot less space and the right arm is significantly
+  easier to move and put my arm into.
+* The Arduino has intermittent crashes which are hard to replicate and debug. In the future, I would try to put
+  in a watchdog timer to make sure it doesn't get into a bad state as well as put ferrite cores onto critical
+  lines to try to help reduce noise introduced by other components.
+* Fastening the electronics housing to the jacket is done in a haphazard way. In the future I would try and come
+  up with a solution more securely fastens each housing onto the jacket.
+* The laser diode wires were loose, to a certain degree, in the jacket lining interface. It might be better to
+  staple these to the jacket to make sure they're more secure and won't interfere with hands or arms.
+* The screws that poke through the jacket aren't comfortable and take up unnecessary space. Either choosing an
+  appropriate length for the screw or cutting them to size as well as providing a blunt end to make sure
+  they aren't poking into the wearer might be worthwile.
+
+
 Troubleshooting and Common Errors
 ---
 
@@ -890,7 +926,7 @@ To track down where the error is, consider the following steps:
   If not, charge the battery or use another that is fully charged.
 * Test to make sure the fuse hasn't blown. If it has this could indicate a short in the power line so test for continuity to track down
   if there is a short in the power line. If not, replace the fuse and try again.
-* Make sure the breakout board for power has the proper voltages at points you expect. This means testing witht he multi-meter that the
+* Make sure the breakout board for power has the proper voltages at points you expect. This means testing with the multi-meter that the
   voltage on the board before the regulator is what's expected to come out of the battery. Test the output of each of the regulators
   to make sure the voltage is the expected 5V. Often regulators die or are bad so they might need to be replaced. Also make sure the
   regulators orientation is correct (there should be an 'input' side that connects to the battery side and an 'output' side that connects
@@ -946,7 +982,7 @@ Also, make sure the battery is fully charged to rule out an empty battery as a p
 
 #### The microphone/joystick isn't working
 
-The symptoms are that the joystick won't do antying (for example, not being able to change 'modes') and/or the graphic equalizer mode
+The symptoms are that the joystick won't do anything (for example, not being able to change 'modes') and/or the graphic equalizer mode
 doesn't display anything.
 For the joystick, connect the Arduino to your computer and turn on debugging. There should be output of what the joystick state
 is and make sure it's reading from the joystick.
