@@ -999,6 +999,14 @@ No credit is necessary.
 
 Happy Hacking!
 
+Credits
+---
+
+* `adafruit_products_2012_10_13_IMG_0692-1024.jpg` by Bill Earl (CC-BY-SA)
+* `laser-club-stage.png` by Taimur Gibson (CC-BY-SA)
+* `adafruit_products_MultiBoard_bb-1024.jpg` by Bill Earl (CC-BY-SA)
+
+
 References
 ---
 
