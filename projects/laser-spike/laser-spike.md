@@ -113,7 +113,8 @@ The basic design is to attach 128 laser diodes to the arms, shoulders and upper 
 The electronics are put into a housing and all wires, electronics and their housing are
 hidden in the interface between the outer jacket shell and the inner lining.
 
-A joystick and microphone is used for input, with power being provided by a LiPo rechargeable batter.
+A joystick and microphone are used for input.
+Power is provided by a LiPo rechargeable battery.
 
 In the above schmeatic, LEDs are used in place of the laser diodes.
 The laser diode modules have their own internal circuitry so don't need current limiting resistors like an LED normally would.
