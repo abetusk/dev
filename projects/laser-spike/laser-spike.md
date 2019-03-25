@@ -106,12 +106,17 @@ options.
 Design Overview
 ---
 
+![fritzing schematic](img/laser-schematic.jpg)
+
 The basic design is to attach 128 laser diodes to the arms, shoulders and upper back of a
 'moto' jacket and provide power and control to the laser diodes with electronics.
 The electronics are put into a housing and all wires, electronics and their housing are
 hidden in the interface between the outer jacket shell and the inner lining.
 
 A joystick and microphone is used for input, with power being provided by a LiPo rechargeable batter.
+
+In the above schmeatic, LEDs are used in place of the laser diodes.
+The laser diode modules have their own internal circuitry so don't need current limiting resistors like an LED normally would.
 
 The basic components are:
 
@@ -142,7 +147,7 @@ the laser diode and relief for the laser diode wires.
 |---|---|
 | ![LD wire 0](img/ld-wire-0.jpg) | ![LD wire 1](img/ld-wire-1.jpg) |
 | ![LD wire 2](img/ld-wire-2.jpg) | ![LD wire 3](img/ld-wire-3.jpg) |
-| ![laser cabling 0](img/laser-cabling-0.jpg) | ![laser cabling 1](img/laser-cabling-1.jpg) |
+
 
 After testing each laser diode to make sure they work, solder a male  JST 1.25mm 2pin header
 to each of the ends of the laser diode.
@@ -662,6 +667,10 @@ See the `Common Errors` section on help tracking down problems should any occur.
 
 Cabling and Connections
 ---
+
+| | |
+|---|---|
+| ![laser cabling 0](img/laser-cabling-0.jpg) | ![laser cabling 1](img/laser-cabling-1.jpg) |
 
 Though it might seem dry or inconsequential, cabling turns out to be a major factor
 in the functionality an aesthetics of this project.
