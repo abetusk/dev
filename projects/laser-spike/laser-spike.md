@@ -1002,9 +1002,9 @@ Happy Hacking!
 Credits
 ---
 
-* `adafruit_products_2012_10_13_IMG_0692-1024.jpg` by Bill Earl (CC-BY-SA)
+* `adafruit_products_MultiBoard_bb-1024.jpg` by Bill Earl (CC-BY-SA) ([src](https://learn.adafruit.com/assets/2223))
+* `adafruit_products_2012_10_13_IMG_0692-1024.jpg` by Bill Earl (CC-BY-SA) ([src](https://learn.adafruit.com/assets/2263))
 * `laser-club-stage.png` by Taimur Gibson (CC-BY-SA)
-* `adafruit_products_MultiBoard_bb-1024.jpg` by Bill Earl (CC-BY-SA)
 
 
 References
