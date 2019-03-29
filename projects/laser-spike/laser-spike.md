@@ -617,6 +617,7 @@ module.
 | | |
 |---|---|
 | ![laser cabling 0](img/laser-cabling-0.jpg) | ![laser cabling 1](img/laser-cabling-1.jpg) |
+| ![cabling 0](img/cabling-0.jpg) | |
 
 
 Once the headers have been attached, create two 6 wire cables, one about 20cm in length and the other about
@@ -694,8 +695,7 @@ Cabling and Connections
 
 | | |
 |---|---|
-| ![cabling 0](img/cabling-0.jpg) | ![cabling 1](img/cabling-1.jpg) |
-| ![cabling 2](img/cabling-2.jpg) | |
+| ![cabling 1](img/cabling-1.jpg) | ![cabling 2](img/cabling-2.jpg) | |
 
 Routing and giving structural support for cables in the jacket helps with wear and
 wearability.
