@@ -5,6 +5,37 @@ Laser Spiked Jacket
  
  [![video](img/club-youtube-preview.png)](https://youtu.be/JvzV8-crT5Y)
 
+1. [Intro](#Intro)
+2. [Materials](#Materials)
+3. [Design Overview](#design-overview)
+4. [Laser Diode Assembly](#laser-diode-assembly)
+  1. [Attach Laser Diode Cabling](#attach-laser-diode-cabling)
+  2. [Laser Cut Housing](#laser-cut-housing)
+  3. [Assemble Laser Diode Housing](#assemble-laser-diode-housing)
+  4. [Attach Laser Diodes to Jacket](#attach-laser-diodes-to-jacket)
+5. [Electronics Assembly](#electronics-assembly)
+  1. [Power Cable](#power-cable)
+  2. [Power Regulators](#power-regulators)
+  3. [Arduino and Input Breakout](#arduino-and-input-breakout)
+  4. [Programming the Arduino Nano](#programming-the-arduino-nano)
+  5. [PWM breakout](#pwm-breakout)
+  6. [PCA9685 Module Soldering and Addressing](#pca9685-module-soldering-and-addressing)
+  7. [PCA9685 Module Cabling](#pca9685-module-cabling)
+6. [Testing](#testing)
+  1. [Testing Prep](#testing-prep)
+  2. [Laser Diode Connector Testing](#laser-diode-connector-testing)
+  3. [Cabling and Connections](##cabling-and-connections)
+  4. [Power, I2C, Joystick and Microphone Connections](#power-i2c-joystick-and-microphone-connections)
+7. [Wiring and Routing for the Laser Diodes](#wiring-and-routing-for-the-laser-diodes)
+  1. [Electronics Housing Overview](#electronics-housing-overview)
+  2. [Strain Relief](#strain-relief)
+  3. [Final Placement and Installation](#final-placement-and-installation)
+8. [Wear It!](#wear-it)
+9. [Final Design Notes](#final-design-notes)
+10. [Troubleshooting and Common Errors](#troubleshooting-and-common-errors)
+11. [Conclusion](#conclusion)
+12. [Credits](#credits)
+13. [References](#references)
 
 Intro
 ---
@@ -32,6 +63,8 @@ and implementation is open for improvement.
 
 Depending on the battery used, the jacket can operate for about an hour or two continuously.
 Spare batteries can be carried around and used to replace the depleted batteries if need be.
+
+
 
 Materials
 ---
