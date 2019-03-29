@@ -837,8 +837,9 @@ communication between elements that don't reside on the same proto-board.
 
 | | |
 |---|---|
-| ![electronic housing](img/housing-lasercut-5.jpg) | ![electronics housed](img/electronics-housing-0.jpg) |
 | ![lasercut housing 0](img/housing-lasercut-1.jpg) | ![lasercut housing 1](img/housing-lasercut-2.jpg) |
+| ![electronic housing](img/housing-lasercut-5.jpg) | ![electronics housed](img/electronics-housing-0.jpg) |
+| ![pca9685 housing](img/pwm-breakout-d.jpg) | |
 
 The PWM driver, along with other electronic components, such as the power converters
 and Arduino Nano, are seated in a laser cut electronic housing, consisting of
@@ -859,8 +860,9 @@ installed in the jacket.
 
 ### Strain Relief
 
-| |  |
-| ![electronics housing strain relief](img/electroncis-housing-1.jpg) | |
+| | |
+|---|---|
+| ![electronics housing strain relief](img/electronics-housing-1.jpg) | |
 
 Once the electronic housing enclosures are bolted together, the wires should be wrapped around
 the strain relief gadgets on the top of the housing.
