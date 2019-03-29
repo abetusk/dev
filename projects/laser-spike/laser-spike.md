@@ -21,15 +21,15 @@ Laser Spiked Jacket
     5. [PWM breakout](#pwm-breakout)
     6. [PCA9685 Module Soldering and Addressing](#pca9685-module-soldering-and-addressing)
     7. [PCA9685 Module Cabling](#pca9685-module-cabling)
+    8. [Wiring and Routing for the Laser Diodes](#wiring-and-routing-for-the-laser-diodes)
 6. [Testing](#testing)
     1. [Testing Prep](#testing-prep)
     2. [Laser Diode Connector Testing](#laser-diode-connector-testing)
     3. [Cabling and Connections](#cabling-and-connections)
     4. [Power, I2C, Joystick and Microphone Connections](#power-i2c-joystick-and-microphone-connections)
-7. [Wiring and Routing for the Laser Diodes](#wiring-and-routing-for-the-laser-diodes)
-    1. [Electronics Housing Overview](#electronics-housing-overview)
-    2. [Strain Relief](#strain-relief)
-    3. [Final Placement and Installation](#final-placement-and-installation)
+7. [Electronics Housing Overview](#electronics-housing-overview)
+    1. [Strain Relief](#strain-relief)
+    2. [Final Placement and Installation](#final-placement-and-installation)
 8. [Wear It!](#wear-it)
 9. [Final Design Notes](#final-design-notes)
 10. [Troubleshooting and Common Errors](#troubleshooting-and-common-errors)
@@ -675,7 +675,7 @@ to make it easier to determine if there was a cable ordering mismatch.
 
 | | |
 |---|---|
-| ![inside arm wiring](img/wiring-arm-inside.jpg) | | ![calbing 0](img/cabling-1.jpg) |
+| ![inside arm wiring](img/wiring-arm-inside.jpg) | ![calbing 0](img/cabling-1.jpg) |
 | ![cabling 1](img/cabling-2.jpg) |
 
 The laser diodes are grouped into four that are powered and controlled from a single PWM driver line.
