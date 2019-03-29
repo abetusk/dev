@@ -201,6 +201,13 @@ Before soldering, apply a healthy drop of flux to make sure the solder will flow
 Once the wires are soldered together, put the heat shrink tube on and heat with the heat
 gun to give a good fit.
 
+Use caution when using the heat gun to shield the laser diode and the end of the JST connector.
+I've had trouble with the connectors not fitting properly and I believe I was sloppy in not
+protecting the laser diode JST connector from the heat.
+The laser diode also is sensitive to extremem temperature and could fail from excess heat applied
+to it.
+
+
 If there's any exposed wires, cover with electrical tape.
 If for some reason the heat shrink tube is loose, you can always put another, larger,
 heat shrink tube around both and shrink to fit.
@@ -247,7 +254,7 @@ it's and outer, inner or backing piece, for ease of assembly later.
 | ![LD housing 4](img/ld-housing-4.jpg) | ![LD housing 5](img/ld-housing-5.jpg) |
 | ![LD housing 6](img/ld-housing-6.jpg) | ![LD housing 7](img/ld-housing-7.jpg) |
 
-After the laser diodes have been cabled and the laser diode housings have all been cut,
+After the laser diodes have been cabled and the laser diode housings have all been laser cut,
 it's time to assemble the laser diode in it's housing.
 This won't be the complete housing as there's a final backing piece that won't be put
 on until the laser diode is attached to the jacket but most of the laser diode assembly
@@ -468,8 +475,8 @@ Attach the battery to the power cable.
 
 
 We'll now build the breakout board for the power regulators.
-The laser diodes should draw around 1mA each, making the whole
-system draw around ~200mA as an upper bound.
+I haven't measured but I suspect the laser diodes can draw up to 20mA each, making the whole
+system draw around ~2.6A as an upper bound.
 
 Since the power draw is significant and highly variable for the laser diodes
 compared to the power draw of the rest of the electronics, separate
@@ -515,7 +522,7 @@ Use connecting wires to make sure all power is routed to the appropriate places.
 | ![Arduino breakout 2](img/arduino-breakout-2.jpg) | ![Arduino breakout 3](img/arduino-breakout-3.jpg) |
 
 
-An Arduino Nano provides the main processing power that takes input from the microphone
+An Arduino Nano provides the main processing intelligence that takes input from the microphone
 and joystick and communicates with the PWM drivers.
 
 The basic layout of the circuit is to breakout the appropriate pins to route to
@@ -528,7 +535,7 @@ joystick floats high.
 
 When soldering, make sure to use flux as it helps solder flow and prevent cold
 joints.
-As a general rule, testing continuity is a good idea.
+As a general rule, testing continuity with the multimeter is a good idea.
 As a basic precaution, make sure that power and ground are isolated by confirming
 there is no continuity between them.
 
@@ -663,6 +670,41 @@ I like to use a cable shroud for long cables to keep them from tangling.
 I also try and use different colored cables to differentiate what their function is and
 to make it easier to determine if there was a cable ordering mismatch.
 
+### Wiring and Routing for the Laser Diodes
+
+| | |
+|---|---|
+| ![inside arm wiring](img/wiring-arm-inside.jpg) | | ![calbing 0](img/cabling-1.jpg) |
+| ![cabling 1](img/cabling-2.jpg) |
+
+The laser diodes are grouped into four that are powered and controlled from a single PWM driver line.
+The cables for this are a JST 2.5mm male header on one end that break out into 4 JST 1.25mm female headers.
+As much as possible, I try to use a [Lineman splice](https://en.wikipedia.org/wiki/Western_Union_splice)
+and cover each connection with heat shrink tubing.
+Electrical tape can be used if heat shrink tubing is not available or wasn't put on before soldering.
+
+Each length of wire should be measured to be the approximate length of the grouping of four laser diodes
+to the electronics housing.
+This means the wires for the laser diodes at the end of the arm should be longer than the shoulders or back.
+
+Each of the wires is put in a cable sleeve to prevent tangling.
+I've found 1/4" braided sleeving works well.
+
+To help route the sleeved wires through the arm and middle interface between the outer shell jacket and inner lining,
+I attached cable clamps, closed off with a cable-tie, that attach to some floating excess fabric on the inside of the arm of the jacket.
+
+Care has to be taken to make sure the wiring is fed out of the arm properly.
+If the wiring loops around the lining, this will pinch the opening where an arm would go through
+making the jacket hard to put on and use.
+
+I tried labeling the wires so that I could trace back which group belonged to which wire but
+I didn't have much success.
+
+I would suggest testing the laser diodes with a CR2032 battery to make sure the laser diodes still work after
+installation and hookup.
+
+Once all the laser diodes are connected to their respective wires, it's time to start the final assembly.
+
 Testing
 ---
 
@@ -743,11 +785,11 @@ As previously stated, the locking is necessary to prevent disconnection from str
 or movement.
 The orientation provides a safety check to make sure shorts or improper connections don't occur.
 
-Multiple layers of strain relief of provided to try an minimize the possibility of wire
+Multiple layers of strain relief are provided to try and minimize the possibility of wire
 fraying or solder joint breakage.
-The electronics housing have strain relief supports to rout cables through to provide strain
+The electronics housing have strain relief supports to route cables through to provide strain
 relief from the soldered connectors.
-The jacket has cable clamps to guide the cables and provide support.
+The jacket have cable clamps to guide the cables and provide support.
 The laser diode housing provides strain relief for the laser diodes.
 
 Even with all the strain relief and cable routing, it's possible to tear wires or
@@ -755,7 +797,7 @@ break connections.
 Some care has to be taken when putting on the jacket to not catch fingers on wires
 through the lining.
 The jacket is resilient enough to wear and dance around in but motions that are too
-jarring to impact that is too high will cause damage.
+jarring or impact that is too high will cause damage.
 
 ### Power, I2C, Joystick and Microphone Connections
 
@@ -790,43 +832,12 @@ to fray and break.
 The stranded wire is much more moveable and is better suited to providing power and
 communication between elements that don't reside on the same proto-board.
 
-### Wiring and Routing for the Laser Diodes
+### Electronics Housing Overview
 
 | | |
 |---|---|
-| ![inside arm wiring](img/wiring-arm-inside.jpg) |
-
-The laser diodes are grouped into four that are powered and controlled from a single PWM driver line.
-The cables for this are a JST 2.5mm male header on one end that break out into 4 JST 1.25mm female headers.
-As much as possible, I try to use a [Lineman splice](https://en.wikipedia.org/wiki/Western_Union_splice)
-and cover each connection with heat shrink tubing.
-Electrical tape can be used if heat shrink tubing is not available or wasn't put on before soldering.
-
-Each length of wire should be measured to be the approximate length of the grouping of four laser diodes
-to the electronics housing.
-This means the wires for the laser diodes at the end of the arm should be longer than the shoulders or back.
-
-Each of the wires is put in a cable sleeve to prevent tangling.
-I've found 1/4" braided sleeving works well.
-
-To help route the sleeved wires through the arm and middle interface between the outer shell jacket and inner lining,
-I attached cable clamps, closed off with a cable-tie, that attach to some floating excess fabric on the inside of the arm of the jacket.
-
-Care has to be taken to make sure the wiring is fed out of the arm properly.
-If the wiring loops around the lining, this will pinch the opening where an arm would go through
-making the jacket hard to put on and use.
-
-I tried labeling the wires so that I could trace back which group belonged to which wire but
-I didn't have much success.
-
-I would suggest testing the laser diodes with a CR2032 battery to make sure the laser diodes still work after
-installation and hookup.
-
-
-Once all the laser diodes are connected to their respective wires, it's time to start the final assembly.
-
-
-### Electronics Housing Overview
+| ![electronic housing](img/housing-lasercut-5.jpg) | ![electronics housed](img/electronics-housing-0.jpg) |
+| ![lasercut housing 0](img/housing-lasercut-1.jpg) | ![lasercut housing 1](img/housing-lasercut-2.jpg) |
 
 The PWM driver, along with other electronic components, such as the power converters
 and Arduino Nano, are seated in a laser cut electronic housing, consisting of
@@ -846,6 +857,9 @@ to make sure things are working properly before the electronics housing is close
 installed in the jacket.
 
 ### Strain Relief
+
+| |  |
+| ![electronics housing strain relief](img/electroncis-housing-1.jpg) | |
 
 Once the electronic housing enclosures are bolted together, the wires should be wrapped around
 the strain relief gadgets on the top of the housing.
