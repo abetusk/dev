@@ -39,7 +39,9 @@ Materials
 | | | |
 |---|---|---|
 | ![jacket](img/materials-jacket.jpg) | ![crimp, heat gun, headers](img/materials-crimp-heat.jpg) | ![soldering tools](img/materials-iron-solder-flux.jpg) |
-| ![wire, fuse, electronics](img/materials-wire-nano.jpg) | | |
+| ![wire, fuse, electronics](img/materials-wire-nano.jpg) | ![electronics](img/materials-electronics.jpg) | ![lasers](img/materials-lasers.jpg) |
+| ![screws](img/materials-screws.jpg) | ![soldering](img/materials-soldering.jpg) | ![switch](img/materials-switch-board.jpg) |
+| ![tools](img/materials-tools.jpg) | | |
 
 * Jacket ([Amazon](https://www.amazon.com/gp/product/B01GKGWBCM/))
 
@@ -106,7 +108,10 @@ options.
 Design Overview
 ---
 
-![fritzing schematic](img/laser-schematic.jpg)
+| |
+|---|
+| ![fritzing schematic](img/laser-schematic.jpg) |
+| ![jacket](img/jacket-layout.svg) |
 
 The basic design is to attach 128 laser diodes to the arms, shoulders and upper back of a
 'moto' jacket and provide power and control to the laser diodes with electronics.
@@ -174,6 +179,10 @@ As much as possible, test the laser diodes after attaching the cabling.
 This might mean making a 'test cable' to test each of the laser diodes.
 
 ### Laser Cut Housing
+
+| |
+|---|
+| ![laser housing](img/housing-lasercut-3.jpg) |
 
 Use your laser cutter to cut the laser diode housing.
 I used 1/16" black acrylic.
@@ -502,6 +511,11 @@ board, we can program it.
 
 ### Programming the Arduino Nano
 
+| | |
+|---|---|
+| ![programming 0](img/programming-0.jpg) | ![programming 1](img/programming-1.jpg) |
+| ![programming 2](img/programming-2.jpg) | |
+
 Connect the Arduino Nano to the computer with a USB cable and start the Arduino IDE.
 If not already installed, install the [Adafruit PWM library](https://github.com/adafruit/Adafruit-PWM-Servo-Driver-Library)
 and the [Fourier transform, ffft,](https://github.com/adafruit/piccolo) library.
@@ -647,6 +661,10 @@ of the connections out of the PCA9685 breakout boards.
 
 ### Laser Diode Connector Testing
 
+| | |
+|---|---|
+| ![testing](img/testing-laser-0.jpg) | ![testing 1](img/testing-laser-1.jpg) |
+
 Make sure the Arduino Nano and other electronics are powered.
 After the power is turned on, an LED on the Arduino Nano should show as well as various LEDs on the BEC and
 the PCA9685 modules to indicate they are working.
@@ -673,6 +691,11 @@ See the `Common Errors` section on help tracking down problems should any occur.
 
 Cabling and Connections
 ---
+
+| | |
+|---|---|
+| ![cabling 0](img/cabling-0.jpg) | ![cabling 1](img/cabling-1.jpg) |
+| ![cabling 2](img/cabling-2.jpg) | |
 
 Routing and giving structural support for cables in the jacket helps with wear and
 wearability.
@@ -803,6 +826,13 @@ This shouldn't be done until there's enough confidence that the jacket is ready 
 the nuts are hard to get off after the loctite is applied.
 
 ### Final Placement and Installation
+
+| | |
+|---|---|
+| ![install 0](img/install-0.jpg) | ![install 1](img/install-1.jpg) |
+| ![install 2](img/install-2.jpg) | ![install 3](img/install-3.jpg) |
+| ![install 4](img/install-4.jpg) | ![install 5](img/install-5.jpg) |
+| ![install 6](img/install-6.jpg) | ![install 7](img/install-7.jpg) |
 
 Place the electronics enclosures in the middle between the jacket outer shell and the inner
 jacket lining.
