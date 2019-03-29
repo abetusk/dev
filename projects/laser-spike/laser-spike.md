@@ -184,6 +184,7 @@ the laser diode and relief for the laser diode wires.
 
 | | |
 |---|---|
+| ![laser diode test 0](img/ld-test-0.jpg) | ![laser diode test 1](img/ld-test-1.jpg) |
 | ![LD wire 0](img/ld-wire-0.jpg) | ![LD wire 1](img/ld-wire-1.jpg) |
 | ![LD wire 2](img/ld-wire-2.jpg) | ![LD wire 3](img/ld-wire-3.jpg) |
 
