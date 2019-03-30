@@ -476,8 +476,8 @@ Attach the battery to the power cable.
 
 
 We'll now build the breakout board for the power regulators.
-I haven't measured but I suspect the laser diodes can draw up to 20mA each, making the whole
-system draw around ~2.6A as an upper bound.
+I haven't measured but I suspect the laser diodes can draw up to 5mA each (which is their rating), making the whole
+system draw around ~.75A as an upper bound.
 
 Since the power draw is significant and highly variable for the laser diodes
 compared to the power draw of the rest of the electronics, separate
@@ -914,7 +914,7 @@ Final Design Notes
 There are some major points of interest that I believe are worth mentioning.
 Here is a list, in no particular order:
 
-* The laser diodes are 5mw and don't pose a significant risk to people eyesight.
+* The laser diodes are 5mW and don't pose a significant risk to people's eyesight.
   Though people shouldn't stare directly into the laser diode, it's akin to staring
   straight into a flashlight...bad if done without looking away but no real danger
   of being blinded by accident.
@@ -965,7 +965,7 @@ do differently:
   and breaks easily. The strain relief plate often cracks when screwing the housing in place. In any potential
   future iteration, I would try to use either 3d printing a housing or laser cut wood which then could be spray
   painted for color and wear resistance.
-* The protoboards are large and clunky. I would try to fabricate a custom PCB to reduce size and cost.
+* The protoboards are large and clunky. I would try to fabricate a custom PCB to reduce size, cost and time.
 * On one arm, I put each PWM line into it's own sheathing and for the other I put two PWM lines through a single
   sheath. Doubling up the PWM lines per housing sheath uses a lot less space and the right arm is significantly
   easier to move and put my arm into.
@@ -973,7 +973,7 @@ do differently:
   in a watchdog timer to make sure it doesn't get into a bad state as well as put ferrite cores onto critical
   lines to try to help reduce noise introduced by other components.
 * Fastening the electronics housing to the jacket is done in a haphazard way. In the future I would try and come
-  up with a solution more securely fastens each housing onto the jacket.
+  up with a solution that more securely fastens each housing onto the jacket.
 * The laser diode wires were loose, to a certain degree, in the jacket lining interface. It might be better to
   staple these to the jacket to make sure they're more secure and won't interfere with hands or arms.
 * The screws that poke through the jacket aren't comfortable and take up unnecessary space. Either choosing an
@@ -999,6 +999,8 @@ Make sure all the solder joints and area are clean of wire trimmings.
 
 This could be caused by a short or break in the power lines.
 Another possible source is a bad regulator or low battery.
+It's good practice to also make sure the battery is fully charged and seeing if a fully charged
+battery fixes the problem before trouble-shooting further.
 
 To track down where the error is, consider the following steps:
 
@@ -1025,11 +1027,15 @@ For example, disconnect the power breakout board from the other electronics and 
 correctly.
 Once that's confirmed as working, add only the Arduino Nano breakout, then a single PCA9685 PWM module breakout, etc.
 
-It's good practice to also make sure the battery is fully charged.
 
 #### Things power on intermittently
 
-This is one of the more frustrating problems and is hard to track down and debug because the problem is often hard to
+To rule out the obvious, make sure the battery is fully charged to rule out an empty battery as a possibility.
+If the intermittent failures disappear with a full battery, this could mean the electronics is 'browning' and
+is easily fixed with replenishing the battery.
+
+If recharging the battery does not solve the problem,
+this can be one of the more frustrating problems and is hard to track down and debug because the problem is often hard to
 reproduce.
 The most likely cause, in my experience, is a bad solder connection.
 A deformation of the proto-board or too much strain on the connectors causes the solder joint to weaken or crack.
@@ -1045,7 +1051,6 @@ In the end, the electronics need to be housed and strain relief needs to be prov
 will almost surely occur but even with minimal stress on the circuit, sometimes loose connections cause intermittent
 failures and should be tracked down as soon as possible to prevent headaches later on.
 
-Also, make sure the battery is fully charged to rule out an empty battery as a possibility.
 
 #### The Arduino keeps resetting
 
@@ -1064,6 +1069,13 @@ Also, make sure the battery is fully charged to rule out an empty battery as a p
 
 The symptoms are that the joystick won't do anything (for example, not being able to change 'modes') and/or the graphic equalizer mode
 doesn't display anything.
+The first thing to check is that the microphone or joystick is connected on both ends.
+That is, check the cable is connected to the input device and the other end of the cable is connected to the Arduino breakout.
+If they are connected, make sure the wiring has been done correctly to ensure the wires on one end of the cable match to the wires
+being fed into the Arduino.
+
+If the obvious troubleshooting techniques don't work, further investigation is needed.
+
 For the joystick, connect the Arduino to your computer and turn on debugging. There should be output of what the joystick state
 is and make sure it's reading from the joystick.
 
@@ -1109,9 +1121,11 @@ Sometimes the cabling is tight in the arms and through use the stresses of norma
 connections to break.
 Since the laser diodes are connected by a small JST 1.25mm connector, the connector should disengage
 rather than wire snapping or housing cracking.
-In this case, the connection can be re-established by re-connecting the laser diode to it's cable
-but it keeps getting disconnected, it might be good to choose a different connection scheme so
-that normal movement won't put as much strain on the connection.
+In this case, the connection can be re-established by re-connecting the laser diode to it's cable.
+
+If the laser diode connection keeps getting disconnected, it might be good to choose a different connection,
+either positioning the cable differently, soldering an extension cable onto it or swapping connections with
+a neighboring laser diode, so that normal movement won't put as much strain on the connection.
 
 Conclusion
 ---
