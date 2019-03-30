@@ -205,7 +205,7 @@ gun to give a good fit.
 Use caution when using the heat gun to shield the laser diode and the end of the JST connector.
 I've had trouble with the connectors not fitting properly and I believe I was sloppy in not
 protecting the laser diode JST connector from the heat.
-The laser diode also is sensitive to extremem temperature and could fail from excess heat applied
+The laser diode also is sensitive to extreme temperature and could fail from excess heat applied
 to it.
 
 
@@ -978,7 +978,7 @@ do differently:
   staple these to the jacket to make sure they're more secure and won't interfere with hands or arms.
 * The screws that poke through the jacket aren't comfortable and take up unnecessary space. Either choosing an
   appropriate length for the screw or cutting them to size as well as providing a blunt end to make sure
-  they aren't poking into the wearer might be worthwile.
+  they aren't poking into the wearer might be worthwhile.
 
 
 Troubleshooting and Common Errors
@@ -1130,6 +1130,13 @@ a neighboring laser diode, so that normal movement won't put as much strain on t
 Conclusion
 ---
 
+This idea has been around for upwards of ten years (as of this writing).
+From what I can understand, the artist [Wei Chieh Shih](https://www.behance.net/shihweichieh) was the original
+artist that came up with the idea.
+It's been used by other celebrities like [Bono](reference/G5A05331.jpg) and [Rihanna](reference/rihanna-laser-shoulderpads.jpg).
+I decided to build my own since I thought the idea was interesting and I hadn't seen a 'DIY' version around, nor any
+source, schematics or building instructions.
+
 All source code is available under a free/libre license (either AGPL, GPL, MIT or CC0).
 All design files, where appropriate, are available under a free/libre license (CC-BY, CC-BY-SA or CC0).
 These instructions themselves are available under a CC0 license.
@@ -1138,6 +1145,15 @@ Where appropriate, please feel free to modify, improve or use any of the assets 
 No credit is necessary.
 
 Happy Hacking!
+
+Digital Artifacts
+---
+
+* [Arduino Sketch](src/laser-spike/laser-spike.ino)
+* [Fritzing Schematic](src/schematic/laserspike.fzz)
+* [Laser Housing OpenSCAD Design File](laser-housing/laser-housing.scad)
+* [Electronics Housing OpenSCAD Design File](laser-housing/elec-housing.scad)
+
 
 Credits
 ---
