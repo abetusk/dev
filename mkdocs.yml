@@ -33,6 +33,7 @@ pages:
   - "Number-Theory-Notes.md"
   - "Arbitrary-Binary-Functions.md"
   - "Empirical-Laws.md"
+  - "Food-CO2-Water.md"
 
 docs_dir: 'wiki'
 theme_dir: 'dev_theme'

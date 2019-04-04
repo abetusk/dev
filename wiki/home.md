@@ -33,3 +33,4 @@ dev
 * [Number Theory Notes](Number-Theory-Notes.md)
 * [Arbitrary Binary Functions](Arbitrary-Binary-Functions.md)
 * [Empirical Laws](Empirical-Laws.md)
+* [Food - CO2 emissions and water usage](Food-CO2-Water.md)
