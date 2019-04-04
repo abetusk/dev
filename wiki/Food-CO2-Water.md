@@ -11,7 +11,7 @@ CO2 and Water Food Usage
 
 
 | Diet | Per Capita Yearly CO2 Emission ($\frac{kg}{(cap)(yr)}$) | Per Capita Yearly Water Consumption ($\frac{kg}{(cap)(yr)}$) | Notes |
-|---|---|---|
+|---|---|---|---|
 | American Omnivore | 1422.96 | 756.97 | Meat and milk consumption taken from the National Chicken Council and the USDA |
 | American Vegetarian | 515.53 | 275.21 | Meat, pork and poultry replaced with soybean (by weight, assumed 158.49kg of soybean) for CO2 emission. Meat, pork and poultry replaced with rice (by weight, assumed 158.49kg of rice) for water consumption. Cow milk still used (67.59kg) |
 | American Vegan (estimate 0) | 449.97 | 491.80 | Meat, pork and poultry replaced with soybean (by weight, assumed 158.49kg of soybean) for CO2 emission. Meat, pork and poultry replaced with rice (by weight, assumed 158.49kg of rice) for water consumption. Almond milk used with 225g of almonds per litre of almond milk (assuming 67.59 L of almond milk consumed per capita per year)  |
