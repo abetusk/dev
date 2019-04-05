@@ -1,4 +1,4 @@
-CO2 and Water Food Usage
+CO2 and Water Usage of Food Consumed
 ===
 
 | Diet | Per Capita Yearly CO2 Emission $(\frac{kg}{(cap)(yr)})$ | Per Capita Yearly Water Consumption $(\frac{kg}{(cap)(yr)})$ |
