@@ -1,7 +1,7 @@
 CO2 and Water Food Usage
 ===
 
-| Type | Per Capita Yearly Consumption (kg) | Per Capita Yearly CO2 Emission ($\frac{kg}{(cap)(yr)}$) | Per Capita Yearly Water Consumption ($\frac{kg}{(cap)(yr)}$) 
+| Type | Per Capita Yearly Consumption $(kg)$ | Per Capita Yearly CO2 Emission $(\frac{kg}{(cap)(yr)})$ | Per Capita Yearly Water Consumption $(\frac{kg}{(cap)(yr)})$ |
 |---|---|---|---|
 | Meat (beef) | 25.85 | 742.67 | 324.68 | 
 | Meat (pork) | 23.04 | 134.78 | 102.76 |
@@ -10,7 +10,7 @@ CO2 and Water Food Usage
 
 
 
-| Diet | Per Capita Yearly CO2 Emission ($\frac{kg}{(cap)(yr)}$) | Per Capita Yearly Water Consumption ($\frac{kg}{(cap)(yr)}$) | Notes |
+| Diet | Per Capita Yearly CO2 Emission $(\frac{kg}{(cap)(yr)})$ | Per Capita Yearly Water Consumption $(\frac{kg}{(cap)(yr)})$ | Notes |
 |---|---|---|---|
 | American Omnivore | 1422.96 | 756.97 | Meat and milk consumption taken from the National Chicken Council and the USDA |
 | American Vegetarian | 515.53 | 275.21 | Meat, pork and poultry replaced with soybean (by weight, assumed 158.49kg of soybean) for CO2 emission. Meat, pork and poultry replaced with rice (by weight, assumed 158.49kg of rice) for water consumption. Cow milk still used (67.59kg) |
@@ -67,7 +67,7 @@ The [per capita consumption of dairy for Americans](https://www.ers.usda.gov/web
 
 ### ["Food consumption patterns and their effect on water requirement in China" by  J. Liu and H. H. G. Savenije](https://www.hydrol-earth-syst-sci.net/12/887/2008/hess-12-887-2008.pdf)
 
-| Food | Water footprint ($\frac{m^3}{kg}$) | Per capita annual food consumption (2003) ($\frac{kg}{(cap)(yr)}$) |
+| Food | Water footprint $(\frac{m^3}{kg})$ | Per capita annual food consumption (2003) $(\frac{kg}{(cap)(yr)})$ |
 |---|---|---|
 | Rice | 1.31 | 79 |
 | Wheat | 0.98 | 61 |
@@ -98,7 +98,7 @@ The [per capita consumption of dairy for Americans](https://www.ers.usda.gov/web
 
 ### ["The green, blue and grey water footprint of crops and derived crop products" by M. M. Mekonnen and A. Y. Hoekstra](https://waterfootprint.org/media/downloads/Mekonnen-Hoekstra-2011-WaterFootprintCrops.pdf)
 
-| Food | Global average water footprint ($\frac{m^3}{ton}$) (1996-2005) | Global average water footprint ($\frac{m^3}{kg}$ (1996-2005)) |
+| Food | Global average water footprint $(\frac{m^3}{ton})$ (1996-2005) | Global average water footprint ($\frac{m^3}{kg}$ (1996-2005)) |
 |---|---|---|
 | Almonds | 16095 | 17.74 |
 
