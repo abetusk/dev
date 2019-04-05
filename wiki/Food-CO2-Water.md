@@ -1,15 +1,6 @@
 CO2 and Water Food Usage
 ===
 
-| Type | Per Capita Yearly Consumption $(kg)$ | Per Capita Yearly CO2 Emission $(\frac{kg}{(cap)(yr)})$ | Per Capita Yearly Water Consumption $(\frac{kg}{(cap)(yr)})$ |
-|---|---|---|---|
-| Meat (beef) | 25.85 | 742.67 | 324.68 | 
-| Meat (pork) | 23.04 | 134.78 | 102.76 |
-| Meat (poultry) | 109.6 | 451.55 | 261.94 |
-| Milk (cow) | 67.59 | 93.95 | 67.59 |
-
-
-
 | Diet | Per Capita Yearly CO2 Emission $(\frac{kg}{(cap)(yr)})$ | Per Capita Yearly Water Consumption $(\frac{kg}{(cap)(yr)})$ |
 |---|---|---|
 | American Omnivore | 1422.96 | 756.97 |
@@ -17,13 +8,20 @@ CO2 and Water Food Usage
 | American Vegan (estimate 0) | 449.97 | 491.80 |
 | American Vegan (estimate 1) | 449.97 |  231.60 |
 
-
 * American Omnivore -  Meat and milk consumption taken from the National Chicken Council and the USDA
 * American Vegetarian -  Meat, pork and poultry replaced with soybean (by weight, assumed 158.49kg of soybean) for CO2 emission. Meat, pork and poultry replaced with rice (by weight, assumed 158.49kg of rice) for water consumption. Cow milk still used (67.59kg)
 * American Vegan (estimate 0) - Meat, pork and poultry replaced with soybean (by weight, assumed 158.49kg of soybean) for CO2 emission. Meat, pork and poultry replaced with rice (by weight, assumed 158.49kg of rice) for water consumption. Almond milk used with 225g of almonds per litre of almond milk (assuming 67.59 L of almond milk consumed per capita per year)
 * American Vegan (estimate 1) -  Meat, pork and poultry replaced with soybean (by weight, assumed 158.49kg of soybean) for CO2 emission. Meat, pork and poultry replaced with rice (by weight, assumed 158.49kg of rice) for water consumption. Almond milk used with 20g of almonds per litre of almond milk (assuming 67.59 L of almond milk consumed per capita per year)
 
-Worked calculations:
+### Worked calculations
+
+| Type | Per Capita Yearly Consumption $(kg)$ | Per Capita Yearly CO2 Emission $(\frac{kg}{(cap)(yr)})$ | Per Capita Yearly Water Consumption $(\frac{kg}{(cap)(yr)})$ |
+|---|---|---|---|
+| Meat (beef) | 25.85 | 742.67 | 324.68 | 
+| Meat (pork) | 23.04 | 134.78 | 102.76 |
+| Meat (poultry) | 109.6 | 451.55 | 261.94 |
+| Milk (cow) | 67.59 | 93.95 | 67.59 |
+
 
 ```
 w = 25.85 + 23.04 + 109.6 = 158.49
