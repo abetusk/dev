@@ -5,13 +5,13 @@ CO2 and Water Usage of Food Consumed
 |---|---|---|
 | American Omnivore | 1422.96 | 756.97 |
 | American Vegetarian | 515.53 | 275.21 |
-| American Vegan (estimate 0) | 449.97 | 491.80 |
-| American Vegan (estimate 1) | 449.97 |  231.60 |
+| American Vegan (2 cup almond milk replacement) | 449.97 | 491.80 |
+| American Vegan (2% almond milk replacement) | 449.97 |  231.60 |
 
 * *American Omnivore* -  Meat and milk consumption taken from the National Chicken Council and the USDA
 * *American Vegetarian* -  Meat, pork and poultry replaced with soybean (by weight, assumed 158.49kg of soybean) for CO2 emission. Meat, pork and poultry replaced with rice (by weight, assumed 158.49kg of rice) for water consumption. Cow milk still used (67.59kg)
-* *American Vegan (estimate 0)* - Meat, pork and poultry replaced with soybean (by weight, assumed 158.49kg of soybean) for CO2 emission. Meat, pork and poultry replaced with rice (by weight, assumed 158.49kg of rice) for water consumption. Almond milk used with 225g of almonds per litre of almond milk (assuming 67.59 L of almond milk consumed per capita per year)
-* *American Vegan (estimate 1)* -  Meat, pork and poultry replaced with soybean (by weight, assumed 158.49kg of soybean) for CO2 emission. Meat, pork and poultry replaced with rice (by weight, assumed 158.49kg of rice) for water consumption. Almond milk used with 20g of almonds per litre of almond milk (assuming 67.59 L of almond milk consumed per capita per year)
+* *American Vegan (2 cup almond milk replacement0)* - Meat, pork and poultry replaced with soybean (by weight, assumed 158.49kg of soybean) for CO2 emission. Meat, pork and poultry replaced with rice (by weight, assumed 158.49kg of rice) for water consumption. Almond milk used with 225g of almonds per litre of almond milk (assuming 67.59 L of almond milk consumed per capita per year)
+* *American Vegan (2% almond milk replacement)* -  Meat, pork and poultry replaced with soybean (by weight, assumed 158.49kg of soybean) for CO2 emission. Meat, pork and poultry replaced with rice (by weight, assumed 158.49kg of rice) for water consumption. Almond milk used with 20g of almonds per litre of almond milk (assuming 67.59 L of almond milk consumed per capita per year)
 
 ### Worked calculations
 
@@ -122,7 +122,9 @@ As a potentially more realistic estimate of the number of almonds used in almond
 * If almond milk has 2% of almonds, by weight, then for every litre of almond milk, there are approximately 20g of almonds
 * .02 kg of almonds per 1kg of almond milk
 
+### [Greenhouse Gas Emissions from a Typical Passenger Vehicle](https://www.epa.gov/greenvehicles/greenhouse-gas-emissions-typical-passenger-vehicle)
 
+$4600 \frac{kg}{yr}$ of CO2 emissions for the typical US passenger vehicle.
 
 ### ["Almond milk: quite good for you – very bad for the planet" by Emine Saner](https://www.theguardian.com/lifeandstyle/shortcuts/2015/oct/21/almond-milk-quite-good-for-you-very-bad-for-the-planet)
 
