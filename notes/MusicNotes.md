@@ -334,7 +334,7 @@ As a heuristic, the rhythm accounts for a [high percentage](https://www.youtube.
 of the melody (80%+)
 
 An equally spaced rhythm leads to a melody that sounds boring.
-Here are some basic rhythm patterns (sugested by [Dylan Laine](https://youtu.be/qlrLHhpp8-E)):
+Here are some basic rhythm patterns (suggested by [Dylan Laine](https://youtu.be/qlrLHhpp8-E)):
 
 
 ```
@@ -348,25 +348,25 @@ Dylan Laine suggests a tactic as follows (as far as I can interpret it):
 
 * Choose your chord progression, one chord per bar
 * Pick two notes from the chord per bar and create a phrase
-* Choose a rhythm pattern for the phrase melody (maybe with a single multi-phrase repeetition and a varation at the end)
+* Choose a rhythm pattern for the phrase melody (maybe with a single multi-phrase repetition and a variation at the end)
 
 
 [David Stewart](https://youtu.be/ktq_gOZU2VU) talks about a tactic to write a melody:
 
 * Start and end on the tonic of the key
-* Have a preference for small increments of notes instead of large leaps with a few leaps to add varation
+* Have a preference for small increments of notes instead of large leaps with a few leaps to add variation
 * The extreme note should be played once at 2/3 to 3/4 of the way through the melody
 * Phrases should be multiples of four
 
-Though not explicitely stated, ["LifeStyleDidIt - How To Make Melodies - With Chords"](https://www.youtube.com/watch?v=SVKigPPX6Zs) looks to be using
+Though not explicitly stated, ["LifeStyleDidIt - How To Make Melodies - With Chords"](https://www.youtube.com/watch?v=SVKigPPX6Zs) looks to be using
 a basic algorithm of:
 
 * Start with a chord progression
 * Choose 'anchor' notes from each of the chords
-* Interpolate, potentially across bars, from one anchor note to another, potentially merging interpolotaions
+* Interpolate, potentially across bars, from one anchor note to another, potentially merging interpolations
 
 From a cursory look, `LifeStyleDidIt` looks to be using many of the guidelines that `David Steward` uses in
-terms of extremal note placement and note incrememnts
+terms of extremal note placement and note increments
 The start and end note guideline is violated but one interpretation is that the start and stop of the melody
 shares an extreme chord note.
 For example, the beginning chord is `[c5,d#5,g5]` and ending chord is `[d#5,g5,a#5]` and the starting and
@@ -411,9 +411,9 @@ I -> vi -> V -> V
 |----------|---------------|
 | ostinato | repeat melody |
 | augmentation | repeat and increase length by 2x  |
-| diminution | repeat and descrease length by 1/2x |
+| diminution | repeat and decrease length by 1/2x |
 | note subtraction | repeat and remove a note each time |
-| note addition | repeat and adda note each time |
+| note addition | repeat and add note each time |
 | note metamorphosis | repeat and alter a note each time |
 | static harmony | change on chord to another interpolating between chords that are minimal distance away from each other |
 | phasing | playing two versions of the same melody where one is truncated relative to the other |
@@ -475,7 +475,7 @@ Misc
 
 [src](https://www.youtube.com/watch?v=UcmrgTNE9Cs)
 
-| Secion Name | Bar length |
+| Section Name | Bar length |
 |-------------|------------|
 | intro | 4 |
 | verse | 16 |
@@ -577,7 +577,7 @@ References
 * [Turing-Tunes](https://github.com/maximecb/Turing-Tunes)
 * [Melodique](https://github.com/maximecb/Melodique)
 * [Tone.js](https://tonejs.github.io/)
-* [Paul Adenot: Elements of Dance Muisc JSConf.Asia 2015](https://youtu.be/Ww0jTafmd_w)
+* [Paul Adenot: Elements of Dance Music JSConf.Asia 2015](https://youtu.be/Ww0jTafmd_w)
 * [teoria](https://github.com/saebekassebil/teoria)
 * [Web Audio Weekly](http://www.webaudioweekly.com/)
 * [Tonal](https://github.com/danigb/tonal)
@@ -592,8 +592,8 @@ Melody References
 * [SO: "Guide-lines for creating a simple chord-progression?"](https://music.stackexchange.com/questions/14812/guide-lines-for-creating-a-simple-chord-progression?rq=1)
 * [musictheory.net](https://www.musictheory.net/lessons)
 * [musictheory.net: Common Chord Progressions](https://www.musictheory.net/lessons/57)
-* [Dylan Laine - How To Wriate A Melody](https://youtu.be/qlrLHhpp8-E)
-* [David Steward - How to Wriate a Melody](https://youtu.be/ktq_gOZU2VU)
+* [Dylan Laine - How To Write A Melody](https://youtu.be/qlrLHhpp8-E)
+* [David Steward - How to Write a Melody](https://youtu.be/ktq_gOZU2VU)
 
 Music Theory References
 ---
