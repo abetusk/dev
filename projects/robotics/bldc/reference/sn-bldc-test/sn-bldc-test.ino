@@ -305,7 +305,7 @@ void movei() {
   static long xx=0;
   static long int debug=0;
   long int m;
-  
+  byte b, delb;
   
   m = millis();
   //if((millis() - flashTime) >  flashDelayActual) { digitalWrite(flashPin, HIGH); }
@@ -363,9 +363,22 @@ void movei() {
   }
   xx++;
      
-  analogWrite(motorPin1, pwmSin[currentStepA]);
-  analogWrite(motorPin2, pwmSin[currentStepB]);
-  analogWrite(motorPin3, pwmSin[currentStepC]);
+  //analogWrite(motorPin1, pwmSin[currentStepA]);
+  //analogWrite(motorPin2, pwmSin[currentStepB]);
+  //analogWrite(motorPin3, pwmSin[currentStepC]);
+
+  delb=0;
+  b = pwmSin[currentStepA];
+  if (b>delb) { b-=delb; }
+  analogWrite(motorPin1, b);
+  
+  b = pwmSin[currentStepB];
+  if (b>delb) { b-=delb; }
+  analogWrite(motorPin2, b);
+  
+  b = pwmSin[currentStepC];
+  if (b>delb) { b-=delb; }
+  analogWrite(motorPin3, b);
   
 
   if (debug>=1007) {
