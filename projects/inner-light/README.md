@@ -196,6 +196,13 @@ void loop() {
 * common ground
 * separately powered by 5V power supply
 
+Raspberry Pi
+---
+
+* I had some troubles seeing a wifi card on the zero W. Creating a new image on an 8Gb drive with the latest raspbian 
+  resolved the issue.
+
+
 Resources
 ---
 
