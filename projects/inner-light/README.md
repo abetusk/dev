@@ -18,13 +18,63 @@ Bill Of Materials
 |------|----------|------|------|
 | Vinyl spray (white) | 1 | $15 | [amazon](https://www.amazon.com/Rust-Oleum-1911830-Specialty-Aerosol-11-Ounce/dp/B000KKMVJS/ref=sr_1_6) |
 
+Circuit Overview
+---
+
+A Raspberry Pi Zero (W?) controls the strip and polls the two encoders.
+Each encoder is a way to interact with the running electronics.
+One encoder sets a parameter depending on state such as sensitivity, bpm etc.
+The other encoder sets state.
+
+There is a microphone attached to the USB input to do beat detection, depending on state.
+The HDMI cable isn't normall attached.
+
+There is a 11.1V 5.5Ah LiPo rechargeable battery that is used to power all the electronics.
+The strips are 60 LED per meter RGB individually addressable strips at 5V, 14.4 W/m.
+The power distribution to the LED strips is done through a 5V 10A buck converter.
+3 meters of LED strips runs about 45W which should be about 9A.
+
+The Raspberry Pi is run off of it's own buck converter.
+The Raspberry Pi should run at a maximum of 250mA, 5V, and
+the separate buck converter is used to reduce noise.
+
+Note that peripherals and other GPIO pins run at 3.3V.
+The communication is done straight through from a GPIO pin.
+The hope is that this is good enough.
+If this turns out not to be true, a level shifter will need to be used.
+
+There is a fuse at the battery outlet before it feeds into any
+electronics.
+There is a power switch after the fuse.
+
+Software Overview
+---
+
+The Raspberry Pi on startup will run a `beatsrv` and `innerlight` daemons.
+The `innerlight` deamon does the following:
+
+* communicates with the LED strip
+* polls the encoders for values
+* changes state depending on encoder values
+* receives messages from the `beatsrv` daemon for beats when needed
+
+The `beatsrv` daemon sets up the microphone and passes it through to a real-time beat detection algorithm.
+The `innerlight` daemon receives the `beatsrv` beat messages from stdin and then ignores or processes them,
+depending on state.
+
+---
+
+need some sort of pubsub server, like `nanomsg`, for ipc under the rpi system.
+
+
 Power Usage
 ---
 
 | Element | Watts |
 |---------|-------|
-| RPi     | 250mA |
-| LED strip | 35W / 1M 
+| RPi     | 1.25 W |
+| LED strip | 14.4 W / 1M 
+
 
 Input Audio
 ---
@@ -63,6 +113,22 @@ $ cat track_f32.raw | bpm
 ```
 
 ### Raspberry Pi
+
+Turn on ssh:
+
+```
+systemctl enable ssh.socket
+```
+
+For remote debugging (executed on the pi):
+
+```
+sss -R 2222:localhost:22 remote.host
+```
+
+---
+
+Getting mic input and pumping it to our program:
 
 ```
 $ arecord --device=hw:1,0 --format S16_LE --rate 44100 -c1 -t raw | ./beatsrv 
@@ -264,6 +330,32 @@ network={
 }
 ```
 
+---
+
+```
+$ sudo bash
+# apt-get update
+# sudo apt-get install gcc make build-essential python-dev git scons swig
+# echo blacklist snd_bcm2835 >> /etc/modprobe.d/snd-blacklist.conf
+# sed -i 's/^\(dtparam=audio=on\)/#\1/' /boot/config.txt 
+```
+
+---
+
+```
+$ sudo bash
+# pip3 install rpi_ws281x adafruit-circuitpython-neopixel
+# cat > pixel_example.py <<EOF
+import board
+import neopixel
+pixels = neopixel.NeoPixel(board.D18, 30)
+pixels[0] = (255, 0, 0)
+for x in range(0, 9):
+  pixels[x] = (255, 0, 0)
+  sleep(1)
+pixels.fill((0,255,0))
+
+```
 
 
 Resources
@@ -280,5 +372,5 @@ Resources
 * [Beat detection algorithm](https://www.parallelcube.com/2018/03/30/beat-detection-algorithm/)
 * [gamedev.net - Beat Detection Algorithms](http://archive.gamedev.net/archive/reference/programming/features/beatdetection/)
 * [Beat This](https://www.clear.rice.edu/elec301/Projects01/beat_sync/beatalgo.html)
-
-
+* [Connect and Control WS2812 RGB LED Strips via Raspberry Pi](https://tutorials-raspberrypi.com/connect-control-raspberry-pi-ws2812-rgb-led-strips/)
+* Geekpub RPi WS2812B [(wiring)](https://www.thegeekpub.com/15990/wiring-ws2812b-addressable-leds-to-the-raspbery-pi/), [(controlling)](https://www.thegeekpub.com/16187/controlling-ws2812b-leds-with-a-raspberry-pi/)
