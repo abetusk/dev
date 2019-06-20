@@ -8,15 +8,77 @@
 #include <string.h>
 #include <unistd.h>
 #include <errno.h>
-
 #include <stdint.h>
 
 #include <sys/mman.h>
 #include <sys/time.h>
 
 
+
+#include "clk.h"
+#include "gpio.h"
+#include "dma.h"
+#include "pwm.h"
+#include "version.h"
+
+#include "ws2811.h"
+
 #define INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE "/tmp/innerlight.led"
 #define _DEFAULT_NUM_LED 180
+
+
+// defaults for cmdline options
+#define TARGET_FREQ             WS2811_TARGET_FREQ
+#define GPIO_PIN                18
+#define DMA                     10
+//#define STRIP_TYPE            WS2811_STRIP_RGB		// WS2812/SK6812RGB integrated chip+leds
+#define STRIP_TYPE              WS2811_STRIP_GBR		// WS2812/SK6812RGB integrated chip+leds
+//#define STRIP_TYPE            SK6812_STRIP_RGBW		// SK6812RGBW (NOT SK6812RGB)
+
+#define LED_COUNT               (60*3)
+
+int g_verbose_level = 1;
+
+ws2811_t ledstring =
+{
+    .freq = TARGET_FREQ,
+    .dmanum = DMA,
+    .channel =
+    {
+        [0] =
+        {
+            .gpionum = GPIO_PIN,
+            .count = LED_COUNT,
+            .invert = 0,
+            .brightness = 255,
+            .strip_type = STRIP_TYPE,
+        },
+        [1] =
+        {
+            .gpionum = 0,
+            .count = 0,
+            .invert = 0,
+            .brightness = 0,
+        },
+    },
+};
+
+void _clear(void) {
+  int i;
+  for (i=0; i<LED_COUNT; i++) {
+    ledstring.channel[0].leds[i] = 0;
+  }
+}
+
+void _render(unsigned char *rgb, size_t n_led) {
+  size_t idx;
+  ws2811_led_t x;
+  for (idx=0; idx<n_led; idx++) {
+
+    x = (ws2811_led_t)((uint32_t)rgb[3*idx+1]);
+    ledstring.channel[0].leds[idx] = x;
+  }
+}
 
 int create_led_file(char *fn, size_t n_led) {
   int i;
@@ -73,24 +135,53 @@ int _main(unsigned char *led_map, size_t n_led) {
 
   unsigned char frame=1;
 
-  sleep_usec = 1*1000000;
+  int64_t count=0, print_every=30;
+
+  ws2811_return_t led_ret;
+  ws2811_led_t *ws281x_buf;
+
+  led_ret = ws2811_init(&ledstring);
+  if (led_ret != WS2811_SUCCESS) {
+    fprintf(stderr, "ws2811_init failed %s\n", ws2811_get_return_t_str(led_ret));
+    return led_ret;
+  }
+
+
+  // 1 sec
+  //sleep_usec = 1*1000000;
+
+  sleep_usec = 1000000 / 30;
 
 
   for (;;) {
 
-    printf("...\n");
-
     gettimeofday(&tv_beg, NULL);
 
-    print_led_map(led_map, n_led, 20);
+
+    _render(led_map, n_led);
+
+    led_ret = ws2811_render(&ledstring);
+    if (led_ret != WS2811_SUCCESS) {
+      fprintf(stderr, "ws2811_render failed: %s\n", ws2811_get_return_t_str(led_ret));
+      return led_ret;
+    }
 
 
     gettimeofday(&tv_end, NULL);
     dt = tv_del(&tv_end, &tv_beg);
 
+    if (g_verbose_level > 0) {
+      if ((count % print_every)==0) {
+        print_led_map(led_map, n_led, 20);
+      }
+    }
+    count++;
+
     if (dt < sleep_usec) {
       usleep( (useconds_t)(sleep_usec - dt) );
-      printf("slept for %lli\n", (long long int)(sleep_usec - dt));
+      if (g_verbose_level > 2) {
+        printf("slept for %lli\n", (long long int)(sleep_usec - dt));
+      }
     }
   }
 

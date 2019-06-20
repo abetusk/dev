@@ -9,6 +9,10 @@
 //   micfeed=` pacmd list-sources | grep 'name:' | grep input | grep -o '<.*>' | tr -d '<>' `
 //   parec --channels=1 --format=float32le -d $micfeed | ./beatsrv
 //
+// on the pi:
+//
+//   arecord --device=hw:1,0 --format S16_LE --rate 44100 --channels=2 | ./beatsrv_s16le
+//
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -116,6 +120,16 @@ int _worked_example_repeat(void) {
   return 0;
 }
 
+short _swap16(short *u) {
+  return *u;
+}
+
+short __swap16(short *u) {
+  *u = ((*u >> 8) & 0x00ff) |
+       ((*u << 8) & 0xff00);
+  return *u;
+}
+
 int gnubeat_energy_rt(FILE *fp) {
   int i, j, k;
   size_t N, _n;
@@ -126,6 +140,16 @@ int gnubeat_energy_rt(FILE *fp) {
   uint64_t pos, beg_V=0, count=0, sample_rate = 44100;
   uint64_t E_win = 44032;
 
+  double conv;
+
+  size_t _buf_size, num;
+  char buf[8];
+
+  // sizeof(short) *2) * numchannels (2)
+  _buf_size = 2;
+ 
+  conv = 1.0 / 32768.0;
+
   N = (size_t)((double)sample_rate * s_win);
   v = (float *)malloc(sizeof(float)*1024);
   V = (float *)malloc(sizeof(float)*N);
@@ -134,12 +158,19 @@ int gnubeat_energy_rt(FILE *fp) {
   memset(V, 0, sizeof(float)*N);
 
   while (1) {
-    if (fread(&_z, sizeof(_z), 1, fp)!=1) { break; }
-    if (fread(&_z, sizeof(_z), 1, fp)!=1) { break; }
+
+    num = fread(buf, 2, _buf_size, fp);
+    if (num==0) { break; }
+    short *tmp2 = (short *)buf;
+    for (i=0; i<num; i++) {
+      short val = tmp2[i];
+      _z = (float)(_swap16(&val) * conv);
+    }
+
 
     z = fabs(_z);
 
-    //printf(">> %f %f\n", z, _z);
+    //printf(">> %f %f num %i\n", z, _z, (int)num);
 
     v[count % 1024] = z;
     //V[count%N] = z;
@@ -187,6 +218,18 @@ int gnubeat_energy_adaptive_rt(FILE *fp) {
   uint64_t pos, beg_V=0, count=0, sample_rate = 44100;
   uint64_t E_win = 44032;
 
+  double conv;
+
+  size_t _buf_size, num;
+  char buf[8];
+
+  // sizeof(short) *2) * numchannels (2)
+  _buf_size = 2;
+ 
+  conv = 1.0 / 32768.0;
+
+
+
   N = (size_t)((double)sample_rate * s_win);
   v = (float *)malloc(sizeof(float)*1024);
   V = (float *)malloc(sizeof(float)*N);
@@ -198,7 +241,14 @@ int gnubeat_energy_adaptive_rt(FILE *fp) {
   memset(Ebin, 0, sizeof(float)*43);
 
   while (1) {
-    if (fread(&_z, sizeof(_z), 1, fp)!=1) { break; }
+
+    num = fread(buf, 2, _buf_size, fp);
+    if (num==0) { break; }
+    short *tmp2 = (short *)buf;
+    for (i=0; i<num; i++) {
+      short val = tmp2[i];
+      _z = (float)(_swap16(&val) * conv);
+    }
 
     z = fabs(_z);
 
@@ -240,6 +290,7 @@ int gnubeat_energy_adaptive_rt(FILE *fp) {
         beg_V = (beg_V + 1024) % E_win;
 
         printf("%c e %f C*E (%f*%f = %f)\n", (en > (C*EN)) ? '!' : ' ', en, C, EN, EN*C);
+        fflush(stdout);
 
       }
 
@@ -295,5 +346,6 @@ fftw_plan fftw_plan_r2r(int rank, const int *n, double *in, double *out,
 
 int main(int argc, char **argv) {
   //_worked_example_repeat();
-  gnubeat_energy_rt(stdin);
+  //gnubeat_energy_rt(stdin);
+  gnubeat_energy_adaptive_rt(stdin);
 }
