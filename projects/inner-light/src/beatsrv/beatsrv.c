@@ -135,6 +135,7 @@ int gnubeat_energy_rt(FILE *fp) {
 
   while (1) {
     if (fread(&_z, sizeof(_z), 1, fp)!=1) { break; }
+    if (fread(&_z, sizeof(_z), 1, fp)!=1) { break; }
 
     z = fabs(_z);
 

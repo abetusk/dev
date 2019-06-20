@@ -49,13 +49,16 @@ typedef struct inner_light_mode_type {
   unsigned char m_frame;
   float m_pulse_f, m_pulse_ds, m_pulse_dir;
 
+  std::vector< int > m_particle[2];
+  int m_particle_v;
+
   std::string m_led_fn;
   int m_led_fd;
   int m_led_mapped;
 
   // back buffer for rgb array
   //
-  std::vector< unsigned char > m_rgb_buf;
+  std::vector< unsigned char > m_rgb_buf, m_rgb_buf1;
 
   // rgb array
   // first element is 'counter'
@@ -69,15 +72,19 @@ typedef struct inner_light_mode_type {
     m_led_fd = 0;
     m_led_mapped = 1;
 
-    m_mode = _MODE_PULSE;
+    //m_mode = _MODE_PULSE;
+    m_mode = _MODE_BEAT;
 
     m_pulse_f = 0.0;
-    m_pulse_ds = 1.0/256.0;
+    //m_pulse_ds = 1.0/256.0;
+    m_pulse_ds = 8.0/256.0;
     m_pulse_dir = 1.0;
 
     m_frame = 0;
 
     m_update_usec = 1000000.0 / 30.0;
+
+    m_particle_v = 4;
   }
 
   // map m_rgb to the mmap'd file
@@ -89,6 +96,7 @@ typedef struct inner_light_mode_type {
     m_rgb_sz = m_led_count*3 + 1;
 
     m_rgb_buf.resize(m_rgb_sz);
+    m_rgb_buf1.resize(m_rgb_sz);
 
     v = mmap(NULL, m_rgb_sz, PROT_NONE | PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
     if (v==MAP_FAILED) { m_rgb = NULL; return -1; }
@@ -202,6 +210,169 @@ int inner_light_mode_type::tick_pulse(void) {
 }
 
 int inner_light_mode_type::tick_beat(void) {
+  int i, j, u, p, d;
+  unsigned char _deflate = 32, _deflate1 = 16;
+
+  unsigned char _floor = 32, _ceil = 255, _ds0 = 64, _ds;
+
+  int alg=1;
+
+
+  if (alg==0) {
+    if (m_beat_signal) {
+      for (i=0; i<m_led_count; i++) {
+        m_rgb_buf[3*i+1] = 255;
+        m_rgb_buf[3*i+2] = 0;
+        m_rgb_buf[3*i+3] = 0;
+      }
+
+    }
+    else {
+      for (i=0; i<m_led_count; i++) {
+        if (m_rgb_buf[3*i+1] > _deflate) {
+          m_rgb_buf[3*i+1] -= _deflate;
+        }
+        else {
+          m_rgb_buf[3*i+1] = 0;
+        }
+        m_rgb_buf[3*i+2] = 0;
+        m_rgb_buf[3*i+3] = 0;
+      }
+    }
+  }
+  else if (alg==1) {
+
+    // start the particle in the moddle
+    //
+    if (m_beat_signal) {
+      p = m_led_count / 2;
+      m_particle[0].push_back(p + (rand()%m_particle_v));
+      m_particle[1].push_back(p - (rand()%m_particle_v));
+    }
+
+    // clear buffer
+    //
+    for (i=0; i<m_led_count; i++) {
+      m_rgb_buf1[3*i+1] = _floor;
+      m_rgb_buf1[3*i+2] = _floor;
+      m_rgb_buf1[3*i+3] = _floor;
+    }
+
+    // update particles in both directions
+    //
+    for (d = 0; d<2; d++) {
+      for (i=0; i<m_particle[d].size(); i++) {
+        if (d==0) { m_particle[d][i] += m_particle_v; }
+        else { m_particle[d][i] -= m_particle_v; }
+        if ((m_particle[d][i] >= m_led_count) || (m_particle[d][i] < 0)) {
+          m_particle[d][i] = m_particle[d][ m_particle[d].size()-1 ];
+          m_particle[d].resize( m_particle[d].size()-1 );
+          i--;
+          continue;
+        }
+      }
+    }
+
+    // update center particle
+    //
+    for (d=0; d<2; d++) {
+      for (i=0; i<m_particle[d].size(); i++) {
+        m_rgb_buf1[ 3*(m_particle[d][i]) + 1 ] = 255;
+      }
+    }
+
+    // smooth out edges of particle to get nicer gradation
+    //
+    for (d=0; d<2; d++) {
+      for (i=0; i<m_particle[d].size(); i++) {
+
+        p = m_particle[d][i];
+        _ds = _ds0;
+        for (j=0; j<3; j++) {
+          p--;
+          if (p<0) { break; }
+          if (m_rgb_buf1[ 3*p + 1 ] < (256-_ds)) { m_rgb_buf1[3*p+1]+=_ds; }
+          else { m_rgb_buf1[3*p + 1] = 255; }
+          _ds /= 2;
+          if (_ds == 0) { break; }
+        }
+
+        p = m_particle[d][i];
+        _ds = _ds0;
+        for (j=0; j<3; j++) {
+          p++;
+          if (p>=m_led_count) { break; }
+          if (m_rgb_buf1[ 3*p + 1 ] < (256-_ds)) { m_rgb_buf1[3*p+1]+=_ds; }
+          else { m_rgb_buf1[3*p + 1] = 255; }
+          _ds /= 2;
+          if (_ds == 0) { break; }
+        }
+
+      }
+
+    }
+
+    // copy it back to original buffer
+    //
+    for (i=0; i<m_led_count; i++) {
+      m_rgb_buf[3*i+1] = m_rgb_buf1[3*i+1];
+      m_rgb_buf[3*i+2] = m_rgb_buf1[3*i+2];
+      m_rgb_buf[3*i+3] = m_rgb_buf1[3*i+3];
+    }
+
+
+  }
+  else if (alg==2) {
+    if (m_beat_signal) {
+      m_rgb_buf1[3*0 + 1] = 255;
+      m_rgb_buf1[3*0 + 2] = 0;
+      m_rgb_buf1[3*0 + 3] = 0;
+    }
+
+    for (i=1; i<(m_led_count-1); i++) {
+
+
+      for (j=0; j<3; j++) {
+        u = 0;
+        u += m_rgb_buf[3*(i-1)+j];
+        u += m_rgb_buf[3*(i+0)+j];
+        u += m_rgb_buf[3*(i+1)+j];
+        m_rgb_buf1[3*i+j] = (unsigned char)(u/3);
+      }
+    }
+
+    for (j=0; j<3; j++) {
+      u = 0;
+      u += m_rgb_buf[3*(m_led_count-2)+j];
+      u += m_rgb_buf[3*(m_led_count-1)+j];
+      m_rgb_buf1[3*(m_led_count-1) + j] = (unsigned char)(u/3);
+      if (m_rgb_buf1[3*(m_led_count-1) + j] > _deflate1) {
+        m_rgb_buf1[3*(m_led_count-1) + j] -= _deflate1;
+      }
+    }
+
+    for (i=0; i<m_led_count; i++) {
+      for (j=0; j<3; j++) {
+        if (m_rgb_buf1[3*i + j] > _deflate1) {
+          m_rgb_buf1[3*i + j] -= _deflate1;
+        }
+        else {
+          m_rgb_buf1[3*i + j] = 0;
+        }
+      }
+    }
+
+    for (i=1; i<m_led_count; i++) {
+      m_rgb_buf[3*i+1] = m_rgb_buf1[3*i+1];
+      m_rgb_buf[3*i+2] = m_rgb_buf1[3*i+2];
+      m_rgb_buf[3*i+3] = m_rgb_buf1[3*i+3];
+    }
+
+  }
+
+  m_beat_signal = 0;
+  m_rgb_buf[0] = m_frame;
+  m_frame++;
 }
 
 int inner_light_mode_type::tick_tap(void) {
@@ -266,7 +437,8 @@ int inner_light_mode_type::process_beat(int beat_fd) {
 
       m_beat_signal = 1;
 
-      printf("BEAT\n"); fflush(stdout);
+      printf("."); fflush(stdout);
+      //printf("BEAT\n"); fflush(stdout);
       break;
     }
   }
@@ -293,7 +465,7 @@ int inner_light_mode_type::process_encoder(int encoder_fd) {
   for (i=0; i<n_read; i++) {
 
     if (buf[i] == '\n') {
-      printf(">> encoder line: %s\n", m_encoder_line.c_str());
+      printf("\n>> encoder line: %s\n", m_encoder_line.c_str());
       m_encoder_line.clear();
       continue;
     }
@@ -429,10 +601,10 @@ int main(int argc, char **argv) {
       break;
     }
 
-    if (ret==0) { continue; }
-
-    if (FD_ISSET(beat_fd, &read_fds))    { g_mode.process_beat(beat_fd); }
-    if (FD_ISSET(encoder_fd, &read_fds)) { g_mode.process_encoder(encoder_fd); }
+    if (ret!=0) {
+      if (FD_ISSET(beat_fd, &read_fds))    { g_mode.process_beat(beat_fd); }
+      if (FD_ISSET(encoder_fd, &read_fds)) { g_mode.process_encoder(encoder_fd); }
+    }
 
     gettimeofday(&tv_now, NULL);
     dt = _dtv(tv_now, tv_prv);
