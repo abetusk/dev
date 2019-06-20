@@ -114,16 +114,10 @@ $ cat track_f32.raw | bpm
 
 ### Raspberry Pi
 
-Turn on ssh:
+Install fftw3:
 
 ```
-systemctl enable ssh.socket
-```
-
-For remote debugging (executed on the pi):
-
-```
-sss -R 2222:localhost:22 remote.host
+sudo apt-get install libfftw3-dev
 ```
 
 ---
@@ -146,7 +140,25 @@ Turn on `ssh` ([link](https://www.raspberrypi.org/documentation/remote-access/ss
 ```
 sudo systemctl enable ssh
 sudo systemctl start ssh
+sudo systemctl enable ssh.socket
 ```
+
+Install `nnpy`:
+
+```
+sudo apt-get install -y libffi-dev libnanomsg-dev
+sudo pip install nnpy
+```
+
+---
+
+For remote debugging (executed on the pi):
+
+```
+ssh -R 2222:localhost:22 remote.host
+```
+
+---
 
 
 
