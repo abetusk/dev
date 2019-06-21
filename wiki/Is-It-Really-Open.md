@@ -30,6 +30,7 @@ From the Wikipedia entry on [Open Source Modeling](https://en.wikipedia.org/wiki
 | [OSLoom](http://www.osloom.org/) | **No** | "open source jacquard loom" | [OS Loom](http://www.osloom.org/) | Though there are claims of the source being under GPL and the hardware being under OHL, I can't find any design files.  Other project design files, when available, are all under a non commercial license (CC-BY-NC-SA). |
 | [Poppy Humanoid](https://www.poppy-project.org/en/robots/poppy-humanoid) | yes | "... an open-source and 3D printed humanoid robot." | [source](https://github.com/poppy-project/poppy-humanoid) |
 | [Seamly2D / Valentina](https://seamly.net/) | yes | "Open source patternmaking software." | [Seamly2D](https://github.com/fashionfreedom/seamly2d) | Pattern making software |
+| [STM32 Open Source Multimeter](http://embedblog.eu/?p=298) |**No** | "Open source multimeter"." | [EmbedBlog](http://embedblog.eu) | All [source](https://github.com/MartinD-CZ/STM32F1-open-source-multimeter), [case design files](https://www.thingiverse.com/thing:3660755) and [documentation](http://embedblog.eu/?p=298) are under a non-commercial license (CC-BY-NC-SA) |
 | [Thor](https://hackaday.io/project/12989-thor) | yes | "DIY 3D Printable Robotic Arm" | [source](https://github.com/AngelLM/Thor) (CC-BY-SA) |
 
 Comments
