@@ -73,10 +73,25 @@ void _clear(void) {
 void _render(unsigned char *rgb, size_t n_led) {
   size_t idx;
   ws2811_led_t x;
+
+  uint32_t u32, t32;
+
   for (idx=0; idx<n_led; idx++) {
 
-    x = (ws2811_led_t)((uint32_t)rgb[3*idx+1]);
-    ledstring.channel[0].leds[idx] = x;
+    u32 = 0;
+    t32 = (uint32_t)rgb[3*idx+1];
+    u32 |= (t32 << 0);
+
+    t32 = (uint32_t)rgb[3*idx+2];
+    u32 |= (t32 << 8);
+
+    t32 = (uint32_t)rgb[3*idx+3];
+    u32 |= (t32 << 16);
+
+    ledstring.channel[0].leds[idx] = (ws2811_led_t)u32;
+
+    //x = (ws2811_led_t)((uint32_t)rgb[3*idx+1]);
+    //ledstring.channel[0].leds[idx] = x;
   }
 }
 
