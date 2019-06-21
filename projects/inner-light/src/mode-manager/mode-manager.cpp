@@ -16,6 +16,8 @@
 #include <string>
 #include <vector>
 
+#include "RGBConverter.h"
+
 #define _VERSION "0.1.0"
 
 //std::string encoder_line;
@@ -37,6 +39,79 @@ static float _dtv(struct timeval &tv0, struct timeval &tv1) {
   return x;
 }
 
+void _wheel(unsigned char pos, unsigned char *r, unsigned char *g, unsigned char *b) {
+  if (pos < 85) {
+    *r = pos*3;
+    *g = 255 - pos*3;
+    *b = 0;
+  }
+  else if (pos < 170) {
+    pos -= 85;
+    *r = 255-pos*3;
+    *g = 0;
+    *b = pos*3;
+  }
+  else {
+    pos -= 170;
+    *r = 0;
+    *g = pos*3;
+    *b = 255 - pos*3;
+  }
+}
+
+/*
+// https://stackoverflow.com/a/9493060
+void _rgb2hsl(unsigned char _r, unsigned char _g, unsigned char _b,
+              float *_h, float *_s, float *_l) {
+  float r, g, b, h, s, l;
+  float max, min, d;
+  int max_rgb=0;
+  r = (float)_r; g = (float)_g; b = (float)_b;
+
+  r /= 255.0; g /= 255.0; b /= 255.0;
+  max = r; max_rgb = 0;
+  if (max < g) { max = g; max_rgb = 1;
+  if (max < b) { max = b; max_rgb = 2;
+
+  min = r;
+  min = (( min > g ) ? g : min);
+  min = (( min > b ) ? b : min);
+
+  h = (max + min) / 2.0;
+  s = (max + min) / 2.0;
+  l = (max + min) / 2.0;
+
+  if(max == min){
+
+    // achromatic
+    //
+    h = s = 0;
+
+  }
+  else{
+    d = max - min;
+    s = ((l > 0.5 ) ? (d / (2 - max - min)) : (d / (max + min)));
+
+    switch (max_rgb) {
+      // red
+      case 0: h = (g - b) / d + (g < b ? 6 : 0); break;
+
+      // green
+      case 1: h = (b - r) / d + 2; break;
+
+      //blue
+      case 2: h = (r - g) / d + 4; break;
+    }
+
+    h /= 6;
+  }
+
+  *_h = h;
+  *_s = s;
+  *_l = l;
+}
+*/
+
 typedef struct inner_light_mode_type {
   std::string m_encoder_line;
   int m_beat_signal;
@@ -56,6 +131,8 @@ typedef struct inner_light_mode_type {
   int m_led_fd;
   int m_led_mapped;
 
+  float m_hue, m_saturation, m_lightness;
+
   // back buffer for rgb array
   //
   std::vector< unsigned char > m_rgb_buf, m_rgb_buf1;
@@ -74,6 +151,7 @@ typedef struct inner_light_mode_type {
 
     //m_mode = _MODE_PULSE;
     m_mode = _MODE_BEAT;
+    //m_mode = _MODE_PRESET0;
 
     m_pulse_f = 0.0;
     //m_pulse_ds = 1.0/256.0;
@@ -210,10 +288,11 @@ int inner_light_mode_type::tick_pulse(void) {
 }
 
 int inner_light_mode_type::tick_beat(void) {
-  int i, j, u, p, d;
+  int i, j, u, p, d, _irgb;
   unsigned char _deflate = 32, _deflate1 = 16;
 
-  unsigned char _floor = 32, _ceil = 255, _ds0 = 64, _ds;
+  //unsigned char _floor = 32, _ceil = 255, _ds0 = 64, _ds;
+  unsigned char _floor = 64, _ceil = 255, _ds0 = 64, _ds;
 
   int alg=1;
 
@@ -278,6 +357,8 @@ int inner_light_mode_type::tick_beat(void) {
     for (d=0; d<2; d++) {
       for (i=0; i<m_particle[d].size(); i++) {
         m_rgb_buf1[ 3*(m_particle[d][i]) + 1 ] = 255;
+        m_rgb_buf1[ 3*(m_particle[d][i]) + 2 ] = 255;
+        m_rgb_buf1[ 3*(m_particle[d][i]) + 3 ] = 255;
       }
     }
 
@@ -291,8 +372,12 @@ int inner_light_mode_type::tick_beat(void) {
         for (j=0; j<3; j++) {
           p--;
           if (p<0) { break; }
-          if (m_rgb_buf1[ 3*p + 1 ] < (256-_ds)) { m_rgb_buf1[3*p+1]+=_ds; }
-          else { m_rgb_buf1[3*p + 1] = 255; }
+
+          for (_irgb=0; _irgb<3; _irgb++) {
+            if (m_rgb_buf1[ 3*p + _irgb ] < (256-_ds)) { m_rgb_buf1[3*p+_irgb]+=_ds; }
+            else { m_rgb_buf1[3*p + _irgb] = 255; }
+          }
+
           _ds /= 2;
           if (_ds == 0) { break; }
         }
@@ -302,8 +387,12 @@ int inner_light_mode_type::tick_beat(void) {
         for (j=0; j<3; j++) {
           p++;
           if (p>=m_led_count) { break; }
-          if (m_rgb_buf1[ 3*p + 1 ] < (256-_ds)) { m_rgb_buf1[3*p+1]+=_ds; }
-          else { m_rgb_buf1[3*p + 1] = 255; }
+
+          for (_irgb=0; _irgb<3; _irgb++) {
+            if (m_rgb_buf1[ 3*p + _irgb ] < (256-_ds)) { m_rgb_buf1[3*p+_irgb]+=_ds; }
+            else { m_rgb_buf1[3*p + _irgb] = 255; }
+          }
+
           _ds /= 2;
           if (_ds == 0) { break; }
         }
@@ -314,11 +403,14 @@ int inner_light_mode_type::tick_beat(void) {
 
     // copy it back to original buffer
     //
+    memcpy((void *)(&(m_rgb_buf[0])), (const void *)(&(m_rgb_buf1[0])), sizeof(unsigned char)*((m_led_count*3) + 1));
+    /*
     for (i=0; i<m_led_count; i++) {
       m_rgb_buf[3*i+1] = m_rgb_buf1[3*i+1];
       m_rgb_buf[3*i+2] = m_rgb_buf1[3*i+2];
       m_rgb_buf[3*i+3] = m_rgb_buf1[3*i+3];
     }
+    */
 
 
   }
@@ -381,7 +473,63 @@ int inner_light_mode_type::tick_tap(void) {
 int inner_light_mode_type::tick_pat(void) {
 }
 
+float _f_mod(float x, float _min=0.0, float _max=1.0) {
+  int qi;
+  float r, q, d;
+
+  d = _max - _min;
+  qi = (int)(x / d);
+  q = (float)qi;
+  r = x - q*d;
+
+  return r;
+}
+
 int inner_light_mode_type::tick_preset0(void) {
+  int i;
+  unsigned char r, g, b;
+  double p, v, _fhase;
+
+  static int _phase=0;
+
+  if (m_beat_signal)  { _phase = (_phase + 3) % m_led_count; }
+  else                { _phase = (_phase+1)%m_led_count; }
+  _fhase = (float)_phase / (float)m_led_count;
+
+  for (i=0; i<m_led_count; i++) {
+    v = ((double)i/(double)m_led_count);
+    p = 3.0*_f_mod(v + _fhase);
+
+    if (p < 1.0) {
+      v = p;
+      r = (unsigned char)((v)*255.0);
+      g = 255 - r;
+      b = 0;
+    }
+    else if (p < 2.0) {
+      v = (p-1.0);
+      b = (unsigned char)((v)*255.0);
+      r = 255 - b;
+      g = 0;
+    }
+    else {
+      v = (p-2.0);
+      g = (unsigned char)((v)*255.0);
+      b = 255 - g;
+      r = 0;
+    }
+
+    m_rgb_buf[3*i+1] = r;
+    m_rgb_buf[3*i+2] = g;
+    m_rgb_buf[3*i+3] = b;
+  }
+
+  m_frame++;
+  m_rgb_buf[0] = m_frame;
+
+  m_beat_signal = 0;
+
+  return 0;
 }
 
 int inner_light_mode_type::tick_preset1(void) {
