@@ -71,6 +71,8 @@ typedef struct inner_light_mode_type {
   std::string m_encoder_line;
   int m_beat_signal;
 
+  int m_mic_beat_signal;
+
   float m_update_usec;
 
   size_t m_led_count;
@@ -88,6 +90,13 @@ typedef struct inner_light_mode_type {
 
   float m_hue, m_saturation, m_lightness;
 
+  double  m_usec_cur;
+  double  m_usec_prev;
+
+  int     m_tap_ready;
+  float   m_tap_bpm;
+  int     m_tap_n;
+  int     m_tap_beat_signal;
   std::vector< double > m_tap_time;
 
   // back buffer for rgb array
@@ -102,13 +111,16 @@ typedef struct inner_light_mode_type {
   size_t m_rgb_sz;
 
   inner_light_mode_type(size_t led_count=1) {
+    struct timeval tv;
+
     m_led_count = led_count;
     m_led_fd = 0;
     m_led_mapped = 1;
 
     //m_mode = _MODE_PULSE;
-    m_mode = _MODE_BEAT;
+    //m_mode = _MODE_BEAT;
     //m_mode = _MODE_PRESET0;
+    m_mode = _MODE_TAP;
 
     m_pulse_f = 0.0;
     //m_pulse_ds = 1.0/256.0;
@@ -120,6 +132,15 @@ typedef struct inner_light_mode_type {
     m_update_usec = 1000000.0 / 30.0;
 
     m_particle_v = 4;
+
+    m_tap_ready = 0;
+    m_tap_bpm = 0.0;
+    m_tap_n = 12;
+    m_tap_beat_signal =0;
+
+    gettimeofday(&tv, NULL);
+    m_usec_prev = _tv2d(tv);
+    m_usec_cur  = m_usec_prev;
   }
 
   // map m_rgb to the mmap'd file
@@ -172,7 +193,7 @@ typedef struct inner_light_mode_type {
   int tick_preset1(void);
 
   int update_led(void);
-  int process_beat(int);
+  int process_mic_beat(int);
   int process_encoder(int);
 
 } inner_light_mode_t;
@@ -205,12 +226,6 @@ int inner_light_mode_type::update_led(void) {
 
   memcpy(m_rgb, &(m_rgb_buf[0]), m_rgb_sz);
 
-  /*
-  x++;
-  if (x>32) { x=0; }
-  m_rgb[0] = x;
-  */
-
   return 0;
 }
 
@@ -239,8 +254,6 @@ int inner_light_mode_type::tick_pulse(void) {
 
   m_rgb_buf[0] = m_frame;
 
-  //memcpy(m_rgb, &(m_rgb_buf[0]), m_rgb_sz);
-
   m_frame++;
 }
 
@@ -248,11 +261,11 @@ int inner_light_mode_type::tick_beat(void) {
   int i, j, u, p, d, _irgb;
   unsigned char _deflate = 32, _deflate1 = 16;
 
-  //unsigned char _floor = 32, _ceil = 255, _ds0 = 64, _ds;
   unsigned char _floor = 64, _ceil = 255, _ds0 = 64, _ds;
 
   int alg=1;
 
+  m_beat_signal = m_mic_beat_signal;
 
   if (alg==0) {
     if (m_beat_signal) {
@@ -420,11 +433,55 @@ int inner_light_mode_type::tick_beat(void) {
   }
 
   m_beat_signal = 0;
+  m_mic_beat_signal = 0;
+
   m_rgb_buf[0] = m_frame;
   m_frame++;
 }
 
 int inner_light_mode_type::tick_tap(void) {
+  int i;
+  struct timeval tv;
+  double _usec_beat_thresh;
+
+  if (m_tap_ready) {
+    _usec_beat_thresh = 60.0 * 1000000.0 / m_tap_bpm;
+
+    gettimeofday(&tv, NULL);
+    m_usec_cur = _tv2d(tv);
+
+    m_tap_beat_signal = 0;
+    if ((m_usec_cur - m_usec_prev) > _usec_beat_thresh) {
+      m_tap_beat_signal = 1;
+      m_usec_prev = m_usec_cur;
+    }
+
+  }
+  else {
+    gettimeofday(&tv, NULL);
+    m_usec_prev = _tv2d(tv);
+  }
+
+  //---
+
+  m_beat_signal = m_tap_beat_signal;
+
+  if (m_beat_signal) {
+    for (i=0; i<m_led_count; i++) {
+      m_rgb_buf[3*i+1] = 255;
+      m_rgb_buf[3*i+2] = 255;
+      m_rgb_buf[3*i+3] = 255;
+    }
+  }
+  else {
+    for (i=0; i<m_led_count; i++) {
+      m_rgb_buf[3*i+1] = 64;
+      m_rgb_buf[3*i+2] = 64;
+      m_rgb_buf[3*i+3] = 64;
+    }
+  }
+
+  return 0;
 }
 
 int inner_light_mode_type::tick_pat(void) {
@@ -448,6 +505,8 @@ int inner_light_mode_type::tick_preset0(void) {
   double p, v, _fhase;
 
   static int _phase=0;
+
+  m_beat_signal = m_mic_beat_signal;
 
   if (m_beat_signal)  { _phase = (_phase + 3) % m_led_count; }
   else                { _phase = (_phase+1)%m_led_count; }
@@ -485,6 +544,7 @@ int inner_light_mode_type::tick_preset0(void) {
   m_rgb_buf[0] = m_frame;
 
   m_beat_signal = 0;
+  m_mic_beat_signal = 0;
 
   return 0;
 }
@@ -521,7 +581,7 @@ int inner_light_mode_type::tick(void) {
   return 0;
 }
 
-int inner_light_mode_type::process_beat(int beat_fd) {
+int inner_light_mode_type::process_mic_beat(int beat_fd) {
   int i;
   ssize_t n_read;
   size_t buf_sz = 1024;
@@ -542,13 +602,12 @@ int inner_light_mode_type::process_beat(int beat_fd) {
   for (i=0; i<n_read; i++) {
     if (buf[i] == '!') {
 
-      m_beat_signal = 1;
+      m_mic_beat_signal = 1;
 
       printf("."); fflush(stdout);
 
       _counter = (_counter + 1) % _n_counter;
       if ((_counter % _n_counter)==0) { printf("\n"); fflush(stdout); }
-      //printf("BEAT\n"); fflush(stdout);
       break;
     }
   }
@@ -556,7 +615,8 @@ int inner_light_mode_type::process_beat(int beat_fd) {
   return 0;
 }
 
-// tap times are in seconds
+// Find BPM doing a least squares fit.
+// tap times are in usec.
 //
 static float _bpm_regress(std::vector< double > &tap_t) {
   int i;
@@ -585,13 +645,11 @@ static float _bpm_regress(std::vector< double > &tap_t) {
     yysum += y*y;
 
     xysum += ((double)i)*y;
-
-    printf(" %f", y);
   }
 
   denom = N*xxsum - xsum*xsum;
 
-  // slope is bps
+  // slope is bp us
   //
   m = ((N*xysum) - (xsum*ysum)) / denom;
   bpm = 60.0 * 1000000.0 / m;
@@ -624,7 +682,7 @@ int inner_light_mode_type::process_encoder(int encoder_fd) {
 
       if ((m_encoder_line.size()==0) ||
           (m_encoder_line[0] == '#')) {
-        printf("\n# skipping encoder line: %s\n", m_encoder_line.c_str());
+        //printf("\n# skipping encoder line: %s\n", m_encoder_line.c_str());
         m_encoder_line.clear();
         continue;
       }
@@ -636,20 +694,22 @@ int inner_light_mode_type::process_encoder(int encoder_fd) {
         continue;
       }
 
-      printf("# encoder: a(%i %i) b(%i %i)\n",
-          apos, abutton, bpos, bbutton);
-
+      printf("# encoder: a(%i %i) b(%i %i)\n", apos, abutton, bpos, bbutton);
 
       if (abutton == 1) {
         gettimeofday(&tv, NULL);
         m_tap_time.push_back( _tv2d(tv) );
 
-        if (m_tap_time.size() == 12) {
-          printf("BANG: %f\n", _bpm_regress(m_tap_time));
+        if (m_tap_time.size() == m_tap_n) {
+          m_tap_bpm = _bpm_regress(m_tap_time);
+          m_tap_ready = 1;
           m_tap_time.clear();
+
+          printf("BANG: %f\n", m_tap_bpm);
         }
-
-
+        else {
+          m_tap_ready = 0;
+        }
 
       }
 
@@ -789,7 +849,7 @@ int main(int argc, char **argv) {
     }
 
     if (ret!=0) {
-      if (FD_ISSET(beat_fd, &read_fds))    { g_mode.process_beat(beat_fd); }
+      if (FD_ISSET(beat_fd, &read_fds))    { g_mode.process_mic_beat(beat_fd); }
       if (FD_ISSET(encoder_fd, &read_fds)) { g_mode.process_encoder(encoder_fd); }
     }
 
