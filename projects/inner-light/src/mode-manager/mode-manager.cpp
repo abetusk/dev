@@ -31,6 +31,14 @@ enum inner_light_mode_state {
   _MODE_PRESET1,
 };
 
+static double _tv2d(struct timeval &tv) {
+  double x=0.0;
+  x = (double)tv.tv_sec;
+  x *=  1000000.0;
+  x += (double)tv.tv_usec;
+  return x;
+}
+
 static float _dtv(struct timeval &tv0, struct timeval &tv1) {
   float x=0.0;
   x = (float)(tv0.tv_sec - tv1.tv_sec);
@@ -59,59 +67,6 @@ void _wheel(unsigned char pos, unsigned char *r, unsigned char *g, unsigned char
   }
 }
 
-/*
-// https://stackoverflow.com/a/9493060
-void _rgb2hsl(unsigned char _r, unsigned char _g, unsigned char _b,
-              float *_h, float *_s, float *_l) {
-  float r, g, b, h, s, l;
-  float max, min, d;
-  int max_rgb=0;
-  r = (float)_r; g = (float)_g; b = (float)_b;
-
-  r /= 255.0; g /= 255.0; b /= 255.0;
-  max = r; max_rgb = 0;
-  if (max < g) { max = g; max_rgb = 1;
-  if (max < b) { max = b; max_rgb = 2;
-
-  min = r;
-  min = (( min > g ) ? g : min);
-  min = (( min > b ) ? b : min);
-
-  h = (max + min) / 2.0;
-  s = (max + min) / 2.0;
-  l = (max + min) / 2.0;
-
-  if(max == min){
-
-    // achromatic
-    //
-    h = s = 0;
-
-  }
-  else{
-    d = max - min;
-    s = ((l > 0.5 ) ? (d / (2 - max - min)) : (d / (max + min)));
-
-    switch (max_rgb) {
-      // red
-      case 0: h = (g - b) / d + (g < b ? 6 : 0); break;
-
-      // green
-      case 1: h = (b - r) / d + 2; break;
-
-      //blue
-      case 2: h = (r - g) / d + 4; break;
-    }
-
-    h /= 6;
-  }
-
-  *_h = h;
-  *_s = s;
-  *_l = l;
-}
-*/
-
 typedef struct inner_light_mode_type {
   std::string m_encoder_line;
   int m_beat_signal;
@@ -132,6 +87,8 @@ typedef struct inner_light_mode_type {
   int m_led_mapped;
 
   float m_hue, m_saturation, m_lightness;
+
+  std::vector< double > m_tap_time;
 
   // back buffer for rgb array
   //
@@ -599,6 +556,48 @@ int inner_light_mode_type::process_beat(int beat_fd) {
   return 0;
 }
 
+// tap times are in seconds
+//
+static float _bpm_regress(std::vector< double > &tap_t) {
+  int i;
+  double est_beat = 0.0, _n=1;
+
+  double m, b, N, y0, y;
+  double xsum=0.0,  ysum=0.0,
+         xxsum=0.0, yysum=0.0,
+         xysum=0.0;
+  double denom = 0.0;
+  double bpm, phase;
+
+  if (tap_t.size()<2) { return 0.0; }
+
+  N = (double)tap_t.size();
+
+  y0 = tap_t[0];
+  for (i=0; i<tap_t.size(); i++) {
+
+    y = tap_t[i] - y0;
+
+    xsum += (double)i;
+    ysum += y;
+
+    xxsum += (double)(i*i);
+    yysum += y*y;
+
+    xysum += ((double)i)*y;
+
+    printf(" %f", y);
+  }
+
+  denom = N*xxsum - xsum*xsum;
+
+  // slope is bps
+  //
+  m = ((N*xysum) - (xsum*ysum)) / denom;
+  bpm = 60.0 * 1000000.0 / m;
+  return (float)bpm;
+}
+
 int inner_light_mode_type::process_encoder(int encoder_fd) {
   int i, r;
   ssize_t n_read;
@@ -606,6 +605,8 @@ int inner_light_mode_type::process_encoder(int encoder_fd) {
   char buf[1024];
 
   int apos, bpos, abutton, bbutton;
+
+  struct timeval tv;
 
   n_read = read(encoder_fd, buf, buf_sz-1);
 
@@ -638,6 +639,19 @@ int inner_light_mode_type::process_encoder(int encoder_fd) {
       printf("# encoder: a(%i %i) b(%i %i)\n",
           apos, abutton, bpos, bbutton);
 
+
+      if (abutton == 1) {
+        gettimeofday(&tv, NULL);
+        m_tap_time.push_back( _tv2d(tv) );
+
+        if (m_tap_time.size() == 12) {
+          printf("BANG: %f\n", _bpm_regress(m_tap_time));
+          m_tap_time.clear();
+        }
+
+
+
+      }
 
       m_encoder_line.clear();
       continue;
