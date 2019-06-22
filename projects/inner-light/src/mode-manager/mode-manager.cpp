@@ -570,6 +570,8 @@ int inner_light_mode_type::process_beat(int beat_fd) {
   size_t buf_sz = 1024;
   char buf[1024];
 
+  static int _counter=0, _n_counter = 16;
+
   n_read = read(beat_fd, buf, buf_sz-1);
 
   if ((n_read < 0) && (errno!=EINTR)) {
@@ -586,6 +588,9 @@ int inner_light_mode_type::process_beat(int beat_fd) {
       m_beat_signal = 1;
 
       printf("."); fflush(stdout);
+
+      _counter = (_counter + 1) % _n_counter;
+      if ((_counter % _n_counter)==0) { printf("\n"); fflush(stdout); }
       //printf("BEAT\n"); fflush(stdout);
       break;
     }
@@ -595,10 +600,12 @@ int inner_light_mode_type::process_beat(int beat_fd) {
 }
 
 int inner_light_mode_type::process_encoder(int encoder_fd) {
-  int i;
+  int i, r;
   ssize_t n_read;
   size_t buf_sz = 1024;
   char buf[1024];
+
+  int apos, bpos, abutton, bbutton;
 
   n_read = read(encoder_fd, buf, buf_sz-1);
 
@@ -613,7 +620,25 @@ int inner_light_mode_type::process_encoder(int encoder_fd) {
   for (i=0; i<n_read; i++) {
 
     if (buf[i] == '\n') {
-      printf("\n>> encoder line: %s\n", m_encoder_line.c_str());
+
+      if ((m_encoder_line.size()==0) ||
+          (m_encoder_line[0] == '#')) {
+        printf("\n# skipping encoder line: %s\n", m_encoder_line.c_str());
+        m_encoder_line.clear();
+        continue;
+      }
+
+      r = sscanf(m_encoder_line.c_str(), "%i %i %i %i", &apos, &abutton, &bpos, &bbutton);
+      if (r != 4) {
+        fprintf(stderr, "#bad conversion for encoder: %s\n", m_encoder_line.c_str());
+        m_encoder_line.clear();
+        continue;
+      }
+
+      printf("# encoder: a(%i %i) b(%i %i)\n",
+          apos, abutton, bpos, bbutton);
+
+
       m_encoder_line.clear();
       continue;
     }
