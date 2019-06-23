@@ -37,7 +37,22 @@ rpi_screw_r = 2.5/2;
 rpi_screw_w = 23.25;
 rpi_screw_h = 58;
   
-strap_screw_len = rpi_screw_w/2;
+strap_screw_len = rpi_screw_h/2;
+strap_r = screw_r + 4;
+
+
+module rpi_cable_strap() {
+  
+  difference() {
+    hull() {
+      circle(strap_r, $fn=FN);
+      translate([0, strap_screw_len]) circle(strap_r, $fn=FN);
+    }
+    circle(screw_r, $fn=FN);
+    translate([0, strap_screw_len]) circle(screw_r, $fn=FN);
+  }
+  
+}
 
 module body_wall_access_plate() {
   r = body_corner_r;
@@ -131,7 +146,6 @@ module body_wall_plate() {
         translate([ w0, h]) circle(r, $fn=FN);
       }
       
-      
       hull() {
         translate([ w0, h]) circle(r, $fn=FN);
         translate([ w0, h-hmid]) circle(r, $fn=FN);
@@ -149,16 +163,6 @@ module body_wall_plate() {
         translate([  0, h]) circle(r, $fn=FN);
       }
     }
-    
-    /*
-    hull() {
-      translate([  in0, inh]) circle(r, $fn=FN);
-      translate([ inw0, inh]) circle(r, $fn=FN);
-      translate([ inw0, inh-inhmid]) circle(r, $fn=FN);
-      translate([ inw1, in0]) circle(r, $fn=FN);
-      translate([  in0, in0]) circle(r, $fn=FN);
-    }
-    */
     
     // joining screws
     
@@ -209,7 +213,9 @@ module body_top_plate() {
   hole_x = enc_w/2;
   hole_y = enc_h/2;
 
-  
+  strap_cx = w0/2 + 10;
+  strap_cy = h - 20;
+
   difference() {
     hull() {
       translate([  0, h]) circle(r, $fn=FN);
@@ -219,8 +225,7 @@ module body_top_plate() {
       translate([  0, 0]) circle(r, $fn=FN);
       
     }
-    
-    
+
     // housing plate screw fastners
     //
     translate([0, h]) circle(screw_r, $fn=FN);
@@ -240,6 +245,8 @@ module body_top_plate() {
       translate([-hole_x,-hole_y]) circle(screw_r, $fn=FN);
     }
 
+    translate([strap_cx - strap_screw_len/2, strap_cy]) circle(screw_r, $fn=FN);
+    translate([strap_cx + strap_screw_len/2, strap_cy]) circle(screw_r, $fn=FN);
 
   }
 }
@@ -277,6 +284,7 @@ module body_bottom_plate() {
     
     
     // rpi screws
+    //
     translate([rpi_cx, rpi_cy])
     for (i=[0:0]) {
       translate([-rpi_screw_h/2, rpi_screw_w/2]) circle(rpi_screw_r, $fn=FN);
@@ -285,6 +293,12 @@ module body_bottom_plate() {
       translate([-rpi_screw_h/2,-rpi_screw_w/2]) circle(rpi_screw_r, $fn=FN);
     }
     
+    // strap screws
+    translate([rpi_cx, rpi_cy])
+    for (i=[0:0]) {
+      translate([-rpi_screw_h/2,rpi_screw_w/2 + 18]) circle(screw_r, $fn=FN);
+      translate([-rpi_screw_h/2 + strap_screw_len,rpi_screw_w/2 + 18]) circle(screw_r, $fn=FN);
+    }
     
   }
 }
@@ -329,6 +343,10 @@ module pack_for_cut_a() {
   translate([285,95]) rotate(90, [0,0,1]) body_wall_access_plate();
 //  translate([305,0]) body_wall_access_plate();
   translate([70, 130]) encoder_plate();
+  translate([185, 130]) rpi_cable_strap();
+  translate([198, 130]) rpi_cable_strap();
+  translate([210, 130]) rpi_cable_strap();
+  translate([225, 130]) rpi_cable_strap();
 }
 
 module pack_for_cut_b() {
