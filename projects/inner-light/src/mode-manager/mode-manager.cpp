@@ -174,11 +174,7 @@ typedef struct inner_light_mode_type {
     m_led_fd = open(fn, O_RDWR);
     if (m_led_fd < 0) { perror("mmap failed"); return -1; }
 
-    r = fchmod(m_led_fd, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH );
-    if (r != 0) { return r; }
-
     r = led_mmap(m_led_fd);
-
     return r;
   }
 
