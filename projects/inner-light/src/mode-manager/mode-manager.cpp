@@ -16,11 +16,9 @@
 #include <string>
 #include <vector>
 
-#include "RGBConverter.h"
+//#include "RGBConverter.h"
 
 #define _VERSION "0.1.0"
-
-//std::string encoder_line;
 
 enum inner_light_mode_state {
   _MODE_PULSE = 0,
@@ -79,7 +77,10 @@ typedef struct inner_light_mode_type {
   int m_mode;
 
   unsigned char m_frame;
-  float m_pulse_f, m_pulse_ds, m_pulse_dir;
+
+  float m_pulse_f;
+  float m_pulse_ds;
+  float m_pulse_dir;
 
   std::vector< int > m_particle[2];
   int m_particle_v;
@@ -147,7 +148,9 @@ typedef struct inner_light_mode_type {
   // save a copy in m_rgb_buf
   //
   int led_mmap(int fd) {
+    int i;
     void *v;
+    unsigned char *chp;
 
     m_rgb_sz = m_led_count*3 + 1;
 
@@ -155,23 +158,28 @@ typedef struct inner_light_mode_type {
     m_rgb_buf1.resize(m_rgb_sz);
 
     v = mmap(NULL, m_rgb_sz, PROT_NONE | PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
-    if (v==MAP_FAILED) { m_rgb = NULL; return -1; }
-    if (v==NULL) { return -2; }
+    if (v==MAP_FAILED) { perror("map failed"); m_rgb = NULL; return -1; }
+    if (v==NULL) { perror("mmap null"); return -2; }
     m_rgb = (unsigned char *)v;
 
     memcpy(&(m_rgb_buf[0]), m_rgb, m_rgb_sz);
-
     return 0;
   }
 
   // wrapper for filename
   //
-  int led_mmap_fn(char *fn) {
+  int led_mmap_fn(const char *fn) {
     int r;
     m_led_fn = fn;
     m_led_fd = open(fn, O_RDWR);
-    if (m_led_fd < 0) { return -1; }
+    if (m_led_fd < 0) { perror("mmap failed"); return -1; }
+
+    r = fchmod(m_led_fd, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH );
+    if (r != 0) { return r; }
+
     r = led_mmap(m_led_fd);
+
+    return r;
   }
 
   int cleanup(void) {
@@ -373,15 +381,9 @@ int inner_light_mode_type::tick_beat(void) {
 
     // copy it back to original buffer
     //
-    memcpy((void *)(&(m_rgb_buf[0])), (const void *)(&(m_rgb_buf1[0])), sizeof(unsigned char)*((m_led_count*3) + 1));
-    /*
-    for (i=0; i<m_led_count; i++) {
-      m_rgb_buf[3*i+1] = m_rgb_buf1[3*i+1];
-      m_rgb_buf[3*i+2] = m_rgb_buf1[3*i+2];
-      m_rgb_buf[3*i+3] = m_rgb_buf1[3*i+3];
-    }
-    */
-
+    memcpy((void *)(&(m_rgb_buf[0])),
+           (const void *)(&(m_rgb_buf1[0])),
+           sizeof(unsigned char)*((m_led_count*3) + 1));
 
   }
   else if (alg==2) {
@@ -818,8 +820,8 @@ int main(int argc, char **argv) {
   g_mode.m_led_fn = "/tmp/innerlight.led";
 
   printf("# connecting to mmap file %s\n", g_mode.m_led_fn.c_str());
-  //ret = g_mode.led_mmap_fn(g_mode.m_led_fn.c_str());
-  ret = g_mode.led_mmap_fn((char *)"/tmp/innerlight.led");
+  ret = g_mode.led_mmap_fn(g_mode.m_led_fn.c_str());
+  //ret = g_mode.led_mmap_fn((char *)"/tmp/innerlight.led");
 
   printf("# got: %i\n", ret);
 
