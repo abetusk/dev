@@ -378,7 +378,7 @@ Resources
 * [Guide for WS2812B Adressable RGB strip with Arduino](https://randomnerdtutorials.com/guide-for-ws2812b-addressable-rgb-led-strip-with-arduino/)
 * [FastLED](https://github.com/FastLED/FastLED)
 * [rpi_ws281x](https://github.com/jgarff/rpi_ws281x)
-* [buxtronix/arduino - Rotary.cpp](https://github.com/buxtronix/arduino/blob/master/libraries/Rotary/Rotary.cpp)
+* [buxtronix/arduino - Rotary.cpp](https://github.com/buxtronix/arduino/blob/master/libraries/Rotary/Rotary.cpp) ([blog](http://www.buxtronix.net/2011/10/rotary-encoders-done-properly.html#more))
 * [Rotary encoder on RPi](https://github.com/attilagyorffy/Rotary-Encoder/blob/master/rotary_encoder.py)
 * [SO - Access point as WiFi repeater, optional with bridge](https://raspberrypi.stackexchange.com/questions/89803/access-point-as-wifi-repeater-optional-with-bridge/89804#89804)
 * [Beat detection algorithm](https://www.parallelcube.com/2018/03/30/beat-detection-algorithm/)
