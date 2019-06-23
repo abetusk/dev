@@ -207,14 +207,14 @@ module body_top_plate() {
   enc_w = encoder_plate_width - 2*enc_r;
   enc_h = encoder_plate_height - 2*enc_r;
   
-  lip_cx = w1/2;
-  lip_cy = (h-hmid)/2 + 5;
+  lip_cx = w1/2 + 8;
+  lip_cy = (h-hmid)/2 + 10;
   
   hole_x = enc_w/2;
   hole_y = enc_h/2;
 
-  strap_cx = w0/2 + 10;
-  strap_cy = h - 20;
+  strap_cx = w0/2 + 0;
+  strap_cy = h - 42;
 
   difference() {
     hull() {
@@ -245,6 +245,8 @@ module body_top_plate() {
       translate([-hole_x,-hole_y]) circle(screw_r, $fn=FN);
     }
 
+    // strap screws
+    //
     translate([strap_cx - strap_screw_len/2, strap_cy]) circle(screw_r, $fn=FN);
     translate([strap_cx + strap_screw_len/2, strap_cy]) circle(screw_r, $fn=FN);
 
@@ -285,17 +287,18 @@ module body_bottom_plate() {
     
     // rpi screws
     //
-    translate([rpi_cx, rpi_cy])
+    translate([rpi_cx+12, rpi_cy+2]) rotate(90, [0,0,1])
     for (i=[0:0]) {
+
       translate([-rpi_screw_h/2, rpi_screw_w/2]) circle(rpi_screw_r, $fn=FN);
       translate([ rpi_screw_h/2, rpi_screw_w/2]) circle(rpi_screw_r, $fn=FN);
       translate([ rpi_screw_h/2,-rpi_screw_w/2]) circle(rpi_screw_r, $fn=FN);
       translate([-rpi_screw_h/2,-rpi_screw_w/2]) circle(rpi_screw_r, $fn=FN);
-    }
+    //}
     
     // strap screws
-    translate([rpi_cx, rpi_cy])
-    for (i=[0:0]) {
+    //translate([rpi_cx, rpi_cy])
+    //for (i=[0:0]) {
       translate([-rpi_screw_h/2,rpi_screw_w/2 + 18]) circle(screw_r, $fn=FN);
       translate([-rpi_screw_h/2 + strap_screw_len,rpi_screw_w/2 + 18]) circle(screw_r, $fn=FN);
     }
@@ -336,7 +339,8 @@ module encoder_plate() {
 }
 
 module pack_for_cut_a() {
-  translate([140,0]) rotate(90, [0,0,1]) body_bottom_plate();
+//  translate([140,0]) rotate(90, [0,0,1]) body_bottom_plate();
+  translate([140,0]) rotate(90, [0,0,1]) body_wall_plate();
   translate([285,0]) rotate(90, [0,0,1]) body_top_plate();
   translate([140,95]) rotate(90, [0,0,1]) body_wall_plate();
   //translate([285,95]) rotate(90, [0,0,1]) body_wall_plate();
@@ -357,8 +361,17 @@ module pack_for_cut_b() {
   translate([70, 130]) encoder_plate();
 }
 
+module pack_for_cut_u() {
+  translate([140,0]) rotate(90, [0,0,1]) body_bottom_plate();
+//  translate([285,0]) rotate(90, [0,0,1]) body_wall_plate();
+//  translate([140,95]) rotate(90, [0,0,1]) body_wall_plate();
+//  translate([285,95]) rotate(90, [0,0,1]) body_wall_access_plate();
+//  translate([70, 130]) encoder_plate();
+}
+
 pack_for_cut_a();
 //pack_for_cut_b();
+//pack_for_cut_u();
 
 //body_wall_access_plate();
 
