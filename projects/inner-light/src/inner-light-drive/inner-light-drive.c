@@ -224,7 +224,7 @@ int main(int argc, char **argv) {
   }
 
   r = fchmod(led_map_fd, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH );
-  if (r != 0) { return r; }
+  if (r != 0) { perror("fchmod"); return r; }
 
   led_map = mmap(NULL, led_map_len, PROT_NONE | PROT_READ | PROT_WRITE | PROT_EXEC, MAP_SHARED, led_map_fd, 0);
 
