@@ -121,6 +121,8 @@ while True:
   inp[1][1] = GPIO.input(io_1_b)
   inp[1][2] = GPIO.input(io_1_pb)
 
+  print inp
+
   pinX = inp[0][0] + 2*inp[0][1]
   pinY = inp[1][0] + 2*inp[1][1]
 

@@ -127,7 +127,7 @@ typedef struct inner_light_mode_type {
   unsigned char m_bg_rgb[3];
 
   std::vector< int > m_particle;
-  std::vector< int > m_particle_height;
+  std::vector< int > m_particle_ttl;
   std::vector< int > m_particle_dir;
   int m_particle_v;
   int m_particle_max_height;
@@ -251,6 +251,24 @@ typedef struct inner_light_mode_type {
       close(m_led_fd);
     }
     return 0;
+  }
+
+  void add_particle(int pos, int dir=1, int ttl=32) {
+    m_particle.push_back(pos);
+    m_particle_dir.push_back(dir);
+    m_particle_ttl.push_back(ttl);
+  }
+
+  void rem_particle(int idx) {
+    int x;
+    x = (int)(m_particle.size()-1);
+    m_particle[idx] = m_particle[x];
+    m_particle_dir[idx] = m_particle_dir[x];
+    m_particle_ttl[idx] = m_particle_ttl[x];
+
+    m_particle.resize(x);
+    m_particle_dir.resize(x);
+    m_particle_ttl.resize(x);
   }
 
   int tick(void);
@@ -684,7 +702,7 @@ void inner_light_mode_type::beat_pulse(void) {
     rgb[2] = (unsigned char)f_max*255.0;
   }
   else {
-    w = (float)(m_encoder_pos[0]-1)/((float)(m_encoder_n-1));
+    w = (float)(m_encoder_pos[0]-1.0)/((float)(m_encoder_n-1));
     _wheel( (unsigned char)(w*255.0), &(rgb[0]), &(rgb[1]), &(rgb[2]));
   }
 
@@ -725,14 +743,12 @@ void inner_light_mode_type::beat_bullet(void) {
   }
 
 
-  // start the particle in the moddle
+  // start the particle in the middle
   //
   if (m_beat_signal) {
     p = m_led_count / 2;
-    m_particle.push_back(p + (rand()%m_particle_v));
-    m_particle_dir.push_back(1);
-    m_particle.push_back(p - (rand()%m_particle_v));
-    m_particle_dir.push_back(-1);
+    add_particle(p + (rand()%m_particle_v), 1);
+    add_particle(p - (rand()%m_particle_v), -1);
   }
 
   // clear buffer
@@ -756,12 +772,7 @@ void inner_light_mode_type::beat_bullet(void) {
     // particle has reached boundary, swap with end and destroy
     //
     if ((m_particle[i] >= m_led_count) || (m_particle[i] < 0)) {
-      m_particle[i] = m_particle[ m_particle.size()-1 ];
-      m_particle.resize( m_particle.size()-1 );
-
-      m_particle_dir[i] = m_particle_dir[ m_particle_dir.size()-1 ];
-      m_particle_dir.resize( m_particle_dir.size()-1 );
-
+      rem_particle(i);
       i--;
       continue;
     }
@@ -814,92 +825,114 @@ void inner_light_mode_type::beat_bullet(void) {
 
 void inner_light_mode_type::beat_rain(void) {
   int i, j, u, p, d, _irgb;
+  int winl, winr;
   unsigned char _deflate = 32, _deflate1 = 16;
   unsigned char _floor = 64, _ceil = 255, _ds0 = 64, _ds;
 
-  // start the particle in the moddle
+  float f, f_del, f_min=64.0/255.0, f_max=255.0/255.0, f_height;
+  unsigned char w, rgb[3], rgbCur[3], rgbMin[3], rgbMax[3];
+
+  f_height = (float)m_particle_max_height;
+  f_del = f_max - f_min;
+
+  // start the particle in the middle
   //
   if (m_beat_signal) {
 
-    p = m_led_count / 2;
-    m_particle.push_back(p + (rand()%m_particle_v));
-    m_particle.push_back(p - (rand()%m_particle_v));
+    p = m_led_count/2;
+    d = rand() % (m_led_count/2);
+    if (rand()%2) {
+      add_particle(p-d, -1, 2*m_particle_max_height);
+    }
+    else {
+      add_particle(p+d,  1, 2*m_particle_max_height);
+    }
+  }
 
+  if (m_encoder_pos[0] == 0) {
+    rgb[0] = 255;
+    rgb[1] = 255;
+    rgb[2] = 255;
+  }
+  else {
+    f = (float)(m_encoder_pos[0]-1)/19.0;
+    _wheel( (unsigned char)(f*255.0), &(rgb[0]),&(rgb[1]),&(rgb[2]));
   }
 
   // clear buffer
   //
+  _color_interpolate(f_min, f_min, f_max, rgb, rgbMin);
   for (i=0; i<m_led_count; i++) {
-    m_rgb_buf1[3*i+1] = _floor;
-    m_rgb_buf1[3*i+2] = _floor;
-    m_rgb_buf1[3*i+3] = _floor;
+    m_rgb_buf1[3*i+1] = rgbMin[0];
+    m_rgb_buf1[3*i+2] = rgbMin[1];
+    m_rgb_buf1[3*i+3] = rgbMin[2];
   }
 
-  /*
   // update particles in both directions
   //
-  for (d = 0; d<2; d++) {
-    for (i=0; i<m_particle[d].size(); i++) {
-      if (d==0) { m_particle[d][i] += m_particle_v; }
-      else { m_particle[d][i] -= m_particle_v; }
-      if ((m_particle[d][i] >= m_led_count) || (m_particle[d][i] < 0)) {
-        m_particle[d][i] = m_particle[d][ m_particle[d].size()-1 ];
-        m_particle[d].resize( m_particle[d].size()-1 );
-        i--;
-        continue;
-      }
+  for (i=0; i<m_particle.size(); i++) {
+
+    d = m_particle_dir[i];
+    m_particle_ttl[i]--;
+
+    if (d==1) { m_particle[i] += m_particle_v; }
+    else      { m_particle[i] -= m_particle_v; }
+
+    // particle has reached boundary, swap with end and destroy
+    //
+    if ((m_particle[i] >= m_led_count) ||
+        (m_particle[i] < 0) ||
+        (m_particle_ttl[i] <= 0)) {
+      rem_particle(i);
+      i--;
+      continue;
     }
   }
 
-  // update center particle
+  //DEBUG
+  for (i=0;i <m_particle.size(); i++) {
+    f = 1.0;
+    _color_interpolate(f_max - f*f_del, f_min, f_max, rgb, rgbCur);
+    m_rgb_buf1[3*p + 1] = rgbCur[0];
+    m_rgb_buf1[3*p + 2] = rgbCur[1];
+    m_rgb_buf1[3*p + 3] = rgbCur[2];
+
+  }
+  memcpy((void *)(&(m_rgb_buf[0])),
+         (const void *)(&(m_rgb_buf1[0])),
+         sizeof(unsigned char)*((m_led_count*3) + 1));
+
+  return;
+
+  // make trail
   //
-  for (d=0; d<2; d++) {
-    for (i=0; i<m_particle[d].size(); i++) {
-      m_rgb_buf1[ 3*(m_particle[d][i]) + 1 ] = 255;
-      m_rgb_buf1[ 3*(m_particle[d][i]) + 2 ] = 255;
-      m_rgb_buf1[ 3*(m_particle[d][i]) + 3 ] = 255;
+  for (i=0; i<m_particle.size(); i++) {
+
+    if (m_particle_dir[i] == -1) {
+      winl = m_particle[i] - m_particle_ttl[i] + (m_particle_max_height);
+      winr = m_particle[i] - m_particle_ttl[i] + (2*m_particle_max_height);
     }
-  }
+    else {
+      winl = m_particle[i] + m_particle_ttl[i] - (m_particle_max_height);
+      winr = m_particle[i] + m_particle_ttl[i] - (2*m_particle_max_height);
+    }
+    for (j=0; j<(m_particle_max_height); j++) {
+      p = m_particle[i] - m_particle_dir[i]*j;
+      if ((p<0) || (p>=m_led_count)) { continue; }
+      if (p<=winl) { continue; }
+      if (p>=winl) { continue; }
 
-  // smooth out edges of particle to get nicer gradation
-  //
-  for (d=0; d<2; d++) {
-    for (i=0; i<m_particle[d].size(); i++) {
+      f = (float)(j)/(float)(m_particle_max_height);
 
-      p = m_particle[d][i];
-      _ds = _ds0;
-      for (j=0; j<3; j++) {
-        p--;
-        if (p<0) { break; }
-
-        for (_irgb=0; _irgb<3; _irgb++) {
-          if (m_rgb_buf1[ 3*p + _irgb ] < (256-_ds)) { m_rgb_buf1[3*p+_irgb]+=_ds; }
-          else { m_rgb_buf1[3*p + _irgb] = 255; }
-        }
-
-        _ds /= 2;
-        if (_ds == 0) { break; }
-      }
-
-      p = m_particle[d][i];
-      _ds = _ds0;
-      for (j=0; j<3; j++) {
-        p++;
-        if (p>=m_led_count) { break; }
-
-        for (_irgb=0; _irgb<3; _irgb++) {
-          if (m_rgb_buf1[ 3*p + _irgb ] < (256-_ds)) { m_rgb_buf1[3*p+_irgb]+=_ds; }
-          else { m_rgb_buf1[3*p + _irgb] = 255; }
-        }
-
-        _ds /= 2;
-        if (_ds == 0) { break; }
-      }
+      _color_interpolate(f_max - f*f_del, f_min, f_max, rgb, rgbCur);
+      m_rgb_buf1[3*p + 1] = rgbCur[0];
+      m_rgb_buf1[3*p + 2] = rgbCur[1];
+      m_rgb_buf1[3*p + 3] = rgbCur[2];
 
     }
 
   }
-  */
+
 
   // copy it back to original buffer
   //
@@ -1023,7 +1056,7 @@ int inner_light_mode_type::tick_solid_color(void) {
     b = 255;
   }
   else {
-    v = (float)_color_param / (float)(m_encoder_n-1);
+    v = (float)_color_param / (float)(m_encoder_n-1.0);
     u = (unsigned char)(v*255.0);
     _wheel(u, &r, &g, &b);
   }
@@ -1409,6 +1442,8 @@ int inner_light_mode_type::process_encoder(int encoder_fd) {
   buf[n_read] = '\0';
 
   for (i=0; i<n_read; i++) {
+
+    printf("?? %s\n", buf);
 
     if (buf[i] == '\n') {
 
