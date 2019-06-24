@@ -52,6 +52,8 @@ encoder_state = {
 
 enc = [ copy.copy(encoder_state), copy.copy(encoder_state) ]
 
+enc[0]["step"] = int(NSTEP/2)
+
 io_0_a = 26
 io_0_b = 19
 io_0_pb = 13
@@ -100,6 +102,10 @@ def state_json_str(enc):
     jj["encoder"].append( o )
 
   return json.dumps(jj)
+
+json_str = state_json_str(enc)
+print enc[0]["step"], enc[0]["button"], enc[1]["step"], enc[1]["button"], json_str
+sys.stdout.flush()
 
 hb_counter = 0
 hb_beat = 1000
@@ -160,6 +166,8 @@ while True:
   if (hb_counter % hb_beat) == 0:
     json_str = state_json_str(enc)
     print "# heartbeat:", json_str
+    print enc[0]["step"], enc[0]["button"], enc[1]["step"], enc[1]["button"], json_str
+    sys.stdout.flush()
   hb_counter += 1
 
   inp_cpy(prv_inp, inp)

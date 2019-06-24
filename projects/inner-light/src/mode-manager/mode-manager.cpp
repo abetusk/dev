@@ -22,6 +22,7 @@
 
 enum inner_light_mode_state {
   _MODE_SOLID = 0,
+  _MODE_SOLID_COLOR,
   _MODE_TAP_PULSE ,
   _MODE_TAP_BULLET,
   _MODE_TAP_RAIN,
@@ -44,6 +45,7 @@ enum inner_light_mode_state {
 
 char _mode_name[][64] = {
   "solid",
+  "solid_color",
   "tap_pulse",
   "tap_bullet",
   "tap_rain",
@@ -110,6 +112,8 @@ typedef struct inner_light_mode_type {
   int m_encoder_pos[2];
   int m_encoder_button[2];
 
+  int m_encoder_n;
+
   int m_transition_mode_to;
   double m_transition_t0;
   double m_transition_t_cur;
@@ -135,7 +139,7 @@ typedef struct inner_light_mode_type {
   double  m_usec_prev;
 
   int     m_tap_ready;
-  float   m_tap_bpm;
+  double  m_tap_bpm;
   int     m_tap_n;
   int     m_tap_beat_signal;
   std::vector< double > m_tap_time;
@@ -190,6 +194,13 @@ typedef struct inner_light_mode_type {
     m_bg_rgb[1] = 255;
     m_bg_rgb[2] = 255;
 
+    m_encoder_n = 20;
+    m_encoder_pos[0] = 0;
+    m_encoder_pos[1] = 0;
+
+    m_encoder_button[0] = 0;
+    m_encoder_button[1] = 0;
+
   }
 
 
@@ -240,6 +251,7 @@ typedef struct inner_light_mode_type {
   int tick(void);
 
   int tick_solid(void);
+  int tick_solid_color(void);
   int tick_fill(void);
   int tick_strobe(void);
   int tick_pulse(void);
@@ -260,10 +272,8 @@ typedef struct inner_light_mode_type {
   void beat_rain(void);
   void beat_strobe(void);
 
-  int tick_tap(void);
-  int tick_pat(void);
-  int tick_beat(void);
-  int tick_preset0(void);
+  //int tick_beat(void);
+  //int tick_preset0(void);
 
   int update_led(void);
   int process_mic_beat(int);
@@ -337,6 +347,7 @@ int inner_light_mode_type::tick_pulse(void) {
 }
 */
 
+/*
 int inner_light_mode_type::tick_beat(void) {
   int i, j, u, p, d, _irgb;
   unsigned char _deflate = 32, _deflate1 = 16;
@@ -512,6 +523,7 @@ int inner_light_mode_type::tick_beat(void) {
   m_rgb_buf[0] = m_frame;
   m_frame++;
 }
+*/
 
 //---------------
 //---------------
@@ -523,10 +535,14 @@ int inner_light_mode_type::tick_beat(void) {
 //
 
 int inner_light_mode_type::process_tap(void) {
+  int i;
   double _usec_beat_thresh;
   struct timeval tv;
+  float f;
+  unsigned char r, g, b;
 
   if (m_tap_ready) {
+
     _usec_beat_thresh = 60.0 * 1000000.0 / m_tap_bpm;
 
     gettimeofday(&tv, NULL);
@@ -544,12 +560,35 @@ int inner_light_mode_type::process_tap(void) {
     m_usec_prev = _tv2d(tv);
   }
 
+  // ready
+  //
+  if (m_tap_time.size() == 0) { return 1; }
+
+  for (i=0; i<m_led_count; i++) {
+    if (i < m_tap_time.size()) {
+      f = (float)i/12.0;
+      f *=255.0;
+      _wheel( (unsigned char)f, &r, &g, &b);
+      m_rgb_buf[3*i+1] = r;
+      m_rgb_buf[3*i+2] = g;
+      m_rgb_buf[3*i+3] = b;
+    }
+    else {
+      m_rgb_buf[3*i+1] = 0;
+      m_rgb_buf[3*i+2] = 0;
+      m_rgb_buf[3*i+3] = 0;
+    }
+  }
+  
+
+  return 1;
 }
 
 int inner_light_mode_type::tick_tap_pulse(void) {
-  process_tap();
-  m_beat_signal = m_tap_beat_signal;
-  beat_pulse();
+  if (process_tap()) {
+    m_beat_signal = m_tap_beat_signal;
+    beat_pulse();
+  }
   return 0;
 }
 
@@ -560,9 +599,10 @@ int inner_light_mode_type::tick_mic_pulse(void) {
 }
 
 int inner_light_mode_type::tick_tap_bullet(void) {
-  process_tap();
-  m_beat_signal = m_tap_beat_signal;
-  beat_bullet();
+  if (process_tap()) {
+    m_beat_signal = m_tap_beat_signal;
+    beat_bullet();
+  }
   return 0;
 }
 
@@ -573,9 +613,10 @@ int inner_light_mode_type::tick_mic_bullet(void) {
 }
 
 int inner_light_mode_type::tick_tap_rain(void) {
-  process_tap();
-  m_beat_signal = m_tap_beat_signal;
-  beat_rain();
+  if (process_tap()) {
+    m_beat_signal = m_tap_beat_signal;
+    beat_rain();
+  }
   return 0;
 }
 
@@ -586,9 +627,10 @@ int inner_light_mode_type::tick_mic_rain(void) {
 }
 
 int inner_light_mode_type::tick_tap_strobe(void) {
-  process_tap();
-  m_beat_signal = m_tap_beat_signal;
-  beat_strobe();
+  if (process_tap()) {
+    m_beat_signal = m_tap_beat_signal;
+    beat_strobe();
+  }
   return 0;
 }
 
@@ -735,6 +777,7 @@ float _f_mod(float x, float _min=0.0, float _max=1.0) {
   return r;
 }
 
+/*
 int inner_light_mode_type::tick_preset0(void) {
   int i;
   unsigned char r, g, b;
@@ -784,16 +827,58 @@ int inner_light_mode_type::tick_preset0(void) {
 
   return 0;
 }
+*/
 
 //---
 
 int inner_light_mode_type::tick_solid(void) {
   int i;
+  float v;
+  unsigned char u;
+
+  v = (float)m_encoder_pos[0] / (float)m_encoder_n;
+  u = (unsigned char)(v*255.0);
 
   for (i=0; i<m_led_count; i++) {
-    m_rgb_buf[3*i+1] = m_bg_rgb[0];
-    m_rgb_buf[3*i+2] = m_bg_rgb[1];
-    m_rgb_buf[3*i+3] = m_bg_rgb[2];
+    m_rgb_buf[3*i+1] = u;
+    m_rgb_buf[3*i+2] = u;
+    m_rgb_buf[3*i+3] = u;
+  }
+
+}
+
+int inner_light_mode_type::tick_solid_color(void) {
+  int i;
+  float v;
+  unsigned char u, r, g, b;
+  static int _last_button=0, _state=0, _color_param=0;
+
+  if ((_last_button == 0) && (m_encoder_button[0] == 1)) {
+    _state = (_state + 1)%2;
+  }
+  _last_button = m_encoder_button[0];
+
+  // change color
+  //
+  if (_state == 0) {
+    _color_param = m_encoder_pos[0];
+  }
+
+  v = (float)_color_param / (float)m_encoder_n;
+  u = (unsigned char)(v*255.0);
+  _wheel(u, &r, &g, &b);
+
+  if (_state == 1) {
+    v = (float)m_encoder_pos[0] / (float)m_encoder_n;
+    r = (unsigned char)((float)r*v);
+    g = (unsigned char)((float)g*v);
+    b = (unsigned char)((float)b*v);
+  }
+
+  for (i=0; i<m_led_count; i++) {
+    m_rgb_buf[3*i+1] = r;
+    m_rgb_buf[3*i+2] = g;
+    m_rgb_buf[3*i+3] = b;
   }
 
 }
@@ -910,23 +995,108 @@ int inner_light_mode_type::tick_rainbow(void) {
 //--
 
 int inner_light_mode_type::tick_transition(void) {
-  int i;
+  int i, to;
   struct timeval tv;
   static int v=0;
+  unsigned char r, g, b;
 
   gettimeofday(&tv, NULL);
   m_transition_t_cur = _tv2d(tv);
 
   if ((m_transition_t_cur - m_transition_t0) >= m_transition_dt) {
+    m_tap_time.clear();
     m_mode = m_transition_mode_to;
     return 0;
   }
 
+  r = ( v ? 255 : 0 );
+  g = ( v ? 0 : 255 );
+  b = 0;
+
+  to = m_transition_mode_to;
+  if (to == _MODE_SOLID) {
+    r = ( v ? 255 : 0 );
+    g = ( v ? 255 : 0 );
+    b = ( v ? 255 : 0 );
+  }
+  else if (to == _MODE_SOLID_COLOR) {
+    r = ( v ? 255 : 0 );
+    g = ( v ?  0 : 0 );
+    b = ( v ? 0 : 0 );
+  }
+
+  else if (to == _MODE_TAP_PULSE) {
+    r = ( v ? 0 : 0 );
+    g = ( v ?  255 : 0 );
+    b = ( v ? 0 : 0 );
+  }
+  else if (to == _MODE_TAP_BULLET) {
+    r = ( v ? 0 : 0 );
+    g = ( v ? 0 : 0 );
+    b = ( v ? 255 : 0 );
+  }
+  else if (to == _MODE_TAP_RAIN) {
+    r = ( v ? 255 : 0 );
+    g = ( v ? 0: 0 );
+    b = ( v ? 255 : 0 );
+  }
+  else if (to == _MODE_TAP_STROBE) {
+    r = ( v ? 0: 0 );
+    g = ( v ? 255: 0 );
+    b = ( v ? 255 : 0 );
+  }
+
+  else if (to == _MODE_FILL) {
+    r = ( v ? 255: 0 );
+    g = ( v ? 0: 255 );
+    b = ( v ? 0: 255  );
+  }
+  else if (to == _MODE_STROBE) {
+    r = ( v ? 0: 255 );
+    g = ( v ? 255: 0 );
+    b = ( v ? 0: 255  );
+  }
+  else if (to == _MODE_PULSE) {
+    r = ( v ? 0: 255 );
+    g = ( v ? 0 : 255 );
+    b = ( v ? 255: 0);
+  }
+
+  else if (to == _MODE_RAINBOW) {
+    r = ( v ? 255: 0 );
+    g = ( v ? 255: 255);
+    b = ( v ? 0 : 255);
+  }
+
+  else if (to == _MODE_MIC_STROBE) {
+    r = ( v ? 0: 255 );
+    g = ( v ? 255 : 255);
+    b = ( v ? 255: 255  );
+  }
+
+  else if (to == _MODE_MIC_RAIN) {
+    r = ( v ? 255 : 255 );
+    g = ( v ? 0: 255);
+    b = ( v ? 255: 255  );
+  }
+
+  else if (to == _MODE_MIC_BULLET) {
+    r = ( v ? 0: 255 );
+    g = ( v ? 0: 255);
+    b = ( v ? 255: 255  );
+  }
+
+  else if (to == _MODE_MIC_PULSE) {
+    r = ( v ? 0: 255 );
+    g = ( v ? 0: 255);
+    b = ( v ? 255: 255  );
+  }
+
 
   for (i=0; i<8; i++) {
-    m_rgb_buf[3*i+1] = (v ? 255 : 0);
-    m_rgb_buf[3*i+2] = (v ? 0 : 255);
-    m_rgb_buf[3*i+3] = 0;
+    m_rgb_buf[3*i+1] = r;
+    m_rgb_buf[3*i+2] = g;
+    m_rgb_buf[3*i+3] = b;
   }
 
   v = 1-v;
@@ -942,6 +1112,7 @@ int inner_light_mode_type::tick(void) {
   switch(m_mode) {
 
     case _MODE_SOLID:       r = tick_solid();       break;
+    case _MODE_SOLID_COLOR: r = tick_solid_color(); break;
     case _MODE_TAP_PULSE:   r = tick_tap_pulse();   break;
     case _MODE_MIC_PULSE:   r = tick_mic_pulse();   break;
     case _MODE_TAP_BULLET:  r = tick_tap_bullet();  break;
