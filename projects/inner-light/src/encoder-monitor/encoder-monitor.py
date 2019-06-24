@@ -56,9 +56,14 @@ io_0_a = 26
 io_0_b = 19
 io_0_pb = 13
 
-io_1_a = 11
-io_1_b = 9
-io_1_pb = 10
+## I think I fried an input pin, trying another group...
+#io_1_a = 11
+#io_1_b = 9
+#io_1_pb = 10
+
+io_1_a = 17
+io_1_b = 27
+io_1_pb = 22
 
 ## GPI.BCM is 'broadcom' or the 'jumbled' numbering
 ## GPI.BOARD is the pinout as it appears on the board itself (in order)

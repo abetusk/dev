@@ -42,6 +42,24 @@ enum inner_light_mode_state {
   _MODE_TRANSITION,
 };
 
+char _mode_name[][64] = {
+  "solid",
+  "tap_pulse",
+  "tap_bullet",
+  "tap_rain",
+  "tap_strobe",
+  "fill",
+  "strobe",
+  "pulse",
+  "rainbow",
+  "mic_strobe",
+  "mic_rain",
+  "mic_pulse",
+  "n",
+  "transition",
+  "n/a",
+};
+
 static double _tv2d(struct timeval &tv) {
   double x=0.0;
   x = (double)tv.tv_sec;
@@ -89,11 +107,13 @@ typedef struct inner_light_mode_type {
   size_t m_led_count;
   int m_mode;
 
+  int m_encoder_pos[2];
+  int m_encoder_button[2];
 
   int m_transition_mode_to;
-  float m_transition_t0;
-  float m_transition_t_cur;
-  float m_transition_dt;
+  double m_transition_t0;
+  double m_transition_t_cur;
+  double m_transition_dt;
 
   unsigned char m_frame;
 
@@ -149,7 +169,7 @@ typedef struct inner_light_mode_type {
     m_pulse_dir = 1.0;
 
     m_transition_mode_to = 0;
-    m_transition_dt = 60.0*1000000.0;
+    m_transition_dt = 1.0*1000000.0;
 
     m_frame = 0;
 
@@ -244,7 +264,6 @@ typedef struct inner_light_mode_type {
   int tick_pat(void);
   int tick_beat(void);
   int tick_preset0(void);
-  int tick_preset1(void);
 
   int update_led(void);
   int process_mic_beat(int);
@@ -287,6 +306,7 @@ int inner_light_mode_type::update_led(void) {
 
 //---
 
+/*
 int inner_light_mode_type::tick_pulse(void) {
   int i;
   unsigned char v_r, v_g, v_b;
@@ -315,6 +335,7 @@ int inner_light_mode_type::tick_pulse(void) {
 
   m_frame++;
 }
+*/
 
 int inner_light_mode_type::tick_beat(void) {
   int i, j, u, p, d, _irgb;
@@ -764,9 +785,6 @@ int inner_light_mode_type::tick_preset0(void) {
   return 0;
 }
 
-int inner_light_mode_type::tick_preset1(void) {
-}
-
 //---
 
 int inner_light_mode_type::tick_solid(void) {
@@ -781,17 +799,30 @@ int inner_light_mode_type::tick_solid(void) {
 }
 
 int inner_light_mode_type::tick_fill(void) {
-  int i;
+  int i, pos_ds = 1, n;
   static int pos = 0;
-  
-  for (i=0; i<pos; i++) {
-    m_rgb_buf[3*i+1] = 255;
-    m_rgb_buf[3*i+2] = 0;
-    m_rgb_buf[3*i+3] = 0;
+  static int color_idx, color_idx_n=3;
+
+  unsigned char color[3][3];
+
+  color[0][0] = 255; color[0][1] =   0; color[0][2] =   0;
+  color[1][0] =   0; color[1][1] = 255; color[1][2] =   0;
+  color[2][0] =   0; color[2][1] =   0; color[2][2] = 255;
+
+  pos += pos_ds;
+
+  n = ( (pos<m_led_count) ? pos : m_led_count );
+
+  for (i=0; i<n; i++) {
+    m_rgb_buf[3*i+1] = color[color_idx][0];
+    m_rgb_buf[3*i+2] = color[color_idx][1];
+    m_rgb_buf[3*i+3] = color[color_idx][2];
   }
 
-  pos = (pos + 1)%m_led_count;
-
+  if (pos >= m_led_count) {
+    color_idx = (color_idx + 1) % color_idx_n;
+    pos=0;
+  }
 
 }
 
@@ -825,11 +856,12 @@ int inner_light_mode_type::tick_strobe(void) {
   return 0;
 }
 
-/*
 int inner_light_mode_type::tick_pulse(void) {
   int i;
-  int pulse_max = 255, pulse_min = 32, pulse_del = 5;
+  int pulse_max = 255, pulse_min = 32, pulse_del = 16;
   static int pulse_dir = 1, pulse_x=32;
+
+  pulse_del = m_encoder_pos[0];
 
   pulse_x += pulse_dir * pulse_del;
 
@@ -851,13 +883,14 @@ int inner_light_mode_type::tick_pulse(void) {
 
   return 0;
 }
-*/
 
 int inner_light_mode_type::tick_rainbow(void) {
   int i, x;
-  int p_del = 5;
+  int p_del = 1;
   static int p=0;
   unsigned char _p, _r, _g, _b;
+
+  p_del = m_encoder_pos[0];
 
   p = (p+p_del)%255;
 
@@ -882,12 +915,13 @@ int inner_light_mode_type::tick_transition(void) {
   static int v=0;
 
   gettimeofday(&tv, NULL);
-  m_transition_t_cur = (float)_tv2d(tv);
+  m_transition_t_cur = _tv2d(tv);
 
   if ((m_transition_t_cur - m_transition_t0) >= m_transition_dt) {
     m_mode = m_transition_mode_to;
     return 0;
   }
+
 
   for (i=0; i<8; i++) {
     m_rgb_buf[3*i+1] = (v ? 255 : 0);
@@ -1012,6 +1046,8 @@ int inner_light_mode_type::process_encoder(int encoder_fd) {
   char buf[1024];
 
   int apos, bpos, abutton, bbutton;
+  static int bpos_prev=-1, apos_prev=-1;
+  int mode_next, dm;
 
   struct timeval tv;
 
@@ -1031,7 +1067,6 @@ int inner_light_mode_type::process_encoder(int encoder_fd) {
 
       if ((m_encoder_line.size()==0) ||
           (m_encoder_line[0] == '#')) {
-        //printf("\n# skipping encoder line: %s\n", m_encoder_line.c_str());
         m_encoder_line.clear();
         continue;
       }
@@ -1042,6 +1077,14 @@ int inner_light_mode_type::process_encoder(int encoder_fd) {
         m_encoder_line.clear();
         continue;
       }
+
+      if (apos_prev < 0) { apos_prev = apos; }
+      if (bpos_prev < 0) { bpos_prev = bpos; }
+
+      m_encoder_pos[0] = apos;
+      m_encoder_pos[1] = bpos;
+      m_encoder_button[0] = abutton;
+      m_encoder_button[1] = bbutton;
 
       printf("# encoder: a(%i %i) b(%i %i)\n", apos, abutton, bpos, bbutton);
 
@@ -1061,6 +1104,30 @@ int inner_light_mode_type::process_encoder(int encoder_fd) {
         }
 
       }
+
+      if (bpos != bpos_prev) {
+
+        dm = (bpos - bpos_prev) % _MODE_N;
+        dm = (dm + _MODE_N) % _MODE_N;
+
+        mode_next = (m_mode + dm) % _MODE_N;
+
+        printf("changing state.... from %i to %i (dm %i)\n", m_mode, mode_next, dm);
+
+        m_transition_mode_to = mode_next;
+        gettimeofday(&tv, NULL);
+        m_transition_t0 = _tv2d(tv);
+        m_transition_t_cur = m_transition_t0;
+
+        m_mode = _MODE_TRANSITION;
+
+        printf(">>> switching mode to transition. mode will go to %i (%s) after\n", m_transition_mode_to, _mode_name[m_transition_mode_to]);
+
+        bpos_prev = bpos;
+
+      }
+
+
 
       m_encoder_line.clear();
       continue;
