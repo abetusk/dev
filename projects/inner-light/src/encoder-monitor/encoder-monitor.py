@@ -50,7 +50,7 @@ encoder_state = {
   }
 };
 
-enc = [ copy.copy(encoder_state), copy.copy(encoder_state) ]
+enc = [ copy.copy(encoder_state), copy.copy(encoder_state), copy.copy(encoder_state) ]
 
 enc[0]["step"] = int(NSTEP/2)
 
@@ -58,14 +58,14 @@ io_0_a = 26
 io_0_b = 19
 io_0_pb = 13
 
-## I think I fried an input pin, trying another group...
-#io_1_a = 11
-#io_1_b = 9
-#io_1_pb = 10
-
 io_1_a = 17
 io_1_b = 27
 io_1_pb = 22
+
+## I think I fried an input pin, trying another group...
+io_2_a = 11
+io_2_b = 9
+io_2_pb = 10
 
 ## GPI.BCM is 'broadcom' or the 'jumbled' numbering
 ## GPI.BOARD is the pinout as it appears on the board itself (in order)
@@ -80,8 +80,12 @@ GPIO.setup(io_1_a,  GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(io_1_b,  GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(io_1_pb, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-inp = [ [0,0,0], [0,0,0] ]
-prv_inp = [ [0,0,0], [0,0,0] ]
+GPIO.setup(io_2_a,  GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(io_2_b,  GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(io_2_pb, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
+inp = [ [0,0,0], [0,0,0], [0,0,0] ]
+prv_inp = [ [0,0,0], [0,0,0], [0,0,0] ]
 
 def inp_diff(x, y):
   for _i in range(2):
@@ -121,25 +125,33 @@ while True:
   inp[1][1] = GPIO.input(io_1_b)
   inp[1][2] = GPIO.input(io_1_pb)
 
-  print inp
+  inp[2][0] = GPIO.input(io_2_a)
+  inp[2][1] = GPIO.input(io_2_b)
+  inp[2][2] = GPIO.input(io_2_pb)
+
+  #print inp
 
   pinX = inp[0][0] + 2*inp[0][1]
   pinY = inp[1][0] + 2*inp[1][1]
 
   s0 = enc[0]["state"]
   s1 = enc[1]["state"]
+  s2 = enc[2]["state"]
 
   ev0 = enc[0]["emit"][s0]["to"][pinX]
   ev1 = enc[1]["emit"][s1]["to"][pinY]
+  ev2 = enc[1]["emit"][s1]["to"][pinY]
 
   pb0 = 1-inp[0][2]
   pb1 = 1-inp[1][2]
+  pb2 = 1-inp[2][2]
 
-  if pb0 != enc[0]["button"] or pb1 != enc[1]["button"]:
+  if pb0 != enc[0]["button"] or pb1 != enc[1]["button"] or pb2 != enc[2]["button"]:
     print_update = True
 
   enc[0]["button"] = pb0
   enc[1]["button"] = pb1
+  enc[2]["button"] = pb2
 
   if len(ev0) != 0:
     ds = 0
@@ -154,6 +166,14 @@ while True:
     if ev1 == "cw": ds = 1
     elif ev1 == "ccw": ds = enc[1]["nstep"] - 1
     enc[1]["step"] = ( enc[1]["step"] + ds ) % enc[1]["nstep"]
+
+    print_update = True
+
+  if len(ev2) != 0:
+    ds = 0
+    if ev2 == "cw": ds = 1
+    elif ev2 == "ccw": ds = enc[2]["nstep"] - 1
+    enc[2]["step"] = ( enc[2]["step"] + ds ) % enc[2]["nstep"]
 
     print_update = True
 
