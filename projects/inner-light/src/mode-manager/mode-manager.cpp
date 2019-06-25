@@ -21,12 +21,45 @@
 #define _VERSION "0.1.0"
 
 enum inner_light_mode_state {
-  _MODE_PULSE = 0,
-  _MODE_BEAT,
-  _MODE_TAP,
-  _MODE_PAT,
-  _MODE_PRESET0,
-  _MODE_PRESET1,
+  _MODE_SOLID = 0,
+  _MODE_SOLID_COLOR,
+  _MODE_TAP_PULSE ,
+  _MODE_TAP_BULLET,
+  _MODE_TAP_RAIN,
+  _MODE_TAP_STROBE,
+
+  _MODE_FILL,
+  _MODE_STROBE,
+  _MODE_PULSE,
+  _MODE_RAINBOW,
+
+  _MODE_MIC_STROBE,
+  _MODE_MIC_RAIN,
+  _MODE_MIC_BULLET,
+  _MODE_MIC_PULSE ,
+
+  _MODE_N,
+
+  _MODE_TRANSITION,
+};
+
+char _mode_name[][64] = {
+  "solid",
+  "solid_color",
+  "tap_pulse",
+  "tap_bullet",
+  "tap_rain",
+  "tap_strobe",
+  "fill",
+  "strobe",
+  "pulse",
+  "rainbow",
+  "mic_strobe",
+  "mic_rain",
+  "mic_pulse",
+  "n",
+  "transition",
+  "n/a",
 };
 
 static double _tv2d(struct timeval &tv) {
@@ -76,14 +109,28 @@ typedef struct inner_light_mode_type {
   size_t m_led_count;
   int m_mode;
 
+  int m_encoder_pos[2];
+  int m_encoder_button[2];
+
+  int m_encoder_n;
+
+  int m_transition_mode_to;
+  double m_transition_t0;
+  double m_transition_t_cur;
+  double m_transition_dt;
+
   unsigned char m_frame;
 
   float m_pulse_f;
   float m_pulse_ds;
   float m_pulse_dir;
+  unsigned char m_bg_rgb[3];
 
-  std::vector< int > m_particle[2];
+  std::vector< int > m_particle;
+  std::vector< int > m_particle_ttl;
+  std::vector< int > m_particle_dir;
   int m_particle_v;
+  int m_particle_max_height;
 
   std::string m_led_fn;
   int m_led_fd;
@@ -95,7 +142,7 @@ typedef struct inner_light_mode_type {
   double  m_usec_prev;
 
   int     m_tap_ready;
-  float   m_tap_bpm;
+  double  m_tap_bpm;
   int     m_tap_n;
   int     m_tap_beat_signal;
   std::vector< double > m_tap_time;
@@ -121,18 +168,22 @@ typedef struct inner_light_mode_type {
     //m_mode = _MODE_PULSE;
     //m_mode = _MODE_BEAT;
     //m_mode = _MODE_PRESET0;
-    m_mode = _MODE_TAP;
+    m_mode = _MODE_SOLID;
 
     m_pulse_f = 0.0;
     //m_pulse_ds = 1.0/256.0;
     m_pulse_ds = 8.0/256.0;
     m_pulse_dir = 1.0;
 
+    m_transition_mode_to = 0;
+    m_transition_dt = 1.0*1000000.0;
+
     m_frame = 0;
 
     m_update_usec = 1000000.0 / 30.0;
 
     m_particle_v = 4;
+    m_particle_max_height = 6;
 
     m_tap_ready = 0;
     m_tap_bpm = 0.0;
@@ -142,7 +193,21 @@ typedef struct inner_light_mode_type {
     gettimeofday(&tv, NULL);
     m_usec_prev = _tv2d(tv);
     m_usec_cur  = m_usec_prev;
+
+    m_bg_rgb[0] = 255;
+    m_bg_rgb[1] = 255;
+    m_bg_rgb[2] = 255;
+
+    m_encoder_n = 20;
+    m_encoder_pos[0] = 0;
+    m_encoder_pos[1] = 0;
+
+    m_encoder_button[0] = 0;
+    m_encoder_button[1] = 0;
+
+
   }
+
 
   // map m_rgb to the mmap'd file
   // save a copy in m_rgb_buf
@@ -174,11 +239,7 @@ typedef struct inner_light_mode_type {
     m_led_fd = open(fn, O_RDWR);
     if (m_led_fd < 0) { perror("mmap failed"); return -1; }
 
-    r = fchmod(m_led_fd, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH );
-    if (r != 0) { return r; }
-
     r = led_mmap(m_led_fd);
-
     return r;
   }
 
@@ -192,17 +253,56 @@ typedef struct inner_light_mode_type {
     return 0;
   }
 
+  void add_particle(int pos, int dir=1, int ttl=32) {
+    m_particle.push_back(pos);
+    m_particle_dir.push_back(dir);
+    m_particle_ttl.push_back(ttl);
+  }
+
+  void rem_particle(int idx) {
+    int x;
+    x = (int)(m_particle.size()-1);
+    m_particle[idx] = m_particle[x];
+    m_particle_dir[idx] = m_particle_dir[x];
+    m_particle_ttl[idx] = m_particle_ttl[x];
+
+    m_particle.resize(x);
+    m_particle_dir.resize(x);
+    m_particle_ttl.resize(x);
+  }
+
   int tick(void);
+
+  int tick_solid(void);
+  int tick_solid_color(void);
+  int tick_fill(void);
+  int tick_strobe(void);
   int tick_pulse(void);
-  int tick_tap(void);
-  int tick_pat(void);
-  int tick_beat(void);
-  int tick_preset0(void);
-  int tick_preset1(void);
+  int tick_rainbow(void);
+  int tick_transition(void);
+
+  int tick_tap_pulse(void);
+  int tick_mic_pulse(void);
+  int tick_tap_bullet(void);
+  int tick_mic_bullet(void);
+  int tick_tap_rain(void);
+  int tick_mic_rain(void);
+  int tick_tap_strobe(void);
+  int tick_mic_strobe(void);
+
+  void beat_pulse(void);
+  void beat_bullet(void);
+  void beat_rain(void);
+  void beat_strobe(void);
+
+  //int tick_beat(void);
+  //int tick_preset0(void);
 
   int update_led(void);
   int process_mic_beat(int);
   int process_encoder(int);
+
+  int process_tap(void);
 
 } inner_light_mode_t;
 
@@ -237,11 +337,32 @@ int inner_light_mode_type::update_led(void) {
   return 0;
 }
 
+void _color_interpolate(float f, float f_min, float f_max, unsigned char *rgbIn, unsigned char *rgbOut) {
+  float p, f_r, f_g, f_b;
+
+  if (f_min < 0.0) { f_min = 0.0; }
+  if (f_max > 1.0) { f_max = 1.0; }
+
+  if (f < f_min) { f = f_min; }
+  if (f > f_max) { f = f_max; }
+
+  f_r = (float)rgbIn[0];
+  f_g = (float)rgbIn[1];
+  f_b = (float)rgbIn[2];
+
+  p = f*(f_max-f_min) + f_min;
+  rgbOut[0] = (unsigned char)(p*f_r);
+  rgbOut[1] = (unsigned char)(p*f_g);
+  rgbOut[2] = (unsigned char)(p*f_b);
+
+}
+
 //---
 
+/*
 int inner_light_mode_type::tick_pulse(void) {
   int i;
-  unsigned char v;
+  unsigned char v_r, v_g, v_b;
 
   m_pulse_f += m_pulse_ds*m_pulse_dir;
   if (m_pulse_f < 0.0) {
@@ -252,19 +373,24 @@ int inner_light_mode_type::tick_pulse(void) {
     m_pulse_f = 1.0;
     m_pulse_dir = -1.0;
   }
-  v = (unsigned char)(m_pulse_f * 255.0);
+  //v = (unsigned char)(m_pulse_f * 255.0);
+  v_r = (unsigned char)(m_pulse_f * (float)m_bg_rgb[0]);
+  v_g = (unsigned char)(m_pulse_f * (float)m_bg_rgb[1]);
+  v_b = (unsigned char)(m_pulse_f * (float)m_bg_rgb[2]);
 
   for (i=0; i<m_led_count; i++) {
-    m_rgb_buf[3*i+1] = v;
-    m_rgb_buf[3*i+2] = v;
-    m_rgb_buf[3*i+3] = v;
+    m_rgb_buf[3*i+1] = v_r;
+    m_rgb_buf[3*i+2] = v_g;
+    m_rgb_buf[3*i+3] = v_b;
   }
 
   m_rgb_buf[0] = m_frame;
 
   m_frame++;
 }
+*/
 
+/*
 int inner_light_mode_type::tick_beat(void) {
   int i, j, u, p, d, _irgb;
   unsigned char _deflate = 32, _deflate1 = 16;
@@ -440,13 +566,26 @@ int inner_light_mode_type::tick_beat(void) {
   m_rgb_buf[0] = m_frame;
   m_frame++;
 }
+*/
 
-int inner_light_mode_type::tick_tap(void) {
+//---------------
+//---------------
+//---------------
+//---------------
+
+
+// beat functions
+//
+
+int inner_light_mode_type::process_tap(void) {
   int i;
-  struct timeval tv;
   double _usec_beat_thresh;
+  struct timeval tv;
+  float f;
+  unsigned char r, g, b;
 
   if (m_tap_ready) {
+
     _usec_beat_thresh = 60.0 * 1000000.0 / m_tap_bpm;
 
     gettimeofday(&tv, NULL);
@@ -464,30 +603,353 @@ int inner_light_mode_type::tick_tap(void) {
     m_usec_prev = _tv2d(tv);
   }
 
-  //---
+  // ready
+  //
+  if (m_tap_time.size() == 0) { return 1; }
 
-  m_beat_signal = m_tap_beat_signal;
-
-  if (m_beat_signal) {
-    for (i=0; i<m_led_count; i++) {
-      m_rgb_buf[3*i+1] = 255;
-      m_rgb_buf[3*i+2] = 255;
-      m_rgb_buf[3*i+3] = 255;
+  for (i=0; i<m_led_count; i++) {
+    if (i < m_tap_time.size()) {
+      f = (float)i/12.0;
+      f *=255.0;
+      _wheel( (unsigned char)f, &r, &g, &b);
+      m_rgb_buf[3*i+1] = r;
+      m_rgb_buf[3*i+2] = g;
+      m_rgb_buf[3*i+3] = b;
+    }
+    else {
+      m_rgb_buf[3*i+1] = 0;
+      m_rgb_buf[3*i+2] = 0;
+      m_rgb_buf[3*i+3] = 0;
     }
   }
-  else {
-    for (i=0; i<m_led_count; i++) {
-      m_rgb_buf[3*i+1] = 64;
-      m_rgb_buf[3*i+2] = 64;
-      m_rgb_buf[3*i+3] = 64;
-    }
-  }
-
+  
   return 0;
 }
 
-int inner_light_mode_type::tick_pat(void) {
+int inner_light_mode_type::tick_tap_pulse(void) {
+  if (process_tap()) {
+    m_beat_signal = m_tap_beat_signal;
+    beat_pulse();
+  }
+  return 0;
 }
+
+int inner_light_mode_type::tick_mic_pulse(void) {
+  m_beat_signal = m_mic_beat_signal;
+  beat_pulse();
+  return 0;
+}
+
+int inner_light_mode_type::tick_tap_bullet(void) {
+  if (process_tap()) {
+    m_beat_signal = m_tap_beat_signal;
+    beat_bullet();
+  }
+  return 0;
+}
+
+int inner_light_mode_type::tick_mic_bullet(void) {
+  m_beat_signal = m_mic_beat_signal;
+  beat_bullet();
+  return 0;
+}
+
+int inner_light_mode_type::tick_tap_rain(void) {
+  if (process_tap()) {
+    m_beat_signal = m_tap_beat_signal;
+    beat_rain();
+  }
+  return 0;
+}
+
+int inner_light_mode_type::tick_mic_rain(void) {
+  m_beat_signal = m_mic_beat_signal;
+  beat_rain();
+  return 0;
+}
+
+int inner_light_mode_type::tick_tap_strobe(void) {
+  if (process_tap()) {
+    m_beat_signal = m_tap_beat_signal;
+    beat_strobe();
+  }
+  return 0;
+}
+
+int inner_light_mode_type::tick_mic_strobe(void) {
+  m_beat_signal = m_mic_beat_signal;
+  beat_strobe();
+  return 0;
+}
+
+
+void inner_light_mode_type::beat_pulse(void) {
+  int i;
+  float w, f, f_del, f_decay = 32.0/255.0, f_min=64.0/255.0, f_max=255.0/255.0;
+  unsigned char rgb[3], rgbCur[3];
+  static float f_cur=0.0;
+
+  f_del = f_max - f_min;
+
+  f_cur -= f_decay;
+  if (m_beat_signal) { f_cur = f_max; }
+  if (f_cur <= f_min) { f_cur = f_min; }
+  if (f_cur >= f_max) { f_cur = f_max; }
+
+  if (m_encoder_pos[0] == 0) {
+    rgb[0] = (unsigned char)f_max*255.0;
+    rgb[1] = (unsigned char)f_max*255.0;
+    rgb[2] = (unsigned char)f_max*255.0;
+  }
+  else {
+    w = (float)(m_encoder_pos[0]-1.0)/((float)(m_encoder_n-1));
+    _wheel( (unsigned char)(w*255.0), &(rgb[0]), &(rgb[1]), &(rgb[2]));
+  }
+
+  _color_interpolate( f_cur, f_min, f_max, rgb, rgbCur);
+
+  /*
+  rgbCur[0] = (unsigned char)((float)rgb[0]*f_cur/255.0);
+  rgbCur[1] = (unsigned char)((float)rgb[1]*f_cur/255.0);
+  rgbCur[2] = (unsigned char)((float)rgb[2]*f_cur/255.0);
+  */
+
+  for (i=0; i<m_led_count; i++) {
+    m_rgb_buf[3*i+1] = rgbCur[0];
+    m_rgb_buf[3*i+2] = rgbCur[1];
+    m_rgb_buf[3*i+3] = rgbCur[2];
+  }
+
+}
+
+void inner_light_mode_type::beat_bullet(void) {
+  int i, j, u, p, d, _irgb;
+  unsigned char _deflate = 32, _deflate1 = 16;
+  unsigned char _floor = 64, _ceil = 255, _ds0 = 64, _ds;
+
+  float f, f_del, f_min=64.0/255.0, f_max=255.0/255.0;
+  unsigned char w, rgb[3], rgbCur[3], rgbMin[3], rgbMax[3];
+
+  f_del = f_max - f_min;
+
+  if (m_encoder_pos[0] == 0) {
+    rgb[0] = 255;
+    rgb[1] = 255;
+    rgb[2] = 255;
+  }
+  else {
+    f = (float)(m_encoder_pos[0]-1)/19.0;
+    _wheel( (unsigned char)(f*255.0), &(rgb[0]),&(rgb[1]),&(rgb[2]));
+  }
+
+
+  // start the particle in the middle
+  //
+  if (m_beat_signal) {
+    p = m_led_count / 2;
+    add_particle(p + (rand()%m_particle_v), 1);
+    add_particle(p - (rand()%m_particle_v), -1);
+  }
+
+  // clear buffer
+  //
+  _color_interpolate(f_min, f_min, f_max, rgb, rgbMin);
+  for (i=0; i<m_led_count; i++) {
+    m_rgb_buf1[3*i+1] = rgbMin[0];
+    m_rgb_buf1[3*i+2] = rgbMin[1];
+    m_rgb_buf1[3*i+3] = rgbMin[2];
+  }
+
+  // update particles in both directions
+  //
+  for (i=0; i<m_particle.size(); i++) {
+
+    d = m_particle_dir[i];
+
+    if (d==1) { m_particle[i] += m_particle_v; }
+    else      { m_particle[i] -= m_particle_v; }
+
+    // particle has reached boundary, swap with end and destroy
+    //
+    if ((m_particle[i] >= m_led_count) || (m_particle[i] < 0)) {
+      rem_particle(i);
+      i--;
+      continue;
+    }
+  }
+
+  // update center particle
+  //
+  _color_interpolate(f_max, f_min, f_max, rgb, rgbMax);
+  for (i=0; i<m_particle.size(); i++) {
+    m_rgb_buf1[ 3*(m_particle[i]) + 1 ] = rgbMax[0];
+    m_rgb_buf1[ 3*(m_particle[i]) + 2 ] = rgbMax[1];
+    m_rgb_buf1[ 3*(m_particle[i]) + 3 ] = rgbMax[2];
+  }
+
+  // smooth out edges of particle to get nicer gradation
+  //
+  for (i=0; i<m_particle.size(); i++) {
+
+    p = m_particle[i];
+    for (j=0; j<3; j++) {
+      p--;
+      if (p<0) { break; }
+
+      _color_interpolate(f_max - ((float)(j+1)*f_del/3.0), f_min, f_max, rgb, rgbCur);
+      m_rgb_buf1[3*p + 1] = rgbCur[0];
+      m_rgb_buf1[3*p + 2] = rgbCur[1];
+      m_rgb_buf1[3*p + 3] = rgbCur[2];
+    }
+
+    p = m_particle[i];
+    for (j=0; j<3; j++) {
+      p++;
+      if (p>=m_led_count) { break; }
+
+      _color_interpolate(f_max - ((float)(j+1)*f_del/3.0), f_min, f_max, rgb, rgbCur);
+      m_rgb_buf1[3*p + 1] = rgbCur[0];
+      m_rgb_buf1[3*p + 2] = rgbCur[1];
+      m_rgb_buf1[3*p + 3] = rgbCur[2];
+    }
+
+  }
+
+  // copy it back to original buffer
+  //
+  memcpy((void *)(&(m_rgb_buf[0])),
+         (const void *)(&(m_rgb_buf1[0])),
+         sizeof(unsigned char)*((m_led_count*3) + 1));
+
+}
+
+void inner_light_mode_type::beat_rain(void) {
+  int i, j, u, p, d, _irgb;
+  int winl, winr;
+  unsigned char _deflate = 32, _deflate1 = 16;
+  unsigned char _floor = 64, _ceil = 255, _ds0 = 64, _ds;
+
+  float f, f_del, f_min=64.0/255.0, f_max=255.0/255.0, f_height;
+  unsigned char w, rgb[3], rgbCur[3], rgbMin[3], rgbMax[3];
+
+  f_height = (float)m_particle_max_height;
+  f_del = f_max - f_min;
+
+  // start the particle in the middle
+  //
+  if (m_beat_signal) {
+
+    p = m_led_count/2;
+    d = rand() % (m_led_count/2);
+    if (rand()%2) {
+      add_particle(p-d, -1, 2*m_particle_max_height);
+    }
+    else {
+      add_particle(p+d,  1, 2*m_particle_max_height);
+    }
+  }
+
+  if (m_encoder_pos[0] == 0) {
+    rgb[0] = 255;
+    rgb[1] = 255;
+    rgb[2] = 255;
+  }
+  else {
+    f = (float)(m_encoder_pos[0]-1)/19.0;
+    _wheel( (unsigned char)(f*255.0), &(rgb[0]),&(rgb[1]),&(rgb[2]));
+  }
+
+  // clear buffer
+  //
+  _color_interpolate(f_min, f_min, f_max, rgb, rgbMin);
+  for (i=0; i<m_led_count; i++) {
+    m_rgb_buf1[3*i+1] = rgbMin[0];
+    m_rgb_buf1[3*i+2] = rgbMin[1];
+    m_rgb_buf1[3*i+3] = rgbMin[2];
+  }
+
+  // update particles in both directions
+  //
+  for (i=0; i<m_particle.size(); i++) {
+
+    d = m_particle_dir[i];
+    m_particle_ttl[i]--;
+
+    if (d==1) { m_particle[i] += m_particle_v; }
+    else      { m_particle[i] -= m_particle_v; }
+
+    // particle has reached boundary, swap with end and destroy
+    //
+    if ((m_particle[i] >= m_led_count) ||
+        (m_particle[i] < 0) ||
+        (m_particle_ttl[i] <= 0)) {
+      rem_particle(i);
+      i--;
+      continue;
+    }
+  }
+
+  //DEBUG
+  for (i=0;i <m_particle.size(); i++) {
+    f = 1.0;
+    _color_interpolate(f_max - f*f_del, f_min, f_max, rgb, rgbCur);
+    m_rgb_buf1[3*p + 1] = rgbCur[0];
+    m_rgb_buf1[3*p + 2] = rgbCur[1];
+    m_rgb_buf1[3*p + 3] = rgbCur[2];
+
+  }
+  memcpy((void *)(&(m_rgb_buf[0])),
+         (const void *)(&(m_rgb_buf1[0])),
+         sizeof(unsigned char)*((m_led_count*3) + 1));
+
+  return;
+
+  // make trail
+  //
+  for (i=0; i<m_particle.size(); i++) {
+
+    if (m_particle_dir[i] == -1) {
+      winl = m_particle[i] - m_particle_ttl[i] + (m_particle_max_height);
+      winr = m_particle[i] - m_particle_ttl[i] + (2*m_particle_max_height);
+    }
+    else {
+      winl = m_particle[i] + m_particle_ttl[i] - (m_particle_max_height);
+      winr = m_particle[i] + m_particle_ttl[i] - (2*m_particle_max_height);
+    }
+    for (j=0; j<(m_particle_max_height); j++) {
+      p = m_particle[i] - m_particle_dir[i]*j;
+      if ((p<0) || (p>=m_led_count)) { continue; }
+      if (p<=winl) { continue; }
+      if (p>=winl) { continue; }
+
+      f = (float)(j)/(float)(m_particle_max_height);
+
+      _color_interpolate(f_max - f*f_del, f_min, f_max, rgb, rgbCur);
+      m_rgb_buf1[3*p + 1] = rgbCur[0];
+      m_rgb_buf1[3*p + 2] = rgbCur[1];
+      m_rgb_buf1[3*p + 3] = rgbCur[2];
+
+    }
+
+  }
+
+
+  // copy it back to original buffer
+  //
+  memcpy((void *)(&(m_rgb_buf[0])),
+         (const void *)(&(m_rgb_buf1[0])),
+         sizeof(unsigned char)*((m_led_count*3) + 1));
+
+
+}
+
+void inner_light_mode_type::beat_strobe(void) {
+}
+
+//---------------
+//---------------
+//---------------
+//---------------
 
 float _f_mod(float x, float _min=0.0, float _max=1.0) {
   int qi;
@@ -501,6 +963,7 @@ float _f_mod(float x, float _min=0.0, float _max=1.0) {
   return r;
 }
 
+/*
 int inner_light_mode_type::tick_preset0(void) {
   int i;
   unsigned char r, g, b;
@@ -550,37 +1013,335 @@ int inner_light_mode_type::tick_preset0(void) {
 
   return 0;
 }
+*/
 
-int inner_light_mode_type::tick_preset1(void) {
+//---
+
+int inner_light_mode_type::tick_solid(void) {
+  int i;
+  float v;
+  unsigned char u;
+
+  v = (float)m_encoder_pos[0] / (float)m_encoder_n;
+  u = (unsigned char)(v*255.0);
+
+  for (i=0; i<m_led_count; i++) {
+    m_rgb_buf[3*i+1] = u;
+    m_rgb_buf[3*i+2] = u;
+    m_rgb_buf[3*i+3] = u;
+  }
+
 }
 
-int inner_light_mode_type::tick(void) {
+int inner_light_mode_type::tick_solid_color(void) {
+  int i;
+  float v;
+  unsigned char u, r, g, b;
+  static int _last_button=0, _state=0, _color_param=0;
 
-  switch(m_mode) {
+  if ((_last_button == 0) && (m_encoder_button[0] == 1)) {
+    _state = (_state + 1)%2;
+  }
+  _last_button = m_encoder_button[0];
 
-    case _MODE_BEAT:
-      tick_beat();
-      break;
-    case _MODE_TAP:
-      tick_tap();
-      break;
-    case _MODE_PAT:
-      tick_pat();
-      break;
-    case _MODE_PRESET0:
-      tick_preset0();
-      break;
-    case _MODE_PRESET1:
-      tick_preset1();
-      break;
-    default:
-      printf("WARNING: unknown mode found %i, using _MODE_PULSE\n", m_mode);
-    case _MODE_PULSE:
-      tick_pulse();
-      break;
+  // change color
+  //
+  if (_state == 0) {
+    _color_param = m_encoder_pos[0];
+  }
+
+  if (_color_param == 0) {
+    r = 255;
+    g = 255;
+    b = 255;
+  }
+  else {
+    v = (float)_color_param / (float)(m_encoder_n-1.0);
+    u = (unsigned char)(v*255.0);
+    _wheel(u, &r, &g, &b);
+  }
+
+  if (_state == 1) {
+    v = (float)m_encoder_pos[0] / (float)m_encoder_n;
+    r = (unsigned char)((float)r*v);
+    g = (unsigned char)((float)g*v);
+    b = (unsigned char)((float)b*v);
+  }
+
+  for (i=0; i<m_led_count; i++) {
+    m_rgb_buf[3*i+1] = r;
+    m_rgb_buf[3*i+2] = g;
+    m_rgb_buf[3*i+3] = b;
+  }
+
+}
+
+int inner_light_mode_type::tick_fill(void) {
+  int i, pos_ds = 1, n;
+  static int pos = 0;
+  static int color_idx, color_idx_n=3;
+
+  unsigned char color[3][3];
+
+  color[0][0] = 255; color[0][1] =   0; color[0][2] =   0;
+  color[1][0] =   0; color[1][1] = 255; color[1][2] =   0;
+  color[2][0] =   0; color[2][1] =   0; color[2][2] = 255;
+
+  pos += pos_ds;
+
+  n = ( (pos<m_led_count) ? pos : m_led_count );
+
+  for (i=0; i<n; i++) {
+    m_rgb_buf[3*i+1] = color[color_idx][0];
+    m_rgb_buf[3*i+2] = color[color_idx][1];
+    m_rgb_buf[3*i+3] = color[color_idx][2];
+  }
+
+  if (pos >= m_led_count) {
+    color_idx = (color_idx + 1) % color_idx_n;
+    pos=0;
+  }
+
+}
+
+int inner_light_mode_type::tick_strobe(void) {
+  int i, j, p;
+  int strobe_size=3, strobe_n =4;
+  int strobe_delay = 30;
+  static int strobe_tick=0;
+  unsigned char w, rMin, gMin, bMin, rMax, gMax, bMax;
+
+  float f;
+
+  if (m_encoder_pos[0] == 0) {
+    rMin=32;  gMin=32;  bMin=32;
+    rMax=255; gMax=255; bMax=255;
+  }
+  else {
+    f = (float)(m_encoder_pos[0]-1)/19.0;
+    _wheel( (unsigned char)(f*32.0), &rMin, &gMin, &bMin);
+    _wheel( (unsigned char)(f*255.0), &rMax, &gMax, &bMax);
+  }
+
+  for (i=0; i<m_led_count; i++) {
+    m_rgb_buf[3*i+1] = rMin;
+    m_rgb_buf[3*i+2] = gMin;
+    m_rgb_buf[3*i+3] = bMin;
+  }
+
+  if (strobe_tick!=0) {
+    strobe_tick = (strobe_tick+1)%strobe_delay;
+    return 0;
+  }
+
+  for (i=0; i<strobe_n; i++) {
+    p = rand()%m_led_count;
+    for (j=0; j<strobe_size; j++) {
+      if ( (p+j) >= m_led_count ) { break; }
+      m_rgb_buf[3*(p+j)+1] = rMax;
+      m_rgb_buf[3*(p+j)+2] = gMax;
+      m_rgb_buf[3*(p+j)+3] = bMax;
+    }
   }
 
   return 0;
+}
+
+int inner_light_mode_type::tick_pulse(void) {
+  int i;
+  int pulse_max = 255, pulse_min = 32, pulse_del = 16;
+  static int pulse_dir = 1, pulse_x=32;
+
+  pulse_del = m_encoder_pos[0];
+
+  pulse_x += pulse_dir * pulse_del;
+
+  if (pulse_x < pulse_min) {
+    pulse_dir = 1;
+    pulse_x = pulse_min;
+  }
+
+  if (pulse_x > pulse_max) {
+    pulse_dir = -1;
+    pulse_x = pulse_max;
+  }
+
+  for (i=0; i<m_led_count; i++) {
+    m_rgb_buf[3*i+1] = (unsigned char)pulse_x;
+    m_rgb_buf[3*i+2] = (unsigned char)pulse_x;
+    m_rgb_buf[3*i+3] = (unsigned char)pulse_x;
+  }
+
+  return 0;
+}
+
+int inner_light_mode_type::tick_rainbow(void) {
+  int i, x;
+  int p_del = 1;
+  static int p=0;
+  unsigned char _p, _r, _g, _b;
+
+  // encoder position sets 'velocity' of
+  // rainbow
+  //
+  p_del = m_encoder_pos[0];
+
+  p = (p+p_del)%255;
+
+  for (i=0; i<m_led_count; i++) {
+    x = (i+p)%255;
+    _p = (unsigned char)(x);
+    _wheel(_p, &_r, &_g, &_b);
+
+    m_rgb_buf[3*i+1] = (unsigned char)_r;
+    m_rgb_buf[3*i+2] = (unsigned char)_g;
+    m_rgb_buf[3*i+3] = (unsigned char)_b;
+  }
+
+  return 0;
+}
+
+//--
+
+int inner_light_mode_type::tick_transition(void) {
+  int i, to;
+  struct timeval tv;
+  static int v=0;
+  unsigned char r, g, b;
+
+  gettimeofday(&tv, NULL);
+  m_transition_t_cur = _tv2d(tv);
+
+  if ((m_transition_t_cur - m_transition_t0) >= m_transition_dt) {
+    m_tap_time.clear();
+    m_mode = m_transition_mode_to;
+    return 0;
+  }
+
+  r = ( v ? 255 : 0 );
+  g = ( v ? 0 : 255 );
+  b = 0;
+
+  to = m_transition_mode_to;
+  if (to == _MODE_SOLID) {
+    r = ( v ? 255 : 0 );
+    g = ( v ? 255 : 0 );
+    b = ( v ? 255 : 0 );
+  }
+  else if (to == _MODE_SOLID_COLOR) {
+    r = ( v ? 255 : 0 );
+    g = ( v ?  0 : 0 );
+    b = ( v ? 0 : 0 );
+  }
+
+  else if (to == _MODE_TAP_PULSE) {
+    r = ( v ? 0 : 0 );
+    g = ( v ?  255 : 0 );
+    b = ( v ? 0 : 0 );
+  }
+  else if (to == _MODE_TAP_BULLET) {
+    r = ( v ? 0 : 0 );
+    g = ( v ? 0 : 0 );
+    b = ( v ? 255 : 0 );
+  }
+  else if (to == _MODE_TAP_RAIN) {
+    r = ( v ? 255 : 0 );
+    g = ( v ? 0: 0 );
+    b = ( v ? 255 : 0 );
+  }
+  else if (to == _MODE_TAP_STROBE) {
+    r = ( v ? 0: 0 );
+    g = ( v ? 255: 0 );
+    b = ( v ? 255 : 0 );
+  }
+
+  else if (to == _MODE_FILL) {
+    r = ( v ? 255: 0 );
+    g = ( v ? 0: 255 );
+    b = ( v ? 0: 255  );
+  }
+  else if (to == _MODE_STROBE) {
+    r = ( v ? 0: 255 );
+    g = ( v ? 255: 0 );
+    b = ( v ? 0: 255  );
+  }
+  else if (to == _MODE_PULSE) {
+    r = ( v ? 0: 255 );
+    g = ( v ? 0 : 255 );
+    b = ( v ? 255: 0);
+  }
+
+  else if (to == _MODE_RAINBOW) {
+    r = ( v ? 255: 0 );
+    g = ( v ? 255: 255);
+    b = ( v ? 0 : 255);
+  }
+
+  else if (to == _MODE_MIC_STROBE) {
+    r = ( v ? 0: 255 );
+    g = ( v ? 255 : 255);
+    b = ( v ? 255: 255  );
+  }
+
+  else if (to == _MODE_MIC_RAIN) {
+    r = ( v ? 255 : 255 );
+    g = ( v ? 0: 255);
+    b = ( v ? 255: 255  );
+  }
+
+  else if (to == _MODE_MIC_BULLET) {
+    r = ( v ? 0: 255 );
+    g = ( v ? 0: 255);
+    b = ( v ? 255: 255  );
+  }
+
+  else if (to == _MODE_MIC_PULSE) {
+    r = ( v ? 0: 255 );
+    g = ( v ? 0: 255);
+    b = ( v ? 255: 255  );
+  }
+
+
+  for (i=0; i<8; i++) {
+    m_rgb_buf[3*i+1] = r;
+    m_rgb_buf[3*i+2] = g;
+    m_rgb_buf[3*i+3] = b;
+  }
+
+  v = 1-v;
+
+  return 0;
+}
+
+//--
+
+int inner_light_mode_type::tick(void) {
+  int r = -1;
+
+  switch(m_mode) {
+
+    case _MODE_SOLID:       r = tick_solid();       break;
+    case _MODE_SOLID_COLOR: r = tick_solid_color(); break;
+    case _MODE_TAP_PULSE:   r = tick_tap_pulse();   break;
+    case _MODE_MIC_PULSE:   r = tick_mic_pulse();   break;
+    case _MODE_TAP_BULLET:  r = tick_tap_bullet();  break;
+    case _MODE_MIC_BULLET:  r = tick_mic_bullet();  break;
+    case _MODE_TAP_RAIN:    r = tick_tap_rain();    break;
+    case _MODE_MIC_RAIN:    r = tick_mic_rain();    break;
+    case _MODE_TAP_STROBE:  r = tick_tap_strobe();  break;
+    case _MODE_MIC_STROBE:  r = tick_mic_strobe();  break;
+    case _MODE_FILL:        r = tick_fill();        break;
+    case _MODE_STROBE:      r = tick_strobe();      break;
+    case _MODE_PULSE:       r = tick_pulse();       break;
+    case _MODE_RAINBOW:     r = tick_rainbow();     break;
+    case _MODE_TRANSITION:  r = tick_transition();  break;
+
+    default:
+      r = -1;
+      break;
+  }
+
+  return r;
 }
 
 int inner_light_mode_type::process_mic_beat(int beat_fd) {
@@ -665,6 +1426,8 @@ int inner_light_mode_type::process_encoder(int encoder_fd) {
   char buf[1024];
 
   int apos, bpos, abutton, bbutton;
+  static int bpos_prev=-1, apos_prev=-1;
+  int mode_next, dm;
 
   struct timeval tv;
 
@@ -680,11 +1443,12 @@ int inner_light_mode_type::process_encoder(int encoder_fd) {
 
   for (i=0; i<n_read; i++) {
 
+    printf("?? %s\n", buf);
+
     if (buf[i] == '\n') {
 
       if ((m_encoder_line.size()==0) ||
           (m_encoder_line[0] == '#')) {
-        //printf("\n# skipping encoder line: %s\n", m_encoder_line.c_str());
         m_encoder_line.clear();
         continue;
       }
@@ -695,6 +1459,14 @@ int inner_light_mode_type::process_encoder(int encoder_fd) {
         m_encoder_line.clear();
         continue;
       }
+
+      if (apos_prev < 0) { apos_prev = apos; }
+      if (bpos_prev < 0) { bpos_prev = bpos; }
+
+      m_encoder_pos[0] = apos;
+      m_encoder_pos[1] = bpos;
+      m_encoder_button[0] = abutton;
+      m_encoder_button[1] = bbutton;
 
       printf("# encoder: a(%i %i) b(%i %i)\n", apos, abutton, bpos, bbutton);
 
@@ -714,6 +1486,30 @@ int inner_light_mode_type::process_encoder(int encoder_fd) {
         }
 
       }
+
+      if (bpos != bpos_prev) {
+
+        dm = (bpos - bpos_prev) % _MODE_N;
+        dm = (dm + _MODE_N) % _MODE_N;
+
+        mode_next = (m_mode + dm) % _MODE_N;
+
+        printf("changing state.... from %i to %i (dm %i)\n", m_mode, mode_next, dm);
+
+        m_transition_mode_to = mode_next;
+        gettimeofday(&tv, NULL);
+        m_transition_t0 = _tv2d(tv);
+        m_transition_t_cur = m_transition_t0;
+
+        m_mode = _MODE_TRANSITION;
+
+        printf(">>> switching mode to transition. mode will go to %i (%s) after\n", m_transition_mode_to, _mode_name[m_transition_mode_to]);
+
+        bpos_prev = bpos;
+
+      }
+
+
 
       m_encoder_line.clear();
       continue;

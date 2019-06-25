@@ -52,13 +52,20 @@ encoder_state = {
 
 enc = [ copy.copy(encoder_state), copy.copy(encoder_state) ]
 
+enc[0]["step"] = int(NSTEP/2)
+
 io_0_a = 26
 io_0_b = 19
 io_0_pb = 13
 
-io_1_a = 11
-io_1_b = 9
-io_1_pb = 10
+## I think I fried an input pin, trying another group...
+#io_1_a = 11
+#io_1_b = 9
+#io_1_pb = 10
+
+io_1_a = 17
+io_1_b = 27
+io_1_pb = 22
 
 ## GPI.BCM is 'broadcom' or the 'jumbled' numbering
 ## GPI.BOARD is the pinout as it appears on the board itself (in order)
@@ -96,6 +103,10 @@ def state_json_str(enc):
 
   return json.dumps(jj)
 
+json_str = state_json_str(enc)
+print enc[0]["step"], enc[0]["button"], enc[1]["step"], enc[1]["button"], json_str
+sys.stdout.flush()
+
 hb_counter = 0
 hb_beat = 1000
 while True:
@@ -109,6 +120,8 @@ while True:
   inp[1][0] = GPIO.input(io_1_a)
   inp[1][1] = GPIO.input(io_1_b)
   inp[1][2] = GPIO.input(io_1_pb)
+
+  print inp
 
   pinX = inp[0][0] + 2*inp[0][1]
   pinY = inp[1][0] + 2*inp[1][1]
@@ -155,6 +168,8 @@ while True:
   if (hb_counter % hb_beat) == 0:
     json_str = state_json_str(enc)
     print "# heartbeat:", json_str
+    print enc[0]["step"], enc[0]["button"], enc[1]["step"], enc[1]["button"], json_str
+    sys.stdout.flush()
   hb_counter += 1
 
   inp_cpy(prv_inp, inp)

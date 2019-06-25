@@ -204,7 +204,7 @@ int _main(unsigned char *led_map, size_t n_led) {
 }
 
 int main(int argc, char **argv) {
-  int led_map_fd;
+  int led_map_fd, r;
   unsigned char *led_map;
   size_t led_map_len, n_led;
 
@@ -222,6 +222,9 @@ int main(int argc, char **argv) {
     fprintf(stderr, "ERROR: opening file %s, got errno:%i\n", led_fn, errno);
     exit(-1);
   }
+
+  r = fchmod(led_map_fd, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH );
+  if (r != 0) { perror("fchmod"); return r; }
 
   led_map = mmap(NULL, led_map_len, PROT_NONE | PROT_READ | PROT_WRITE | PROT_EXEC, MAP_SHARED, led_map_fd, 0);
 

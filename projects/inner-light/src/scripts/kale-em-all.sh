@@ -9,7 +9,7 @@ else
   echo "no arecord process, skipping"
 fi
 
-pidencoder=`ps aux | grep '[e]ncoder-monitor' | sed 's/  */ /g' | cut -f2 -d' '`
+pidencoder=`ps aux | grep '[e]ncoder-monitor' | grep '[p]ython' | sed 's/  */ /g' | cut -f2 -d' '`
 
 if [[ "$pidencoder" ]] ; then
   echo kill encoder-monitor $pidencoder
