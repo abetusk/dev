@@ -1138,11 +1138,8 @@ int inner_light_mode_type::tick_fill(void) {
   float f;
   unsigned char rgb[3], rgbprv[3], w;
 
-  //unsigned char color[3][3];
 
-  //color[0][0] = 255; color[0][1] =   0; color[0][2] =   0;
-  //color[1][0] =   0; color[1][1] = 255; color[1][2] =   0;
-  //color[2][0] =   0; color[2][1] =   0; color[2][2] = 255;
+  pos_ds = m_encoder_pos[0];
 
   pos += pos_ds;
   n = ( (pos<m_led_count) ? pos : m_led_count );
@@ -1156,10 +1153,6 @@ int inner_light_mode_type::tick_fill(void) {
   _wheel(w, &(rgbprv[0]), &(rgbprv[1]), &(rgbprv[2]));
 
   for (i=0; i<n; i++) {
-    //m_rgb_buf[3*i+1] = color[color_idx][0];
-    //m_rgb_buf[3*i+2] = color[color_idx][1];
-    //m_rgb_buf[3*i+3] = color[color_idx][2];
-
     m_rgb_buf[3*i+1] = rgb[0];
     m_rgb_buf[3*i+2] = rgb[1];
     m_rgb_buf[3*i+3] = rgb[2];
@@ -1171,7 +1164,6 @@ int inner_light_mode_type::tick_fill(void) {
   }
 
   if (pos >= m_led_count) {
-    //color_idx = (color_idx + 1) % color_idx_n;
     color_mod = (color_mod + color_mod_del) % color_mod_n;
     pos=0;
   }
@@ -1238,26 +1230,49 @@ int inner_light_mode_type::tick_pulse(void) {
   static double phase = 0.0;
   double phase_del = 2.0*M_PI/8.0;
 
-  unsigned char rgb[3], rgbCur[3];
+  static int init=0;
+  static unsigned char rgb[3];
+  unsigned char rgbCur[3];
   float w, f, f_min=64.0/255.0, f_max=255.0/255.0, f_del;
 
-  pulse_del = m_encoder_pos[0];
-  phase_del = (double)pulse_del / 32.0;
+  static int _last_button=0, _state=0;
+  static float _color_val=0.0;
 
   f_del = f_max - f_min;
+
+  if (!init) {
+    rgb[0] = (unsigned char)f_max*255.0;
+    rgb[1] = (unsigned char)f_max*255.0;
+    rgb[2] = (unsigned char)f_max*255.0;
+    init = 1;
+  }
+
+  if ((_last_button == 0) && (m_encoder_button[0] == 1)) {
+    _state = (_state + 1)%2;
+  }
+  _last_button = m_encoder_button[0];
+
+	if (_state == 0) {
+		pulse_del = m_encoder_pos[0];
+		phase_del = (double)pulse_del / 32.0;
+  }
+  else {
+
+    if (m_encoder_pos[0] == 0) {
+      rgb[0] = (unsigned char)f_max*255.0;
+      rgb[1] = (unsigned char)f_max*255.0;
+      rgb[2] = (unsigned char)f_max*255.0;
+    }
+    else {
+      w = (float)(m_encoder_pos[0]-1.0)/((float)(m_encoder_n-1));
+      _wheel( (unsigned char)(w*255.0), &(rgb[0]), &(rgb[1]), &(rgb[2]));
+    }
+
+  }
 
   phase = _f_mod(phase+phase_del, 0.0, 2.0*M_PI);
   f = (f_del*(sin(phase)+1.0)/2.0) + f_min;
 
-  if (m_encoder_pos[0] == 0) {
-    rgb[0] = (unsigned char)f_max*255.0;
-    rgb[1] = (unsigned char)f_max*255.0;
-    rgb[2] = (unsigned char)f_max*255.0;
-  }
-  else {
-    w = (float)(m_encoder_pos[0]-1.0)/((float)(m_encoder_n-1));
-    _wheel( (unsigned char)(w*255.0), &(rgb[0]), &(rgb[1]), &(rgb[2]));
-  }
 
   _color_interpolate( f, f_min, f_max, rgb, rgbCur);
 
@@ -1266,28 +1281,6 @@ int inner_light_mode_type::tick_pulse(void) {
     m_rgb_buf[3*i+2] = rgbCur[1];
     m_rgb_buf[3*i+3] = rgbCur[2];
   }
-
-  /*
-  pulse_del = m_encoder_pos[0];
-
-  pulse_x += pulse_dir * pulse_del;
-
-  if (pulse_x < pulse_min) {
-    pulse_dir = 1;
-    pulse_x = pulse_min;
-  }
-
-  if (pulse_x > pulse_max) {
-    pulse_dir = -1;
-    pulse_x = pulse_max;
-  }
-
-  for (i=0; i<m_led_count; i++) {
-    m_rgb_buf[3*i+1] = (unsigned char)pulse_x;
-    m_rgb_buf[3*i+2] = (unsigned char)pulse_x;
-    m_rgb_buf[3*i+3] = (unsigned char)pulse_x;
-  }
-  */
 
   return 0;
 }
