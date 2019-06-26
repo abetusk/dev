@@ -27,7 +27,7 @@ enum inner_light_mode_state {
   _MODE_SOLID_COLOR,
   _MODE_TAP_PULSE ,
   _MODE_TAP_BULLET,
-  _MODE_TAP_RAIN,
+  //_MODE_TAP_RAIN,
   _MODE_TAP_STROBE,
 
   _MODE_FILL,
@@ -36,7 +36,7 @@ enum inner_light_mode_state {
   _MODE_RAINBOW,
 
   _MODE_MIC_STROBE,
-  _MODE_MIC_RAIN,
+  //_MODE_MIC_RAIN,
   _MODE_MIC_BULLET,
   _MODE_MIC_PULSE ,
 
@@ -50,14 +50,14 @@ char _mode_name[][64] = {
   "solid_color",
   "tap_pulse",
   "tap_bullet",
-  "tap_rain",
+  //"tap_rain",
   "tap_strobe",
   "fill",
   "strobe",
   "pulse",
   "rainbow",
   "mic_strobe",
-  "mic_rain",
+  //"mic_rain",
   "mic_pulse",
   "n",
   "transition",
@@ -953,7 +953,7 @@ void inner_light_mode_type::beat_rain(void) {
 
 void inner_light_mode_type::beat_strobe(void) {
   int i, j, p;
-  int strobe_size=3, strobe_n =4;
+  int strobe_size=3, strobe_n =16;
 
   float w, f, f_del, f_decay = 32.0/255.0, f_min=64.0/255.0, f_max=255.0/255.0;
   unsigned char rgb[3], rgbMin[3], rgbMax[3];
@@ -1361,11 +1361,13 @@ int inner_light_mode_type::tick_transition(void) {
     g = ( v ? 0 : 0 );
     b = ( v ? 255 : 0 );
   }
-  else if (to == _MODE_TAP_RAIN) {
-    r = ( v ? 255 : 0 );
-    g = ( v ? 0: 0 );
-    b = ( v ? 255 : 0 );
-  }
+
+  //else if (to == _MODE_TAP_RAIN) {
+  //  r = ( v ? 255 : 0 );
+  //  g = ( v ? 0: 0 );
+  //  b = ( v ? 255 : 0 );
+  //}
+
   else if (to == _MODE_TAP_STROBE) {
     r = ( v ? 0: 0 );
     g = ( v ? 255: 0 );
@@ -1400,11 +1402,11 @@ int inner_light_mode_type::tick_transition(void) {
     b = ( v ? 255: 255  );
   }
 
-  else if (to == _MODE_MIC_RAIN) {
-    r = ( v ? 255 : 255 );
-    g = ( v ? 0: 255);
-    b = ( v ? 255: 255  );
-  }
+  //else if (to == _MODE_MIC_RAIN) {
+  //  r = ( v ? 255 : 255 );
+  //  g = ( v ? 0: 255);
+  //  b = ( v ? 255: 255  );
+  //}
 
   else if (to == _MODE_MIC_BULLET) {
     r = ( v ? 0: 255 );
@@ -1443,8 +1445,8 @@ int inner_light_mode_type::tick(void) {
     case _MODE_MIC_PULSE:   r = tick_mic_pulse();   break;
     case _MODE_TAP_BULLET:  r = tick_tap_bullet();  break;
     case _MODE_MIC_BULLET:  r = tick_mic_bullet();  break;
-    case _MODE_TAP_RAIN:    r = tick_tap_rain();    break;
-    case _MODE_MIC_RAIN:    r = tick_mic_rain();    break;
+    //case _MODE_TAP_RAIN:    r = tick_tap_rain();    break;
+    //case _MODE_MIC_RAIN:    r = tick_mic_rain();    break;
     case _MODE_TAP_STROBE:  r = tick_tap_strobe();  break;
     case _MODE_MIC_STROBE:  r = tick_mic_strobe();  break;
     case _MODE_FILL:        r = tick_fill();        break;
