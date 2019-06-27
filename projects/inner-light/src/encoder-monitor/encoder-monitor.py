@@ -58,14 +58,14 @@ io_0_a = 26
 io_0_b = 19
 io_0_pb = 13
 
-io_1_a = 17
-io_1_b = 27
-io_1_pb = 22
-
 ## I think I fried an input pin, trying another group...
-io_2_a = 11
-io_2_b = 9
-io_2_pb = 10
+io_1_a = 11
+io_1_b = 9
+io_1_pb = 10
+
+io_2_a = 17
+io_2_b = 27
+io_2_pb = 22
 
 ## GPI.BCM is 'broadcom' or the 'jumbled' numbering
 ## GPI.BOARD is the pinout as it appears on the board itself (in order)
@@ -140,7 +140,7 @@ while True:
 
   ev0 = enc[0]["emit"][s0]["to"][pinX]
   ev1 = enc[1]["emit"][s1]["to"][pinY]
-  ev2 = enc[1]["emit"][s1]["to"][pinY]
+  ev2 = enc[2]["emit"][s1]["to"][pinY]
 
   pb0 = 1-inp[0][2]
   pb1 = 1-inp[1][2]
