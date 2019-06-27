@@ -40,6 +40,9 @@ rpi_screw_h = 58;
 strap_screw_len = rpi_screw_h/2;
 strap_r = screw_r + 4;
 
+strap1_screw_len = 16;
+strap1_r = screw_r + 4;
+
 
 module rpi_cable_strap() {
   
@@ -52,6 +55,18 @@ module rpi_cable_strap() {
     translate([0, strap_screw_len]) circle(screw_r, $fn=FN);
   }
   
+}
+
+module rpi_cable_strap1() {
+  difference() {
+    hull() {
+      circle(strap_r, $fn=FN);
+      translate([0, strap1_screw_len]) circle(strap1_r, $fn=FN);
+    }
+    circle(screw_r, $fn=FN);
+    translate([0, strap1_screw_len]) circle(screw_r, $fn=FN);
+  }
+
 }
 
 module body_wall_access_plate() {
@@ -140,12 +155,7 @@ module body_wall_plate() {
   difference() {
     
     union() {
-            
-      hull() {
-        translate([  0, h]) circle(r, $fn=FN);
-        translate([ w0, h]) circle(r, $fn=FN);
-      }
-      
+
       hull() {
         translate([ w0, h]) circle(r, $fn=FN);
         translate([ w0, h-hmid]) circle(r, $fn=FN);
@@ -213,8 +223,8 @@ module body_top_plate() {
   hole_x = enc_w/2;
   hole_y = enc_h/2;
 
-  strap_cx = w0/2 + 0;
-  strap_cy = h - 42;
+  strap_cx = w0/2 + 20;
+  strap_cy = h - 16;
 
   difference() {
     hull() {
@@ -247,8 +257,8 @@ module body_top_plate() {
 
     // strap screws
     //
-    translate([strap_cx - strap_screw_len/2, strap_cy]) circle(screw_r, $fn=FN);
-    translate([strap_cx + strap_screw_len/2, strap_cy]) circle(screw_r, $fn=FN);
+    translate([strap_cx - strap1_screw_len/2, strap_cy]) circle(screw_r, $fn=FN);
+    translate([strap_cx + strap1_screw_len/2, strap_cy]) circle(screw_r, $fn=FN);
 
   }
 }
@@ -287,7 +297,8 @@ module body_bottom_plate() {
     
     // rpi screws
     //
-    translate([rpi_cx+12, rpi_cy+2]) rotate(90, [0,0,1])
+    //translate([rpi_cx+12, rpi_cy+2]) rotate(90, [0,0,1])
+    translate([rpi_cx, rpi_cy])
     for (i=[0:0]) {
 
       translate([-rpi_screw_h/2, rpi_screw_w/2]) circle(rpi_screw_r, $fn=FN);
@@ -303,6 +314,46 @@ module body_bottom_plate() {
       translate([-rpi_screw_h/2 + strap_screw_len,rpi_screw_w/2 + 18]) circle(screw_r, $fn=FN);
     }
     
+  }
+}
+
+module encoder_spacer() {
+  r = encoder_plate_corner_r;
+  w = encoder_plate_width - 2*r;
+  h = encoder_plate_height - 2*r;
+  
+  hole_x = w/2;
+  hole_y = h/2;
+  
+  wlip = w - 2*sqrt(2)*r;
+  hlip = h - 2*sqrt(2)*r;
+
+  difference() {
+    union() {
+      hull() {
+        translate([-w/2, h/2]) circle(r, $fn=FN);
+        translate([ w/2, h/2]) circle(r, $fn=FN);
+      }
+      hull() {
+        translate([ w/2, h/2]) circle(r, $fn=FN);
+        translate([ w/2,-h/2]) circle(r, $fn=FN);
+      }
+      hull() {
+        translate([ w/2,-h/2]) circle(r, $fn=FN);
+        translate([-w/2,-h/2]) circle(r, $fn=FN);
+      }
+      hull() {
+        translate([-w/2,-h/2]) circle(r, $fn=FN);
+        translate([-w/2, h/2]) circle(r, $fn=FN);
+      }
+    }
+    
+    _encoder_hole_lip();
+
+    translate([-hole_x, hole_y]) circle(screw_r, $fn=FN);
+    translate([ hole_x, hole_y]) circle(screw_r, $fn=FN);
+    translate([ hole_x,-hole_y]) circle(screw_r, $fn=FN);
+    translate([-hole_x,-hole_y]) circle(screw_r, $fn=FN);
   }
 }
 
@@ -339,26 +390,32 @@ module encoder_plate() {
 }
 
 module pack_for_cut_a() {
-//  translate([140,0]) rotate(90, [0,0,1]) body_bottom_plate();
-  translate([140,0]) rotate(90, [0,0,1]) body_wall_plate();
+  translate([140,0]) rotate(90, [0,0,1]) body_bottom_plate();
+//  translate([140,0]) rotate(90, [0,0,1]) body_wall_plate();
   translate([285,0]) rotate(90, [0,0,1]) body_top_plate();
   translate([140,95]) rotate(90, [0,0,1]) body_wall_plate();
   //translate([285,95]) rotate(90, [0,0,1]) body_wall_plate();
-  translate([285,95]) rotate(90, [0,0,1]) body_wall_access_plate();
+  translate([285,95]) rotate(90, [0,0,1]) body_wall_plate();
 //  translate([305,0]) body_wall_access_plate();
-  translate([70, 130]) encoder_plate();
-  translate([185, 130]) rpi_cable_strap();
-  translate([198, 130]) rpi_cable_strap();
-  translate([210, 130]) rpi_cable_strap();
-  translate([225, 130]) rpi_cable_strap();
+  translate([30, 130]) rotate(90, [0,0,1]) encoder_plate();
+  translate([70, 130]) rotate(90, [0,0,1]) encoder_spacer();
+  translate([165, 130]) rpi_cable_strap();
+  translate([178, 130]) rpi_cable_strap();
+  translate([190, 130]) rpi_cable_strap();
+  translate([205, 130]) rpi_cable_strap();
+  
+  translate([218, 130]) rpi_cable_strap1();
+  translate([230, 130]) rpi_cable_strap1();
+  translate([245, 130]) rpi_cable_strap1();
 }
 
 module pack_for_cut_b() {
   translate([140,0]) rotate(90, [0,0,1]) body_wall_plate();
   translate([285,0]) rotate(90, [0,0,1]) body_wall_plate();
   translate([140,95]) rotate(90, [0,0,1]) body_wall_plate();
-  translate([285,95]) rotate(90, [0,0,1]) body_wall_access_plate();
+  translate([285,95]) rotate(90, [0,0,1]) body_wall_plate();
   translate([70, 130]) encoder_plate();
+  translate([200,130]) encoder_spacer();
 }
 
 module pack_for_cut_u() {
@@ -369,8 +426,8 @@ module pack_for_cut_u() {
 //  translate([70, 130]) encoder_plate();
 }
 
-pack_for_cut_a();
-//pack_for_cut_b();
+//pack_for_cut_a();
+pack_for_cut_b();
 //pack_for_cut_u();
 
 //body_wall_access_plate();
