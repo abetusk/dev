@@ -1,5 +1,14 @@
 #!/bin/bash
 
+pidmm=`ps aux | grep '[m]ode-manager' | sed 's/  */ /g' | cut -f2 -d' ' | head -n1`
+if [[ "$pidmm" ]] ; then
+  echo kill mode-manager $pidmm
+  kill $pidmm
+else
+  echo "no mode-manager process, skipping"
+fi
+
+
 pidarec=`ps aux | grep '[a]record' | sed 's/  */ /g' | cut -f2 -d' '`
 
 if [[ "$pidarec" ]] ; then
@@ -17,3 +26,14 @@ if [[ "$pidencoder" ]] ; then
 else
   echo "no encoder-monitor, skipping"
 fi
+
+pidild=`ps aux | grep '[i]nner-light-drive' |  sed 's/  */ /g' | cut -f2 -d' ' | head -n1`
+
+if [[ "$pidild" ]] ; then
+  echo kill inner-light-drive $pidild
+  sudo kill $pidild
+else
+  echo "no inner-light-drive, skipping"
+fi
+
+

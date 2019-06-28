@@ -91,8 +91,6 @@ void _render(unsigned char *rgb, size_t n_led) {
 
     ledstring.channel[0].leds[idx] = (ws2811_led_t)u32;
 
-    //x = (ws2811_led_t)((uint32_t)rgb[3*idx+1]);
-    //ledstring.channel[0].leds[idx] = x;
   }
 }
 
