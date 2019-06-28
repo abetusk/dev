@@ -20,6 +20,7 @@
 
 //#include "RGBConverter.h"
 
+#define INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE "/home/pi/data/innerlight.led"
 #define _VERSION "0.1.0"
 
 enum inner_light_mode_state {
@@ -316,7 +317,8 @@ struct option _longopt[] = {
 };
 
 void show_help_and_exit(FILE *fp) {
-  fprintf(fp, "help...\n");
+  fprintf(fp, "usage:\n");
+  fprintf(fp, "\n  mode-manage [-L mmap.led] [-n led_count] <( MIC ) <( ENCODER )\n\n");
   if (fp==stdin) { exit(0); }
   exit(1);
 }
@@ -1470,6 +1472,10 @@ int inner_light_mode_type::process_mic_beat(int beat_fd) {
     perror("beat_fd read failed");
     return -1;
   }
+  if ((n_read == 0) && (errno != EAGAIN)) {
+    fprintf(stderr, "process_mic_beat: n_read == 0 but errno != EAGAIN, returning\n");
+    return -1;
+  }
   if (n_read==0) { return 0; }
 
   buf[n_read-1] = '\0';
@@ -1547,6 +1553,10 @@ int inner_light_mode_type::process_encoder(int encoder_fd) {
 
   if ((n_read < 0) && (errno!=EINTR)) {
     perror("encoder_fd read failed");
+    return -1;
+  }
+  if ((n_read == 0) && (errno != EAGAIN)) {
+    fprintf(stderr, "process_encoder: n_read == 0 but errno != EAGAIN, returning\n");
     return -1;
   }
   if (n_read==0) { return 0; }
@@ -1640,7 +1650,7 @@ int main(int argc, char **argv) {
 
   fd_set active_fds, read_fds;
   struct timeval tv, tv_prv, tv_now;
-  int ret;
+  int ret, r;
 
   ssize_t n_read;
   size_t buf_sz = 1024;
@@ -1649,7 +1659,11 @@ int main(int argc, char **argv) {
   int maxfd = 0;
   int i;
 
-  while ((ch=getopt_long(argc, argv, "vhi:", _longopt, &option_index)) >= 0) {
+  int led_count = 60*3;
+
+  std::string led_fn = INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE;
+
+  while ((ch=getopt_long(argc, argv, "vhi:L:n:", _longopt, &option_index)) >= 0) {
     switch(ch) {
       case 0:
         break;
@@ -1664,6 +1678,13 @@ int main(int argc, char **argv) {
         beat_fn = optarg;
         break;
 
+      case 'L':
+        led_fn = optarg;
+        break;
+
+      case 'n':
+        led_count = atoi(optarg);
+        break;
 
 
       default:
@@ -1671,8 +1692,6 @@ int main(int argc, char **argv) {
         break;
     }
   }
-
-  printf("optind %i, argc %i\n", optind, argc);
 
   if (optind < argc) {
     beat_fn = argv[optind];
@@ -1722,14 +1741,20 @@ int main(int argc, char **argv) {
 
   //----
 
-  g_mode.m_led_count = 60*3;
-  g_mode.m_led_fn = "/tmp/innerlight.led";
+  //g_mode.m_led_count = 60*3;
+  g_mode.m_led_count = led_count;
 
-  printf("# connecting to mmap file %s\n", g_mode.m_led_fn.c_str());
+  //g_mode.m_led_fn = "/tmp/innerlight.led";
+  //g_mode.m_led_fn = INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE;
+  g_mode.m_led_fn = led_fn;
+
+
+  printf("# connecting to mmap file %s (n:%i)\n", g_mode.m_led_fn.c_str(), g_mode.m_led_count);
   ret = g_mode.led_mmap_fn(g_mode.m_led_fn.c_str());
-  //ret = g_mode.led_mmap_fn((char *)"/tmp/innerlight.led");
-
-  printf("# got: %i\n", ret);
+  if (ret < 0) {
+    fprintf(stderr, "could not mmap file %s, exiting\n", g_mode.m_led_fn.c_str());
+    exit(-1);
+  }
 
   //----
 
@@ -1757,8 +1782,20 @@ int main(int argc, char **argv) {
     }
 
     if (ret!=0) {
-      if (FD_ISSET(beat_fd, &read_fds))    { g_mode.process_mic_beat(beat_fd); }
-      if (FD_ISSET(encoder_fd, &read_fds)) { g_mode.process_encoder(encoder_fd); }
+      if (FD_ISSET(beat_fd, &read_fds)) {
+        r=g_mode.process_mic_beat(beat_fd);
+        if (r<0) {
+          fprintf(stderr, "ERROR: invalid microphone read, exiting\n");
+          break;
+        }
+      }
+      if (FD_ISSET(encoder_fd, &read_fds)) {
+        r=g_mode.process_encoder(encoder_fd);
+        if (r<0) {
+          fprintf(stderr, "ERROR: invalid encoder read, exiting\n");
+          break;
+        }
+      }
     }
 
     gettimeofday(&tv_now, NULL);
@@ -1775,4 +1812,5 @@ int main(int argc, char **argv) {
   //---
 
   close(beat_fd);
+  close(encoder_fd);
 }
