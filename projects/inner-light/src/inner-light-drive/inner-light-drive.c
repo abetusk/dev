@@ -77,6 +77,11 @@ void _render(unsigned char *rgb, size_t n_led) {
 
   uint32_t u32, t32;
 
+  if (rgb[0] == 1) {
+    printf("!! mid update? skipping\n");
+    return;
+  }
+
   for (idx=0; idx<n_led; idx++) {
 
     u32 = 0;

@@ -1,59 +1,71 @@
 #!/bin/bash
 
+x="innerlightdrive-monitor"
 dt=` date +'%Y-%m-%d %H:%m:%S'`
-echo $dt innerlightdrive-monitor starting
+echo "$dt: $x: starting"
 
 p=`ps aux | grep '[i]nner-light-drive'| sed 's/  */ /g' | cut -f2 -d' '`
 if [[ "$p" == "" ]] ; then
-  echo "inner-light-drive not found, starting"
-  #sudo $HOME/bin/inner-light-drive >> $HOME/data/inner-light-drive.log &
-  sudo $HOME/bin/inner-light-drive > /dev/null &
+  dt=` date +'%Y-%m-%d %H:%m:%S'`
+  echo "$dt: $x: inner-light-drive not found, starting"
+  sudo $HOME/bin/inner-light-drive >> $HOME/data/inner-light-drive.log 2>> $HOME/data/inner-light-drive.err &
+  #sudo $HOME/bin/inner-light-drive > /dev/null &
   p=$!
   echo $p > $HOME/data/inner-light-drive.pid
 else
-  echo "inner-light-drive found, continuing"
+  dt=` date +'%Y-%m-%d %H:%m:%S'`
+  echo "$dt: $x: inner-light-drive found, continuing"
 fi
 
-sleep 1
-
-pidarec=`ps aux | grep '[a]record' | sed 's/  */ /g' | cut -f2 -d' '`
-
-if [[ "$pidarec" ]] ; then
-  echo "killing arecord process ($pidarec)"
-  kill $pidarec
+mmpid=`ps aux | grep '[m]ode-manager' | sed 's/  */ /g' | cut -f2 -d' '`
+if [[ "$mmpid" != "" ]] ; then
+  dt=` date +'%Y-%m-%d %H:%m:%S'`
+  echo "$dt: $x: mode-manager found, continuing"
 else
-  echo "no arecord process, continuing"
+
+  sleep 1
+
+  pidarec=`ps aux | grep '[a]record' | sed 's/  */ /g' | cut -f2 -d' '`
+
+  if [[ "$pidarec" ]] ; then
+    dt=` date +'%Y-%m-%d %H:%m:%S'`
+    echo "$dt: $x: killing arecord process ($pidarec)"
+    kill $pidarec
+  else
+    echo "no arecord process, continuing"
+  fi
+
+  pidencoder=`ps aux | grep '[e]ncoder-monitor' | grep '[p]ython' | sed 's/  */ /g' | cut -f2 -d' '`
+
+  if [[ "$pidencoder" ]] ; then
+    dt=` date +'%Y-%m-%d %H:%m:%S'`
+    echo "$dt: $x: killing encoder-monitor ($pidencoder)"
+    kill $pidencoder
+  else
+    echo "no encoder-monitor, continuing"
+  fi
+
+  sleep 1
+
+  devhw=`arecord -l | grep card | grep -o -P '^card \d+|device \d+' | cut -f2 -d' ' | tr '\n' ',' | sed 's/,$//'`
+
+  if [[ "$devhw" == "" ]] ; then
+    echo "$dt: $x: no devhw found for microphone, can't continue"
+    exit -1
+  fi
+
+  $HOME/bin//mode-manager \
+    <( arecord --device=hw:$devhw --format S16_LE --rate 44100 -c2 -t raw | $HOME/bin/beatsrv_s16le  ) \
+    <( $HOME/bin/encoder-monitor.py  ) >> $HOME/data/mode-manager.log 2>> $HOME/data/mode-manager.err &
+  #$HOME/bin//mode-manager \
+  #  <( arecord --device=hw:$devhw --format S16_LE --rate 44100 -c2 -t raw | $HOME/bin/beatsrv_s16le  ) \
+  #  <( $HOME/bin/encoder-monitor.py  ) > /dev/null &
+  #mmpid=$!
+  #echo $mmid > $HOME/data/mode-manager.pid
+
 fi
-
-pidencoder=`ps aux | grep '[e]ncoder-monitor' | grep '[p]ython' | sed 's/  */ /g' | cut -f2 -d' '`
-
-if [[ "$pidencoder" ]] ; then
-  echo "killing encoder-monitor ($pidencoder)"
-  kill $pidencoder
-else
-  echo "no encoder-monitor, continuing"
-fi
-
-sleep 1
-
-devhw=`arecord -l | grep card | grep -o -P '^card \d+|device \d+' | cut -f2 -d' ' | tr '\n' ',' | sed 's/,$//'`
-
-if [[ "$devhw" == "" ]] ; then
-  echo "no devhw found for microphone, can't continue"
-  exit -1
-fi
-
-#$HOME/bin//mode-manager \
-#  <( arecord --device=hw:$devhw --format S16_LE --rate 44100 -c2 -t raw | $HOME/bin/beatsrv_s16le  ) \
-#  <( $HOME/bin/encoder-monitor.py  ) >> $HOME/data/mode-manager.log &
-$HOME/bin//mode-manager \
-  <( arecord --device=hw:$devhw --format S16_LE --rate 44100 -c2 -t raw | $HOME/bin/beatsrv_s16le  ) \
-  <( $HOME/bin/encoder-monitor.py  ) > /dev/null &
-mmpid=$!
-
-echo $mmid > $HOME/data/mode-manager.pid
 
 dt=` date +'%Y-%m-%d %H:%m:%S'`
-echo $dt innerlightdrive-monitor ending
+echo "$dt: $x: ending"
 
 

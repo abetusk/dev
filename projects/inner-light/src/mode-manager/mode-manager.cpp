@@ -336,7 +336,9 @@ int inner_light_mode_type::update_led(void) {
 
   if (!m_led_mapped) { return -1; }
 
+  m_rgb[0] = 1;
   memcpy(m_rgb, &(m_rgb_buf[0]), m_rgb_sz);
+  m_rgb[0] = 0;
 
   return 0;
 }
