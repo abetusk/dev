@@ -23,7 +23,8 @@
 
 #include "ws2811.h"
 
-#define INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE "/tmp/innerlight.led"
+//#define INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE "/tmp/innerlight.led"
+#define INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE "/home/pi/data/innerlight.led"
 #define _DEFAULT_NUM_LED 180
 
 
