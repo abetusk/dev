@@ -40,7 +40,7 @@ power_plate_width = 56;
 power_plate_height = 34;
 
 power_button_w = 11.75;
-power_button_h = 17.25;
+power_button_h = 18.5;
 
 strap_screw_len = 58/2;
 strap_r = screw_r + 4;
@@ -208,6 +208,7 @@ module bat_spacer_plate() {
     translate([w, hmid]) circle(screw_r, $fn=FN);
     translate([w1, h]) circle(screw_r, $fn=FN);
     translate([0,h]) circle(screw_r, $fn=FN);
+    translate([0,h/4]) circle(screw_r, $fn=FN);
   }
 }
 
@@ -235,8 +236,10 @@ module bat_top_plate() {
   buck2_cx = 3*w/4 - 10;
   buck2_cy = h/2  + 5;
 
-  hole_x = power_plate_width/2;
-  hole_y = power_plate_height/2;
+  pw = power_plate_width - 2*r;
+  ph = power_plate_height - 2*r;
+  hole_x = pw/2;
+  hole_y = ph/2;
 
 
   difference() {
@@ -273,6 +276,7 @@ module bat_top_plate() {
     translate([w, hmid]) circle(screw_r, $fn=FN);
     translate([w1, h]) circle(screw_r, $fn=FN);
     translate([0,h]) circle(screw_r, $fn=FN);
+    translate([0,h/4]) circle(screw_r, $fn=FN);
     
     // battery velcro strap slots
     //
@@ -316,7 +320,7 @@ module bat_bottom_plate() {
 
     // buck converters
     //
-    translate([buck0_cx, buck0_cy]) square([buck0_w, buck0_h], center=true);
+//    translate([buck0_cx, buck0_cy]) square([buck0_w, buck0_h], center=true);
     translate([buck0_cx, buck0_cy])
       for (i=[0:0]) {
         translate([buck0_screw_dist/2, 0]) circle(3/2, $fn=FN);
@@ -328,7 +332,7 @@ module bat_bottom_plate() {
       square([velcro_slot_w, velcro_slot_h], center=true);
 
 
-    translate([buck1_cx, buck1_cy]) square([buck1_w, buck1_h], center=true);
+//    translate([buck1_cx, buck1_cy]) square([buck1_w, buck1_h], center=true);
     translate([buck1_cx, buck1_cy])
       for (i=[0:0]) {
         translate([ buck1_screw_dist/2, 0]) circle(3/2, $fn=FN);
@@ -339,7 +343,7 @@ module bat_bottom_plate() {
     translate([buck1_cx + 20, buck1_cy + 28])
       square([velcro_slot_w, velcro_slot_h], center=true);
 
-    translate([buck2_cx, buck2_cy]) square([buck1_w, buck1_h], center=true);
+//    translate([buck2_cx, buck2_cy]) square([buck1_w, buck1_h], center=true);
     translate([buck2_cx, buck2_cy])
       for (i=[0:0]) {
         translate([ buck1_screw_dist/2, 0]) circle(3/2, $fn=FN);
@@ -372,29 +376,42 @@ module bat_bottom_plate() {
     translate([w, hmid]) circle(screw_r, $fn=FN);
     translate([w1, h]) circle(screw_r, $fn=FN);
     translate([0,h]) circle(screw_r, $fn=FN);
+    translate([0,h/4]) circle(screw_r, $fn=FN);
   }
 }
 
 module realize0() {
 
-  bat_bottom_plate();
-  translate([160,0]) bat_top_plate();
+  translate([190,10]) rotate(90, [0,0,1]) bat_bottom_plate();
+  
+  //translate([160,0]) bat_top_plate();
   //translate([400,0]) bat_spacer_plate();
   //translate([335,100]) rotate(90,[0,0,1]) power_spacer();
   //translate([335,25]) rotate(90,[0,0,1]) power_plate();
 }
 
 module realize1() {
-  translate([0,0]) bat_spacer_plate();
-  translate([160,0]) bat_spacer_plate();
-  translate([30,50]) strap();
-  translate([30,70]) strap();
-  translate([30,90]) strap();
+
+  translate([190,10]) rotate(90, [0,0,1]) bat_top_plate();
+  
+  //translate([160,0]) bat_top_plate();
+  //translate([400,0]) bat_spacer_plate();
+  //translate([335,100]) rotate(90,[0,0,1]) power_spacer();
+  //translate([335,25]) rotate(90,[0,0,1]) power_plate();
+}
+
+
+module realize2() {
+  translate([190,10]) rotate(90,[0,0,1]) bat_spacer_plate();
+  //translate([160,0]) bat_spacer_plate();
+  translate([40,50]) strap();
+  translate([40,70]) strap();
+  translate([40,90]) strap();
   translate([90,100]) rotate(90,[0,0,1]) power_spacer();
-  translate([90,35]) rotate(90,[0,0,1]) power_plate();
+  translate([130,55]) rotate(90,[0,0,1]) power_plate();
 }
 
 //realize0();
-
-realize1();
+//realize1();
+realize2();
 
