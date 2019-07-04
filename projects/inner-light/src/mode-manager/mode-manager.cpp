@@ -18,6 +18,43 @@
 #include <string>
 #include <vector>
 
+// t should be real time (increments of 1/30 to 1/60, say)
+// space should be maybe n_led / 10.
+// denominator factor (10 above) should maybe be in the range of
+// 1-100 but we'll have to play with it.
+// Here's the tentative plan:
+//   - use snoise2(x,t) to generate a value from [-1,1]
+//   - map the result [-1,1] to the color pallette
+//   - initially, lets try not interpolating adjacent (or groups of adjacent)
+//     leds
+// Here are some color pallettes that might work:
+//
+// "deep oil slick":
+//
+// #173f62 (23,63,98)
+// #5b8f99 (91,143,153)
+// #faab5c (250,171,92)
+// #bf3414 (191,52,20)
+// #851826 (133,24,38)
+//
+// "oil ocean"
+//
+// #0f0b38 (15,11,56)
+// #222858 (34,40,88)
+// #b825df (184,37,223)
+// #b6df5c (182,223,92)
+// #c5a74b (197,167,75)
+//
+// another oil slick raibow pallette:
+//
+// #e8bbc9  (232,187,201)
+// #9a3e82 (154,62,130)
+// #8cd1e0 (140,209,224)
+// #224a8e (34,74,142)
+// #d5773d (213,119,61)
+//
+#include "simplexnoise1234.h"
+
 //#include "RGBConverter.h"
 
 #define INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE "/home/pi/data/innerlight.led"
@@ -1751,7 +1788,7 @@ int main(int argc, char **argv) {
   g_mode.m_led_fn = led_fn;
 
 
-  printf("# connecting to mmap file %s (n:%i)\n", g_mode.m_led_fn.c_str(), g_mode.m_led_count);
+  printf("# connecting to mmap file %s (n:%i)\n", g_mode.m_led_fn.c_str(), (int)g_mode.m_led_count);
   ret = g_mode.led_mmap_fn(g_mode.m_led_fn.c_str());
   if (ret < 0) {
     fprintf(stderr, "could not mmap file %s, exiting\n", g_mode.m_led_fn.c_str());
