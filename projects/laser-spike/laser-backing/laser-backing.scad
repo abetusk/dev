@@ -36,7 +36,111 @@ strain_relief_hole_ds = 16;
 strain_relief_width = 20;
 strain_relief_height = 16;
 
+
+screw_r = 3/2;
+
+corner_r = 5;
+power_plate_corner_r = corner_r;
+power_plate_width = 56;
+power_plate_height = 34;
+
+power_button_w = 11.75;
+power_button_h = 18.5;
+
+
 FN=25;
+
+
+module _power_hole_lip() {
+  r = power_plate_corner_r;
+  w = power_plate_width - 2*r;
+  h = power_plate_height - 2*r;
+
+  hole_x = w/2;
+  hole_y = h/2;
+
+  wlip = w - 2*sqrt(2)*r;
+  hlip = h - 2*sqrt(2)*r;
+
+  hull() {
+    translate([-wlip/2, hlip/2]) circle(r, $fn=FN);
+    translate([ wlip/2, hlip/2]) circle(r, $fn=FN);
+    translate([ wlip/2,-hlip/2]) circle(r, $fn=FN);
+    translate([-wlip/2,-hlip/2]) circle(r, $fn=FN);
+  }
+
+}
+
+module power_spacer() {
+  r = power_plate_corner_r;
+  w = power_plate_width - 2*r;
+  h = power_plate_height - 2*r;
+
+  hole_x = w/2;
+  hole_y = h/2;
+
+  wlip = w - 2*sqrt(2)*r;
+  hlip = h - 2*sqrt(2)*r;
+
+  difference() {
+    union() {
+      hull() {
+        translate([-w/2, h/2]) circle(r, $fn=FN);
+        translate([ w/2, h/2]) circle(r, $fn=FN);
+      }
+      hull() {
+        translate([ w/2, h/2]) circle(r, $fn=FN);
+        translate([ w/2,-h/2]) circle(r, $fn=FN);
+      }
+      hull() {
+        translate([ w/2,-h/2]) circle(r, $fn=FN);
+        translate([-w/2,-h/2]) circle(r, $fn=FN);
+      }
+      hull() {
+        translate([-w/2,-h/2]) circle(r, $fn=FN);
+        translate([-w/2, h/2]) circle(r, $fn=FN);
+      }
+    }
+
+    _power_hole_lip();
+
+    translate([-hole_x, hole_y]) circle(screw_r, $fn=FN);
+    translate([ hole_x, hole_y]) circle(screw_r, $fn=FN);
+    translate([ hole_x,-hole_y]) circle(screw_r, $fn=FN);
+    translate([-hole_x,-hole_y]) circle(screw_r, $fn=FN);
+  }
+}
+
+module power_plate() {
+
+  r = power_plate_corner_r;
+  w = power_plate_width - 2*r;
+  h = power_plate_height - 2*r;
+
+  hole_x = w/2;
+  hole_y = h/2;
+
+  wlip = w - 2*sqrt(2)*r;
+  hlip = h - 2*sqrt(2)*r;
+
+  difference () {
+    hull() {
+      translate([-w/2, h/2]) circle(r, $fn=FN);
+      translate([ w/2, h/2]) circle(r, $fn=FN);
+      translate([ w/2,-h/2]) circle(r, $fn=FN);
+      translate([-w/2,-h/2]) circle(r, $fn=FN);
+    }
+
+    square([power_button_h, power_button_w], center=true);
+
+    translate([-hole_x, hole_y]) circle(screw_r, $fn=FN);
+    translate([ hole_x, hole_y]) circle(screw_r, $fn=FN);
+    translate([ hole_x,-hole_y]) circle(screw_r, $fn=FN);
+    translate([-hole_x,-hole_y]) circle(screw_r, $fn=FN);
+  }
+}
+
+
 
 module lzr_housing0_hull() {
   buf_diam = 8;
@@ -126,9 +230,24 @@ module pwm_hole() {
 module lzr_housing0_top() {
   pwm_t_x = 4.5 - 3.5/(sqrt(2)*2);
   pwm_t_y = 22 - 3.5/(sqrt(2)*2);
+  
+  r = power_plate_corner_r;
+  hole_x = power_plate_width/2 - r;
+  hole_y = power_plate_height/2 - r;
+  
   difference() {
     lzr_housing0_hull();
     lzr_housing0_hole();
+    
+    rotate(90, [0,0,1]) translate([140,-35]) _power_hole_lip();
+    rotate(90, [0,0,1]) 
+    translate([140,-35])
+    for (i = [0:1]) {
+      translate([-hole_x, hole_y]) circle(screw_r, $fn=FN);  
+      translate([ hole_x, hole_y]) circle(screw_r, $fn=FN);
+      translate([ hole_x,-hole_y]) circle(screw_r, $fn=FN);
+      translate([-hole_x,-hole_y]) circle(screw_r, $fn=FN);
+    };
     
     //translate([4.5,22]) pwm_hole();
     translate([pwm_t_x,pwm_t_y]) pwm_hole();
@@ -261,9 +380,12 @@ module placement2c() {
   translate([200,0]) rotate(90,[0,0,1]) lzr_housing0_top();
   translate([15,120]) rotate(90,[0,0,1]) strain_relief();
   translate([50,135]) strain_relief();
+  
+  translate([150,165]) power_spacer();
+  translate([50,165]) power_plate();
 }
 
-placement2a();
-//placement2c();
+//placement2a();
+placement2c();
 //placement2c();
 
