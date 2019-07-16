@@ -3,24 +3,21 @@
 #include <unistd.h>
 
 int main(int argc, char **argv) {
-  int a, b;
-  float f_a, f_b;
-
-  a = 0;
-  b = 0;
-  f_a = 0;
-  f_b = 0;
+  int astep=0, bstep=0, abutton=0, bbutton=0;
+  int nstep = 20;
 
   for (;;) {
 
-    printf("%i %f %i %f\n", a, f_a, b, f_b);
+    astep = rand()%nstep;
+    bstep = rand()%nstep;
+    abutton = rand()%2;
+    bbutton = rand()%2;
+
+
+    printf("%i %i %i %i\n",
+        astep, bstep,
+        abutton, bbutton);
     fflush(stdout);
-
-    a = rand()%2;
-    b = rand()%2;
-
-    f_a = (float)rand()/(RAND_MAX+1.0);
-    f_b = (float)rand()/(RAND_MAX+1.0);
 
     sleep(1);
   }
