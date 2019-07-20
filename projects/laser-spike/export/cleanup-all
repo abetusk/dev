@@ -32,6 +32,9 @@ function ngc_position {
   rm -f $tfn
 }
 
+./svg2ngc "laser-backing.svg"
+ngc_position "laser-backing.ngc"
+
 
 ./svg2ngc "laser-backing_a.svg"
 ./svg2ngc "laser-backing_b.svg"

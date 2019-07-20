@@ -381,8 +381,8 @@ module placement2c() {
   translate([15,120]) rotate(90,[0,0,1]) strain_relief();
   translate([50,135]) strain_relief();
   
-  translate([150,165]) power_spacer();
-  translate([50,165]) power_plate();
+  translate([230,105]) rotate(90, [0,0,1]) power_spacer();
+  translate([230,30]) rotate(90, [0,0,1]) power_plate();
 }
 
 //placement2a();
