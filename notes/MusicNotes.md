@@ -372,6 +372,34 @@ shares an extreme chord note.
 For example, the beginning chord is `[c5,d#5,g5]` and ending chord is `[d#5,g5,a#5]` and the starting and
 stopping melody notes are `c7` and `a#6` respectively.
 
+---
+
+For modern music, pop music in particular, the melody rhythm is meant to be used on top of lyrics that are sung.
+Even for older music there's a bias towards music that is accompanied by a human voice singing with it.
+This leads to a hypothesis that the melody rhythm should closely match the pacing of speech.
+
+There's [some research](https://github.com/abetusk/papers/blob/release/Music/rythm-music_Patel_Daniel.pdf) to suggest
+that language can influence structure of music.
+If this were true, different languages might have different types of melody.
+
+For example, one could settle on a 'one quarter note per word' model, splitting quarter notes into smaller notes depending
+on how many syllables there were in a word, adding pauses for commas and new sentences, etc.
+This assumes that all syllables are of equal length and one could imagine more complex models that take into account the different
+syllable lengths or pairings.
+
+This theory only defers understanding of melody rhythm by deferring to language structure, but, in my opinion,
+language structure is much better understood and studied.
+From what I remember this is more in line with a heavy tailed distribution that
+can be explained by [simple generative models](https://github.com/abetusk/papers/blob/release/Probability/1089229510-mitzemacher.pdf).
+The simple models might be good for giving a gross overview or large scale structure but might not be good
+for picking out small scale structure.
+
+One thought on a 'practical' guide to choosing rhythm melody in a more generative way is to take a corpus, split each sentence
+into it's syllables and choose rhythm based on that with the above 'one quarter note per word, quarter note split by syllable'
+method described above.
+
+No doubt melody rhythm is much more complex than this simplistic view but, from my perspective, it's enlightening as it
+gives some motivation for why certain rhythms might sound better than others.
 
 
 Simple Algorithms
@@ -594,6 +622,7 @@ Melody References
 * [musictheory.net: Common Chord Progressions](https://www.musictheory.net/lessons/57)
 * [Dylan Laine - How To Write A Melody](https://youtu.be/qlrLHhpp8-E)
 * [David Steward - How to Write a Melody](https://youtu.be/ktq_gOZU2VU)
+* ["An empirical comparison of rhythm in language and music" by Aniruddh D. Patel and Joseph R. Daniele](https://github.com/abetusk/papers/blob/release/Music/rythm-music_Patel_Daniel.pdf)
 
 Music Theory References
 ---
