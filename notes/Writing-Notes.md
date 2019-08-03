@@ -18,6 +18,7 @@ Michael Hauge (screenwriting)
 | (90-90%)-100% | Aftermath | The new normal | III |
 
 
+
 Eric Edson (screenwriting)
 ---
 
@@ -43,8 +44,20 @@ something that puts an end to the current pursuit and offers a new single, physi
 
 "Standard" is 21 "hero goal sequences".
 
+Misc
+---
+
+* Have an active protagonist that participates and makes choices about their fate instead of having things just
+  happen to them.
+* Make a protagonist that has clear visible goals
+* (Maybe only for comedies) have protagonist have learning moments where initial goal changes
+* Each minute shoul dhave ticking clocks, reaising stakes, good news / bad news
+* Need peaks and valleys of intensity
+* Protagonist should have flaws, should have sympathy for antagonist
+
 References
 ---
 
 * [Screenwriting Plot Structure Masterclass - Michael Hauge](https://youtu.be/besI6G4p4nw)
 * [The Story Solution - 23 Actions All Great Heroes Must Take - Eric Edson](https://youtu.be/IdhJ3UGcm_Y)
+* [29 Screenwriting Mistakes](https://youtu.be/gyFHlxdOSsw)
