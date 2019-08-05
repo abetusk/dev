@@ -21,6 +21,12 @@ Note: "The Losers are not social losers (as in the opposite of “cool”), but 
 
 [Source](https://www.ribbonfarm.com/2009/10/07/the-gervais-principle-or-the-office-according-to-the-office/)
 
+### Gilder's Law
+
+> Bandwidth grows at least three times faster than computer power
+
+[Source](https://www.netlingo.com/word/gilders-law.php)
+
 ### Metcalfe's Law
 
 > The effect of a telecommunications network is proportional to the square of the number of connected users of the system.
