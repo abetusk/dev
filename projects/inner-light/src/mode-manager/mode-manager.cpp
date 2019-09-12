@@ -321,6 +321,8 @@ typedef struct inner_light_mode_type {
   int tick_rainbow(void);
   int tick_transition(void);
 
+  int tick_oil(void);
+
   int tick_tap_pulse(void);
   int tick_mic_pulse(void);
   int tick_tap_bullet(void);
@@ -1348,6 +1350,72 @@ int inner_light_mode_type::tick_rainbow(void) {
     m_rgb_buf[3*i+2] = (unsigned char)_g;
     m_rgb_buf[3*i+3] = (unsigned char)_b;
   }
+
+  return 0;
+}
+
+int inner_light_mode_type::tick_oil(void) {
+  int i, p_del = 1, idx;
+  unsigned char _r, _g, _b;
+
+  float M = 8.0, m = 0.0;
+  float f, x, dt = 1.0/64.0;
+  static float cur_t = 0.0;
+
+  int n_color_map = 5;
+
+  // deep oil slick rainbow color palette
+  //
+  unsigned char color_map[] =
+    { 23, 63, 98,
+      91,143,153,
+      250,171,92,
+      191,52,20,
+      133,24,38 };
+
+  // oil ocean color palette
+  //
+  unsigned char color_map1[] =
+    { 15,11,56,
+      32,40,88,
+      184,37,223,
+      182,223,92,
+      197,167,75 };
+
+  // oil slick rainbow color palette
+  //
+  unsigned char color_map2[] =
+    { 232,187,201,
+      154,62,130,
+      140,209,224,
+      34,74,142,
+      213,119,61 };
+
+
+  // encoder position sets 'velocity' of
+  // rainbow
+  //
+  p_del = m_encoder_pos[0];
+
+
+  for (i=0; i<m_led_count; i++) {
+    x = (float)i/(float)m_led_count;
+    f = snoise2(x,cur_t);
+
+    idx = (int)((float)n_color_map*f);
+    if (idx < 0) { idx = 0; }
+    if (idx >= n_color_map) { idx = n_color_map-1; }
+
+    _r = color_map[3*idx];
+    _g = color_map[3*idx+1];
+    _b = color_map[3*idx+2];
+
+    m_rgb_buf[3*i+1] = (unsigned char)_r;
+    m_rgb_buf[3*i+2] = (unsigned char)_g;
+    m_rgb_buf[3*i+3] = (unsigned char)_b;
+  }
+
+  cur_t += dt;
 
   return 0;
 }
