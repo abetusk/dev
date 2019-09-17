@@ -1,0 +1,605 @@
+/*
+ * Copyright (c) 2019 abetusk
+ *
+ * This software is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this software.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ */
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background: #efefef;
+  color: hsl(240,30,10);
+  letter-spacing: 0.125em;
+  text-align: center;
+  /* text-transform: uppercase; */
+
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+
+	/* overflow: hidden; */
+}
+
+h1 {
+  margin: 3em 0 2em;
+}
+
+p:focus {
+  border:0;
+}
+
+.row {
+  height: 80px;
+}
+
+.col {
+  width: 80px;
+}
+
+.box {
+  font-size: 22px;
+  font-weight: bold;
+  color: #444444;
+
+  margin-top: 15px;
+  margin-right: auto;
+  margin-left: auto;
+
+  background: none;
+  border: solid 2px #888888;
+
+  width: 128px;
+  height:50px;
+
+}
+
+.box:focus {
+  outline:0;
+}
+
+.bdisp {
+
+  font-size: 20px;
+  font-weight: bold;
+  color: #444444;
+
+  margin-top: 15px;
+  margin-right: 15px;
+  margin-left: auto;
+
+  background: none;
+  border: none;
+}
+
+.bdisp:focus {
+  outline:0;
+}
+
+
+.bmsg {
+
+  font-size: 20px;
+  font-weight: bold;
+  color: #444444;
+
+  background: #ADD8E6;
+  border: solid 2px #888888;
+  box-shadow: 3px 3px 0px #aaaaaa;
+
+}
+
+.bmsg:focus {
+  outline:0;
+}
+
+.bstatus {
+
+  font-size: 20px;
+  font-weight: bold;
+  color: #444444;
+
+  border: solid 2px #888888;
+  box-shadow: 3px 3px 0px #aaaaaa;
+
+}
+
+.bstatus:focus {
+  outline:0;
+}
+
+
+.bdrop {
+
+  /* font-size: 15px; */
+  font-size: 19px;
+  font-weight: bold;
+  color: #444444;
+
+  background: none;
+  border: solid 2px #888888;
+  box-shadow: 3px 3px 0px #aaaaaa;
+
+}
+
+.bdrop:focus {
+  outline:0;
+}
+
+
+.bdropinp {
+
+  font-size: 22px;
+  font-weight: bold;
+  color: #444444;
+
+  background: none;
+  border: solid 2px #888888;
+  box-shadow: 3px 3px 0px #aaaaaa;
+
+  -webkit-transition: margin-left 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  -moz-transition: margin-left 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  transition: margin-left 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.bdropinp.ltyellow {
+  background: #ffffe0;
+}
+
+.bdropinp.mny {
+  color: #446444;
+}
+
+.bdropinp.logout {
+  color: #aa4444;
+}
+
+.bdropinp.highlight {
+  background: #aaaaff;
+}
+
+
+.bdropinp:focus {
+  outline:0;
+}
+
+.bdropinp:active {
+  margin-left:9px;
+  background: #aaaaaa;
+
+  -webkit-transition: margin-left 0.05s ease, box-shadow 0.05s ease, background 0.05s ease;
+  -moz-transition: margin-left 0.05s ease, box-shadow 0.05s ease, background 0.05s ease;
+  transition: margin-left 0.05s ease, box-shadow 0.05s ease, background 0.05s ease;
+
+  -webkit-box-shadow: 0px 0px 0px #8e44ad;
+  -moz-box-shadow: 0px 0px 0px #8e44ad;
+  box-shadow: 0px 0px 0px #8e44ad;
+}
+
+/***********/
+
+.bkey {
+  width: 75px;
+  height:75px;
+}
+
+.bkey:focus {
+  outline:0;
+}
+
+.bkeym {
+  width: 100px;
+  height:58px;
+}
+
+.bkeym:focus {
+  outline:0;
+}
+
+/*****/
+
+.bkeyw {
+  width: 150px;
+  height:58px;
+}
+
+.bkeyw:focus {
+  outline:0;
+}
+
+/*****/
+
+.bkeyHuge {
+  width: 120px;
+  height:120px;
+}
+
+.bkeyHuge:focus {
+  outline:0;
+}
+
+/*****/
+
+.bfieldinp {
+  width: 150px;
+  height: 58px;
+}
+
+.bfieldinp:focus {
+  outline:0;
+}
+
+/*****/
+
+.btnprv {
+  position: absolute;
+  left: 83%;
+  top: 5%;
+}
+
+.btnnxt {
+  position: absolute;
+  left: 83%;
+  top: 35%;
+}
+
+/*****/
+
+.rowmain0 {
+  position: absolute;
+  top: 50%;
+}
+
+.rowmain1 {
+  position: absolute;
+  top: 70%;
+}
+
+/*
+
+taken from https://codepen.io/magnificode/pen/ojYJJP/
+
+*/
+
+/*
+body, html {
+  background: #efefef;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+  z-index: -1;
+}
+*/
+
+.togbtn {
+  /* border: 3px solid #1a1a1a; */
+  border: 3px solid #555555;
+  display: inline-block;
+  padding: 10px;
+  position: relative;
+  text-align: center;
+  transition: background 600ms ease, color 600ms ease;
+
+  /*
+  line-height: 100px;
+  */
+}
+
+input[type="radio"].toggle {
+  display: none;
+}
+input[type="radio"].toggle + label {
+  cursor: pointer;
+  /* min-width: 60px; */
+
+  min-width: 30%;
+  min-height: 30%;
+
+  /*
+  min-width: 100px;
+  min-height: 100px;
+  */
+
+}
+input[type="radio"].toggle + label:hover {
+  background: none;
+  /* color: #1a1a1a; */
+  color: #555555;
+}
+input[type="radio"].toggle + label:after {
+  /* background: #1a1a1a; */
+  background: #555555;
+  content: "";
+  height: 100%;
+  position: absolute;
+  top: 0;
+  transition: left 200ms cubic-bezier(0.77, 0, 0.175, 1);
+  width: 100%;
+  z-index: -1;
+}
+input[type="radio"].toggle.toggle-left + label {
+  border-right: 0;
+}
+input[type="radio"].toggle.toggle-left + label:after {
+  left: 100%;
+}
+input[type="radio"].toggle.toggle-right + label {
+  margin-left: -5px;
+}
+input[type="radio"].toggle.toggle-right + label:after {
+  left: -100%;
+}
+input[type="radio"].toggle:checked + label {
+  cursor: default;
+  color: #fff;
+  transition: color 200ms;
+}
+input[type="radio"].toggle:checked + label:after {
+  left: 0;
+}
+
+
+/*
+ * https://codepen.io/noahblon/pen/OyajvN
+ */
+
+/*
+body {
+    height: 100vh;
+    margin: 0;
+    display: flex;
+}
+*/
+
+input[type="range"] { 
+    margin: auto;
+    -webkit-appearance: none;
+    position: relative;
+    overflow: hidden;
+    height: 40px;
+    width: 200px;
+    cursor: pointer;
+    border-radius: 0; /* iOS */
+}
+
+input[type="range"].wide { 
+    width: 400px;
+}
+
+input[type="range"]:focus { 
+  outline:none;
+}
+
+::-webkit-slider-runnable-track {
+    background: #ddd;
+}
+
+/*
+ * 1. Set to 0 width and remove border for a slider without a thumb
+ */
+::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px; /* 1 */
+    height: 40px;
+    background: #fff;
+    /* box-shadow: -100vw 0 0 100vw dodgerblue; */
+    box-shadow: -100vw 0 0 100vw #555555;
+    border: 2px solid #999; /* 1 */
+}
+
+::-moz-range-track {
+    height: 40px;
+    background: #ddd;
+}
+
+::-moz-range-thumb {
+    background: #fff;
+    height: 40px;
+    width: 20px;
+    border: 3px solid #999;
+    border-radius: 0 !important;
+    box-shadow: -100vw 0 0 100vw #555555;
+    box-sizing: border-box;
+}
+
+::-ms-fill-lower { 
+    background: #555555;
+}
+
+::-ms-thumb { 
+    background: #fff;
+    border: 2px solid #999;
+    height: 40px;
+    width: 20px;
+    box-sizing: border-box;
+}
+
+::-ms-ticks-after { 
+    display: none; 
+}
+
+::-ms-ticks-before { 
+    display: none; 
+}
+
+::-ms-track { 
+    background: #ddd;
+    color: transparent;
+    height: 40px;
+    border: none;
+}
+
+::-ms-tooltip { 
+    display: none;
+}
+
+/****/
+
+/*
+https://codepen.io/ibrahimjabbari/pen/ozinB
+*/
+
+hr.style1 {
+  border-top: 1px solid #8c8b8b;
+}
+
+hr.style2 {
+  border-top: 3px double #8c8b8b;
+}
+
+hr.style3 {
+  border-top: 1px dashed #8c8b8b;
+}
+
+hr.style4 {
+  border-top: 1px dotted #8c8b8b;
+}
+
+hr.style5 {
+  background-color: #fff;
+  border-top: 2px dashed #8c8b8b;
+}
+
+hr.style6 {
+  background-color: #fff;
+  border-top: 2px dotted #8c8b8b;
+}
+
+hr.style7 {
+  border-top: 1px solid #8c8b8b;
+  border-bottom: 1px solid #fff;
+}
+
+hr.style8 {
+  border-top: 1px solid #8c8b8b;
+  border-bottom: 1px solid #fff;
+}
+hr.style8:after {
+  content: "";
+  display: block;
+  margin-top: 2px;
+  border-top: 1px solid #8c8b8b;
+  border-bottom: 1px solid #fff;
+}
+
+hr.style9 {
+  border-top: 1px dashed #8c8b8b;
+  border-bottom: 1px dashed #fff;
+}
+
+hr.style10 {
+  border-top: 1px dotted #8c8b8b;
+  border-bottom: 1px dotted #fff;
+}
+
+hr.style11 {
+  height: 6px;
+  background: url(http://ibrahimjabbari.com/images/hr-11.png) repeat-x 0 0;
+  border: 0;
+}
+
+hr.style12 {
+  height: 6px;
+  background: url(http://ibrahimjabbari.com/images/hr-12.png) repeat-x 0 0;
+  border: 0;
+}
+
+hr.style13 {
+  height: 10px;
+  border: 0;
+  box-shadow: 0 10px 10px -10px #8c8b8b inset;
+}
+
+hr.style14 {
+  border: 0;
+  height: 1px;
+  background-image: -webkit-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+  background-image: -moz-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+  background-image: -ms-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+  background-image: -o-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+}
+
+hr.style15 {
+  border-top: 4px double #8c8b8b;
+  text-align: center;
+}
+hr.style15:after {
+  content: "\002665";
+  display: inline-block;
+  position: relative;
+  top: -15px;
+  padding: 0 10px;
+  background: #f0f0f0;
+  color: #8c8b8b;
+  font-size: 18px;
+}
+
+hr.style16 {
+  border-top: 1px dashed #8c8b8b;
+}
+hr.style16:after {
+  content: "\002702";
+  display: inline-block;
+  position: relative;
+  top: -12px;
+  left: 40px;
+  padding: 0 3px;
+  background: #f0f0f0;
+  color: #8c8b8b;
+  font-size: 18px;
+}
+
+hr.style17 {
+  border-top: 1px solid #8c8b8b;
+  text-align: center;
+}
+hr.style17:after {
+  content: "§";
+  display: inline-block;
+  position: relative;
+  top: -14px;
+  padding: 0 10px;
+  background: #f0f0f0;
+  color: #8c8b8b;
+  font-size: 18px;
+  -webkit-transform: rotate(60deg);
+  -moz-transform: rotate(60deg);
+  transform: rotate(60deg);
+}
+
+hr.style18 {
+  height: 30px;
+  border-style: solid;
+  border-color: #8c8b8b;
+  border-width: 1px 0 0 0;
+  border-radius: 20px;
+}
+hr.style18:before {
+  display: block;
+  content: "";
+  height: 30px;
+  margin-top: -31px;
+  border-style: solid;
+  border-color: #8c8b8b;
+  border-width: 0 0 1px 0;
+  border-radius: 20px;
+}
+
