@@ -9,8 +9,9 @@ var g_innerlight = {
   "mic_tap":"mic",
   "tempo_bpm":120,
   "option_value": 0,
-
-
+  "color_fg":[0,0,0],
+  "color_bg":[255,255,255],
+  "color_map": [ [255,211,25] , [255,144,31] , [255,41,117] , [242,34,255] , [140,30,255] ]
 };
 
 function _mode(val) {
