@@ -4,42 +4,265 @@
  */
 
 var g_innerlight = {
+  "mode_index": 0,
   "mode":"on",
-  "modes": ["on", "x"],
+  "modes": ["solid", "solid_color",
+            "tap_pulse", "tap_bullet", "tap_strobe",
+            "fill", "strobe", "pulse", "rainbow",
+            "mic_strobe", "mic_bullet", "mic_pulse" ],
   "mic_tap":"mic",
   "tempo_bpm":120,
   "option_value": 0,
+
+  "tap_bpm_min" : 60.0,
+  "tap_bpm_max" : 260.0,
+
+
+  "tap_bpm" : 120.0,
+  "tap_progression_numerator" : 0,
+  "tap_progression_denominator" : 12,
+  "tap_progression_cancel_ms" : 2000,
+  "tap_progression_last_ms" : -1,
+  "tap_progression_time" : [],
+  "tap_progression_timout" : null,
+
   "color_fg":[0,0,0],
   "color_bg":[255,255,255],
   "color_map": [ [255,211,25] , [255,144,31] , [255,41,117] , [242,34,255] , [140,30,255] ]
 };
 
+function _clamp_bpm() {
+  if (g_innerlight.tap_bpm < g_innerlight.tap_bpm_min) {
+    g_innerlight.tap_bpm = g_innerlight.tap_bpm_min;
+  }
+
+  if (g_innerlight.tap_bpm > g_innerlight.tap_bpm_max) {
+    g_innerlight.tap_bpm = g_innerlight.tap_bpm_max;
+  }
+
+  return g_innerlight.tap_bpm;
+}
+
 function _mode(val) {
   console.log(">>mode", val);
+
+  var n = g_innerlight.modes.length;
+  var idx = 0;
+
+  idx = g_innerlight.mode_index;
+  if (val>0) {
+    idx += 1;
+  }
+  else if (val<0) {
+    idx += 1;
+  }
+
+  idx = (idx + n)%n;
+  g_innerlight.mode_index = idx;
+  g_innerlight.mode = g_innerlight.modes[idx];
+
+
+  if (/^tap_/.test(g_innerlight.mode)) {
+    var radio_ele = document.getElementById("ui_mic_select");
+    radio_ele.checked = false;
+    radio_ele = document.getElementById("ui_tap_select");
+    radio_ele.checked = true;
+  }
+  else if (/^mic_/.test(g_innerlight.mode)) {
+    var radio_ele = document.getElementById("ui_mic_select");
+    radio_ele.checked = true;
+    radio_ele = document.getElementById("ui_tap_select");
+    radio_ele.checked = false;
+  }
+
+  var ele = document.getElementById("ui_mode");
+  ele.innerHTML = g_innerlight.mode;
+
 }
 
-function _mic() {
-  console.log(">>mic");
+function _tap_select() {
+  console.log(">>tap select");
+
+  var m = g_innerlight.mode;
+  if (/^mic_/.test(m)) {
+    m = m.replace(/^mic_/, "tap_");
+  }
+
+  var idx=0;
+  for (idx=0; idx<g_innerlight.modes.length; idx++) {
+    if (g_innerlight.modes[idx] == m) { break; }
+  }
+  if (idx == g_innerlight.modes.length) { return; }
+
+  g_innerlight.mode_index = idx;
+  g_innerlight.mode = g_innerlight.modes[idx];
+
+  var ele = document.getElementById("ui_mode");
+  ele.innerHTML = g_innerlight.mode;
+
 }
 
-function _tap() {
+function _mic_select() {
+  console.log(">>mic select", g_innerlight.mode);
+
+  var m = g_innerlight.mode;
+  if (/^tap_/.test(m)) {
+    m = m.replace(/^tap_/, "mic_");
+  }
+
+  var idx=0;
+  for (idx=0; idx<g_innerlight.modes.length; idx++) {
+    if (g_innerlight.modes[idx] == m) { break; }
+  }
+  if (idx == g_innerlight.modes.length) { return; }
+
+  g_innerlight.mode_index = idx;
+  g_innerlight.mode = g_innerlight.modes[idx];
+
+  var ele = document.getElementById("ui_mode");
+  ele.innerHTML = g_innerlight.mode;
+
+
+}
+
+function _calc_bpm(dta) {
+  var del_t = [];
+
+  if (dta.length < 2) { return -1.0; }
+
+  var ms_avg = 0;
+  for (var ii=1; ii<dta.length; ii++) {
+    ms_avg += (dta[ii] - dta[ii-1]);
+  }
+  ms_avg /= (dta.length-1);
+
+  if (ms_avg < 1.0) { return -1.0; }
+  return 60*1000/ms_avg;
+}
+
+function _tap_cancel() {
+
+  console.log(">>cancel");
+
+  if (g_innerlight.tap_progression_timeout !== null) {
+    clearTimeout(g_innerlight.tap_progression_timeout);
+    g_innerlight.tap_progression_timeout = null;
+  }
+
+  g_innerlight.tap_progression_last_ms = -1;
+  g_innerlight.tap_progression_time = [ ];
+  g_innerlight.tap_progression_numerator = 0;
+
+  var ele = document.getElementById("ui_tap_progression_numerator");
+  ele.innerHTML = "0";
+}
+
+function _tap_commit() {
+  if (g_innerlight.tap_progression_timeout !== null) {
+    clearTimeout(g_innerlight.tap_progression_timeout);
+    g_innerlight.tap_progression_timeout = null;
+  }
+
+  g_innerlight.tap_bpm = _calc_bpm(g_innerlight.tap_progression_time);
+  _clamp_bpm();
+
+  g_innerlight.tap_progression_last_ms = -1;
+  g_innerlight.tap_progression_time = [ ];
+  g_innerlight.tap_progression_numerator = 0;
+
+  var ele = document.getElementById("ui_tap_slider");
+  ele.value = Math.round(g_innerlight.tap_bpm);
+
+  var ele = document.getElementById("ui_tap_bpm");
+  ele.innerHTML = Math.round(g_innerlight.tap_bpm*100)/100;
+}
+
+function _tap_button() {
+  var dt = new Date();
   console.log(">>tap");
+
+  if (g_innerlight.tap_progression_timeout !== null) {
+    clearTimeout(g_innerlight.tap_progression_timeout);
+    g_innerlight.tap_progression_timeout = null;
+  }
+
+  var t_ms = dt.getTime();
+  if (g_innerlight.tap_progression_last_ms < 0) {
+
+    console.log("cpa");
+
+    g_innerlight.tap_progression_last_ms = t_ms;
+    g_innerlight.tap_progression_time = [ t_ms ];
+    g_innerlight.tap_progression_numerator = 1;
+  }
+  else {
+
+    console.log("cpb");
+
+    g_innerlight.tap_progression_last_ms = t_ms;
+    g_innerlight.tap_progression_time.push(t_ms);
+    g_innerlight.tap_progression_numerator+=1;
+  }
+
+  var ele = document.getElementById("ui_tap_progression_numerator");
+  ele.innerHTML = g_innerlight.tap_progression_numerator;
+
+  if (g_innerlight.tap_progression_numerator >= 12) {
+    console.log("cpc");
+    _tap_commit();
+
+  }
+  else {
+    console.log("cpd");
+
+    g_innerlight.tap_progression_timeout =
+      setTimeout(
+          function() { _tap_cancel(); },
+          g_innerlight.tap_progression_cancel_ms
+          );
+  }
+
+
 }
 
 function _tap_add() {
   console.log(">>tap add");
+
+  g_innerlight.tap_bpm += 1.0;
+  _clamp_bpm();
+
+  var ele = document.getElementById("ui_tap_slider");
+  ele.value = Math.round(g_innerlight.tap_bpm);
+
+  var ele = document.getElementById("ui_tap_bpm");
+  ele.innerHTML = Math.round(g_innerlight.tap_bpm*100)/100;
 }
 
 function _tap_sub() {
   console.log(">>tap sub");
+
+  g_innerlight.tap_bpm -= 1.0;
+  _clamp_bpm();
+
+  var ele = document.getElementById("ui_tap_slider");
+  ele.value = Math.round(g_innerlight.tap_bpm);
+
+  var ele = document.getElementById("ui_tap_bpm");
+  ele.innerHTML = Math.round(g_innerlight.tap_bpm*100)/100;
+
 }
 
 function _tap_slider(inp) {
   console.log(">>tap slider");
-}
 
-function _tap_button() {
-  console.log(">>tap button");
+  var ele = document.getElementById("ui_tap_slider");
+  console.log(ele.value);
+
+  g_innerlight.tap_bpm = parseFloat(ele.value);
+  _clamp_bpm();
+
+  ele = document.getElementById("ui_tap_bpm");
+  ele.innerHTML = Math.round(g_innerlight.tap_bpm*100)/100;
 }
 
 function _option_slider(inp) {
@@ -156,6 +379,13 @@ function _color_preset(val) {
   console.log(">>color preset", val);
 }
 
+function _init_load() {
+  _color_preset(0);
+  var ele = document.getElementById("ui_tap_bpm");
+  ele.innerHTML = Math.round(g_innerlight.tap_bpm*100)/100;
+  _mode(0);
+}
+
 function _wait_and_load(ele_id, val, cb) {
   var ele = document.getElementById(ele_id);
   if (val in ele) {
@@ -167,7 +397,8 @@ function _wait_and_load(ele_id, val, cb) {
 }
 
 function _init() {
-  _wait_and_load("ui_color0", "jscolor", function() { _color_preset(0); });
+  //_wait_and_load("ui_color0", "jscolor", function() { _color_preset(0); });
+  _wait_and_load("ui_color0", "jscolor", _init_load);
   //_color_preset(0);
 }
 

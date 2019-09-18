@@ -71,7 +71,28 @@ p:focus {
 
 }
 
+.box-s {
+  font-size: 1em;
+  font-weight: bold;
+  color: #444444;
+
+  margin-top: 15px;
+  margin-right: auto;
+  margin-left: auto;
+
+  background: none;
+  border: solid 2px #888888;
+
+  width: 80px;
+  height:25px;
+
+}
+
 .box:focus {
+  outline:0;
+}
+
+.box-s:focus {
   outline:0;
 }
 

@@ -24,22 +24,25 @@
 
       <hr class='style11'>
 
-      <div class='pure-g row'>
+      <div class='pure-g row' style='height:120px;'>
 
-        <div class='pure-u-1-4 col'>
+        <div class='pure-u-1-3 col'>
           <button class='bdropinp bkey' id='ui_mode_left' onclick='_mode(-1);'>&lt;</button>
         </div>
 
-        <div class='pure-u-1-4 col'>
-          <br>
+        <div class='pure-u-1-3 col'>
           <span style='font-size:2em; font-weight:bold; color:#555555;'>Mode</span>
+          <br>
+
+          <!--
+        </div>
+        <div class='pure-u-1-4 col'>
+          -->
+
+          <button class="box" id='ui_mode' style='color:#444444; width:150px; background-color:#dddddd;'>XXX</button>
         </div>
 
-        <div class='pure-u-1-4 col'>
-          <button class="box" id='ui_tap_bpm' style='color:#444444;'>XXX</button>
-        </div>
-
-        <div class='pure-u-1-4 col'>
+        <div class='pure-u-1-3 col'>
           <button class='bdropinp bkey' id='ui_mode_left' onclick='_mode(+1);'>&gt;</button>
         </div>
 
@@ -60,9 +63,27 @@
       </div>
 
       <div class='pure-g row' style='height:140px;'>
-        <div class='pure-u-1 col'>
+
+        <div class='pure-u-1-3 col'></div>
+        <div class='pure-u-1-3 col'>
           <button class='bdropinp bkeyHuge' id='ui_tap_button' onclick='_tap_button();'></button>
         </div>
+        <div class='pure-u-1-3 col'>
+          <button class="box-s" id='ui_tap_progression' style='color:#444444; font-size:1em;'>
+
+            <div class='pure-g row'>
+              <div class='pure-u-1-3 col' id='ui_tap_progression_numerator'>12</div>
+              <div class='pure-u-1-3 col'>/</div>
+              <div class='pure-u-1-3 col' id='ui_tap_progression_denominator'>12</div>
+            </div>
+          </button>
+              <!--
+            <span style='float:left;'>1</span>
+            <span style='float:middle;'>/</span>
+            <span style='float:right;'>12</span></button>
+          -->
+        </div>
+
       </div>
 
       <br>
@@ -73,22 +94,20 @@
 
 
         <div class='pure-u-1-3 col'>
-          <input id="toggle-on" class="toggle toggle-left" name="toggle" value="false" type="radio" onclick='_mic();' checked>
-          <label for="toggle-on" class="togbtn">Mic</label>
+          <input id="ui_mic_select" class="toggle toggle-left" name="toggle" value="false" type="radio" onclick='_mic_select();' checked>
+          <label for="ui_mic_select" class="togbtn">Mic</label>
 
-          <input id="toggle-off" class="toggle toggle-right" name="toggle" value="true" onclick='_tap();'  type="radio">
-          <label for="toggle-off" class="togbtn">Tap</label>
+          <input id="ui_tap_select" class="toggle toggle-right" name="toggle" value="true" onclick='_tap_select();'  type="radio">
+          <label for="ui_tap_select" class="togbtn">Tap</label>
         </div>
 
 
         <div class='pure-u-1-3 col' style='text-align:center;'>
-          <!-- <button class="bdrop bfieldinp" id='ui_tap_bpm'>...</button> -->
-          <button class="box" id='ui_tap_bpm' style='color:#444444;'>123</button>
-          <!-- <button class='bdrop' style='color:#555555;' >Tap Tempo</button> -->
+          <button class="box" id='ui_tap_bpm' style='color:#444444; background-color:#dddddd;'>x</button>
           <br>
           <br>
           <br>
-          <input id='ui_tap_slider' type='range' value='123' min="60" max="160" step="1" onchange='_tap_slider("change");' oninput='_tap_slider("input");' >
+          <input id='ui_tap_slider' type='range' value='120' min="60" max="260" step="1" onchange='_tap_slider("change");' oninput='_tap_slider("input");' >
         </div>
 
         <div class='pure-u-1-3 col'>
