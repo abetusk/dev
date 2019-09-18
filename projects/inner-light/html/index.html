@@ -3,6 +3,7 @@
   <head>
     <link rel='stylesheet' href='css/styles.css'>
     <link rel='stylesheet' href='css/pure-min.css'>
+    <link rel='stylesheet' href='css/animate.css'>
     <script src="js/jscolor.js"></script>
   </head>
 
@@ -43,7 +44,7 @@
         </div>
 
         <div class='pure-u-1-3 col'>
-          <button class='bdropinp bkey' id='ui_mode_left' onclick='_mode(+1);'>&gt;</button>
+          <button class='bdrop bkey' id='ui_mode_left' onclick='_mode(+1);'>&gt;</button>
         </div>
 
       </div>
@@ -159,13 +160,49 @@
       <br>
       <hr class='style5'>
       <br>
+
+      <div class='pure-g row' style='height:50px;'>
+        <div class='pure-u-1 col'>
+          <span style='font-weight:bold; font-size:2em; color:#555555;'>Color</span>
+        </div>
+
+      </div>
+
+
+      <div class='pure-g row' style='height:175px;'>
+        <div class='pure-u-1-2  col'>
+          <button id='ui_color_bg' class="jscolor {onFineChange:'_color_primary(\'bg\',this)', width:300, height:300, valueElement: null, value:'000000' } bdropinp bkeyHuge">
+          </button>
+          <br>
+          <br>
+          <span style='font-weight:bold; font-size:1.3em; color:#555555;'>background</span>
+        </div>
+
+
+        <div class='pure-u-1-2  col'>
+          <button id='ui_color_fg' class="jscolor {onFineChange:'_color_primary(\'fg\',this)', width:300, height:300, valueElement: null, value:'ffffff' } bdropinp bkeyHuge">
+          </button>
+          <br>
+          <br>
+          <span style='font-weight:bold; font-size:1.3em; color:#555555;'>foreground</span>
+        </div>
+
+
+      </div>
+
+
+      <!-- -->
+
+      <br>
+      <hr class='style5'>
+      <br>
       <br>
 
       <!-- -->
 
       <div class='pure-g row'>
         <div class='pure-u-1 col'>
-          <span style='font-weight:bold; font-size:2em; color:#555555;'>Color Picker</span>
+          <span style='font-weight:bold; font-size:2em; color:#555555;'>Palette</span>
         </div>
 
       </div>

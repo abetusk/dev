@@ -225,6 +225,19 @@ p:focus {
   outline:0;
 }
 
+/***********/
+
+.bkeyMedium {
+  width: 100px;
+  height:100px;
+}
+
+.bkeyMedum:focus {
+  outline:0;
+}
+
+/***********/
+
 .bkeym {
   width: 100px;
   height:58px;

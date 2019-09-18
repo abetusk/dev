@@ -3,7 +3,13 @@
  *
  */
 
+
+//-------------
+
 var g_innerlight = {
+
+  "url" : "http://localhost:8080/req",
+
   "mode_index": 0,
   "mode":"on",
   "modes": ["solid", "solid_color",
@@ -12,7 +18,7 @@ var g_innerlight = {
             "mic_strobe", "mic_bullet", "mic_pulse" ],
   "mic_tap":"mic",
   "tempo_bpm":120,
-  "option_value": 0,
+  "option_value": 15,
 
   "tap_bpm_min" : 60.0,
   "tap_bpm_max" : 260.0,
@@ -30,6 +36,58 @@ var g_innerlight = {
   "color_bg":[255,255,255],
   "color_map": [ [255,211,25] , [255,144,31] , [255,41,117] , [242,34,255] , [140,30,255] ]
 };
+
+function _send_api_req(data_obj) {
+  var data_str = "";
+  for (var _key in data_obj) {
+    if (data_str.length > 0) { data_str += "&"; }
+    data_str += _key + "=" + data_obj[_key];
+  }
+
+  console.log(">> send_api_req", data_str);
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", g_innerlight.url, true);
+  xhr.setRequestHeader('Content-Type', "application/x-www-form-urlencoded; charset=UTF-8" );
+  xhr.send(data_str);
+}
+
+function _rgb2hex(rgb) {
+  var s = "", d = "";
+
+  d = rgb[0].toString(16);
+  s += ((d.length==1) ? ("0" + d) : d);
+
+  d = rgb[1].toString(16);
+  s += ((d.length==1) ? ("0" + d) : d);
+
+  d = rgb[2].toString(16);
+  s += ((d.length==1) ? ("0" + d) : d);
+
+
+  return s;
+}
+
+function _send_state() {
+
+  var color_hex_str = "";
+
+  color_hex_str = _rgb2hex(g_innerlight.color_map[0]);
+  for (var ii=1; ii<g_innerlight.color_map.length; ii++) {
+    color_hex_str += "," + _rgb2hex(g_innerlight.color_map[ii]);
+  }
+
+  var data = {
+    "mode": g_innerlight.mode,
+    "tap_bpm":g_innerlight.tap_bpm,
+    "opt_val" : g_innerlight.option_value,
+    "fg": _rgb2hex( g_innerlight.color_fg ),
+    "bg": _rgb2hex( g_innerlight.color_bg ),
+    "palette" : color_hex_str
+  };
+
+  _send_api_req(data);
+}
 
 function _clamp_bpm() {
   if (g_innerlight.tap_bpm < g_innerlight.tap_bpm_min) {
@@ -78,6 +136,9 @@ function _mode(val) {
   var ele = document.getElementById("ui_mode");
   ele.innerHTML = g_innerlight.mode;
 
+  //animateCSS("ui_mode", "pulse");
+
+  _send_state();
 }
 
 function _tap_select() {
@@ -100,6 +161,7 @@ function _tap_select() {
   var ele = document.getElementById("ui_mode");
   ele.innerHTML = g_innerlight.mode;
 
+  _send_state();
 }
 
 function _mic_select() {
@@ -122,7 +184,7 @@ function _mic_select() {
   var ele = document.getElementById("ui_mode");
   ele.innerHTML = g_innerlight.mode;
 
-
+  _send_state();
 }
 
 function _calc_bpm(dta) {
@@ -155,6 +217,8 @@ function _tap_cancel() {
 
   var ele = document.getElementById("ui_tap_progression_numerator");
   ele.innerHTML = "0";
+
+  animateCSS("ui_tap_progression", "shake");
 }
 
 function _tap_commit() {
@@ -175,11 +239,14 @@ function _tap_commit() {
 
   var ele = document.getElementById("ui_tap_bpm");
   ele.innerHTML = Math.round(g_innerlight.tap_bpm*100)/100;
+
+  //animateCSS("ui_tap_bpm", "pulse");
+
+  _send_state();
 }
 
 function _tap_button() {
   var dt = new Date();
-  console.log(">>tap");
 
   if (g_innerlight.tap_progression_timeout !== null) {
     clearTimeout(g_innerlight.tap_progression_timeout);
@@ -188,17 +255,11 @@ function _tap_button() {
 
   var t_ms = dt.getTime();
   if (g_innerlight.tap_progression_last_ms < 0) {
-
-    console.log("cpa");
-
     g_innerlight.tap_progression_last_ms = t_ms;
     g_innerlight.tap_progression_time = [ t_ms ];
     g_innerlight.tap_progression_numerator = 1;
   }
   else {
-
-    console.log("cpb");
-
     g_innerlight.tap_progression_last_ms = t_ms;
     g_innerlight.tap_progression_time.push(t_ms);
     g_innerlight.tap_progression_numerator+=1;
@@ -208,13 +269,10 @@ function _tap_button() {
   ele.innerHTML = g_innerlight.tap_progression_numerator;
 
   if (g_innerlight.tap_progression_numerator >= 12) {
-    console.log("cpc");
     _tap_commit();
 
   }
   else {
-    console.log("cpd");
-
     g_innerlight.tap_progression_timeout =
       setTimeout(
           function() { _tap_cancel(); },
@@ -236,6 +294,8 @@ function _tap_add() {
 
   var ele = document.getElementById("ui_tap_bpm");
   ele.innerHTML = Math.round(g_innerlight.tap_bpm*100)/100;
+
+  _send_state();
 }
 
 function _tap_sub() {
@@ -250,6 +310,7 @@ function _tap_sub() {
   var ele = document.getElementById("ui_tap_bpm");
   ele.innerHTML = Math.round(g_innerlight.tap_bpm*100)/100;
 
+  _send_state();
 }
 
 function _tap_slider(inp) {
@@ -263,15 +324,56 @@ function _tap_slider(inp) {
 
   ele = document.getElementById("ui_tap_bpm");
   ele.innerHTML = Math.round(g_innerlight.tap_bpm*100)/100;
+
+  _send_state();
 }
 
 function _option_slider(inp) {
-  console.log(">>option slider");
+
+  var ele = document.getElementById("ui_option_slider");
+
+  console.log(">>option slider", ele.value);
+
+  g_innerlight.option_value = parseInt(ele.value);
+
+  _send_state();
+}
+
+function _color_primary(f_b, c) {
+  var rgb = c.rgb;
+  var update = false;
+
+  if (f_b === "fg") {
+    console.log("foreground");
+    g_innerlight.color_fg[0] = Math.floor(rgb[0]);
+    g_innerlight.color_fg[1] = Math.floor(rgb[1]);
+    g_innerlight.color_fg[2] = Math.floor(rgb[2]);
+    update=true;
+  }
+  else if (f_b === "bg") {
+    console.log("background");
+    g_innerlight.color_bg[0] = Math.floor(rgb[0]);
+    g_innerlight.color_bg[1] = Math.floor(rgb[1]);
+    g_innerlight.color_bg[2] = Math.floor(rgb[2]);
+    update=true;
+  }
+
+  if (update) {
+    _send_state();
+  }
 }
 
 function _color(idx, c) {
   var rgb = c.rgb;
   console.log(">>color", idx, rgb[0], rgb[1], rgb[2]);
+
+  if ((idx >= 0) && (idx < g_innerlight.color_map.length)) {
+    g_innerlight.color_map[idx][0] = Math.floor(rgb[0]);
+    g_innerlight.color_map[idx][1] = Math.floor(rgb[1]);
+    g_innerlight.color_map[idx][2] = Math.floor(rgb[2]);
+  }
+
+  _send_state();
 }
 
 function _set_color_rgb(idx, rgb) {
@@ -371,12 +473,20 @@ function _color_preset(val) {
   if ((val>=0) && (val < preset.length)) {
     console.log(">>preset", preset[val]);
 
+    g_innerlight.color_map = [];
+
     for (var ii=0; ii<5; ii++) {
       _set_color_str(ii, preset[val][ii].hex);
+
+
+      g_innerlight.color_map.push( [ preset[val][ii].rgb[0], preset[val][ii].rgb[1], preset[val][ii].rgb[2] ] );
+
     }
   }
 
   console.log(">>color preset", val);
+
+  _send_state();
 }
 
 function _init_load() {
@@ -400,6 +510,34 @@ function _init() {
   //_wait_and_load("ui_color0", "jscolor", function() { _color_preset(0); });
   _wait_and_load("ui_color0", "jscolor", _init_load);
   //_color_preset(0);
+
+  //var ele = document.getElementById("ui_tap_progression");
+  //ele.classList.add('animated', 'shake');
 }
+
+//---------
+
+function animateCSS(ele_id, animationName, callback) {
+  //const node = document.querySelector(element);
+  const node = document.getElementById(ele_id);
+  node.classList.add('animated', animationName);
+
+  function handleAnimationEnd() {
+    node.classList.remove('animated', animationName);
+    node.removeEventListener('animationend', handleAnimationEnd);
+
+    if (typeof callback === 'function') callback();
+  }
+
+  node.addEventListener('animationend', handleAnimationEnd);
+}
+
+function _bad_tempo() {
+  var ele = document.getElementById("ui_tap_progression");
+  animateCSS("ui_tap_progression", "shake");
+}
+
+
+//---------
 
 _init();

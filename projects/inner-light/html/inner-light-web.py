@@ -6,8 +6,23 @@
 from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
 from os import curdir, sep
 import cgi
+import tempfile
+import os
 
 PORT_NUMBER = 8080
+
+IL_INI = "innerlight.ini"
+
+def writeini(data):
+  tmpfd,tmpname = tempfile.mkstemp()
+  try:
+    with os.fdopen(tmpfd, "w") as tmpfp:
+      for x in data:
+        tmpfp.write( str(x) + "=" + str(data[x]) + "\n" )
+      tmpfp.flush()
+    os.rename(tmpname, IL_INI)
+  finally:
+    pass
 
 #This class will handles any incoming request from
 #the browser 
@@ -45,9 +60,8 @@ class myHandler(BaseHTTPRequestHandler):
 
       if sendReply == True:
 
-        print "wtf??", mimetype
-
         #Open the static file requested and send it
+        #
         f = open(curdir + sep + self.path) 
         self.send_response(200)
         self.send_header('Content-type',mimetype)
@@ -69,8 +83,16 @@ class myHandler(BaseHTTPRequestHandler):
                      'CONTENT_TYPE':self.headers['Content-Type'],
       })
 
+      data = {}
       for x in form:
-        print "form:", x
+        data[ str(x) ] = str(form[x].value)
+        if x == "palette":
+          color_a = str(form[x].value).split(",")
+          for idx in range(len(color_a)):
+            data[ "color" + str(idx) ] = color_a[idx]
+        #print "form:", x, form[x].value
+
+      writeini(data)
 
       #print "Your name is: %s" % form["your_name"].value
       self.send_response(200)
