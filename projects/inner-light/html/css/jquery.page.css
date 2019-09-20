@@ -1,0 +1,106 @@
+/*!
+**  jQuery Page -- jQuery Page Transitions for HTML5 Single-Page-Apps
+**  Copyright (c) 2016-2019 Dr. Ralf S. Engelschall <rse@engelschall.com>
+**
+**  Permission is hereby granted, free of charge, to any person obtaining
+**  a copy of this software and associated documentation files (the
+**  "Software"), to deal in the Software without restriction, including
+**  without limitation the rights to use, copy, modify, merge, publish,
+**  distribute, sublicense, and/or sell copies of the Software, and to
+**  permit persons to whom the Software is furnished to do so, subject to
+**  the following conditions:
+**
+**  The above copyright notice and this permission notice shall be included
+**  in all copies or substantial portions of the Software.
+**
+**  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+**  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+**  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+**  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+**  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+**  TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+**  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+
+/*  the window  */
+.jquery-page {
+    height: 100%;
+    width: 100%;
+    display: block;
+    position: relative;
+    /* overflow: hidden; */
+}
+
+/*  the container  */
+.jquery-page .jquery-page-container {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+.jquery-page .jquery-page-container.jquery-page-stacked {
+    display: block;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-perspective: 400px;
+    perspective: 400px;
+}
+.jquery-page .jquery-page-container.jquery-page-horizontal {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: none;
+}
+.jquery-page .jquery-page-container.jquery-page-vertical {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: none;
+}
+.jquery-page .jquery-page-container.jquery-page-flip-left,
+.jquery-page .jquery-page-container.jquery-page-flip-right {
+    transition: all 0.5s ease-in-out;
+    box-shadow: 0 0 40px #333333;
+}
+.jquery-page .jquery-page-container.jquery-page-flip-left {
+    transform: perspective(400px) rotateY(-180deg);
+}
+.jquery-page .jquery-page-container.jquery-page-flip-right {
+    transform: perspective(400px) rotateY(180deg);
+}
+.jquery-page .jquery-page-container.jquery-page-slide {
+    transition: all 0.5s ease-in-out;
+}
+.jquery-page .jquery-page-container.jquery-page-shake {
+    animation: jquery-page-shake 0.50s cubic-bezier(.36, .07, .19, .97) both;
+}
+@keyframes jquery-page-shake {
+    10%, 90%      { transform: translateX(-1px); }
+    20%, 80%      { transform: translateX( 2px); }
+    30%, 50%, 70% { transform: translateX(-4px); }
+    40%, 60%      { transform: translateX( 4px); }
+}
+
+/*  the page(s)  */
+.jquery-page .jquery-page-front,
+.jquery-page .jquery-page-back {
+    z-index: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    -moz-backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+.jquery-page .jquery-page-back {
+    transform: perspective(400px) rotateY(180deg);
+}
+.jquery-page .jquery-page-left,
+.jquery-page .jquery-page-top {
+    order: 1;
+}
+.jquery-page .jquery-page-right,
+.jquery-page .jquery-page-bottom {
+    order: 2;
+}
+.jquery-page .jquery-page-disabled {
+    display: none !important;
+}
+

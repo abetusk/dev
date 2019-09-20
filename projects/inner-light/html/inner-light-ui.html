@@ -1,0 +1,1329 @@
+<html>
+
+  <head>
+    <link rel='stylesheet' href='css/inner-light.css'>
+    <link rel='stylesheet' href='css/pure-min.css'>
+    <link rel='stylesheet' href='css/animate.css'>
+    <link rel='stylesheet' href='css/jquery.page.css'>
+
+    <script src="js/jscolor.js"></script>
+    <script src='js/jquery.js'></script>
+
+    <link rel='stylesheet' href='css/farbtastic.css'>
+    <script src='js/farbtastic.js'></script>
+  </head>
+
+  <body id='body'>
+    <div class='device'>
+    <div class='screen'>
+    <div>
+
+    <!-- 
+    ****************************************
+    ****************************************
+    **                                    **
+    **                                    **
+    **             Main                   **
+    **                                    **
+    **                                    **
+    ****************************************
+    ****************************************
+    -->
+
+    <div id='ui_main' class='page' data-jquery-page-name="ui_main" >
+
+      <br>
+
+      <!-- -->
+
+      <div class='pure-g row'>
+        <div class='pure-u-1 col'>
+          <span style='font-size:3em; font-weight:bold; color:#555555;'>Inner Light</span>
+        </div>
+      </div>
+
+      <!-- -->
+
+      <hr class='style11'>
+
+      <br>
+      <br>
+
+      <div class='pure-g rowH'>
+
+        <div class='pure-u-1-3 col'>
+          <button
+            class='bdropinp bkeyw navigate'
+            data-page-name="ui_tapbeat" data-page-trans="slide-in-from-left" > &lt; Tap beat </button>
+        </div>
+
+        <div class='pure-u-1-3 col'>
+          <span style='font-size:2em; font-weight:bold; color:#555555;'>Mode</span>
+        </div>
+
+        <div class='pure-u-1-3 col'>
+
+          <button id='ui_mode_config0'
+            class='bdropinp bkeyw navigate'
+            data-page-name='ui_solidColor' data-page-trans="slide-in-from-right" > Config &gt; </button>
+
+        </div>
+
+      </div>
+
+
+      <div class='pure-g rowH'>
+
+        <div class='pure-u-1-3 col'>
+          <button id='ui_mode_solidColor' class='bdropinp bkeyHuge'>solid color</button>
+        </div>
+
+        <div class='pure-u-1-3 col'>
+          <button id='ui_mode_noise' class='bdropinp bkeyHuge'>noise</button>
+        </div>
+
+        <div class='pure-u-1-3 col'>
+          <button id='ui_mode_rainbow' class='bdropinp bkeyHuge'>rainbow</button>
+        </div>
+
+      </div>
+
+      <div class='pure-g rowH'>
+
+        <div class='pure-u-1-3 col'>
+          <button id='ui_mode_tapPulse' class='bdropinp bkeyHuge'>tap pulse</button>
+        </div>
+
+        <div class='pure-u-1-3 col'>
+          <button id='ui_mode_tapBullet' class='bdropinp bkeyHuge'>tap bullet</button>
+        </div>
+
+        <div class='pure-u-1-3 col'>
+          <button id='ui_mode_tapStrobe' class='bdropinp bkeyHuge'>tap strobe</button>
+        </div>
+
+      </div>
+
+
+      <div class='pure-g rowH'>
+
+        <div class='pure-u-1-3 col'>
+          <button id='ui_mode_micPulse' class='bdropinp bkeyHuge'>mic pulse</button>
+        </div>
+
+        <div class='pure-u-1-3 col'>
+          <button id='ui_mode_micBullet' class='bdropinp bkeyHuge'>mic bullet</button>
+        </div>
+
+        <div class='pure-u-1-3 col'>
+          <button id='ui_mode_micStrobe' class='bdropinp bkeyHuge'>mic strobe</button>
+        </div>
+
+      </div>
+
+
+      <div class='pure-g rowH'>
+
+        <div class='pure-u-1-3 col'>
+          <button id='ui_mode_fill' class='bdropinp bkeyHuge'>fill</button>
+        </div>
+
+        <div class='pure-u-1-3 col'>
+          <button id='ui_mode_strobe' class='bdropinp bkeyHuge'>strobe</button>
+        </div>
+
+        <div class='pure-u-1-3 col'>
+          <button id='ui_mode_pulse' class='bdropinp bkeyHuge'>pulse</button>
+        </div>
+
+      </div>
+
+
+      <div class='pure-g rowH'>
+
+        <div class='pure-u-1-3 col'>
+          <button
+            class='bdropinp bkeyw navigate'
+            data-page-name="ui_tapbeat" data-page-trans="slide-in-from-left" > &lt; Tap beat </button>
+        </div>
+
+        <div class='pure-u-1-3 col'> </div>
+
+        <div class='pure-u-1-3 col'>
+          <button id='ui_mode_config'
+            class='bdropinp bkeyw navigate'
+            data-page-name='ui_solidColor' data-page-trans="slide-in-from-right" > Config &gt; </button>
+        </div>
+
+
+      </div>
+
+      <!-- -->
+
+      <hr class='style12'>
+      <br>
+
+      <div class='pure-g rowH'>
+
+        <div class='pure-u-1 col'>
+          <button
+            class='bdropinp bkeyHuge navigate'
+            data-page-name="ui_ledlayout" data-page-trans="slide-in-from-bottom" > LED Layout <br> V </button>
+        </div>
+
+
+      </div>
+
+      <hr class='style5'>
+      <br>
+
+
+    </div>
+
+    <!-- 
+    ***************************************************
+    ***************************************************
+    **            _ _     _  ____      _             **
+    **  ___  ___ | (_) __| |/ ___|___ | | ___  _ __  **
+    ** / __|/ _ \| | |/ _` | |   / _ \| |/ _ \| '__| **
+    ** \__ \ (_) | | | (_| | |__| (_) | | (_) | |    **
+    ** |___/\___/|_|_|\__,_|\____\___/|_|\___/|_|    **
+    **                                               **
+    ***************************************************
+    ***************************************************
+    -->
+
+    <div id='ui_solidColor' class='page' data-jquery-page-name="ui_solidColor">
+
+      <br>
+      <div class='pure-g rowH'>
+
+
+        <div class='pure-u-1-3 col'>
+          <button class='bdropinp bkeyMedium navigate'
+             data-page-name='ui_main' data-page-trans="slide-in-from-left" > &lt; </button>
+        </div>
+
+
+        <div class='pure-u-1-3 col'>
+          <span style='font-size:3em; font-weight:bold; color:#555555;'>Solid Color</span>
+        </div>
+
+        <div class='pure-u-1-3 col'>
+        </div>
+
+      </div>
+
+      <!-- -->
+
+      <hr class='style12'>
+
+      <br>
+
+      <div class='pure-g rowH' style='height:200px;'>
+        <div class='pure-u-1-6 col'></div>
+        <div class='pure-u-1-6 col'>
+          <div id='ui_solidColor_colorpicker'></div>
+        </div>
+        <div class='pure-u-1-6 col'></div>
+
+        <div class='pure-u-1-2 col'>
+          <br>
+          <button id='ui_solidColor_colorbutton' class='box bkeyHuge'></button>
+        </div>
+
+      </div>
+
+      <div class='pure-g row' >
+        <div class='pure-u-1 col'>
+          #xxxxxx
+        </div>
+      </div>
+
+      <hr class='style5'>
+
+
+    </div>
+
+    <!-- 
+    **********************************
+    **********************************
+    **                _             **
+    **    _ __   ___ (_)___  ___    **
+    **   | '_ \ / _ \| / __|/ _ \   **
+    **   | | | | (_) | \__ \  __/   **
+    **   |_| |_|\___/|_|___/\___|   **
+    **                              **
+    **********************************
+    **********************************
+    -->
+
+    <div id='ui_noise' class='page' data-jquery-page-name="ui_noise">
+
+
+      <br>
+      <div class='pure-g rowH'>
+
+        <div class='pure-u-1-3 col'>
+          <button class='bdropinp bkeyMedium navigate'
+             data-page-name='ui_main' data-page-trans="slide-in-from-left" > &lt; </button>
+        </div>
+
+
+        <div class='pure-u-1-3 col'>
+          <span style='font-size:3em; font-weight:bold; color:#555555;'>Noise</span>
+        </div>
+
+        <div class='pure-u-1-3 col'>
+        </div>
+
+      </div>
+
+      <!-- -->
+
+      <hr class='style12'>
+
+      <br>
+      <br>
+
+      <div class='pure-g rowH'>
+
+        <div class='pure-u-1-5 col'>
+          <button id='ui_noise_color0' class="box bkey"></button>
+        </div>
+
+        <div class='pure-u-1-5 col'>
+          <button id='ui_noise_color1' class="box bkey"></button>
+        </div>
+
+        <div class='pure-u-1-5 col'>
+          <button id='ui_noise_color2' class="box bkey"></button>
+        </div>
+
+        <div class='pure-u-1-5 col'>
+          <button id='ui_noise_color3' class="box bkey"></button>
+        </div>
+
+        <div class='pure-u-1-5 col'>
+          <button id='ui_noise_color4' class="box bkey"></button>
+        </div>
+
+      </div>
+
+      <!-- -->
+
+      <div class='pure-g row'>
+
+        <div class='pure-u-1-3 col'> <button class='bdropinp bkeyw' id='ui_noise_preset_0' onclick='_color_preset(0,"ui_noise_color");' >oil slick</button> </div>
+        <div class='pure-u-1-3 col'> <button class='bdropinp bkeyw' id='ui_noise_preset_1' onclick='_color_preset(1,"ui_noise_color");'>deep oil</button> </div>
+        <div class='pure-u-1-3 col'> <button class='bdropinp bkeyw' id='ui_noise_preset_2' onclick='_color_preset(2,"ui_noise_color");'>oil ocean</button> </div>
+
+      </div>
+
+      <!-- -->
+
+      <div class='pure-g row'>
+
+        <div class='pure-u-1-3 col'> <button class='bdropinp bkeyw' id='ui_noise_preset_3' onclick='_color_preset(3,"ui_noise_color");'>two oil</button> </div>
+        <div class='pure-u-1-3 col'> <button class='bdropinp bkeyw' id='ui_noise_preset_4' onclick='_color_preset(4,"ui_noise_color");'>oil painting</button> </div>
+        <div class='pure-u-1-3 col'> <button class='bdropinp bkeyw' id='ui_noise_preset_5' onclick='_color_preset(5,"ui_noise_color");'>neo tokyo</button> </div>
+
+      </div>
+
+      <!-- -->
+
+      <div class='pure-g row'>
+
+        <div class='pure-u-1-3 col'> <button class='bdropinp bkeyw' id='ui_noise_preset_3' onclick='_color_preset(6,"ui_noise_color");'>sunset</button> </div>
+        <div class='pure-u-1-3 col'> <button class='bdropinp bkeyw' id='ui_noise_preset_4' onclick='_color_preset(7,"ui_noise_color");'>outrun</button> </div>
+        <div class='pure-u-1-3 col'> </div>
+
+      </div>
+
+
+      <br>
+      <hr class='style5'>
+      <br>
+
+
+
+    </div>
+
+    <!-- 
+    *********************************************
+    *********************************************
+    **  _              ____        _           **
+    ** | |_ __ _ _ __ |  _ \ _   _| |___  ___  **
+    ** | __/ _` | '_ \| |_) | | | | / __|/ _ \ **
+    ** | || (_| | |_) |  __/| |_| | \__ \  __/ **
+    **  \__\__,_| .__/|_|    \__,_|_|___/\___| **
+    **          |_|                            **
+    **                                         **
+    *********************************************
+    *********************************************
+    -->
+
+    <div id='ui_tapPulse' class='page' data-jquery-page-name="ui_tapPulse">
+
+      <br>
+      <div class='pure-g rowH'>
+
+        <div class='pure-u-1-3 col'>
+          <button class='bdropinp bkeyMedium navigate'
+             data-page-name='ui_main' data-page-trans="slide-in-from-left" > &lt; </button>
+        </div>
+
+
+        <div class='pure-u-1-3 col'>
+          <span style='font-size:3em; font-weight:bold; color:#555555;'>Tap Pulse</span>
+        </div>
+
+        <div class='pure-u-1-3 col'>
+        </div>
+
+      </div>
+
+      <!-- -->
+
+      <hr class='style12'>
+
+      <br>
+      <br>
+
+      <div class='pure-g rowH' style='height:200px;'>
+        <div class='pure-u-1-6 col'></div>
+        <div class='pure-u-1-6 col'>
+          <div id='ui_tapPulse_colorpickerfg'></div>
+        </div>
+        <div class='pure-u-1-6 col'></div>
+
+        <div class='pure-u-1-2 col'>
+          <br>
+          <button id='ui_tapPulse_colorbuttonfg' class='box bkeyHuge'></button>
+          <br>
+          <span style='font-size:1.3em; font-weight:bold; color:#555555;'>foreground</span>
+        </div>
+
+      </div>
+
+      <br>
+      <br>
+
+      <div class='pure-g rowH' style='height:200px;'>
+        <div class='pure-u-1-6 col'></div>
+        <div class='pure-u-1-6 col'>
+          <div id='ui_tapPulse_colorpickerbg'></div>
+        </div>
+        <div class='pure-u-1-6 col'></div>
+
+        <div class='pure-u-1-2 col'>
+          <br>
+          <button id='ui_tapPulse_colorbuttonbg' class='box bkeyHuge'></button>
+          <br>
+          <span style='font-size:1.3em; font-weight:bold; color:#555555;'>background</span>
+        </div>
+
+      </div>
+
+
+
+
+      <br>
+      <hr class='style5'>
+      <br>
+
+
+
+    </div>
+
+    <!-- 
+    ***********************************************
+    ***********************************************
+    **  _              ____        _ _      _    **
+    ** | |_ __ _ _ __ | __ ) _   _| | | ___| |_  **
+    ** | __/ _` | '_ \|  _ \| | | | | |/ _ \ __| **
+    ** | || (_| | |_) | |_) | |_| | | |  __/ |_  **
+    **  \__\__,_| .__/|____/ \__,_|_|_|\___|\__| **
+    **          |_|                              **
+    **                                           **
+    ***********************************************
+    ***********************************************
+    -->
+
+    <div id='ui_tapBullet' class='page' data-jquery-page-name="ui_tapBullet">
+
+      <br>
+      <div class='pure-g rowH'>
+
+        <div class='pure-u-1-3 col'>
+          <button class='bdropinp bkeyMedium navigate'
+             data-page-name='ui_main' data-page-trans="slide-in-from-left" > &lt; </button>
+        </div>
+
+
+        <div class='pure-u-1-3 col'>
+          <span style='font-size:3em; font-weight:bold; color:#555555;'>Tap Bullet</span>
+        </div>
+
+        <div class='pure-u-1-3 col'>
+        </div>
+
+      </div>
+
+      <!-- -->
+
+      <hr class='style12'>
+
+      <br>
+      <br>
+
+      <div class='pure-g rowH' style='height:200px;'>
+        <div class='pure-u-1-6 col'></div>
+        <div class='pure-u-1-6 col'>
+          <div id='ui_tapBullet_colorpickerfg'></div>
+        </div>
+        <div class='pure-u-1-6 col'></div>
+
+        <div class='pure-u-1-2 col'>
+          <br>
+          <button id='ui_tapBullet_colorbuttonfg' class='box bkeyHuge'></button>
+          <br>
+          <span style='font-size:1.3em; font-weight:bold; color:#555555;'>foreground</span>
+        </div>
+
+      </div>
+
+      <br>
+      <br>
+
+      <div class='pure-g rowH' style='height:200px;'>
+        <div class='pure-u-1-6 col'></div>
+        <div class='pure-u-1-6 col'>
+          <div id='ui_tapBullet_colorpickerbg'></div>
+        </div>
+        <div class='pure-u-1-6 col'></div>
+
+        <div class='pure-u-1-2 col'>
+          <br>
+          <button id='ui_tapBullet_colorbuttonbg' class='box bkeyHuge'></button>
+          <br>
+          <span style='font-size:1.3em; font-weight:bold; color:#555555;'>background</span>
+        </div>
+
+      </div>
+
+
+      <br>
+      <hr class='style5'>
+      <br>
+
+    </div>
+
+    <!-- 
+    ****************************************************
+    ****************************************************
+    **  _             ____  _             _           **
+    ** | |_ __ _ _ __/ ___|| |_ _ __ ___ | |__   ___  **
+    ** | __/ _` | '_ \___ \| __| '__/ _ \| '_ \ / _ \ **
+    ** | || (_| | |_) |__) | |_| | | (_) | |_) |  __/ **
+    **  \__\__,_| .__/____/ \__|_|  \___/|_.__/ \___| **
+    **          |_|                                   **
+    **                                                **
+    ****************************************************
+    ****************************************************
+    -->
+
+    <div id='ui_tapStrobe' class='page' data-jquery-page-name="ui_tapStrobe">
+
+      <br>
+      <div class='pure-g rowH'>
+
+        <div class='pure-u-1-3 col'>
+          <button class='bdropinp bkeyMedium navigate'
+             data-page-name='ui_main' data-page-trans="slide-in-from-left" > &lt; </button>
+        </div>
+
+
+        <div class='pure-u-1-3 col'>
+          <span style='font-size:3em; font-weight:bold; color:#555555;'>Tap Strobe</span>
+        </div>
+
+        <div class='pure-u-1-3 col'>
+        </div>
+
+
+      </div>
+
+      <!-- -->
+
+      <hr class='style12'>
+
+      <br>
+      <br>
+
+      <div class='pure-g rowH' style='height:200px;'>
+        <div class='pure-u-1-6 col'></div>
+        <div class='pure-u-1-6 col'>
+          <div id='ui_tapStrobe_colorpickerfg'></div>
+        </div>
+        <div class='pure-u-1-6 col'></div>
+
+        <div class='pure-u-1-2 col'>
+          <br>
+          <button id='ui_tapStrobe_colorbuttonfg' class='box bkeyHuge'></button>
+          <br>
+          <span style='font-size:1.3em; font-weight:bold; color:#555555;'>foreground</span>
+        </div>
+
+      </div>
+
+      <br>
+      <br>
+
+      <div class='pure-g rowH' style='height:200px;'>
+        <div class='pure-u-1-6 col'></div>
+        <div class='pure-u-1-6 col'>
+          <div id='ui_tapStrobe_colorpickerbg'></div>
+        </div>
+        <div class='pure-u-1-6 col'></div>
+
+        <div class='pure-u-1-2 col'>
+          <br>
+          <button id='ui_tapStrobe_colorbuttonbg' class='box bkeyHuge'></button>
+          <br>
+          <span style='font-size:1.3em; font-weight:bold; color:#555555;'>background</span>
+        </div>
+
+      </div>
+
+      <div class='pure-g rowH'>
+      </div>
+
+
+      <br>
+      <hr class='style5'>
+      <br>
+
+
+    </div>
+
+    <!-- 
+    *******************************************************
+    *******************************************************
+    **            _      ____  _             _           **
+    **  _ __ ___ (_) ___/ ___|| |_ _ __ ___ | |__   ___  **
+    ** | '_ ` _ \| |/ __\___ \| __| '__/ _ \| '_ \ / _ \ **
+    ** | | | | | | | (__ ___) | |_| | | (_) | |_) |  __/ **
+    ** |_| |_| |_|_|\___|____/ \__|_|  \___/|_.__/ \___| **
+    **                                                   **
+    *******************************************************
+    *******************************************************
+    -->
+
+    <div id='ui_micPulse' class='page' data-jquery-page-name="ui_micPulse">
+
+      <br>
+      <div class='pure-g rowH'>
+
+        <div class='pure-u-1-3 col'>
+          <button class='bdropinp bkeyMedium navigate'
+             data-page-name='ui_main' data-page-trans="slide-in-from-left" > &lt; </button>
+        </div>
+
+
+        <div class='pure-u-1-3 col'>
+          <span style='font-size:3em; font-weight:bold; color:#555555;'>Mic Pulse</span>
+        </div>
+
+        <div class='pure-u-1-3 col'>
+        </div>
+
+      </div>
+
+      <!-- -->
+
+      <hr class='style12'>
+
+      <br>
+      <br>
+
+      <div class='pure-g rowH' style='height:200px;'>
+        <div class='pure-u-1-6 col'></div>
+        <div class='pure-u-1-6 col'>
+          <div id='ui_micPulse_colorpickerfg'></div>
+        </div>
+        <div class='pure-u-1-6 col'></div>
+
+        <div class='pure-u-1-2 col'>
+          <br>
+          <button id='ui_micPulse_colorbuttonfg' class='box bkeyHuge'></button>
+          <br>
+          <span style='font-size:1.3em; font-weight:bold; color:#555555;'>foreground</span>
+        </div>
+
+      </div>
+
+      <br>
+      <br>
+
+      <div class='pure-g rowH' style='height:200px;'>
+        <div class='pure-u-1-6 col'></div>
+        <div class='pure-u-1-6 col'>
+          <div id='ui_micPulse_colorpickerbg'></div>
+        </div>
+        <div class='pure-u-1-6 col'></div>
+
+        <div class='pure-u-1-2 col'>
+          <br>
+          <button id='ui_micPulse_colorbuttonbg' class='box bkeyHuge'></button>
+          <br>
+          <span style='font-size:1.3em; font-weight:bold; color:#555555;'>background</span>
+        </div>
+
+      </div>
+
+
+      <br>
+      <hr class='style5'>
+      <br>
+
+    </div>
+
+    <!-- 
+    *************************************************
+    *************************************************
+    **                                             **
+    **            _      ____        _ _      _    **
+    **  _ __ ___ (_) ___| __ ) _   _| | | ___| |_  **
+    ** | '_ ` _ \| |/ __|  _ \| | | | | |/ _ \ __| **
+    ** | | | | | | | (__| |_) | |_| | | |  __/ |_  **
+    ** |_| |_| |_|_|\___|____/ \__,_|_|_|\___|\__| **
+    **                                             **
+    *************************************************
+    *************************************************
+    -->
+
+    <div id='ui_micBullet' class='page' data-jquery-page-name="ui_micBullet">
+
+      <br>
+      <div class='pure-g rowH'>
+
+        <div class='pure-u-1-3 col'>
+          <button class='bdropinp bkeyMedium navigate'
+             data-page-name='ui_main' data-page-trans="slide-in-from-left" > &lt; </button>
+        </div>
+
+
+        <div class='pure-u-1-3 col'>
+          <span style='font-size:3em; font-weight:bold; color:#555555;'>Mic Bullet</span>
+        </div>
+
+        <div class='pure-u-1-3 col'>
+        </div>
+
+      </div>
+
+      <!-- -->
+
+      <hr class='style12'>
+
+      <br>
+      <br>
+
+      <div class='pure-g rowH' style='height:200px;'>
+        <div class='pure-u-1-6 col'></div>
+        <div class='pure-u-1-6 col'>
+          <div id='ui_micBullet_colorpickerfg'></div>
+        </div>
+        <div class='pure-u-1-6 col'></div>
+
+        <div class='pure-u-1-2 col'>
+          <br>
+          <button id='ui_micBullet_colorbuttonfg' class='box bkeyHuge'></button>
+          <br>
+          <span style='font-size:1.3em; font-weight:bold; color:#555555;'>foreground</span>
+        </div>
+
+      </div>
+
+      <br>
+      <br>
+
+      <div class='pure-g rowH' style='height:200px;'>
+        <div class='pure-u-1-6 col'></div>
+        <div class='pure-u-1-6 col'>
+          <div id='ui_micBullet_colorpickerbg'></div>
+        </div>
+        <div class='pure-u-1-6 col'></div>
+
+        <div class='pure-u-1-2 col'>
+          <br>
+          <button id='ui_micBullet_colorbuttonbg' class='box bkeyHuge'></button>
+          <br>
+          <span style='font-size:1.3em; font-weight:bold; color:#555555;'>background</span>
+        </div>
+
+      </div>
+
+      <br>
+      <hr class='style5'>
+      <br>
+
+    </div>
+
+    <!-- 
+    *******************************************************
+    *******************************************************
+    **            _      ____  _             _           **
+    **  _ __ ___ (_) ___/ ___|| |_ _ __ ___ | |__   ___  **
+    ** | '_ ` _ \| |/ __\___ \| __| '__/ _ \| '_ \ / _ \ **
+    ** | | | | | | | (__ ___) | |_| | | (_) | |_) |  __/ **
+    ** |_| |_| |_|_|\___|____/ \__|_|  \___/|_.__/ \___| **
+    **                                                   **
+    *******************************************************
+    *******************************************************
+    -->
+
+    <div id='ui_micStrobe' class='page' data-jquery-page-name="ui_micStrobe">
+
+      <br>
+      <div class='pure-g rowH'>
+
+        <div class='pure-u-1-3 col'>
+          <button class='bdropinp bkeyMedium navigate'
+             data-page-name='ui_main' data-page-trans="slide-in-from-left" > &lt; </button>
+        </div>
+
+
+        <div class='pure-u-1-3 col'>
+          <span style='font-size:3em; font-weight:bold; color:#555555;'>Mic Strobe</span>
+        </div>
+
+        <div class='pure-u-1-3 col'>
+        </div>
+
+      </div>
+
+      <!-- -->
+
+      <hr class='style12'>
+
+      <br>
+      <br>
+
+      <div class='pure-g rowH' style='height:200px;'>
+        <div class='pure-u-1-6 col'></div>
+        <div class='pure-u-1-6 col'>
+          <div id='ui_micStrobe_colorpickerfg'></div>
+        </div>
+        <div class='pure-u-1-6 col'></div>
+
+        <div class='pure-u-1-2 col'>
+          <br>
+          <button id='ui_micStrobe_colorbuttonfg' class='box bkeyHuge'></button>
+          <br>
+          <span style='font-size:1.3em; font-weight:bold; color:#555555;'>foreground</span>
+        </div>
+
+      </div>
+
+      <br>
+      <br>
+
+      <div class='pure-g rowH' style='height:200px;'>
+        <div class='pure-u-1-6 col'></div>
+        <div class='pure-u-1-6 col'>
+          <div id='ui_micStrobe_colorpickerbg'></div>
+        </div>
+        <div class='pure-u-1-6 col'></div>
+
+        <div class='pure-u-1-2 col'>
+          <br>
+          <button id='ui_micStrobe_colorbuttonbg' class='box bkeyHuge'></button>
+          <br>
+          <span style='font-size:1.3em; font-weight:bold; color:#555555;'>background</span>
+        </div>
+
+      </div>
+
+
+      <br>
+      <hr class='style5'>
+      <br>
+
+
+    </div>
+
+    <!-- 
+    *****************
+    *****************
+    **   __ _ _ _  **
+    **  / _(_) | | **
+    ** | |_| | | | **
+    ** |  _| | | | **
+    ** |_| |_|_|_| **
+    **             **
+    *****************
+    *****************
+    -->
+
+    <div id='ui_fill' class='page' data-jquery-page-name="ui_fill">
+
+      <br>
+      <div class='pure-g rowH'>
+
+        <div class='pure-u-1-3 col'>
+          <button class='bdropinp bkeyMedium navigate'
+             data-page-name='ui_main' data-page-trans="slide-in-from-left" > &lt; </button>
+        </div>
+
+
+        <div class='pure-u-1-3 col'>
+          <span style='font-size:3em; font-weight:bold; color:#555555;'>Fill</span>
+        </div>
+
+        <div class='pure-u-1-3 col'>
+        </div>
+
+      </div>
+
+      <!-- -->
+
+      <hr class='style12'>
+
+      <br>
+      <br>
+
+      <div class='pure-g row'>
+
+        <div class='pure-u-1-2 col'>
+          <span style='font-size:2em; font-weight:bold; color:#555555;'>Speed</span>
+        </div>
+
+        <div class='pure-u-1-2 col'>
+          <input
+            id='ui_fill_slider'
+            type='range'
+            value='120'
+            min="60"
+            max="260"
+            step="1"
+            onchange='_fill_slider("change");'
+            oninput='_fill_slider("input");' >
+        </div>
+
+      </div>
+
+      <br>
+      <hr class='style5'>
+      <br>
+
+    </div>
+
+    <!-- 
+    ************************************
+    ************************************
+    **      _             _           **
+    **  ___| |_ _ __ ___ | |__   ___  **
+    ** / __| __| '__/ _ \| '_ \ / _ \ **
+    ** \__ \ |_| | | (_) | |_) |  __/ **
+    ** |___/\__|_|  \___/|_.__/ \___| **
+    **                                **
+    ************************************
+    ************************************
+    -->
+
+    <div id='ui_strobe' class='page' data-jquery-page-name='ui_strobe'>
+
+      <br>
+      <div class='pure-g rowH'>
+
+        <div class='pure-u-1-3 col'>
+          <button class='bdropinp bkeyMedium navigate'
+             data-page-name='ui_main' data-page-trans="slide-in-from-left" > &lt; </button>
+        </div>
+
+
+        <div class='pure-u-1-3 col'>
+          <span style='font-size:3em; font-weight:bold; color:#555555;'>Strobe</span>
+        </div>
+
+        <div class='pure-u-1-3 col'>
+        </div>
+
+      </div>
+
+      <!-- -->
+
+      <hr class='style12'>
+
+      <br>
+      <br>
+
+      <div class='pure-g rowH' style='height:200px;'>
+        <div class='pure-u-1-6 col'></div>
+        <div class='pure-u-1-6 col'>
+          <div id='ui_strobe_colorpickerfg'></div>
+        </div>
+        <div class='pure-u-1-6 col'></div>
+
+        <div class='pure-u-1-2 col'>
+          <br>
+          <button id='ui_strobe_colorbuttonfg' class='box bkeyHuge'></button>
+          <br>
+          <span style='font-size:1.3em; font-weight:bold; color:#555555;'>foreground</span>
+        </div>
+
+      </div>
+
+      <br>
+      <br>
+
+      <div class='pure-g rowH' style='height:200px;'>
+        <div class='pure-u-1-6 col'></div>
+        <div class='pure-u-1-6 col'>
+          <div id='ui_strobe_colorpickerbg'></div>
+        </div>
+        <div class='pure-u-1-6 col'></div>
+
+        <div class='pure-u-1-2 col'>
+          <br>
+          <button id='ui_strobe_colorbuttonbg' class='box bkeyHuge'></button>
+          <br>
+          <span style='font-size:1.3em; font-weight:bold; color:#555555;'>background</span>
+        </div>
+
+      </div>
+
+      <br>
+      <hr class='style5'>
+      <br>
+
+
+    </div>
+
+    <!-- 
+    ******************************
+    ******************************
+    **              _           **
+    **  _ __  _   _| |___  ___  **
+    ** | '_ \| | | | / __|/ _ \ **
+    ** | |_) | |_| | \__ \  __/ **
+    ** | .__/ \__,_|_|___/\___| **
+    ** |_|                      **
+    **                          **
+    ******************************
+    ******************************
+    -->
+
+    <div id='ui_pulse' class='page' data-jquery-page-name='ui_pulse'>
+
+      <br>
+      <div class='pure-g rowH'>
+
+        <div class='pure-u-1-3 col'>
+          <button class='bdropinp bkeyMedium navigate'
+             data-page-name='ui_main' data-page-trans="slide-in-from-left" > &lt; </button>
+        </div>
+
+
+        <div class='pure-u-1-3 col'>
+          <span style='font-size:3em; font-weight:bold; color:#555555;'>Pulse</span>
+        </div>
+
+        <div class='pure-u-1-3 col'>
+        </div>
+
+      </div>
+
+      <!-- -->
+
+      <hr class='style12'>
+
+      <br>
+      <br>
+
+      <div class='pure-g rowH' style='height:200px;'>
+        <div class='pure-u-1-6 col'></div>
+        <div class='pure-u-1-6 col'>
+          <div id='ui_pulse_colorpickerfg'></div>
+        </div>
+        <div class='pure-u-1-6 col'></div>
+
+        <div class='pure-u-1-2 col'>
+          <br>
+          <button id='ui_pulse_colorbuttonfg' class='box bkeyHuge'></button>
+          <br>
+          <span style='font-size:1.3em; font-weight:bold; color:#555555;'>foreground</span>
+        </div>
+
+      </div>
+
+      <br>
+      <br>
+
+      <div class='pure-g rowH' style='height:200px;'>
+        <div class='pure-u-1-6 col'></div>
+        <div class='pure-u-1-6 col'>
+          <div id='ui_pulse_colorpickerbg'></div>
+        </div>
+        <div class='pure-u-1-6 col'></div>
+
+        <div class='pure-u-1-2 col'>
+          <br>
+          <button id='ui_pulse_colorbuttonbg' class='box bkeyHuge'></button>
+          <br>
+          <span style='font-size:1.3em; font-weight:bold; color:#555555;'>background</span>
+        </div>
+
+      </div>
+
+
+      <br>
+      <hr class='style5'>
+      <br>
+
+
+    </div>
+
+    <!-- 
+    ************************************************
+    ************************************************
+    **             _       _                      **
+    **   _ __ __ _(_)_ __ | |__   _____      __   **
+    **  | '__/ _` | | '_ \| '_ \ / _ \ \ /\ / /   **
+    **  | | | (_| | | | | | |_) | (_) \ V  V /    **
+    **  |_|  \__,_|_|_| |_|_.__/ \___/ \_/\_/     **
+    **                                            **
+    ************************************************
+    ************************************************
+    -->
+
+
+    <div id='ui_rainbow' class='page' data-jquery-page-name='ui_rainbow'>
+
+      <br>
+      <div class='pure-g rowH'>
+
+        <div class='pure-u-1-3 col'>
+          <button class='bdropinp bkeyMedium navigate'
+             data-page-name='ui_main' data-page-trans="slide-in-from-left" > &lt; </button>
+        </div>
+
+
+        <div class='pure-u-1-3 col'>
+          <span style='font-size:3em; font-weight:bold; color:#555555;'>Rainbow</span>
+        </div>
+
+        <div class='pure-u-1-3 col'>
+        </div>
+
+      </div>
+
+      <!-- -->
+
+      <hr class='style12'>
+
+      <br>
+      <br>
+
+      <div class='pure-g row'>
+
+        <div class='pure-u-1-2 col'>
+          <span style='font-size:2em; font-weight:bold; color:#555555;'>Speed</span>
+        </div>
+
+        <div class='pure-u-1-2 col'>
+          <input
+            id='ui_rainbow_slider'
+            type='range'
+            value='120'
+            min="60"
+            max="260"
+            step="1"
+            onchange='_rainbow_slider("change");'
+            oninput='_rainbow_slider("input");' >
+        </div>
+
+      </div>
+
+
+      <br>
+      <hr class='style5'>
+      <br>
+
+
+    </div>
+
+    <!-- 
+    ****************************************
+    ****************************************
+    **                                    **
+    **                                    **
+    **                                    **
+    **                                    **
+    **                                    **
+    ****************************************
+    ****************************************
+    -->
+
+
+
+    <div id='ui_tapbeat' class='page' data-jquery-page-name='ui_tapbeat'>
+
+      <br>
+      <div class='pure-g rowH'>
+
+        <div class='pure-u-1-3 col'>
+        </div>
+
+
+        <div class='pure-u-1-3 col'>
+          <span style='font-size:3em; font-weight:bold; color:#555555;'>Tap Beat</span>
+        </div>
+
+        <div class='pure-u-1-3 col'>
+          <button class='bdropinp bkeyMedium navigate'
+             data-page-name='ui_main' data-page-trans="slide-in-from-right" > &gt; </button>
+        </div>
+
+      </div>
+
+      <!-- -->
+
+      <hr class='style12'>
+
+      <br>
+      <br>
+
+      <div class='pure-g row' style='height:40px;'>
+        <div class='pure-u-1 col'>
+          <span style='font-size:1.3em; font-weight:bold; color:#555555;'>Tap Tempo</span>
+        </div>
+      </div>
+
+      <div class='pure-g row' style='height:140px;'>
+
+        <div class='pure-u-1-3 col'>
+          <button class="box" id='ui_tap_bpm' style='color:#444444; background-color:#dddddd;'>x</button>
+          <br>
+          <br>
+          <span style='font-size:1.3em; font-weight:bold; color:#555555;'>bpm</span>
+        </div>
+
+        <div class='pure-u-1-3 col'>
+          <button class='bdropinp bkeyHuge' id='ui_tap_button' onclick='_tap_button();'></button>
+        </div>
+        <div class='pure-u-1-3 col'>
+          <button class="box-s" id='ui_tap_progression' style='color:#444444; font-size:1em;'>
+
+            <div class='pure-g row'>
+              <div class='pure-u-1-3 col' id='ui_tap_progression_numerator'>12</div>
+              <div class='pure-u-1-3 col'>/</div>
+              <div class='pure-u-1-3 col' id='ui_tap_progression_denominator'>12</div>
+            </div>
+
+          </button>
+            <br>
+            <br>
+            <span style='font-size:1em; font-weight:bold; color:#555555;'>tap progression</span>
+        </div>
+
+      </div>
+
+      <br>
+      <br>
+      <br>
+
+      <!-- -->
+
+      <div class='pure-g row' >
+
+        <div class='pure-u-1-3 col' style='text-align:center;'>
+          <br>
+          <input id='ui_tap_slider' type='range' value='120' min="60" max="260" step="1" onchange='_tap_slider("change");' oninput='_tap_slider("input");' >
+        </div>
+
+        <div class='pure-u-1-3 col'>
+          <button class="bdropinp bkey" id='ui_tap_sub' onclick='_tap_sub();'>-</button>
+        </div>
+        
+
+        <div class='pure-u-1-3 col'>
+          <button class="bdropinp bkey" id='ui_tap_add' onclick='_tap_add();'>+</button>
+        </div>
+
+
+      </div>
+
+      <!-- -->
+
+
+      <br>
+      <br>
+      <hr class='style5'>
+
+    </div>
+
+
+    <!-- 
+    ****************************************
+    ****************************************
+    **                                    **
+    **                                    **
+    **                                    **
+    **                                    **
+    **                                    **
+    ****************************************
+    ****************************************
+    -->
+
+
+
+    <div id='ui_ledlayout' class='page' data-jquery-page-name='ui_ledlayout'>
+
+      <br>
+      <div class='pure-g rowH'>
+
+        <div class='pure-u-1-3 col'>
+          <button class='bdropinp bkeyMedium navigate'
+            data-page-name='ui_main' data-page-trans="slide-in-from-top" > ^ </button>
+        </div>
+
+
+        <div class='pure-u-1-3 col'>
+          <span style='font-size:3em; font-weight:bold; color:#555555;'>LED Layout</span>
+        </div>
+
+        <div class='pure-u-1-3 col'>
+        </div>
+
+      </div>
+
+      <!-- -->
+
+      <hr class='style12'>
+
+      <br>
+      <br>
+
+      <div class='pure-g rowH'>
+      </div>
+
+
+      <br>
+      <hr class='style5'>
+      <br>
+
+    </div>
+
+
+    </div>
+    </div>
+    </div>
+  </body>
+
+  <script src='js/inner-light-web.js'></script>
+  <script src='js/jquery.page.js'></script>
+
+</html>
