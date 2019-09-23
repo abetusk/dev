@@ -15,24 +15,6 @@ var g_innerlight = {
 
   "url" : "http://localhost:8080/req",
 
-  /*
-  "led" : {
-    "count_collar_left" : 3,
-    "count_collar_right" : 2,
-
-    "count_lapel_left" : 4,
-    "count_lapel_right" : 5,
-
-    "count_waist_left" : 2,
-    "count_waist_right" : 1,
-
-    "count_cuff_left" : 4,
-    "count_cuff_right": 4,
-
-    "map" : []
-  },
-  */
-
   "led" : {
     "count_collar_left" : 15,
     "count_collar_right" : 15,
@@ -46,6 +28,20 @@ var g_innerlight = {
     "count_cuff_left" : 16,
     "count_cuff_right": 16,
 
+
+    "default_count_collar_left" : 15,
+    "default_count_collar_right" : 15,
+
+    "default_count_lapel_left" : 40,
+    "default_count_lapel_right" : 40,
+
+    "default_count_waist_left" : 30,
+    "default_count_waist_right" : 30,
+
+    "default_count_cuff_left" : 16,
+    "default_count_cuff_right": 16,
+
+
     "test_collar_left" : 0,
     "test_collar_right" : 0,
 
@@ -57,6 +53,64 @@ var g_innerlight = {
 
     "test_cuff_left" : 0,
     "test_cuff_right": 0,
+
+
+    "contig_collar_left_reverse" : 0,
+    "contig_collar_right_reverse" : 0,
+
+    "contig_lapel_left_reverse" : 0,
+    "contig_lapel_right_reverse" : 0,
+
+    "contig_waist_left_reverse" : 0,
+    "contig_waist_right_reverse" : 0,
+
+    "contig_cuff_left_reverse" : 0,
+    "contig_cuff_right_reverse": 0,
+
+    "default_logical_order" : [
+      { "label": "cuff_left", "delta" : -1 },
+      { "label": "waist_left", "delta" : -1 },
+      { "label": "lapel_left", "delta" : -1 },
+      { "label": "collar_left", "delta" : -1 },
+      { "label": "collar_right", "delta" : 1 },
+      { "label": "lapel_right", "delta" : 1 },
+      { "label": "waist_right", "delta" : 1 },
+      { "label": "cuff_right", "delta" : 1 }
+    ],
+
+    "default_physical_order" : [
+      { "label": "lapel_right", "delta" : 1 },
+      { "label": "collar_right", "delta" : 1 },
+      { "label": "collar_left", "delta" : -1 },
+      { "label": "lapel_left", "delta" : -1 },
+      { "label": "waist_left", "delta" : -1 },
+      { "label": "waist_right", "delta" : 1 },
+      { "label": "cuff_right", "delta" : 1 },
+      { "label": "cuff_left", "delta" : -1 }
+    ],
+
+
+    "logical_order" : [
+      { "label": "cuff_left", "delta" : -1 },
+      { "label": "waist_left", "delta" : -1 },
+      { "label": "lapel_left", "delta" : -1 },
+      { "label": "collar_left", "delta" : -1 },
+      { "label": "collar_right", "delta" : 1 },
+      { "label": "lapel_right", "delta" : 1 },
+      { "label": "waist_right", "delta" : 1 },
+      { "label": "cuff_right", "delta" : 1 }
+    ],
+
+    "physical_order" : [
+      { "label": "lapel_right", "delta" : 1 },
+      { "label": "collar_right", "delta" : 1 },
+      { "label": "collar_left", "delta" : -1 },
+      { "label": "lapel_left", "delta" : -1 },
+      { "label": "waist_left", "delta" : -1 },
+      { "label": "waist_right", "delta" : 1 },
+      { "label": "cuff_right", "delta" : 1 },
+      { "label": "cuff_left", "delta" : -1 }
+    ],
 
     "map" : []
   },
@@ -88,6 +142,174 @@ var g_innerlight = {
   "color_map": [ [255,211,25] , [255,144,31] , [255,41,117] , [242,34,255] , [140,30,255] ]
 };
 
+
+//
+// [ cuff left ][ waist left ][ lapel left ][ collar left ][ collar right ][ lapel right ][ waist right][ cuff right ]
+//
+function _default_led_mapping() {
+  var led_count = {
+    "collar" : { "left" : g_innerlight.led.count_collar_left,
+                "right" : g_innerlight.led.count_collar_right },
+    "lapel" :  { "left" : g_innerlight.led.count_lapel_left,
+                "right" : g_innerlight.led.count_lapel_right },
+    "waist" :  { "left" : g_innerlight.led.count_waist_left,
+                "right" : g_innerlight.led.count_waist_right },
+    "cuff" :   { "left" : g_innerlight.led.count_cuff_left,
+                "right" : g_innerlight.led.count_cuff_right }
+  };
+
+  var _concept_map = [];
+
+  var n_left = led_count.cuff.left +
+               led_count.waist.left +
+               led_count.lapel.left +
+               led_count.collar.left;
+  var n_right = led_count.collar.right +
+                led_count.lapel.right +
+                led_count.waist.right +
+                led_count.cuff.right;
+
+  var _map = [];
+
+
+  var contig = [];
+  var contig_bp = { };
+
+  var physical_order = [ ["lapel","right", -1],
+                         ["collar", "right", -1],
+                         ["collar", "left", -1],
+                         ["lapel", "left", -1],
+                         ["waist", "left", 1],
+                         ["waist", "right", -1],
+                         ["cuff", "right", 1],
+                         ["cuff", "left", 1] ];
+
+  var s = 0;
+  for (var ii=0; ii<physical_order.length; ii++) {
+
+    var label = physical_order[ii][0];
+    var side = physical_order[ii][1];
+    var dir = physical_order[ii][2];
+
+    contig.push({ "start": s, "label": label + "_" + side , "delta" : dir, "n" : led_count[label][side] });
+    s += led_count[label][side];
+    contig_bp[label + "_" + side] = ii;
+  }
+
+  var logical_order = [ ["cuff", "left", -1],
+                        ["waist","left", -1],
+                        ["lapel","left", -1],
+                        ["collar","left", -1],
+                        ["collar","right", 1],
+                        ["lapel","right", 1],
+                        ["waist","right", 1],
+                        ["cuff","right", 1] ];
+  for (var ii=0; ii<logical_order.length; ii++) {
+    var label = logical_order[ii][0];
+    var side = logical_order[ii][1];
+    var dir = logical_order[ii][2];
+    var key = label + "_" + side;
+    var contig_idx = contig_bp[ key ];
+
+    var delta = 0;
+    var delta = contig[contig_idx].delta;
+
+    var phys_start = 0;
+    if (delta > 0) {
+      phys_start  = contig[contig_idx].start;
+    }
+    else {
+      phys_start = contig[contig_idx].start + contig[contig_idx].n - 1;
+    }
+
+    console.log(contig_idx, contig[contig_idx], phys_start);
+
+    var pos = phys_start;
+    for (var _p=0; _p<contig[contig_idx].n; _p++) {
+      _map.push(pos);
+      pos += delta;
+    }
+
+  }
+
+  // check
+  var a = [];
+  for (var i=0; i<_map.length; i++) {
+    a.push({ "idx": i, "seen" : 0 });
+  }
+
+  for (var i=0; i<_map.length; i++) {
+    a[_map[i]].seen = 1;
+  }
+
+  var sanity_error = 0;
+  for (var i=0; i<a.length; i++) {
+    if (a[i].seen == 0) {
+      console.log("!!!!", i, a[i]);
+      sanity_error = 1;
+    }
+  }
+
+  console.log(">>> sanity", sanity_error);
+
+  console.log(_map);
+
+
+  /*
+  contig.push({ "start" : s, "label" : "collar_right", "detlta" : -1, "n" : led_count.collar.right });
+  s += led_count.collar.right;
+  contig_bp["collar_right"] = label_idx;
+  label_idx++;
+
+  contig.push({ "start" : s, "label" : "collar_left", "detlta" : -1, "n" : led_count.collar.left });
+  s += led_count.collar.left;
+  contig_bp["collar_right"] = label_idx;
+  label_idx++;
+
+
+  contig.push({ "start" : s, "label" : "lapel_left", "detlta" : -1, "n" : led_count.lapel.left });
+  s += led_count.lapel.left;
+
+  contig.push({ "start" : s, "label" : "waist_left", "detlta" : 1, "n" : led_count.waist.left });
+  s += led_count.waist.left;
+
+  contig.push({ "start" : s, "label" : "waist_right", "detlta" : -1, "n" : led_count.waist.right });
+  s += led_count.waist.right;
+
+  contig.push({ "start" : s, "label" : "cuff_right", "detlta" : 1, "n" : led_count.cuff.right });
+  s += led_count.cuff.right;
+
+  contig.push({ "start" : s, "label" : "cuff_left", "detlta" : 1, "n" : led_count.cuff.left });
+  s += led_count.cuff.left;
+  */
+
+  console.log(">>s:", s, n_left, n_right, n_left + n_right);
+
+  for (var ctg_idx=0; ctg_idx<contig.length; ctg_idx++) {
+    var entry = contig[ctg_idx];
+  }
+
+  /*
+  var idx=0;
+  for (var ii=0; ii<n_left; ii++) {
+    _src_map.push(idx);
+    idx++;
+  }
+  for (var ii=0; ii<n_right; ii++) {
+    _src_map.push(idx);
+    idx++;
+  }
+
+  var n = led_count.lapel.right;
+  for (var ii=0; ii<n; ii++) {
+    map.push(
+
+  }
+  */
+
+
+
+}
 
 function _debug_view() {
 
@@ -224,7 +446,9 @@ var pageTransition = function(toPage, transitionType, cb, delay) {
       }
 
 
-      $(".screen").page().transition(toPage, transitionType, (function(x) { return function() { x.style.position = ""; x.style.top = ""; } })(ele) );
+      $(".screen").page().transition(toPage, transitionType,
+          (function(x) { return function() { x.style.position = ""; x.style.top = ""; }; })(ele)
+        );
     }
     if (typeof cb !== "undefined") { cb(); }
   }, delay);
@@ -543,8 +767,76 @@ function _test_ledmap() {
   console.log("test led");
 }
 
+function _getval(_id) {
+  var ele = document.getElementById(_id);
+  return parseInt(ele.value);
+}
+
+function _commit_contig_led() {
+  console.log("commit contig");
+}
+
 function _commit_ledmap() {
   console.log("commit led");
+
+  var led_count = {
+    "collar" : { "left": 0, "right": 0 },
+    "lapel" : { "left": 0, "right": 0 },
+    "waist" : { "left": 0, "right": 0 },
+    "cuff" : { "left": 0, "right": 0 }
+  };
+
+  led_count["collar"]["left"] = _getval("ui_ledmap_countcollarleft");
+  led_count["collar"]["right"] = _getval("ui_ledmap_countcollarright");
+
+  led_count["lapel"]["left"] = _getval("ui_ledmap_countlapelleft");
+  led_count["lapel"]["right"] = _getval("ui_ledmap_countlapelright");
+
+  led_count["waist"]["left"] = _getval("ui_ledmap_countwaistleft");
+  led_count["waist"]["right"] = _getval("ui_ledmap_countwaistright");
+
+  led_count["cuff"]["left"] = _getval("ui_ledmap_countcuffleft");
+  led_count["cuff"]["right"] = _getval("ui_ledmap_countcuffright");
+
+  g_innerlight.led.count_collar_left = led_count["collar"]["left"];
+  g_innerlight.led.count_collar_right = led_count["collar"]["right"];
+  g_innerlight.led.count_lapel_left = led_count["lapel"]["left"];
+  g_innerlight.led.count_lapel_right = led_count["lapel"]["right"];
+  g_innerlight.led.count_waist_left = led_count["waist"]["left"];
+  g_innerlight.led.count_waist_right = led_count["waist"]["right"];
+  g_innerlight.led.count_cuff_left = led_count["cuff"]["left"];
+  g_innerlight.led.count_cuff_right = led_count["cuff"]["right"];
+
+  _init_led_layout();
+}
+
+
+function _default_ledmap() {
+  console.log("default led");
+
+  var led_default_count = {
+    "collar" : { "left" : g_innerlight.led.default_count_collar_left,
+                "right" : g_innerlight.led.default_count_collar_right },
+    "lapel" :  { "left" : g_innerlight.led.default_count_lapel_left,
+                "right" : g_innerlight.led.default_count_lapel_right },
+    "waist" :  { "left" : g_innerlight.led.default_count_waist_left,
+                "right" : g_innerlight.led.default_count_waist_right },
+    "cuff" :   { "left" : g_innerlight.led.default_count_cuff_left,
+                "right" : g_innerlight.led.default_count_cuff_right }
+  };
+
+  g_innerlight.led.count_collar_left = led_default_count["collar"]["left"];
+  g_innerlight.led.count_collar_right = led_default_count["collar"]["right"];
+  g_innerlight.led.count_lapel_left = led_default_count["lapel"]["left"];
+  g_innerlight.led.count_lapel_right = led_default_count["lapel"]["right"];
+  g_innerlight.led.count_waist_left = led_default_count["waist"]["left"];
+  g_innerlight.led.count_waist_right = led_default_count["waist"]["right"];
+  g_innerlight.led.count_cuff_left = led_default_count["cuff"]["left"];
+  g_innerlight.led.count_cuff_right = led_default_count["cuff"]["right"];
+
+
+  _init_led_layout();
+
 }
 
 //------------------
@@ -585,9 +877,43 @@ function _divrowheading(title) {
   return _row;
 }
 
-function _divrowinput(_idbase, idx_l, idx_r, txt) {
+function _divrowheading1() {
+  var txt= 
+//"<div class='pure-g row'> " +
+"  <div class='pure-u-1-8 col' > </div>" +
+"  <div class='pure-u-1-8 col' > </div>" +
+"" +
+"  <div class='pure-u-1-8 col' style='margin-top:30px; margin-left:0px;'>" +
+"    <span style='font-size:1em; font-weight:bold; color:#aaaaaa;' >" +
+"      Left" +
+"    </span>" +
+"  </div>" +
+"  <div class='pure-u-1-8 col' > </div>" +
+"" +
+"  <div class='pure-u-1-8 col' > </div>" +
+"" +
+"  <div class='pure-u-1-8 col' style='margin-top:30px;'>" +
+"    <span style='font-size:1em; font-weight:bold; color:#aaaaaa;'>" +
+"      Right" +
+"    </span>" +
+"  </div>" +
+"  <div class='pure-u-1-8 col' > </div>" +
+"  <div class='pure-u-1-8 col' > </div>" ;
+//"</div>" ;
+
+
+  var _div = document.createElement("div");
+  _div.classList.add("pure-g");
+  _div.classList.add("row");
+  _div.innerHTML = txt;
+
+  return _div;
+}
+
+function _divrowinput(_idbase, idx_l, idx_r, ltxt, rtxt) {
   var _row = document.createElement("div");
-  var txt = ((typeof txt === "undefined") ? "" : txt);
+  var ltxt = ((typeof ltxt === "undefined") ? "" : ltxt);
+  var rtxt = ((typeof rtxt === "undefined") ? "" : rtxt);
   _row.classList.add("pure-g");
   _row.classList.add("row");
 
@@ -601,7 +927,8 @@ function _divrowinput(_idbase, idx_l, idx_r, txt) {
     _spanl.style["font-size"] = "1em";
     _spanl.style["font-weight"] = "bold";
     _spanl.style["color"] = "#555555";
-    _spanl.innerHTML = txt + idx_l;
+    //_spanl.innerHTML = txt + idx_l;
+    _spanl.innerHTML = ltxt;
 
     _col = document.createElement("div");
     _col.classList.add("pure-u-1-6");
@@ -613,7 +940,7 @@ function _divrowinput(_idbase, idx_l, idx_r, txt) {
     var _inputl = document.createElement("input");
     _inputl.setAttribute("type", "text");
     _inputl.classList.add("pure-input-rounded");
-    _inputl.setAttribute("id", _idbase + "_left_" + idx_l);
+    _inputl.setAttribute("id", _idbase + "left_" + idx_l);
 
     _col = document.createElement("div");
     _col.classList.add("pure-u-1-6");
@@ -641,7 +968,8 @@ function _divrowinput(_idbase, idx_l, idx_r, txt) {
     _spanr.style["font-size"] = "1em";
     _spanr.style["font-weight"] = "bold";
     _spanr.style["color"] = "#555555";
-    _spanr.innerHTML = txt + idx_r;
+    //_spanr.innerHTML = txt + idx_r;
+    _spanr.innerHTML = rtxt;
 
     _col = document.createElement("div");
     _col.classList.add("pure-u-1-6");
@@ -653,7 +981,7 @@ function _divrowinput(_idbase, idx_l, idx_r, txt) {
     var _inputr = document.createElement("input");
     _inputr.setAttribute("type", "text");
     _inputr.classList.add("pure-input-rounded");
-    _inputr.setAttribute("id", _idbase + "_right_" + idx_r);
+    _inputr.setAttribute("id", _idbase + "right_" + idx_r);
 
     _col = document.createElement("div");
     _col.classList.add("pure-u-1-6");
@@ -691,6 +1019,8 @@ function _init_led_layout() {
   var n2 = Math.floor(n/2);
   var parent = document.getElementById("ui_ledmap");
 
+  parent.innerHTML = "";
+
   var led_count = {
     "collar" : { "left" : g_innerlight.led.count_collar_left,
                 "right" : g_innerlight.led.count_collar_right },
@@ -703,6 +1033,9 @@ function _init_led_layout() {
   };
   var _left_idx = 0, _right_idx = 0;
 
+  // create the large led map list.
+  // Two columns, both left and right, for each of the regions.
+  //
   for (var _rgni=0; _rgni<4; _rgni++) {
     var region = ["collar", "lapel", "waist", "cuff"][_rgni];
 
@@ -719,14 +1052,19 @@ function _init_led_layout() {
     _region_div.style["-moz-border-radius"] = "10px";
 
     _region_div.appendChild(_divrowheading(region));
+    _region_div.appendChild(_divrowheading1(region));
 
     for (var _ii=0; _ii<n; _ii++) {
 
+      var ltxt = region + " " + _ii + " (" + _left_idx + ")" ;
+      var rtxt = region + " " + _ii + " (" + _right_idx + ")" ;
+
       var idx0 = _left_idx;
       var idx1 = _right_idx;
-      if (_ii >= n0) { idx0 = undefined; }
-      if (_ii >= n1) { idx1 = undefined; }
-      var _r = _divrowinput("ui_ledmap_" + region, idx0, idx1, region + " ");
+      if (_ii >= n0) { idx0 = undefined; ltxt = ""; }
+      if (_ii >= n1) { idx1 = undefined; rtxt = ""; }
+      //var _r = _divrowinput("ui_ledmap_" + region, idx0, idx1, _left_idx, _right_idx, region + " ");
+      var _r = _divrowinput("ui_ledmap_", idx0, idx1, ltxt, rtxt);
       _region_div.appendChild(_r);
 
       if (_ii < n0) { _left_idx++; }
@@ -738,14 +1076,21 @@ function _init_led_layout() {
 
   }
 
+  var ele = {};
+
+  // setup checkbox actions and callbacks
+  //
   for (var _rgni=0; _rgni<4; _rgni++) {
     var region = ["collar", "lapel", "waist", "cuff"][_rgni];
 
     for (var _lri=0; _lri<2; _lri++) {
       var lr = ["left", "right"][_lri];
 
+      ele = document.getElementById("ui_ledmap_count" + region + lr);
+      ele.value = led_count[region][lr];
 
-      var ele = document.getElementById("ui_ledmap_test" + region + lr);
+
+      ele = document.getElementById("ui_ledmap_test" + region + lr);
       ele.onclick = (function(x,y) {
         return function() {
           var _e = document.getElementById("ui_ledmap_test" + x + y);
@@ -767,6 +1112,53 @@ function _init_led_layout() {
     }
 
   }
+
+  // populate input map with values
+  //
+  for (var _lri=0; _lri<2; _lri++) {
+    var side = ["left", "right"][_lri];
+
+    var _side_idx = 0;
+    for (var _rgni=0; _rgni<4; _rgni++) {
+      var region = ["collar", "lapel", "waist", "cuff"][_rgni];
+      var n = led_count[region][side];
+
+      for (var _ii=0; _ii<n; _ii++) {
+
+        var ele = document.getElementById("ui_ledmap_" + side + "_" + _side_idx);
+        ele.value = _side_idx;
+        _side_idx++;
+      }
+    }
+  }
+
+  // populate contig regions
+  //
+  for (var side_idx=0; side_idx<2; side_idx++) {
+    for (var region_idx=0; region_idx<4; region_idx++) {
+      var side = ["left", "right"][side_idx];
+      var region = ["collar", "lapel", "waist", "cuff"][region_idx];
+
+      var ele_id = "ui_ledmap_contig" + region + "reverse" + side;
+      var ele = document.getElementById(ele_id);
+      ele.onclick = (function(x,y) {
+        return function() {
+          var _eid = "ui_ledmap_contig" + x + "reverse" + y;
+          var _e = document.getElementById(_eid);
+          console.log(_eid);
+          if (g_innerlight.led["contig_" + x + "_" + y + "_reverse"] == 0) {
+            _e.innerHTML = "<div style='margin-top:1px;'><span style='font-weight:bold; font-size:.5em;' >X</span></div>";
+            g_innerlight.led["contig_" + x + "_" + y + "_reverse"] = 1;
+          }
+          else {
+            _e.innerHTML = "";
+            g_innerlight.led["contig_" + x + "_" + y + "_reverse"] = 0;
+          }
+        };
+      })(region,side);
+    }
+  }
+
 
 }
 
