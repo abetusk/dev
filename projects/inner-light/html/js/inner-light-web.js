@@ -216,8 +216,6 @@ function _send_state() {
 
     "count_led" : n_tot,
     "map" : g_innerlight.led.map.join(",")
-
-
   };
 
   _send_api_req(data);
@@ -272,16 +270,16 @@ function _send_testled() {
 //
 // [ cuff left ][ waist left ][ lapel left ][ collar left ][ collar right ][ lapel right ][ waist right][ cuff right ]
 //
-function _default_led_mapping() {
+function _construct_led_mapping() {
   var led_count = {
-    "collar_left" : g_innerlight.led.count_collar_left,
+    "collar_left"  : g_innerlight.led.count_collar_left,
     "collar_right" : g_innerlight.led.count_collar_right,
-    "lapel_left" : g_innerlight.led.count_lapel_left,
-    "lapel_right" : g_innerlight.led.count_lapel_right,
-    "waist_left" : g_innerlight.led.count_waist_left,
-    "waist_right" : g_innerlight.led.count_waist_right,
-    "cuff_left" : g_innerlight.led.count_cuff_left,
-    "cuff_right" : g_innerlight.led.count_cuff_right
+    "lapel_left"   : g_innerlight.led.count_lapel_left,
+    "lapel_right"  : g_innerlight.led.count_lapel_right,
+    "waist_left"   : g_innerlight.led.count_waist_left,
+    "waist_right"  : g_innerlight.led.count_waist_right,
+    "cuff_left"    : g_innerlight.led.count_cuff_left,
+    "cuff_right"   : g_innerlight.led.count_cuff_right
   };
 
   var _concept_map = [];
@@ -311,9 +309,6 @@ function _default_led_mapping() {
     s += led_count[label];
     contig_bp[label] = ii;
   }
-
-  //console.log("contig",contig);
-  //console.log("contig_bp",contig_bp);
 
   // Create _map where:
   //
@@ -813,7 +808,6 @@ function _tap_button() {
 
 
 function animateCSS(ele_id, animationName, callback) {
-  //const node = document.querySelector(element);
   const node = document.getElementById(ele_id);
   node.classList.add('animated', animationName);
 
@@ -828,8 +822,9 @@ function animateCSS(ele_id, animationName, callback) {
 }
 
 function _test_ledmap() {
-  console.log("test led");
 
+  // Write file on host telling it to do a test of region(s)
+  //
   _send_testled();
 }
 
@@ -839,9 +834,46 @@ function _getval(_id) {
 }
 
 function _commit_contig_led() {
-  console.log("commit contig");
+
+  var id_order = $("#ui_ledmap_contig_physical_order").sortable("toArray");
+
+  // Lookup ordering along with whether it has the 'reverse' flag checked or not
+  //
+  for (var ii=0; ii<id_order.length; ii++) {
+    var region = id_order[ii].split("_").slice(-2).join("_");
+    var rev_ele = document.getElementById("ui_ledmap_contig_" + region + "_reverse");
+
+    var dir = 1;
+    if (rev_ele.innerHTML.length>0) {
+      dir = -1;
+    }
+
+    g_innerlight.led.physical_order[ii].label = region;
+    g_innerlight.led.physical_order[ii].delta = dir;
+  }
+
+
+  // Construct the map from the physical ordering and
+  // then apply it to the UI elements in the HTML
+  //
+  _construct_led_mapping();
+  var _map = g_innerlight.led.map;
+  for (var ii=0; ii<_map.length; ii++) {
+    var ele = document.getElementById("ui_ledmap_" + ii);
+    ele.value = _map[ii];
+  }
+
+  // Update host
+  //
+  _send_state();
 }
 
+function _commit_ledcount_change() {
+  console.log("commit led change");
+}
+
+// construct the mapping with the current layout
+//
 function _commit_ledmap() {
   console.log("commit led");
 
@@ -873,7 +905,7 @@ function _commit_ledmap() {
   g_innerlight.led.count_cuff_left = led_count["cuff"]["left"];
   g_innerlight.led.count_cuff_right = led_count["cuff"]["right"];
 
-  _init_led_layout();
+  _construct_led_layout();
 
   _send_state();
 }
@@ -902,8 +934,19 @@ function _default_ledmap() {
   g_innerlight.led.count_cuff_left = led_default_count["cuff"]["left"];
   g_innerlight.led.count_cuff_right = led_default_count["cuff"]["right"];
 
+  // restore default order
+  //
+  g_innerlight.led.physical_order = [];
+  for (var ii=0; ii<g_innerlight.led.default_physical_order.length; ii++) {
+    g_innerlight.led.physical_order.push({ "label":"", "delta":0});
+  }
+  for (var ii=0; ii<g_innerlight.led.default_physical_order.length; ii++) {
+    g_innerlight.led.physical_order[ii].label = g_innerlight.led.default_physical_order[ii].label;
+    g_innerlight.led.physical_order[ii].delta = g_innerlight.led.default_physical_order[ii].delta;
+  }
 
-  _init_led_layout();
+
+  _construct_led_layout();
 }
 
 //------------------
@@ -1081,7 +1124,7 @@ function _divrowinput(_idbase, idx_l, idx_r, ltxt, rtxt) {
   return _row;
 }
 
-function _init_led_layout() {
+function _construct_led_layout() {
   var n = 180+9;
   var text_height = 20;
   var w = 40, h = 30;
@@ -1202,7 +1245,7 @@ function _init_led_layout() {
 
   // populate input map with values
   //
-  _default_led_mapping();
+  _construct_led_mapping();
   var _map = g_innerlight.led.map;
   for (var ii=0; ii<n_tot; ii++) {
     var ele = document.getElementById("ui_ledmap_" + ii);
@@ -1393,7 +1436,7 @@ function _init() {
 
   _color_preset(0,"ui_noise_color");
 
-  _init_led_layout();
+  _construct_led_layout();
 
   //DEBUG
   pageTransition("ui_ledlayout", "slide-in-from-bottom");
