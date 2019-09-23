@@ -16,8 +16,8 @@
 
   <style>
 
-  #ui_ledmap_contigphysicalorder, #ui_ledmap_contiglogicalorder{ list-style-type: none; margin: 0; padding: 0; width: 100%; }
-  #ui_ledmap_contigphysicalorder li, #ui_ledmap_contiglogicalorder li {
+  #ui_ledmap_contig_physical_order, #ui_ledmap_contig_logical_order{ list-style-type: none; margin: 0; padding: 0; width: 100%; }
+  #ui_ledmap_contig_physical_order li, #ui_ledmap_contig_logical_order li {
     border: 2px solid #cccccc;
     margin: 0 3px 3px 3px;
     padding: 0.4em;
@@ -38,13 +38,13 @@
 
 <script>
   $( function() {
-    $( "#ui_ledmap_contiglogicalorder" ).sortable();
-    $( "#ui_ledmap_contiglogicalorder" ).disableSelection();
+    $( "#ui_ledmap_contig_logical_order" ).sortable();
+    $( "#ui_ledmap_contig_logical_order" ).disableSelection();
   } );
 
   $( function() {
-    $( "#ui_ledmap_contigphysicalorder" ).sortable();
-    $( "#ui_ledmap_contigphysicalorder" ).disableSelection();
+    $( "#ui_ledmap_contig_physical_order" ).sortable();
+    $( "#ui_ledmap_contig_physical_order" ).disableSelection();
   } );
 </script>
 
@@ -1617,78 +1617,84 @@
 
 
       <div class='pure-g row'>
-        <div class='pure-u-1-5 col' > </div>
 
+        <!--
+        <div class='pure-u-1-5 col' > </div>
         <div class='pure-u-1-5 col' style='margin-top:30px;'>
           <span style='font-size:1em; font-weight:bold; color:#aaaaaa;' >
             Logical Order
           </span>
         </div>
         <div class='pure-u-1-5 col' style='margin-top:30px; color:#aaaaaa;'> <div>-&gt;</div> </div>
+        -->
 
-        <div class='pure-u-1-5 col' style='margin-top:30px;'>
+        <div class='pure-u-1-3 col' style='margin-top:30px; color:#aaaaaa;'> </div>
+
+        <div class='pure-u-1-3 col' style='margin-top:30px;'>
           <span style='font-size:1em; font-weight:bold; color:#aaaaaa;'>
             Physical Order
           </span>
         </div>
-        <div class='pure-u-1-5 col' > </div>
+        <div class='pure-u-1-3 col' > </div>
       </div>
 
 
       <div class='pure-g row' style='height:650px;'>
+        <!--
         <div class='pure-u-1-5 col' ></div>
-
         <div class='pure-u-1-5 col'>
-          <ul id='ui_ledmap_contigphysicalorder'>
+          <ul id='ui_ledmap_contig_logical_order'>
 
-            <li id='ui_ledmap_contigphysicalordercuffleft' class='ui-state-default'> cuff left </li>
-            <li id='ui_ledmap_contigphysicalorderwaistleft' class='ui-state-default'> waist left </li>
-            <li id='ui_ledmap_contigphysicalorderlapelleft' class='ui-state-default'> lapel left </li>
-            <li id='ui_ledmap_contigphysicalordercollarleft' class='ui-state-default'> collar left </li>
-            <li id='ui_ledmap_contigphysicalordercollarright' class='ui-state-default'> collar right </li>
-            <li id='ui_ledmap_contigphysicalorderlapelright' class='ui-state-default'> lapel right </li>
-            <li id='ui_ledmap_contigphysicalorderwaistright' class='ui-state-default'> waist right </li>
-            <li id='ui_ledmap_contigphysicalordercuffright' class='ui-state-default'> cuff right </li>
+            <li id='ui_ledmap_contig_logical_order_cuff_left' class='ui-state-default'> cuff left </li>
+            <li id='ui_ledmap_contig_logical_order_waist_left' class='ui-state-default'> waist left </li>
+            <li id='ui_ledmap_contig_logical_order_lapel_left' class='ui-state-default'> lapel left </li>
+            <li id='ui_ledmap_contig_logical_order_collar_left' class='ui-state-default'> collar left </li>
+            <li id='ui_ledmap_contig_logical_order_collar_right' class='ui-state-default'> collar right </li>
+            <li id='ui_ledmap_contig_logical_order_lapel_right' class='ui-state-default'> lapel right </li>
+            <li id='ui_ledmap_contig_logical_order_waist_right' class='ui-state-default'> waist right </li>
+            <li id='ui_ledmap_contig_logical_order_cuff_right' class='ui-state-default'> cuff right </li>
 
           </ul>
 
         </div>
-
         <div class='pure-u-1-5 col' style='margin-top:200px;'> <div>-&gt;</div> </div>
+        -->
 
-        <div class='pure-u-1-5 col'>
-          <ul id='ui_ledmap_contiglogicalorder'>
 
-            <li id='ui_ledmap_contiglogicalordercuffleft' class='ui-state-default'>
-              cuff left <button id='ui_ledmap_contigcuffreverseleft' class='bdropinp bkeyTiny'></button>
+        <div class='pure-u-1-3 col'></div>
+        <div class='pure-u-1-3 col'>
+          <ul id='ui_ledmap_contig_physical_order'>
+
+            <li id='ui_ledmap_contig_physical_order_cuff_left' class='ui-state-default'>
+              cuff left <button id='ui_ledmap_contig_cuff_left_reverse' class='bdropinp bkeyTiny'></button>
             </li>
-            <li id='ui_ledmap_contiglogicalorderwaistleft' class='ui-state-default'>
-              waist left <button id='ui_ledmap_contigwaistreverseleft' class='bdropinp bkeyTiny'></button>
+            <li id='ui_ledmap_contig_physical_order_waist_left' class='ui-state-default'>
+              waist left <button id='ui_ledmap_contig_waist_left_reverse' class='bdropinp bkeyTiny'></button>
             </li>
-            <li id='ui_ledmap_contiglogicalorderlapelleft' class='ui-state-default'>
-              lapel left <button id='ui_ledmap_contiglapelreverseleft' class='bdropinp bkeyTiny'></button>
+            <li id='ui_ledmap_contig_physical_order_lapel_left' class='ui-state-default'>
+              lapel left <button id='ui_ledmap_contig_lapel_left_reverse' class='bdropinp bkeyTiny'></button>
             </li>
-            <li id='ui_ledmap_contiglogicalordercollarleft' class='ui-state-default'>
-              collar left <button id='ui_ledmap_contigcollarreverseleft' class='bdropinp bkeyTiny'></button>
+            <li id='ui_ledmap_contig_physical_order_collar_left' class='ui-state-default'>
+              collar left <button id='ui_ledmap_contig_collar_left_reverse' class='bdropinp bkeyTiny'></button>
             </li>
-            <li id='ui_ledmap_contiglogicalordercollarright' class='ui-state-default'>
-              collar right <button id='ui_ledmap_contigcollarreverseright' class='bdropinp bkeyTiny'></button>
+            <li id='ui_ledmap_contig_physical_order_collar_right' class='ui-state-default'>
+              collar right <button id='ui_ledmap_contig_collar_right_reverse' class='bdropinp bkeyTiny'></button>
             </li>
-            <li id='ui_ledmap_contiglogicalorderlapelright' class='ui-state-default'>
-              lapel right <button id='ui_ledmap_contiglapelreverseright' class='bdropinp bkeyTiny'></button>
+            <li id='ui_ledmap_contig_physical_order_lapel_right' class='ui-state-default'>
+              lapel right <button id='ui_ledmap_contig_lapel_right_reverse' class='bdropinp bkeyTiny'></button>
             </li>
-            <li id='ui_ledmap_contiglogicalorderwaistright' class='ui-state-default'>
-              waist right <button id='ui_ledmap_contigwaistreverseright' class='bdropinp bkeyTiny'></button>
+            <li id='ui_ledmap_contig_physical_order_waist_right' class='ui-state-default'>
+              waist right <button id='ui_ledmap_contig_waist_right_reverse' class='bdropinp bkeyTiny'></button>
             </li>
-            <li id='ui_ledmap_contiglogicalordercuffright' class='ui-state-default'>
-              cuff right <button id='ui_ledmap_contigcuffreverseright' class='bdropinp bkeyTiny'></button>
+            <li id='ui_ledmap_contig_physical_order_cuff_right' class='ui-state-default'>
+              cuff right <button id='ui_ledmap_contig_cuff_right_reverse' class='bdropinp bkeyTiny'></button>
             </li>
 
           </ul>
 
         </div>
 
-        <div class='pure-u-1-5 col'> </div>
+        <div class='pure-u-1-3 col'> </div>
 
       </div>
 

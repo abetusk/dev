@@ -12,6 +12,19 @@ import os
 PORT_NUMBER = 8080
 
 IL_INI = "innerlight.ini"
+IL_TESTLED = "innerlight_testled.ini"
+
+def writeledtest(data):
+  tmpfd,tmpname = tempfile.mkstemp()
+  try:
+    with os.fdopen(tmpfd, "w") as tmpfp:
+      for x in data:
+        tmpfp.write( str(x) + "=" + str(data[x]) + "\n" )
+      tmpfp.flush()
+    os.rename(tmpname, IL_TESTLED)
+  finally:
+    pass
+  pass
 
 def writeini(data):
   tmpfd,tmpname = tempfile.mkstemp()
@@ -78,6 +91,29 @@ class myHandler(BaseHTTPRequestHandler):
 
   #Handler for the POST requests
   def do_POST(self):
+    if self.path=="/ledtest":
+
+
+      form = cgi.FieldStorage(
+        fp=self.rfile, 
+        headers=self.headers,
+        environ={'REQUEST_METHOD':'POST',
+                     'CONTENT_TYPE':self.headers['Content-Type'],
+      })
+
+      data = {}
+      for x in form:
+        if x in ["collar_left", "collar_right", "lapel_left", "lapel_right",
+                 "waist_left", "waist_right", "cuff_left", "cuff_right"]:
+          data[x] = 1
+
+      writeledtest(data)
+
+      self.send_response(200)
+      self.end_headers()
+      self.wfile.write("ok")
+      return
+
     if self.path=="/req":
       form = cgi.FieldStorage(
         fp=self.rfile, 
@@ -93,6 +129,11 @@ class myHandler(BaseHTTPRequestHandler):
           color_a = str(form[x].value).split(",")
           for idx in range(len(color_a)):
             data[ "color" + str(idx) ] = color_a[idx]
+        if x == "ledmap":
+          ledmap = str(form[x].value).split(",")
+          for idx in range(len(ledmap)):
+            data[ "map" + str(idx) ] = ledmap[idx]
+
         #print "form:", x, form[x].value
 
       writeini(data)
