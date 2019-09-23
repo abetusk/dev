@@ -15,6 +15,52 @@ var g_innerlight = {
 
   "url" : "http://localhost:8080/req",
 
+  /*
+  "led" : {
+    "count_collar_left" : 3,
+    "count_collar_right" : 2,
+
+    "count_lapel_left" : 4,
+    "count_lapel_right" : 5,
+
+    "count_waist_left" : 2,
+    "count_waist_right" : 1,
+
+    "count_cuff_left" : 4,
+    "count_cuff_right": 4,
+
+    "map" : []
+  },
+  */
+
+  "led" : {
+    "count_collar_left" : 15,
+    "count_collar_right" : 15,
+
+    "count_lapel_left" : 40,
+    "count_lapel_right" : 40,
+
+    "count_waist_left" : 30,
+    "count_waist_right" : 30,
+
+    "count_cuff_left" : 16,
+    "count_cuff_right": 16,
+
+    "test_collar_left" : 0,
+    "test_collar_right" : 0,
+
+    "test_lapel_left" : 0,
+    "test_lapel_right" : 0,
+
+    "test_waist_left" : 0,
+    "test_waist_right" : 0,
+
+    "test_cuff_left" : 0,
+    "test_cuff_right": 0,
+
+    "map" : []
+  },
+
   "mode_index": 0,
   "mode":"on",
   "modes": ["solid", "solid_color", "noise",
@@ -493,6 +539,14 @@ function animateCSS(ele_id, animationName, callback) {
   node.addEventListener('animationend', handleAnimationEnd);
 }
 
+function _test_ledmap() {
+  console.log("test led");
+}
+
+function _commit_ledmap() {
+  console.log("commit led");
+}
+
 //------------------
 //  _       _ _   
 // (_)_ __ (_) |_ 
@@ -502,6 +556,219 @@ function animateCSS(ele_id, animationName, callback) {
 //                
 //------------------
 
+function _divrowheading(title) {
+  var _row = document.createElement("div");
+  _row.classList.add("pure-g");
+  _row.classList.add("row");
+
+  var _span = document.createElement("span");
+  _span.style["font-size"] = "1.2em";
+  _span.style["font-weight"] = "bold";
+  _span.style["color"] = "#888888";
+  _span.innerHTML = title;
+
+  var _col = document.createElement("div");
+  _col.classList.add("pure-u-1-3");
+  _col.classList.add("col");
+  _row.appendChild(_col);
+
+  _col = document.createElement("div");
+  _col.classList.add("pure-u-1-3");
+  _col.classList.add("col");
+  _col.appendChild(_span);
+  _row.appendChild(_col);
+
+  _col = document.createElement("div");
+  _col.classList.add("pure-u-1-3");
+  _col.classList.add("col");
+  _row.appendChild(_col);
+  return _row;
+}
+
+function _divrowinput(_idbase, idx_l, idx_r, txt) {
+  var _row = document.createElement("div");
+  var txt = ((typeof txt === "undefined") ? "" : txt);
+  _row.classList.add("pure-g");
+  _row.classList.add("row");
+
+  var _col = document.createElement("div");
+  _col.classList.add("pure-u-1-6");
+  _col.classList.add("col");
+  _row.appendChild(_col);
+
+  if (typeof idx_l !== "undefined") {
+    var _spanl = document.createElement("span");
+    _spanl.style["font-size"] = "1em";
+    _spanl.style["font-weight"] = "bold";
+    _spanl.style["color"] = "#555555";
+    _spanl.innerHTML = txt + idx_l;
+
+    _col = document.createElement("div");
+    _col.classList.add("pure-u-1-6");
+    _col.classList.add("col");
+    _col.style["margin-top"] = "15px";
+    _col.appendChild(_spanl);
+    _row.appendChild(_col);
+
+    var _inputl = document.createElement("input");
+    _inputl.setAttribute("type", "text");
+    _inputl.classList.add("pure-input-rounded");
+    _inputl.setAttribute("id", _idbase + "_left_" + idx_l);
+
+    _col = document.createElement("div");
+    _col.classList.add("pure-u-1-6");
+    _col.classList.add("col");
+    _col.appendChild(_inputl);
+    _row.appendChild(_col);
+  }
+  else {
+
+    _col = document.createElement("div");
+    _col.classList.add("pure-u-1-6");
+    _col.classList.add("col");
+    _row.appendChild(_col);
+
+    _col = document.createElement("div");
+    _col.classList.add("pure-u-1-6");
+    _col.classList.add("col");
+    _row.appendChild(_col);
+
+  }
+
+  if (typeof idx_r !== "undefined") {
+
+    var _spanr = document.createElement("span");
+    _spanr.style["font-size"] = "1em";
+    _spanr.style["font-weight"] = "bold";
+    _spanr.style["color"] = "#555555";
+    _spanr.innerHTML = txt + idx_r;
+
+    _col = document.createElement("div");
+    _col.classList.add("pure-u-1-6");
+    _col.classList.add("col");
+    _col.style["margin-top"] = "15px";
+    _col.appendChild(_spanr);
+    _row.appendChild(_col);
+
+    var _inputr = document.createElement("input");
+    _inputr.setAttribute("type", "text");
+    _inputr.classList.add("pure-input-rounded");
+    _inputr.setAttribute("id", _idbase + "_right_" + idx_r);
+
+    _col = document.createElement("div");
+    _col.classList.add("pure-u-1-6");
+    _col.classList.add("col");
+    _col.appendChild(_inputr);
+    _row.appendChild(_col);
+  }
+  else {
+
+    _col = document.createElement("div");
+    _col.classList.add("pure-u-1-6");
+    _col.classList.add("col");
+    _row.appendChild(_col);
+
+    _col = document.createElement("div");
+    _col.classList.add("pure-u-1-6");
+    _col.classList.add("col");
+    _row.appendChild(_col);
+
+  }
+
+  _col = document.createElement("div");
+  _col.classList.add("pure-u-1-6");
+  _col.classList.add("col");
+  _row.appendChild(_col);
+
+
+  return _row;
+}
+
+function _init_led_layout() {
+  var n = 180+9;
+  var text_height = 20;
+  var w = 40, h = 30;
+  var n2 = Math.floor(n/2);
+  var parent = document.getElementById("ui_ledmap");
+
+  var led_count = {
+    "collar" : { "left" : g_innerlight.led.count_collar_left,
+                "right" : g_innerlight.led.count_collar_right },
+    "lapel" :  { "left" : g_innerlight.led.count_lapel_left,
+                "right" : g_innerlight.led.count_lapel_right },
+    "waist" :  { "left" : g_innerlight.led.count_waist_left,
+                "right" : g_innerlight.led.count_waist_right },
+    "cuff" :   { "left" : g_innerlight.led.count_cuff_left,
+                "right" : g_innerlight.led.count_cuff_right }
+  };
+  var _left_idx = 0, _right_idx = 0;
+
+  for (var _rgni=0; _rgni<4; _rgni++) {
+    var region = ["collar", "lapel", "waist", "cuff"][_rgni];
+
+    var n0 = led_count[region]["left"];
+    var n1 = led_count[region]["right"];
+    var n = n0;
+    if (n < n1) { n = n1; }
+
+    var _region_div = document.createElement("div");
+    _region_div.style.border = "2px solid #cccccc";
+    _region_div.style["padding"] = "10px";
+    _region_div.style["margin"] = "10px";
+    _region_div.style["border-radius"] = "10px";
+    _region_div.style["-moz-border-radius"] = "10px";
+
+    _region_div.appendChild(_divrowheading(region));
+
+    for (var _ii=0; _ii<n; _ii++) {
+
+      var idx0 = _left_idx;
+      var idx1 = _right_idx;
+      if (_ii >= n0) { idx0 = undefined; }
+      if (_ii >= n1) { idx1 = undefined; }
+      var _r = _divrowinput("ui_ledmap_" + region, idx0, idx1, region + " ");
+      _region_div.appendChild(_r);
+
+      if (_ii < n0) { _left_idx++; }
+      if (_ii < n1) { _right_idx++; }
+
+    }
+
+    parent.appendChild(_region_div);
+
+  }
+
+  for (var _rgni=0; _rgni<4; _rgni++) {
+    var region = ["collar", "lapel", "waist", "cuff"][_rgni];
+
+    for (var _lri=0; _lri<2; _lri++) {
+      var lr = ["left", "right"][_lri];
+
+
+      var ele = document.getElementById("ui_ledmap_test" + region + lr);
+      ele.onclick = (function(x,y) {
+        return function() {
+          var _e = document.getElementById("ui_ledmap_test" + x + y);
+
+          var v = "test_" + x + "_" + y;
+
+          if (g_innerlight.led[v] == 0) {
+            g_innerlight.led[v] = 1;
+            _e.innerHTML = "<div style='margin-top:10px;'><span class='fieldDescriptor'>X</span></div>";
+          }
+          else {
+            g_innerlight.led[v] = 0;
+            _e.innerHTML = "";
+          }
+
+          console.log(x,y);
+        };
+      })(region, lr);
+    }
+
+  }
+
+}
 
 function _init() {
 
@@ -608,6 +875,11 @@ function _init() {
 
 
   _color_preset(0,"ui_noise_color");
+
+  _init_led_layout();
+
+  //DEBUG
+  pageTransition("ui_ledlayout", "slide-in-from-bottom");
 
 }
 

@@ -242,6 +242,34 @@ p:focus {
 
 /***********/
 
+.fieldDescriptor {
+  font-size:1em;
+  font-weight:bold;
+  color:#555555;
+}
+
+.bkeyTiny {
+  width: 25px;
+  height:25px;
+}
+
+.bkeyTiny:focus {
+  outline:0;
+}
+
+/***********/
+
+.bkeySmall {
+  width: 50px;
+  height:50px;
+}
+
+.bkeySmall:focus {
+  outline:0;
+}
+
+/***********/
+
 .bkey {
   width: 75px;
   height:75px;
@@ -351,7 +379,8 @@ taken from https://codepen.io/magnificode/pen/ojYJJP/
   /* border: 3px solid #1a1a1a; */
   border: 3px solid #555555;
   display: inline-block;
-  padding: 10px;
+  /* padding: 10px; */
+  padding: 5px;
   position: relative;
   text-align: center;
   transition: background 600ms ease, color 600ms ease;
@@ -368,8 +397,12 @@ input[type="radio"].toggle + label {
   cursor: pointer;
   /* min-width: 60px; */
 
+  min-width: 10%;
+  min-height: 10%;
+  /*
   min-width: 30%;
   min-height: 30%;
+  */
 
   /*
   min-width: 100px;
@@ -651,5 +684,62 @@ hr.style18:before {
   border-color: #8c8b8b;
   border-width: 0 0 1px 0;
   border-radius: 20px;
+}
+
+
+/* https://codepen.io/dannykingme/pen/IvFuB */
+
+input[type="text"] {
+  box-sizing: border-box;
+  width: 100%;
+  height: calc(3em + 2px);
+  margin: 0 0 1em;
+  padding: 1em;
+  border: 1px solid #ccc;
+  border-radius: 1.5em;
+  background: #fff;
+  resize: none;
+  outline: none;
+}
+
+input[type="text"][required]:focus {
+  border-color: #00bafa;
+}
+
+input[type="text"][required]:focus + label[placeholder]:before {
+  color: #00bafa;
+}
+
+input[type="text"][required]:focus + label[placeholder]:before,
+
+input[type="text"][required]:valid + label[placeholder]:before {
+  transition-duration: 0.2s;
+  -webkit-transform: translate(0, -1.5em) scale(0.9, 0.9);
+          transform: translate(0, -1.5em) scale(0.9, 0.9);
+}
+input[type="text"][required]:invalid + label[placeholder][alt]:before {
+  content: attr(alt);
+}
+
+input[type="text"][required] + label[placeholder] {
+  display: block;
+  pointer-events: none;
+  line-height: 1.25em;
+  margin-top: calc(-3em - 2px);
+  margin-bottom: calc((3em - 1em) + 2px);
+}
+
+input[type="text"][required] + label[placeholder]:before {
+  content: attr(placeholder);
+  display: inline-block;
+  margin: 0 calc(1em + 2px);
+  padding: 0 2px;
+  color: #898989;
+  white-space: nowrap;
+  transition: 0.3s ease-in-out;
+  background-image: linear-gradient(to bottom, #fff, #fff);
+  background-size: 100% 5px;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
