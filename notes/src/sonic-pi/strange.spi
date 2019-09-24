@@ -1,0 +1,21 @@
+# 
+use_bpm 180
+
+dt = 0.125/2
+
+melody = (ring :C2, :E2, :G2, :B2, :C3, :B2, :G2, :E2)
+slidetime = (ring dt, 2*dt, 3*dt, 4*dt, 5*dt, 6*dt, 7*dt, 8*dt, 7*dt, 6*dt, 5*dt, 4*dt, 3*dt, 2*dt )
+
+live_loop :strange do
+  idx = tick
+  co = slidetime[idx]
+  print co
+  use_synth :dsaw
+  use_synth_defaults sustain: 0.5, release: 0.5
+  #sn = play melody.tick, cutoff: 120
+  sn = play melody[idx], cutoff: 120
+  #  sleep 0.0
+  #control sn, cutoff: 80, cutoff_slide: 0.5
+  control sn, cutoff: 80, cutoff_slide: co
+  sleep 0.5
+end

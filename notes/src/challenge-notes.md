@@ -1,0 +1,25 @@
+
+Sonic pi stranger things arp:
+
+```
+use_bpm 180
+
+melody = (ring :C2, :E2, :G2, :B2, :C3, :B2, :G2, :E2)
+
+dt = 0.125/2
+slidetime_a = Array.new(8) { |t| t = dt*(t+1) }
+slidetime = (ring *(slidetime_a.concat slidetime_a.reverse()[1,6]))
+
+live_loop :strange do
+  idx = tick.round
+  co = slidetime[idx/4]
+  use_synth :dsaw
+  sn = play melody[idx], cutoff: 120, sustain: 0.5, release: 0.5
+  control sn, cutoff: 80, cutoff_slide: co
+  sleep 0.5
+end
+```
+
+---
+
+* :dsaw for lead voice
