@@ -196,7 +196,10 @@ function _send_api_req(data_obj) {
   var data_str = "";
   for (var _key in data_obj) {
     if (data_str.length > 0) { data_str += "&"; }
-    data_str += _key + "=" + data_obj[_key];
+    var str = data_obj[_key] + "";
+    if (str.length > 0) {
+      data_str += _key + "=" + data_obj[_key];
+    }
   }
 
   console.log(">> send_api_req", data_str);
@@ -208,13 +211,15 @@ function _send_api_req(data_obj) {
 }
 
 function _send_state() {
-  var color_hex_str = "";
+  //var color_hex_str = "";
   var n_tot = 0;
 
+  /*
   color_hex_str = _rgb2hex(g_innerlight.color_map[0]);
   for (var ii=1; ii<g_innerlight.color_map.length; ii++) {
     color_hex_str += "," + _rgb2hex(g_innerlight.color_map[ii]);
   }
+  */
 
   n_tot = g_innerlight.led.count_collar_left +
           g_innerlight.led.count_collar_right +
@@ -232,7 +237,7 @@ function _send_state() {
     "opt_val" : g_innerlight.option_value,
     "fg": _rgb2hex( g_innerlight.color_fg ),
     "bg": _rgb2hex( g_innerlight.color_bg ),
-    "palette" : color_hex_str,
+    //"palette" : color_hex_str,
 
     "count_collar_left" : g_innerlight.led.count_collar_left,
     "count_collar_right" : g_innerlight.led.count_collar_right,
@@ -249,6 +254,12 @@ function _send_state() {
     "count_led" : n_tot,
     "map" : g_innerlight.led.map.join(",")
   };
+
+  for (var _mode in g_innerlight.mode_option) {
+    for (var _opt in g_innerlight.mode_option[_mode]) {
+      data[ _mode + "." + _opt ] = g_innerlight.mode_option[_mode][_opt];
+    }
+  }
 
   _send_api_req(data);
 }
@@ -658,6 +669,8 @@ function _color_preset(val, pfx) {
 
     g_innerlight.color_map = [];
 
+    var color_map = [];
+
     for (var ii=0; ii<5; ii++) {
       //_set_color_str(ii, preset[val][ii].hex);
 
@@ -666,7 +679,13 @@ function _color_preset(val, pfx) {
       ele.style.background = preset[val][ii].hex;
 
       g_innerlight.color_map.push( [ preset[val][ii].rgb[0], preset[val][ii].rgb[1], preset[val][ii].rgb[2] ] );
+      color_map.push( [ preset[val][ii].rgb[0], preset[val][ii].rgb[1], preset[val][ii].rgb[2] ] );
 
+    }
+
+    for (var ii=0; ii<5; ii++) {
+      g_innerlight.mode_option.noise.palette[ii] =
+        _rgb2hex( color_map[ii] );
     }
   }
 
@@ -1539,10 +1558,111 @@ function _init() {
     g_innerlight.mode_option.pulse.bg = hex;
   });
 
+  _setup_default();
 
-  _color_preset(0,"ui_noise_color");
+  //_color_preset(0,"ui_noise_color");
 
   _construct_led_layout();
+
+}
+
+function _setup_default() {
+  _color_preset(0, "ui_noise_color");
+
+  for (var mode in g_innerlight.mode_option_default) {
+    for (var option in g_innerlight.mode_option_default[mode]) {
+      g_innerlight.mode_option[mode][option] =
+        g_innerlight.mode_option_default[mode][option];
+    }
+  }
+
+  var hex = "";
+
+  hex = g_innerlight.mode_option.solid_color.color;
+  if (hex[0] != '#') { hex = "#" + hex; }
+  $.farbtastic("#ui_solidColor_colorpicker").setColor(hex);
+
+  //--
+
+  hex = g_innerlight.mode_option.strobe.fg;
+  if (hex[0] != '#') { hex = "#" + hex; }
+  $.farbtastic("#ui_strobe_colorpickerfg").setColor(hex);
+
+  hex = g_innerlight.mode_option.strobe.bg;
+  if (hex[0] != '#') { hex = "#" + hex; }
+  $.farbtastic("#ui_strobe_colorpickerbg").setColor(hex);
+
+  //--
+
+  hex = g_innerlight.mode_option.pulse.fg;
+  if (hex[0] != '#') { hex = "#" + hex; }
+  $.farbtastic("#ui_pulse_colorpickerfg").setColor(hex);
+
+  hex = g_innerlight.mode_option.pulse.bg;
+  if (hex[0] != '#') { hex = "#" + hex; }
+  $.farbtastic("#ui_pulse_colorpickerbg").setColor(hex);
+
+  //--
+  //--
+
+  hex = g_innerlight.mode_option.tap_pulse.fg;
+  if (hex[0] != '#') { hex = "#" + hex; }
+  $.farbtastic("#ui_tapPulse_colorpickerfg").setColor(hex);
+
+  hex = g_innerlight.mode_option.tap_pulse.bg;
+  if (hex[0] != '#') { hex = "#" + hex; }
+  $.farbtastic("#ui_tapPulse_colorpickerbg").setColor(hex);
+
+  //--
+
+  hex = g_innerlight.mode_option.tap_bullet.fg;
+  if (hex[0] != '#') { hex = "#" + hex; }
+  $.farbtastic("#ui_tapBullet_colorpickerfg").setColor(hex);
+
+  hex = g_innerlight.mode_option.tap_bullet.bg;
+  if (hex[0] != '#') { hex = "#" + hex; }
+  $.farbtastic("#ui_tapBullet_colorpickerbg").setColor(hex);
+
+  //--
+
+  hex = g_innerlight.mode_option.tap_strobe.fg;
+  if (hex[0] != '#') { hex = "#" + hex; }
+  $.farbtastic("#ui_tapStrobe_colorpickerfg").setColor(hex);
+
+  hex = g_innerlight.mode_option.tap_strobe.bg;
+  if (hex[0] != '#') { hex = "#" + hex; }
+  $.farbtastic("#ui_tapStrobe_colorpickerbg").setColor(hex);
+
+  //--
+  //--
+
+  hex = g_innerlight.mode_option.mic_pulse.fg;
+  if (hex[0] != '#') { hex = "#" + hex; }
+  $.farbtastic("#ui_micPulse_colorpickerfg").setColor(hex);
+
+  hex = g_innerlight.mode_option.mic_pulse.bg;
+  if (hex[0] != '#') { hex = "#" + hex; }
+  $.farbtastic("#ui_micPulse_colorpickerbg").setColor(hex);
+
+  //--
+
+  hex = g_innerlight.mode_option.mic_bullet.fg;
+  if (hex[0] != '#') { hex = "#" + hex; }
+  $.farbtastic("#ui_micBullet_colorpickerfg").setColor(hex);
+
+  hex = g_innerlight.mode_option.mic_bullet.bg;
+  if (hex[0] != '#') { hex = "#" + hex; }
+  $.farbtastic("#ui_micBullet_colorpickerbg").setColor(hex);
+
+  //--
+
+  hex = g_innerlight.mode_option.mic_strobe.fg;
+  if (hex[0] != '#') { hex = "#" + hex; }
+  $.farbtastic("#ui_micStrobe_colorpickerfg").setColor(hex);
+
+  hex = g_innerlight.mode_option.mic_strobe.bg;
+  if (hex[0] != '#') { hex = "#" + hex; }
+  $.farbtastic("#ui_micStrobe_colorpickerbg").setColor(hex);
 
 }
 

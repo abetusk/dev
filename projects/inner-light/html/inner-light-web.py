@@ -122,8 +122,12 @@ class myHandler(BaseHTTPRequestHandler):
                      'CONTENT_TYPE':self.headers['Content-Type'],
       })
 
+      print "??????????????????????"
+      print form
+
       data = {}
       for x in form:
+        print ">>>", x
         data[ str(x) ] = str(form[x].value)
         if x == "palette":
           color_a = str(form[x].value).split(",")
@@ -135,6 +139,7 @@ class myHandler(BaseHTTPRequestHandler):
             data[ "map" + str(idx) ] = ledmap[idx]
 
         #print "form:", x, form[x].value
+      print data
 
       writeini(data)
 
