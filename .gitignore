@@ -34,3 +34,8 @@
 #site
 
 *~
+
+*.ngc
+*.gp
+*.svg
+*.ps
