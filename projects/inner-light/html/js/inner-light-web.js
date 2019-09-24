@@ -122,6 +122,38 @@ var g_innerlight = {
             "tap_pulse", "tap_bullet", "tap_strobe",
             "fill", "strobe", "pulse", "rainbow",
             "mic_strobe", "mic_bullet", "mic_pulse" ],
+  "mode_option": {
+    "solid" : { "color" : "" },
+    "solid_color" : { "color" : "" },
+    "noise" : { "palette" : ["", "", "", "", ""], "speed" : -1 },
+    "rainbow" : { "speed" : -1 },
+    "tap_pulse": { "fg" : "", "bg" : "" },
+    "tap_bullet": { "fg" : "", "bg" : "" },
+    "tap_strobe": { "fg" : "", "bg" : "" },
+    "mic_pulse": { "fg" : "", "bg" : "" },
+    "mic_bullet": { "fg" : "", "bg" : "" },
+    "mic_strobe": { "fg" : "", "bg" : "" },
+    "fill" : { "speed" : -1 },
+    "strobe" : { "fg" : "", "bg" : "", "speed" : -1 },
+    "pulse" : { "fg" : "", "bg" : "", "speed" : -1 }
+  },
+
+  "mode_option_default": {
+    "solid" : { "color" : "ffffff" },
+    "solid_color" : { "color" : "ffffff" },
+    "noise" : { "palette" : ["e8bbc9", "9a3e82", "8cd1e0", "224a8e", "d5773d"], "speed" : 0.25 },
+    "rainbow" : { "speed" : 0.25 },
+    "tap_pulse": { "fg" : "ffffff", "bg" : "000000" },
+    "tap_bullet": { "fg" : "ffffff", "bg" : "000000" },
+    "tap_strobe": { "fg" : "ffffff", "bg" : "000000" },
+    "mic_pulse": { "fg" : "ffffff", "bg" : "000000" },
+    "mic_bullet": { "fg" : "ffffff", "bg" : "000000" },
+    "mic_strobe": { "fg" : "ffffff", "bg" : "000000" },
+    "fill" : { "speed" : 0.25 },
+    "strobe" : { "fg" : "ffffff", "bg" : "000000", "speed" : 0.25 },
+    "pulse" : { "fg" : "ffffff", "bg" : "000000", "speed" : 0.25 }
+  },
+
   "mic_tap":"mic",
   "tempo_bpm":120,
   "option_value": 15,
@@ -518,11 +550,14 @@ var pageTransition = function(toPage, transitionType, cb, delay) {
 //console.log(">> send state");
 //}
 
+/*
 function _fill_slider(inp) {
   var ele = document.getElementById("ui_fill_slider");
   var val = ele.value;
 
   console.log(">> fill speed", val);
+
+  g_innerlight.mode_option.fill.speed = val;
 }
 
 function _rainbow_slider(inp) {
@@ -530,7 +565,10 @@ function _rainbow_slider(inp) {
   var val = ele.value;
 
   console.log(">> rainbow speed", val);
+
+  g_innerlight.mode_option.rainbow.speed = val;
 }
+*/
 
 
 function _color_preset(val, pfx) {
@@ -664,6 +702,44 @@ function _clamp_bpm() {
   }
 
   return g_innerlight.tap_bpm;
+}
+
+//----
+
+function _mode_commit(_mode) {
+  console.log(">> mode_commit:", _mode);
+
+  if (_mode == "solid") {
+  }
+  else if (_mode == "solid_color") {
+  }
+  else if (_mode == "noise") {
+  }
+  else if (_mode == "rainbow") {
+  }
+
+  else if (_mode == "tap_pulse") {
+  }
+  else if (_mode == "tap_bullet") {
+  }
+  else if (_mode == "tap_strobe") {
+  }
+
+  else if (_mode == "mic_pulse") {
+  }
+  else if (_mode == "mic_bullet") {
+  }
+  else if (_mode == "mic_strobe") {
+  }
+
+  else if (_mode == "fill") {
+  }
+  else if (_mode == "strobe") {
+  }
+  else if (_mode == "pulse") {
+  }
+
+  _send_state();
 }
 
 //-----------------------------------------------------
@@ -1330,6 +1406,33 @@ function _construct_led_layout() {
 
 }
 
+function _slider_change(_mode) {
+  if (_mode == "strobe") {
+    var val = document.getElementById("ui_strobe_slider").value;
+    g_innerlight.mode_option.strobe.speed = val;
+  }
+
+  else if (_mode == "pulse") {
+    var val = document.getElementById("ui_pulse_slider").value;
+    g_innerlight.mode_option.pulse.speed = val;
+  }
+
+  else if (_mode == "fill") {
+    var val = document.getElementById("ui_fill_slider").value;
+    g_innerlight.mode_option.fill.speed = val;
+  }
+
+  else if (_mode == "noise") {
+    var val = document.getElementById("ui_noise_slider").value;
+    g_innerlight.mode_option.noise.speed = val;
+  }
+
+  else if (_mode == "rainbow") {
+    var val = document.getElementById("ui_rainbow_slider").value;
+    g_innerlight.mode_option.rainbow.speed = val;
+  }
+
+}
 
 function _init() {
 
@@ -1380,6 +1483,10 @@ function _init() {
   $('#ui_solidColor_colorpicker').farbtastic(function(hex) {
     var _el = document.getElementById("ui_solidColor_colorbutton");
     _el.style.background = hex;
+
+    console.log("...", hex);
+
+    g_innerlight.mode_option.solid_color.color = hex;
   });
 
   //var tapmic = ["tap", "mic"];
@@ -1387,6 +1494,7 @@ function _init() {
   //var fgbg = ["fg", "bg"];
   var tapmic = ["tap", "mic"];
   var tm_mode = ["Pulse", "Bullet", "Strobe"];
+  var mode_name = ["pulse", "bullet", "strobe"];
   var fgbg = ["fg", "bg"];
   for (var _i=0; _i<tapmic.length; _i++) {
     for (var _j=0; _j<tm_mode.length; _j++) {
@@ -1394,12 +1502,13 @@ function _init() {
       var ele_id = "ui_" + tapmic[_i] + tm_mode[_j] + "_colorpicker" + fgbg[_k];
       var clr_id = "ui_" + tapmic[_i] + tm_mode[_j] + "_colorbutton" + fgbg[_k];
       $("#" + ele_id).farbtastic(
-        (function(_id) {
+        (function(_ui_id, _mode, _layer) {
           return function(hex) {
-            var _el = document.getElementById(_id);
+            var _el = document.getElementById(_ui_id);
             _el.style.background = hex;
+            g_innerlight.mode_option[_mode][_layer] = hex;
           };
-        })(clr_id) );
+        })(clr_id, tapmic[_i] + "_" + mode_name[_j], fgbg[_k]) );
       }
     }
   }
@@ -1407,39 +1516,33 @@ function _init() {
   $('#ui_strobe_colorpickerfg').farbtastic(function(hex) {
     var _el = document.getElementById("ui_strobe_colorbuttonfg");
     _el.style.background = hex;
+
+    g_innerlight.mode_option.strobe.fg = hex;
   });
   $('#ui_strobe_colorpickerbg').farbtastic(function(hex) {
     var _el = document.getElementById("ui_strobe_colorbuttonbg");
     _el.style.background = hex;
+
+    g_innerlight.mode_option.strobe.bg = hex;
   });
 
   $('#ui_pulse_colorpickerfg').farbtastic(function(hex) {
     var _el = document.getElementById("ui_pulse_colorbuttonfg");
     _el.style.background = hex;
+
+    g_innerlight.mode_option.pulse.fg = hex;
   });
   $('#ui_pulse_colorpickerbg').farbtastic(function(hex) {
     var _el = document.getElementById("ui_pulse_colorbuttonbg");
     _el.style.background = hex;
-  });
 
-  /*
-  $('#ui_tapPulse_colorpickerfg').farbtastic(function(hex) {
-    var _el = document.getElementById("ui_tapPulse_colorbuttonfg");
-    _el.style.background = hex;
+    g_innerlight.mode_option.pulse.bg = hex;
   });
-  $('#ui_tapPulse_colorpickerbg').farbtastic(function(hex) {
-    var _el = document.getElementById("ui_tapPulse_colorbuttonbg");
-    _el.style.background = hex;
-  });
-  */
 
 
   _color_preset(0,"ui_noise_color");
 
   _construct_led_layout();
-
-  //DEBUG
-  pageTransition("ui_ledlayout", "slide-in-from-bottom");
 
 }
 
