@@ -19,6 +19,6 @@ int main(int argc, char **argv) {
         abutton, bbutton);
     fflush(stdout);
 
-    sleep(1);
+    sleep(10);
   }
 }

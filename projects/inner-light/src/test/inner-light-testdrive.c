@@ -60,8 +60,22 @@
 #define INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE "./innerlight.led"
 #define _DEFAULT_NUM_LED 180
 
-#define NCHAR 10
-char characters[] = {' ', '.', ':', '^', '*', 'x', 's', 'S', '#', '$'};
+//#define NCHAR 10
+//char characters[] = {' ', '.', ':', '^', '*', 'x', 's', 'S', '#', '$'};
+
+int NCOLOR = 8*8;
+int NCHAR = -1;
+char *characters;
+
+void _init_characters() {
+  int i;
+
+  NCHAR = 127-32;
+  characters = malloc(sizeof(char)*NCHAR);
+  for (i=32; i<127; i++) {
+    characters[i-32] = i;
+  }
+}
 
 size_t g_n_led;
 unsigned char *g_led_map;
@@ -142,7 +156,8 @@ void display(int *b, int width, int height, int *cmap) {
 
     if (i < size-1) {
       move(i/width, i%width);
-      if (b[i] > 9) { addch(characters[9]); }
+      //if (b[i] > 9) { addch(characters[9]); }
+      if (b[i] > NCHAR) { addch(characters[NCHAR-1]); }
       else          { addch(characters[b[i]]); }
     }
 
@@ -193,7 +208,14 @@ int load_ledmap() {
 }
 
 int main(int argc, char** argv) {
-  int *b, size, width, height;
+  int i, *b, size, width, height;
+
+  int *cmap;
+
+  cmap = malloc(sizeof(int)*256);
+  for (i=0; i<256; i++) { cmap[i] = (i/64) + 1; }
+
+  _init_characters();
 
   load_ledmap();
 
@@ -208,7 +230,8 @@ int main(int argc, char** argv) {
 
   for (;;) {
     update(b, width, height);
-    display(b, width, height, NULL);
+    //display(b, width, height, NULL);
+    display(b, width, height, cmap);
     refresh();
     timeout(30);
     if (getch() != ERR) { break; }

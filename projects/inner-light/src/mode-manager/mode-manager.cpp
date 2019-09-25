@@ -9,6 +9,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
+#include <signal.h>
 
 #include <sys/mman.h>
 
@@ -68,10 +69,12 @@ enum inner_light_mode_state {
   //_MODE_TAP_RAIN,
   _MODE_TAP_STROBE,
 
+  _MODE_NOISE,
   _MODE_FILL,
   _MODE_STROBE,
   _MODE_PULSE,
   _MODE_RAINBOW,
+
 
   _MODE_MIC_STROBE,
   //_MODE_MIC_RAIN,
@@ -90,10 +93,13 @@ char _mode_name[][64] = {
   "tap_bullet",
   //"tap_rain",
   "tap_strobe",
+
+  "noise",
   "fill",
   "strobe",
   "pulse",
   "rainbow",
+
   "mic_strobe",
   //"mic_rain",
   "mic_pulse",
@@ -172,6 +178,10 @@ typedef struct inner_light_mode_type {
   int m_particle_v;
   int m_particle_max_height;
 
+  std::vector< unsigned char > m_noise_palette;
+
+  //---
+
   std::string m_led_fn;
   int m_led_fd;
   int m_led_mapped;
@@ -245,6 +255,27 @@ typedef struct inner_light_mode_type {
     m_encoder_button[0] = 0;
     m_encoder_button[1] = 0;
 
+    // setup default color palette
+    //
+    m_noise_palette.push_back(23);
+    m_noise_palette.push_back(63);
+    m_noise_palette.push_back(98);
+
+    m_noise_palette.push_back(91);
+    m_noise_palette.push_back(143);
+    m_noise_palette.push_back(153);
+
+    m_noise_palette.push_back(250);
+    m_noise_palette.push_back(171);
+    m_noise_palette.push_back(92);
+
+    m_noise_palette.push_back(191);
+    m_noise_palette.push_back(52);
+    m_noise_palette.push_back(20);
+
+    m_noise_palette.push_back(133);
+    m_noise_palette.push_back(24);
+    m_noise_palette.push_back(38);
 
   }
 
@@ -315,6 +346,9 @@ typedef struct inner_light_mode_type {
 
   int tick_solid(void);
   int tick_solid_color(void);
+
+  int tick_noise(void);
+
   int tick_fill(void);
   int tick_strobe(void);
   int tick_pulse(void);
@@ -1172,6 +1206,35 @@ int inner_light_mode_type::tick_solid_color(void) {
 
 }
 
+//---
+
+int inner_light_mode_type::tick_noise(void) {
+  int i, n_palette, v;
+  float x, dt, f;
+  static float cur_t=0.0;
+
+  dt = (float)(m_encoder_pos[0]+1.0)/128.0;
+  n_palette = m_noise_palette.size()/3;
+
+  for (i=0; i<m_led_count; i++) {
+    x = (float)i/(float)m_led_count;
+    f = snoise2(x, cur_t);
+
+    v = (int)( f*(float)n_palette );
+
+    m_rgb_buf[3*i+1] = m_noise_palette[3*v+0];
+    m_rgb_buf[3*i+2] = m_noise_palette[3*v+1];
+    m_rgb_buf[3*i+3] = m_noise_palette[3*v+2];
+
+  }
+
+  cur_t += dt;
+
+  return 0;
+}
+
+//---
+
 int inner_light_mode_type::tick_fill(void) {
   int i, pos_ds = 1, n;
   static int pos = 0;
@@ -1553,6 +1616,7 @@ int inner_light_mode_type::tick(void) {
     case _MODE_MIC_STROBE:  r = tick_mic_strobe();  break;
     case _MODE_FILL:        r = tick_fill();        break;
     case _MODE_STROBE:      r = tick_strobe();      break;
+    case _MODE_NOISE:       r = tick_noise();       break;
     case _MODE_PULSE:       r = tick_pulse();       break;
     case _MODE_RAINBOW:     r = tick_rainbow();     break;
     case _MODE_TRANSITION:  r = tick_transition();  break;
@@ -1748,6 +1812,16 @@ int inner_light_mode_type::process_encoder(int encoder_fd) {
   return 0;
 }
 
+//---
+
+void sighup_handler(int signo) {
+  if (signo == SIGHUP) {
+    printf("caught SIGHUP\n");
+  }
+}
+
+//---
+
 int main(int argc, char **argv) {
   float dt;
   int ch;
@@ -1767,6 +1841,11 @@ int main(int argc, char **argv) {
   int i;
 
   int led_count = 60*3;
+
+  if (signal(SIGHUP, sighup_handler) == SIG_ERR)  {
+    fprintf(stderr, "can't catch SIGHUP, exiting\n");
+    exit(-1);
+  }
 
   std::string led_fn = INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE;
 
@@ -1884,6 +1963,14 @@ int main(int argc, char **argv) {
 
     ret = select(maxfd, &read_fds, NULL, NULL, &tv);
     if (ret<0) {
+
+      // ignore EINTR in the case of interrupted sys call
+      // as in the case of a SIGHUP
+      //
+      if (errno == EINTR) { continue; }
+
+      // Otherwise terminate
+      //
       perror("select");
       break;
     }

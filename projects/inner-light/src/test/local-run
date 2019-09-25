@@ -1,5 +1,19 @@
 #!/bin/bash
+#
+#
+# to test:
+#
+#  mkfifo -p encoder-pipe
+#  exec 3>encoder-pipe
+#  ../mode-manager/mode-manager  -L ./innerlight.led  <( ../mode-manager/rando-inp ) encoder-pipe
+#  echo '12 0 2 0' >> encoder-pipe
+#  ....
+#  exec 3>&-
+#
+# Note that the first exec will hang until there is a reader on the pipe,
+#
 
 #../mode-manager/mode-manager  -L ./innerlight.led  <( ../mode-manager/rando-inp ) <( ./null-encoder )
-../mode-manager/mode-manager  -L ./innerlight.led  <( ../mode-manager/rando-inp ) <( ../mode-manager/rando-inp-encoder )
+#../mode-manager/mode-manager  -L ./innerlight.led  <( ../mode-manager/rando-inp ) <( ../mode-manager/rando-inp-encoder )
+../mode-manager/mode-manager  -L ./innerlight.led  <( ../mode-manager/rando-inp ) encoder-pipe
 
