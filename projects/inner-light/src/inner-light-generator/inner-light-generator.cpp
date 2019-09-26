@@ -21,6 +21,45 @@
 
 #include "inner-light-generator.hpp"
 
+inner_light_mode_t g_mode;
+
+char _mode_name[][64] = {
+  "solid",
+  "solid_color",
+  "tap_pulse",
+  "tap_bullet",
+  "tap_strobe",
+
+  "noise",
+  "fill",
+  "strobe",
+  "pulse",
+  "rainbow",
+
+  "mic_strobe",
+  "mic_pulse",
+  "n",
+  "transition",
+  "n/a",
+  "\0",
+};
+
+double _tv2d(struct timeval &tv) {
+  double x=0.0;
+  x = (double)tv.tv_sec;
+  x *=  1000000.0;
+  x += (double)tv.tv_usec;
+  return x;
+}
+
+float _dtv(struct timeval &tv0, struct timeval &tv1) {
+  float x=0.0;
+  x = (float)(tv0.tv_sec - tv1.tv_sec);
+  x *=  1000000.0;
+  x += (float)(tv0.tv_usec - tv1.tv_usec);
+  return x;
+}
+
 void _rgblerp(unsigned char *rgb_out,  float p, unsigned char *rgb_src, unsigned char *rgb_dst) {
   float f;
 
@@ -295,7 +334,7 @@ void inner_light_mode_type::beat_pulse(void) {
   // taken from config file
   //
   if (m_encoder_pos[0] == 0) {
-    _rgblerp(rgb, f_cur, m_fg_rgb, m_bg_rgb);
+    _rgblerp(rgbCur, f_cur, m_fg_rgb, m_bg_rgb);
   }
 
   // otherwise take it from encoder
@@ -490,10 +529,6 @@ void inner_light_mode_type::beat_strobe(void) {
     _color_interpolate(f_min, f_min, f_max, rgb, rgbMin);
     _color_interpolate(f_max, f_min, f_max, rgb, rgbMax);
   }
-
-    printf("%02x%02x%02x %02x%02x%02x\n",
-        rgbMin[0], rgbMin[1], rgbMin[2],
-        rgbMax[0], rgbMax[1], rgbMax[2]);
 
   for (i=0; i<m_led_count; i++) {
     m_rgb_buf[3*i+1] = rgbMin[0];
@@ -750,6 +785,9 @@ int inner_light_mode_type::tick_strobe(void) {
     rgbMax[0] = m_config.m_strobe_fg[0];
     rgbMax[1] = m_config.m_strobe_fg[1];
     rgbMax[2] = m_config.m_strobe_fg[2];
+
+    strobe_delay = (int)(10.0*((m_config.m_strobe_speed - 60.0) / (240.0-60.0)));
+    strobe_delay += 2;
   }
 
   // use encoder value otherwise
@@ -793,48 +831,53 @@ int inner_light_mode_type::tick_strobe(void) {
 
 int inner_light_mode_type::tick_pulse(void) {
   int i;
-  int pulse_max = 255, pulse_min = 32, pulse_del = 16;
+  int pulse_del = 16;
   double phase_del = 2.0*M_PI/8.0;
   unsigned char rgbCur[3];
   float w, f, f_min=64.0/255.0, f_max=255.0/255.0, f_del;
 
   f_del = f_max - f_min;
 
-  if (!m_pulse_init) {
-    m_pulse_rgb[0] = (unsigned char)f_max*255.0;
-    m_pulse_rgb[1] = (unsigned char)f_max*255.0;
-    m_pulse_rgb[2] = (unsigned char)f_max*255.0;
-    m_pulse_init = 1;
-  }
-
-  if ((m_pulse_last_button == 0) && (m_encoder_button[0] == 1)) {
-    m_pulse_state = (m_pulse_state + 1)%2;
-  }
-  m_pulse_last_button = m_encoder_button[0];
-
-	if (m_pulse_state == 0) {
-		pulse_del = m_encoder_pos[0];
-		phase_del = (double)pulse_del / 32.0;
+  if (m_encoder_pos[0] == 0) {
+    f_min = 0.0;
+    f_max = 1.0;
+    phase_del = (m_config.m_pulse_speed-60.0)/(240.0-60.0);
   }
   else {
+    if ((m_pulse_last_button == 0) && (m_encoder_button[0] == 1)) {
+      m_pulse_state = (m_pulse_state + 1)%2;
+    }
+    m_pulse_last_button = m_encoder_button[0];
 
-    if (m_encoder_pos[0] == 0) {
-      m_pulse_rgb[0] = (unsigned char)f_max*255.0;
-      m_pulse_rgb[1] = (unsigned char)f_max*255.0;
-      m_pulse_rgb[2] = (unsigned char)f_max*255.0;
+    if (m_pulse_state == 0) {
+      pulse_del = m_encoder_pos[0];
+      phase_del = (double)pulse_del / 32.0;
     }
     else {
-      w = (float)(m_encoder_pos[0]-1.0)/((float)(m_encoder_n-1));
-      _wheel( (unsigned char)(w*255.0), &(m_pulse_rgb[0]), &(m_pulse_rgb[1]), &(m_pulse_rgb[2]));
-    }
 
+      if (m_encoder_pos[0] == 0) {
+        m_pulse_rgb[0] = (unsigned char)f_max*255.0;
+        m_pulse_rgb[1] = (unsigned char)f_max*255.0;
+        m_pulse_rgb[2] = (unsigned char)f_max*255.0;
+      }
+      else {
+        w = (float)(m_encoder_pos[0]-1.0)/((float)(m_encoder_n-1));
+        _wheel( (unsigned char)(w*255.0), &(m_pulse_rgb[0]), &(m_pulse_rgb[1]), &(m_pulse_rgb[2]));
+      }
+
+    }
   }
 
   m_pulse_phase = _f_mod(m_pulse_phase+phase_del, 0.0, 2.0*M_PI);
   f = (f_del*(sin(m_pulse_phase)+1.0)/2.0) + f_min;
 
 
-  _color_interpolate( f, f_min, f_max, m_pulse_rgb, rgbCur);
+  if (m_encoder_pos[0] == 0)  {
+    _rgblerp(rgbCur, f, m_config.m_pulse_bg, m_config.m_pulse_fg);
+  }
+  else {
+    _color_interpolate( f, f_min, f_max, m_pulse_rgb, rgbCur);
+  }
 
   for (i=0; i<m_led_count; i++) {
     m_rgb_buf[3*i+1] = rgbCur[0];
@@ -1212,10 +1255,36 @@ int inner_light_mode_type::process_encoder(int encoder_fd) {
 //---
 
 void sighup_handler(int signo) {
+  int ret;
   if (signo == SIGHUP) {
     printf("caught SIGHUP\n");
+
+    ret = g_mode.m_config.load_config( g_mode.m_config_fn );
+    if (ret<0) {
+      fprintf(stderr, "Couldn't read config file %s, ignoreing and moving on\n", g_mode.m_config_fn.c_str());
+    }
+    else {
+      g_mode.m_mode = g_mode.m_config.m_mode;
+      g_mode.m_tap_ready = 1;
+      g_mode.m_tap_bpm = (int)g_mode.m_config.m_tap_bpm;
+    }
+
+    printf("mode now %i tap %f?\n", g_mode.m_mode, (float)g_mode.m_tap_bpm);
+
   }
+
 }
+
+void write_pid_file(void) {
+  FILE *fp;
+  pid_t pid;
+
+  pid = getpid();
+  fp = fopen("inner-light-generator.pid", "w");
+  fprintf(fp, "%i", pid);
+  fclose(fp);
+}
+
 
 //---
 
@@ -1223,7 +1292,7 @@ int main(int argc, char **argv) {
   float dt;
   int ch;
   int option_index;
-  std::string beat_fn, encoder_fn;
+  std::string beat_fn, encoder_fn, config_fn;
   int beat_fd, encoder_fd;
 
   fd_set active_fds, read_fds;
@@ -1246,7 +1315,7 @@ int main(int argc, char **argv) {
 
   std::string led_fn = INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE;
 
-  while ((ch=getopt_long(argc, argv, "vhi:L:n:", _longopt, &option_index)) >= 0) {
+  while ((ch=getopt_long(argc, argv, "vhi:L:n:c:", _longopt, &option_index)) >= 0) {
     switch(ch) {
       case 0:
         break;
@@ -1255,6 +1324,10 @@ int main(int argc, char **argv) {
         break;
       case 'v':
         show_version_and_exit(stdout);
+        break;
+
+      case 'c':
+        config_fn = optarg;
         break;
 
       case 'i':
@@ -1326,6 +1399,21 @@ int main(int argc, char **argv) {
 
   g_mode.m_led_count = led_count;
   g_mode.m_led_fn = led_fn;
+  if (config_fn.size() > 0) {
+    g_mode.m_config_fn = config_fn;
+  }
+  else {
+    g_mode.m_config_fn = INNER_LIGHT_DRIVER_DEFAULT_CONFIG_FILE;
+  }
+
+  ret = g_mode.m_config.load_config(g_mode.m_config_fn);
+  if (ret<0) {
+    fprintf(stderr, "Couldn't read config file %s, ignoreing and moving on\n", g_mode.m_config_fn.c_str());
+  }
+  else {
+    g_mode.m_tap_ready = 1;
+    g_mode.m_tap_bpm = g_mode.m_config.m_tap_bpm;
+  }
 
   printf("# connecting to mmap file %s (n:%i)\n", g_mode.m_led_fn.c_str(), (int)g_mode.m_led_count);
   ret = g_mode.led_mmap_fn(g_mode.m_led_fn.c_str());
@@ -1333,6 +1421,12 @@ int main(int argc, char **argv) {
     fprintf(stderr, "could not mmap file %s, exiting\n", g_mode.m_led_fn.c_str());
     exit(-1);
   }
+
+  //----
+  //
+  // save pid file
+  //
+  write_pid_file();
 
   //----
 
@@ -1399,4 +1493,5 @@ int main(int argc, char **argv) {
 
   close(beat_fd);
   close(encoder_fd);
+
 }

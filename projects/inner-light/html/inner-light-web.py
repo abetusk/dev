@@ -14,6 +14,8 @@ PORT_NUMBER = 8080
 IL_INI = "innerlight.ini"
 IL_TESTLED = "innerlight_testled.ini"
 
+ILD_PID_FN = "./inner-light-generator.pid"
+
 def writeledtest(data):
   tmpfd,tmpname = tempfile.mkstemp()
   try:
@@ -36,6 +38,8 @@ def writeini(data):
     os.rename(tmpname, IL_INI)
   finally:
     pass
+
+  os.system("/bin/kill -SIGHUP $( cat " + str(ILD_PID_FN) + " )" )
 
 #This class will handles any incoming request from
 #the browser 

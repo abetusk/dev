@@ -8,6 +8,12 @@ var g_uiData  = {
     "tapPulse", "tapBullet", "tapStrobe",
     "micPulse", "micBullet", "micStrobe",
     "fill", "strobe", "pulse", "rainbow"
+  ],
+  "mode_name" : [
+    "solid_color", "noise",
+    "tap_pulse", "tap_bullet", "tap_strobe",
+    "mic_pulse", "mic_bullet", "mic_strobe",
+    "fill", "strobe", "pulse", "rainbow"
   ]
 };
 
@@ -118,6 +124,22 @@ var g_innerlight = {
 
   "mode_index": 0,
   "mode":"on",
+  "mode_map" : {
+    "solid" : "solid" ,
+    "solidColor": "solid_color" ,
+    "noise": "noise" ,
+    "tapPulse": "tap_pulse",
+    "tapBullet": "tap_bullet",
+    "tapStrobe": "tap_strobe",
+    "fill": "fill",
+    "strobe": "strobe",
+    "pulse": "pulse",
+    "rainbow": "rainbow",
+    "micStrobe": "mic_strobe",
+    "micBullet": "mic_bullet",
+    "micPulse": "mic_pulse"
+  },
+
   "modes": ["solid", "solid_color", "noise",
             "tap_pulse", "tap_bullet", "tap_strobe",
             "fill", "strobe", "pulse", "rainbow",
@@ -1489,6 +1511,13 @@ function _init() {
         _el.setAttribute("data-page-name", "ui_" + _m);
         _el = document.getElementById("ui_mode_config0");
         _el.setAttribute("data-page-name", "ui_" + _m);
+
+        // save it in our data structure and push to api
+        //
+        console.log(">>>", _m, g_innerlight.mode_map[_m]);
+        g_innerlight.mode = g_innerlight.mode_map[_m];
+        _send_state();
+
       };
     })(mode);
 

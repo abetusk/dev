@@ -1,4 +1,4 @@
-#include "inner-light-generator-config.hpp"
+#include "inner-light-generator.hpp"
 
 //---
 
@@ -112,6 +112,83 @@ static int _parse_hex2rgb(unsigned char *rgb, std::string &_hex) {
   return 0;
 }
 
+int _map_mode(std::string &_val){
+
+  if (_val == "solid") {
+    return _MODE_SOLID;
+  }
+  else if (_val == "solid_color") {
+    return _MODE_SOLID_COLOR;
+  }
+  else if (_val == "solidColor") {
+    return _MODE_SOLID_COLOR;
+  }
+
+  else if (_val == "noise") {
+    return _MODE_NOISE;
+  }
+  else if (_val == "rainbow") {
+    return _MODE_RAINBOW;
+  }
+  else if (_val == "fill") {
+    return _MODE_FILL;
+  }
+  else if (_val == "strobe") {
+    return _MODE_STROBE;
+  }
+  else if (_val == "pulse") {
+    return _MODE_PULSE;
+  }
+
+  //--
+
+  else if (_val == "tap_pulse") {
+    return _MODE_TAP_PULSE;
+  }
+  else if (_val == "tapPulse") {
+    return _MODE_TAP_PULSE;
+  }
+
+  else if (_val == "tap_bullet") {
+    return _MODE_TAP_BULLET;
+  }
+  else if (_val == "tapBullet") {
+    return _MODE_TAP_BULLET;
+  }
+
+  else if (_val == "tap_strobe") {
+    return _MODE_TAP_STROBE;
+  }
+  else if (_val == "tapStrobe") {
+    return _MODE_TAP_STROBE;
+  }
+
+  //--
+
+  else if (_val == "mic_pulse") {
+    return _MODE_MIC_PULSE;
+  }
+  else if (_val == "micPulse") {
+    return _MODE_MIC_PULSE;
+  }
+
+  else if (_val == "mic_bullet") {
+    return _MODE_MIC_BULLET;
+  }
+  else if (_val == "micBullet") {
+    return _MODE_MIC_BULLET;
+  }
+
+  else if (_val == "mic_strobe") {
+    return _MODE_MIC_STROBE;
+  }
+  else if (_val == "micStrobe") {
+    return _MODE_MIC_STROBE;
+  }
+
+  return _MODE_SOLID_COLOR;
+}
+
 int inner_light_config_t::assign_key_value(std::string &_key, std::string &_val) {
   size_t n;
   int i;
@@ -120,6 +197,9 @@ int inner_light_config_t::assign_key_value(std::string &_key, std::string &_val)
 
   if (_key == "count_led") {
     m_count_led = atoi(_val.c_str());
+  }
+  else if (_key == "mode") {
+    m_mode = _map_mode(_val);
   }
   else if (_key == "map") {
     var_a.clear();
@@ -344,6 +424,8 @@ int inner_light_config_t::write_config(std::string &ofn) {
 
   fp = fopen(ofn.c_str(), "w");
   if (!fp) { return -1; }
+
+  fprintf(fp, "mode=%i\n", m_mode);
 
   fprintf(fp, "tap_bpm=%f\n", m_tap_bpm);
   fprintf(fp, "count_led=%i\n", m_count_led);
