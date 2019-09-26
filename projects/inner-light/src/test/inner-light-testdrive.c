@@ -99,10 +99,80 @@ void update_noise_line(int *b, int width, int height) {
   cur_t += dt;
 }
 
+// https://stackoverflow.com/questions/3018313/algorithm-to-convert-rgb-to-hsv-and-hsv-to-rgb-in-range-0-255-for-both
+
+void _rgb2hsv(double *hsv, unsigned char *rgb) {
+  unsigned char out[3];
+  double min, max, delta;
+
+  min = ((rgb[0] < rgb[1]) ? rgb[0] : rgb[1]);
+  min = ((min  < rgb[2]) ? min  : rgb[2]);
+
+  max = ((rgb[0] > rgb[1]) ? rgb[0] : rgb[1]);
+  max = ((max  > rgb[2]) ? max  : rgb[2]);
+
+  hsv[2] = max;
+  delta = max - min;
+  if (delta < 0.00001) {
+    hsv[1] = 0;
+
+    // undefined, maybe nan?
+    hsv[0] = 0;
+    return;
+  }
+
+  // NOTE: if Max is == 0, this divide would cause a crash
+  if( max > 0.0 ) {
+    hsv[1] = (delta / max);
+  } else {
+    // if max is 0, then r = g = b = 0              
+    // s = 0, h is undefined
+    hsv[1] = 0.0;
+    hsv[0] = 0.0;
+    return ;
+  }
+
+  // > is bogus, just keeps compilor happy
+  //
+  if( rgb[0] >= max ) {
+
+    // between yellow & magenta
+    //
+    hsv[0] = ( rgb[1] - rgb[2] ) / delta;
+  }
+  else if( rgb[1] >= max ) {
+
+    // between cyan & yellow
+    //
+    hsv[0] = 2.0 + ( rgb[2] - rgb[0] ) / delta;
+
+  }
+  else {
+
+    // between magenta & cyan
+    //
+    hsv[0] = 4.0 + ( rgb[0] - rgb[1] ) / delta;
+  }
+
+  // degrees
+  //
+  hsv[0] *= 60.0;
+
+  if( hsv[0] < 0.0 ) {
+    hsv[0] += 360.0;
+  }
+  hsv[0] /= 360.0;
+
+  return;
+}
+
 void update_led_line(int *b, int width, int height) {
   int i, j, v, p;
   unsigned char _r, _g, _b;
   float _fr, _fg, _fb;
+
+  double hsv[3];
+  unsigned char rgb[3];
 
   memset(b, 0, sizeof(int)*width*height);
 
@@ -115,11 +185,21 @@ void update_led_line(int *b, int width, int height) {
       _g = g_led_map[p+1];
       _b = g_led_map[p+2];
 
-      _fr = (float)_r / 255.0;
-      _fg = (float)_g / 255.0;
-      _fb = (float)_b / 255.0;
+      rgb[0] = _r;
+      rgb[1] = _g;
+      rgb[2] = _b;
 
-      v = (int) ( ((float)NCHAR) * ((_fr + _fg + _fb) / 3.0) );
+      _rgb2hsv(hsv, rgb);
+      //v = (unsigned int)(((float)NCHAR)*hsv[0]*hsv[1]*255.0);
+      //v = (unsigned int)(hsv[0]*hsv[1]*255.0);
+      v = (unsigned int)(hsv[2]*(double)(NCHAR-1));
+      //v = (unsigned int)(((float)(NCHAR-1))*hsv[0]);
+
+      //_fr = (float)_r / 255.0;
+      //_fg = (float)_g / 255.0;
+      //_fb = (float)_b / 255.0;
+      //v = (int) ( ((float)NCHAR) * ((_fr + _fg + _fb) / 3.0) );
+
       //v = (unsigned int)_r;
 
     }
@@ -209,11 +289,12 @@ int load_ledmap() {
 
 int main(int argc, char** argv) {
   int i, *b, size, width, height;
-
   int *cmap;
 
   cmap = malloc(sizeof(int)*256);
-  for (i=0; i<256; i++) { cmap[i] = (i/64) + 1; }
+  for (i=0; i<256; i++) {
+    cmap[i] = (i/64) + 1;
+  }
 
   _init_characters();
 

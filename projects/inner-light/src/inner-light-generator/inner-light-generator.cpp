@@ -19,104 +19,29 @@
 #include <string>
 #include <vector>
 
-// t should be real time (increments of 1/30 to 1/60, say)
-// space should be maybe n_led / 10.
-// denominator factor (10 above) should maybe be in the range of
-// 1-100 but we'll have to play with it.
-// Here's the tentative plan:
-//   - use snoise2(x,t) to generate a value from [-1,1]
-//   - map the result [-1,1] to the color pallette
-//   - initially, lets try not interpolating adjacent (or groups of adjacent)
-//     leds
-// Here are some color pallettes that might work:
-//
-// "deep oil slick":
-//
-// #173f62 (23,63,98)
-// #5b8f99 (91,143,153)
-// #faab5c (250,171,92)
-// #bf3414 (191,52,20)
-// #851826 (133,24,38)
-//
-// "oil ocean"
-//
-// #0f0b38 (15,11,56)
-// #222858 (34,40,88)
-// #b825df (184,37,223)
-// #b6df5c (182,223,92)
-// #c5a74b (197,167,75)
-//
-// another oil slick raibow pallette:
-//
-// #e8bbc9  (232,187,201)
-// #9a3e82 (154,62,130)
-// #8cd1e0 (140,209,224)
-// #224a8e (34,74,142)
-// #d5773d (213,119,61)
-//
-#include "simplexnoise1234.h"
+#include "inner-light-generator.hpp"
 
-//#include "RGBConverter.h"
+void _rgblerp(unsigned char *rgb_out,  float p, unsigned char *rgb_src, unsigned char *rgb_dst) {
+  float f;
 
-#define INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE "/home/pi/data/innerlight.led"
-#define _VERSION "0.1.0"
+  if (p<0) { p=0.0; }
+  if (p>1.0) { p=1.0; }
 
-enum inner_light_mode_state {
-  _MODE_SOLID = 0,
-  _MODE_SOLID_COLOR,
-  _MODE_TAP_PULSE ,
-  _MODE_TAP_BULLET,
-  _MODE_TAP_STROBE,
+  f = (float)rgb_src[0] + p*((float)rgb_dst[0] - (float)rgb_src[0]);
+  if (f<0.0) { f=0.0; }
+  else if (f > 255.0) { f = 255.0; }
+  rgb_out[0] = (unsigned char)f;
 
-  _MODE_NOISE,
-  _MODE_FILL,
-  _MODE_STROBE,
-  _MODE_PULSE,
-  _MODE_RAINBOW,
+  f = (float)rgb_src[1] + p*((float)rgb_dst[1] - (float)rgb_src[1]);
+  if (f<0.0) { f=0.0; }
+  else if (f > 255.0) { f = 255.0; }
+  rgb_out[1] = (unsigned char)f;
 
-  _MODE_MIC_STROBE,
-  _MODE_MIC_BULLET,
-  _MODE_MIC_PULSE ,
+  f = (float)rgb_src[2] + p*((float)rgb_dst[2] - (float)rgb_src[2]);
+  if (f<0.0) { f=0.0; }
+  else if (f > 255.0) { f = 255.0; }
+  rgb_out[2] = (unsigned char)f;
 
-  _MODE_N,
-
-  _MODE_TRANSITION,
-};
-
-char _mode_name[][64] = {
-  "solid",
-  "solid_color",
-  "tap_pulse",
-  "tap_bullet",
-  "tap_strobe",
-
-  "noise",
-  "fill",
-  "strobe",
-  "pulse",
-  "rainbow",
-
-  "mic_strobe",
-  "mic_pulse",
-  "n",
-  "transition",
-  "n/a",
-};
-
-static double _tv2d(struct timeval &tv) {
-  double x=0.0;
-  x = (double)tv.tv_sec;
-  x *=  1000000.0;
-  x += (double)tv.tv_usec;
-  return x;
-}
-
-static float _dtv(struct timeval &tv0, struct timeval &tv1) {
-  float x=0.0;
-  x = (float)(tv0.tv_sec - tv1.tv_sec);
-  x *=  1000000.0;
-  x += (float)(tv0.tv_usec - tv1.tv_usec);
-  return x;
 }
 
 void _wheel(unsigned char pos, unsigned char *r, unsigned char *g, unsigned char *b) {
@@ -139,294 +64,7 @@ void _wheel(unsigned char pos, unsigned char *r, unsigned char *g, unsigned char
   }
 }
 
-typedef struct inner_light_mode_type {
-  std::string m_encoder_line;
-  int m_beat_signal;
-
-  int m_mic_beat_signal;
-
-  float m_update_usec;
-
-  size_t m_led_count;
-  int m_mode;
-
-  int m_encoder_pos[2];
-  int m_encoder_button[2];
-
-  int m_encoder_n;
-
-  int m_transition_mode_to;
-  double m_transition_t0;
-  double m_transition_t_cur;
-  double m_transition_dt;
-
-  unsigned char m_frame;
-
-  float m_pulse_f;
-  float m_pulse_ds;
-  float m_pulse_dir;
-  unsigned char m_bg_rgb[3];
-
-  std::vector< int > m_particle;
-  std::vector< int > m_particle_ttl;
-  std::vector< int > m_particle_dir;
-  int m_particle_v;
-  int m_particle_max_height;
-
-  std::vector< unsigned char > m_noise_palette;
-
-  //---
-
-  std::string m_led_fn;
-  int m_led_fd;
-  int m_led_mapped;
-
-  float m_hue, m_saturation, m_lightness;
-
-  double  m_usec_cur;
-  double  m_usec_prev;
-
-  int     m_tap_ready;
-  double  m_tap_bpm;
-  int     m_tap_n;
-  int     m_tap_beat_signal;
-  std::vector< double > m_tap_time;
-
-  // parameters for different modes
-  //
-  float m_beat_pulse_f_cur;
-
-  int m_solid_color_last_button,
-      m_solid_color_state,
-      m_solid_color_param;
-
-  float m_noise_t;
-
-  int m_fill_pos,
-      m_fill_color_mod;
-
-  int m_strobe_tick;
-  float m_strobe_f;
-
-  int m_pulse_x,
-      m_pulse_init,
-      m_pulse_last_button,
-      m_pulse_state;
-  double m_pulse_phase;
-
-  unsigned char m_pulse_rgb[3];
-
-  int m_rainbow_p;
-
-  int m_transition_v;
-
-
-  // back buffer for rgb array
-  //
-  std::vector< unsigned char > m_rgb_buf, m_rgb_buf1;
-
-  // rgb array
-  // first element is 'counter'
-  // size is n_led * 3 + 1
-  //
-  unsigned char *m_rgb;
-  size_t m_rgb_sz;
-
-  inner_light_mode_type(size_t led_count=1) {
-    struct timeval tv;
-
-    m_led_count = led_count;
-    m_led_fd = 0;
-    m_led_mapped = 1;
-
-    //m_mode = _MODE_PULSE;
-    //m_mode = _MODE_BEAT;
-    //m_mode = _MODE_PRESET0;
-    m_mode = _MODE_SOLID;
-
-    m_pulse_f = 0.0;
-    //m_pulse_ds = 1.0/256.0;
-    m_pulse_ds = 8.0/256.0;
-    m_pulse_dir = 1.0;
-
-    m_transition_mode_to = 0;
-    m_transition_dt = 1.0*1000000.0;
-
-    m_frame = 0;
-
-    m_update_usec = 1000000.0 / 30.0;
-
-    m_particle_v = 4;
-    m_particle_max_height = 6;
-
-    m_tap_ready = 0;
-    m_tap_bpm = 60.0;
-    m_tap_n = 12;
-    m_tap_beat_signal =0;
-
-    gettimeofday(&tv, NULL);
-    m_usec_prev = _tv2d(tv);
-    m_usec_cur  = m_usec_prev;
-
-    m_bg_rgb[0] = 255;
-    m_bg_rgb[1] = 255;
-    m_bg_rgb[2] = 255;
-
-    m_encoder_n = 20;
-    m_encoder_pos[0] = 0;
-    m_encoder_pos[1] = 0;
-
-    m_encoder_button[0] = 0;
-    m_encoder_button[1] = 0;
-
-    // setup default color palette
-    //
-    m_noise_palette.push_back(23);
-    m_noise_palette.push_back(63);
-    m_noise_palette.push_back(98);
-
-    m_noise_palette.push_back(91);
-    m_noise_palette.push_back(143);
-    m_noise_palette.push_back(153);
-
-    m_noise_palette.push_back(250);
-    m_noise_palette.push_back(171);
-    m_noise_palette.push_back(92);
-
-    m_noise_palette.push_back(191);
-    m_noise_palette.push_back(52);
-    m_noise_palette.push_back(20);
-
-    m_noise_palette.push_back(133);
-    m_noise_palette.push_back(24);
-    m_noise_palette.push_back(38);
-
-    m_beat_pulse_f_cur = 0.0;
-
-    m_solid_color_last_button = 0;
-    m_solid_color_state = 0;
-    m_solid_color_param = 0;
-
-    m_noise_t = 0;
-
-    m_fill_pos = 0;
-    m_fill_color_mod = 0;
-
-    m_strobe_tick = 0;
-    m_strobe_f = 0;
-
-    m_pulse_dir = 0;
-    m_pulse_x = 0;
-    m_pulse_init = 0;
-    m_pulse_last_button = 0;
-    m_pulse_state = 0;
-    m_pulse_phase = 0.0;
-    m_pulse_rgb[0] = 255;
-    m_pulse_rgb[0] = 255;
-    m_pulse_rgb[0] = 255;
-
-    m_rainbow_p = 0;
-
-    m_transition_v = 0;
-
-  }
-
-
-  // map m_rgb to the mmap'd file
-  // save a copy in m_rgb_buf
-  //
-  int led_mmap(int fd) {
-    int i;
-    void *v;
-    unsigned char *chp;
-
-    m_rgb_sz = m_led_count*3 + 1;
-
-    m_rgb_buf.resize(m_rgb_sz);
-    m_rgb_buf1.resize(m_rgb_sz);
-
-    v = mmap(NULL, m_rgb_sz, PROT_NONE | PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
-    if (v==MAP_FAILED) { perror("map failed"); m_rgb = NULL; return -1; }
-    if (v==NULL) { perror("mmap null"); return -2; }
-    m_rgb = (unsigned char *)v;
-
-    memcpy(&(m_rgb_buf[0]), m_rgb, m_rgb_sz);
-    return 0;
-  }
-
-  // wrapper for filename
-  //
-  int led_mmap_fn(const char *fn) {
-    int r;
-    m_led_fn = fn;
-    m_led_fd = open(fn, O_RDWR);
-    if (m_led_fd < 0) { perror("mmap failed"); return -1; }
-
-    r = led_mmap(m_led_fd);
-    return r;
-  }
-
-  int cleanup(void) {
-    if (m_led_fd > 0) {
-      if (m_led_mapped) {
-        munmap(m_rgb, m_rgb_sz);
-      }
-      close(m_led_fd);
-    }
-    return 0;
-  }
-
-  void add_particle(int pos, int dir=1, int ttl=32) {
-    m_particle.push_back(pos);
-    m_particle_dir.push_back(dir);
-    m_particle_ttl.push_back(ttl);
-  }
-
-  void rem_particle(int idx) {
-    int x;
-    x = (int)(m_particle.size()-1);
-    m_particle[idx] = m_particle[x];
-    m_particle_dir[idx] = m_particle_dir[x];
-    m_particle_ttl[idx] = m_particle_ttl[x];
-
-    m_particle.resize(x);
-    m_particle_dir.resize(x);
-    m_particle_ttl.resize(x);
-  }
-
-  int tick(void);
-
-  int tick_solid(void);
-  int tick_solid_color(void);
-
-  int tick_noise(void);
-
-  int tick_fill(void);
-  int tick_strobe(void);
-  int tick_pulse(void);
-  int tick_rainbow(void);
-  int tick_transition(void);
-
-  int tick_tap_pulse(void);
-  int tick_mic_pulse(void);
-  int tick_tap_bullet(void);
-  int tick_mic_bullet(void);
-  int tick_tap_strobe(void);
-  int tick_mic_strobe(void);
-
-  void beat_pulse(void);
-  void beat_bullet(void);
-  void beat_strobe(void);
-
-  int update_led(void);
-  int process_mic_beat(int);
-  int process_encoder(int);
-
-  int process_tap(void);
-
-} inner_light_mode_t;
-
-inner_light_mode_t g_mode;
+//---
 
 struct option _longopt[] = {
   {"help", no_argument, 0, 'h'},
@@ -541,6 +179,15 @@ int inner_light_mode_type::process_tap(void) {
 }
 
 int inner_light_mode_type::tick_tap_pulse(void) {
+
+  m_fg_rgb[0] = m_config.m_tap_pulse_fg[0];
+  m_fg_rgb[1] = m_config.m_tap_pulse_fg[1];
+  m_fg_rgb[2] = m_config.m_tap_pulse_fg[2];
+
+  m_bg_rgb[0] = m_config.m_tap_pulse_bg[0];
+  m_bg_rgb[1] = m_config.m_tap_pulse_bg[1];
+  m_bg_rgb[2] = m_config.m_tap_pulse_bg[2];
+
   if (process_tap()) {
     m_beat_signal = m_tap_beat_signal;
     beat_pulse();
@@ -549,6 +196,15 @@ int inner_light_mode_type::tick_tap_pulse(void) {
 }
 
 int inner_light_mode_type::tick_mic_pulse(void) {
+
+  m_fg_rgb[0] = m_config.m_mic_pulse_fg[0];
+  m_fg_rgb[1] = m_config.m_mic_pulse_fg[1];
+  m_fg_rgb[2] = m_config.m_mic_pulse_fg[2];
+
+  m_bg_rgb[0] = m_config.m_mic_pulse_bg[0];
+  m_bg_rgb[1] = m_config.m_mic_pulse_bg[1];
+  m_bg_rgb[2] = m_config.m_mic_pulse_bg[2];
+
   m_beat_signal = m_mic_beat_signal;
   m_mic_beat_signal = 0;
   beat_pulse();
@@ -556,6 +212,15 @@ int inner_light_mode_type::tick_mic_pulse(void) {
 }
 
 int inner_light_mode_type::tick_tap_bullet(void) {
+
+  m_fg_rgb[0] = m_config.m_tap_bullet_fg[0];
+  m_fg_rgb[1] = m_config.m_tap_bullet_fg[1];
+  m_fg_rgb[2] = m_config.m_tap_bullet_fg[2];
+
+  m_bg_rgb[0] = m_config.m_tap_bullet_bg[0];
+  m_bg_rgb[1] = m_config.m_tap_bullet_bg[1];
+  m_bg_rgb[2] = m_config.m_tap_bullet_bg[2];
+
   if (process_tap()) {
     m_beat_signal = m_tap_beat_signal;
     beat_bullet();
@@ -564,6 +229,15 @@ int inner_light_mode_type::tick_tap_bullet(void) {
 }
 
 int inner_light_mode_type::tick_mic_bullet(void) {
+
+  m_fg_rgb[0] = m_config.m_mic_bullet_fg[0];
+  m_fg_rgb[1] = m_config.m_mic_bullet_fg[1];
+  m_fg_rgb[2] = m_config.m_mic_bullet_fg[2];
+
+  m_bg_rgb[0] = m_config.m_mic_bullet_bg[0];
+  m_bg_rgb[1] = m_config.m_mic_bullet_bg[1];
+  m_bg_rgb[2] = m_config.m_mic_bullet_bg[2];
+
   m_beat_signal = m_mic_beat_signal;
   m_mic_beat_signal = 0;
   beat_bullet();
@@ -571,6 +245,15 @@ int inner_light_mode_type::tick_mic_bullet(void) {
 }
 
 int inner_light_mode_type::tick_tap_strobe(void) {
+
+  m_fg_rgb[0] = m_config.m_tap_strobe_fg[0];
+  m_fg_rgb[1] = m_config.m_tap_strobe_fg[1];
+  m_fg_rgb[2] = m_config.m_tap_strobe_fg[2];
+
+  m_bg_rgb[0] = m_config.m_tap_strobe_bg[0];
+  m_bg_rgb[1] = m_config.m_tap_strobe_bg[1];
+  m_bg_rgb[2] = m_config.m_tap_strobe_bg[2];
+
   if (process_tap()) {
     m_beat_signal = m_tap_beat_signal;
     beat_strobe();
@@ -579,6 +262,15 @@ int inner_light_mode_type::tick_tap_strobe(void) {
 }
 
 int inner_light_mode_type::tick_mic_strobe(void) {
+
+  m_fg_rgb[0] = m_config.m_mic_strobe_fg[0];
+  m_fg_rgb[1] = m_config.m_mic_strobe_fg[1];
+  m_fg_rgb[2] = m_config.m_mic_strobe_fg[2];
+
+  m_bg_rgb[0] = m_config.m_mic_strobe_bg[0];
+  m_bg_rgb[1] = m_config.m_mic_strobe_bg[1];
+  m_bg_rgb[2] = m_config.m_mic_strobe_bg[2];
+
   m_beat_signal = m_mic_beat_signal;
   m_mic_beat_signal = 0;
   beat_strobe();
@@ -588,30 +280,39 @@ int inner_light_mode_type::tick_mic_strobe(void) {
 
 void inner_light_mode_type::beat_pulse(void) {
   int i;
-  float w, f, f_del, f_decay = 32.0/255.0, f_min=64.0/255.0, f_max=255.0/255.0;
+  //float w, f, f_del, f_decay = 32.0/255.0, f_min=64.0/255.0, f_max=255.0/255.0;
+  float w, f, f_decay = 32.0/255.0, f_min=0.0/255.0, f_max=255.0/255.0;
   unsigned char rgb[3], rgbCur[3];
   float f_cur;
 
   f_cur = m_pulse_f;
-
-  f_del = f_max - f_min;
 
   f_cur -= f_decay;
   if (m_beat_signal) { f_cur = f_max; }
   if (f_cur <= f_min) { f_cur = f_min; }
   if (f_cur >= f_max) { f_cur = f_max; }
 
+  // taken from config file
+  //
   if (m_encoder_pos[0] == 0) {
-    rgb[0] = (unsigned char)f_max*255.0;
-    rgb[1] = (unsigned char)f_max*255.0;
-    rgb[2] = (unsigned char)f_max*255.0;
-  }
-  else {
-    w = (float)(m_encoder_pos[0]-1.0)/((float)(m_encoder_n-1));
-    _wheel( (unsigned char)(w*255.0), &(rgb[0]), &(rgb[1]), &(rgb[2]));
+    _rgblerp(rgb, f_cur, m_fg_rgb, m_bg_rgb);
   }
 
-  _color_interpolate( f_cur, f_min, f_max, rgb, rgbCur);
+  // otherwise take it from encoder
+  //
+  else {
+    if (m_encoder_pos[0] == 1) {
+      rgb[0] = (unsigned char)f_max*255.0;
+      rgb[1] = (unsigned char)f_max*255.0;
+      rgb[2] = (unsigned char)f_max*255.0;
+    }
+    else {
+      w = (float)(m_encoder_pos[0]-1.0)/((float)(m_encoder_n-1));
+      _wheel( (unsigned char)(w*255.0), &(rgb[0]), &(rgb[1]), &(rgb[2]));
+    }
+
+    _color_interpolate( f_cur, f_min, f_max, rgb, rgbCur);
+  }
 
   for (i=0; i<m_led_count; i++) {
     m_rgb_buf[3*i+1] = rgbCur[0];
@@ -622,23 +323,44 @@ void inner_light_mode_type::beat_pulse(void) {
 }
 
 void inner_light_mode_type::beat_bullet(void) {
-  int i, j, u, p, d, _irgb;
-  unsigned char _deflate = 32, _deflate1 = 16;
-  unsigned char _floor = 64, _ceil = 255, _ds0 = 64, _ds;
+  int i, j, u, p, d;
 
-  float f, f_del, f_min=64.0/255.0, f_max=255.0/255.0;
+  //float f, f_del, f_min=64.0/255.0, f_max=255.0/255.0;
+  float f, f_del, f_min=0.0/255.0, f_max=255.0/255.0;
   unsigned char w, rgb[3], rgbCur[3], rgbMin[3], rgbMax[3];
 
   f_del = f_max - f_min;
 
+  // taken from config file
+  //
   if (m_encoder_pos[0] == 0) {
-    rgb[0] = 255;
-    rgb[1] = 255;
-    rgb[2] = 255;
+    rgb[0] = m_fg_rgb[0];
+    rgb[1] = m_fg_rgb[1];
+    rgb[2] = m_fg_rgb[2];
+
+    rgbMin[0] = m_bg_rgb[0];
+    rgbMin[1] = m_bg_rgb[1];
+    rgbMin[2] = m_bg_rgb[2];
+
+    rgbMax[0] = m_fg_rgb[0];
+    rgbMax[1] = m_fg_rgb[1];
+    rgbMax[2] = m_fg_rgb[2];
   }
+
+  // otherwise take it from encoder
+  //
   else {
-    f = (float)(m_encoder_pos[0]-1)/19.0;
-    _wheel( (unsigned char)(f*255.0), &(rgb[0]),&(rgb[1]),&(rgb[2]));
+    if (m_encoder_pos[0] == 1) {
+      rgb[0] = 255;
+      rgb[1] = 255;
+      rgb[2] = 255;
+    }
+    else {
+      f = (float)(m_encoder_pos[0]-1)/19.0;
+      _wheel( (unsigned char)(f*255.0), &(rgb[0]),&(rgb[1]),&(rgb[2]));
+    }
+    _color_interpolate(f_min, f_min, f_max, rgb, rgbMin);
+    _color_interpolate(f_max, f_min, f_max, rgb, rgbMax);
   }
 
 
@@ -652,7 +374,6 @@ void inner_light_mode_type::beat_bullet(void) {
 
   // clear buffer
   //
-  _color_interpolate(f_min, f_min, f_max, rgb, rgbMin);
   for (i=0; i<m_led_count; i++) {
     m_rgb_buf1[3*i+1] = rgbMin[0];
     m_rgb_buf1[3*i+2] = rgbMin[1];
@@ -679,7 +400,6 @@ void inner_light_mode_type::beat_bullet(void) {
 
   // update center particle
   //
-  _color_interpolate(f_max, f_min, f_max, rgb, rgbMax);
   for (i=0; i<m_particle.size(); i++) {
     m_rgb_buf1[ 3*(m_particle[i]) + 1 ] = rgbMax[0];
     m_rgb_buf1[ 3*(m_particle[i]) + 2 ] = rgbMax[1];
@@ -726,31 +446,54 @@ void inner_light_mode_type::beat_strobe(void) {
   int i, j, p;
   int strobe_size=3, strobe_n =16;
 
-  float w, f, f_del, f_decay = 32.0/255.0, f_min=64.0/255.0, f_max=255.0/255.0;
+  //float w, f, f_del, f_decay = 32.0/255.0, f_min=64.0/255.0, f_max=255.0/255.0;
+  float w, f, f_decay = 32.0/255.0, f_min=0.0/255.0, f_max=255.0/255.0;
   unsigned char rgb[3], rgbMin[3], rgbMax[3];
   float f_cur;
 
   f_cur = m_strobe_f;
-
-  f_del = f_max - f_min;
 
   f_cur -= f_decay;
   if (m_beat_signal) { f_cur = f_max; }
   if (f_cur <= f_min) { f_cur = f_min; }
   if (f_cur >= f_max) { f_cur = f_max; }
 
+  // taken from config file
+  //
   if (m_encoder_pos[0] == 0) {
-    rgb[0] = (unsigned char)f_max*255.0;
-    rgb[1] = (unsigned char)f_max*255.0;
-    rgb[2] = (unsigned char)f_max*255.0;
-  }
-  else {
-    w = (float)(m_encoder_pos[0]-1.0)/((float)(m_encoder_n-1));
-    _wheel( (unsigned char)(w*255.0), &(rgb[0]), &(rgb[1]), &(rgb[2]));
+    _rgblerp(rgb, f_cur, m_fg_rgb, m_bg_rgb);
+
+    rgbMin[0] = m_bg_rgb[0];
+    rgbMin[1] = m_bg_rgb[1];
+    rgbMin[2] = m_bg_rgb[2];
+
+    rgbMax[0] = m_fg_rgb[0];
+    rgbMax[1] = m_fg_rgb[1];
+    rgbMax[2] = m_fg_rgb[2];
+
+
   }
 
-  _color_interpolate(f_min, f_min, f_max, rgb, rgbMin);
-  _color_interpolate(f_max, f_min, f_max, rgb, rgbMax);
+  // otherwise use encoder value
+  //
+  else {
+    if (m_encoder_pos[0] == 1) {
+      rgb[0] = (unsigned char)f_max*255.0;
+      rgb[1] = (unsigned char)f_max*255.0;
+      rgb[2] = (unsigned char)f_max*255.0;
+    }
+    else {
+      w = (float)(m_encoder_pos[0]-1.0)/((float)(m_encoder_n-1));
+      _wheel( (unsigned char)(w*255.0), &(rgb[0]), &(rgb[1]), &(rgb[2]));
+    }
+
+    _color_interpolate(f_min, f_min, f_max, rgb, rgbMin);
+    _color_interpolate(f_max, f_min, f_max, rgb, rgbMax);
+  }
+
+    printf("%02x%02x%02x %02x%02x%02x\n",
+        rgbMin[0], rgbMin[1], rgbMin[2],
+        rgbMax[0], rgbMax[1], rgbMax[2]);
 
   for (i=0; i<m_led_count; i++) {
     m_rgb_buf[3*i+1] = rgbMin[0];
@@ -796,13 +539,29 @@ int inner_light_mode_type::tick_solid(void) {
   float v;
   unsigned char u;
 
-  v = (float)m_encoder_pos[0] / (float)m_encoder_n;
-  u = (unsigned char)(v*255.0);
+  // take from config file
+  //
+  if (m_encoder_pos[0] == 0) {
 
-  for (i=0; i<m_led_count; i++) {
-    m_rgb_buf[3*i+1] = u;
-    m_rgb_buf[3*i+2] = u;
-    m_rgb_buf[3*i+3] = u;
+    for (i=0; i<m_led_count; i++) {
+      m_rgb_buf[3*i+1] = m_config.m_solid_rgb[0];
+      m_rgb_buf[3*i+2] = m_config.m_solid_rgb[1];
+      m_rgb_buf[3*i+3] = m_config.m_solid_rgb[2];
+    }
+
+  }
+
+  // otherwise use encoder value to determine color
+  //
+  else {
+    v = (float)m_encoder_pos[0] / (float)m_encoder_n;
+    u = (unsigned char)(v*255.0);
+
+    for (i=0; i<m_led_count; i++) {
+      m_rgb_buf[3*i+1] = u;
+      m_rgb_buf[3*i+2] = u;
+      m_rgb_buf[3*i+3] = u;
+    }
   }
 
 }
@@ -812,33 +571,45 @@ int inner_light_mode_type::tick_solid_color(void) {
   float v;
   unsigned char u, r, g, b;
 
-  if ((m_solid_color_last_button == 0) && (m_encoder_button[0] == 1)) {
-    m_solid_color_state = (m_solid_color_state + 1)%2;
-  }
-  m_solid_color_last_button = m_encoder_button[0];
-
-  // change color
+  // take from config file
   //
-  if (m_solid_color_state == 0) {
-    m_solid_color_param = m_encoder_pos[0];
+  if (m_encoder_pos[0] == 0) {
+    r = m_config.m_solid_rgb[0];
+    g = m_config.m_solid_rgb[1];
+    b = m_config.m_solid_rgb[2];
   }
 
-  if (m_solid_color_param == 0) {
-    r = 255;
-    g = 255;
-    b = 255;
-  }
+  // otherwise use encoder position
+  //
   else {
-    v = (float)m_solid_color_param / (float)(m_encoder_n-1.0);
-    u = (unsigned char)(v*255.0);
-    _wheel(u, &r, &g, &b);
-  }
+    if ((m_solid_color_last_button == 0) && (m_encoder_button[0] == 1)) {
+      m_solid_color_state = (m_solid_color_state + 1)%2;
+    }
+    m_solid_color_last_button = m_encoder_button[0];
 
-  if (m_solid_color_state == 1) {
-    v = (float)m_encoder_pos[0] / (float)m_encoder_n;
-    r = (unsigned char)((float)r*v);
-    g = (unsigned char)((float)g*v);
-    b = (unsigned char)((float)b*v);
+    // change color
+    //
+    if (m_solid_color_state == 0) {
+      m_solid_color_param = m_encoder_pos[0];
+    }
+
+    if (m_solid_color_param == 0) {
+      r = 255;
+      g = 255;
+      b = 255;
+    }
+    else {
+      v = (float)m_solid_color_param / (float)(m_encoder_n-1.0);
+      u = (unsigned char)(v*255.0);
+      _wheel(u, &r, &g, &b);
+    }
+
+    if (m_solid_color_state == 1) {
+      v = (float)m_encoder_pos[0] / (float)m_encoder_n;
+      r = (unsigned char)((float)r*v);
+      g = (unsigned char)((float)g*v);
+      b = (unsigned char)((float)b*v);
+    }
   }
 
   for (i=0; i<m_led_count; i++) {
@@ -858,7 +629,19 @@ int inner_light_mode_type::tick_noise(void) {
 
   cur_t = m_noise_t;
 
-  dt = (float)(m_encoder_pos[0]+1.0)/128.0;
+  if (m_encoder_pos[0] == 0)  {
+    if (m_config.m_noise_speed < 60.0) {
+      dt = 1.0/128.0;
+    }
+    else {
+      dt = m_config.m_noise_speed / (60.0*128.0);
+    }
+  }
+
+  else {
+    dt = (float)(m_encoder_pos[0]+1.0)/128.0;
+  }
+
   n_palette = m_noise_palette.size()/3;
 
   for (i=0; i<m_led_count; i++) {
@@ -891,7 +674,22 @@ int inner_light_mode_type::tick_fill(void) {
   //color_mod = m_fill_color_mod;
 
 
-  pos_ds = m_encoder_pos[0];
+  // take from config file
+  //
+  if (m_encoder_pos[0] == 0) {
+    if (m_config.m_fill_speed < 60.0) {
+      pos_ds = 1;
+    }
+    else {
+      pos_ds = (int)(12.0*((m_config.m_fill_speed - 60.0) / 60.0));
+    }
+  }
+
+  // encoder position otherwise
+  //
+  else {
+    pos_ds = m_encoder_pos[0];
+  }
 
   m_fill_pos += pos_ds;
   n = ( (m_fill_pos<m_led_count) ? m_fill_pos : m_led_count );
@@ -927,7 +725,8 @@ int inner_light_mode_type::tick_strobe(void) {
   int strobe_size=3, strobe_n =4;
   int strobe_delay = 2;
 
-  float w, f, f_del, f_decay = 32.0/255.0, f_min=64.0/255.0, f_max=255.0/255.0;
+  //float w, f, f_del, f_decay = 32.0/255.0, f_min=64.0/255.0, f_max=255.0/255.0;
+  float w, f, f_decay = 32.0/255.0, f_min=0.0/255.0, f_max=255.0/255.0;
   unsigned char rgb[3], rgbMin[3], rgbMax[3];
 
   //int strobe_tick;
@@ -935,25 +734,40 @@ int inner_light_mode_type::tick_strobe(void) {
   //strobe_tick = m_strobe_tick;
   //f_cur = m_strobe_f;
 
-  f_del = f_max - f_min;
 
   m_strobe_f -= f_decay;
   if (m_beat_signal) { m_strobe_f = f_max; }
   if (m_strobe_f <= f_min) { m_strobe_f = f_min; }
   if (m_strobe_f >= f_max) { m_strobe_f = f_max; }
 
+  // take from config file
+  //
   if (m_encoder_pos[0] == 0) {
-    rgb[0] = (unsigned char)f_max*255.0;
-    rgb[1] = (unsigned char)f_max*255.0;
-    rgb[2] = (unsigned char)f_max*255.0;
-  }
-  else {
-    w = (float)(m_encoder_pos[0]-1.0)/((float)(m_encoder_n-1));
-    _wheel( (unsigned char)(w*255.0), &(rgb[0]), &(rgb[1]), &(rgb[2]));
+    rgbMin[0] = m_config.m_strobe_bg[0];
+    rgbMin[1] = m_config.m_strobe_bg[1];
+    rgbMin[2] = m_config.m_strobe_bg[2];
+
+    rgbMax[0] = m_config.m_strobe_fg[0];
+    rgbMax[1] = m_config.m_strobe_fg[1];
+    rgbMax[2] = m_config.m_strobe_fg[2];
   }
 
-  _color_interpolate(f_min, f_min, f_max, rgb, rgbMin);
-  _color_interpolate(f_max, f_min, f_max, rgb, rgbMax);
+  // use encoder value otherwise
+  //
+  else {
+    if (m_encoder_pos[0] == 1) {
+      rgb[0] = (unsigned char)f_max*255.0;
+      rgb[1] = (unsigned char)f_max*255.0;
+      rgb[2] = (unsigned char)f_max*255.0;
+    }
+    else {
+      w = (float)(m_encoder_pos[0]-1.0)/((float)(m_encoder_n-1));
+      _wheel( (unsigned char)(w*255.0), &(rgb[0]), &(rgb[1]), &(rgb[2]));
+    }
+
+    _color_interpolate(f_min, f_min, f_max, rgb, rgbMin);
+    _color_interpolate(f_max, f_min, f_max, rgb, rgbMax);
+  }
 
   for (i=0; i<m_led_count; i++) {
     m_rgb_buf[3*i+1] = rgbMin[0];
@@ -1039,7 +853,24 @@ int inner_light_mode_type::tick_rainbow(void) {
   // encoder position sets 'velocity' of
   // rainbow
   //
-  p_del = m_encoder_pos[0];
+
+
+  // take from config
+  //
+  if (m_encoder_pos[0] == 0) {
+    if (m_config.m_rainbow_speed < 60.0) {
+      p_del = 1;
+    }
+    else {
+      p_del = (int)(12.0*((m_config.m_rainbow_speed - 60.0)/(240.0-60.0)));
+    }
+  }
+
+  // use encoder value otherwise
+  //
+  else {
+    p_del = m_encoder_pos[0];
+  }
 
   m_rainbow_p = (m_rainbow_p+p_del)%255;
 
@@ -1342,6 +1173,9 @@ int inner_light_mode_type::process_encoder(int encoder_fd) {
 
       if (bpos != bpos_prev) {
 
+        // Take delta position of encoder and not absolute.
+        // This way, initial state of encoder is irrelevant.
+        //
         dm = (bpos - bpos_prev) % _MODE_N;
         dm = (dm + _MODE_N) % _MODE_N;
 
@@ -1349,6 +1183,9 @@ int inner_light_mode_type::process_encoder(int encoder_fd) {
 
         printf("changing state.... from %i to %i (dm %i)\n", m_mode, mode_next, dm);
 
+        // Setup transition 'mode' and destination mode
+        // after transition animation.
+        //
         m_transition_mode_to = mode_next;
         gettimeofday(&tv, NULL);
         m_transition_t0 = _tv2d(tv);
@@ -1361,8 +1198,6 @@ int inner_light_mode_type::process_encoder(int encoder_fd) {
         bpos_prev = bpos;
 
       }
-
-
 
       m_encoder_line.clear();
       continue;
