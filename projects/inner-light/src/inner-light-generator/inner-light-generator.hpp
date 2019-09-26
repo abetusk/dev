@@ -24,8 +24,6 @@
 
 #include "simplexnoise1234.h"
 
-//#include "inner-light-generator-config.hpp"
-
 #define INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE "/home/pi/data/innerlight.led"
 #define INNER_LIGHT_DRIVER_DEFAULT_CONFIG_FILE "./innerlight.ini"
 #define _VERSION "0.1.0"
@@ -53,29 +51,6 @@ enum inner_light_mode_state {
 };
 
 extern char _mode_name[][64];
-
-/*
-extern char _mode_name[][64] = {
-  "solid",
-  "solid_color",
-  "tap_pulse",
-  "tap_bullet",
-  "tap_strobe",
-
-  "noise",
-  "fill",
-  "strobe",
-  "pulse",
-  "rainbow",
-
-  "mic_strobe",
-  "mic_pulse",
-  "n",
-  "transition",
-  "n/a",
-};
-*/
-
 
 typedef struct inner_light_config_type {
 
@@ -132,6 +107,7 @@ typedef struct inner_light_config_type {
   int load_config(std::string &fn);
   int write_config(std::string &fn);
 
+
   inner_light_config_type(void) {
     m_mode = 0;
 
@@ -185,24 +161,6 @@ typedef struct inner_light_config_type {
 double _tv2d(struct timeval &tv);
 float _dtv(struct timeval &tv0, struct timeval &tv1);
 
-/*
-double _tv2d(struct timeval &tv) {
-  double x=0.0;
-  x = (double)tv.tv_sec;
-  x *=  1000000.0;
-  x += (double)tv.tv_usec;
-  return x;
-}
-
-float _dtv(struct timeval &tv0, struct timeval &tv1) {
-  float x=0.0;
-  x = (float)(tv0.tv_sec - tv1.tv_sec);
-  x *=  1000000.0;
-  x += (float)(tv0.tv_usec - tv1.tv_usec);
-  return x;
-}
-*/
-
 void _rgblerp(unsigned char *rgb_out,  float p, unsigned *rgb_src, unsigned char *rgb_dst);
 void _wheel(unsigned char pos, unsigned char *r, unsigned char *g, unsigned char *b);
 
@@ -218,6 +176,8 @@ typedef struct inner_light_mode_type {
 
   size_t m_led_count;
   int m_mode;
+
+  std::vector< int > m_led_map;
 
   int m_encoder_pos[2];
   int m_encoder_button[2];
@@ -299,6 +259,7 @@ typedef struct inner_light_mode_type {
   // back buffer for rgb array
   //
   std::vector< unsigned char > m_rgb_buf, m_rgb_buf1;
+  std::vector< unsigned char > m_rgb_x;
 
   // rgb array
   // first element is 'counter'
@@ -314,13 +275,9 @@ typedef struct inner_light_mode_type {
     m_led_fd = 0;
     m_led_mapped = 1;
 
-    //m_mode = _MODE_PULSE;
-    //m_mode = _MODE_BEAT;
-    //m_mode = _MODE_PRESET0;
     m_mode = _MODE_SOLID;
 
     m_pulse_f = 0.0;
-    //m_pulse_ds = 1.0/256.0;
     m_pulse_ds = 8.0/256.0;
     m_pulse_dir = 1.0;
 
@@ -403,7 +360,6 @@ typedef struct inner_light_mode_type {
     m_rainbow_p = 0;
 
     m_transition_v = 0;
-
   }
 
 
@@ -469,6 +425,8 @@ typedef struct inner_light_mode_type {
     m_particle_ttl.resize(x);
   }
 
+  int update_led_map(void);
+
   int tick(void);
 
   int tick_solid(void);
@@ -503,30 +461,4 @@ typedef struct inner_light_mode_type {
 
 extern inner_light_mode_t g_mode;
 
-/*
-#endif
-#ifndef INNER_LIGHT_GENERATOR_CONFIG_HPP
-#define INNER_LIGHT_GENERATOR_CONFIG_HPP
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <string.h>
-#include <math.h>
-
-#include <sys/time.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-
-#include <signal.h>
-
-#include <sys/mman.h>
-
-#include <getopt.h>
-#include <unistd.h>
-
-#include <string>
-#include <vector>
-*/
 #endif

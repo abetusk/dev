@@ -125,6 +125,7 @@ void show_version_and_exit(FILE *fp) {
 
 //---
 
+/*
 int inner_light_mode_type::update_led(void) {
   static int x = 0;
 
@@ -132,6 +133,33 @@ int inner_light_mode_type::update_led(void) {
 
   m_rgb[0] = 1;
   memcpy(m_rgb, &(m_rgb_buf[0]), m_rgb_sz);
+  m_rgb[0] = 0;
+
+  return 0;
+}
+*/
+
+int inner_light_mode_type::update_led(void) {
+  int i, n, p;
+  static int x = 0;
+
+  if (!m_led_mapped) { return -1; }
+
+  //DEBUG
+  //printf(">> %i %i\n", (int)g_mode.m_led_count, (int)m_led_map.size());
+  //exit(-1);
+
+  m_rgb[0] = 1;
+  for (i=0; i<g_mode.m_led_count; i++) {
+    p = m_led_map[i];
+    if ((p < 0) ||
+        (p >= g_mode.m_led_count)) {
+      continue;
+    }
+    m_rgb[3*i+1] = m_rgb_buf[3*p+1];
+    m_rgb[3*i+2] = m_rgb_buf[3*p+2];
+    m_rgb[3*i+3] = m_rgb_buf[3*p+3];
+  }
   m_rgb[0] = 0;
 
   return 0;
@@ -154,7 +182,6 @@ void _color_interpolate(float f, float f_min, float f_max, unsigned char *rgbIn,
   rgbOut[0] = (unsigned char)(p*f_r);
   rgbOut[1] = (unsigned char)(p*f_g);
   rgbOut[2] = (unsigned char)(p*f_b);
-
 }
 
 //---
@@ -1254,8 +1281,28 @@ int inner_light_mode_type::process_encoder(int encoder_fd) {
 
 //---
 
+int inner_light_mode_type::update_led_map(void) {
+  int i;
+
+  // resize and transfer relevant mapped leds
+  //
+  if (g_mode.m_led_map.size() < g_mode.m_led_count) {
+    g_mode.m_led_map.resize( g_mode.m_led_count );
+  }
+  for (i=0; i<g_mode.m_led_count; i++) {
+    g_mode.m_led_map[i] = i;
+  }
+  for (i=0; i<g_mode.m_led_count; i++) {
+    if (i >= g_mode.m_config.m_map.size()) { break; }
+    g_mode.m_led_map[i] = g_mode.m_config.m_map[i];
+  }
+
+
+}
+
 void sighup_handler(int signo) {
-  int ret;
+  int i, ret;
+
   if (signo == SIGHUP) {
     printf("caught SIGHUP\n");
 
@@ -1266,7 +1313,26 @@ void sighup_handler(int signo) {
     else {
       g_mode.m_mode = g_mode.m_config.m_mode;
       g_mode.m_tap_ready = 1;
-      g_mode.m_tap_bpm = (int)g_mode.m_config.m_tap_bpm;
+      g_mode.m_tap_bpm = g_mode.m_config.m_tap_bpm;
+
+      g_mode.update_led_map();
+
+      /*
+
+      // resize and transfer relevant mapped leds
+      //
+      if (g_mode.m_led_map.size() < g_mode.m_led_count) {
+        g_mode.m_led_map.resize( g_mode.m_led_count );
+      }
+      for (i=0; i<g_mode.m_led_count; i++) {
+        g_mode.m_led_map[i] = i;
+      }
+      for (i=0; i<g_mode.m_led_count; i++) {
+        if (i >= g_mode.m_config.m_map.size()) { break; }
+        g_mode.m_led_map[i] = g_mode.m_config.m_map[i];
+      }
+      */
+
     }
 
     printf("mode now %i tap %f?\n", g_mode.m_mode, (float)g_mode.m_tap_bpm);
@@ -1411,8 +1477,12 @@ int main(int argc, char **argv) {
     fprintf(stderr, "Couldn't read config file %s, ignoreing and moving on\n", g_mode.m_config_fn.c_str());
   }
   else {
+    g_mode.m_mode = g_mode.m_config.m_mode;
     g_mode.m_tap_ready = 1;
     g_mode.m_tap_bpm = g_mode.m_config.m_tap_bpm;
+
+    g_mode.update_led_map();
+
   }
 
   printf("# connecting to mmap file %s (n:%i)\n", g_mode.m_led_fn.c_str(), (int)g_mode.m_led_count);

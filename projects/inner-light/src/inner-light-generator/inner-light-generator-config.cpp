@@ -107,8 +107,6 @@ static int _parse_hex2rgb(unsigned char *rgb, std::string &_hex) {
     }
   }
 
-  //printf("... : %s -> %s (%02x %02x %02x)\n", _hex.c_str(), hx.c_str(), rgb[0], rgb[1], rgb[2]);
-
   return 0;
 }
 
@@ -264,7 +262,6 @@ int inner_light_config_t::assign_key_value(std::string &_key, std::string &_val)
   else if (_key == "noise.palette") {
     _parse_array(var_a, _val, ',');
 
-
     m_noise_palette.clear();
     for (i=0; i<var_a.size(); i++) {
       _parse_hex2rgb(rgb, var_a[i]);
@@ -347,12 +344,7 @@ int inner_light_config_t::load_config(std::string &fn) {
       r = _parse_kv(_key, _val, line);
       if (r!=0) { ret = -2; break; }
 
-      //printf("got '%s' '%s'\n", _key.c_str(), _val.c_str());
-
       r = assign_key_value(_key, _val);
-      //printf("... got %i\n", r);
-
-      //if (_key == "mic_pulse.fg") { _parse_hex2rgb(rgb, _val); }
 
       line.clear();
       continue;
