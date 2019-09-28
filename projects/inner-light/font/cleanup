@@ -1,0 +1,14 @@
+#!/bin/bash
+
+fn=ILD.gcode
+
+dos2unix $fn
+sed -i 's/ *;.*//g' $fn
+
+
+fn=BC.gcode
+
+dos2unix $fn
+sed -i 's/ *;.*//g' $fn
+
+
