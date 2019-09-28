@@ -1,5 +1,24 @@
+/*
+ * 
+ * This is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Affero General Public License.
+ * If not, see <https://www.gnu.org/licenses/>.
+ *
+ */
+
+
 #include <stdio.h>
 #include <stdlib.h>
+#include <getopt.h>
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -23,6 +42,8 @@
 
 #include "ws2811.h"
 
+#define INNER_LIGHT_DRIVE_VERSION "0.1.0"
+
 #define INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE "/tmp/innerlight.led"
 //#define INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE "/home/pi/data/innerlight.led"
 #define _DEFAULT_NUM_LED 180
@@ -38,7 +59,7 @@
 
 #define LED_COUNT               (60*3)
 
-int g_verbose_level = 1;
+int g_verbose_level = 0;
 
 ws2811_t ledstring =
 {
@@ -199,22 +220,90 @@ int _main(unsigned char *led_map, size_t n_led) {
     }
   }
 
+}
 
+struct option _longopt[] = {
+  {"help", no_argument, 0, 'h'},
+  {0,0,0,0},
+};
+
+void show_version(FILE *fp) {
+  fprintf(fp, "version %s\n", INNER_LIGHT_DRIVE_VERSION);
+}
+
+void show_help(FILE *fp) {
+  fprintf(fp, "Usage: inner-light-drive [-L ledfn] [-n numled] [-h] [-v]\n");
+  fprintf(fp, "\n");
+  fprintf(fp, "  -n <nled>      number of leds (default to %i)\n", _DEFAULT_NUM_LED);
+  fprintf(fp, "  -L <ledfile>   LED file (default %s)\n", INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE);
+  fprintf(fp, "  -C             create LED file and exit (default %s)\n", INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE);
+  fprintf(fp, "  -h             help (this screen)\n");
+  fprintf(fp, "  -v             increase verbose level\n");
+  fprintf(fp, "  -V             show version\n");
+  fprintf(fp, "\n");
 }
 
 int main(int argc, char **argv) {
   int led_map_fd, r;
   unsigned char *led_map;
   size_t led_map_len, n_led;
+  int option_index, ch;
+
+  int create_and_exit=0;
 
   char *led_fn=NULL;
 
-  if (!led_fn) { led_fn = strdup(INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE); }
   n_led = _DEFAULT_NUM_LED;
+
+  while ((ch=getopt_long(argc, argv, "Vhn:L:Cv", _longopt, &option_index)) >= 0) {
+    switch (ch) {
+      case 'L':
+        led_fn = strdup(optarg);
+        break;
+      case 'n':
+        n_led = atoi(optarg);
+        break;
+      case 'C':
+        create_and_exit=1;
+        break;
+      case 'v':
+        g_verbose_level++;
+        break;
+      case 'V':
+        show_version(stdout);
+        exit(0);
+        break;
+      case 'h':
+        show_help(stdout);
+        exit(0);
+        break;
+      default:
+        show_help(stderr);
+        exit(-1);
+        break;
+    }
+  }
+
+  if (n_led < 1) {
+    fprintf(stderr, "n_led must be greater than 0\n");
+    show_help(stderr);
+    exit(-1);
+  }
+
+  if (!led_fn) { led_fn = strdup(INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE); }
   led_map_len = 1 + (3*n_led);
 
-  //!!!!
   create_led_file(led_fn, n_led);
+
+  if (create_and_exit==1) {
+
+    if (g_verbose_level>0) {
+      printf("created %s (n_led %i), exiting\n", led_fn, (int)n_led);
+    }
+
+    free(led_fn);
+    exit(0);
+  }
 
   led_map_fd = open(led_fn, O_RDWR);
   if (led_map_fd<0) {
@@ -235,10 +324,11 @@ int main(int argc, char **argv) {
     exit(-1);
   }
 
-  printf("starting\n");
+  if (g_verbose_level) {
+    printf("starting\n");
+  }
 
   _main(led_map, n_led);
-
 
   munmap(led_map, led_map_len);
   free(led_fn);

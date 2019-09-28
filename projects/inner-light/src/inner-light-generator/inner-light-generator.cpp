@@ -1,3 +1,20 @@
+/*
+ * 
+ * This is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Affero General Public License.
+ * If not, see <https://www.gnu.org/licenses/>.
+ *
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
@@ -1316,23 +1333,6 @@ void sighup_handler(int signo) {
       g_mode.m_tap_bpm = g_mode.m_config.m_tap_bpm;
 
       g_mode.update_led_map();
-
-      /*
-
-      // resize and transfer relevant mapped leds
-      //
-      if (g_mode.m_led_map.size() < g_mode.m_led_count) {
-        g_mode.m_led_map.resize( g_mode.m_led_count );
-      }
-      for (i=0; i<g_mode.m_led_count; i++) {
-        g_mode.m_led_map[i] = i;
-      }
-      for (i=0; i<g_mode.m_led_count; i++) {
-        if (i >= g_mode.m_config.m_map.size()) { break; }
-        g_mode.m_led_map[i] = g_mode.m_config.m_map[i];
-      }
-      */
-
     }
 
     printf("mode now %i tap %f?\n", g_mode.m_mode, (float)g_mode.m_tap_bpm);

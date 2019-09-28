@@ -1,4 +1,18 @@
 #!/bin/bash
+# 
+# This is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# This is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+# 
+# You should have received a copy of the GNU Affero General Public License.
+# If not, see <https://www.gnu.org/licenses/>.
+#
 
 pidmm=`ps aux | grep '[m]ode-manager' | sed 's/  */ /g' | cut -f2 -d' ' | head -n1`
 if [[ "$pidmm" ]] ; then
@@ -35,5 +49,6 @@ if [[ "$pidild" ]] ; then
 else
   echo "no inner-light-drive, skipping"
 fi
+
 
 
