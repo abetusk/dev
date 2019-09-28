@@ -43,6 +43,8 @@
 
 #define INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE "/home/pi/data/innerlight.led"
 #define INNER_LIGHT_DRIVER_DEFAULT_CONFIG_FILE "./innerlight.ini"
+#define INNER_LIGHT_DRIVER_DEFAULT_LEDTEST_FILE "./ledtest.txt"
+
 #define _VERSION "0.1.0"
 
 enum inner_light_mode_state {
@@ -65,6 +67,7 @@ enum inner_light_mode_state {
   _MODE_N,
 
   _MODE_TRANSITION,
+  _MODE_LEDTEST,
 };
 
 extern char _mode_name[][64];
@@ -124,6 +127,7 @@ typedef struct inner_light_config_type {
   int load_config(std::string &fn);
   int write_config(std::string &fn);
 
+  int load_ledtest_file(std::string &fn);
 
   inner_light_config_type(void) {
     m_mode = 0;
@@ -206,6 +210,13 @@ typedef struct inner_light_mode_type {
   double m_transition_t_cur;
   double m_transition_dt;
 
+  int m_ledtest_mode_to;
+  double m_ledtest_t0;
+  double m_ledtest_t_cur;
+  double m_ledtest_dt;
+  std::vector< int > m_ledtest_range;
+  std::vector< int > m_ledtest_pos;
+
   unsigned char m_frame;
 
   float m_pulse_f;
@@ -243,6 +254,8 @@ typedef struct inner_light_mode_type {
   //
   std::string m_config_fn;
   inner_light_config_t m_config;
+
+  std::string m_ledtest_fn;
 
   // parameters for different modes
   //
@@ -286,9 +299,16 @@ typedef struct inner_light_mode_type {
   size_t m_rgb_sz;
 
   inner_light_mode_type(size_t led_count=1) {
+    int i;
     struct timeval tv;
 
     m_led_count = led_count;
+
+    m_led_map.resize(m_led_count);
+    for (i=0; i<m_led_count; i++) {
+      m_led_map[i] = i;
+    }
+
     m_led_fd = 0;
     m_led_mapped = 1;
 
@@ -300,6 +320,9 @@ typedef struct inner_light_mode_type {
 
     m_transition_mode_to = 0;
     m_transition_dt = 1.0*1000000.0;
+
+    m_ledtest_mode_to = 0;
+    m_ledtest_dt = 5.0*1000000.0;
 
     m_frame = 0;
 
@@ -443,6 +466,8 @@ typedef struct inner_light_mode_type {
   }
 
   int update_led_map(void);
+  int load_ledtest_file(std::string &fn);
+  void start_ledtest(void);
 
   int tick(void);
 
@@ -456,6 +481,7 @@ typedef struct inner_light_mode_type {
   int tick_pulse(void);
   int tick_rainbow(void);
   int tick_transition(void);
+  int tick_ledtest(void);
 
   int tick_tap_pulse(void);
   int tick_mic_pulse(void);

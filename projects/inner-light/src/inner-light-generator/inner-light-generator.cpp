@@ -129,7 +129,7 @@ struct option _longopt[] = {
 
 void show_help_and_exit(FILE *fp) {
   fprintf(fp, "usage:\n");
-  fprintf(fp, "\n  mode-manage [-L mmap.led] [-n led_count] <( MIC ) <( ENCODER )\n\n");
+  fprintf(fp, "\n  mode-manage [-L mmap.led] [-n led_count] [-c config] [-T ledtest] [-h] <( MIC ) <( ENCODER )\n\n");
   if (fp==stdin) { exit(0); }
   exit(1);
 }
@@ -159,15 +159,15 @@ int inner_light_mode_type::update_led(void) {
 int inner_light_mode_type::update_led(void) {
   int i, n, p;
   static int x = 0;
+  size_t m;
 
   if (!m_led_mapped) { return -1; }
 
-  //DEBUG
-  //printf(">> %i %i\n", (int)g_mode.m_led_count, (int)m_led_map.size());
-  //exit(-1);
+  m = m_led_map.size();
 
   m_rgb[0] = 1;
   for (i=0; i<g_mode.m_led_count; i++) {
+    if (i >= m) { continue; }
     p = m_led_map[i];
     if ((p < 0) ||
         (p >= g_mode.m_led_count)) {
@@ -976,6 +976,72 @@ int inner_light_mode_type::tick_rainbow(void) {
 
 //--
 
+// run a single led up and down the range
+//
+int inner_light_mode_type::tick_ledtest(void) {
+  int i, j, to, p, _start, _m, _m2, _d, x;
+  struct timeval tv;
+  unsigned char r, g, b;
+
+  int dp;
+
+  gettimeofday(&tv, NULL);
+  m_ledtest_t_cur = _tv2d(tv);
+
+  if ((m_ledtest_t_cur - m_ledtest_t0) >= m_ledtest_dt) {
+
+    printf(">>> tick_ledtest, changing mode to %i\n", m_ledtest_mode_to);
+
+    m_mode = m_ledtest_mode_to;
+    return 0;
+  }
+
+  for (i=0; i<m_led_count; i++) {
+    m_rgb_buf[3*i+1] = 0;
+    m_rgb_buf[3*i+2] = 0;
+    m_rgb_buf[3*i+3] = 0;
+  }
+
+  for (i=0; i<m_ledtest_pos.size(); i++) {
+
+    _start = m_ledtest_range[3*i];
+    _m = m_ledtest_range[3*i+1];
+    _d = m_ledtest_range[3*i+2];
+
+    p = m_ledtest_pos[i];
+
+    dp = p - _start;
+    dp = (dp + _d + _m) % _m;
+    p = _start + dp;
+
+    /*
+    p -= _start;
+    p += (_d + _m) % _m;
+    if (p<0) { p += _m; p %= _m; }
+    p += _start;
+    */
+
+    m_ledtest_pos[i] = p;
+
+    _m2 = _m/2;
+    for (j=0; j<_m2; j++) {
+      x = p+j;
+      if (x < _start) { x += _m; }
+      if (x >= (_start + _m)) { x -= _m; }
+
+      if (x<0) { continue; }
+      if (x>=m_led_count) { continue; }
+
+      m_rgb_buf[3*x+1] = 128;
+      m_rgb_buf[3*x+2] = 128;
+      m_rgb_buf[3*x+3] = 128;
+    }
+
+  }
+
+
+}
+
 int inner_light_mode_type::tick_transition(void) {
   int i, to;
   struct timeval tv;
@@ -1074,7 +1140,6 @@ int inner_light_mode_type::tick_transition(void) {
   }
 
   m_transition_v = 1-m_transition_v;
-  //v = 1-v;
 
   return 0;
 }
@@ -1100,6 +1165,7 @@ int inner_light_mode_type::tick(void) {
     case _MODE_PULSE:       r = tick_pulse();       break;
     case _MODE_RAINBOW:     r = tick_rainbow();     break;
     case _MODE_TRANSITION:  r = tick_transition();  break;
+    case _MODE_LEDTEST:     r = tick_ledtest();  break;
 
     default:
       r = -1;
@@ -1314,11 +1380,116 @@ int inner_light_mode_type::update_led_map(void) {
     g_mode.m_led_map[i] = g_mode.m_config.m_map[i];
   }
 
-
 }
+
+//---
+
+static int _parse_array(std::vector< std::string > &_va, std::string &_line, int delim) {
+  const char *chp=NULL, *chp_tok=NULL, *chp_idx=NULL;
+  int i;
+  std::string _val;
+
+  _va.clear();
+
+  chp = _line.c_str();
+
+  for (chp = _line.c_str();
+       (*chp) && (chp_tok = strchr(chp, delim)) ;
+       chp = (chp_tok+1) ) {
+    _val.clear();
+    for (chp_idx=chp; chp_idx!=chp_tok; chp_idx++) {
+      _val += *chp_idx;
+    }
+    _va.push_back(_val);
+  }
+
+  _val.clear();
+  for (chp_idx=chp; *chp_idx; chp_idx++) {
+    _val += *chp_idx;
+  }
+  _va.push_back(_val);
+
+
+  return 0;
+}
+
+int inner_light_mode_type::load_ledtest_file(std::string &fn) {
+  int i, ret = 0, ch, r;
+  FILE *fp;
+  std::vector< std::string > _str_a;
+  std::string line;
+
+  int _start, _m, _d;
+  std::vector< int > _range, _pos;
+
+  fp = fopen(fn.c_str(), "r");
+  if (!fp) { return -1; }
+
+  while (!feof(fp)) {
+    ch = fgetc(fp);
+    if ((ch==EOF) || (ch=='\n')) {
+      if (line.size()==0) { continue; }
+      if (line[0] == '#') { line.clear(); continue; }
+
+      r = _parse_array(_str_a, line, ',');
+      if (r!=0) { ret = -2; break; }
+      if (_str_a.size() != 3) { ret = -3; break; }
+
+      _start = atoi(_str_a[0].c_str());
+      _m = atoi(_str_a[1].c_str());
+      _d = atoi(_str_a[2].c_str());
+
+      printf("?? %i %i %i\n", (int)_start, (int)_m, (int)_d);
+
+      if ((_start < 0) || (_start >= m_led_count)) { ret = -4; break; }
+      if ((_m < 1) || ((_start+_m) >= m_led_count)) { ret = -5; break; }
+      if ((_d != 1) && (_d != -1)) { ret=-6; break; }
+
+      _range.push_back(_start);
+      _range.push_back(_m);
+      _range.push_back(_d);
+
+      _pos.push_back(_start);
+      line.clear();
+      continue;
+    }
+    line += ch;
+  }
+  fclose(fp);
+
+  if (ret == 0) {
+    m_ledtest_range.clear();
+    m_ledtest_pos.clear();
+
+    m_ledtest_range = _range;
+    m_ledtest_pos = _pos;
+  }
+
+
+  //DEBUG
+  printf("ledtest: ret %i\n", ret);
+  for (i=0; i<m_ledtest_range.size(); i+=3) {
+    printf(" %i,%i,%i\n", m_ledtest_range[i], m_ledtest_range[i+1], m_ledtest_range[i+2]);
+  }
+
+
+  return ret;
+}
+
+void inner_light_mode_type::start_ledtest(void) {
+  struct timeval tv;
+  gettimeofday(&tv, NULL);
+  m_ledtest_t0 = _tv2d(tv);
+  m_ledtest_t_cur = m_ledtest_t0;
+  m_ledtest_mode_to = m_mode;
+
+  m_mode = _MODE_LEDTEST;
+}
+
 
 void sighup_handler(int signo) {
   int i, ret;
+  FILE *fp;
 
   if (signo == SIGHUP) {
     printf("caught SIGHUP\n");
@@ -1334,6 +1505,12 @@ void sighup_handler(int signo) {
 
       g_mode.update_led_map();
     }
+
+    if (g_mode.load_ledtest_file( g_mode.m_ledtest_fn )==0) {
+      g_mode.start_ledtest();
+      unlink(g_mode.m_ledtest_fn.c_str());
+    }
+
 
     printf("mode now %i tap %f?\n", g_mode.m_mode, (float)g_mode.m_tap_bpm);
 
@@ -1358,7 +1535,7 @@ int main(int argc, char **argv) {
   float dt;
   int ch;
   int option_index;
-  std::string beat_fn, encoder_fn, config_fn;
+  std::string beat_fn, encoder_fn, config_fn, ledtest_fn;
   int beat_fd, encoder_fd;
 
   fd_set active_fds, read_fds;
@@ -1381,7 +1558,7 @@ int main(int argc, char **argv) {
 
   std::string led_fn = INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE;
 
-  while ((ch=getopt_long(argc, argv, "vhi:L:n:c:", _longopt, &option_index)) >= 0) {
+  while ((ch=getopt_long(argc, argv, "vhi:L:n:c:T:", _longopt, &option_index)) >= 0) {
     switch(ch) {
       case 0:
         break;
@@ -1402,6 +1579,10 @@ int main(int argc, char **argv) {
 
       case 'L':
         led_fn = optarg;
+        break;
+
+      case 'T':
+        ledtest_fn = optarg;
         break;
 
       case 'n':
@@ -1472,6 +1653,13 @@ int main(int argc, char **argv) {
     g_mode.m_config_fn = INNER_LIGHT_DRIVER_DEFAULT_CONFIG_FILE;
   }
 
+  if (ledtest_fn.size() > 0) {
+    g_mode.m_ledtest_fn = ledtest_fn;
+  }
+  else {
+    g_mode.m_ledtest_fn = INNER_LIGHT_DRIVER_DEFAULT_LEDTEST_FILE;
+  }
+
   ret = g_mode.m_config.load_config(g_mode.m_config_fn);
   if (ret<0) {
     fprintf(stderr, "Couldn't read config file %s, ignoreing and moving on\n", g_mode.m_config_fn.c_str());
@@ -1482,7 +1670,6 @@ int main(int argc, char **argv) {
     g_mode.m_tap_bpm = g_mode.m_config.m_tap_bpm;
 
     g_mode.update_led_map();
-
   }
 
   printf("# connecting to mmap file %s (n:%i)\n", g_mode.m_led_fn.c_str(), (int)g_mode.m_led_count);

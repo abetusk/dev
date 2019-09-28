@@ -12,21 +12,29 @@ import os
 PORT_NUMBER = 8080
 
 IL_INI = "innerlight.ini"
-IL_TESTLED = "innerlight_testled.ini"
+#IL_TESTLED = "innerlight_testled.ini"
+IL_TESTLED = "ledtest.txt"
 
 ILD_PID_FN = "./inner-light-generator.pid"
 
 def writeledtest(data):
   tmpfd,tmpname = tempfile.mkstemp()
+
+  print "....write led test", data
+
   try:
     with os.fdopen(tmpfd, "w") as tmpfp:
       for x in data:
-        tmpfp.write( str(x) + "=" + str(data[x]) + "\n" )
+        val = str(data[x])
+        val
+        #tmpfp.write( str(x) + "=" + str(data[x]) + "\n" )
+        tmpfp.write( "#" + x + "\n" + "\n".join(str(data[x]).split(":")) + "\n" )
       tmpfp.flush()
     os.rename(tmpname, IL_TESTLED)
   finally:
     pass
-  pass
+
+  os.system("/bin/kill -SIGHUP $( cat " + str(ILD_PID_FN) + " )" )
 
 def writeini(data):
   tmpfd,tmpname = tempfile.mkstemp()
@@ -107,9 +115,8 @@ class myHandler(BaseHTTPRequestHandler):
 
       data = {}
       for x in form:
-        if x in ["collar_left", "collar_right", "lapel_left", "lapel_right",
-                 "waist_left", "waist_right", "cuff_left", "cuff_right"]:
-          data[x] = 1
+        print ">>>", x
+        data[ str(x) ] = str(form[x].value)
 
       writeledtest(data)
 

@@ -1,3 +1,19 @@
+/*
+ * 
+ * This is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Affero General Public License.
+ * If not, see <https://www.gnu.org/licenses/>.
+ *
+ */
 
 var g_uiData  = {
   "pageTransitionDelay" : 20,
@@ -26,14 +42,14 @@ var g_innerlight = {
     "count_collar_left" : 15,
     "count_collar_right" : 15,
 
-    "count_lapel_left" : 40,
-    "count_lapel_right" : 40,
+    "count_lapel_left" : 30,
+    "count_lapel_right" : 30,
 
     "count_waist_left" : 30,
     "count_waist_right" : 30,
 
-    "count_cuff_left" : 16,
-    "count_cuff_right": 16,
+    "count_cuff_left" : 15,
+    "count_cuff_right": 15,
 
 
     "default_count_collar_left" : 15,
@@ -119,6 +135,7 @@ var g_innerlight = {
       { "label": "cuff_left", "delta" : -1 }
     ],
 
+    "map_info" : [],
     "map" : []
   },
 
@@ -286,7 +303,7 @@ function _send_state() {
   _send_api_req(data);
 }
 
-function _send_testled() {
+function _send_ledtest() {
 
   var id_ledtest = [
     "test_collar_left",
@@ -311,19 +328,38 @@ function _send_testled() {
   ];
 
   var data_str = "";
+  /*
   for (var idx=0; idx<id_ledtest.length; idx++) {
     if (g_innerlight.led[id_ledtest[idx]] == 1) {
       if (data_str.length > 0) { data_str += "&"; }
       data_str += val_a[idx] + "=" + 1;
     }
   }
+  */
+
+  for (var idx=0; idx<g_innerlight.led.map_info.length; idx++) {
+
+    var key = "test_" + g_innerlight.led.map_info[idx].label;
+    if (! (key in g_innerlight.led)) { continue; }
+    if (g_innerlight.led[key] != 1) { continue; }
+
+    if (data_str.length > 0) { data_str += ":"; }
+    data_str += "" + g_innerlight.led.map_info[idx].start;
+    data_str += "," + g_innerlight.led.map_info[idx].n;
+    data_str += "," + g_innerlight.led.map_info[idx].dir;
+  }
+
+  if (data_str.length > 0) {
+    data_str = "data=" + data_str;
+  }
+  console.log("_send_ledtest(): data:", data_str);
 
   if (data_str.length==0) {
-    console.log("_send_testled(): no data to send, not sending");
+    console.log("_send_ledtest(): no data to send, not sending");
     return;
   }
 
-  console.log(">> send_testled", data_str);
+  console.log(">> send_ledtest", data_str);
 
   var xhr = new XMLHttpRequest();
   xhr.open("POST", g_innerlight.url_test_led, true);
@@ -358,6 +394,7 @@ function _construct_led_mapping() {
                 led_count.waist_right +
                 led_count.cuff_right;
 
+  var _map_info = [];
   var _map = [];
 
   var contig = [];
@@ -396,14 +433,25 @@ function _construct_led_mapping() {
       phys_start = contig[contig_idx].start + contig[contig_idx].n - 1;
     }
 
+    _map_info.push({
+      "label":label,
+      "start":contig[contig_idx].start,
+      "n": contig[contig_idx].n,
+      "dir":delta
+    });
+
+    console.log("???", contig[contig_idx].start, contig[contig_idx].n, contig[contig_idx].delta, delta);
+
     var pos = phys_start;
     for (var _p=0; _p<contig[contig_idx].n; _p++) {
+
       _map.push(pos);
       pos += delta;
     }
 
   }
 
+  g_innerlight.led.map_info = _map_info;
   g_innerlight.led.map = _map;
 
   // check
@@ -942,7 +990,7 @@ function _test_ledmap() {
 
   // Write file on host telling it to do a test of region(s)
   //
-  _send_testled();
+  _send_ledtest();
 }
 
 function _getval(_id) {
