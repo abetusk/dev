@@ -173,9 +173,12 @@ int inner_light_mode_type::update_led(void) {
         (p >= g_mode.m_led_count)) {
       continue;
     }
-    m_rgb[3*i+1] = m_rgb_buf[3*p+1];
-    m_rgb[3*i+2] = m_rgb_buf[3*p+2];
-    m_rgb[3*i+3] = m_rgb_buf[3*p+3];
+    //m_rgb[3*i+1] = m_rgb_buf[3*p+1];
+    //m_rgb[3*i+2] = m_rgb_buf[3*p+2];
+    //m_rgb[3*i+3] = m_rgb_buf[3*p+3];
+    m_rgb[3*p+1] = m_rgb_buf[3*i+1];
+    m_rgb[3*p+2] = m_rgb_buf[3*i+2];
+    m_rgb[3*p+3] = m_rgb_buf[3*i+3];
   }
   m_rgb[0] = 0;
 
@@ -979,7 +982,7 @@ int inner_light_mode_type::tick_rainbow(void) {
 // run a single led up and down the range
 //
 int inner_light_mode_type::tick_ledtest(void) {
-  int i, j, to, p, _start, _m, _m2, _d, x;
+  int i, j, to, p, _start, _m, _m2, _d = 0, x;
   struct timeval tv;
   unsigned char r, g, b;
 
@@ -1008,18 +1011,19 @@ int inner_light_mode_type::tick_ledtest(void) {
     _m = m_ledtest_range[3*i+1];
     _d = m_ledtest_range[3*i+2];
 
+    // force positive direction
+    //
+    //_d = 1;
+
     p = m_ledtest_pos[i];
+
+    //_d = 1;
 
     dp = p - _start;
     dp = (dp + _d + _m) % _m;
     p = _start + dp;
 
-    /*
-    p -= _start;
-    p += (_d + _m) % _m;
-    if (p<0) { p += _m; p %= _m; }
-    p += _start;
-    */
+    //printf("## p %3i (%3i+%2i d%2i) (%i)\n", p, _start, _m, _d, (int)m_ledtest_pos.size());
 
     m_ledtest_pos[i] = p;
 
@@ -1419,6 +1423,8 @@ int inner_light_mode_type::load_ledtest_file(std::string &fn) {
   std::vector< std::string > _str_a;
   std::string line;
 
+  int p;
+
   int _start, _m, _d;
   std::vector< int > _range, _pos;
 
@@ -1442,12 +1448,26 @@ int inner_light_mode_type::load_ledtest_file(std::string &fn) {
       printf("?? %i %i %i\n", (int)_start, (int)_m, (int)_d);
 
       if ((_start < 0) || (_start >= m_led_count)) { ret = -4; break; }
-      if ((_m < 1) || ((_start+_m) >= m_led_count)) { ret = -5; break; }
+      if ((_m < 1) || ((_start+_m) > m_led_count)) {
+        fprintf(stderr, "load_ledtest_file(): ERROR: _start %i + _m %i (%i) >= m_led_count %i\n",
+            _start, _m, _start+_m, (int)m_led_count);
+        ret = -5; break;
+      }
       if ((_d != 1) && (_d != -1)) { ret=-6; break; }
 
       _range.push_back(_start);
       _range.push_back(_m);
       _range.push_back(_d);
+
+      //DEBUG
+      //
+      for (i=_start; (i<(_start+_m)) && (i<m_led_count); i++) {
+        p = -1;
+        if ((i>0) && (i<m_led_map.size())) { p = m_led_map[i]; }
+        printf(" [%i->%i]\n", i, p);
+      }
+      //
+      //DEBUG
 
       _pos.push_back(_start);
       line.clear();

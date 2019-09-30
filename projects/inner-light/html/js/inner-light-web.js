@@ -91,14 +91,14 @@ var g_innerlight = {
     "contig_cuff_right_reverse": 0,
 
     "default_logical_order" : [
-      { "label": "cuff_right", "delta" : -1 },
-      { "label": "waist_right", "delta" : -1 },
-      { "label": "lapel_right", "delta" : -1 },
-      { "label": "collar_right", "delta" : -1 },
-      { "label": "collar_left", "delta" : 1 },
-      { "label": "lapel_left", "delta" : 1 },
+      { "label": "cuff_left", "delta" : 1 },
       { "label": "waist_left", "delta" : 1 },
-      { "label": "cuff_left", "delta" : 1 }
+      { "label": "lapel_left", "delta" : 1 },
+      { "label": "collar_left", "delta" : 1 },
+      { "label": "collar_right", "delta" : -1 },
+      { "label": "lapel_right", "delta" : -1 },
+      { "label": "waist_right", "delta" : -1 },
+      { "label": "cuff_right", "delta" : -1 }
     ],
 
     "default_physical_order" : [
@@ -112,16 +112,15 @@ var g_innerlight = {
       { "label": "cuff_left", "delta" : -1 }
     ],
 
-
     "logical_order" : [
-      { "label": "cuff_right", "delta" : 1 },
-      { "label": "waist_right", "delta" : 1 },
-      { "label": "lapel_right", "delta" : 1 },
-      { "label": "collar_right", "delta" : 1 },
-      { "label": "collar_left", "delta" : 1 },
-      { "label": "lapel_left", "delta" : 1 },
+      { "label": "cuff_left", "delta" : 1 },
       { "label": "waist_left", "delta" : 1 },
-      { "label": "cuff_left", "delta" : 1 }
+      { "label": "lapel_left", "delta" : 1 },
+      { "label": "collar_left", "delta" : 1 },
+      { "label": "collar_right", "delta" : -1 },
+      { "label": "lapel_right", "delta" : -1 },
+      { "label": "waist_right", "delta" : -1 },
+      { "label": "cuff_right", "delta" : -1 }
     ],
 
     "physical_order" : [
@@ -135,6 +134,7 @@ var g_innerlight = {
       { "label": "cuff_left", "delta" : -1 }
     ],
 
+    "logical_order_map_info" : [],
     "map_info" : [],
     "map" : []
   },
@@ -328,14 +328,6 @@ function _send_ledtest() {
   ];
 
   var data_str = "";
-  /*
-  for (var idx=0; idx<id_ledtest.length; idx++) {
-    if (g_innerlight.led[id_ledtest[idx]] == 1) {
-      if (data_str.length > 0) { data_str += "&"; }
-      data_str += val_a[idx] + "=" + 1;
-    }
-  }
-  */
 
   for (var idx=0; idx<g_innerlight.led.map_info.length; idx++) {
 
@@ -344,9 +336,24 @@ function _send_ledtest() {
     if (g_innerlight.led[key] != 1) { continue; }
 
     if (data_str.length > 0) { data_str += ":"; }
-    data_str += "" + g_innerlight.led.map_info[idx].start;
-    data_str += "," + g_innerlight.led.map_info[idx].n;
-    data_str += "," + g_innerlight.led.map_info[idx].dir;
+
+    var _s = g_innerlight.led.logical_order_map_info[idx].start;
+    var _n = g_innerlight.led.logical_order_map_info[idx].n;
+    var _d = g_innerlight.led.logical_order_map_info[idx].dir;
+
+    if (_d < 0) { _s = _s + 1 - _n; }
+
+    //data_str += "" + g_innerlight.led.map_info[idx].start;
+    //data_str += "," + g_innerlight.led.map_info[idx].n;
+    //data_str += "," + g_innerlight.led.map_info[idx].dir;
+
+    //data_str += "" + g_innerlight.led.logical_order_map_info[idx].start;
+    //data_str += "," + g_innerlight.led.logical_order_map_info[idx].n;
+    //data_str += "," + g_innerlight.led.logical_order_map_info[idx].dir;
+
+    data_str += "" + _s;
+    data_str += "," + _n;
+    data_str += "," + _d;
   }
 
   if (data_str.length > 0) {
@@ -397,6 +404,8 @@ function _construct_led_mapping() {
   var _map_info = [];
   var _map = [];
 
+  var _logord_map_info = [];
+
   var contig = [];
   var contig_bp = { };
 
@@ -416,6 +425,7 @@ function _construct_led_mapping() {
   //
   //   _map[ logicalIndex ] = physicalIndex
   //
+  s = 0;
   var logical_order = g_innerlight.led.logical_order;
   for (var ii=0; ii<logical_order.length; ii++) {
     var label = logical_order[ii].label;
@@ -440,19 +450,32 @@ function _construct_led_mapping() {
       "dir":delta
     });
 
-    console.log("???", contig[contig_idx].start, contig[contig_idx].n, contig[contig_idx].delta, delta);
-
     var pos = phys_start;
     for (var _p=0; _p<contig[contig_idx].n; _p++) {
-
       _map.push(pos);
       pos += delta;
     }
+
+    var _s = s;
+    if (dir < 0) {
+      _s += led_count[label] - 1;
+    }
+
+    _logord_map_info.push({
+      "label": label,
+      "start": _s,
+      "n" : led_count[label],
+      "dir" : dir
+    });
+
+    s += led_count[label];
 
   }
 
   g_innerlight.led.map_info = _map_info;
   g_innerlight.led.map = _map;
+
+  g_innerlight.led.logical_order_map_info = _logord_map_info;
 
   // check
   //

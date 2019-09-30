@@ -16,5 +16,7 @@
 #../mode-manager/mode-manager  -L ./innerlight.led  <( ../mode-manager/rando-inp ) <( ./null-encoder )
 #../mode-manager/mode-manager  -L ./innerlight.led  <( ../mode-manager/rando-inp ) <( ../mode-manager/rando-inp-encoder )
 #../mode-manager/mode-manager  -L ./innerlight.led  <( ../mode-manager/rando-inp ) encoder-pipe
+
 ../inner-light-generator/inner-light-generator -L ./innerlight.led  -T ../../html/ledtest.txt <( ../mode-manager/rando-inp ) encoder-pipe
+#valgrind ../inner-light-generator/inner-light-generator -L ./innerlight.led  -T ../../html/ledtest.txt <( ../mode-manager/rando-inp ) encoder-pipe 2> err
 
