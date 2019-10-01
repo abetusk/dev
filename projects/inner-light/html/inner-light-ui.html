@@ -388,14 +388,35 @@
 
       <div class='pure-g row'>
 
-        <div class='pure-u-1-3 col'> <button class='bdropinp bkeyw' id='ui_noise_preset_3' onclick='_color_preset(6,"ui_noise_color");'>sunset</button> </div>
-        <div class='pure-u-1-3 col'> <button class='bdropinp bkeyw' id='ui_noise_preset_4' onclick='_color_preset(7,"ui_noise_color");'>outrun</button> </div>
+        <div class='pure-u-1-3 col'> <button class='bdropinp bkeyw' id='ui_noise_preset_6' onclick='_color_preset(6,"ui_noise_color");'>sunset</button> </div>
+        <div class='pure-u-1-3 col'> <button class='bdropinp bkeyw' id='ui_noise_preset_7' onclick='_color_preset(7,"ui_noise_color");'>outrun</button> </div>
         <div class='pure-u-1-3 col'> </div>
 
       </div>
 
       <br>
       <br>
+
+      <div class='pure-g row'>
+
+        <div class='pure-u-1-2 col'>
+          <span style='font-size:2em; font-weight:bold; color:#555555;'>Brightness</span>
+        </div>
+
+        <div class='pure-u-1-2 col'>
+          <input
+            id='ui_noise_brightness_slider'
+            type='range'
+            value='1.0'
+            min="0"
+            max="1.0"
+            step=".05"
+            onchange='_slider_change("noise.brightness");'
+            oninput='_slider_change("noise.brightness");' >
+        </div>
+
+      </div>
+
 
       <div class='pure-g row'>
 
@@ -411,12 +432,11 @@
             min="60"
             max="260"
             step="1"
-            onchange='_slider_change("noise");'
-            oninput='_slider_change("noise");' >
+            onchange='_slider_change("noise.speed");'
+            oninput='_slider_change("noise.speed");' >
         </div>
 
       </div>
-
       <hr class='style12'>
 
       <br>
@@ -1865,18 +1885,33 @@
 
       </div>
 
-
       <div class='pure-g row'>
-
-        <!--
-        <div class='pure-u-1-5 col' > </div>
-        <div class='pure-u-1-5 col' style='margin-top:30px;'>
-          <span style='font-size:1em; font-weight:bold; color:#aaaaaa;' >
+        <div class='pure-u-1-3 col' style='margin-top:30px; color:#aaaaaa;'> </div>
+        <div class='pure-u-1-3 col' style='margin-top:30px;'>
+          <span style='font-size:1em; font-weight:bold; color:#aaaaaa;'>
             Logical Order
           </span>
         </div>
-        <div class='pure-u-1-5 col' style='margin-top:30px; color:#aaaaaa;'> <div>-&gt;</div> </div>
-        -->
+        <div class='pure-u-1-3 col' > </div>
+      </div>
+
+
+      <div class='pure-g row'>
+        <div style='font-size:.8em; font-weight:bold; color:#aaaaaa;'  class='pure-u-1-12 col'></div>
+        <div style='font-size:.8em; font-weight:bold; color:#aaaaaa;'  class='pure-u-1-12 col'></div>
+        <div style='font-size:.8em; font-weight:bold; color:#aaaaaa;'  class='pure-u-1-12 col'>[left cuff]</div>
+        <div style='font-size:.8em; font-weight:bold; color:#aaaaaa;'  class='pure-u-1-12 col'>[left waist]</div>
+        <div style='font-size:.8em; font-weight:bold; color:#aaaaaa;'  class='pure-u-1-12 col'>[left lapel]</div>
+        <div style='font-size:.8em; font-weight:bold; color:#aaaaaa;'  class='pure-u-1-12 col'>[left collar]</div>
+        <div style='font-size:.8em; font-weight:bold; color:#aaaaaa;'  class='pure-u-1-12 col'>[right collar]</div>
+        <div style='font-size:.8em; font-weight:bold; color:#aaaaaa;'  class='pure-u-1-12 col'>[right lapel]</div>
+        <div style='font-size:.8em; font-weight:bold; color:#aaaaaa;'  class='pure-u-1-12 col'>[right waist]</div>
+        <div style='font-size:.8em; font-weight:bold; color:#aaaaaa;'  class='pure-u-1-12 col'>[right cuff]</div>
+        <div style='font-size:.8em; font-weight:bold; color:#aaaaaa;'  class='pure-u-1-12 col'></div>
+        <div style='font-size:.8em; font-weight:bold; color:#aaaaaa;'  class='pure-u-1-12 col'></div>
+      </div>
+
+      <div class='pure-g row'>
 
         <div class='pure-u-1-3 col' style='margin-top:30px; color:#aaaaaa;'> </div>
 
@@ -1890,26 +1925,6 @@
 
 
       <div class='pure-g row' style='height:650px;'>
-        <!--
-        <div class='pure-u-1-5 col' ></div>
-        <div class='pure-u-1-5 col'>
-          <ul id='ui_ledmap_contig_logical_order'>
-
-            <li id='ui_ledmap_contig_logical_order_cuff_left' class='ui-state-default'> cuff left </li>
-            <li id='ui_ledmap_contig_logical_order_waist_left' class='ui-state-default'> waist left </li>
-            <li id='ui_ledmap_contig_logical_order_lapel_left' class='ui-state-default'> lapel left </li>
-            <li id='ui_ledmap_contig_logical_order_collar_left' class='ui-state-default'> collar left </li>
-            <li id='ui_ledmap_contig_logical_order_collar_right' class='ui-state-default'> collar right </li>
-            <li id='ui_ledmap_contig_logical_order_lapel_right' class='ui-state-default'> lapel right </li>
-            <li id='ui_ledmap_contig_logical_order_waist_right' class='ui-state-default'> waist right </li>
-            <li id='ui_ledmap_contig_logical_order_cuff_right' class='ui-state-default'> cuff right </li>
-
-          </ul>
-
-        </div>
-        <div class='pure-u-1-5 col' style='margin-top:200px;'> <div>-&gt;</div> </div>
-        -->
-
 
         <div class='pure-u-1-3 col'></div>
         <div class='pure-u-1-3 col'>

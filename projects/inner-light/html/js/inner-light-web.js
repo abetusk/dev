@@ -38,6 +38,7 @@ var g_innerlight = {
   "url" : "http://localhost:8080/req",
   "url_led_test" : "http://localhost:8080/ledtest",
   "url_led_reset" : "http://localhost:8080/ledreset",
+  "url_config_req" : "http://localhost:8080/config",
 
   "led" : {
     "count_collar_left" : 15,
@@ -165,7 +166,7 @@ var g_innerlight = {
   "mode_option": {
     "solid" : { "color" : "" },
     "solid_color" : { "color" : "" },
-    "noise" : { "palette" : ["", "", "", "", ""], "speed" : -1 },
+    "noise" : { "palette" : ["", "", "", "", ""], "speed" : -1, "brightness":1.0, "preset_index":0 },
     "rainbow" : { "speed" : -1 },
     "tap_pulse": { "fg" : "", "bg" : "" },
     "tap_bullet": { "fg" : "", "bg" : "" },
@@ -181,7 +182,7 @@ var g_innerlight = {
   "mode_option_default": {
     "solid" : { "color" : "ffffff" },
     "solid_color" : { "color" : "ffffff" },
-    "noise" : { "palette" : ["e8bbc9", "9a3e82", "8cd1e0", "224a8e", "d5773d"], "speed" : 0.25 },
+    "noise" : { "palette" : ["e8bbc9", "9a3e82", "8cd1e0", "224a8e", "d5773d"], "speed" : 0.25 , "brightness":1.0, "preset_index":0},
     "rainbow" : { "speed" : 0.25 },
     "tap_pulse": { "fg" : "ffffff", "bg" : "000000" },
     "tap_bullet": { "fg" : "ffffff", "bg" : "000000" },
@@ -231,6 +232,19 @@ function _rgb2hex(rgb) {
   return s;
 }
 
+function _send_cfgreq() {
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", g_innerlight.url_config_req, true);
+  xhr.setRequestHeader('Content-Type', "application/x-www-form-urlencoded; charset=UTF-8" );
+  xhr.send();
+
+  xhr.onreadystatechange = function() {
+    if ((this.readyState==4) && (this.status==200)) {
+      console.log("got:", xhr.responseText);
+    }
+  };
+}
+
 function _send_ledreset() {
   var xhr = new XMLHttpRequest();
   xhr.open("POST", g_innerlight.url_led_reset, true);
@@ -255,7 +269,6 @@ function _send_api_req(data_obj) {
 }
 
 function _send_state() {
-  //var color_hex_str = "";
   var n_tot = 0;
 
   n_tot = g_innerlight.led.count_collar_left +
@@ -274,7 +287,6 @@ function _send_state() {
     "opt_val" : g_innerlight.option_value,
     "fg": _rgb2hex( g_innerlight.color_fg ),
     "bg": _rgb2hex( g_innerlight.color_bg ),
-    //"palette" : color_hex_str,
 
     "count_collar_left" : g_innerlight.led.count_collar_left,
     "count_collar_right" : g_innerlight.led.count_collar_right,
@@ -467,33 +479,6 @@ function _construct_led_mapping() {
 
   g_innerlight.led.logical_order_map_info = _logord_map_info;
 
-  // check
-  //
-  /*
-  var a = [];
-  for (var i=0; i<_map.length; i++) {
-    a.push({ "idx": i, "seen" : 0 });
-  }
-
-  for (var i=0; i<_map.length; i++) {
-    a[_map[i]].seen = 1;
-  }
-
-  var sanity_error = 0;
-  for (var i=0; i<a.length; i++) {
-    if (a[i].seen == 0) {
-      console.log("!!!!", i, a[i]);
-      sanity_error = 1;
-    }
-  }
-  */
-
-  /*
-  console.log(">>> sanity", sanity_error);
-  console.log(_map);
-  console.log(">>s:", s, n_left, n_right, n_left + n_right);
-  */
-
 }
 
 function _debug_view() {
@@ -516,7 +501,6 @@ function _debug_view() {
 
 var pageTransition = function(toPage, transitionType, cb, delay) {
 
-  //if (toPage in setupPage) { setupPage[toPage](); }
   if (typeof delay === "undefined") { delay = g_uiData.pageTransitionDelay; }
 
   setTimeout( function() {
@@ -640,31 +624,6 @@ var pageTransition = function(toPage, transitionType, cb, delay) {
 
 };
 
-//function _send_state() {
-//console.log(">> send state");
-//}
-
-/*
-function _fill_slider(inp) {
-  var ele = document.getElementById("ui_fill_slider");
-  var val = ele.value;
-
-  console.log(">> fill speed", val);
-
-  g_innerlight.mode_option.fill.speed = val;
-}
-
-function _rainbow_slider(inp) {
-  var ele = document.getElementById("ui_rainbow_slider");
-  var val = ele.value;
-
-  console.log(">> rainbow speed", val);
-
-  g_innerlight.mode_option.rainbow.speed = val;
-}
-*/
-
-
 function _color_preset(val, pfx) {
 
   var preset = [
@@ -747,23 +706,38 @@ function _color_preset(val, pfx) {
 
   ];
 
+  var ele = document.getElementById("ui_noise_preset_" + val);
+  if (typeof ele !== "undefined") {
+    var prev_idx = g_innerlight.mode_option.noise.preset_index;
+    var prev_ele = document.getElementById("ui_noise_preset_" + prev_idx);
+    if (typeof prev_ele !== "undefined") {
+      prev_ele.classList.remove("bkeySelected");
+    }
+    ele.classList.add("bkeySelected");
+  }
+
+  g_innerlight.mode_option.noise.preset_index = val;
+
   if ((val>=0) && (val < preset.length)) {
-    console.log(">>preset", preset[val]);
 
     g_innerlight.color_map = [];
 
-    var color_map = [];
+    var _a = g_innerlight.mode_option.noise.brightness;
 
+    var color_map = [];
     for (var ii=0; ii<5; ii++) {
-      //_set_color_str(ii, preset[val][ii].hex);
 
       var ele_id = pfx + ii;
       var ele = document.getElementById(ele_id);
-      ele.style.background = preset[val][ii].hex;
 
-      g_innerlight.color_map.push( [ preset[val][ii].rgb[0], preset[val][ii].rgb[1], preset[val][ii].rgb[2] ] );
-      color_map.push( [ preset[val][ii].rgb[0], preset[val][ii].rgb[1], preset[val][ii].rgb[2] ] );
+      var _r = Math.floor(preset[val][ii].rgb[0]*_a);
+      var _g = Math.floor(preset[val][ii].rgb[1]*_a);
+      var _b = Math.floor(preset[val][ii].rgb[1]*_a);
 
+      ele.style.background = "#" + _rgb2hex([ _r, _g, _b ]);
+
+      g_innerlight.color_map.push( [ _r, _g, _b ]);
+      color_map.push( [ _r, _g, _b ]);
     }
 
     for (var ii=0; ii<5; ii++) {
@@ -771,8 +745,6 @@ function _color_preset(val, pfx) {
         _rgb2hex( color_map[ii] );
     }
   }
-
-  console.log(">>color preset", val);
 
   _send_state();
 }
@@ -1192,7 +1164,6 @@ function _divrowheading1() {
 "  </div>" +
 "  <div class='pure-u-1-8 col' > </div>" +
 "  <div class='pure-u-1-8 col' > </div>" ;
-//"</div>" ;
 
 
   var _div = document.createElement("div");
@@ -1220,7 +1191,6 @@ function _divrowinput(_idbase, idx_l, idx_r, ltxt, rtxt) {
     _spanl.style["font-size"] = "1em";
     _spanl.style["font-weight"] = "bold";
     _spanl.style["color"] = "#555555";
-    //_spanl.innerHTML = txt + idx_l;
     _spanl.innerHTML = ltxt;
 
     _col = document.createElement("div");
@@ -1233,7 +1203,6 @@ function _divrowinput(_idbase, idx_l, idx_r, ltxt, rtxt) {
     var _inputl = document.createElement("input");
     _inputl.setAttribute("type", "text");
     _inputl.classList.add("pure-input-rounded");
-    //_inputl.setAttribute("id", _idbase + "left_" + idx_l);
     _inputl.setAttribute("id", _idbase + idx_l);
 
     _col = document.createElement("div");
@@ -1262,7 +1231,6 @@ function _divrowinput(_idbase, idx_l, idx_r, ltxt, rtxt) {
     _spanr.style["font-size"] = "1em";
     _spanr.style["font-weight"] = "bold";
     _spanr.style["color"] = "#555555";
-    //_spanr.innerHTML = txt + idx_r;
     _spanr.innerHTML = rtxt;
 
     _col = document.createElement("div");
@@ -1275,7 +1243,6 @@ function _divrowinput(_idbase, idx_l, idx_r, ltxt, rtxt) {
     var _inputr = document.createElement("input");
     _inputr.setAttribute("type", "text");
     _inputr.classList.add("pure-input-rounded");
-    //_inputr.setAttribute("id", _idbase + "right_" + idx_r);
     _inputr.setAttribute("id", _idbase + idx_r);
 
     _col = document.createElement("div");
@@ -1376,7 +1343,6 @@ function _construct_led_layout() {
       var idx1 = _right_idx;
       if (_ii >= n0) { idx0 = undefined; ltxt = ""; }
       if (_ii >= n1) { idx1 = undefined; rtxt = ""; }
-      //var _r = _divrowinput("ui_ledmap_" + region, idx0, idx1, _left_idx, _right_idx, region + " ");
       var _r = _divrowinput("ui_ledmap_", idx0, idx1, ltxt, rtxt);
       _region_div.appendChild(_r);
 
@@ -1435,26 +1401,6 @@ function _construct_led_layout() {
     ele.value = _map[ii];
   }
 
-  /*
-  for (var _lri=0; _lri<2; _lri++) {
-    var side = ["left", "right"][_lri];
-
-    var _side_idx = 0;
-    for (var _rgni=0; _rgni<4; _rgni++) {
-      var region = ["collar", "lapel", "waist", "cuff"][_rgni];
-      var n = led_count[region][side];
-
-      for (var _ii=0; _ii<n; _ii++) {
-
-        //var ele = document.getElementById("ui_ledmap_" + side + "_" + _side_idx);
-        var ele = document.getElementById("ui_ledmap_" + _side_idx);
-        ele.value = _side_idx;
-        _side_idx++;
-      }
-    }
-  }
-  */
-
   // populate contig regions
   //
   for (var side_idx=0; side_idx<2; side_idx++) {
@@ -1499,18 +1445,6 @@ function _construct_led_layout() {
     _x.parent().append(_x);
   }
 
-  /*
-  jqele = $("#ui_ledmap_contig_logical_order");
-  jqele.on("sortupdate", function(x,y) { console.log(">> logical", x, y); });
-
-  var a = g_innerlight.led.logical_order;
-  for (var i=0; i<a.length; i++) {
-    var jqid = "#ui_ledmap_contig_logical_order_" + a[i].label;
-    var _x = $(jqid);
-    _x.parent().append(_x);
-  }
-  */
-
 }
 
 function _slider_change(_mode) {
@@ -1529,9 +1463,16 @@ function _slider_change(_mode) {
     g_innerlight.mode_option.fill.speed = val;
   }
 
-  else if (_mode == "noise") {
-    var val = document.getElementById("ui_noise_slider").value;
+  else if (_mode == "noise.speed") {
+    var val = document.getElementById("ui_noise_speed_slider").value;
     g_innerlight.mode_option.noise.speed = val;
+  }
+  else if (_mode == "noise.brightness") {
+    var val = document.getElementById("ui_noise_brightness_slider").value;
+    g_innerlight.mode_option.noise.brightness= val;
+
+    _color_preset(g_innerlight.mode_option.noise.preset_index, "ui_noise_color");
+
   }
 
   else if (_mode == "rainbow") {
@@ -1587,8 +1528,6 @@ function _init() {
       };
     })(mode);
 
-    //ele.setAttribute("data-page-name", "ui_" + mode);
-    //ele.setAttribute("data-page-trans", "slide-in-from-right");
   }
 
 
@@ -1597,15 +1536,9 @@ function _init() {
   $('#ui_solidColor_colorpicker').farbtastic(function(hex) {
     var _el = document.getElementById("ui_solidColor_colorbutton");
     _el.style.background = hex;
-
-    console.log("...", hex);
-
     g_innerlight.mode_option.solid_color.color = hex;
   });
 
-  //var tapmic = ["tap", "mic"];
-  //var tm_mode = ["Pulse", "Bullet", "Strobe"];
-  //var fgbg = ["fg", "bg"];
   var tapmic = ["tap", "mic"];
   var tm_mode = ["Pulse", "Bullet", "Strobe"];
   var mode_name = ["pulse", "bullet", "strobe"];
@@ -1655,10 +1588,7 @@ function _init() {
 
   _setup_default();
 
-  //_color_preset(0,"ui_noise_color");
-
   _construct_led_layout();
-
 }
 
 function _setup_default() {
@@ -1784,7 +1714,5 @@ function _setup_default() {
 
     setTimeout( function() { $("#body").addClass("load"); }, 20 );
   });;
-
-
 
 })(jQuery);

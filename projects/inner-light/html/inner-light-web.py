@@ -1,13 +1,14 @@
 #!/usr/bin/python
 #
 # taken from https://www.acmesystems.it/python_http
-# CCY-BY-SA Sergio Tanzilli
+# CY-BY-SA Sergio Tanzilli
 #
 from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
 from os import curdir, sep
 import cgi
 import tempfile
 import os
+import json
 
 PORT_NUMBER = 8080
 
@@ -75,6 +76,20 @@ def ledreset():
   os.system("/bin/kill -SIGHUP $( cat " + str(ILD_PID_FN) + " )" )
 
 
+def configreq():
+  dat = {}
+  with open(IL_INI) as fp:
+    for line in fp:
+      print line
+      line = line.strip();
+      if len(line)==0: continue
+      if line[0] == '#': continue
+      kv = line.split("=")
+      if len(kv) != 2: continue
+
+      dat[kv[0]] = kv[1]
+  return dat
+
 #This class will handles any incoming request from
 #the browser 
 class myHandler(BaseHTTPRequestHandler):
@@ -127,10 +142,10 @@ class myHandler(BaseHTTPRequestHandler):
     except IOError:
       self.send_error(404,'File Not Found: %s' % self.path)
 
-  #Handler for the POST requests
+  # Handler for the POST requests
+  #
   def do_POST(self):
     if self.path=="/ledtest":
-
 
       form = cgi.FieldStorage(
         fp=self.rfile, 
@@ -149,6 +164,16 @@ class myHandler(BaseHTTPRequestHandler):
       self.end_headers()
       self.wfile.write("ok")
       return
+
+    if self.path=="/config":
+
+      dat = configreq()
+      dat_str = json.dumps(dat)
+
+      self.send_response(200)
+      self.end_headers()
+      self.wfile.write(dat_str)
+      pass
 
     if self.path=="/req":
       form = cgi.FieldStorage(
