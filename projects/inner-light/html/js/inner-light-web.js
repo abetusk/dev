@@ -30,7 +30,22 @@ var g_uiData  = {
     "tap_pulse", "tap_bullet", "tap_strobe",
     "mic_pulse", "mic_bullet", "mic_strobe",
     "fill", "strobe", "pulse", "rainbow"
-  ]
+  ],
+
+  "mode_name_map" : {
+    "solid_color" : "solidColor",
+    "noise" : "noise",
+    "tap_pulse" : "tapPulse",
+    "tap_bullet" : "tapBullet",
+    "tap_strobe" : "tapStrobe",
+    "mic_pulse" : "micPulse",
+    "mic_bullet" : "micBullet",
+    "mic_strobe" : "micStrobe",
+    "fill" : "fill",
+    "strobe"  : "strobe",
+    "pulse" : "pulse",
+    "rainbow" : "rainbow"
+  }
 };
 
 var g_innerlight = {
@@ -341,7 +356,6 @@ function _send_cfgreq() {
 
   xhr.onreadystatechange = function() {
     if ((this.readyState==4) && (this.status==200)) {
-      console.log("got:", xhr.responseText);
       _update_config(xhr.responseText);
       _init();
     }
@@ -498,8 +512,6 @@ function _construct_led_mapping() {
     "cuff_right"   : parseInt(g_innerlight.led.count_cuff_right)
   };
 
-  console.log("led_count", led_count);
-
   var _concept_map = [];
 
   var n_left = led_count.cuff_left +
@@ -545,8 +557,6 @@ function _construct_led_mapping() {
     var delta = 0;
     var delta = contig[contig_idx].delta;
 
-    console.log(">>contig", contig_idx, contig[contig_idx].start, contig[contig_idx].n);
-
     var phys_start = 0;
     if (delta > 0) {
       phys_start  = contig[contig_idx].start;
@@ -583,8 +593,6 @@ function _construct_led_mapping() {
     s += led_count[label];
 
   }
-
-  console.log("map", _map);
 
   g_innerlight.led.map_info = _map_info;
   g_innerlight.led.map = _map;
@@ -1511,8 +1519,6 @@ function _construct_led_layout() {
   _construct_led_mapping();
   var _map = g_innerlight.led.map;
 
-  console.log("n_tot", n_tot);
-
   for (var ii=0; ii<n_tot; ii++) {
     var ele = document.getElementById("ui_ledmap_" + ii);
     ele.value = _map[ii];
@@ -1601,21 +1607,33 @@ function _slider_change(_mode) {
 
 function _init() {
 
+  var ui_modename = g_innerlight.mode;
+  if (g_innerlight.mode in g_uiData.mode_name_map) {
+    ui_modename = g_uiData.mode_name_map[ g_innerlight.mode ];
+  }
+
   // Default select current mode
   //
   //var ele = document.getElementById("ui_mode_" + g_uiData.mode);
-  var ele = document.getElementById("ui_mode_" + g_innerlight.mode);
+  //var ele = document.getElementById("ui_mode_" + g_innerlight.mode);
+  var ele = document.getElementById("ui_mode_" + ui_modename);
   if ((typeof ele !== "undefined") && (ele !== null)) {
-    g_uiData.mode = g_innerlight.mode;
+
+    console.log("xxx", g_innerlight.mode, ele);
+
+    g_uiData.mode = ui_modename;
     ele.classList.add("bkeySelected");
 
     var _m = g_innerlight.mode;
     var _el = document.getElementById("ui_mode_config");
-    _el.setAttribute("data-page-name", "ui_" + _m);
+    _el.setAttribute("data-page-name", "ui_" + ui_modename);
     _el = document.getElementById("ui_mode_config0");
-    _el.setAttribute("data-page-name", "ui_" + _m);
+    _el.setAttribute("data-page-name", "ui_" + ui_modename);
 
 
+  }
+  else {
+    console.log("???", g_innerlight.mode, ele);
   }
 
   // Setup callbacks for mode button press
