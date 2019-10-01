@@ -11,11 +11,16 @@ import os
 
 PORT_NUMBER = 8080
 
-IL_INI = "innerlight.ini"
-#IL_TESTLED = "innerlight_testled.ini"
-IL_TESTLED = "ledtest.txt"
+BASE_DIR = "/tmp/"
 
-ILD_PID_FN = "./inner-light-generator.pid"
+IL_INI = BASE_DIR + "innerlight.ini"
+IL_TESTLED = BASE_DIR + "ledtest.txt"
+IL_LED = BASE_DIR + "innerlight.led"
+
+ILG_EXE = "./inner-light-drive"
+
+ILG_PID_FN = BASE_DIR + "inner-light-generator.pid"
+ILD_PID_FN = BASE_DIR + "inner-light-drive.pid"
 
 def writeledtest(data):
   tmpfd,tmpname = tempfile.mkstemp()
@@ -25,16 +30,13 @@ def writeledtest(data):
   try:
     with os.fdopen(tmpfd, "w") as tmpfp:
       for x in data:
-        val = str(data[x])
-        val
-        #tmpfp.write( str(x) + "=" + str(data[x]) + "\n" )
         tmpfp.write( "#" + x + "\n" + "\n".join(str(data[x]).split(":")) + "\n" )
       tmpfp.flush()
     os.rename(tmpname, IL_TESTLED)
   finally:
     pass
 
-  os.system("/bin/kill -SIGHUP $( cat " + str(ILD_PID_FN) + " )" )
+  os.system("/bin/kill -SIGHUP $( cat " + str(ILG_PID_FN) + " )" )
 
 def writeini(data):
   tmpfd,tmpname = tempfile.mkstemp()
@@ -47,7 +49,31 @@ def writeini(data):
   finally:
     pass
 
+  os.system("/bin/kill -SIGHUP $( cat " + str(ILG_PID_FN) + " )" )
+
+def ledreset():
+  n_led = -1
+  with open(IL_INI) as fp:
+    for line in fp:
+      line = line.strip()
+      if len(line) == 0: continue
+      if line[0] == '#': continue
+      kv = line.split("=")
+      if len(kv) != 2: continue
+      if kv[0] == "count_led":
+        n_led = int(kv[1])
+        break
+  if (n_led < 0) or (n_led > 1000):
+    print "ledreset: n_led is out of range:", n_led, ", ignoring"
+    return
+
+  print "ledreset: creating new LED file", IL_LED, "(" + str(n_led) + ")"
+
+  os.system("/bin/rm -f " + IL_LED)
+  os.system( ILG_EXE + " -n " + str(n_led) + " -C -L " + IL_LED )
+  os.system("/bin/kill -SIGHUP $( cat " + str(ILG_PID_FN) + " )" )
   os.system("/bin/kill -SIGHUP $( cat " + str(ILD_PID_FN) + " )" )
+
 
 #This class will handles any incoming request from
 #the browser 
@@ -115,7 +141,6 @@ class myHandler(BaseHTTPRequestHandler):
 
       data = {}
       for x in form:
-        print ">>>", x
         data[ str(x) ] = str(form[x].value)
 
       writeledtest(data)
@@ -133,12 +158,8 @@ class myHandler(BaseHTTPRequestHandler):
                      'CONTENT_TYPE':self.headers['Content-Type'],
       })
 
-      print "??????????????????????"
-      print form
-
       data = {}
       for x in form:
-        print ">>>", x
         data[ str(x) ] = str(form[x].value)
         if x == "palette":
           color_a = str(form[x].value).split(",")
@@ -149,26 +170,33 @@ class myHandler(BaseHTTPRequestHandler):
           for idx in range(len(ledmap)):
             data[ "map" + str(idx) ] = ledmap[idx]
 
-        #print "form:", x, form[x].value
       print data
 
       writeini(data)
 
-      #print "Your name is: %s" % form["your_name"].value
       self.send_response(200)
       self.end_headers()
-      #self.wfile.write("Thanks %s !" % form["your_name"].value)
       self.wfile.write("ok")
       return      
-      
-      
+
+    if self.path=="/ledreset":
+      ledreset()
+
+      self.send_response(200)
+      self.end_headers()
+      self.wfile.write("ok")
+      return
+
 try:
-  #Create a web server and define the handler to manage the
-  #incoming request
+
+  # Create a web server and define the handler to manage the
+  # incoming request
+  #
   server = HTTPServer(('', PORT_NUMBER), myHandler)
   print 'Started httpserver on port ' , PORT_NUMBER
   
-  #Wait forever for incoming htto requests
+  # Wait forever for incoming htto requests
+  #
   server.serve_forever()
 
 except KeyboardInterrupt:

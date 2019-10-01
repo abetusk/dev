@@ -36,7 +36,8 @@ var g_uiData  = {
 var g_innerlight = {
 
   "url" : "http://localhost:8080/req",
-  "url_test_led" : "http://localhost:8080/ledtest",
+  "url_led_test" : "http://localhost:8080/ledtest",
+  "url_led_reset" : "http://localhost:8080/ledreset",
 
   "led" : {
     "count_collar_left" : 15,
@@ -230,6 +231,12 @@ function _rgb2hex(rgb) {
   return s;
 }
 
+function _send_ledreset() {
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", g_innerlight.url_led_reset, true);
+  xhr.setRequestHeader('Content-Type', "application/x-www-form-urlencoded; charset=UTF-8" );
+  xhr.send();
+}
 
 function _send_api_req(data_obj) {
   var data_str = "";
@@ -241,8 +248,6 @@ function _send_api_req(data_obj) {
     }
   }
 
-  console.log(">> send_api_req", data_str);
-
   var xhr = new XMLHttpRequest();
   xhr.open("POST", g_innerlight.url, true);
   xhr.setRequestHeader('Content-Type', "application/x-www-form-urlencoded; charset=UTF-8" );
@@ -252,13 +257,6 @@ function _send_api_req(data_obj) {
 function _send_state() {
   //var color_hex_str = "";
   var n_tot = 0;
-
-  /*
-  color_hex_str = _rgb2hex(g_innerlight.color_map[0]);
-  for (var ii=1; ii<g_innerlight.color_map.length; ii++) {
-    color_hex_str += "," + _rgb2hex(g_innerlight.color_map[ii]);
-  }
-  */
 
   n_tot = g_innerlight.led.count_collar_left +
           g_innerlight.led.count_collar_right +
@@ -343,14 +341,6 @@ function _send_ledtest() {
 
     if (_d < 0) { _s = _s + 1 - _n; }
 
-    //data_str += "" + g_innerlight.led.map_info[idx].start;
-    //data_str += "," + g_innerlight.led.map_info[idx].n;
-    //data_str += "," + g_innerlight.led.map_info[idx].dir;
-
-    //data_str += "" + g_innerlight.led.logical_order_map_info[idx].start;
-    //data_str += "," + g_innerlight.led.logical_order_map_info[idx].n;
-    //data_str += "," + g_innerlight.led.logical_order_map_info[idx].dir;
-
     data_str += "" + _s;
     data_str += "," + _n;
     data_str += "," + _d;
@@ -369,7 +359,7 @@ function _send_ledtest() {
   console.log(">> send_ledtest", data_str);
 
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", g_innerlight.url_test_led, true);
+  xhr.open("POST", g_innerlight.url_led_test, true);
   xhr.setRequestHeader('Content-Type', "application/x-www-form-urlencoded; charset=UTF-8" );
   xhr.send(data_str);
 }
@@ -1058,6 +1048,11 @@ function _commit_contig_led() {
 
 function _commit_ledcount_change() {
   console.log("commit led change");
+}
+
+function _commit_lednum() {
+  _commit_ledmap();
+  _send_ledreset();
 }
 
 // construct the mapping with the current layout

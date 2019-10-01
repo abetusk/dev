@@ -195,7 +195,7 @@ typedef struct inner_light_mode_type {
 
   float m_update_usec;
 
-  size_t m_led_count;
+  size_t m_count_led;
   int m_mode;
 
   std::vector< int > m_led_map;
@@ -237,7 +237,7 @@ typedef struct inner_light_mode_type {
 
   std::string m_led_fn;
   int m_led_fd;
-  int m_led_mapped;
+  int m_led_mmap;
 
   float m_hue, m_saturation, m_lightness;
 
@@ -302,15 +302,15 @@ typedef struct inner_light_mode_type {
     int i;
     struct timeval tv;
 
-    m_led_count = led_count;
+    m_count_led = led_count;
 
-    m_led_map.resize(m_led_count);
-    for (i=0; i<m_led_count; i++) {
+    m_led_map.resize(m_count_led);
+    for (i=0; i<m_count_led; i++) {
       m_led_map[i] = i;
     }
 
     m_led_fd = 0;
-    m_led_mapped = 1;
+    //m_led_mmap = 1;
 
     m_mode = _MODE_SOLID;
 
@@ -411,7 +411,7 @@ typedef struct inner_light_mode_type {
     void *v;
     unsigned char *chp;
 
-    m_rgb_sz = m_led_count*3 + 1;
+    m_rgb_sz = m_count_led*3 + 1;
 
     m_rgb_buf.resize(m_rgb_sz);
     m_rgb_buf1.resize(m_rgb_sz);
@@ -422,6 +422,8 @@ typedef struct inner_light_mode_type {
     m_rgb = (unsigned char *)v;
 
     memcpy(&(m_rgb_buf[0]), m_rgb, m_rgb_sz);
+
+    m_led_mmap = 1;
     return 0;
   }
 
@@ -433,15 +435,32 @@ typedef struct inner_light_mode_type {
     m_led_fd = open(fn, O_RDWR);
     if (m_led_fd < 0) { perror("mmap failed"); return -1; }
 
+    printf("led_mmap_fn: before m_led_mmap %i\n", m_led_mmap);
+
     r = led_mmap(m_led_fd);
+    //close(m_led_fd);
+
+    printf("mapping %s (got %i, size %i, count %i, m_led_mmap %i)\n", fn, r, (int)m_rgb_sz, (int)m_count_led, m_led_mmap);
+
     return r;
   }
 
   int cleanup(void) {
+    int r;
     if (m_led_fd > 0) {
-      if (m_led_mapped) {
-        munmap(m_rgb, m_rgb_sz);
+      if (m_led_mmap) {
+
+        printf("unmapping mmap file (size %i)\n", (int)m_rgb_sz);
+
+        syncfs(m_led_fd);
+        r = munmap(m_rgb, m_rgb_sz);
+
+        printf("munmap got %i\n", r);
+
+        m_led_mmap = 0;
       }
+
+      printf("closing mmap fd (%i)\n", (int)m_led_fd);
       close(m_led_fd);
     }
     return 0;

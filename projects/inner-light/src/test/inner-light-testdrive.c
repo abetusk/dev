@@ -33,51 +33,53 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <getopt.h>
 
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#include <string.h>
-#include <unistd.h>
-#include <errno.h>
-#include <stdint.h>
-
 #include <sys/mman.h>
 #include <sys/time.h>
 
-
-
-
+#include <stdint.h>
 #include <ncurses.h>
 #include <time.h>
 #include <string.h>
 #include <errno.h>
+#include <signal.h>
+
+#include <vector>
+#include <string>
 
 #include "simplexnoise1234.h"
 
-//#define INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE "/home/pi/data/innerlight.led"
-#define INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE "./innerlight.led"
-#define _DEFAULT_NUM_LED 180
-
-//#define NCHAR 10
-//char characters[] = {' ', '.', ':', '^', '*', 'x', 's', 'S', '#', '$'};
+#define INNER_LIGHT_DEFAULT_CONFIG_FILE "./innerlight.ini"
+#define INNER_LIGHT_DEFAULT_LED_FILE "./innerlight.led"
+#define INNER_LIGHT_DEFAULT_NUM_LED 180
+#define INNER_LIGHT_DEFAULT_PID_FILE "./inner-light-testdrive.pid"
 
 int NCOLOR = 8*8;
 int NCHAR = -1;
 char *characters;
 
+int NUM_LED;
+int NUM_LED_PRV;
+std::string g_config_fn;
+std::string g_led_fn;
+std::string g_pid_fn;
+
 void _init_characters() {
   int i;
 
   NCHAR = 127-32;
-  characters = malloc(sizeof(char)*NCHAR);
+  characters = (char *)malloc(sizeof(char)*NCHAR);
   for (i=32; i<127; i++) {
     characters[i-32] = i;
   }
 }
 
-size_t g_n_led;
+//size_t g_n_led;
 unsigned char *g_led_map;
 
 void update_noise_line(int *b, int width, int height) {
@@ -179,7 +181,7 @@ void update_led_line(int *b, int width, int height) {
   for (i=0; i<width; i++) {
     j = height/2;
 
-    if (i < g_n_led) {
+    if (i < NUM_LED) {
       p = 1 + 3*i;
       _r = g_led_map[p];
       _g = g_led_map[p+1];
@@ -190,21 +192,9 @@ void update_led_line(int *b, int width, int height) {
       rgb[2] = _b;
 
       _rgb2hsv(hsv, rgb);
-      //v = (unsigned int)(((float)NCHAR)*hsv[0]*hsv[1]*255.0);
-      //v = (unsigned int)(hsv[0]*hsv[1]*255.0);
       v = (unsigned int)(hsv[2]*(double)(NCHAR-1));
-      //v = (unsigned int)(((float)(NCHAR-1))*hsv[0]);
-
-      //_fr = (float)_r / 255.0;
-      //_fg = (float)_g / 255.0;
-      //_fb = (float)_b / 255.0;
-      //v = (int) ( ((float)NCHAR) * ((_fr + _fg + _fb) / 3.0) );
-
-      //v = (unsigned int)_r;
-
     }
     else { v=0; }
-
 
     b[j*width + i] = v;
   }
@@ -212,7 +202,6 @@ void update_led_line(int *b, int width, int height) {
 }
 
 void update(int *b, int width, int height) {
-  //update_noise_line(b, width, height);
   update_led_line(b, width, height);
 }
 
@@ -236,7 +225,6 @@ void display(int *b, int width, int height, int *cmap) {
 
     if (i < size-1) {
       move(i/width, i%width);
-      //if (b[i] > 9) { addch(characters[9]); }
       if (b[i] > NCHAR) { addch(characters[NCHAR-1]); }
       else          { addch(characters[b[i]]); }
     }
@@ -257,61 +245,247 @@ void init(int width, int height) {
 }
 
 int load_ledmap() {
-  char *led_fn=NULL;
   int led_map_fd, r;
   size_t led_map_len;
 
-  g_n_led = _DEFAULT_NUM_LED;
-  led_map_len = 1 + (3*g_n_led);
+  if (g_led_map != NULL) {
+    munmap(g_led_map, (NUM_LED_PRV*3)+1);
+    g_led_map = NULL;
+  }
+  NUM_LED_PRV = NUM_LED;
 
-  led_fn = strdup(INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE);
+  led_map_len = 1 + (3*NUM_LED);
 
-  led_map_fd = open(led_fn, O_RDWR);
+  led_map_fd = open(g_led_fn.c_str(), O_RDWR);
   if (led_map_fd<0) {
-    fprintf(stderr, "ERROR: opening file %s, got errno:%i\n", led_fn, errno);
-    exit(-1);
+    fprintf(stderr, "ERROR: opening file %s, got errno:%i\n", g_led_fn.c_str(), errno);
+    return -1;
   }
 
   r = fchmod(led_map_fd, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH );
   if (r != 0) { perror("fchmod"); return r; }
 
-  g_led_map = mmap(NULL, led_map_len, PROT_NONE | PROT_READ | PROT_WRITE | PROT_EXEC, MAP_SHARED, led_map_fd, 0);
+  g_led_map = (unsigned char *)mmap(NULL, led_map_len, PROT_NONE | PROT_READ | PROT_WRITE | PROT_EXEC, MAP_SHARED, led_map_fd, 0);
 
-  if (g_led_map == MAP_FAILED) { fprintf(stderr, "failed\n"); exit(-1); }
+  close(led_map_fd);
+
+  if (g_led_map == MAP_FAILED) {
+    fprintf(stderr, "failed\n");
+    return -1;
+  }
 
   if (g_led_map == NULL) {
     fprintf(stderr, "ERROR: could not map file (fd:%i), got errno:%i, exiting\n",
         led_map_fd, errno);
-    exit(-1);
+    return -1;
   }
 
+  return 0;
+}
+
+static int _parse_kv(std::string &_key, std::string &_val, std::string &_line) {
+  const char *chp=NULL, *chp_tok=NULL;
+
+  chp = _line.c_str();
+  chp_tok = strchr(chp, '=');
+  if (!chp_tok) { return -1; }
+
+  _key.clear();
+  _val.clear();
+
+  for ( ; chp != chp_tok; chp++) {
+    _key += *chp;
+  }
+
+  chp = chp_tok+1;
+
+  for (chp = (chp_tok+1); *chp ; chp++) {
+    if (*chp == '\n') { continue; }
+    _val += *chp;
+  }
+
+  return 0;
+}
+
+
+int load_config(std::string &fn) {
+  FILE *fp;
+  int ch, r, ret=0;
+  unsigned char rgb[3];
+
+  std::string line, _key, _val;
+
+  fp = fopen(fn.c_str(), "r");
+  if (!fp) { return -1; }
+
+  while (!feof(fp)) {
+    ch = fgetc(fp);
+    if ((ch==EOF) || (ch=='\n')) {
+      if (line.size() == 0) { continue; }
+      if (line[0] == '#') { continue; }
+
+      r = _parse_kv(_key, _val, line);
+      if (r!=0) { ret = -2; break; }
+
+      if (_key == "count_led") {
+        r = atoi(_val.c_str());
+        if ((r<1) || (r>1000)) {
+          fprintf(stderr, "load_config: 'count_led' = %i, param out of bounds\n", r);
+          ret = -1;
+          break;
+        }
+        NUM_LED = r;
+      }
+
+      line.clear();
+      continue;
+    }
+
+    line.push_back(ch);
+  }
+
+  fclose(fp);
+
+  return ret;
+}
+
+
+void sighup_handler(int signo) {
+  if (signo == SIGHUP) {
+    load_config(g_config_fn);
+
+    if (NUM_LED != NUM_LED_PRV) {
+      load_ledmap();
+    }
+  }
+}
+
+//--
+
+struct option _longopt[] = {
+  {"help", no_argument, 0, 'h'},
+  {0,0,0,0},
+};
+
+
+void show_help(FILE *fp) {
+  fprintf(fp, "usage: inner-light-testdrive [-L ledfn] [-n numled] [-c configfn] [-h]\n");
+  fprintf(fp, "\n");
+  fprintf(fp, "  -n <nled>      number of leds to display (default %i)\n", INNER_LIGHT_DEFAULT_NUM_LED);
+  fprintf(fp, "  -L <ledfn>     mmap'd LED file (default '%s')\n", INNER_LIGHT_DEFAULT_LED_FILE);
+  fprintf(fp, "  -c <configfn>  config file (default '%s')\n", INNER_LIGHT_DEFAULT_CONFIG_FILE);
+  fprintf(fp, "  -p <pidfn>     file that contains process id (default '%s')\n", INNER_LIGHT_DEFAULT_PID_FILE);
+  fprintf(fp, "  -h             help (this screen)\n");
+  fprintf(fp, "\n");
 }
 
 int main(int argc, char** argv) {
   int i, *b, size, width, height;
   int *cmap;
+  pid_t pid;
+  FILE *fp;
 
-  cmap = malloc(sizeof(int)*256);
+  int option_index, ch, r;
+
+  int cli_num_led = -1;
+
+  signal(SIGHUP, sighup_handler);
+
+  g_led_map = NULL;
+
+  g_config_fn = INNER_LIGHT_DEFAULT_CONFIG_FILE;
+  g_led_fn    = INNER_LIGHT_DEFAULT_LED_FILE;
+  g_pid_fn    = INNER_LIGHT_DEFAULT_PID_FILE;
+
+  NUM_LED = -1;
+
+  while ((ch=getopt_long(argc, argv, "hn:L:c:p:", _longopt, &option_index)) >= 0) {
+    switch (ch) {
+      case 'n':
+        cli_num_led = atoi(optarg);
+        break;
+      case 'L':
+        g_led_fn = optarg;
+        break;
+      case 'p':
+        g_pid_fn = optarg;
+        break;
+      case 'c':
+        g_config_fn = optarg;
+        break;
+      case 'h':
+        show_help(stdout);
+        exit(0);
+        break;
+      default:
+        show_help(stderr);
+        exit(-1);
+        break;
+    }
+  }
+
+  NUM_LED = INNER_LIGHT_DEFAULT_NUM_LED;
+  if (load_config(g_config_fn)!=0) {
+
+    // it's alright to not find a config file, just use defaults specified here...
+    //
+    printf("no config file found\n");
+
+  }
+
+
+  if (cli_num_led > 0) {
+    NUM_LED     = cli_num_led;
+  }
+
+  if ((NUM_LED<1) || (NUM_LED>1024)) {
+    fprintf(stderr, "NUM_LED (%i) out of range, exiting\n", NUM_LED);
+    exit(-1);
+  }
+
+  NUM_LED_PRV = NUM_LED;
+
+  r = load_ledmap();
+  if (r!=0) {
+    fprintf(stderr, "error loading ledmap (%s), exiting\n", g_led_fn.c_str());
+    exit(-1);
+  }
+
+  pid = getpid();
+  fp = fopen(g_pid_fn.c_str(), "w");
+  if (fp==NULL) { perror(g_pid_fn.c_str()); exit(-1); }
+  fprintf(fp, "%i", pid);
+  fclose(fp);
+
+
+  //DEBUG
+  /*
+  printf("debug exit\n");
+  printf("NUM_LED %i (prv %i), pid_fn: %s, config_fn: %s, led_fn: %s\n",
+      NUM_LED, NUM_LED_PRV,
+      g_pid_fn.c_str(),
+      g_config_fn.c_str(),
+      g_led_fn.c_str());
+  exit(0);
+  */
+
+  cmap = (int *)malloc(sizeof(int)*256);
   for (i=0; i<256; i++) {
     cmap[i] = (i/64) + 1;
   }
 
   _init_characters();
 
-  load_ledmap();
-
   initscr();
   start_color();
 
-
   getmaxyx(stdscr,height,width);
   size = height*width;
-  b = calloc((size+width+1),sizeof(int));
+  b = (int *)calloc((size+width+1),sizeof(int));
   init(width, height);
 
   for (;;) {
     update(b, width, height);
-    //display(b, width, height, NULL);
     display(b, width, height, cmap);
     refresh();
     timeout(30);
@@ -319,7 +493,6 @@ int main(int argc, char** argv) {
   }
 
   endwin();
-
   free(b);
 
   return 0;

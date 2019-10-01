@@ -129,7 +129,7 @@ struct option _longopt[] = {
 
 void show_help_and_exit(FILE *fp) {
   fprintf(fp, "usage:\n");
-  fprintf(fp, "\n  mode-manage [-L mmap.led] [-n led_count] [-c config] [-T ledtest] [-h] <( MIC ) <( ENCODER )\n\n");
+  fprintf(fp, "\n  inner-light-generator [-L mmap.led] [-n led_count] [-c config] [-T ledtest] [-h] <( MIC ) <( ENCODER )\n\n");
   if (fp==stdin) { exit(0); }
   exit(1);
 }
@@ -142,40 +142,23 @@ void show_version_and_exit(FILE *fp) {
 
 //---
 
-/*
-int inner_light_mode_type::update_led(void) {
-  static int x = 0;
-
-  if (!m_led_mapped) { return -1; }
-
-  m_rgb[0] = 1;
-  memcpy(m_rgb, &(m_rgb_buf[0]), m_rgb_sz);
-  m_rgb[0] = 0;
-
-  return 0;
-}
-*/
-
 int inner_light_mode_type::update_led(void) {
   int i, n, p;
   static int x = 0;
   size_t m;
 
-  if (!m_led_mapped) { return -1; }
+  if (!m_led_mmap) { return -1; }
 
   m = m_led_map.size();
 
   m_rgb[0] = 1;
-  for (i=0; i<g_mode.m_led_count; i++) {
+  for (i=0; i<g_mode.m_count_led; i++) {
     if (i >= m) { continue; }
     p = m_led_map[i];
     if ((p < 0) ||
-        (p >= g_mode.m_led_count)) {
+        (p >= g_mode.m_count_led)) {
       continue;
     }
-    //m_rgb[3*i+1] = m_rgb_buf[3*p+1];
-    //m_rgb[3*i+2] = m_rgb_buf[3*p+2];
-    //m_rgb[3*i+3] = m_rgb_buf[3*p+3];
     m_rgb[3*p+1] = m_rgb_buf[3*i+1];
     m_rgb[3*p+2] = m_rgb_buf[3*i+2];
     m_rgb[3*p+3] = m_rgb_buf[3*i+3];
@@ -245,7 +228,7 @@ int inner_light_mode_type::process_tap(void) {
   //
   if (m_tap_time.size() == 0) { return 1; }
 
-  for (i=0; i<m_led_count; i++) {
+  for (i=0; i<m_count_led; i++) {
     if (i < m_tap_time.size()) {
       f = (float)i/12.0;
       f *=255.0;
@@ -400,7 +383,7 @@ void inner_light_mode_type::beat_pulse(void) {
     _color_interpolate( f_cur, f_min, f_max, rgb, rgbCur);
   }
 
-  for (i=0; i<m_led_count; i++) {
+  for (i=0; i<m_count_led; i++) {
     m_rgb_buf[3*i+1] = rgbCur[0];
     m_rgb_buf[3*i+2] = rgbCur[1];
     m_rgb_buf[3*i+3] = rgbCur[2];
@@ -453,14 +436,14 @@ void inner_light_mode_type::beat_bullet(void) {
   // start the particle in the middle
   //
   if (m_beat_signal) {
-    p = m_led_count / 2;
+    p = m_count_led / 2;
     add_particle(p + (rand()%m_particle_v), 1);
     add_particle(p - (rand()%m_particle_v), -1);
   }
 
   // clear buffer
   //
-  for (i=0; i<m_led_count; i++) {
+  for (i=0; i<m_count_led; i++) {
     m_rgb_buf1[3*i+1] = rgbMin[0];
     m_rgb_buf1[3*i+2] = rgbMin[1];
     m_rgb_buf1[3*i+3] = rgbMin[2];
@@ -477,7 +460,7 @@ void inner_light_mode_type::beat_bullet(void) {
 
     // particle has reached boundary, swap with end and destroy
     //
-    if ((m_particle[i] >= m_led_count) || (m_particle[i] < 0)) {
+    if ((m_particle[i] >= m_count_led) || (m_particle[i] < 0)) {
       rem_particle(i);
       i--;
       continue;
@@ -510,7 +493,7 @@ void inner_light_mode_type::beat_bullet(void) {
     p = m_particle[i];
     for (j=0; j<3; j++) {
       p++;
-      if (p>=m_led_count) { break; }
+      if (p>=m_count_led) { break; }
 
       _color_interpolate(f_max - ((float)(j+1)*f_del/3.0), f_min, f_max, rgb, rgbCur);
       m_rgb_buf1[3*p + 1] = rgbCur[0];
@@ -524,7 +507,7 @@ void inner_light_mode_type::beat_bullet(void) {
   //
   memcpy((void *)(&(m_rgb_buf[0])),
          (const void *)(&(m_rgb_buf1[0])),
-         sizeof(unsigned char)*((m_led_count*3) + 1));
+         sizeof(unsigned char)*((m_count_led*3) + 1));
 
 }
 
@@ -577,7 +560,7 @@ void inner_light_mode_type::beat_strobe(void) {
     _color_interpolate(f_max, f_min, f_max, rgb, rgbMax);
   }
 
-  for (i=0; i<m_led_count; i++) {
+  for (i=0; i<m_count_led; i++) {
     m_rgb_buf[3*i+1] = rgbMin[0];
     m_rgb_buf[3*i+2] = rgbMin[1];
     m_rgb_buf[3*i+3] = rgbMin[2];
@@ -586,9 +569,9 @@ void inner_light_mode_type::beat_strobe(void) {
 	if (!m_beat_signal) { return; }
 
   for (i=0; i<strobe_n; i++) {
-    p = rand()%m_led_count;
+    p = rand()%m_count_led;
     for (j=0; j<strobe_size; j++) {
-      if ( (p+j) >= m_led_count ) { break; }
+      if ( (p+j) >= m_count_led ) { break; }
       m_rgb_buf[3*(p+j)+1] = rgbMax[0];
       m_rgb_buf[3*(p+j)+2] = rgbMax[1];
       m_rgb_buf[3*(p+j)+3] = rgbMax[2];
@@ -625,7 +608,7 @@ int inner_light_mode_type::tick_solid(void) {
   //
   if (m_encoder_pos[0] == 0) {
 
-    for (i=0; i<m_led_count; i++) {
+    for (i=0; i<m_count_led; i++) {
       m_rgb_buf[3*i+1] = m_config.m_solid_rgb[0];
       m_rgb_buf[3*i+2] = m_config.m_solid_rgb[1];
       m_rgb_buf[3*i+3] = m_config.m_solid_rgb[2];
@@ -639,7 +622,7 @@ int inner_light_mode_type::tick_solid(void) {
     v = (float)m_encoder_pos[0] / (float)m_encoder_n;
     u = (unsigned char)(v*255.0);
 
-    for (i=0; i<m_led_count; i++) {
+    for (i=0; i<m_count_led; i++) {
       m_rgb_buf[3*i+1] = u;
       m_rgb_buf[3*i+2] = u;
       m_rgb_buf[3*i+3] = u;
@@ -694,7 +677,7 @@ int inner_light_mode_type::tick_solid_color(void) {
     }
   }
 
-  for (i=0; i<m_led_count; i++) {
+  for (i=0; i<m_count_led; i++) {
     m_rgb_buf[3*i+1] = r;
     m_rgb_buf[3*i+2] = g;
     m_rgb_buf[3*i+3] = b;
@@ -726,8 +709,8 @@ int inner_light_mode_type::tick_noise(void) {
 
   n_palette = m_noise_palette.size()/3;
 
-  for (i=0; i<m_led_count; i++) {
-    x = (float)i/(float)m_led_count;
+  for (i=0; i<m_count_led; i++) {
+    x = (float)i/(float)m_count_led;
     f = snoise2(x, cur_t);
 
     v = (int)( f*(float)n_palette );
@@ -774,7 +757,7 @@ int inner_light_mode_type::tick_fill(void) {
   }
 
   m_fill_pos += pos_ds;
-  n = ( (m_fill_pos<m_led_count) ? m_fill_pos : m_led_count );
+  n = ( (m_fill_pos<m_count_led) ? m_fill_pos : m_count_led );
 
   f = (float)m_fill_color_mod*255.0/(float)color_mod_n;
   w = (int)f;
@@ -789,13 +772,13 @@ int inner_light_mode_type::tick_fill(void) {
     m_rgb_buf[3*i+2] = rgb[1];
     m_rgb_buf[3*i+3] = rgb[2];
   }
-  for (; i<m_led_count; i++) {
+  for (; i<m_count_led; i++) {
     m_rgb_buf[3*i+1] = rgbprv[0];
     m_rgb_buf[3*i+2] = rgbprv[1];
     m_rgb_buf[3*i+3] = rgbprv[2];
   }
 
-  if (m_fill_pos >= m_led_count) {
+  if (m_fill_pos >= m_count_led) {
     m_fill_color_mod = (m_fill_color_mod + color_mod_del) % color_mod_n;
     m_fill_pos=0;
   }
@@ -854,7 +837,7 @@ int inner_light_mode_type::tick_strobe(void) {
     _color_interpolate(f_max, f_min, f_max, rgb, rgbMax);
   }
 
-  for (i=0; i<m_led_count; i++) {
+  for (i=0; i<m_count_led; i++) {
     m_rgb_buf[3*i+1] = rgbMin[0];
     m_rgb_buf[3*i+2] = rgbMin[1];
     m_rgb_buf[3*i+3] = rgbMin[2];
@@ -864,9 +847,9 @@ int inner_light_mode_type::tick_strobe(void) {
   if (m_strobe_tick!=0) { return 0; }
 
   for (i=0; i<strobe_n; i++) {
-    p = rand()%m_led_count;
+    p = rand()%m_count_led;
     for (j=0; j<strobe_size; j++) {
-      if ( (p+j) >= m_led_count ) { break; }
+      if ( (p+j) >= m_count_led ) { break; }
       m_rgb_buf[3*(p+j)+1] = rgbMax[0];
       m_rgb_buf[3*(p+j)+2] = rgbMax[1];
       m_rgb_buf[3*(p+j)+3] = rgbMax[2];
@@ -926,7 +909,7 @@ int inner_light_mode_type::tick_pulse(void) {
     _color_interpolate( f, f_min, f_max, m_pulse_rgb, rgbCur);
   }
 
-  for (i=0; i<m_led_count; i++) {
+  for (i=0; i<m_count_led; i++) {
     m_rgb_buf[3*i+1] = rgbCur[0];
     m_rgb_buf[3*i+2] = rgbCur[1];
     m_rgb_buf[3*i+3] = rgbCur[2];
@@ -964,7 +947,7 @@ int inner_light_mode_type::tick_rainbow(void) {
 
   m_rainbow_p = (m_rainbow_p+p_del)%255;
 
-  for (i=0; i<m_led_count; i++) {
+  for (i=0; i<m_count_led; i++) {
     x = (i+m_rainbow_p)%255;
     _p = (unsigned char)(x);
     _wheel(_p, &_r, &_g, &_b);
@@ -999,7 +982,7 @@ int inner_light_mode_type::tick_ledtest(void) {
     return 0;
   }
 
-  for (i=0; i<m_led_count; i++) {
+  for (i=0; i<m_count_led; i++) {
     m_rgb_buf[3*i+1] = 0;
     m_rgb_buf[3*i+2] = 0;
     m_rgb_buf[3*i+3] = 0;
@@ -1034,7 +1017,7 @@ int inner_light_mode_type::tick_ledtest(void) {
       if (x >= (_start + _m)) { x -= _m; }
 
       if (x<0) { continue; }
-      if (x>=m_led_count) { continue; }
+      if (x>=m_count_led) { continue; }
 
       m_rgb_buf[3*x+1] = 128;
       m_rgb_buf[3*x+2] = 128;
@@ -1373,13 +1356,13 @@ int inner_light_mode_type::update_led_map(void) {
 
   // resize and transfer relevant mapped leds
   //
-  if (g_mode.m_led_map.size() < g_mode.m_led_count) {
-    g_mode.m_led_map.resize( g_mode.m_led_count );
+  if (g_mode.m_led_map.size() < g_mode.m_count_led) {
+    g_mode.m_led_map.resize( g_mode.m_count_led );
   }
-  for (i=0; i<g_mode.m_led_count; i++) {
+  for (i=0; i<g_mode.m_count_led; i++) {
     g_mode.m_led_map[i] = i;
   }
-  for (i=0; i<g_mode.m_led_count; i++) {
+  for (i=0; i<g_mode.m_count_led; i++) {
     if (i >= g_mode.m_config.m_map.size()) { break; }
     g_mode.m_led_map[i] = g_mode.m_config.m_map[i];
   }
@@ -1447,10 +1430,10 @@ int inner_light_mode_type::load_ledtest_file(std::string &fn) {
 
       printf("?? %i %i %i\n", (int)_start, (int)_m, (int)_d);
 
-      if ((_start < 0) || (_start >= m_led_count)) { ret = -4; break; }
-      if ((_m < 1) || ((_start+_m) > m_led_count)) {
-        fprintf(stderr, "load_ledtest_file(): ERROR: _start %i + _m %i (%i) >= m_led_count %i\n",
-            _start, _m, _start+_m, (int)m_led_count);
+      if ((_start < 0) || (_start >= m_count_led)) { ret = -4; break; }
+      if ((_m < 1) || ((_start+_m) > m_count_led)) {
+        fprintf(stderr, "load_ledtest_file(): ERROR: _start %i + _m %i (%i) >= m_count_led %i\n",
+            _start, _m, _start+_m, (int)m_count_led);
         ret = -5; break;
       }
       if ((_d != 1) && (_d != -1)) { ret=-6; break; }
@@ -1461,7 +1444,7 @@ int inner_light_mode_type::load_ledtest_file(std::string &fn) {
 
       //DEBUG
       //
-      for (i=_start; (i<(_start+_m)) && (i<m_led_count); i++) {
+      for (i=_start; (i<(_start+_m)) && (i<m_count_led); i++) {
         p = -1;
         if ((i>0) && (i<m_led_map.size())) { p = m_led_map[i]; }
         printf(" [%i->%i]\n", i, p);
@@ -1510,18 +1493,39 @@ void inner_light_mode_type::start_ledtest(void) {
 void sighup_handler(int signo) {
   int i, ret;
   FILE *fp;
+  static int count=0;
 
   if (signo == SIGHUP) {
-    printf("caught SIGHUP\n");
+    printf("caught SIGHUP (%i)\n", count);
+    count++;
 
     ret = g_mode.m_config.load_config( g_mode.m_config_fn );
     if (ret<0) {
       fprintf(stderr, "Couldn't read config file %s, ignoreing and moving on\n", g_mode.m_config_fn.c_str());
+      fprintf(stdout, "Couldn't read config file %s, ignoreing and moving on\n", g_mode.m_config_fn.c_str());
     }
     else {
       g_mode.m_mode = g_mode.m_config.m_mode;
       g_mode.m_tap_ready = 1;
       g_mode.m_tap_bpm = g_mode.m_config.m_tap_bpm;
+
+      if (g_mode.m_config.m_count_led != g_mode.m_count_led) {
+
+        g_mode.cleanup();
+
+        //printf("\n....sleeping\n");
+        //sleep(5);
+        //printf("\n....waking up\n");
+
+        g_mode.m_count_led = g_mode.m_config.m_count_led;
+        ret = g_mode.led_mmap_fn( g_mode.m_led_fn.c_str() );
+        if (ret!=0) {
+          fprintf(stderr, "sighup_hander: ERROR, could not load %s, got %i\n", g_mode.m_led_fn.c_str(), ret);
+        }
+
+        printf("sighup_handler: m_count_led now %i\n", (int)g_mode.m_count_led);
+
+      }
 
       g_mode.update_led_map();
     }
@@ -1538,14 +1542,17 @@ void sighup_handler(int signo) {
 
 }
 
-void write_pid_file(void) {
+int write_pid_file(std::string &pid_fn) {
   FILE *fp;
   pid_t pid;
 
   pid = getpid();
-  fp = fopen("inner-light-generator.pid", "w");
+  fp = fopen(pid_fn.c_str(), "w");
+  if (fp==NULL) { return -1; }
   fprintf(fp, "%i", pid);
   fclose(fp);
+
+  return 0;
 }
 
 
@@ -1555,7 +1562,7 @@ int main(int argc, char **argv) {
   float dt;
   int ch;
   int option_index;
-  std::string beat_fn, encoder_fn, config_fn, ledtest_fn;
+  std::string beat_fn, encoder_fn, config_fn, ledtest_fn, pid_fn;
   int beat_fd, encoder_fd;
 
   fd_set active_fds, read_fds;
@@ -1578,7 +1585,7 @@ int main(int argc, char **argv) {
 
   std::string led_fn = INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE;
 
-  while ((ch=getopt_long(argc, argv, "vhi:L:n:c:T:", _longopt, &option_index)) >= 0) {
+  while ((ch=getopt_long(argc, argv, "vhi:L:n:c:p:T:", _longopt, &option_index)) >= 0) {
     switch(ch) {
       case 0:
         break;
@@ -1587,6 +1594,10 @@ int main(int argc, char **argv) {
         break;
       case 'v':
         show_version_and_exit(stdout);
+        break;
+
+      case 'p':
+        pid_fn = optarg;
         break;
 
       case 'c':
@@ -1664,7 +1675,7 @@ int main(int argc, char **argv) {
 
   //----
 
-  g_mode.m_led_count = led_count;
+  g_mode.m_count_led = led_count;
   g_mode.m_led_fn = led_fn;
   if (config_fn.size() > 0) {
     g_mode.m_config_fn = config_fn;
@@ -1689,10 +1700,24 @@ int main(int argc, char **argv) {
     g_mode.m_tap_ready = 1;
     g_mode.m_tap_bpm = g_mode.m_config.m_tap_bpm;
 
+    g_mode.m_count_led = g_mode.m_config.m_count_led;
+    /*
+    if (g_mode.m_config.m_count_led != g_mode.m_count_led) {
+      g_mode.cleanup();
+      g_mode.m_count_led = g_mode.m_config.m_count_led;
+      ret = g_mode.led_mmap_fn( g_mode.m_led_fn.c_str() );
+      if (ret<0) {
+        fprintf(stderr, "main: ERROR, could not load %s, got %i\n", g_mode.m_led_fn.c_str(), ret);
+      }
+      printf("main: m_count_led now %i (%i)\n", (int)g_mode.m_count_led, g_mode.m_led_mmap);
+
+    }
+    */
+
     g_mode.update_led_map();
   }
 
-  printf("# connecting to mmap file %s (n:%i)\n", g_mode.m_led_fn.c_str(), (int)g_mode.m_led_count);
+  printf("# connecting to mmap file %s (n:%i)\n", g_mode.m_led_fn.c_str(), (int)g_mode.m_count_led);
   ret = g_mode.led_mmap_fn(g_mode.m_led_fn.c_str());
   if (ret < 0) {
     fprintf(stderr, "could not mmap file %s, exiting\n", g_mode.m_led_fn.c_str());
@@ -1703,7 +1728,10 @@ int main(int argc, char **argv) {
   //
   // save pid file
   //
-  write_pid_file();
+  r = write_pid_file(pid_fn);
+  if (r!=0) {
+    fprintf(stderr, "error in writing pid file %s, ignoring\n", pid_fn.c_str());
+  }
 
   //----
 
