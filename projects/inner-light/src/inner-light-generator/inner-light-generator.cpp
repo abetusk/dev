@@ -129,7 +129,7 @@ struct option _longopt[] = {
 
 void show_help_and_exit(FILE *fp) {
   fprintf(fp, "usage:\n");
-  fprintf(fp, "\n  inner-light-generator [-L mmap.led] [-n led_count] [-c config] [-T ledtest] [-h] <( MIC ) <( ENCODER )\n\n");
+  fprintf(fp, "\n  inner-light-generator [-L mmap.led] [-n led_count] [-c config] [-T ledtest] [-F] [-h] <( MIC ) <( ENCODER )\n\n");
   if (fp==stdin) { exit(0); }
   exit(1);
 }
@@ -707,17 +707,33 @@ int inner_light_mode_type::tick_noise(void) {
     dt = (float)(m_encoder_pos[0]+1.0)/128.0;
   }
 
-  n_palette = m_noise_palette.size()/3;
+  n_palette = m_config.m_noise_palette.size()/3;
+
+  /*
+  for (i=0; i<n_palette; i++) {
+    printf(" %02x%02x%02x",
+       (int)m_config.m_noise_palette[3*i+0],
+       (int)m_config.m_noise_palette[3*i+1],
+       (int)m_config.m_noise_palette[3*i+2]);
+  }
+  printf("\n");
+  */
 
   for (i=0; i<m_count_led; i++) {
     x = (float)i/(float)m_count_led;
-    f = snoise2(x, cur_t);
+    f = (snoise2(x, cur_t) + 1.0)/(2.0 + (1.0/65536.0));
 
-    v = (int)( f*(float)n_palette );
+    v = (int)( f*(float)(n_palette) );
 
-    m_rgb_buf[3*i+1] = m_noise_palette[3*v+0];
-    m_rgb_buf[3*i+2] = m_noise_palette[3*v+1];
-    m_rgb_buf[3*i+3] = m_noise_palette[3*v+2];
+    /*
+    if ((v<0) || ((3*v+2) >= m_config.m_noise_palette.size())) {
+      printf("!!! v%i, npal%i f %f\n", (int)v, (int)m_config.m_noise_palette.size(), f);
+    }
+    */
+
+    m_rgb_buf[3*i+1] = m_config.m_noise_palette[3*v+0];
+    m_rgb_buf[3*i+2] = m_config.m_noise_palette[3*v+1];
+    m_rgb_buf[3*i+3] = m_config.m_noise_palette[3*v+2];
 
   }
 
@@ -1505,6 +1521,13 @@ void sighup_handler(int signo) {
       fprintf(stdout, "Couldn't read config file %s, ignoreing and moving on\n", g_mode.m_config_fn.c_str());
     }
     else {
+
+      if ((g_mode.m_config.m_count_led < 1) ||
+          (g_mode.m_config.m_count_led > 1024)) {
+        fprintf(stderr, "g_mode.m_config.m_count_led out of range (%i). giving up\n", (int)g_mode.m_config.m_count_led);
+        exit(-1);
+      }
+
       g_mode.m_mode = g_mode.m_config.m_mode;
       g_mode.m_tap_ready = 1;
       g_mode.m_tap_bpm = g_mode.m_config.m_tap_bpm;
@@ -1578,6 +1601,8 @@ int main(int argc, char **argv) {
 
   int led_count = 60*3;
 
+  int force_run_no_bound_check=0;
+
   if (signal(SIGHUP, sighup_handler) == SIG_ERR)  {
     fprintf(stderr, "can't catch SIGHUP, exiting\n");
     exit(-1);
@@ -1585,7 +1610,7 @@ int main(int argc, char **argv) {
 
   std::string led_fn = INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE;
 
-  while ((ch=getopt_long(argc, argv, "vhi:L:n:c:p:T:", _longopt, &option_index)) >= 0) {
+  while ((ch=getopt_long(argc, argv, "vhi:L:n:c:p:T:F", _longopt, &option_index)) >= 0) {
     switch(ch) {
       case 0:
         break;
@@ -1594,6 +1619,10 @@ int main(int argc, char **argv) {
         break;
       case 'v':
         show_version_and_exit(stdout);
+        break;
+
+      case 'F':
+        force_run_no_bound_check=1;
         break;
 
       case 'p':
@@ -1701,20 +1730,14 @@ int main(int argc, char **argv) {
     g_mode.m_tap_bpm = g_mode.m_config.m_tap_bpm;
 
     g_mode.m_count_led = g_mode.m_config.m_count_led;
-    /*
-    if (g_mode.m_config.m_count_led != g_mode.m_count_led) {
-      g_mode.cleanup();
-      g_mode.m_count_led = g_mode.m_config.m_count_led;
-      ret = g_mode.led_mmap_fn( g_mode.m_led_fn.c_str() );
-      if (ret<0) {
-        fprintf(stderr, "main: ERROR, could not load %s, got %i\n", g_mode.m_led_fn.c_str(), ret);
-      }
-      printf("main: m_count_led now %i (%i)\n", (int)g_mode.m_count_led, g_mode.m_led_mmap);
-
-    }
-    */
-
     g_mode.update_led_map();
+  }
+
+  if (!force_run_no_bound_check) {
+    if ((g_mode.m_count_led < 1) || (g_mode.m_count_led > 1024)) {
+      fprintf(stderr, "g_mode.m_count_led is out of range (%i). Use '-F' to not do bound checks. exiting\n", (int)g_mode.m_count_led);
+      exit(-1);
+    }
   }
 
   printf("# connecting to mmap file %s (n:%i)\n", g_mode.m_led_fn.c_str(), (int)g_mode.m_count_led);
@@ -1733,6 +1756,7 @@ int main(int argc, char **argv) {
     fprintf(stderr, "error in writing pid file %s, ignoring\n", pid_fn.c_str());
   }
 
+  //
   //----
 
   // main even loop

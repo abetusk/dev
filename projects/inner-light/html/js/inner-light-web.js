@@ -53,6 +53,7 @@ var g_innerlight = {
     "count_cuff_left" : 15,
     "count_cuff_right": 15,
 
+    "count_led" : 180,
 
     "default_count_collar_left" : 15,
     "default_count_collar_right" : 15,
@@ -232,6 +233,106 @@ function _rgb2hex(rgb) {
   return s;
 }
 
+function _update_config(data_str) {
+  var data = JSON.parse(data_str);
+
+  var led_fielda = [
+    "map"
+  ];
+
+  for (var idx=0; idx < led_fielda.length; idx++) {
+    var field = led_fielda[idx];
+    if (field in data) {
+      var _a = data[field].split(",");
+      if (field in g_innerlight.led) {
+        g_innerlight.led[field] = _a;
+      }
+    }
+  }
+
+  var fields = [
+    "fg",
+    "bg",
+    "mode",
+    "tap_bpm",
+    "opt_val"
+  ];
+
+  for (var idx=0; idx < fields.length; idx++) {
+    var field = fields[idx];
+    if (field in data) {
+      g_innerlight[field] = data[field];
+    }
+  }
+
+  var led_fields = [
+    "count_cuff_left",
+    "count_waist_left",
+    "count_lapel_left",
+    "count_collar_left",
+    "count_cuff_right",
+    "count_waist_right",
+    "count_lapel_right",
+    "count_collar_right"
+  ];
+
+  for (var idx=0; idx < led_fields.length; idx++) {
+    var field = led_fields[idx];
+    if (field in data) {
+      g_innerlight.led[field] = parseInt(data[field]);
+    }
+  }
+
+  var subfields = [
+    "fill.speed",
+
+    "noise.preset_index",
+    "noise.brightness",
+    "noise.palette",
+    "noise.speed",
+
+    "pulse.bg",
+    "pulse.fg",
+    "pulse.speed",
+
+    "rainbow.speed",
+
+    "solid.color",
+    "solid_color.color",
+
+    "strobe.fg",
+    "strobe.bg",
+    "strobe.speed",
+
+    "tap_bullet.bg",
+    "tap_bullet.fg",
+    "tap_pulse.bg",
+    "tap_pulse.fg",
+    "tap_strobe.bg",
+    "tap_strobe.fg",
+
+    "mic_bullet.bg",
+    "mic_bullet.fg",
+    "mic_pulse.bg",
+    "mic_pulse.fg",
+    "mic_strobe.bg",
+    "mic_strobe.fg"
+  ];
+
+  for (var idx=0; idx < subfields; idx++) {
+    var fielda = subfields[idx].split(".");
+    var parent_field = fielda[0];
+    var child_field = fielda[1];
+
+    if (parent_field in g_innerlight.mode_option) {
+      if (child_field in g_innerlight.mode_option[parent_field]) {
+        g_innerlight.mode_option[parent_field][child_field] = data[subfileds[idx]];
+      }
+    }
+  }
+
+}
+
 function _send_cfgreq() {
   var xhr = new XMLHttpRequest();
   xhr.open("POST", g_innerlight.url_config_req, true);
@@ -241,7 +342,10 @@ function _send_cfgreq() {
   xhr.onreadystatechange = function() {
     if ((this.readyState==4) && (this.status==200)) {
       console.log("got:", xhr.responseText);
+      _update_config(xhr.responseText);
+      _init();
     }
+
   };
 }
 
@@ -271,14 +375,16 @@ function _send_api_req(data_obj) {
 function _send_state() {
   var n_tot = 0;
 
-  n_tot = g_innerlight.led.count_collar_left +
-          g_innerlight.led.count_collar_right +
-          g_innerlight.led.count_lapel_left +
-          g_innerlight.led.count_lapel_right +
-          g_innerlight.led.count_waist_left +
-          g_innerlight.led.count_waist_right +
-          g_innerlight.led.count_cuff_left +
-          g_innerlight.led.count_cuff_right;
+  console.log(">>>sending state...");
+
+  n_tot = parseInt(g_innerlight.led.count_collar_left) +
+          parseInt(g_innerlight.led.count_collar_right) +
+          parseInt(g_innerlight.led.count_lapel_left) +
+          parseInt(g_innerlight.led.count_lapel_right) +
+          parseInt(g_innerlight.led.count_waist_left) +
+          parseInt(g_innerlight.led.count_waist_right) +
+          parseInt(g_innerlight.led.count_cuff_left) +
+          parseInt(g_innerlight.led.count_cuff_right);
 
 
   var data = {
@@ -382,15 +488,17 @@ function _send_ledtest() {
 //
 function _construct_led_mapping() {
   var led_count = {
-    "collar_left"  : g_innerlight.led.count_collar_left,
-    "collar_right" : g_innerlight.led.count_collar_right,
-    "lapel_left"   : g_innerlight.led.count_lapel_left,
-    "lapel_right"  : g_innerlight.led.count_lapel_right,
-    "waist_left"   : g_innerlight.led.count_waist_left,
-    "waist_right"  : g_innerlight.led.count_waist_right,
-    "cuff_left"    : g_innerlight.led.count_cuff_left,
-    "cuff_right"   : g_innerlight.led.count_cuff_right
+    "collar_left"  : parseInt(g_innerlight.led.count_collar_left),
+    "collar_right" : parseInt(g_innerlight.led.count_collar_right),
+    "lapel_left"   : parseInt(g_innerlight.led.count_lapel_left),
+    "lapel_right"  : parseInt(g_innerlight.led.count_lapel_right),
+    "waist_left"   : parseInt(g_innerlight.led.count_waist_left),
+    "waist_right"  : parseInt(g_innerlight.led.count_waist_right),
+    "cuff_left"    : parseInt(g_innerlight.led.count_cuff_left),
+    "cuff_right"   : parseInt(g_innerlight.led.count_cuff_right)
   };
+
+  console.log("led_count", led_count);
 
   var _concept_map = [];
 
@@ -437,6 +545,8 @@ function _construct_led_mapping() {
     var delta = 0;
     var delta = contig[contig_idx].delta;
 
+    console.log(">>contig", contig_idx, contig[contig_idx].start, contig[contig_idx].n);
+
     var phys_start = 0;
     if (delta > 0) {
       phys_start  = contig[contig_idx].start;
@@ -473,6 +583,8 @@ function _construct_led_mapping() {
     s += led_count[label];
 
   }
+
+  console.log("map", _map);
 
   g_innerlight.led.map_info = _map_info;
   g_innerlight.led.map = _map;
@@ -624,7 +736,9 @@ var pageTransition = function(toPage, transitionType, cb, delay) {
 
 };
 
-function _color_preset(val, pfx) {
+function _color_preset(val, pfx, ignore_sync) {
+
+  ignore_sync = ((typeof ignore_sync === "undefined") ? false : ignore_sync);
 
   var preset = [
 
@@ -746,7 +860,7 @@ function _color_preset(val, pfx) {
     }
   }
 
-  _send_state();
+  if (!ignore_sync) { _send_state(); }
 }
 
 function _calc_bpm(dta) {
@@ -1039,17 +1153,17 @@ function _commit_ledmap() {
     "cuff" : { "left": 0, "right": 0 }
   };
 
-  led_count["collar"]["left"] = _getval("ui_ledmap_countcollarleft");
-  led_count["collar"]["right"] = _getval("ui_ledmap_countcollarright");
+  led_count["collar"]["left"] = parseInt(_getval("ui_ledmap_countcollarleft"));
+  led_count["collar"]["right"] = parseInt(_getval("ui_ledmap_countcollarright"));
 
-  led_count["lapel"]["left"] = _getval("ui_ledmap_countlapelleft");
-  led_count["lapel"]["right"] = _getval("ui_ledmap_countlapelright");
+  led_count["lapel"]["left"] = parseInt(_getval("ui_ledmap_countlapelleft"));
+  led_count["lapel"]["right"] = parseInt(_getval("ui_ledmap_countlapelright"));
 
-  led_count["waist"]["left"] = _getval("ui_ledmap_countwaistleft");
-  led_count["waist"]["right"] = _getval("ui_ledmap_countwaistright");
+  led_count["waist"]["left"] = parseInt(_getval("ui_ledmap_countwaistleft"));
+  led_count["waist"]["right"] = parseInt(_getval("ui_ledmap_countwaistright"));
 
-  led_count["cuff"]["left"] = _getval("ui_ledmap_countcuffleft");
-  led_count["cuff"]["right"] = _getval("ui_ledmap_countcuffright");
+  led_count["cuff"]["left"] = parseInt(_getval("ui_ledmap_countcuffleft"));
+  led_count["cuff"]["right"] = parseInt(_getval("ui_ledmap_countcuffright"));
 
   g_innerlight.led.count_collar_left = led_count["collar"]["left"];
   g_innerlight.led.count_collar_right = led_count["collar"]["right"];
@@ -1070,24 +1184,24 @@ function _default_ledmap() {
   console.log("default led");
 
   var led_default_count = {
-    "collar" : { "left" : g_innerlight.led.default_count_collar_left,
-                "right" : g_innerlight.led.default_count_collar_right },
-    "lapel" :  { "left" : g_innerlight.led.default_count_lapel_left,
-                "right" : g_innerlight.led.default_count_lapel_right },
-    "waist" :  { "left" : g_innerlight.led.default_count_waist_left,
-                "right" : g_innerlight.led.default_count_waist_right },
-    "cuff" :   { "left" : g_innerlight.led.default_count_cuff_left,
-                "right" : g_innerlight.led.default_count_cuff_right }
+    "collar" : { "left" : parseInt(g_innerlight.led.default_count_collar_left),
+                "right" : parseInt(g_innerlight.led.default_count_collar_right) },
+    "lapel" :  { "left" : parseInt(g_innerlight.led.default_count_lapel_left),
+                "right" : parseInt(g_innerlight.led.default_count_lapel_right) },
+    "waist" :  { "left" : parseInt(g_innerlight.led.default_count_waist_left),
+                "right" : parseInt(g_innerlight.led.default_count_waist_right) },
+    "cuff" :   { "left" : parseInt(g_innerlight.led.default_count_cuff_left),
+                "right" : parseInt(g_innerlight.led.default_count_cuff_right) }
   };
 
-  g_innerlight.led.count_collar_left = led_default_count["collar"]["left"];
-  g_innerlight.led.count_collar_right = led_default_count["collar"]["right"];
-  g_innerlight.led.count_lapel_left = led_default_count["lapel"]["left"];
-  g_innerlight.led.count_lapel_right = led_default_count["lapel"]["right"];
-  g_innerlight.led.count_waist_left = led_default_count["waist"]["left"];
-  g_innerlight.led.count_waist_right = led_default_count["waist"]["right"];
-  g_innerlight.led.count_cuff_left = led_default_count["cuff"]["left"];
-  g_innerlight.led.count_cuff_right = led_default_count["cuff"]["right"];
+  g_innerlight.led.count_collar_left = parseInt(led_default_count["collar"]["left"]);
+  g_innerlight.led.count_collar_right = parseInt(led_default_count["collar"]["right"]);
+  g_innerlight.led.count_lapel_left = parseInt(led_default_count["lapel"]["left"]);
+  g_innerlight.led.count_lapel_right = parseInt(led_default_count["lapel"]["right"]);
+  g_innerlight.led.count_waist_left = parseInt(led_default_count["waist"]["left"]);
+  g_innerlight.led.count_waist_right = parseInt(led_default_count["waist"]["right"]);
+  g_innerlight.led.count_cuff_left = parseInt(led_default_count["cuff"]["left"]);
+  g_innerlight.led.count_cuff_right = parseInt(led_default_count["cuff"]["right"]);
 
   // restore default order
   //
@@ -1284,14 +1398,14 @@ function _construct_led_layout() {
   parent.innerHTML = "";
 
   var led_count = {
-    "collar" : { "left" : g_innerlight.led.count_collar_left,
-                "right" : g_innerlight.led.count_collar_right },
-    "lapel" :  { "left" : g_innerlight.led.count_lapel_left,
-                "right" : g_innerlight.led.count_lapel_right },
-    "waist" :  { "left" : g_innerlight.led.count_waist_left,
-                "right" : g_innerlight.led.count_waist_right },
-    "cuff" :   { "left" : g_innerlight.led.count_cuff_left,
-                "right" : g_innerlight.led.count_cuff_right }
+    "collar" : { "left" : parseInt(g_innerlight.led.count_collar_left),
+                "right" : parseInt(g_innerlight.led.count_collar_right) },
+    "lapel" :  { "left" : parseInt(g_innerlight.led.count_lapel_left),
+                "right" : parseInt(g_innerlight.led.count_lapel_right) },
+    "waist" :  { "left" : parseInt(g_innerlight.led.count_waist_left),
+                "right" : parseInt(g_innerlight.led.count_waist_right) },
+    "cuff" :   { "left" : parseInt(g_innerlight.led.count_cuff_left),
+                "right" : parseInt(g_innerlight.led.count_cuff_right) }
   };
 
   var n_right = led_count.collar.right +
@@ -1396,6 +1510,9 @@ function _construct_led_layout() {
   //
   _construct_led_mapping();
   var _map = g_innerlight.led.map;
+
+  console.log("n_tot", n_tot);
+
   for (var ii=0; ii<n_tot; ii++) {
     var ele = document.getElementById("ui_ledmap_" + ii);
     ele.value = _map[ii];
@@ -1486,8 +1603,20 @@ function _init() {
 
   // Default select current mode
   //
-  var ele = document.getElementById("ui_mode_" + g_uiData.mode);
-  ele.classList.add("bkeySelected");
+  //var ele = document.getElementById("ui_mode_" + g_uiData.mode);
+  var ele = document.getElementById("ui_mode_" + g_innerlight.mode);
+  if ((typeof ele !== "undefined") && (ele !== null)) {
+    g_uiData.mode = g_innerlight.mode;
+    ele.classList.add("bkeySelected");
+
+    var _m = g_innerlight.mode;
+    var _el = document.getElementById("ui_mode_config");
+    _el.setAttribute("data-page-name", "ui_" + _m);
+    _el = document.getElementById("ui_mode_config0");
+    _el.setAttribute("data-page-name", "ui_" + _m);
+
+
+  }
 
   // Setup callbacks for mode button press
   //
@@ -1592,7 +1721,7 @@ function _init() {
 }
 
 function _setup_default() {
-  _color_preset(0, "ui_noise_color");
+  _color_preset(0, "ui_noise_color", true);
 
   for (var mode in g_innerlight.mode_option_default) {
     for (var option in g_innerlight.mode_option_default[mode]) {
@@ -1711,6 +1840,8 @@ function _setup_default() {
     });
 
     _init();
+
+    _send_cfgreq();
 
     setTimeout( function() { $("#body").addClass("load"); }, 20 );
   });;

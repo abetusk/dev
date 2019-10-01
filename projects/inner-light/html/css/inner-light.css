@@ -595,13 +595,15 @@ hr.style10 {
 
 hr.style11 {
   height: 6px;
-  background: url(http://ibrahimjabbari.com/images/hr-11.png) repeat-x 0 0;
+  /* background: url(http://ibrahimjabbari.com/images/hr-11.png) repeat-x 0 0; */
+  background: url(images/hr-11.png) repeat-x 0 0;
   border: 0;
 }
 
 hr.style12 {
   height: 6px;
-  background: url(http://ibrahimjabbari.com/images/hr-12.png) repeat-x 0 0;
+  /* background: url(http://ibrahimjabbari.com/images/hr-12.png) repeat-x 0 0; */
+  background: url(images/hr-12.png) repeat-x 0 0;
   border: 0;
 }
 

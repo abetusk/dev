@@ -24,6 +24,7 @@ pidfn="/tmp/inner-light-generator.pid"
 
 ../inner-light-generator/inner-light-generator -L $ledfn -T $ledtest -c $cfgfn -p $pidfn <( ../mode-manager/rando-inp ) encoder-pipe
 
+
 #../inner-light-generator/inner-light-generator -L ./innerlight.led  -T ../../html/ledtest.txt <( ../mode-manager/rando-inp ) encoder-pipe
 #valgrind ../inner-light-generator/inner-light-generator -L ./innerlight.led  -T ../../html/ledtest.txt <( ../mode-manager/rando-inp ) encoder-pipe 2> err
 

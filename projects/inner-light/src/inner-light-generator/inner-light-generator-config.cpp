@@ -286,8 +286,6 @@ int inner_light_config_t::assign_key_value(std::string &_key, std::string &_val)
       m_noise_palette.push_back(rgb[0]);
       m_noise_palette.push_back(rgb[1]);
       m_noise_palette.push_back(rgb[2]);
-
-      n = m_noise_palette.size();
     }
 
   }
