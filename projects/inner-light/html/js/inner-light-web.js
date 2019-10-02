@@ -50,7 +50,7 @@ var g_uiData  = {
 
 var g_innerlight = {
 
-  "url" : "http://localhost:8080/req",
+  "url" : "http://localhost:8080",
   "url_led_test" : "http://localhost:8080/ledtest",
   "url_led_reset" : "http://localhost:8080/ledreset",
   "url_config_req" : "http://localhost:8080/config",
@@ -381,9 +381,29 @@ function _send_api_req(data_obj) {
   }
 
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", g_innerlight.url, true);
+  xhr.open("POST", g_innerlight.url + "/req", true);
   xhr.setRequestHeader('Content-Type', "application/x-www-form-urlencoded; charset=UTF-8" );
   xhr.send(data_str);
+}
+
+function _send_control_message(msg) {
+
+  var api_endpoint = "";
+  if      (msg === "reset") { api_endpoint = "reset"; }
+  else if (msg === "restart") { api_endpoint = "restart"; }
+  else if (msg === "reboot") { api_endpoint = "reboot"; }
+  else { return; }
+  
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", g_innerlight.url + "/" + api_endpoint, true);
+  xhr.setRequestHeader('Content-Type', "application/x-www-form-urlencoded; charset=UTF-8" );
+  xhr.send();
+
+  xhr.onreadystatechange = function() {
+    if ((this.readyState==4) && (this.status==200)) {
+      _send_cfgreq();
+    }
+  };
 }
 
 function _send_state() {
@@ -1612,10 +1632,9 @@ function _init() {
     ui_modename = g_uiData.mode_name_map[ g_innerlight.mode ];
   }
 
+
   // Default select current mode
   //
-  //var ele = document.getElementById("ui_mode_" + g_uiData.mode);
-  //var ele = document.getElementById("ui_mode_" + g_innerlight.mode);
   var ele = document.getElementById("ui_mode_" + ui_modename);
   if ((typeof ele !== "undefined") && (ele !== null)) {
 
@@ -1635,6 +1654,9 @@ function _init() {
   else {
     console.log("???", g_innerlight.mode, ele);
   }
+
+  ele = document.getElementById("ui_tap_bpm");
+  ele.innerHTML = g_innerlight.tap_bpm.toString().slice(0,6);
 
   // Setup callbacks for mode button press
   //

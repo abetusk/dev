@@ -213,16 +213,15 @@
         <div class='pure-u-1-5 col'> </div>
 
         <div class='pure-u-1-5 col'>
-          <!--
           <button
             class='bdropinp bkeyHuge navigate'
-            data-page-name="ui_pngupload" data-page-trans="slide-in-from-bottom" > PNG Upload <br> V </button>
-          -->
+            data-page-name="ui_misc" data-page-trans="slide-in-from-bottom" > Misc <br> V </button>
         </div>
 
         <div class='pure-u-1-5 col'> </div>
 
       </div>
+
 
       <hr class='style5'>
       <br>
@@ -452,33 +451,7 @@
         <div class='pure-u-1-3 col'></div>
       </div>
 
-      <!-- -->
-
-      <hr class='style12'>
-
       <br>
-
-      <div class='pure-g rowH' style='height:200px;'>
-        <div class='pure-u-1-6 col'></div>
-        <div class='pure-u-1-6 col'>
-          <div id='ui_noise_colorpicker'></div>
-        </div>
-        <div class='pure-u-1-6 col'></div>
-
-        <div class='pure-u-1-2 col'>
-          <br>
-          <button id='ui_noise_colorbutton' class='box bkeyHuge'></button>
-        </div>
-
-      </div>
-
-      <div class='pure-g rowH' >
-        <div class='pure-u-1-3 col'></div>
-        <div class='pure-u-1-3 col'>
-          <button class='bdropinp bkeyHuge' onclick='_mode_commit("noise");' >Commit</button>
-        </div>
-        <div class='pure-u-1-3 col'></div>
-      </div>
 
       <br>
       <hr class='style5'>
@@ -2036,6 +2009,124 @@
       <br>
 
     </div>
+
+    <!--
+    ****************************
+    ****************************
+    **            _           **
+    **  _ __ ___ (_)___  ___  **
+    ** | '_ ` _ \| / __|/ __| **
+    ** | | | | | | \__ \ (__  **
+    ** |_| |_| |_|_|___/\___| **
+    **                        **
+    ****************************
+    ****************************
+    -->
+
+    <!-- -->
+
+    <div id='ui_misc' class='page' data-jquery-page-name='ui_misc'>
+
+      <br>
+      <div class='pure-g rowH'>
+
+        <div class='pure-u-1-3 col'>
+          <button class='bdropinp bkeyMedium navigate'
+            data-page-name='ui_main' data-page-trans="slide-in-from-top" > ^ </button>
+        </div>
+
+
+        <div class='pure-u-1-3 col'>
+          <span style='font-size:3em; font-weight:bold; color:#555555;'>Misc</span>
+        </div>
+
+        <div class='pure-u-1-3 col'>
+        </div>
+
+      </div>
+
+      <!-- -->
+
+      <hr class='style12'>
+
+      <br>
+      <br>
+
+      <div class='pure-g rowH'>
+        <div class='pure-u-1-3 col' ></div>
+
+
+        <div class='pure-u-1-3 col'>
+          <button class='bdropinp bkeyHuge' id='ui_misc_hard_config_reset' onclick='_send_control_message("reset");' > Hard Config Reset</button>
+          <br>
+          <br>
+          <span style='font-size:1.0em; font-weight:bold; color:#555555;'>
+            Warning! Config changes will be lost!
+          </span>
+        </div>
+
+        <div class='pure-u-1-3 col' ></div>
+
+      </div>
+
+      <br>
+      <br>
+      <br>
+
+
+      <!-- -->
+
+      <hr class='style12'>
+
+      <br>
+      <br>
+
+      <div class='pure-g rowH'>
+        <div class='pure-u-1-3 col' ></div>
+
+
+        <div class='pure-u-1-3 col'>
+          <button class='bdropinp bkeyHuge' id='ui_misc_process_restart' onclick='_send_control_message("restart");' > Process Restart </button>
+        </div>
+
+        <div class='pure-u-1-3 col' ></div>
+
+      </div>
+
+      <br>
+      <br>
+      <br>
+
+
+      <!-- -->
+
+      <hr class='style12'>
+
+      <br>
+      <br>
+
+      <div class='pure-g rowH'>
+        <div class='pure-u-1-3 col' ></div>
+
+
+        <div class='pure-u-1-3 col'>
+          <button class='bdropinp bkeyHuge' id='ui_misc_reboot' onclick='_send_control_message("reboot");' > Reboot </button>
+        </div>
+
+        <div class='pure-u-1-3 col' ></div>
+
+      </div>
+
+      <br>
+      <br>
+      <br>
+
+
+
+      <hr class='style5'>
+
+    </div>
+
 
     <!--
     ***********************************************************

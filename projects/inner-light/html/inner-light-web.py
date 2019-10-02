@@ -23,6 +23,28 @@ ILG_EXE = "./inner-light-drive"
 ILG_PID_FN = BASE_DIR + "inner-light-generator.pid"
 ILD_PID_FN = BASE_DIR + "inner-light-drive.pid"
 
+DEFAULT_CFG = "./default-innerlight.ini"
+
+def resetcfg():
+  tmpfd,tmpname = tempfile.mkstemp()
+  try:
+    with os.fdopen(tmpfd, "w") as tmpfp:
+      with open(DEFAULT_CFG) as fp:
+        tmpfp.write( fp.read() )
+      tmpfp.flush()
+    os.rename(tmpname, IL_INI)
+  finally:
+    pass
+
+
+def restartproc():
+  os.system("/bin/kill $( cat " + str(ILG_PID_FN) + " )")
+  os.system("/bin/kill $( cat " + str(ILD_PID_FN) + " )")
+
+def rebootmachine():
+  os.system("/sbin/shutdown -r now")
+
+
 def writeledtest(data):
   tmpfd,tmpname = tempfile.mkstemp()
 
@@ -211,6 +233,37 @@ class myHandler(BaseHTTPRequestHandler):
       self.end_headers()
       self.wfile.write("ok")
       return
+
+    if self.path=="/reset":
+      print "reset..."
+
+      resetcfg()
+
+      self.send_response(200)
+      self.end_headers()
+      self.wfile.write("ok")
+      pass
+
+    if self.path=="/restart":
+      print "restart..."
+
+      restartproc()
+
+      self.send_response(200)
+      self.end_headers()
+      self.wfile.write("ok")
+      pass
+
+    if self.path=="/reboot":
+      print "reboot..."
+
+      rebootmachine()
+
+      self.send_response(200)
+      self.end_headers()
+      self.wfile.write("ok")
+      pass
+
 
 try:
 

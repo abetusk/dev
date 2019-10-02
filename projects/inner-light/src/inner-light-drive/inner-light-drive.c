@@ -235,6 +235,7 @@ void show_help(FILE *fp) {
   fprintf(fp, "Usage: inner-light-drive [-L ledfn] [-n numled] [-h] [-v]\n");
   fprintf(fp, "\n");
   fprintf(fp, "  -n <nled>      number of leds (default to %i)\n", _DEFAULT_NUM_LED);
+  fprintf(fp, "  -c <configfn>  LED file (default %s)\n", INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE);
   fprintf(fp, "  -L <ledfile>   LED file (default %s)\n", INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE);
   fprintf(fp, "  -C             create LED file and exit (default %s)\n", INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE);
   fprintf(fp, "  -h             help (this screen)\n");
