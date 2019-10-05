@@ -53,10 +53,10 @@ void show_help_and_exit(FILE *fp) {
   fprintf(fp, "usage:\n");
   fprintf(fp, "\n  inner-light-generator [-L mmap.led] [-n led_count] [-c config] [-T ledtest] [-F] [-C] [-h] [-v] [-V] <( MIC ) <( ENCODER )\n\n");
   fprintf(fp, "\n");
-  fprintf(fp, "  -L <mmap.led>        use <mmap.led> file (default '%s')\n", DEFAULT_);
-  fprintf(fp, "  -n <led_count>       number of LEDs (default %i)\n", DEFAULT_);
-  fprintf(fp, "  -c <config>          use <config> file (default '%s')\n", DEFAULT_);
-  fprintf(fp, "  -T <ledtest>         LED test file to use (monitor and test for existence, default '%s')\n", DEFAULT_);
+  fprintf(fp, "  -L <mmap.led>        use <mmap.led> file (default '%s')\n", INNER_LIGHT_DRIVER_DEFAULT_LEDTEST_FILE);
+  fprintf(fp, "  -n <led_count>       number of LEDs (default %i)\n", INNER_LIGHT_DRIVER_DEFAULT_LED_COUNT);
+  fprintf(fp, "  -c <config>          use <config> file (default '%s')\n", INNER_LIGHT_DRIVER_DEFAULT_LEDTEST_FILE);
+  fprintf(fp, "  -T <ledtest>         LED test file to use (monitor and test for existence, default '%s')\n", INNER_LIGHT_DRIVER_DEFAULT_LEDTEST_FILE);
   fprintf(fp, "  -F                   force mmap'd LED file to be created on startup (default is to reuse pre-existing mmap'd LED file)\n");
   fprintf(fp, "  -C                   create mmap'd LED file and exit\n");
   fprintf(fp, "  -h                   help (this screen)\n");
@@ -69,7 +69,8 @@ void show_help_and_exit(FILE *fp) {
 }
 
 void show_version_and_exit(FILE *fp) {
-  fprintf(fp, "version %s\n", _VERSION);
+  //fprintf(fp, "inner-light-generator version");
+  fprintf(fp, "%s\n", _VERSION);
   if (fp==stdin) { exit(0); }
   exit(1);
 }
@@ -1724,6 +1725,7 @@ int main(int argc, char **argv) {
       beat_fd, beat_fn.c_str(),
       encoder_fd, encoder_fn.c_str(),
       maxfd);
+  fflush(stdout);
 
   //----
 
@@ -1795,6 +1797,7 @@ int main(int argc, char **argv) {
   for (;;) {
 
     if (g_reload) {
+      g_reload=0;
       r = _reload();
       if (r<0) { break; }
     }

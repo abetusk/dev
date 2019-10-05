@@ -44,6 +44,7 @@
 #define INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE "/home/pi/data/innerlight.led"
 #define INNER_LIGHT_DRIVER_DEFAULT_CONFIG_FILE "./innerlight.ini"
 #define INNER_LIGHT_DRIVER_DEFAULT_LEDTEST_FILE "./ledtest.txt"
+#define INNER_LIGHT_DRIVER_DEFAULT_LED_COUNT 190
 
 #define _VERSION "0.1.0"
 
@@ -133,7 +134,7 @@ typedef struct inner_light_config_type {
     m_mode = 0;
 
     m_tap_bpm = 120.0;
-    m_count_led = 190;
+    m_count_led = INNER_LIGHT_DRIVER_DEFAULT_LED_COUNT;
     m_solid_rgb[0] = 0xff;
     m_solid_rgb[1] = 0xff;
     m_solid_rgb[2] = 0xff;

@@ -3,7 +3,7 @@
 #
 # to test:
 #
-#  mkfifo -p encoder-pipe
+#  mkfifo encoder-pipe
 #  exec 3>encoder-pipe
 #  ../mode-manager/mode-manager  -L ./innerlight.led  <( ../mode-manager/rando-inp ) encoder-pipe
 #  echo '12 0 2 0' >> encoder-pipe
@@ -22,7 +22,8 @@ ledtest="/tmp/ledtest.txt"
 cfgfn="/tmp/innerlight.ini"
 pidfn="/tmp/inner-light-generator.pid"
 
-../inner-light-generator/inner-light-generator -L $ledfn -T $ledtest -c $cfgfn -p $pidfn <( ../mode-manager/rando-inp ) encoder-pipe
+echo "../inner-light-generator/inner-light-generator -L $ledfn -T $ledtest -c $cfgfn -p $pidfn <( ../mode-manager/rando-inp ) encoder-pipe"
+#../inner-light-generator/inner-light-generator -L $ledfn -T $ledtest -c $cfgfn -p $pidfn <( ../mode-manager/rando-inp ) encoder-pipe
 
 
 #../inner-light-generator/inner-light-generator -L ./innerlight.led  -T ../../html/ledtest.txt <( ../mode-manager/rando-inp ) encoder-pipe

@@ -214,6 +214,7 @@ int _main(unsigned char *led_map, size_t n_led) {
   for (;;) {
 
     if (g_reload) {
+      g_reload=0;
       r = _reload();
       if (r < 0) { break; }
     }
