@@ -41,8 +41,10 @@
 
 #include "simplexnoise1234.h"
 
-#define INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE "/home/pi/data/innerlight.led"
+//#define INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE "/home/pi/data/innerlight.led"
+#define INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE "./innerlight.led"
 #define INNER_LIGHT_DRIVER_DEFAULT_CONFIG_FILE "./innerlight.ini"
+#define INNER_LIGHT_DRIVER_DEFAULT_PID_FILE "./inner-light-generator.pid"
 #define INNER_LIGHT_DRIVER_DEFAULT_LEDTEST_FILE "./ledtest.txt"
 #define INNER_LIGHT_DRIVER_DEFAULT_LED_COUNT 190
 

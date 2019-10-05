@@ -67,6 +67,7 @@ volatile sig_atomic_t g_reload = 0;
 
 char *g_config_fn = NULL;
 char *g_led_fn=NULL;
+char *g_pid_fn=NULL;
 
 unsigned char *g_led_map;
 
@@ -268,13 +269,12 @@ static int _parse_kv(char *_key, char *_val, char *_line, int nmax) {
 
   for ( ; chp != chp_tok; chp++) {
 
+
     if ((_ki+1) >= nmax) { return -2; }
 
     _key[_ki++] = *chp;
     _key[_ki] = '\0';
   }
-
-  chp = chp_tok+1;
 
   for (chp = (chp_tok+1); *chp ; chp++) {
 
@@ -297,13 +297,16 @@ int load_config(char *fn) {
   char *line=NULL, *_key=NULL, *_val=NULL;
   int _li=0;
 
-  line = (char *)malloc(sizeof(NBUF));
-  _key = (char *)malloc(sizeof(NBUF));
-  _val = (char *)malloc(sizeof(NBUF));
+  line = (char *)malloc(sizeof(char)*NBUF);
+  _key = (char *)malloc(sizeof(char)*NBUF);
+  _val = (char *)malloc(sizeof(char)*NBUF);
 
   line[0]='\0';
   _key[0]='\0';
   _val[0]='\0';
+
+  printf("_key %p\n_val %p\nline %p\n",
+      _key, _val, line);
 
   fp = fopen(fn, "r");
   if (!fp) { ret=-1; goto _load_config_free_exit; }
@@ -317,7 +320,7 @@ int load_config(char *fn) {
       r = _parse_kv(_key, _val, line, NBUF);
       if (r!=0) { ret = -2; break; }
 
-      if ( strncmp(_key, "count_led", NBUF) == 0 ) {
+      if ( strncmp(_key, "count_led", NBUF-1) == 0 ) {
         r = atoi(_val);
         if ((r<1) || (r>1000)) {
           fprintf(stderr, "load_config: 'count_led' = %i, param out of bounds\n", r);
@@ -442,7 +445,7 @@ int main(int argc, char **argv) {
 
   n_led = _DEFAULT_NUM_LED;
 
-  while ((ch=getopt_long(argc, argv, "Vhn:L:CvF", _longopt, &option_index)) >= 0) {
+  while ((ch=getopt_long(argc, argv, "Vhn:L:CvFc:p:", _longopt, &option_index)) >= 0) {
     switch (ch) {
       case 'L':
         g_led_fn = strdup(optarg);
@@ -450,6 +453,8 @@ int main(int argc, char **argv) {
       case 'c':
         g_config_fn = strdup(optarg);
         break;
+      case 'p':
+        g_pid_fn = strdup(optarg);
 
       case 'n':
         n_led = atoi(optarg);
@@ -492,7 +497,13 @@ int main(int argc, char **argv) {
 
   if (!g_config_fn) { g_config_fn = strdup(INNER_LIGHT_DEFAULT_CONFIG_FILE); }
 
+  //DEBUG
+  printf("cp0\n"); fflush(stdout);
+
   load_config(g_config_fn);
+
+  //DEBUG
+  printf("cp1\n"); fflush(stdout);
 
   // Just create the .led file and exit
   //
