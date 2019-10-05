@@ -457,18 +457,6 @@ int main(int argc, char** argv) {
   fprintf(fp, "%i", pid);
   fclose(fp);
 
-
-  //DEBUG
-  /*
-  printf("debug exit\n");
-  printf("NUM_LED %i (prv %i), pid_fn: %s, config_fn: %s, led_fn: %s\n",
-      NUM_LED, NUM_LED_PRV,
-      g_pid_fn.c_str(),
-      g_config_fn.c_str(),
-      g_led_fn.c_str());
-  exit(0);
-  */
-
   cmap = (int *)malloc(sizeof(int)*256);
   for (i=0; i<256; i++) {
     cmap[i] = (i/64) + 1;

@@ -38,7 +38,43 @@
 
 #include "inner-light-generator.hpp"
 
+int g_verbose_level = 1;
 inner_light_mode_t g_mode;
+volatile sig_atomic_t g_reload = 0;
+
+//---
+
+struct option _longopt[] = {
+  {"help", no_argument, 0, 'h'},
+  {0,0,0,0},
+};
+
+void show_help_and_exit(FILE *fp) {
+  fprintf(fp, "usage:\n");
+  fprintf(fp, "\n  inner-light-generator [-L mmap.led] [-n led_count] [-c config] [-T ledtest] [-F] [-C] [-h] [-v] [-V] <( MIC ) <( ENCODER )\n\n");
+  fprintf(fp, "\n");
+  fprintf(fp, "  -L <mmap.led>        use <mmap.led> file (default '%s')\n", DEFAULT_);
+  fprintf(fp, "  -n <led_count>       number of LEDs (default %i)\n", DEFAULT_);
+  fprintf(fp, "  -c <config>          use <config> file (default '%s')\n", DEFAULT_);
+  fprintf(fp, "  -T <ledtest>         LED test file to use (monitor and test for existence, default '%s')\n", DEFAULT_);
+  fprintf(fp, "  -F                   force mmap'd LED file to be created on startup (default is to reuse pre-existing mmap'd LED file)\n");
+  fprintf(fp, "  -C                   create mmap'd LED file and exit\n");
+  fprintf(fp, "  -h                   help (this screen)\n");
+  fprintf(fp, "  -V                   show version and exit\n");
+  fprintf(fp, "  -v                   increase verbosity level\n");
+  fprintf(fp, "\n");
+
+  if (fp==stdin) { exit(0); }
+  exit(1);
+}
+
+void show_version_and_exit(FILE *fp) {
+  fprintf(fp, "version %s\n", _VERSION);
+  if (fp==stdin) { exit(0); }
+  exit(1);
+}
+
+//---
 
 char _mode_name[][64] = {
   "solid",
@@ -61,6 +97,8 @@ char _mode_name[][64] = {
   "\0",
 };
 
+// timeval to double
+//
 double _tv2d(struct timeval &tv) {
   double x=0.0;
   x = (double)tv.tv_sec;
@@ -69,6 +107,8 @@ double _tv2d(struct timeval &tv) {
   return x;
 }
 
+// delta timeval (to float)
+//
 float _dtv(struct timeval &tv0, struct timeval &tv1) {
   float x=0.0;
   x = (float)(tv0.tv_sec - tv1.tv_sec);
@@ -77,6 +117,9 @@ float _dtv(struct timeval &tv0, struct timeval &tv1) {
   return x;
 }
 
+// Simple RGB linear interpolation.
+// Linear on each component.
+//
 void _rgblerp(unsigned char *rgb_out,  float p, unsigned char *rgb_src, unsigned char *rgb_dst) {
   float f;
 
@@ -100,6 +143,8 @@ void _rgblerp(unsigned char *rgb_out,  float p, unsigned char *rgb_src, unsigned
 
 }
 
+// `pos` is the degree [0-360) in HSV and `r`, `g`, `b` stores the result
+//
 void _wheel(unsigned char pos, unsigned char *r, unsigned char *g, unsigned char *b) {
   if (pos < 85) {
     *r = pos*3;
@@ -122,26 +167,10 @@ void _wheel(unsigned char pos, unsigned char *r, unsigned char *g, unsigned char
 
 //---
 
-struct option _longopt[] = {
-  {"help", no_argument, 0, 'h'},
-  {0,0,0,0},
-};
-
-void show_help_and_exit(FILE *fp) {
-  fprintf(fp, "usage:\n");
-  fprintf(fp, "\n  inner-light-generator [-L mmap.led] [-n led_count] [-c config] [-T ledtest] [-F] [-h] <( MIC ) <( ENCODER )\n\n");
-  if (fp==stdin) { exit(0); }
-  exit(1);
-}
-
-void show_version_and_exit(FILE *fp) {
-  fprintf(fp, "version %s\n", _VERSION);
-  if (fp==stdin) { exit(0); }
-  exit(1);
-}
-
-//---
-
+// Take the `m_rgb_buf` and push it to `m_rgb`.
+// `m_rgb` is the mmap'd memory block that gets
+// pushed to the LED strip.
+//
 int inner_light_mode_type::update_led(void) {
   int i, n, p;
   static int x = 0;
@@ -168,6 +197,8 @@ int inner_light_mode_type::update_led(void) {
   return 0;
 }
 
+// simple color interpolation
+//
 void _color_interpolate(float f, float f_min, float f_max, unsigned char *rgbIn, unsigned char *rgbOut) {
   float p, f_r, f_g, f_b;
 
@@ -198,6 +229,12 @@ void _color_interpolate(float f, float f_min, float f_max, unsigned char *rgbIn,
 // beat functions
 //
 
+// m_tap_ready - encoder button for user defined tap bpm
+//
+// Return:
+// 1 - tap bpm is 'locked in' and can proceed
+// 0 - we're recording operator button taps still
+//
 int inner_light_mode_type::process_tap(void) {
   int i;
   double _usec_beat_thresh;
@@ -349,7 +386,6 @@ int inner_light_mode_type::tick_mic_strobe(void) {
 
 void inner_light_mode_type::beat_pulse(void) {
   int i;
-  //float w, f, f_del, f_decay = 32.0/255.0, f_min=64.0/255.0, f_max=255.0/255.0;
   float w, f, f_decay = 32.0/255.0, f_min=0.0/255.0, f_max=255.0/255.0;
   unsigned char rgb[3], rgbCur[3];
   float f_cur;
@@ -393,8 +429,6 @@ void inner_light_mode_type::beat_pulse(void) {
 
 void inner_light_mode_type::beat_bullet(void) {
   int i, j, u, p, d;
-
-  //float f, f_del, f_min=64.0/255.0, f_max=255.0/255.0;
   float f, f_del, f_min=0.0/255.0, f_max=255.0/255.0;
   unsigned char w, rgb[3], rgbCur[3], rgbMin[3], rgbMax[3];
 
@@ -687,6 +721,8 @@ int inner_light_mode_type::tick_solid_color(void) {
 
 //---
 
+// simplex noise using `m_palette`.
+//
 int inner_light_mode_type::tick_noise(void) {
   int i, n_palette, v;
   float x, dt, f;
@@ -709,32 +745,15 @@ int inner_light_mode_type::tick_noise(void) {
 
   n_palette = m_config.m_noise_palette.size()/3;
 
-  /*
-  for (i=0; i<n_palette; i++) {
-    printf(" %02x%02x%02x",
-       (int)m_config.m_noise_palette[3*i+0],
-       (int)m_config.m_noise_palette[3*i+1],
-       (int)m_config.m_noise_palette[3*i+2]);
-  }
-  printf("\n");
-  */
-
   for (i=0; i<m_count_led; i++) {
     x = (float)i/(float)m_count_led;
     f = (snoise2(x, cur_t) + 1.0)/(2.0 + (1.0/65536.0));
 
     v = (int)( f*(float)(n_palette) );
 
-    /*
-    if ((v<0) || ((3*v+2) >= m_config.m_noise_palette.size())) {
-      printf("!!! v%i, npal%i f %f\n", (int)v, (int)m_config.m_noise_palette.size(), f);
-    }
-    */
-
     m_rgb_buf[3*i+1] = m_config.m_noise_palette[3*v+0];
     m_rgb_buf[3*i+2] = m_config.m_noise_palette[3*v+1];
     m_rgb_buf[3*i+3] = m_config.m_noise_palette[3*v+2];
-
   }
 
   m_noise_t += dt;
@@ -749,11 +768,6 @@ int inner_light_mode_type::tick_fill(void) {
   int color_mod_n=7, color_mod_del=4;
   float f;
   unsigned char rgb[3], rgbprv[3], w;
-
-  //int pos, color_mod;
-  //pos = m_fill_pos;
-  //color_mod = m_fill_color_mod;
-
 
   // take from config file
   //
@@ -806,15 +820,8 @@ int inner_light_mode_type::tick_strobe(void) {
   int strobe_size=3, strobe_n =4;
   int strobe_delay = 2;
 
-  //float w, f, f_del, f_decay = 32.0/255.0, f_min=64.0/255.0, f_max=255.0/255.0;
   float w, f, f_decay = 32.0/255.0, f_min=0.0/255.0, f_max=255.0/255.0;
   unsigned char rgb[3], rgbMin[3], rgbMax[3];
-
-  //int strobe_tick;
-  //float f_cur;
-  //strobe_tick = m_strobe_tick;
-  //f_cur = m_strobe_f;
-
 
   m_strobe_f -= f_decay;
   if (m_beat_signal) { m_strobe_f = f_max; }
@@ -939,11 +946,6 @@ int inner_light_mode_type::tick_rainbow(void) {
   int p_del = 1;
   unsigned char _p, _r, _g, _b;
 
-  // encoder position sets 'velocity' of
-  // rainbow
-  //
-
-
   // take from config
   //
   if (m_encoder_pos[0] == 0) {
@@ -955,7 +957,9 @@ int inner_light_mode_type::tick_rainbow(void) {
     }
   }
 
-  // use encoder value otherwise
+  // Use encoder value otherwise.
+  // encoder position sets 'velocity' of
+  // rainbow
   //
   else {
     p_del = m_encoder_pos[0];
@@ -1010,19 +1014,11 @@ int inner_light_mode_type::tick_ledtest(void) {
     _m = m_ledtest_range[3*i+1];
     _d = m_ledtest_range[3*i+2];
 
-    // force positive direction
-    //
-    //_d = 1;
-
     p = m_ledtest_pos[i];
-
-    //_d = 1;
 
     dp = p - _start;
     dp = (dp + _d + _m) % _m;
     p = _start + dp;
-
-    //printf("## p %3i (%3i+%2i d%2i) (%i)\n", p, _start, _m, _d, (int)m_ledtest_pos.size());
 
     m_ledtest_pos[i] = p;
 
@@ -1042,9 +1038,10 @@ int inner_light_mode_type::tick_ledtest(void) {
 
   }
 
-
 }
 
+// simple indicator to show change of states
+//
 int inner_light_mode_type::tick_transition(void) {
   int i, to;
   struct timeval tv;
@@ -1124,15 +1121,21 @@ int inner_light_mode_type::tick_transition(void) {
   }
 
   else if (to == _MODE_MIC_BULLET) {
-    r = ( v ? 0: 255 );
+    r = ( v ? 0: 128 );
     g = ( v ? 0: 255);
     b = ( v ? 255: 255  );
   }
 
   else if (to == _MODE_MIC_PULSE) {
     r = ( v ? 0: 255 );
-    g = ( v ? 0: 255);
+    g = ( v ? 0: 128 );
     b = ( v ? 255: 255  );
+  }
+
+  else if (to == _MODE_NOISE) {
+    r = ( v ? 128: 255 );
+    g = ( v ? 0: 128);
+    b = ( v ? 255: 128 );
   }
 
 
@@ -1416,15 +1419,26 @@ static int _parse_array(std::vector< std::string > &_va, std::string &_line, int
   return 0;
 }
 
+// The LED test file is used to test a range of (logical)
+// ordering of LEDs.
+// When present, the LED test file will have a start, number
+// and direction of LEDs to test.
+// This function stores those values and switches state to
+// the 'test led' state, saving the 'from' state after the
+// test is done.
+//
+// The idea is to be able to test LED ranges (and direction)
+// visually whent he mapping is something potentially complex.
+// This functionality should give the operator an easy visual
+// guide for whether the mapping in place is correct or not.
+//
 int inner_light_mode_type::load_ledtest_file(std::string &fn) {
   int i, ret = 0, ch, r;
+  int p, _start, _m, _d;
   FILE *fp;
+
   std::vector< std::string > _str_a;
   std::string line;
-
-  int p;
-
-  int _start, _m, _d;
   std::vector< int > _range, _pos;
 
   fp = fopen(fn.c_str(), "r");
@@ -1443,8 +1457,6 @@ int inner_light_mode_type::load_ledtest_file(std::string &fn) {
       _start = atoi(_str_a[0].c_str());
       _m = atoi(_str_a[1].c_str());
       _d = atoi(_str_a[2].c_str());
-
-      printf("?? %i %i %i\n", (int)_start, (int)_m, (int)_d);
 
       if ((_start < 0) || (_start >= m_count_led)) { ret = -4; break; }
       if ((_m < 1) || ((_start+_m) > m_count_led)) {
@@ -1505,64 +1517,67 @@ void inner_light_mode_type::start_ledtest(void) {
   m_mode = _MODE_LEDTEST;
 }
 
-
+// g_reload is polled in the main even loop.
+// Set it here to indicate a config reload
+// event.
+//
 void sighup_handler(int signo) {
+  if (signo==SIGHUP) { g_reload=1; }
+}
+
+// Reload the config file
+//
+int _reload(void) {
   int i, ret;
   FILE *fp;
-  static int count=0;
 
-  if (signo == SIGHUP) {
-    printf("caught SIGHUP (%i)\n", count);
-    count++;
-
-    ret = g_mode.m_config.load_config( g_mode.m_config_fn );
-    if (ret<0) {
-      fprintf(stderr, "Couldn't read config file %s, ignoreing and moving on\n", g_mode.m_config_fn.c_str());
-      fprintf(stdout, "Couldn't read config file %s, ignoreing and moving on\n", g_mode.m_config_fn.c_str());
-    }
-    else {
-
-      if ((g_mode.m_config.m_count_led < 1) ||
-          (g_mode.m_config.m_count_led > 1024)) {
-        fprintf(stderr, "g_mode.m_config.m_count_led out of range (%i). giving up\n", (int)g_mode.m_config.m_count_led);
-        exit(-1);
-      }
-
-      g_mode.m_mode = g_mode.m_config.m_mode;
-      g_mode.m_tap_ready = 1;
-      g_mode.m_tap_bpm = g_mode.m_config.m_tap_bpm;
-
-      if (g_mode.m_config.m_count_led != g_mode.m_count_led) {
-
-        g_mode.cleanup();
-
-        //printf("\n....sleeping\n");
-        //sleep(5);
-        //printf("\n....waking up\n");
-
-        g_mode.m_count_led = g_mode.m_config.m_count_led;
-        ret = g_mode.led_mmap_fn( g_mode.m_led_fn.c_str() );
-        if (ret!=0) {
-          fprintf(stderr, "sighup_hander: ERROR, could not load %s, got %i\n", g_mode.m_led_fn.c_str(), ret);
-        }
-
-        printf("sighup_handler: m_count_led now %i\n", (int)g_mode.m_count_led);
-
-      }
-
-      g_mode.update_led_map();
-    }
-
-    if (g_mode.load_ledtest_file( g_mode.m_ledtest_fn )==0) {
-      g_mode.start_ledtest();
-      unlink(g_mode.m_ledtest_fn.c_str());
-    }
-
-
-    printf("mode now %i tap %f?\n", g_mode.m_mode, (float)g_mode.m_tap_bpm);
-
+  if (g_verbose_level > 0) {
+    printf("reloading...\n");
   }
 
+  ret = g_mode.m_config.load_config( g_mode.m_config_fn );
+  if (ret<0) {
+    fprintf(stderr, "_reload: Couldn't read config file %s, ignoreing and moving on\n", g_mode.m_config_fn.c_str());
+    fprintf(stdout, "_reload: Couldn't read config file %s, ignoreing and moving on\n", g_mode.m_config_fn.c_str());
+  }
+  else {
+
+    if ((g_mode.m_config.m_count_led < 1) ||
+        (g_mode.m_config.m_count_led > 1024)) {
+      fprintf(stderr, "_reload: g_mode.m_config.m_count_led out of range (%i). giving up\n", (int)g_mode.m_config.m_count_led);
+      exit(-1);
+    }
+
+    g_mode.m_mode = g_mode.m_config.m_mode;
+    g_mode.m_tap_ready = 1;
+    g_mode.m_tap_bpm = g_mode.m_config.m_tap_bpm;
+
+    if (g_mode.m_config.m_count_led != g_mode.m_count_led) {
+
+      g_mode.cleanup();
+
+      g_mode.m_count_led = g_mode.m_config.m_count_led;
+      ret = g_mode.led_mmap_fn( g_mode.m_led_fn.c_str() );
+      if (ret!=0) {
+        fprintf(stderr, "_reload: ERROR, could not load %s, got %i\n", g_mode.m_led_fn.c_str(), ret);
+      }
+
+      printf("_reload: m_count_led now %i\n", (int)g_mode.m_count_led);
+
+    }
+
+    g_mode.update_led_map();
+  }
+
+  if (g_mode.load_ledtest_file( g_mode.m_ledtest_fn )==0) {
+    g_mode.start_ledtest();
+    unlink(g_mode.m_ledtest_fn.c_str());
+  }
+
+
+  printf("_reload: mode now %i tap %f?\n", g_mode.m_mode, (float)g_mode.m_tap_bpm);
+
+  return 0;
 }
 
 int write_pid_file(std::string &pid_fn) {
@@ -1610,14 +1625,19 @@ int main(int argc, char **argv) {
 
   std::string led_fn = INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE;
 
-  while ((ch=getopt_long(argc, argv, "vhi:L:n:c:p:T:F", _longopt, &option_index)) >= 0) {
+  while ((ch=getopt_long(argc, argv, "vVhi:L:n:c:p:T:F", _longopt, &option_index)) >= 0) {
     switch(ch) {
       case 0:
         break;
       case 'h':
         show_help_and_exit(stdout);
         break;
+
       case 'v':
+        g_verbose_level++;
+        break;
+
+      case 'V':
         show_version_and_exit(stdout);
         break;
 
@@ -1649,7 +1669,6 @@ int main(int argc, char **argv) {
         led_count = atoi(optarg);
         break;
 
-
       default:
         show_help_and_exit(stderr);
         break;
@@ -1666,6 +1685,8 @@ int main(int argc, char **argv) {
     optind++;
   }
 
+  //--
+
   if ((beat_fn.size() == 0) ||
       (beat_fn == "-")) {
     beat_fd = 0;
@@ -1677,6 +1698,8 @@ int main(int argc, char **argv) {
       exit(-1);
     }
   }
+
+  //--
 
   if ((encoder_fn.size() == 0) ||
       (encoder_fn == "-")) {
@@ -1770,6 +1793,11 @@ int main(int argc, char **argv) {
   gettimeofday(&tv_now, NULL);
 
   for (;;) {
+
+    if (g_reload) {
+      r = _reload();
+      if (r<0) { break; }
+    }
 
     read_fds = active_fds;
 

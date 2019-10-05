@@ -28,11 +28,10 @@
 #include <unistd.h>
 #include <errno.h>
 #include <stdint.h>
+#include <signal.h>
 
 #include <sys/mman.h>
 #include <sys/time.h>
-
-
 
 #include "clk.h"
 #include "gpio.h"
@@ -42,22 +41,37 @@
 
 #include "ws2811.h"
 
-#define INNER_LIGHT_DRIVE_VERSION "0.1.0"
+#define NBUF 8192
 
-#define INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE "/tmp/innerlight.led"
+#define INNER_LIGHT_DRIVE_VERSION "0.1.1"
+
+#define INNER_LIGHT_DEFAULT_CONFIG_FILE "./innerlight.ini"
+
+#define INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE "./innerlight.led"
 //#define INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE "/home/pi/data/innerlight.led"
+
 #define _DEFAULT_NUM_LED 180
 
-
 // defaults for cmdline options
+//
 #define TARGET_FREQ             WS2811_TARGET_FREQ
 #define GPIO_PIN                18
 #define DMA                     10
-//#define STRIP_TYPE            WS2811_STRIP_RGB		// WS2812/SK6812RGB integrated chip+leds
-#define STRIP_TYPE              WS2811_STRIP_GBR		// WS2812/SK6812RGB integrated chip+leds
-//#define STRIP_TYPE            SK6812_STRIP_RGBW		// SK6812RGBW (NOT SK6812RGB)
 
-#define LED_COUNT               (60*3)
+//#define STRIP_TYPE            WS2811_STRIP_RGB    // WS2812/SK6812RGB integrated chip+leds
+#define STRIP_TYPE              WS2811_STRIP_GBR    // WS2812/SK6812RGB integrated chip+leds
+//#define STRIP_TYPE            SK6812_STRIP_RGBW    // SK6812RGBW (NOT SK6812RGB)
+
+
+volatile sig_atomic_t g_reload = 0;
+
+char *g_config_fn = NULL;
+char *g_led_fn=NULL;
+
+unsigned char *g_led_map;
+
+int LED_COUNT = _DEFAULT_NUM_LED;
+int LED_COUNT_PRV = _DEFAULT_NUM_LED;
 
 int g_verbose_level = 0;
 
@@ -70,7 +84,7 @@ ws2811_t ledstring =
         [0] =
         {
             .gpionum = GPIO_PIN,
-            .count = LED_COUNT,
+            .count = 0,
             .invert = 0,
             .brightness = 255,
             .strip_type = STRIP_TYPE,
@@ -84,6 +98,12 @@ ws2811_t ledstring =
         },
     },
 };
+
+int _reload(void);
+
+static void _init(void) {
+  ledstring.channel[0].count = LED_COUNT;
+}
 
 void _clear(void) {
   int i;
@@ -165,6 +185,7 @@ void print_led_map(unsigned char *led_map, size_t n_led, int c) {
 }
 
 int _main(unsigned char *led_map, size_t n_led) {
+  int r;
   int64_t dt, sleep_usec;
   struct timeval tv_beg, tv_end;
 
@@ -174,6 +195,8 @@ int _main(unsigned char *led_map, size_t n_led) {
 
   ws2811_return_t led_ret;
   ws2811_led_t *ws281x_buf;
+
+  _init();
 
   led_ret = ws2811_init(&ledstring);
   if (led_ret != WS2811_SUCCESS) {
@@ -189,6 +212,11 @@ int _main(unsigned char *led_map, size_t n_led) {
 
 
   for (;;) {
+
+    if (g_reload) {
+      r = _reload();
+      if (r < 0) { break; }
+    }
 
     gettimeofday(&tv_beg, NULL);
 
@@ -222,6 +250,108 @@ int _main(unsigned char *led_map, size_t n_led) {
 
 }
 
+//---
+
+static int _parse_kv(char *_key, char *_val, char *_line, int nmax) {
+  const char *chp=NULL, *chp_tok=NULL;
+  int _ki=0, _vi=0, _li=0;
+
+  if (nmax < 1) { return -1; }
+
+  chp = _line;
+  chp_tok = strchr(chp, '=');
+  if (!chp_tok) { return -1; }
+
+  _key[0] = '\0';
+  _val[0] = '\0';
+
+  for ( ; chp != chp_tok; chp++) {
+
+    if ((_ki+1) >= nmax) { return -2; }
+
+    _key[_ki++] = *chp;
+    _key[_ki] = '\0';
+  }
+
+  chp = chp_tok+1;
+
+  for (chp = (chp_tok+1); *chp ; chp++) {
+
+    if ((_vi+1) >= nmax) { return -3; }
+
+    if (*chp == '\n') { continue; }
+    _val[_vi++] = *chp;
+    _val[_vi] = '\0';
+  }
+
+  return 0;
+}
+
+
+int load_config(char *fn) {
+  FILE *fp;
+  int ch, r, ret=0;
+  unsigned char rgb[3];
+
+  char *line=NULL, *_key=NULL, *_val=NULL;
+  int _li=0;
+
+  line = (char *)malloc(sizeof(NBUF));
+  _key = (char *)malloc(sizeof(NBUF));
+  _val = (char *)malloc(sizeof(NBUF));
+
+  line[0]='\0';
+  _key[0]='\0';
+  _val[0]='\0';
+
+  fp = fopen(fn, "r");
+  if (!fp) { ret=-1; goto _load_config_free_exit; }
+
+  while (!feof(fp)) {
+    ch = fgetc(fp);
+    if ((ch==EOF) || (ch=='\n')) {
+      if (_li == 0) { continue; }
+      if (line[0] == '#') { continue; }
+
+      r = _parse_kv(_key, _val, line, NBUF);
+      if (r!=0) { ret = -2; break; }
+
+      if ( strncmp(_key, "count_led", NBUF) == 0 ) {
+        r = atoi(_val);
+        if ((r<1) || (r>1000)) {
+          fprintf(stderr, "load_config: 'count_led' = %i, param out of bounds\n", r);
+          ret = -1;
+          break;
+        }
+        LED_COUNT = r;
+      }
+
+      _li = 0;
+      line[_li] = '\0';
+
+      continue;
+    }
+
+    if ((_li + 1) >= NBUF) { ret=-3; goto _load_config_free_exit; }
+    line[_li++] = ch;
+    line[_li] = '\0';
+  }
+
+  fclose(fp);
+
+_load_config_free_exit:
+  if (line) { free(line); }
+  if (_key) { free(_key); }
+  if (_val) { free(_val); }
+
+  return ret;
+}
+
+
+
+
+//---
+
 struct option _longopt[] = {
   {"help", no_argument, 0, 'h'},
   {0,0,0,0},
@@ -235,13 +365,69 @@ void show_help(FILE *fp) {
   fprintf(fp, "Usage: inner-light-drive [-L ledfn] [-n numled] [-h] [-v]\n");
   fprintf(fp, "\n");
   fprintf(fp, "  -n <nled>      number of leds (default to %i)\n", _DEFAULT_NUM_LED);
-  fprintf(fp, "  -c <configfn>  LED file (default %s)\n", INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE);
+  fprintf(fp, "  -c <configfn>  config file (default %s)\n", INNER_LIGHT_DEFAULT_CONFIG_FILE);
   fprintf(fp, "  -L <ledfile>   LED file (default %s)\n", INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE);
   fprintf(fp, "  -C             create LED file and exit (default %s)\n", INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE);
+  fprintf(fp, "  -F             force creation of LED file (default is to use pre-existing)\n");
   fprintf(fp, "  -h             help (this screen)\n");
   fprintf(fp, "  -v             increase verbose level\n");
   fprintf(fp, "  -V             show version\n");
   fprintf(fp, "\n");
+}
+
+int _reload(void) {
+  int r;
+
+  r = load_config(g_config_fn);
+  if (r<0) {
+    fprintf(stderr, "inner-light-drive: _reload: error loading config %s, got %i\n", g_config_fn, r);
+    return r;
+  }
+
+  if (g_verbose_level>0) {
+    printf("inner-light-drive: _reload: LED_COUNT now %i\n", LED_COUNT);
+  }
+
+  if (LED_COUNT != LED_COUNT_PRV) {
+    ledstring.channel[0].count = LED_COUNT;
+  }
+  LED_COUNT_PRV = LED_COUNT;
+
+  return r;
+}
+
+void sighup_handler(int signo) {
+  if (signo == SIGHUP) { g_reload = 1; }
+}
+
+int load_ledmap(unsigned char **led_map, int led_map_len) {
+  int led_map_fd, r;
+
+  // map our .led file to our memroy
+  //
+  led_map_fd = open(g_led_fn, O_RDWR);
+  if (led_map_fd<0) {
+    fprintf(stderr, "ERROR: opening file %s, got errno:%i\n", g_led_fn, errno);
+    return -1;
+  }
+
+  r = fchmod(led_map_fd, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH );
+  if (r != 0) { perror("fchmod"); return r; }
+
+  *led_map = mmap(NULL, led_map_len, PROT_NONE | PROT_READ | PROT_WRITE | PROT_EXEC, MAP_SHARED, led_map_fd, 0);
+
+  if (*led_map == MAP_FAILED) {
+    fprintf(stderr, "failed\n");
+    return -1;
+  }
+
+  if (*led_map == NULL) {
+    fprintf(stderr, "ERROR: could not map file (fd:%i), got errno:%i, exiting\n",
+        led_map_fd, errno);
+    return -1;
+  }
+
+  return 0;
 }
 
 int main(int argc, char **argv) {
@@ -251,18 +437,25 @@ int main(int argc, char **argv) {
   int option_index, ch;
 
   int create_and_exit=0;
-
-  char *led_fn=NULL;
+  int force_create = 0;
 
   n_led = _DEFAULT_NUM_LED;
 
-  while ((ch=getopt_long(argc, argv, "Vhn:L:Cv", _longopt, &option_index)) >= 0) {
+  while ((ch=getopt_long(argc, argv, "Vhn:L:CvF", _longopt, &option_index)) >= 0) {
     switch (ch) {
       case 'L':
-        led_fn = strdup(optarg);
+        g_led_fn = strdup(optarg);
         break;
+      case 'c':
+        g_config_fn = strdup(optarg);
+        break;
+
       case 'n':
         n_led = atoi(optarg);
+        LED_COUNT = n_led;
+        break;
+      case 'F':
+        force_create=1;
         break;
       case 'C':
         create_and_exit=1;
@@ -291,24 +484,39 @@ int main(int argc, char **argv) {
     exit(-1);
   }
 
-  if (!led_fn) { led_fn = strdup(INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE); }
+  signal(SIGHUP, sighup_handler);
+
+  if (!g_led_fn) { g_led_fn = strdup(INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE); }
   led_map_len = 1 + (3*n_led);
 
-  create_led_file(led_fn, n_led);
+  if (!g_config_fn) { g_config_fn = strdup(INNER_LIGHT_DEFAULT_CONFIG_FILE); }
 
+  load_config(g_config_fn);
+
+  // Just create the .led file and exit
+  //
   if (create_and_exit==1) {
 
     if (g_verbose_level>0) {
-      printf("created %s (n_led %i), exiting\n", led_fn, (int)n_led);
+      printf("created %s (n_led %i), exiting\n", g_led_fn, (int)n_led);
     }
 
-    free(led_fn);
+    free(g_led_fn);
+    free(g_config_fn);
     exit(0);
   }
 
-  led_map_fd = open(led_fn, O_RDWR);
+  // Force the creation of the .led file on startup
+  //
+  if (force_create) {
+    create_led_file(g_led_fn, n_led);
+  }
+
+  // map our .led file to our memroy
+  //
+  led_map_fd = open(g_led_fn, O_RDWR);
   if (led_map_fd<0) {
-    fprintf(stderr, "ERROR: opening file %s, got errno:%i\n", led_fn, errno);
+    fprintf(stderr, "ERROR: opening file %s, got errno:%i\n", g_led_fn, errno);
     exit(-1);
   }
 
@@ -325,12 +533,16 @@ int main(int argc, char **argv) {
     exit(-1);
   }
 
-  if (g_verbose_level) {
-    printf("starting\n");
-  }
+  if (g_verbose_level) { printf("starting\n"); }
 
+  // start our main loop
+  //
   _main(led_map, n_led);
 
+  // cleanup after exit
+  //
   munmap(led_map, led_map_len);
-  free(led_fn);
+
+  free(g_led_fn);
+  free(g_config_fn);
 }
