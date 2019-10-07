@@ -48,12 +48,19 @@ var g_uiData  = {
   }
 };
 
+var BASE_URL = "http://192.168.0.110:8080";
+
 var g_innerlight = {
 
-  "url" : "http://localhost:8080",
-  "url_led_test" : "http://localhost:8080/ledtest",
-  "url_led_reset" : "http://localhost:8080/ledreset",
-  "url_config_req" : "http://localhost:8080/config",
+  //"url" : "http://localhost:8080",
+  //"url_led_test" : "http://localhost:8080/ledtest",
+  //"url_led_reset" : "http://localhost:8080/ledreset",
+  //"url_config_req" : "http://localhost:8080/config",
+
+  "url" : BASE_URL,
+  "url_led_test" : BASE_URL + "/ledtest",
+  "url_led_reset" : BASE_URL + "/ledreset",
+  "url_config_req" : BASE_URL + "/config",
 
   "led" : {
     "count_collar_left" : 15,
@@ -120,14 +127,14 @@ var g_innerlight = {
     ],
 
     "default_physical_order" : [
-      { "label": "lapel_right", "delta" : 1 },
-      { "label": "collar_right", "delta" : 1 },
-      { "label": "collar_left", "delta" : -1 },
-      { "label": "lapel_left", "delta" : -1 },
+      { "label": "waist_right", "delta" : -1 },
       { "label": "waist_left", "delta" : -1 },
-      { "label": "waist_right", "delta" : 1 },
+      { "label": "lapel_left", "delta" : -1 },
+      { "label": "lapel_right", "delta" : -1 },
+      { "label": "collar_left", "delta" : 1 },
+      { "label": "collar_right", "delta" : 1 },
       { "label": "cuff_right", "delta" : 1 },
-      { "label": "cuff_left", "delta" : -1 }
+      { "label": "cuff_left", "delta" : 1 }
     ],
 
     "logical_order" : [
@@ -142,14 +149,14 @@ var g_innerlight = {
     ],
 
     "physical_order" : [
-      { "label": "lapel_right", "delta" : 1 },
-      { "label": "collar_right", "delta" : 1 },
-      { "label": "collar_left", "delta" : -1 },
-      { "label": "lapel_left", "delta" : -1 },
+      { "label": "waist_right", "delta" : -1 },
       { "label": "waist_left", "delta" : -1 },
-      { "label": "waist_right", "delta" : 1 },
+      { "label": "lapel_left", "delta" : -1 },
+      { "label": "lapel_right", "delta" : -1 },
+      { "label": "collar_left", "delta" : 1 },
+      { "label": "collar_right", "delta" : 1 },
       { "label": "cuff_right", "delta" : 1 },
-      { "label": "cuff_left", "delta" : -1 }
+      { "label": "cuff_left", "delta" : 1 }
     ],
 
     "logical_order_map_info" : [],
@@ -1626,6 +1633,18 @@ function _slider_change(_mode) {
 }
 
 function _init() {
+
+  BASE_URL = window.location.href;
+  if (BASE_URL.length > 0) {
+    if (BASE_URL.substr(-1) == "/") {
+      BASE_URL = BASE_URL.substr(0, BASE_URL.length-1);
+    }
+  }
+  g_innerlight.url = BASE_URL;
+  g_innerlight.url_led_test = BASE_URL + "/ledtest";
+  g_innerlight.url_led_reset = BASE_URL + "/ledreset";
+  g_innerlight.url_config_req =  BASE_URL + "/config";
+
 
   var ui_modename = g_innerlight.mode;
   if (g_innerlight.mode in g_uiData.mode_name_map) {

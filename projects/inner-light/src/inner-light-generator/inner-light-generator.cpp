@@ -644,6 +644,11 @@ int inner_light_mode_type::tick_solid(void) {
   //
   if (m_encoder_pos[0] == 0) {
 
+    printf(">> %02x %02x %02x\n",
+        m_config.m_solid_rgb[0],
+        m_config.m_solid_rgb[1],
+        m_config.m_solid_rgb[2]);
+
     for (i=0; i<m_count_led; i++) {
       m_rgb_buf[3*i+1] = m_config.m_solid_rgb[0];
       m_rgb_buf[3*i+2] = m_config.m_solid_rgb[1];

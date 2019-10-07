@@ -50,7 +50,7 @@ struct option _longopt[] = {
 };
 
 void show_help_and_exit(FILE *fp) {
-  fprintf(fp, "help...\n");
+  fprintf(fp, "usage:  inner-light-map [-i led] [-n nled] [-s start] [-d del] [-h] [-v]\n\n");
   if (fp==stdout) { exit(0); }
   exit(1);
 }
@@ -69,10 +69,13 @@ int main(int argc, char **argv) {
   std::string led_fn;
   size_t n_led=0, led_map_len;
 
+  int clear = 1;
+
+  int start=-1, del=-1;
   int ch, opt_idx;
   unsigned char *led_map;
 
-  while ((ch = getopt_long(argc, argv, "hvi:n:", _longopt, &opt_idx)) >= 0) {
+  while ((ch = getopt_long(argc, argv, "hvi:n:s:d:", _longopt, &opt_idx)) >= 0) {
     switch (ch) {
       case 0:
         break;
@@ -84,6 +87,12 @@ int main(int argc, char **argv) {
         break;
       case 'n':
         n_led = atoi(optarg);
+        break;
+      case 's':
+        start = atoi(optarg);
+        break;
+      case 'd':
+        del = atoi(optarg);
         break;
       case 'i':
         led_fn = optarg;
@@ -107,6 +116,11 @@ int main(int argc, char **argv) {
     n_led = _DEFAULT_NUM_LED;
   }
 
+  if (start<0) { start = 0; }
+  if (del<0) { del = n_led; }
+  if (start>=n_led) { start = n_led-1; }
+  if ((start+del)>=n_led) { del = n_led - start; }
+
   led_map_len = n_led*3+1;
 
   led_map_fd = open(led_fn.c_str(), O_RDWR);
@@ -124,8 +138,16 @@ int main(int argc, char **argv) {
     exit(-1);
   }
 
+  if (clear) {
+    for (i=0; i<n_led; i++) {
+      led_map[3*i+1] = 0;
+      led_map[3*i+2] = 0;
+      led_map[3*i+3] = 0;
+    }
+  }
+
   led_map[0] = 1;
-  for (i=0; i<n_led; i++) {
+  for (i=start; i<(start+del); i++) {
     led_map[3*i+1] = (unsigned char)(i%255);
     led_map[3*i+2] = (unsigned char)(i%255);
     led_map[3*i+3] = (unsigned char)(i%255);

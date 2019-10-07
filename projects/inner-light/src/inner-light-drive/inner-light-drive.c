@@ -50,6 +50,8 @@
 #define INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE "./innerlight.led"
 //#define INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE "/home/pi/data/innerlight.led"
 
+#define INNER_LIGHT_DRIVER_DEFAULT_PID_FILE "./inner-light-drive.pid"
+
 #define _DEFAULT_NUM_LED 180
 
 // defaults for cmdline options
@@ -305,9 +307,6 @@ int load_config(char *fn) {
   _key[0]='\0';
   _val[0]='\0';
 
-  printf("_key %p\n_val %p\nline %p\n",
-      _key, _val, line);
-
   fp = fopen(fn, "r");
   if (!fp) { ret=-1; goto _load_config_free_exit; }
 
@@ -371,12 +370,25 @@ void show_help(FILE *fp) {
   fprintf(fp, "  -n <nled>      number of leds (default to %i)\n", _DEFAULT_NUM_LED);
   fprintf(fp, "  -c <configfn>  config file (default %s)\n", INNER_LIGHT_DEFAULT_CONFIG_FILE);
   fprintf(fp, "  -L <ledfile>   LED file (default %s)\n", INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE);
+  fprintf(fp, "  -p <pidfile>   file containing pid (default %s)\n", INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE);
   fprintf(fp, "  -C             create LED file and exit (default %s)\n", INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE);
   fprintf(fp, "  -F             force creation of LED file (default is to use pre-existing)\n");
   fprintf(fp, "  -h             help (this screen)\n");
   fprintf(fp, "  -v             increase verbose level\n");
   fprintf(fp, "  -V             show version\n");
   fprintf(fp, "\n");
+}
+
+int write_pid_file(char *fn) {
+  FILE *fp;
+  pid_t pid;
+
+  pid = getpid();
+
+  fp = fopen(fn, "w");
+  if (fp==NULL) { return -1; }
+  fprintf(fp, "%i", (int)pid);
+  fclose(fp);
 }
 
 int _reload(void) {
@@ -455,6 +467,7 @@ int main(int argc, char **argv) {
         break;
       case 'p':
         g_pid_fn = strdup(optarg);
+        break;
 
       case 'n':
         n_led = atoi(optarg);
@@ -485,7 +498,7 @@ int main(int argc, char **argv) {
   }
 
   if (n_led < 1) {
-    fprintf(stderr, "n_led must be greater than 0\n");
+    fprintf(stderr, "n_led must be greater than 0 (%i)\n", n_led);
     show_help(stderr);
     exit(-1);
   }
@@ -497,13 +510,13 @@ int main(int argc, char **argv) {
 
   if (!g_config_fn) { g_config_fn = strdup(INNER_LIGHT_DEFAULT_CONFIG_FILE); }
 
-  //DEBUG
-  printf("cp0\n"); fflush(stdout);
+  if (!g_pid_fn) { g_pid_fn = strdup(INNER_LIGHT_DRIVER_DEFAULT_PID_FILE); }
 
   load_config(g_config_fn);
-
-  //DEBUG
-  printf("cp1\n"); fflush(stdout);
+  r = write_pid_file(g_pid_fn);
+  if (r<0) {
+    fprintf(stderr, "could not write pid file '%s', ignoring\n", g_pid_fn);
+  }
 
   // Just create the .led file and exit
   //
@@ -555,6 +568,7 @@ int main(int argc, char **argv) {
   //
   munmap(led_map, led_map_len);
 
-  free(g_led_fn);
-  free(g_config_fn);
+  if (g_led_fn) { free(g_led_fn); }
+  if (g_config_fn) { free(g_config_fn); }
+  if (g_pid_fn) { free(g_pid_fn); }
 }
