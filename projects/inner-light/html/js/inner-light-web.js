@@ -504,6 +504,8 @@ function _send_state() {
     "map" : g_innerlight.led.map.join(",")
   };
 
+  console.log(JSON.stringify(data));
+
   for (var _mode in g_innerlight.mode_option) {
     for (var _opt in g_innerlight.mode_option[_mode]) {
       data[ _mode + "." + _opt ] = g_innerlight.mode_option[_mode][_opt];
@@ -1238,14 +1240,35 @@ function _commit_ledcount_change() {
   console.log("commit led change");
 }
 
-function _commit_lednum() {
-  _commit_ledmap();
-  _send_ledreset();
+function _commit_ledmap() {
+  var n_tot =
+    parseInt(g_innerlight.led.count_collar_left) +
+    parseInt(g_innerlight.led.count_collar_right) +
+    parseInt(g_innerlight.led.count_lapel_left) +
+    parseInt(g_innerlight.led.count_lapel_right) +
+    parseInt(g_innerlight.led.count_waist_left) +
+    parseInt(g_innerlight.led.count_waist_right) +
+    parseInt(g_innerlight.led.count_cuff_left) +
+    parseInt(g_innerlight.led.count_cuff_right);
+
+
+  var _map = new Array(n_tot);
+  for (var ii=0; ii<n_tot; ii++) {
+    var ele = document.getElementById("ui_ledmap_" + ii);
+    var v = parseInt(ele.value);
+    _map[ii] = v;
+  }
+
+  console.log(JSON.stringify(_map));
+
+  g_innerlight.led.map = _map;
+
+  _send_state();
 }
 
 // construct the mapping with the current layout
 //
-function _commit_ledmap() {
+function _commit_lednum() {
   console.log("commit led");
 
   var led_count = {
@@ -1277,7 +1300,7 @@ function _commit_ledmap() {
   g_innerlight.led.count_cuff_right = led_count["cuff"]["right"];
 
   _construct_led_layout();
-
+  _send_ledreset();
   _send_state();
 }
 

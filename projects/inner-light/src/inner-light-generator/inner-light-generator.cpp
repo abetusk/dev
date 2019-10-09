@@ -182,6 +182,12 @@ int inner_light_mode_type::update_led(void) {
 
   m = m_led_map.size();
 
+  for (i=0; i<g_mode.m_count_led; i++) {
+    m_rgb[3*i+1] = 0;
+    m_rgb[3*i+2] = 0;
+    m_rgb[3*i+3] = 0;
+  }
+
   m_rgb[0] = 1;
   for (i=0; i<g_mode.m_count_led; i++) {
     if (i >= m) { continue; }

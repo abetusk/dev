@@ -50,7 +50,7 @@ struct option _longopt[] = {
 };
 
 void show_help_and_exit(FILE *fp) {
-  fprintf(fp, "usage:  inner-light-map [-i led] [-n nled] [-s start] [-d del] [-h] [-v]\n\n");
+  fprintf(fp, "usage:  inner-light-map [-i led] [-n nled] [-s start] [-d del] [-h] [-C hexrgb] [-v]\n\n");
   if (fp==stdout) { exit(0); }
   exit(1);
 }
@@ -67,6 +67,7 @@ int main(int argc, char **argv) {
   int i;
   int led_map_fd;
   std::string led_fn;
+  std::string hexrgb;
   size_t n_led=0, led_map_len;
 
   int clear = 1;
@@ -75,7 +76,9 @@ int main(int argc, char **argv) {
   int ch, opt_idx;
   unsigned char *led_map;
 
-  while ((ch = getopt_long(argc, argv, "hvi:n:s:d:", _longopt, &opt_idx)) >= 0) {
+  char _r = 0xff, _g = 0xff, _b = 0xff;
+
+  while ((ch = getopt_long(argc, argv, "hvi:n:s:d:C:", _longopt, &opt_idx)) >= 0) {
     switch (ch) {
       case 0:
         break;
@@ -93,6 +96,9 @@ int main(int argc, char **argv) {
         break;
       case 'd':
         del = atoi(optarg);
+        break;
+      case 'C':
+        hexrgb = optarg;
         break;
       case 'i':
         led_fn = optarg;
@@ -114,6 +120,39 @@ int main(int argc, char **argv) {
 
   if (n_led==0) {
     n_led = _DEFAULT_NUM_LED;
+  }
+
+  if (hexrgb.size() == 6) {
+    for (i=0; i<hexrgb.size(); i++) {
+      if ( ((hexrgb[i] >= '0') && (hexrgb[i] <= '9')) ||
+           ((hexrgb[i] >= 'a') && (hexrgb[i] <= 'f')) ||
+           ((hexrgb[i] >= 'A') && (hexrgb[i] <= 'F')) ) {
+        //pass
+      }
+      else { break; }
+    }
+
+    if (i==hexrgb.size()) {
+      for (i=0; i<hexrgb.size(); i++) {
+        if ((hexrgb[i] >= 'A') && (hexrgb[i] <= 'F')) {
+          hexrgb[i] -= 'A';
+          hexrgb[i] += 'a';
+        }
+        if ((hexrgb[i] >= '0') && (hexrgb[i] <= '9')) {
+          hexrgb[i] -= '0';
+        }
+        else {
+          hexrgb[i] -= 'a';
+          hexrgb[i] += 10;
+        }
+      }
+      _r = 0;
+      _r = ((int)hexrgb[0])*16 + (int)hexrgb[1];
+      _g = 0;
+      _g = ((int)hexrgb[2])*16 + (int)hexrgb[3];
+      _b = 0;
+      _b = ((int)hexrgb[4])*16 + (int)hexrgb[5];
+    }
   }
 
   if (start<0) { start = 0; }
@@ -148,9 +187,14 @@ int main(int argc, char **argv) {
 
   led_map[0] = 1;
   for (i=start; i<(start+del); i++) {
+    /*
     led_map[3*i+1] = (unsigned char)(i%255);
     led_map[3*i+2] = (unsigned char)(i%255);
     led_map[3*i+3] = (unsigned char)(i%255);
+    */
+    led_map[3*i+1] = _r;
+    led_map[3*i+2] = _g;
+    led_map[3*i+3] = _b;
   }
 
 
