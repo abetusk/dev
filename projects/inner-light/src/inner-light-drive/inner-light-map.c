@@ -112,6 +112,8 @@ int main(int argc, char **argv) {
   if (led_fn.size() == 0) {
     if (optind < argc) {
       led_fn = argv[optind];
+
+      printf("using: %s\n", led_fn.c_str());
     }
     else {
       led_fn = INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE;
