@@ -111,7 +111,7 @@ def restartproc():
   os.system("/usr/bin/sudo /bin/kill $( cat " + str(ILD_PID_FN) + " )")
 
 def rebootmachine():
-  os.system("/sbin/shutdown -r now")
+  os.system("sudo /sbin/shutdown -r now")
 
 
 def writeledtest(data):
@@ -177,7 +177,6 @@ def configreq():
 
   with open(IL_INI) as fp:
     for line in fp:
-      print line
       line = line.strip();
       if len(line)==0: continue
       if line[0] == '#': continue

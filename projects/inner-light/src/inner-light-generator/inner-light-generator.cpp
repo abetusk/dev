@@ -1388,10 +1388,18 @@ int inner_light_mode_type::update_led_map(void) {
   for (i=0; i<g_mode.m_count_led; i++) {
     g_mode.m_led_map[i] = i;
   }
+
+  printf("update_led_map(): m_led_map size now %i\n", (int)m_led_map.size());
+
   for (i=0; i<g_mode.m_count_led; i++) {
     if (i >= g_mode.m_config.m_map.size()) { break; }
     g_mode.m_led_map[i] = g_mode.m_config.m_map[i];
   }
+
+  for (i=0; i<g_mode.m_led_map.size(); i++) {
+    printf(" %i", g_mode.m_led_map[i]);
+  }
+  printf("\n");
 
 }
 

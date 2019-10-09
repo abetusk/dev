@@ -455,7 +455,7 @@ int main(int argc, char **argv) {
   int create_and_exit=0;
   int force_create = 0;
 
-  n_led = _DEFAULT_NUM_LED;
+  n_led = -1;
 
   while ((ch=getopt_long(argc, argv, "Vhn:L:CvFc:p:", _longopt, &option_index)) >= 0) {
     switch (ch) {
@@ -497,6 +497,27 @@ int main(int argc, char **argv) {
     }
   }
 
+  // n_led is taken from the config file.
+  // If the command line n_led is set, prefer that over the config
+  // file option.
+  // If either is not set, default set above.
+  //
+
+  r = load_config(g_config_fn);
+  if (r==0) {
+    if (n_led < 0) {
+      n_led = LED_COUNT;
+    }
+    else {
+      n_led = _DEFAULT_NUM_LED;
+    }
+  }
+  else {
+    if (n_led<0) {
+      n_led = _DEFAULT_NUM_LED;
+    }
+  }
+
   if (n_led < 1) {
     fprintf(stderr, "n_led must be greater than 0 (%i)\n", n_led);
     show_help(stderr);
@@ -512,15 +533,11 @@ int main(int argc, char **argv) {
 
   if (!g_pid_fn) { g_pid_fn = strdup(INNER_LIGHT_DRIVER_DEFAULT_PID_FILE); }
 
-  load_config(g_config_fn);
-  r = write_pid_file(g_pid_fn);
-  if (r<0) {
-    fprintf(stderr, "could not write pid file '%s', ignoring\n", g_pid_fn);
-  }
-
   // Just create the .led file and exit
   //
   if (create_and_exit==1) {
+
+    create_led_file(g_led_fn, n_led);
 
     if (g_verbose_level>0) {
       printf("created %s (n_led %i), exiting\n", g_led_fn, (int)n_led);
@@ -536,6 +553,14 @@ int main(int argc, char **argv) {
   if (force_create) {
     create_led_file(g_led_fn, n_led);
   }
+
+  // Only if we're actually doing a persistent run, write the pid file
+  //
+  r = write_pid_file(g_pid_fn);
+  if (r<0) {
+    fprintf(stderr, "could not write pid file '%s', ignoring\n", g_pid_fn);
+  }
+
 
   // map our .led file to our memroy
   //

@@ -416,6 +416,8 @@ typedef struct inner_light_mode_type {
 
     m_rgb_sz = m_count_led*3 + 1;
 
+    printf(">>> led_mmap(): m_rgb_sz %i\n", (int)m_rgb_sz);
+
     m_rgb_buf.resize(m_rgb_sz);
     m_rgb_buf1.resize(m_rgb_sz);
 
