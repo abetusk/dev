@@ -50,6 +50,8 @@
 #define INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE "./innerlight.led"
 //#define INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE "/home/pi/data/innerlight.led"
 
+#define INNER_LIGHT_DRIVER_DEFAULT_PID_FILE "./inner-light-drive.pid"
+
 #define _DEFAULT_NUM_LED 180
 
 // defaults for cmdline options
@@ -67,6 +69,7 @@ volatile sig_atomic_t g_reload = 0;
 
 char *g_config_fn = NULL;
 char *g_led_fn=NULL;
+char *g_pid_fn=NULL;
 
 unsigned char *g_led_map;
 
@@ -268,13 +271,12 @@ static int _parse_kv(char *_key, char *_val, char *_line, int nmax) {
 
   for ( ; chp != chp_tok; chp++) {
 
+
     if ((_ki+1) >= nmax) { return -2; }
 
     _key[_ki++] = *chp;
     _key[_ki] = '\0';
   }
-
-  chp = chp_tok+1;
 
   for (chp = (chp_tok+1); *chp ; chp++) {
 
@@ -297,9 +299,9 @@ int load_config(char *fn) {
   char *line=NULL, *_key=NULL, *_val=NULL;
   int _li=0;
 
-  line = (char *)malloc(sizeof(NBUF));
-  _key = (char *)malloc(sizeof(NBUF));
-  _val = (char *)malloc(sizeof(NBUF));
+  line = (char *)malloc(sizeof(char)*NBUF);
+  _key = (char *)malloc(sizeof(char)*NBUF);
+  _val = (char *)malloc(sizeof(char)*NBUF);
 
   line[0]='\0';
   _key[0]='\0';
@@ -317,7 +319,7 @@ int load_config(char *fn) {
       r = _parse_kv(_key, _val, line, NBUF);
       if (r!=0) { ret = -2; break; }
 
-      if ( strncmp(_key, "count_led", NBUF) == 0 ) {
+      if ( strncmp(_key, "count_led", NBUF-1) == 0 ) {
         r = atoi(_val);
         if ((r<1) || (r>1000)) {
           fprintf(stderr, "load_config: 'count_led' = %i, param out of bounds\n", r);
@@ -368,12 +370,25 @@ void show_help(FILE *fp) {
   fprintf(fp, "  -n <nled>      number of leds (default to %i)\n", _DEFAULT_NUM_LED);
   fprintf(fp, "  -c <configfn>  config file (default %s)\n", INNER_LIGHT_DEFAULT_CONFIG_FILE);
   fprintf(fp, "  -L <ledfile>   LED file (default %s)\n", INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE);
+  fprintf(fp, "  -p <pidfile>   file containing pid (default %s)\n", INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE);
   fprintf(fp, "  -C             create LED file and exit (default %s)\n", INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE);
   fprintf(fp, "  -F             force creation of LED file (default is to use pre-existing)\n");
   fprintf(fp, "  -h             help (this screen)\n");
   fprintf(fp, "  -v             increase verbose level\n");
   fprintf(fp, "  -V             show version\n");
   fprintf(fp, "\n");
+}
+
+int write_pid_file(char *fn) {
+  FILE *fp;
+  pid_t pid;
+
+  pid = getpid();
+
+  fp = fopen(fn, "w");
+  if (fp==NULL) { return -1; }
+  fprintf(fp, "%i", (int)pid);
+  fclose(fp);
 }
 
 int _reload(void) {
@@ -440,15 +455,18 @@ int main(int argc, char **argv) {
   int create_and_exit=0;
   int force_create = 0;
 
-  n_led = _DEFAULT_NUM_LED;
+  n_led = -1;
 
-  while ((ch=getopt_long(argc, argv, "Vhn:L:CvF", _longopt, &option_index)) >= 0) {
+  while ((ch=getopt_long(argc, argv, "Vhn:L:CvFc:p:", _longopt, &option_index)) >= 0) {
     switch (ch) {
       case 'L':
         g_led_fn = strdup(optarg);
         break;
       case 'c':
         g_config_fn = strdup(optarg);
+        break;
+      case 'p':
+        g_pid_fn = strdup(optarg);
         break;
 
       case 'n':
@@ -479,8 +497,29 @@ int main(int argc, char **argv) {
     }
   }
 
+  // n_led is taken from the config file.
+  // If the command line n_led is set, prefer that over the config
+  // file option.
+  // If either is not set, default set above.
+  //
+
+  r = load_config(g_config_fn);
+  if (r==0) {
+    if (n_led < 0) {
+      n_led = LED_COUNT;
+    }
+    else {
+      n_led = _DEFAULT_NUM_LED;
+    }
+  }
+  else {
+    if (n_led<0) {
+      n_led = _DEFAULT_NUM_LED;
+    }
+  }
+
   if (n_led < 1) {
-    fprintf(stderr, "n_led must be greater than 0\n");
+    fprintf(stderr, "n_led must be greater than 0 (%i)\n", n_led);
     show_help(stderr);
     exit(-1);
   }
@@ -492,11 +531,13 @@ int main(int argc, char **argv) {
 
   if (!g_config_fn) { g_config_fn = strdup(INNER_LIGHT_DEFAULT_CONFIG_FILE); }
 
-  load_config(g_config_fn);
+  if (!g_pid_fn) { g_pid_fn = strdup(INNER_LIGHT_DRIVER_DEFAULT_PID_FILE); }
 
   // Just create the .led file and exit
   //
   if (create_and_exit==1) {
+
+    create_led_file(g_led_fn, n_led);
 
     if (g_verbose_level>0) {
       printf("created %s (n_led %i), exiting\n", g_led_fn, (int)n_led);
@@ -512,6 +553,14 @@ int main(int argc, char **argv) {
   if (force_create) {
     create_led_file(g_led_fn, n_led);
   }
+
+  // Only if we're actually doing a persistent run, write the pid file
+  //
+  r = write_pid_file(g_pid_fn);
+  if (r<0) {
+    fprintf(stderr, "could not write pid file '%s', ignoring\n", g_pid_fn);
+  }
+
 
   // map our .led file to our memroy
   //
@@ -544,6 +593,7 @@ int main(int argc, char **argv) {
   //
   munmap(led_map, led_map_len);
 
-  free(g_led_fn);
-  free(g_config_fn);
+  if (g_led_fn) { free(g_led_fn); }
+  if (g_config_fn) { free(g_config_fn); }
+  if (g_pid_fn) { free(g_pid_fn); }
 }

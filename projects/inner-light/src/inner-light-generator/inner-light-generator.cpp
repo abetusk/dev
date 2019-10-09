@@ -53,10 +53,11 @@ void show_help_and_exit(FILE *fp) {
   fprintf(fp, "usage:\n");
   fprintf(fp, "\n  inner-light-generator [-L mmap.led] [-n led_count] [-c config] [-T ledtest] [-F] [-C] [-h] [-v] [-V] <( MIC ) <( ENCODER )\n\n");
   fprintf(fp, "\n");
-  fprintf(fp, "  -L <mmap.led>        use <mmap.led> file (default '%s')\n", INNER_LIGHT_DRIVER_DEFAULT_LEDTEST_FILE);
+  fprintf(fp, "  -L <mmap.led>        use <mmap.led> file (default '%s')\n", INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE);
   fprintf(fp, "  -n <led_count>       number of LEDs (default %i)\n", INNER_LIGHT_DRIVER_DEFAULT_LED_COUNT);
-  fprintf(fp, "  -c <config>          use <config> file (default '%s')\n", INNER_LIGHT_DRIVER_DEFAULT_LEDTEST_FILE);
+  fprintf(fp, "  -c <config>          use <config> file (default '%s')\n", INNER_LIGHT_DRIVER_DEFAULT_CONFIG_FILE);
   fprintf(fp, "  -T <ledtest>         LED test file to use (monitor and test for existence, default '%s')\n", INNER_LIGHT_DRIVER_DEFAULT_LEDTEST_FILE);
+  fprintf(fp, "  -p <pidfile>         pidfile (default '%s')\n", INNER_LIGHT_DRIVER_DEFAULT_PID_FILE);
   fprintf(fp, "  -F                   force mmap'd LED file to be created on startup (default is to reuse pre-existing mmap'd LED file)\n");
   fprintf(fp, "  -C                   create mmap'd LED file and exit\n");
   fprintf(fp, "  -h                   help (this screen)\n");
@@ -180,6 +181,12 @@ int inner_light_mode_type::update_led(void) {
   if (!m_led_mmap) { return -1; }
 
   m = m_led_map.size();
+
+  for (i=0; i<g_mode.m_count_led; i++) {
+    m_rgb[3*i+1] = 0;
+    m_rgb[3*i+2] = 0;
+    m_rgb[3*i+3] = 0;
+  }
 
   m_rgb[0] = 1;
   for (i=0; i<g_mode.m_count_led; i++) {
@@ -643,6 +650,11 @@ int inner_light_mode_type::tick_solid(void) {
   //
   if (m_encoder_pos[0] == 0) {
 
+    printf(">> %02x %02x %02x\n",
+        m_config.m_solid_rgb[0],
+        m_config.m_solid_rgb[1],
+        m_config.m_solid_rgb[2]);
+
     for (i=0; i<m_count_led; i++) {
       m_rgb_buf[3*i+1] = m_config.m_solid_rgb[0];
       m_rgb_buf[3*i+2] = m_config.m_solid_rgb[1];
@@ -726,8 +738,10 @@ int inner_light_mode_type::tick_solid_color(void) {
 //
 int inner_light_mode_type::tick_noise(void) {
   int i, n_palette, v;
-  float x, dt, f;
+  float x, dt, f, f_r;
   float cur_t;
+
+  f_r = 8.0;
 
   cur_t = m_noise_t;
 
@@ -748,7 +762,7 @@ int inner_light_mode_type::tick_noise(void) {
 
   for (i=0; i<m_count_led; i++) {
     x = (float)i/(float)m_count_led;
-    f = (snoise2(x, cur_t) + 1.0)/(2.0 + (1.0/65536.0));
+    f = (snoise2(f_r*x, cur_t) + 1.0)/(2.0 + (1.0/65536.0));
 
     v = (int)( f*(float)(n_palette) );
 
@@ -1382,10 +1396,18 @@ int inner_light_mode_type::update_led_map(void) {
   for (i=0; i<g_mode.m_count_led; i++) {
     g_mode.m_led_map[i] = i;
   }
+
+  printf("update_led_map(): m_led_map size now %i\n", (int)m_led_map.size());
+
   for (i=0; i<g_mode.m_count_led; i++) {
     if (i >= g_mode.m_config.m_map.size()) { break; }
     g_mode.m_led_map[i] = g_mode.m_config.m_map[i];
   }
+
+  for (i=0; i<g_mode.m_led_map.size(); i++) {
+    printf(" %i", g_mode.m_led_map[i]);
+  }
+  printf("\n");
 
 }
 
@@ -1698,6 +1720,12 @@ int main(int argc, char **argv) {
       perror(beat_fn.c_str());
       exit(-1);
     }
+  }
+
+  //--
+
+  if (pid_fn.size() == 0) {
+    pid_fn = INNER_LIGHT_DRIVER_DEFAULT_PID_FILE;
   }
 
   //--

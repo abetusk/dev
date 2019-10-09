@@ -223,6 +223,8 @@ int inner_light_config_t::assign_key_value(std::string &_key, std::string &_val)
     for (i=0; i<var_a.size(); i++) {
       m_map.push_back(atoi(var_a[i].c_str()));
     }
+
+    printf("assign_key_vallue(): m_map size now %i\n", (int)m_map.size());
   }
   else if (_key == "tap_bpm") {
     m_tap_bpm = atof(_val.c_str());

@@ -52,7 +52,8 @@ encoder_state = {
 
 enc = [ copy.copy(encoder_state), copy.copy(encoder_state), copy.copy(encoder_state) ]
 
-enc[0]["step"] = int(NSTEP/2)
+#enc[0]["step"] = int(NSTEP/2)
+enc[0]["step"] = 0
 
 io_0_a = 26
 io_0_b = 19

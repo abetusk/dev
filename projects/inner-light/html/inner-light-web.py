@@ -9,6 +9,10 @@ import cgi
 import tempfile
 import os
 import json
+import getopt
+import sys
+
+INNER_LIGHT_WEB_VERSION = "0.1.0"
 
 PORT_NUMBER = 8080
 
@@ -18,14 +22,79 @@ IL_INI = BASE_DIR + "innerlight.ini"
 IL_TESTLED = BASE_DIR + "ledtest.txt"
 IL_LED = BASE_DIR + "innerlight.led"
 
-ILG_EXE = "./inner-light-drive"
+ILG_EXE = BASE_DIR + "inner-light-drive"
 
 ILG_PID_FN = BASE_DIR + "inner-light-generator.pid"
 ILD_PID_FN = BASE_DIR + "inner-light-drive.pid"
 
-DEFAULT_CFG = "./default-innerlight.ini"
+DEFAULT_CFG = BASE_DIR + "default-innerlight.ini"
+
+opt_short = "hVP:g:d:T:c:L:D:"
+opt_long = ["help", "version", "port", "pidgenerator", "piddriver", "test", "config", "led", "defaultcfg"]
+
+def show_version():
+  print INNER_LIGHT_WEB_VERSION
+
+def show_help():
+  print "usage:  inner-light-web.py [-h] [-V] [-c config] [-g pidgenerator] [-d piddriver]  [-P port] [-T testled]";
+  print ""
+  print "  -c config        config file (default", IL_INI, ")"
+  print "  -D defconfig     default config file (default", DEFAULT_CFG, ")"
+  print "  -g pidgenerator  pid file for generator (defaut", ILG_PID_FN, ")"
+  print "  -d piddriver     pid file for driver (defaut", ILD_PID_FN, ")"
+  print "  -T testled       testled file (default", IL_TESTLED, ")"
+  print "  -L led           LED file (default", IL_LED,  ")"
+  print "  -P port          listen port (default", PORT_NUMBER, ")"
+  print "  -h               help (this screen)"
+  print "  -V               print version and exit"
+
+try:
+  arg,val = getopt.getopt(sys.argv[1:], opt_short, opt_long)
+except getopt.error as err:
+  print (str(err))
+  sys.exit(-1)
+
+for x in arg:
+  p = x[0]
+  v = x[1]
+
+  if p == "-h":
+    show_help()
+    sys.exit(0)
+  elif p == "-c":
+    IL_INI = v
+  elif p == "-D":
+    DEFAULT_CFG = v
+  elif p == "-L":
+    IL_LED = v
+  elif p == "-T":
+    IL_TESTLED = v
+  elif p == "-g":
+    ILG_PID_FN = v
+  elif p == "-d":
+    ILD_PID_FN = v
+  elif p == "-V":
+    show_version()
+    sys.exit(0)
+  elif p == "-P":
+    PORT_NUMBER = int(v)
+
+def debug_print():
+  print "ini:", IL_INI
+  print "cfg:", DEFAULT_CFG
+  print "led:", IL_LED
+  print "test:", IL_TESTLED
+  print "gpid", ILG_PID_FN
+  print "dpid", ILD_PID_FN
+  print "port", PORT_NUMBER
+
+debug_print()
 
 def resetcfg():
+  global IL_INI
+
+  print "resetcfg:", IL_INI
+
   tmpfd,tmpname = tempfile.mkstemp()
   try:
     with os.fdopen(tmpfd, "w") as tmpfp:
@@ -39,10 +108,10 @@ def resetcfg():
 
 def restartproc():
   os.system("/bin/kill $( cat " + str(ILG_PID_FN) + " )")
-  os.system("/bin/kill $( cat " + str(ILD_PID_FN) + " )")
+  os.system("/usr/bin/sudo /bin/kill $( cat " + str(ILD_PID_FN) + " )")
 
 def rebootmachine():
-  os.system("/sbin/shutdown -r now")
+  os.system("sudo /sbin/shutdown -r now")
 
 
 def writeledtest(data):
@@ -62,6 +131,9 @@ def writeledtest(data):
   os.system("/bin/kill -SIGHUP $( cat " + str(ILG_PID_FN) + " )" )
 
 def writeini(data):
+
+  print "writeini:", IL_INI
+
   tmpfd,tmpname = tempfile.mkstemp()
   try:
     with os.fdopen(tmpfd, "w") as tmpfp:
@@ -100,9 +172,11 @@ def ledreset():
 
 def configreq():
   dat = {}
+
+  print "configreq:", IL_INI
+
   with open(IL_INI) as fp:
     for line in fp:
-      print line
       line = line.strip();
       if len(line)==0: continue
       if line[0] == '#': continue

@@ -48,12 +48,19 @@ var g_uiData  = {
   }
 };
 
+var BASE_URL = "http://192.168.0.110:8080";
+
 var g_innerlight = {
 
-  "url" : "http://localhost:8080",
-  "url_led_test" : "http://localhost:8080/ledtest",
-  "url_led_reset" : "http://localhost:8080/ledreset",
-  "url_config_req" : "http://localhost:8080/config",
+  //"url" : "http://localhost:8080",
+  //"url_led_test" : "http://localhost:8080/ledtest",
+  //"url_led_reset" : "http://localhost:8080/ledreset",
+  //"url_config_req" : "http://localhost:8080/config",
+
+  "url" : BASE_URL,
+  "url_led_test" : BASE_URL + "/ledtest",
+  "url_led_reset" : BASE_URL + "/ledreset",
+  "url_config_req" : BASE_URL + "/config",
 
   "led" : {
     "count_collar_left" : 15,
@@ -120,14 +127,14 @@ var g_innerlight = {
     ],
 
     "default_physical_order" : [
-      { "label": "lapel_right", "delta" : 1 },
-      { "label": "collar_right", "delta" : 1 },
-      { "label": "collar_left", "delta" : -1 },
-      { "label": "lapel_left", "delta" : -1 },
+      { "label": "waist_right", "delta" : -1 },
       { "label": "waist_left", "delta" : -1 },
-      { "label": "waist_right", "delta" : 1 },
+      { "label": "lapel_left", "delta" : -1 },
+      { "label": "lapel_right", "delta" : -1 },
+      { "label": "collar_left", "delta" : 1 },
+      { "label": "collar_right", "delta" : 1 },
       { "label": "cuff_right", "delta" : 1 },
-      { "label": "cuff_left", "delta" : -1 }
+      { "label": "cuff_left", "delta" : 1 }
     ],
 
     "logical_order" : [
@@ -142,14 +149,14 @@ var g_innerlight = {
     ],
 
     "physical_order" : [
-      { "label": "lapel_right", "delta" : 1 },
-      { "label": "collar_right", "delta" : 1 },
-      { "label": "collar_left", "delta" : -1 },
-      { "label": "lapel_left", "delta" : -1 },
+      { "label": "waist_right", "delta" : -1 },
       { "label": "waist_left", "delta" : -1 },
-      { "label": "waist_right", "delta" : 1 },
+      { "label": "lapel_left", "delta" : -1 },
+      { "label": "lapel_right", "delta" : -1 },
+      { "label": "collar_left", "delta" : 1 },
+      { "label": "collar_right", "delta" : 1 },
       { "label": "cuff_right", "delta" : 1 },
-      { "label": "cuff_left", "delta" : -1 }
+      { "label": "cuff_left", "delta" : 1 }
     ],
 
     "logical_order_map_info" : [],
@@ -346,6 +353,44 @@ function _update_config(data_str) {
     }
   }
 
+  var physical_order_fields = [
+    "physical_order",
+    "physical_order_dir"
+  ];
+
+  if (("physical_order" in data) && ("physical_order" in g_innerlight.led)) {
+    var a = data.physical_order.split(",");
+    g_innerlight.led.physical_order = [];
+    for (var ii=0; ii < a.length; ii++) {
+      g_innerlight.led.physical_order.push( { "label" : a[ii], "delta": 1 } );
+    }
+  }
+
+  if (("physical_order_dir" in data) && ("physical_order" in g_innerlight.led)) {
+    var a = data.physical_order_dir.split(",");
+    var mm = ( (g_innerlight.led.physical_order.length < a.length) ? g_innerlight.led.physical_order.length : a.length );
+    for (var ii=0; ii<mm; ii++) {
+      g_innerlight.led.physical_order[ii].delta = parseInt(a[ii]);
+    }
+  }
+
+  // update contigs
+  // reverse is a flag, so if delta is > 0, reverse is 0,
+  // if delta < 0, reverse is 1
+  //
+  for (var ii=0; ii < g_innerlight.led.physical_order.length; ii++) {
+    var label = g_innerlight.led.physical_order[ii].label;
+    var field = "contig_" + g_innerlight.led.physical_order[ii].label + "_reverse";
+    if (field in g_innerlight.led) {
+      if (g_innerlight.led.physical_order[ii].delta > 0) {
+        g_innerlight.led[field] = 0;
+      }
+      else {
+        g_innerlight.led[field] = 1;
+      }
+    }
+  }
+
 }
 
 function _send_cfgreq() {
@@ -357,7 +402,7 @@ function _send_cfgreq() {
   xhr.onreadystatechange = function() {
     if ((this.readyState==4) && (this.status==200)) {
       _update_config(xhr.responseText);
-      _init();
+      _init(true);
     }
 
   };
@@ -420,6 +465,18 @@ function _send_state() {
           parseInt(g_innerlight.led.count_cuff_left) +
           parseInt(g_innerlight.led.count_cuff_right);
 
+  var phys_ord_str = "";
+  var phys_ord_dir_str = "";
+
+  for (var ii=0; ii<g_innerlight.led.physical_order.length; ii++) {
+    if (ii>0) {
+      phys_ord_str += ",";
+      phys_ord_dir_str += ",";
+    }
+
+    phys_ord_str += g_innerlight.led.physical_order[ii].label;
+    phys_ord_dir_str += g_innerlight.led.physical_order[ii].delta;
+  }
 
   var data = {
     "mode": g_innerlight.mode,
@@ -440,9 +497,14 @@ function _send_state() {
     "count_cuff_left" : g_innerlight.led.count_cuff_left,
     "count_cuff_right": g_innerlight.led.count_cuff_right,
 
+    "physical_order" : phys_ord_str,
+    "physical_order_dir" : phys_ord_dir_str,
+
     "count_led" : n_tot,
     "map" : g_innerlight.led.map.join(",")
   };
+
+  console.log(JSON.stringify(data));
 
   for (var _mode in g_innerlight.mode_option) {
     for (var _opt in g_innerlight.mode_option[_mode]) {
@@ -558,10 +620,15 @@ function _construct_led_mapping() {
     var label = physical_order[ii].label;
     var dir = physical_order[ii].delta;
 
+    //console.log("_construct_led_mapping():", label, s, led_count[label], dir);
+
     contig.push({ "start": s, "label": label  , "delta" : dir, "n" : led_count[label] });
-    s += led_count[label];
     contig_bp[label] = ii;
+    s += led_count[label];
+
   }
+
+  //console.log("---");
 
   // Create _map where:
   //
@@ -592,11 +659,20 @@ function _construct_led_mapping() {
       "dir":delta
     });
 
+    var debug_str = "";
+
     var pos = phys_start;
+
+    //console.log(label, pos, contig[contig_idx].n, "(", contig_idx, ")");
+
     for (var _p=0; _p<contig[contig_idx].n; _p++) {
+      debug_str += " " + pos;
+
       _map.push(pos);
       pos += delta;
     }
+
+    //console.log(label, debug_str);
 
     var _s = s;
     if (dir < 0) {
@@ -679,7 +755,7 @@ var pageTransition = function(toPage, transitionType, cb, delay) {
       var del_y = (scroll_top);
       if (del_y > 0) {
 
-        console.log(">>>", del_y);
+        //console.log(">>>", del_y);
 
         ele.style.position = "relative";
         ele.style.top = "-" + del_y + "px";
@@ -1164,14 +1240,35 @@ function _commit_ledcount_change() {
   console.log("commit led change");
 }
 
-function _commit_lednum() {
-  _commit_ledmap();
-  _send_ledreset();
+function _commit_ledmap() {
+  var n_tot =
+    parseInt(g_innerlight.led.count_collar_left) +
+    parseInt(g_innerlight.led.count_collar_right) +
+    parseInt(g_innerlight.led.count_lapel_left) +
+    parseInt(g_innerlight.led.count_lapel_right) +
+    parseInt(g_innerlight.led.count_waist_left) +
+    parseInt(g_innerlight.led.count_waist_right) +
+    parseInt(g_innerlight.led.count_cuff_left) +
+    parseInt(g_innerlight.led.count_cuff_right);
+
+
+  var _map = new Array(n_tot);
+  for (var ii=0; ii<n_tot; ii++) {
+    var ele = document.getElementById("ui_ledmap_" + ii);
+    var v = parseInt(ele.value);
+    _map[ii] = v;
+  }
+
+  console.log(JSON.stringify(_map));
+
+  g_innerlight.led.map = _map;
+
+  _send_state();
 }
 
 // construct the mapping with the current layout
 //
-function _commit_ledmap() {
+function _commit_lednum() {
   console.log("commit led");
 
   var led_count = {
@@ -1203,7 +1300,7 @@ function _commit_ledmap() {
   g_innerlight.led.count_cuff_right = led_count["cuff"]["right"];
 
   _construct_led_layout();
-
+  _send_ledreset();
   _send_state();
 }
 
@@ -1416,7 +1513,10 @@ function _divrowinput(_idbase, idx_l, idx_r, ltxt, rtxt) {
   return _row;
 }
 
-function _construct_led_layout() {
+function _construct_led_layout(use_preexisting_led_map) {
+
+  use_preexisting_led_map = ((typeof use_preexisting_led_map === "undefined") ? false : use_preexisting_led_map);
+
   var n = 180+9;
   var text_height = 20;
   var w = 40, h = 30;
@@ -1436,22 +1536,29 @@ function _construct_led_layout() {
                 "right" : parseInt(g_innerlight.led.count_cuff_right) }
   };
 
-  var n_right = led_count.collar.right +
-                led_count.lapel.right +
-                led_count.waist.right + 
-                led_count.cuff.right;
-
   var n_left = led_count.collar.left +
                 led_count.lapel.left +
                 led_count.waist.left + 
                 led_count.cuff.left;
 
+  var n_right = led_count.collar.right +
+                led_count.lapel.right +
+                led_count.waist.right + 
+                led_count.cuff.right;
+
   var n_tot = n_left + n_right;
 
   // Here, "start" is at the collar position 0
   //
+  /*
   var start_right = n_right-1, dir_right = -1;
   var start_left = n_right, dir_left = 1;
+  var _left_idx = start_left,
+      _right_idx = start_right;
+  */
+
+  var start_right = n_left, dir_right = 1;
+  var start_left = n_left-1, dir_left = -1;
   var _left_idx = start_left,
       _right_idx = start_right;
 
@@ -1466,6 +1573,8 @@ function _construct_led_layout() {
     var n = n0;
     if (n < n1) { n = n1; }
 
+    //console.log("rgni", region, n0, n1, n);
+
     var _region_div = document.createElement("div");
     _region_div.style.border = "2px solid #cccccc";
     _region_div.style["padding"] = "10px";
@@ -1477,6 +1586,7 @@ function _construct_led_layout() {
     _region_div.appendChild(_divrowheading1(region));
 
     for (var _ii=0; _ii<n; _ii++) {
+      //console.log(">>", region, _left_idx, _right_idx);
 
       var ltxt = region + " " + _ii + " (" + _left_idx + ")" ;
       var rtxt = region + " " + _ii + " (" + _right_idx + ")" ;
@@ -1490,6 +1600,9 @@ function _construct_led_layout() {
 
       if (_ii < n0) { _left_idx += dir_left; }
       if (_ii < n1) { _right_idx += dir_right; }
+
+
+      //if ((typeof idx0 === "undefined") || (typeof idx1 === "undefined")) { console.log(">>", _r); }
 
     }
 
@@ -1536,7 +1649,9 @@ function _construct_led_layout() {
 
   // populate input map with values
   //
-  _construct_led_mapping();
+  if (!use_preexisting_led_map) {
+    _construct_led_mapping();
+  }
   var _map = g_innerlight.led.map;
 
   for (var ii=0; ii<n_tot; ii++) {
@@ -1568,6 +1683,12 @@ function _construct_led_layout() {
           }
         };
       })(region,side);
+
+      if (g_innerlight.led["contig_" + region + "_" + side + "_reverse"] == 1) {
+        var _eid = "ui_ledmap_contig_" + region  + "_" + side  + "_reverse";
+        var _e = document.getElementById(_eid);
+        _e.innerHTML = "<div style='margin-top:1px;'><span style='font-weight:bold; font-size:.5em;' >X</span></div>";
+      }
     }
   }
 
@@ -1625,7 +1746,19 @@ function _slider_change(_mode) {
 
 }
 
-function _init() {
+function _init(use_preexisting_led_map) {
+
+  BASE_URL = window.location.href;
+  if (BASE_URL.length > 0) {
+    if (BASE_URL.substr(-1) == "/") {
+      BASE_URL = BASE_URL.substr(0, BASE_URL.length-1);
+    }
+  }
+  g_innerlight.url = BASE_URL;
+  g_innerlight.url_led_test = BASE_URL + "/ledtest";
+  g_innerlight.url_led_reset = BASE_URL + "/ledreset";
+  g_innerlight.url_config_req =  BASE_URL + "/config";
+
 
   var ui_modename = g_innerlight.mode;
   if (g_innerlight.mode in g_uiData.mode_name_map) {
@@ -1637,8 +1770,6 @@ function _init() {
   //
   var ele = document.getElementById("ui_mode_" + ui_modename);
   if ((typeof ele !== "undefined") && (ele !== null)) {
-
-    console.log("xxx", g_innerlight.mode, ele);
 
     g_uiData.mode = ui_modename;
     ele.classList.add("bkeySelected");
@@ -1652,7 +1783,7 @@ function _init() {
 
   }
   else {
-    console.log("???", g_innerlight.mode, ele);
+    //console.log("???", g_innerlight.mode, ele);
   }
 
   ele = document.getElementById("ui_tap_bpm");
@@ -1755,12 +1886,12 @@ function _init() {
     g_innerlight.mode_option.pulse.bg = hex;
   });
 
-  _setup_default();
+  _setup_default_mode_config();
 
-  _construct_led_layout();
+  _construct_led_layout(use_preexisting_led_map);
 }
 
-function _setup_default() {
+function _setup_default_mode_config() {
   _color_preset(0, "ui_noise_color", true);
 
   for (var mode in g_innerlight.mode_option_default) {

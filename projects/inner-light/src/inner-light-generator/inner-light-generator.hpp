@@ -41,8 +41,10 @@
 
 #include "simplexnoise1234.h"
 
-#define INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE "/home/pi/data/innerlight.led"
+//#define INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE "/home/pi/data/innerlight.led"
+#define INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE "./innerlight.led"
 #define INNER_LIGHT_DRIVER_DEFAULT_CONFIG_FILE "./innerlight.ini"
+#define INNER_LIGHT_DRIVER_DEFAULT_PID_FILE "./inner-light-generator.pid"
 #define INNER_LIGHT_DRIVER_DEFAULT_LEDTEST_FILE "./ledtest.txt"
 #define INNER_LIGHT_DRIVER_DEFAULT_LED_COUNT 190
 
@@ -413,6 +415,8 @@ typedef struct inner_light_mode_type {
     unsigned char *chp;
 
     m_rgb_sz = m_count_led*3 + 1;
+
+    printf(">>> led_mmap(): m_rgb_sz %i\n", (int)m_rgb_sz);
 
     m_rgb_buf.resize(m_rgb_sz);
     m_rgb_buf1.resize(m_rgb_sz);
