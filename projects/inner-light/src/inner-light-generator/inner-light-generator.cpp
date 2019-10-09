@@ -738,8 +738,10 @@ int inner_light_mode_type::tick_solid_color(void) {
 //
 int inner_light_mode_type::tick_noise(void) {
   int i, n_palette, v;
-  float x, dt, f;
+  float x, dt, f, f_r;
   float cur_t;
+
+  f_r = 8.0;
 
   cur_t = m_noise_t;
 
@@ -760,7 +762,7 @@ int inner_light_mode_type::tick_noise(void) {
 
   for (i=0; i<m_count_led; i++) {
     x = (float)i/(float)m_count_led;
-    f = (snoise2(x, cur_t) + 1.0)/(2.0 + (1.0/65536.0));
+    f = (snoise2(f_r*x, cur_t) + 1.0)/(2.0 + (1.0/65536.0));
 
     v = (int)( f*(float)(n_palette) );
 

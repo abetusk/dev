@@ -402,7 +402,7 @@ function _send_cfgreq() {
   xhr.onreadystatechange = function() {
     if ((this.readyState==4) && (this.status==200)) {
       _update_config(xhr.responseText);
-      _init();
+      _init(true);
     }
 
   };
@@ -1513,7 +1513,10 @@ function _divrowinput(_idbase, idx_l, idx_r, ltxt, rtxt) {
   return _row;
 }
 
-function _construct_led_layout() {
+function _construct_led_layout(use_preexisting_led_map) {
+
+  use_preexisting_led_map = ((typeof use_preexisting_led_map === "undefined") ? false : use_preexisting_led_map);
+
   var n = 180+9;
   var text_height = 20;
   var w = 40, h = 30;
@@ -1646,7 +1649,9 @@ function _construct_led_layout() {
 
   // populate input map with values
   //
-  _construct_led_mapping();
+  if (!use_preexisting_led_map) {
+    _construct_led_mapping();
+  }
   var _map = g_innerlight.led.map;
 
   for (var ii=0; ii<n_tot; ii++) {
@@ -1741,7 +1746,7 @@ function _slider_change(_mode) {
 
 }
 
-function _init() {
+function _init(use_preexisting_led_map) {
 
   BASE_URL = window.location.href;
   if (BASE_URL.length > 0) {
@@ -1883,7 +1888,7 @@ function _init() {
 
   _setup_default_mode_config();
 
-  _construct_led_layout();
+  _construct_led_layout(use_preexisting_led_map);
 }
 
 function _setup_default_mode_config() {
