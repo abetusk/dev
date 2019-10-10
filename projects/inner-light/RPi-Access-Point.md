@@ -42,7 +42,7 @@ systemctl mask networking.service dhcpcd.service
 #
 wifimac=`cat /sys/class/net/wlan0/address`
 cat > /etc/udev/rules.d/70-persistent-net.rules <<EOF
-SUBSYSTEM=="ieee80211", ACTION=="add|change", ATTR{macaddress}=="$wifimac" KERNEL=="phy0", \
+SUBSYSTEM=="ieee80211", ACTION=="add|change", ATTR{macaddress}=="$wifimac", KERNEL=="phy0", \
   RUN+="/sbin/iw phy phy0 interface add ap0 type __ap", \
   RUN+="/bin/ip link set ap0 address $wifimac"
 EOF
@@ -72,22 +72,37 @@ EOF
 sed -i 's;^#\?DAEMON_CONF=.*;DAEMON_CONF="/etc/hostapd/hostapd.conf";' /etc/default/hostapd
 
 # Populate wpa_supplicant.conf (left commented out as this can be used as is if this is already set up)
+# Note: the id_str="AP1" line is **necessary**.
 #
 #echo > /etc/wpa_supplicant/wpa_supplicant.conf <<EOF
-#country=US
 #ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
 #update_config=1
+#country=US
 #
 #network={
 #  ssid="$CLIENT_SSID"
 #  psk="$CLIENT_PASS"
+#  key_mgmt=WPA-PSK
 #  id_str="AP1"
 #}
 #EOF
 
+# setup DNS so connected devices through access point get an actual IP.
+# Note that this overwrites /etc/dnsmasq.conf
+#
+cat > /etc/dnsmasq.conf <<EOF
+interface=lo,ap0
+no-dhcp-interface=lo,wlan0
+bind-interfaces
+server=8.8.8.8
+domain-needed
+bogus-priv
+dhcp-range=192.168.10.50,192.168.10.150,12h
+EOF
+
 # Setup networking
 #
-echo > /etc/network/interfaces <<EOF
+cat > /etc/network/interfaces <<EOF
 # interfaces(5) file used by ifup(8) and ifdown(8)
 
 # Please note that this file is written to be used with dhcpcd
@@ -170,3 +185,4 @@ References
 * [Raspberry Pi Zero W Simultaneous AP and Managed Mode Wifi](https://blog.thewalr.us/2017/09/26/raspberry-pi-zero-w-simultaneous-ap-and-managed-mode-wifi/)
 * [SE: Access point as WiFi router/repeater, optional with bridge](https://raspberrypi.stackexchange.com/questions/89803/access-point-as-wifi-router-repeater-optional-with-bridge)
 * [Gist of walr.us blog post](https://gist.github.com/lukicdarkoo/6b92d182d37d0a10400060d8344f86e4)
+
