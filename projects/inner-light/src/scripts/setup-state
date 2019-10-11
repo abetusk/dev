@@ -1,0 +1,30 @@
+#!/bin/bash
+# 
+# This is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# This is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+# 
+# You should have received a copy of the GNU Affero General Public License.
+# If not, see <https://www.gnu.org/licenses/>.
+#
+
+
+B="/home/pi"
+
+ln -s $B/bin/inner-light-generator /tmp/
+ln -s $B/bin/inner-light-drive /tmp/
+ln -s $B/bin/inner-light-web /tmp/
+
+ln -s $B/bin/encoder-monitor.py /tmp/
+ln -s $B/bin/beatsrv_s16le /tmp/
+
+ln -s $B/data/html /tmp/
+
+ln -s $B/data/innerlight.ini /tmp/
+ln -s $B/data/default_innerlight.ini /tmp/
