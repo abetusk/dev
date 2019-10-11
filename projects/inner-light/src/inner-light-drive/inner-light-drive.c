@@ -207,7 +207,6 @@ int _main(unsigned char *led_map, size_t n_led) {
     return led_ret;
   }
 
-
   // 1 sec
   //sleep_usec = 1*1000000;
 
@@ -449,7 +448,8 @@ int load_ledmap(unsigned char **led_map, int led_map_len) {
 int main(int argc, char **argv) {
   int led_map_fd, r;
   unsigned char *led_map;
-  size_t led_map_len, n_led;
+  size_t led_map_len;
+  int n_led;
   int option_index, ch;
 
   int create_and_exit=0;
@@ -504,12 +504,10 @@ int main(int argc, char **argv) {
   //
 
   r = load_config(g_config_fn);
+
   if (r==0) {
     if (n_led < 0) {
       n_led = LED_COUNT;
-    }
-    else {
-      n_led = _DEFAULT_NUM_LED;
     }
   }
   else {
@@ -523,6 +521,8 @@ int main(int argc, char **argv) {
     show_help(stderr);
     exit(-1);
   }
+
+  printf("# n_led: %i, LED_COUNT: %i\n", n_led, LED_COUNT);
 
   signal(SIGHUP, sighup_handler);
 

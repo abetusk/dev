@@ -22,15 +22,19 @@ IL_INI = BASE_DIR + "innerlight.ini"
 IL_TESTLED = BASE_DIR + "ledtest.txt"
 IL_LED = BASE_DIR + "innerlight.led"
 
-ILG_EXE = BASE_DIR + "inner-light-drive"
+ILD_BIN = BASE_DIR + "inner-light-drive"
+ILG_BIN = BASE_DIR + "inner-light-generator"
 
 ILG_PID_FN = BASE_DIR + "inner-light-generator.pid"
 ILD_PID_FN = BASE_DIR + "inner-light-drive.pid"
+ILW_PID_FN = BASE_DIR + "inner-light-web.pid"
 
 DEFAULT_CFG = BASE_DIR + "default-innerlight.ini"
 
-opt_short = "hVP:g:d:T:c:L:D:"
-opt_long = ["help", "version", "port", "pidgenerator", "piddriver", "test", "config", "led", "defaultcfg"]
+WEB_ROOT_DIR = curdir
+
+opt_short = "hVP:g:d:T:c:L:D:p:R:"
+opt_long = ["help", "version", "port", "pidgenerator", "piddriver", "test", "config", "led", "defaultcfg", "pid", "webroot"]
 
 def show_version():
   print INNER_LIGHT_WEB_VERSION
@@ -40,11 +44,13 @@ def show_help():
   print ""
   print "  -c config        config file (default", IL_INI, ")"
   print "  -D defconfig     default config file (default", DEFAULT_CFG, ")"
+  print "  -p pid           pid file for this process (defaut", ILW_PID_FN, ")"
   print "  -g pidgenerator  pid file for generator (defaut", ILG_PID_FN, ")"
   print "  -d piddriver     pid file for driver (defaut", ILD_PID_FN, ")"
   print "  -T testled       testled file (default", IL_TESTLED, ")"
   print "  -L led           LED file (default", IL_LED,  ")"
   print "  -P port          listen port (default", PORT_NUMBER, ")"
+  print "  -R root          web root directory (default to current directory)"
   print "  -h               help (this screen)"
   print "  -V               print version and exit"
 
@@ -78,12 +84,18 @@ for x in arg:
     sys.exit(0)
   elif p == "-P":
     PORT_NUMBER = int(v)
+  elif p == "-p":
+    ILW_PID_FN = v
+  elif p == "-R":
+    WEB_ROOT_DIR = v
+
 
 def debug_print():
   print "ini:", IL_INI
   print "cfg:", DEFAULT_CFG
   print "led:", IL_LED
   print "test:", IL_TESTLED
+  print "pid", ILW_PID_FN
   print "gpid", ILG_PID_FN
   print "dpid", ILD_PID_FN
   print "port", PORT_NUMBER
@@ -144,7 +156,11 @@ def writeini(data):
   finally:
     pass
 
+  print "# sending SIGHUP to ilg (" +  str(ILG_PID_FN) + ")"
+  os.system("cat " + str(ILG_PID_FN) )
+  print ""
   os.system("/bin/kill -SIGHUP $( cat " + str(ILG_PID_FN) + " )" )
+  print "# ..."
 
 def ledreset():
   n_led = -1
@@ -165,7 +181,7 @@ def ledreset():
   print "ledreset: creating new LED file", IL_LED, "(" + str(n_led) + ")"
 
   os.system("/bin/rm -f " + IL_LED)
-  os.system( ILG_EXE + " -n " + str(n_led) + " -C -L " + IL_LED )
+  os.system( ILD_BIN + " -n " + str(n_led) + " -C -L " + IL_LED )
   os.system("/bin/kill -SIGHUP $( cat " + str(ILG_PID_FN) + " )" )
   os.system("/bin/kill -SIGHUP $( cat " + str(ILD_PID_FN) + " )" )
 
@@ -227,7 +243,10 @@ class myHandler(BaseHTTPRequestHandler):
 
         #Open the static file requested and send it
         #
-        f = open(curdir + sep + self.path) 
+
+        print "# fetching", WEB_ROOT_DIR + sep + self.path
+
+        f = open(WEB_ROOT_DIR + sep + self.path) 
         self.send_response(200)
         self.send_header('Content-type',mimetype)
         self.end_headers()
@@ -340,6 +359,10 @@ class myHandler(BaseHTTPRequestHandler):
 
 
 try:
+
+  pid = os.getpid()
+  with open(ILW_PID_FN, "w") as fp:
+    fp.write(str(pid))
 
   # Create a web server and define the handler to manage the
   # incoming request

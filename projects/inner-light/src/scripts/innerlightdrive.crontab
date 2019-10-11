@@ -1,2 +1,0 @@
-# min hour day-month month day-week cmd
-* * * * * $HOME/bin/innerlightdrive-monitor >> $HOME/data/innerlightdrive-monitor.log 2>> $HOME/data/innerlightdrive-monitor.err

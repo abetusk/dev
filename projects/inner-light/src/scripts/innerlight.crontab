@@ -1,0 +1,3 @@
+# min hour day-month month day-week cmd
+@reboot /home/pi/start-ap-managed-wifi.sh
+* * * * * $HOME/bin/inner-light-monitor >> $HOME/log/inner-light-monitor.log 2>> $HOME/log/inner-light-monitor.err
