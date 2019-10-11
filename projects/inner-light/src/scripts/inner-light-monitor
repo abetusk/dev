@@ -1,0 +1,205 @@
+#!/bin/bash
+# 
+# This is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# This is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+# 
+# You should have received a copy of the GNU Affero General Public License.
+# If not, see <https://www.gnu.org/licenses/>.
+#
+
+opt="$1"
+
+PID_DIR="/tmp"
+DATA_DIR="/tmp"
+BIN_DIR="/tmp"
+
+PID=$$
+PID_FN="${DATA_DIR}/inner-light-monitor.pid"
+
+GEN_PID_FN="${DATA_DIR}/inner-light-generator.pid"
+DRIVE_PID_FN="${DATA_DIR}/inner-light-drive.pid"
+WEB_PID_FN="${DATA_DIR}/inner-light-web.pid"
+
+GENERATOR_BIN="${BIN_DIR}/inner-light-generator"
+DRIVE_BIN="${BIN_DIR}/inner-light-drive"
+WEB_BIN="${BIN_DIR}/html/inner-light-web"
+
+LED_FN="${DATA_DIR}/innerlight.led"
+INI_FN="${DATA_DIR}/innerlight.ini"
+DEF_INI_FN="${DATA_DIR}/default_innerlight.ini"
+LED_TEST_FN="${DATA_DIR}/ledtest.txt"
+
+LOG_FN="${DATA_DIR}/innerlight.log"
+LOG_FN="/dev/stdout"
+
+OUT_GENERATOR_FN="${DATA_DIR}/generator"
+OUT_DRIVE_FN="${DATA_DIR}/drive"
+OUT_WEB_FN="${DATA_DIR}/web"
+
+ENCODER_MONITOR="${BIN_DIR}/encoder-monitor.py"
+BEATSRV="${BIN_DIR}/beatsrv_s16le"
+
+CLEAN_START=1
+
+dt=` date +'%Y-%m-%d %H:%m:%S'`
+echo "$dt: inner-light-monitor: starting"
+
+verbose_level=1
+
+sleepy=5
+run=1
+
+msgv () {
+  m="$1"
+  if [[ $verbose_level -gt 0 ]] ; then
+    dt=` date +'%Y-%m-%d %H:%m:%S'`
+    echo "$dt: inner-light-monitor:" "$m" >> $LOG_FN
+  fi
+}
+
+## first check to see if we're already running.
+## if we are, just quit.
+##
+
+if [[ -e $PID_FN ]] ; then
+  pid=`cat $PID_FN | tr -d ' \n' `
+  if [[ "$pid" != "" ]] ; then
+    ps "$pid" > /dev/null
+    r=$?
+    if [[ $r == 0 ]] ; then
+      msgv "inner-light-monitor already running, exiting"
+      exit 0
+    fi
+  fi
+
+  ## else, remove the stale pid file
+  ##
+  msgv "inner-light-monitor has stale pid file, removing"
+  rm -f $PID_FN
+fi
+
+msgv "writing pid file $PID_FN"
+echo "$PID" > $PID_FN
+
+#if [[ "$opt" != "" ]] ; then
+#  echo "exiting (debug)"
+#  exit
+#fi
+
+if [[ $CLEAN_START == 1 ]] ; then
+
+  msgv "clean start, killing processes (if they exist)"
+
+  if [[ -e $DRIVE_PID_FN ]] ; then sudo kill `cat $DRIVE_PID_FN` ; fi
+  if [[ -e $GEN_PID_FN ]] ; then kill `cat $GEN_PID_FN ` ; fi
+  if [[ -e $WEB_PID_FN ]] ; then kill `cat $WEB_PID_FN` ; fi
+
+  sudo rm -f $DRIVE_PID_FN $GEN_PID_FN $WEB_PID_FN
+
+  nled=`grep -P '^count_led=' $INI_FN | head -n1 | cut -f2 -d'='`
+
+  msgv "removing and recreating led file ($LED_FN)"
+  rm -f $LED_FN
+  $DRIVE_BIN -n $nled -C -L $LED_FN
+
+fi
+
+while [[ $run == 1 ]] ; do
+
+  msgv "heartbeat"
+
+  #######
+  # drive
+  #######
+
+  restart_drive=0
+  if [[ -e $DRIVE_PID_FN ]] ; then
+    pid=`cat $DRIVE_PID_FN`
+    ps $pid > /dev/null
+    x=$?
+    if [[ $x != 0 ]] ; then
+      restart_drive=1
+      msgv "inner-light-drive pid file found but not running"
+    fi
+  else
+    restart_drive=1
+    msgv "inner-light-drive pid file not found"
+  fi
+
+  if [[ $restart_drive == 1 ]] ; then
+    msgv "restarting inner-light-drive"
+    
+    sudo $DRIVE_BIN -c $INI_FN -L $LED_FN -p $DRIVE_PID_FN 2> $OUT_DRIVE_FN.err > $OUT_DRIVE_FN.log &
+  fi
+
+  ###########
+  # generator
+  ###########
+
+  restart_generator=0
+  if [[ -e $GEN_PID_FN ]] ; then
+    pid=`cat $GEN_PID_FN`
+    ps $pid > /dev/null
+    x=$?
+    if [[ $x != 0 ]] ; then
+      restart_generator=1
+      msgv "inner-light-generator pid file found but not running"
+    fi
+  else
+    restart_generator=1
+    msgv "inner-light-generator pid file not found"
+  fi
+
+  if [[ $restart_generator == 1 ]] ; then
+    msgv "restarting inner-light-generator"
+
+    devhw=`arecord -l | grep card | grep -o -P '^card \d+|device \d+' | cut -f2 -d' ' | tr '\n' ',' | sed 's/,$//'`
+    $GENERATOR_BIN -c $INI_FN -L $LED_FN -T $LED_TEST_FN -p $GEN_PID_FN \
+      <( arecord --device=hw:$devhw --format S16_LE --rate 44100 -c2 -t raw | $BEATSRV ) \
+      <( $ENCODER_MONITOR  ) 2> $OUT_GENERATOR_FN.err > $OUT_GENERATOR_FN.log &
+  fi
+
+  #####
+  # web
+  #####
+
+  restart_web=0
+
+  if [[ -e $WEB_PID_FN ]] ; then
+    pid=`cat $WEB_PID_FN`
+    ps $pid > /dev/null
+    x=$?
+    if [[ $x != 0 ]] ; then
+      restart_web=1
+      msgv "inner-light-web pid file found but not running"
+    fi
+  else
+    restart_web=1
+    msgv "inner-light-web pid file not found"
+  fi
+
+  if [[ $restart_web == 1 ]] ; then
+    msgv "restarting inner-light-web"
+
+    $WEB_BIN -c $INI_FN \
+      -D $DEF_INI_FN \
+      -R $DATA_DIR/html \
+      -p $WEB_PID_FN \
+      -g $GEN_PID_FN \
+      -d $DRIVE_PID_FN \
+      -T $DATA_DIR/ledtest.txt \
+      -L $LED_FN &
+  fi
+
+  sleep $sleepy
+
+done
+
+msgv "ending"
