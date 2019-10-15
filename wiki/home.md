@@ -34,3 +34,4 @@ dev
 * [Arbitrary Binary Functions](Arbitrary-Binary-Functions.md)
 * [Empirical Laws](Empirical-Laws.md)
 * [Food - CO2 emissions and water usage](Food-CO2-Water.md)
+* [SSH Recipes](SSH-Recipes.md)
