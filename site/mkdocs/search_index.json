@@ -2,12 +2,12 @@
     "docs": [
         {
             "location": "/", 
-            "text": "dev\n\n\n\n\nTextile Cheat Sheet\n\n\nScaling images, animated GIFs in Gimp\n\n\nScreenshots, Screencasts, Animated Gifs\n\n\nffmpeg Notes\n\n\nUnix-y Notes\n\n\nLattice Reduction Notes\n\n\nPS/SVG to GCode Conversion\n\n\nChange Git default 'master' branch to 'release'\n\n\nMkDocs Quickstart\n\n\nGPG Notes\n\n\nGit Notes\n\n\nShannon Entropy\n\n\nEnabling Server HTTPS\n\n\nBGZF Example\n\n\nC Project Template\n\n\nProject Organization\n\n\nKelly Criterion\n\n\nFile Naming Conventions\n\n\nLoose Standards for Command Line Options\n\n\nPCB Notes\n\n\nElements of Coding Style\n\n\nEnergy Consumption Stats\n\n\nSimple Sums\n\n\nFisher Yates Shuffle\n\n\nHalting Problem\n\n\nAssorted Small Probability Problems\n\n\nProbability Notes\n\n\nAmdahl's Law\n\n\nIs It Really Open\n\n\nNumber Theory Notes\n\n\nArbitrary Binary Functions\n\n\nEmpirical Laws\n\n\nFood - CO2 emissions and water usage", 
+            "text": "dev\n\n\n\n\nTextile Cheat Sheet\n\n\nScaling images, animated GIFs in Gimp\n\n\nScreenshots, Screencasts, Animated Gifs\n\n\nffmpeg Notes\n\n\nUnix-y Notes\n\n\nLattice Reduction Notes\n\n\nPS/SVG to GCode Conversion\n\n\nChange Git default 'master' branch to 'release'\n\n\nMkDocs Quickstart\n\n\nGPG Notes\n\n\nGit Notes\n\n\nShannon Entropy\n\n\nEnabling Server HTTPS\n\n\nBGZF Example\n\n\nC Project Template\n\n\nProject Organization\n\n\nKelly Criterion\n\n\nFile Naming Conventions\n\n\nLoose Standards for Command Line Options\n\n\nPCB Notes\n\n\nElements of Coding Style\n\n\nEnergy Consumption Stats\n\n\nSimple Sums\n\n\nFisher Yates Shuffle\n\n\nHalting Problem\n\n\nAssorted Small Probability Problems\n\n\nProbability Notes\n\n\nAmdahl's Law\n\n\nIs It Really Open\n\n\nNumber Theory Notes\n\n\nArbitrary Binary Functions\n\n\nEmpirical Laws\n\n\nFood - CO2 emissions and water usage\n\n\nSSH Recipes", 
             "title": "Home"
         }, 
         {
             "location": "/#dev", 
-            "text": "Textile Cheat Sheet  Scaling images, animated GIFs in Gimp  Screenshots, Screencasts, Animated Gifs  ffmpeg Notes  Unix-y Notes  Lattice Reduction Notes  PS/SVG to GCode Conversion  Change Git default 'master' branch to 'release'  MkDocs Quickstart  GPG Notes  Git Notes  Shannon Entropy  Enabling Server HTTPS  BGZF Example  C Project Template  Project Organization  Kelly Criterion  File Naming Conventions  Loose Standards for Command Line Options  PCB Notes  Elements of Coding Style  Energy Consumption Stats  Simple Sums  Fisher Yates Shuffle  Halting Problem  Assorted Small Probability Problems  Probability Notes  Amdahl's Law  Is It Really Open  Number Theory Notes  Arbitrary Binary Functions  Empirical Laws  Food - CO2 emissions and water usage", 
+            "text": "Textile Cheat Sheet  Scaling images, animated GIFs in Gimp  Screenshots, Screencasts, Animated Gifs  ffmpeg Notes  Unix-y Notes  Lattice Reduction Notes  PS/SVG to GCode Conversion  Change Git default 'master' branch to 'release'  MkDocs Quickstart  GPG Notes  Git Notes  Shannon Entropy  Enabling Server HTTPS  BGZF Example  C Project Template  Project Organization  Kelly Criterion  File Naming Conventions  Loose Standards for Command Line Options  PCB Notes  Elements of Coding Style  Energy Consumption Stats  Simple Sums  Fisher Yates Shuffle  Halting Problem  Assorted Small Probability Problems  Probability Notes  Amdahl's Law  Is It Really Open  Number Theory Notes  Arbitrary Binary Functions  Empirical Laws  Food - CO2 emissions and water usage  SSH Recipes", 
             "title": "dev"
         }, 
         {
@@ -1199,6 +1199,21 @@
             "location": "/Food-CO2-Water/#2019-04-02", 
             "text": "", 
             "title": "2019-04-02"
+        }, 
+        {
+            "location": "/SSH-Recipes/", 
+            "text": "SSH Recipes\n\n\n\n\n\n\n\n\nCommand\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\nssh -L local:local.host:remote remote.host\n\n\nTunnel port \nlocal\n on \nlocal.host\n to \nremote\n port on \nremote.host\n\n\n\n\n\n\nssh -R remote:local.host:local remote.host\n\n\nTunnel port \nremote\n on \nremote.host\n to \nlocal\n port on \nlocal.host\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nExample\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\nssh -L 8080:localhost:80 user@remote.host\n\n\nSend port \n8080\n connections on \nlocalhost\n to port \n80\n on \nremote.host\n\n\n\n\n\n\nssh -R 2222:localhost:22 user@remote.host\n\n\nSend port \n2222\n connections on \nremote.host\n to port \n22\n locally (ssh redirection from remote to local)\n\n\n\n\n\n\n\n\n2019-09-24", 
+            "title": "SSH Recipes"
+        }, 
+        {
+            "location": "/SSH-Recipes/#ssh-recipes", 
+            "text": "Command  Description      ssh -L local:local.host:remote remote.host  Tunnel port  local  on  local.host  to  remote  port on  remote.host    ssh -R remote:local.host:local remote.host  Tunnel port  remote  on  remote.host  to  local  port on  local.host        Example  Description      ssh -L 8080:localhost:80 user@remote.host  Send port  8080  connections on  localhost  to port  80  on  remote.host    ssh -R 2222:localhost:22 user@remote.host  Send port  2222  connections on  remote.host  to port  22  locally (ssh redirection from remote to local)", 
+            "title": "SSH Recipes"
+        }, 
+        {
+            "location": "/SSH-Recipes/#2019-09-24", 
+            "text": "", 
+            "title": "2019-09-24"
         }
     ]
 }

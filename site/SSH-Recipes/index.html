@@ -66,43 +66,44 @@
       </header>
       <section>
 
-        <h2 id="dev">dev</h2>
-<ul>
-<li><a href="./Textile-Cheat-Sheet">Textile Cheat Sheet</a></li>
-<li><a href="./Image-Resize">Scaling images, animated GIFs in Gimp</a></li>
-<li><a href="./Screenshots-Screencasts-Animated-Gifs">Screenshots, Screencasts, Animated Gifs</a></li>
-<li><a href="./ffmpeg-notes">ffmpeg Notes</a></li>
-<li><a href="./Unix-y-notes">Unix-y Notes</a></li>
-<li><a href="./lattice-reduction">Lattice Reduction Notes</a></li>
-<li><a href="./GCode-Conversion">PS/SVG to GCode Conversion</a></li>
-<li><a href="./Git-Rename-Master">Change Git default 'master' branch to 'release'</a></li>
-<li><a href="MkDocs-Quickstart/">MkDocs Quickstart</a></li>
-<li><a href="GPG-Notes/">GPG Notes</a></li>
-<li><a href="Git-Notes/">Git Notes</a></li>
-<li><a href="Shannon-Entropy/">Shannon Entropy</a></li>
-<li><a href="Enabling-Server-HTTPS/">Enabling Server HTTPS</a></li>
-<li><a href="BGZF-Example/">BGZF Example</a></li>
-<li><a href="C-Project-Template/">C Project Template</a></li>
-<li><a href="Project-Organization/">Project Organization</a></li>
-<li><a href="Kelly-Criterion/">Kelly Criterion</a></li>
-<li><a href="File-Naming-Conventions/">File Naming Conventions</a></li>
-<li><a href="Command-Line-Option-Loose-Standard/">Loose Standards for Command Line Options</a></li>
-<li><a href="PCB-Notes/">PCB Notes</a></li>
-<li><a href="Coding-Style/">Elements of Coding Style</a></li>
-<li><a href="Energy-Consumption-Stats/">Energy Consumption Stats</a></li>
-<li><a href="Simple-Sum/">Simple Sums</a></li>
-<li><a href="Fisher-Yates-Shuffle/">Fisher Yates Shuffle</a></li>
-<li><a href="Halting-Problem/">Halting Problem</a></li>
-<li><a href="Assorted-Small-Probability-Problems/">Assorted Small Probability Problems</a></li>
-<li><a href="Probability-Notes/">Probability Notes</a></li>
-<li><a href="Amdahls-Law/">Amdahl's Law</a></li>
-<li><a href="Is-It-Really-Open/">Is It Really Open</a></li>
-<li><a href="Number-Theory-Notes/">Number Theory Notes</a></li>
-<li><a href="Arbitrary-Binary-Functions/">Arbitrary Binary Functions</a></li>
-<li><a href="Empirical-Laws/">Empirical Laws</a></li>
-<li><a href="Food-CO2-Water/">Food - CO2 emissions and water usage</a></li>
-<li><a href="SSH-Recipes/">SSH Recipes</a></li>
-</ul>
+        <h1 id="ssh-recipes">SSH Recipes</h1>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ssh -L local:local.host:remote remote.host</code></td>
+<td>Tunnel port <code>local</code> on <code>local.host</code> to <code>remote</code> port on <code>remote.host</code></td>
+</tr>
+<tr>
+<td><code>ssh -R remote:local.host:local remote.host</code></td>
+<td>Tunnel port <code>remote</code> on <code>remote.host</code> to <code>local</code> port on <code>local.host</code></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ssh -L 8080:localhost:80 user@remote.host</code></td>
+<td>Send port <code>8080</code> connections on <code>localhost</code> to port <code>80</code> on <code>remote.host</code></td>
+</tr>
+<tr>
+<td><code>ssh -R 2222:localhost:22 user@remote.host</code></td>
+<td>Send port <code>2222</code> connections on <code>remote.host</code> to port <code>22</code> locally (ssh redirection from remote to local)</td>
+</tr>
+</tbody>
+</table>
+<h6 id="2019-09-24">2019-09-24</h6>
 
       </section>
 
