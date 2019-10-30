@@ -32,6 +32,7 @@
 
 #include <getopt.h>
 #include <unistd.h>
+#include <dirent.h>
 
 #include <string>
 #include <vector>
@@ -57,6 +58,7 @@ void show_help_and_exit(FILE *fp) {
   fprintf(fp, "  -n <led_count>       number of LEDs (default %i)\n", INNER_LIGHT_DRIVER_DEFAULT_LED_COUNT);
   fprintf(fp, "  -c <config>          use <config> file (default '%s')\n", INNER_LIGHT_DRIVER_DEFAULT_CONFIG_FILE);
   fprintf(fp, "  -T <ledtest>         LED test file to use (monitor and test for existence, default '%s')\n", INNER_LIGHT_DRIVER_DEFAULT_LEDTEST_FILE);
+  fprintf(fp, "  -I <imgdir>          PNG directory (default %s)\n", INNER_LIGHT_GENERATOR_DEFAULT_IMAGE_DIR);
   fprintf(fp, "  -p <pidfile>         pidfile (default '%s')\n", INNER_LIGHT_DRIVER_DEFAULT_PID_FILE);
   fprintf(fp, "  -F                   force mmap'd LED file to be created on startup (default is to reuse pre-existing mmap'd LED file)\n");
   fprintf(fp, "  -C                   create mmap'd LED file and exit\n");
@@ -70,7 +72,6 @@ void show_help_and_exit(FILE *fp) {
 }
 
 void show_version_and_exit(FILE *fp) {
-  //fprintf(fp, "inner-light-generator version");
   fprintf(fp, "%s\n", _VERSION);
   if (fp==stdin) { exit(0); }
   exit(1);
@@ -289,6 +290,44 @@ int inner_light_mode_type::process_tap(void) {
     }
   }
   
+  return 0;
+}
+
+int inner_light_mode_type::tick_image(void) {
+  int i, _idx, _f, _w, _h, _s;
+
+  if (m_img_data.size() == 0) { return 0; }
+
+  for (i=0; i<m_count_led; i++) {
+    m_rgb_buf[3*i+1] = 0;
+    m_rgb_buf[3*i+2] = 0;
+    m_rgb_buf[3*i+3] = 0;
+  }
+
+  if (m_img_idx >= m_img_data.size()) {
+    m_img_idx %= m_img_data.size();
+  }
+
+  _idx = m_img_idx;
+  _f = m_img_frame;
+  _w = m_img_dim[2*_idx];
+  _h = m_img_dim[2*_idx+1];
+  _s = m_img_stride;
+
+  if (m_img_frame < 0)   { m_img_frame = 0; }
+  if (m_img_frame >= _h) { m_img_frame %= _h; }
+
+  for (i=0; i<_w; i++) {
+    if (i >= m_count_led) { break; }
+
+    m_rgb_buf[3*i+1] = m_img_data[_f][ 3*(_w*_f + i) ];
+    m_rgb_buf[3*i+2] = m_img_data[_f][ 3*(_w*_f + i) + 1 ];
+    m_rgb_buf[3*i+3] = m_img_data[_f][ 3*(_w*_f + i) + 2 ];
+  }
+
+  m_img_frame += m_img_frame_step;
+  m_img_frame %= _h;
+
   return 0;
 }
 
@@ -1183,10 +1222,11 @@ int inner_light_mode_type::tick(void) {
     case _MODE_FILL:        r = tick_fill();        break;
     case _MODE_STROBE:      r = tick_strobe();      break;
     case _MODE_NOISE:       r = tick_noise();       break;
+    case _MODE_IMAGE:       r = tick_image();       break;
     case _MODE_PULSE:       r = tick_pulse();       break;
     case _MODE_RAINBOW:     r = tick_rainbow();     break;
     case _MODE_TRANSITION:  r = tick_transition();  break;
-    case _MODE_LEDTEST:     r = tick_ledtest();  break;
+    case _MODE_LEDTEST:     r = tick_ledtest();     break;
 
     default:
       r = -1;
@@ -1548,6 +1588,50 @@ void sighup_handler(int signo) {
   if (signo==SIGHUP) { g_reload=1; }
 }
 
+int inner_light_mode_type::load_image_dir(void) {
+  int i;
+  DIR *dp;
+  FILE *fp;
+  struct dirent *ep;
+  std::string _fn;
+  unsigned int err;
+
+  unsigned char *_data;
+  unsigned int _width, _height;
+
+  dp = opendir(m_img_dir.c_str());
+  if (dp == NULL) { return -1; }
+
+  for (i=0; i<m_img_data.size(); i++) {
+    free(m_img_data[i]);
+  }
+
+  m_img_fn.clear();
+  m_img_data.clear();
+  m_img_dim.clear();
+
+  while (ep = readdir(dp)) {
+    _fn = m_img_dir;
+    _fn += "/";
+    _fn += ep->d_name;
+
+    err = lodepng_decode24_file(&_data, &_width, &_height, _fn.c_str());
+    if (err) {
+      printf("_load_image_dir: error %i, lodepng_decode24_file: %s, ignoring\n", err, lodepng_error_text(err));
+      continue;
+    }
+
+    m_img_fn.push_back(_fn);
+    m_img_data.push_back(_data);
+    m_img_dim.push_back(_width);
+    m_img_dim.push_back(_height);
+  }
+
+  (void)closedir(dp);
+
+  return 0;
+}
+
 // Reload the config file
 //
 int _reload(void) {
@@ -1561,14 +1645,14 @@ int _reload(void) {
   ret = g_mode.m_config.load_config( g_mode.m_config_fn );
   if (ret<0) {
     fprintf(stderr, "_reload: Couldn't read config file %s, ignoreing and moving on\n", g_mode.m_config_fn.c_str());
-    fprintf(stdout, "_reload: Couldn't read config file %s, ignoreing and moving on\n", g_mode.m_config_fn.c_str());
+    //fprintf(stdout, "_reload: Couldn't read config file %s, ignoreing and moving on\n", g_mode.m_config_fn.c_str());
   }
   else {
 
     if ((g_mode.m_config.m_count_led < 1) ||
         (g_mode.m_config.m_count_led > 1024)) {
       fprintf(stderr, "_reload: g_mode.m_config.m_count_led out of range (%i). giving up\n", (int)g_mode.m_config.m_count_led);
-      exit(-1);
+      return -1;
     }
 
     g_mode.m_mode = g_mode.m_config.m_mode;
@@ -1586,7 +1670,6 @@ int _reload(void) {
       }
 
       printf("_reload: m_count_led now %i\n", (int)g_mode.m_count_led);
-
     }
 
     g_mode.update_led_map();
@@ -1597,6 +1680,10 @@ int _reload(void) {
     unlink(g_mode.m_ledtest_fn.c_str());
   }
 
+  ret = g_mode.load_image_dir();
+  if (ret != 0) {
+    fprintf(stderr, "_reload: trouble loading image directory %s, got %i\n", g_mode.m_img_dir.c_str(), ret);
+  }
 
   printf("_reload: mode now %i tap %f?\n", g_mode.m_mode, (float)g_mode.m_tap_bpm);
 
@@ -1621,9 +1708,10 @@ int write_pid_file(std::string &pid_fn) {
 
 int main(int argc, char **argv) {
   float dt;
-  int ch;
+  int i, ch, maxfd=0;
   int option_index;
   std::string beat_fn, encoder_fn, config_fn, ledtest_fn, pid_fn;
+  std::string img_dir;
   int beat_fd, encoder_fd;
 
   fd_set active_fds, read_fds;
@@ -1633,9 +1721,6 @@ int main(int argc, char **argv) {
   ssize_t n_read;
   size_t buf_sz = 1024;
   char buf[1024];
-
-  int maxfd = 0;
-  int i;
 
   int led_count = 60*3;
 
@@ -1648,7 +1733,7 @@ int main(int argc, char **argv) {
 
   std::string led_fn = INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE;
 
-  while ((ch=getopt_long(argc, argv, "vVhi:L:n:c:p:T:F", _longopt, &option_index)) >= 0) {
+  while ((ch=getopt_long(argc, argv, "vVhi:L:n:c:p:T:FI:", _longopt, &option_index)) >= 0) {
     switch(ch) {
       case 0:
         break;
@@ -1666,6 +1751,10 @@ int main(int argc, char **argv) {
 
       case 'F':
         force_run_no_bound_check=1;
+        break;
+
+      case 'I':
+        img_dir = optarg;
         break;
 
       case 'p':
@@ -1720,6 +1809,15 @@ int main(int argc, char **argv) {
       perror(beat_fn.c_str());
       exit(-1);
     }
+  }
+
+  //--
+
+  if (img_dir.size() == 0) {
+    g_mode.m_img_dir = INNER_LIGHT_GENERATOR_DEFAULT_IMAGE_DIR;
+  }
+  else {
+    g_mode.m_img_dir = img_dir;
   }
 
   //--

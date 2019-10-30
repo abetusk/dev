@@ -11,6 +11,7 @@ import os
 import json
 import getopt
 import sys
+import re
 
 INNER_LIGHT_WEB_VERSION = "0.1.0"
 
@@ -21,6 +22,7 @@ BASE_DIR = "/tmp/"
 IL_INI = BASE_DIR + "innerlight.ini"
 IL_TESTLED = BASE_DIR + "ledtest.txt"
 IL_LED = BASE_DIR + "innerlight.led"
+IL_IMG_DIR = BASE_DIR + "img/"
 
 ILD_BIN = BASE_DIR + "inner-light-drive"
 ILG_BIN = BASE_DIR + "inner-light-generator"
@@ -33,8 +35,8 @@ DEFAULT_CFG = BASE_DIR + "default-innerlight.ini"
 
 WEB_ROOT_DIR = curdir
 
-opt_short = "hVP:g:d:T:c:L:D:p:R:"
-opt_long = ["help", "version", "port", "pidgenerator", "piddriver", "test", "config", "led", "defaultcfg", "pid", "webroot"]
+opt_short = "hVP:g:d:T:c:L:D:p:R:I:"
+opt_long = ["help", "version", "port", "pidgenerator", "piddriver", "test", "config", "led", "defaultcfg", "pid", "webroot", "imgdir"]
 
 def show_version():
   print INNER_LIGHT_WEB_VERSION
@@ -49,6 +51,7 @@ def show_help():
   print "  -d piddriver     pid file for driver (defaut", ILD_PID_FN, ")"
   print "  -T testled       testled file (default", IL_TESTLED, ")"
   print "  -L led           LED file (default", IL_LED,  ")"
+  print "  -I imgdir        image direcotry (default", IL_IMG_DIR,  ")"
   print "  -P port          listen port (default", PORT_NUMBER, ")"
   print "  -R root          web root directory (default to current directory)"
   print "  -h               help (this screen)"
@@ -88,6 +91,8 @@ for x in arg:
     ILW_PID_FN = v
   elif p == "-R":
     WEB_ROOT_DIR = v
+  elif p == "-I":
+    IL_IMG_DIR = v
 
 
 def debug_print():
@@ -202,6 +207,26 @@ def configreq():
       dat[kv[0]] = kv[1]
   return dat
 
+def imgreq():
+  dat = {}
+
+  print "imgreq:", IL_IMG_DIR
+
+  png = []
+
+  fns = os.listdir(IL_IMG_DIR)
+  for fn in fns:
+    if re.search('\.png$', fn):
+      png.append(fn)
+
+  dat = {}
+  dat["files"] = png
+
+  print ">>", json.dumps(dat);
+
+  return dat
+
+
 #This class will handles any incoming request from
 #the browser 
 class myHandler(BaseHTTPRequestHandler):
@@ -279,6 +304,15 @@ class myHandler(BaseHTTPRequestHandler):
       self.end_headers()
       self.wfile.write("ok")
       return
+
+    if self.path=="/imgreq":
+      dat = imgreq()
+      dat_str = json.dumps(dat)
+
+      self.send_response(200)
+      self.end_headers()
+      self.wfile.write(dat_str)
+      pass
 
     if self.path=="/config":
 

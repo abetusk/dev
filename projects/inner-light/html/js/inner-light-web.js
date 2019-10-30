@@ -23,13 +23,13 @@ var g_uiData  = {
     "solidColor", "noise",
     "tapPulse", "tapBullet", "tapStrobe",
     "micPulse", "micBullet", "micStrobe",
-    "fill", "strobe", "pulse", "rainbow"
+    "fill", "image", "strobe", "pulse", "rainbow"
   ],
   "mode_name" : [
     "solid_color", "noise",
     "tap_pulse", "tap_bullet", "tap_strobe",
     "mic_pulse", "mic_bullet", "mic_strobe",
-    "fill", "strobe", "pulse", "rainbow"
+    "fill", "image", "strobe", "pulse", "rainbow"
   ],
 
   "mode_name_map" : {
@@ -42,13 +42,15 @@ var g_uiData  = {
     "mic_bullet" : "micBullet",
     "mic_strobe" : "micStrobe",
     "fill" : "fill",
+    "image" : "image",
     "strobe"  : "strobe",
     "pulse" : "pulse",
     "rainbow" : "rainbow"
   }
 };
 
-var BASE_URL = "http://192.168.0.110:8080";
+//var BASE_URL = "http://192.168.0.110:8080";
+var BASE_URL = "http://localhost:8080";
 
 var g_innerlight = {
 
@@ -61,6 +63,7 @@ var g_innerlight = {
   "url_led_test" : BASE_URL + "/ledtest",
   "url_led_reset" : BASE_URL + "/ledreset",
   "url_config_req" : BASE_URL + "/config",
+  "url_image_req" : BASE_URL + "/image",
 
   "led" : {
     "count_collar_left" : 15,
@@ -174,6 +177,7 @@ var g_innerlight = {
     "tapBullet": "tap_bullet",
     "tapStrobe": "tap_strobe",
     "fill": "fill",
+    "image": "image",
     "strobe": "strobe",
     "pulse": "pulse",
     "rainbow": "rainbow",
@@ -198,6 +202,7 @@ var g_innerlight = {
     "mic_bullet": { "fg" : "", "bg" : "" },
     "mic_strobe": { "fg" : "", "bg" : "" },
     "fill" : { "speed" : -1 },
+    "image" : { "speed" : -1, "file" : "", "files":[] },
     "strobe" : { "fg" : "", "bg" : "", "speed" : -1 },
     "pulse" : { "fg" : "", "bg" : "", "speed" : -1 }
   },
@@ -214,6 +219,7 @@ var g_innerlight = {
     "mic_bullet": { "fg" : "ffffff", "bg" : "000000" },
     "mic_strobe": { "fg" : "ffffff", "bg" : "000000" },
     "fill" : { "speed" : 0.25 },
+    "image" : { "speed" : 1.0, "file" : "", "files": [] },
     "strobe" : { "fg" : "ffffff", "bg" : "000000", "speed" : 0.25 },
     "pulse" : { "fg" : "ffffff", "bg" : "000000", "speed" : 0.25 }
   },
@@ -308,6 +314,9 @@ function _update_config(data_str) {
   var subfields = [
     "fill.speed",
 
+    "image.speed",
+    "image.file",
+
     "noise.preset_index",
     "noise.brightness",
     "noise.palette",
@@ -391,6 +400,27 @@ function _update_config(data_str) {
     }
   }
 
+}
+
+function _send_imgreq() {
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", g_innerlight.url_image_req, true);
+  xhr.setRequestHeader('Content-Type', "application/x-www-form-urlencoded; charset=UTF-8" );
+  xhr.send();
+
+  xhr.onreadystatechange = function() {
+    if ((this.readyState==4) && (this.status==200)) {
+      dat = JSON.parse(xhr.responseText);
+      if ("files" in dat) {
+        g_innerlight.mode_option["image"]["files"] = [];
+        for (var idx = 0; idx < dat.files.length; idx++) {
+          g_innerlight.mode_option["image"]["files"].push(dat.files[idx]);
+        }
+      }
+      _init(true);
+    }
+
+  };
 }
 
 function _send_cfgreq() {
@@ -1550,13 +1580,6 @@ function _construct_led_layout(use_preexisting_led_map) {
 
   // Here, "start" is at the collar position 0
   //
-  /*
-  var start_right = n_right-1, dir_right = -1;
-  var start_left = n_right, dir_left = 1;
-  var _left_idx = start_left,
-      _right_idx = start_right;
-  */
-
   var start_right = n_left, dir_right = 1;
   var start_left = n_left-1, dir_left = -1;
   var _left_idx = start_left,
@@ -1573,8 +1596,6 @@ function _construct_led_layout(use_preexisting_led_map) {
     var n = n0;
     if (n < n1) { n = n1; }
 
-    //console.log("rgni", region, n0, n1, n);
-
     var _region_div = document.createElement("div");
     _region_div.style.border = "2px solid #cccccc";
     _region_div.style["padding"] = "10px";
@@ -1586,7 +1607,6 @@ function _construct_led_layout(use_preexisting_led_map) {
     _region_div.appendChild(_divrowheading1(region));
 
     for (var _ii=0; _ii<n; _ii++) {
-      //console.log(">>", region, _left_idx, _right_idx);
 
       var ltxt = region + " " + _ii + " (" + _left_idx + ")" ;
       var rtxt = region + " " + _ii + " (" + _right_idx + ")" ;
@@ -1600,14 +1620,9 @@ function _construct_led_layout(use_preexisting_led_map) {
 
       if (_ii < n0) { _left_idx += dir_left; }
       if (_ii < n1) { _right_idx += dir_right; }
-
-
-      //if ((typeof idx0 === "undefined") || (typeof idx1 === "undefined")) { console.log(">>", _r); }
-
     }
 
     parent.appendChild(_region_div);
-
   }
 
   var ele = {};
@@ -1736,12 +1751,16 @@ function _slider_change(_mode) {
     g_innerlight.mode_option.noise.brightness= val;
 
     _color_preset(g_innerlight.mode_option.noise.preset_index, "ui_noise_color");
-
   }
 
   else if (_mode == "rainbow") {
     var val = document.getElementById("ui_rainbow_slider").value;
     g_innerlight.mode_option.rainbow.speed = val;
+  }
+
+  else if (_mode == "image") {
+    var val = document.getElementById("ui_image_slider").value;
+    g_innerlight.mode_option.image.speed = val;
   }
 
 }
@@ -1758,13 +1777,12 @@ function _init(use_preexisting_led_map) {
   g_innerlight.url_led_test = BASE_URL + "/ledtest";
   g_innerlight.url_led_reset = BASE_URL + "/ledreset";
   g_innerlight.url_config_req =  BASE_URL + "/config";
-
+  g_innerlight.url_image_req =  BASE_URL + "/imgreq";
 
   var ui_modename = g_innerlight.mode;
   if (g_innerlight.mode in g_uiData.mode_name_map) {
     ui_modename = g_uiData.mode_name_map[ g_innerlight.mode ];
   }
-
 
   // Default select current mode
   //
@@ -1779,12 +1797,8 @@ function _init(use_preexisting_led_map) {
     _el.setAttribute("data-page-name", "ui_" + ui_modename);
     _el = document.getElementById("ui_mode_config0");
     _el.setAttribute("data-page-name", "ui_" + ui_modename);
-
-
   }
-  else {
-    //console.log("???", g_innerlight.mode, ele);
-  }
+  else { }
 
   ele = document.getElementById("ui_tap_bpm");
   ele.innerHTML = g_innerlight.tap_bpm.toString().slice(0,6);
@@ -1829,7 +1843,6 @@ function _init(use_preexisting_led_map) {
     })(mode);
 
   }
-
 
   // setup color pickers
   //

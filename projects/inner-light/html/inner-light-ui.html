@@ -175,6 +175,20 @@
 
       </div>
 
+      <div class='pure-g rowH'>
+
+        <div class='pure-u-1-3 col'>
+        </div>
+
+        <div class='pure-u-1-3 col'>
+          <button id='ui_mode_image' class='bdropinp bkeyHuge'>image</button>
+        </div>
+
+        <div class='pure-u-1-3 col'>
+        </div>
+
+      </div>
+
 
       <div class='pure-g rowH'>
 
@@ -2145,19 +2159,19 @@
 
     <!-- -->
 
-    <div id='ui_pngupload' class='page' data-jquery-page-name='ui_pngupload'>
+    <div id='ui_image' class='page' data-jquery-page-name='ui_image'>
 
       <br>
       <div class='pure-g rowH'>
 
         <div class='pure-u-1-3 col'>
           <button class='bdropinp bkeyMedium navigate'
-            data-page-name='ui_main' data-page-trans="slide-in-from-top" > ^ </button>
+            data-page-name='ui_main' data-page-trans="slide-in-from-left" > &lt; </button>
         </div>
 
 
         <div class='pure-u-1-3 col'>
-          <span style='font-size:3em; font-weight:bold; color:#555555;'>PNG Upload</span>
+          <span style='font-size:3em; font-weight:bold; color:#555555;'>Image Upload</span>
         </div>
 
         <div class='pure-u-1-3 col'>
@@ -2168,7 +2182,54 @@
       <!-- -->
 
 
-    </div>
+      <hr class='style12'>
+
+      <br>
+      <br>
+
+      <div class='pure-g row'>
+
+        <div class='pure-u-1-2 col'>
+          <span style='font-size:2em; font-weight:bold; color:#555555;'>Speed</span>
+        </div>
+
+        <div class='pure-u-1-2 col'>
+          <input
+            id='ui_image_slider'
+            type='range'
+            value='120'
+            min="60"
+            max="260"
+            step="1"
+            onchange='_slider_change("image");'
+            oninput='_slider_change("image");' >
+        </div>
+
+      </div>
+
+      <!-- -->
+
+      <hr class='style12'>
+
+      <br>
+
+      <div class='pure-g rowH' >
+        <div class='pure-u-1-3 col'></div>
+        <div class='pure-u-1-3 col'>
+          <button class='bdropinp bkeyHuge' onclick='_mode_commit("x");' >Commit</button>
+        </div>
+        <div class='pure-u-1-3 col'></div>
+      </div>
+
+
+      <br>
+      <hr class='style5'>
+      <br>
+
+
+    </div> <!-- image -->
+
+    <!-- -->
 
     </div>
     </div>

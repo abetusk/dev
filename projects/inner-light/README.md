@@ -358,13 +358,15 @@ $ sudo bash
 $ sudo bash
 # pip3 install rpi_ws281x adafruit-circuitpython-neopixel
 # cat > pixel_example.py <<EOF
+#/usr/bin/python3
 import board
 import neopixel
+import time
 pixels = neopixel.NeoPixel(board.D18, 30)
 pixels[0] = (255, 0, 0)
 for x in range(0, 9):
   pixels[x] = (255, 0, 0)
-  sleep(1)
+  time.sleep(1)
 pixels.fill((0,255,0))
 
 ```

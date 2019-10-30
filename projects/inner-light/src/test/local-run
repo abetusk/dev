@@ -21,9 +21,10 @@ ledfn="/tmp/innerlight.led"
 ledtest="/tmp/ledtest.txt"
 cfgfn="/tmp/innerlight.ini"
 pidfn="/tmp/inner-light-generator.pid"
+imgdir="/tmp/img"
 
-echo "../inner-light-generator/inner-light-generator -L $ledfn -T $ledtest -c $cfgfn -p $pidfn <( ../mode-manager/rando-inp ) encoder-pipe"
-../inner-light-generator/inner-light-generator -n 183 -L $ledfn -T $ledtest -c $cfgfn -p $pidfn <( ../mode-manager/rando-inp ) encoder-pipe
+echo "../inner-light-generator/inner-light-generator -L $ledfn -T $ledtest -c $cfgfn -p $pidfn -I $imgdir <( ../mode-manager/rando-inp ) encoder-pipe"
+../inner-light-generator/inner-light-generator -n 183 -L $ledfn -T $ledtest -c $cfgfn -p $pidfn -I $imgdir <( ../mode-manager/rando-inp ) encoder-pipe
 
 
 #../inner-light-generator/inner-light-generator -L ./innerlight.led  -T ../../html/ledtest.txt <( ../mode-manager/rando-inp ) encoder-pipe

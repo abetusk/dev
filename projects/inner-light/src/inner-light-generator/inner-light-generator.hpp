@@ -40,15 +40,17 @@
 #include <vector>
 
 #include "simplexnoise1234.h"
+#include "lodepng.h"
 
 //#define INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE "/home/pi/data/innerlight.led"
 #define INNER_LIGHT_DRIVER_DEFAULT_MAP_FILE "./innerlight.led"
 #define INNER_LIGHT_DRIVER_DEFAULT_CONFIG_FILE "./innerlight.ini"
 #define INNER_LIGHT_DRIVER_DEFAULT_PID_FILE "./inner-light-generator.pid"
 #define INNER_LIGHT_DRIVER_DEFAULT_LEDTEST_FILE "./ledtest.txt"
+#define INNER_LIGHT_GENERATOR_DEFAULT_IMAGE_DIR "./img"
 #define INNER_LIGHT_DRIVER_DEFAULT_LED_COUNT 190
 
-#define _VERSION "0.1.0"
+#define _VERSION "0.2.0"
 
 enum inner_light_mode_state {
   _MODE_SOLID = 0,
@@ -58,6 +60,7 @@ enum inner_light_mode_state {
   _MODE_TAP_STROBE,
 
   _MODE_NOISE,
+  _MODE_IMAGE,
   _MODE_FILL,
   _MODE_STROBE,
   _MODE_PULSE,
@@ -238,6 +241,15 @@ typedef struct inner_light_mode_type {
 
   //---
 
+  std::string m_img_dir;
+  std::vector< std::string > m_img_fn;
+  std::vector< unsigned char * > m_img_data;
+  std::vector< unsigned int > m_img_dim;
+  unsigned int m_img_stride;
+  int m_img_idx;
+  int m_img_frame;
+  int m_img_frame_step;
+
   std::string m_led_fn;
   int m_led_fd;
   int m_led_mmap;
@@ -403,6 +415,8 @@ typedef struct inner_light_mode_type {
     m_rainbow_p = 0;
 
     m_transition_v = 0;
+
+    m_img_stride = 3;
   }
 
 
@@ -499,6 +513,7 @@ typedef struct inner_light_mode_type {
   int tick_solid_color(void);
 
   int tick_noise(void);
+  int tick_image(void);
 
   int tick_fill(void);
   int tick_strobe(void);
@@ -523,6 +538,8 @@ typedef struct inner_light_mode_type {
   int process_encoder(int);
 
   int process_tap(void);
+
+  int load_image_dir(void);
 
 } inner_light_mode_t;
 
