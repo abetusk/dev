@@ -1,6 +1,10 @@
 Inner Light
 ===
 
+| | |
+|---|---|
+| ![action](img/jacket-anim.gif) | ![blurry pic](img/jack-blur.png) |
+
 1. [Intro](#Intro)
 2. [Materials](#Materials)
 3. [Design Overview](#design-overview)
