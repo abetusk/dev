@@ -1,4 +1,4 @@
-Inner Light
+Inner Light Jacket
 ===
 
 ![action](img/jacket-anim.gif)
@@ -72,6 +72,7 @@ Materials
 | Jacket | | $50 | [Amazon](https://www.amazon.com/gp/product/B01GKGWBCM) [Ebay](ebay.com/itm/Olivia-Miller-Womens-Faux-Leather-Moto-Biker-Jacket-with-Pockets/283175170552) |
 | Velcro (non-sticky backed, 0.25 inch width, black) | | $13 | [Amazon](https://www.amazon.com/dp/B07PZS5D1W) |
 | Curved Upholstery Hand Needles | | $5 | [Amazon](amazon.com/Dritz-9020-Curved-Upholstery-Needle/dp/B0009V0V5E) [Ebay](ebay.com/itm/7pcs-Curved-Carpet-Leather-Sewing-Needles-Upholstery-Canvas-Hand-Repair-New-Hot/254354399362) |
+| Thimble | | $6 | [Amazon](amazon.com/Thimble-Protector-Adjustable-Quilting-Accessories/dp/B076ZFQ7KN) |
 | Heavy Thread | | $10 | [Amazon](amazon.com/dp/B07QW8GZF2/ref=twister_B07QX5KR31) [Ebay](ebay.com/itm/69-92-138-Bonded-Nylon-Sewing-Thread-For-Outdoor-Leather-Upholstery-Canvas/254295021529) |
 | Heat Shrink Tubing | | $8 | [Amazon](amazon.com/Ginsco-580-pcs-Assorted-Sleeving/dp/B01MFA3OFA) [Ebay](ebay.com/itm/280pcs-Cable-Heat-Shrink-Tubing-Sleeve-Wire-Wrap-Tube-2-1-Assortment-Kit-Box-Set/401747169106?) |
 | Solder | | $15 | [Amazon](amazon.com/Rosin-Core-Solder-60-4oz/dp/B0006O933K) [Ebay](ebay.com/itm/60-40-Tin-Lead-Rosin-Core-Solder-Wire-Soldering-Sn60-Pb40-Flux-039-1-0mm-50g/372474772922) |
@@ -159,6 +160,141 @@ All code is free/libre source and can be downloaded from [Github](https://github
 
 LED Rope Assembly
 ---
+
+### Test Rope
+
+Before cut and assembly, each LED "rope" should be tested.
+We found that many times the LED "rope" were faulty.
+After each LED "rope" has been tested, proceed to measuring and cutting.
+
+### Cut to Length
+
+There are six LED "rope" segments in total:
+
+* Two cuffs
+* Two lapels
+* One collar
+* One Waist
+
+The waist is a full 1m LED rope.
+If the waist on your jacket is smaller than 1 meter, the LED "rope" can be cut to length.
+The lapels are cut to size with a 45 degree angle cut into the silicone at the ends.
+The collar is also cut to size with a 45 degree angle cut.
+
+The cuffs are cut to size with a slight taper at the ends to help with wrapping around the wrists.
+
+Four total segments are needed as the collar and two cuffs can't be taken from the excess of the
+lapels.
+Even though the total length of the LED "rope" is about three meters, four meters of source LED
+"rope" are needed.
+
+Each jacket size will be different so measuring out which segments need how much length should
+be done with care to make sure the segments can be fit and sewn onto the jacket.
+
+To cut the silicone, first remove the end strain relief on both ends.
+Once the strain relief has been removed, pull the LED strip out.
+Cut the silicone tube to the desired length.
+
+Once the silicone tube has been cut, cut the LED strip, making sure to leave two extra
+LEDs in length, one extra LED at each end.
+When possible, try to cut the LED strip to leave an already connected connection at one
+end.
+
+### Sew Velcro to LED Rope
+
+Each of the segments has a strip of non-adhesive velcro sewn into the side.
+Though not necessary, it's probably  preferable to have the 'stiff' side of the velcro sewn
+onto the LED segments and the 'soft' side of the velcro sewn into the jacket.
+
+To sew the non-adhesive velcro into the LED silicone, use the curved upholstery needle with
+the heavy duty thread.
+To push the needle through the silicone and the velcro requires a large deal of force that
+will quickly destroy human fingers.
+To help push the upholstery needle through, use the thimble to get leverage on the needle
+to push it through.
+
+A spacing of about 0.5 inches should be used, with an 'X' pattern to ensure equal distribution
+of force.
+When choosing which side the velcro should go on, remeber that the lit portion of the LED "rope"
+should be facing 'away' from the interior of the jacket.
+For the collar, this means the LED "rope" should be pointing upwards, the lapels 'outwards',
+the waist 'down' and the cuffs 'out'.
+The side of the LED "rope" to sew velcro on should be chosen appropriately.
+
+For any cut segment, an extension connector needs to be soldered on and attached.
+Directionality is important so care has to be taken to ensure the proper connector
+orientation.
+
+For each connector soldered on, heat shrink tubing should be appled to the solder points
+to help keep the solder joint in place and to minimize live wire exposure.
+
+To help with strain, a single LED 'pixel' at either end of the waist, lapel, collar and cuff segments
+are folded back and sewn into the silicone.
+A common failure is for the connector to fray off so the doubling over of the LED strip itself that
+can be sewn back into the silicone housing helps prevent this fraying and provides extra support.
+
+The extra LED that is folded over will still output light and might have undesirable light 'bleeding'.
+One option is to cover it with tape or paint but the LED can just as easily be deactivated in software,
+which is the route we took to make sure the extra LEDs weren't actiavted during normal run.
+
+To sew the extra LED that is folded over for structural support, a small slit should be cut
+on the end of the LED "rope" to allow the extra LED strip to be inserted in and sewn on.
+
+The collar and lapel segments join each other where the 45 degree angle had been cut into the silicone.
+To make sure the joining region stays aligned, sew the collar to both of the lapel segments.
+
+### Sew Velcro to Jacket
+
+The complementary pair of the velcro should be sewn into the jacket edge.
+To minimize the sew line being noticeable from the outside, sewing on the seam should be preferred.
+
+### Wire LED Rope
+
+Once each of the segments have been sewn with velcro, sewn to each other and the jacket sewn
+with velcro, the LED strips can be wired together.
+
+The three 5V 10A buck converters will be used to power the LED strips by trying to evenly distribute
+the power among all of the segments.
+One buck converter will be used to power one lapel and collar, another buck converter will be used
+to power the other lapel and both cuffs and the last buck converter will be used to power the waist
+segment.
+
+The LED strip connectors have three wires, one for power, another for 'data' and another for ground.
+Each of the data lines for the LED strips need to be hooked up in series and
+all LED strips need to have their ground lines hooked to each other.
+
+The power line needs to be disconnected when a contiguous string of LEDs is powered from one
+buck converter but connects to another segment that is powered by another buck converter
+This means that for the left lapel and collar that are powered by one buck converter, say,
+they need to share a power line but for the collar that connects to the right lapel, say,
+this power line needs to be cut as the right lapel is receiving power from another buck converter.
+
+JST SM connectors are used for power as they are oriented, which prevents reversing polarity,
+and locking, which prevents disconnections.
+For LED segments that powered from the same buck converter, they can receive their power
+from the 3 wire connector.
+
+For the LED segment that are receiving power from the buck converters, they connect to
+the buck converter with a JST SM connector.
+As a reminder, and LED "rope" segment that receives it's power from a buck converter
+should have it's power line cut on it's incoming 3 wire connector.
+In other words, any LED "rope" segment that receives power from a buck converter directly
+should only be receiving data and ground lines from the previous strip, if connected.
+
+Once all the LED "rope" segments are connected, it's a good idea to test them, either
+all at the same time or each continuous set of segments individually.
+
+Electronics
+---
+
+The electronics portion consist of a Raspberry Pi Zero W connected to two encoders.
+The Raspberry Pi Zero W is powered through a smaller buck converter, also known as a BEC.
+All buck converters, the three powering the LED "ropes" and the BEC powering the Raspberry
+Pi Zero W, are powered from an 11.1V 5.5A LiPo battery.
+
+The 11.1V 5.5A LiPo battery is connected to a cable distribution through a fuse and power
+button.
+
 
 References
 ---
