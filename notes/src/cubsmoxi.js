@@ -699,7 +699,7 @@ function ex_1_4_sample() {
   }
 
   var score = ex_1_4(M);
-  console.log("# score", score);
+  console.log("# exercise 1.4 score", score);
   melody_to_sonicpi(M);
 
 
@@ -711,5 +711,354 @@ function ex_1_4_sample() {
 //-------------
 //-------------
 
+
+function ex_1_5(M) {
+  var valid_notes = ["d4", "e4", "f4", "g4", "a4", "b4", "c5", "d5"];
+  var beats_per_measure = 8;
+  var valid_rhythm = [[2,1,1,4]];
+  var vrs = [['s',';','s','s','s','.','.',';']];
+  var measure_rep = [1,3];
+  var measure_range = [6,8];
+
+  var vrs_idx = [];
+  for (var i=0; i<valid_rhythm.length; i++) { vrs_idx.push(0); }
+
+  var stride = beats_per_measure * 1;
+  var dtune = discritize_tune(M.tune, beats_per_measure, 1);
+  var m = dtune.length;
+
+  // Check measure length in range
+  //
+  var _actual_measure = dtune.length / stride;
+  if ((_actual_measure < measure_range[0]) ||
+      (_actual_measure > measure_range[1])) {
+    return -1;
+  }
+
+  if (check_rhythm(M, valid_rhythm, beats_per_measure, 1)!=0) {
+    return -1;
+  }
+
+  var start_note = normalize_note(M.tune[0].note);
+  var end_note = normalize_note(M.tune[ M.tune.length-1 ].note);
+  if (start_note != end_note) {
+    return -1;
+  }
+
+  if (start_note != valid_notes[0]) { return -1; }
+  if (end_note != valid_notes[0]) { return -1; }
+
+  var ret = 0;
+  var n_rep = dtune_measure_repetition_count(dtune, stride);
+  if ((n_rep >= measure_rep[0]) &&
+      (n_rep <= measure_rep[1])) { ret += n_rep; }
+  else if (n_rep > measure_rep[1]) { ret += measure_rep[1]; }
+
+  return ret;
+}
+
+function ex_1_5_sample() {
+  var valid_notes = ["d4", "e4", "f4", "g4", "a4", "b4", "c5", "d5"];
+  var beats_per_measure = 8;
+  var valid_rhythm = [[2,1,1,4]];
+  var measure_rep = [1,3];
+  var measure_range = [6,6];
+
+  var nmeasure = _irand(measure_range[0], measure_range[1]+1);
+  var nrep = _irand(measure_rep[0], measure_rep[1]+1);
+
+  var meas = [];
+
+  var M = newMelody();
+  M.beats_per_measure = beats_per_measure;
+
+  // use pigeonhole to get repetitions
+  //
+  var nmeaslib = nmeasure - nrep;
+  var meas_lib = [];
+
+  for (var ii=0; ii<nmeaslib; ii++) {
+    var meas = [];
+    var r_idx = _irand(valid_rhythm.length);
+    for (var jj=0; jj<valid_rhythm[r_idx].length; jj++) {
+      var note = valid_notes[_irand(valid_notes.length)];
+      var dur = valid_rhythm[r_idx][jj];
+      meas.push({ "note":note, "dur":dur });
+    }
+
+    // force c4 as root of first measure, c4 as end of last measure.
+    // assume first measure is meas_lib[0] and last measure is
+    // meas_lib[ n-1 ].
+    //
+
+    if (ii==0) { meas[0].note = valid_notes[0]; }
+    if (ii==(nmeaslib-1)) { meas[ meas.length-1 ].note = valid_notes[0]; }
+
+    meas_lib.push(meas);
+  }
+
+  for (var ii=0; ii<nmeasure; ii++) {
+    var m_idx = _irand(meas_lib.length);
+    if (ii==0) { m_idx=0; }
+    if (ii==(nmeasure-1)) { m_idx = meas_lib.length-1; }
+
+    for (var jj=0; jj<meas_lib[m_idx].length; jj++) {
+      M.tune.push( meas_lib[m_idx][jj] );
+    }
+  }
+
+  var score = ex_1_5(M);
+  console.log("# exercise 1.5 score", score);
+  melody_to_sonicpi(M);
+
+
+}
+
+//ex_1_5_sample();
+
+//-------------
+//-------------
+//-------------
+
+
+function ex_1_6(M) {
+  var valid_notes = ["e4", "f4", "g4", "a4", "b4", "c5", "d5", "e5"];
+  var beats_per_measure = 8;
+  var valid_rhythm = [[2,1,1,2,2], [2,2,4] ];
+  var vrs = [
+    ['s',';','s','s','s',';','s',';'],
+    ['s',';','s',';','s','.','.',';']
+  ];
+  var measure_rep = [1,3];
+  var measure_range = [6,8];
+
+  var vrs_idx = [];
+  for (var i=0; i<valid_rhythm.length; i++) { vrs_idx.push(0); }
+
+  var stride = beats_per_measure * 1;
+  var dtune = discritize_tune(M.tune, beats_per_measure, 1);
+  var m = dtune.length;
+
+  // Check measure length in range
+  //
+  var _actual_measure = dtune.length / stride;
+  if ((_actual_measure < measure_range[0]) ||
+      (_actual_measure > measure_range[1])) {
+    return -1;
+  }
+
+  if (check_rhythm(M, valid_rhythm, beats_per_measure, 1)!=0) {
+    return -1;
+  }
+
+  var start_note = normalize_note(M.tune[0].note);
+  var end_note = normalize_note(M.tune[ M.tune.length-1 ].note);
+  if (start_note != end_note) {
+    return -1;
+  }
+
+  if (start_note != valid_notes[0]) { return -1; }
+  if (end_note != valid_notes[0]) { return -1; }
+
+  var ret = 0;
+  var n_rep = dtune_measure_repetition_count(dtune, stride);
+  if ((n_rep >= measure_rep[0]) &&
+      (n_rep <= measure_rep[1])) { ret += n_rep; }
+  else if (n_rep > measure_rep[1]) { ret += measure_rep[1]; }
+
+  return ret;
+}
+
+function ex_1_6_sample() {
+  var valid_notes = ["e4", "f4", "g4", "a4", "b4", "c5", "d5", "e5"];
+  var beats_per_measure = 8;
+  var valid_rhythm = [[2,1,1,2,2], [2,2,4]];
+  var measure_rep = [1,3];
+  var measure_range = [6,10];
+
+  var nmeasure = _irand(measure_range[0], measure_range[1]+1);
+  var nrep = _irand(measure_rep[0], measure_rep[1]+1);
+
+  var meas = [];
+
+  var M = newMelody();
+  M.beats_per_measure = beats_per_measure;
+
+  // use pigeonhole to get repetitions
+  //
+  var nmeaslib = nmeasure - nrep;
+  var meas_lib = [];
+
+  for (var ii=0; ii<nmeaslib; ii++) {
+    var meas = [];
+    var r_idx = _irand(valid_rhythm.length);
+    for (var jj=0; jj<valid_rhythm[r_idx].length; jj++) {
+      var note = valid_notes[_irand(valid_notes.length)];
+      var dur = valid_rhythm[r_idx][jj];
+      meas.push({ "note":note, "dur":dur });
+    }
+
+    if (ii==0) { meas[0].note = valid_notes[0]; }
+    if (ii==(nmeaslib-1)) { meas[ meas.length-1 ].note = valid_notes[0]; }
+
+    meas_lib.push(meas);
+  }
+
+  for (var ii=0; ii<nmeasure; ii++) {
+    var m_idx = _irand(meas_lib.length);
+    if (ii==0) { m_idx=0; }
+    if (ii==(nmeasure-1)) { m_idx = meas_lib.length-1; }
+
+    for (var jj=0; jj<meas_lib[m_idx].length; jj++) {
+      M.tune.push( meas_lib[m_idx][jj] );
+    }
+  }
+
+  var score = ex_1_6(M);
+  console.log("# exercise 1.6 score", score);
+  melody_to_sonicpi(M);
+
+
+}
+
+//ex_1_6_sample();
+
+//-------------
+//-------------
+//-------------
+
+
+// wip.
+// percussive
+// disallow beats:
+//   - full measure note
+//   - '' . . .
+//   - '' , , ,
+//   - . . ''
+//   - , , , , ''
+// no full measure pause
+// balance long and shor tin a measure
+//
+function ex_1_7(M) {
+  /*
+  var valid_notes = ["c4"];
+  var beats_per_measure = 8;
+  var valid_rhythm = [[2,1,1,2,2], [2,2,4] ];
+  var vrs = [
+    ['s',';','s','s','s',';','s',';'],
+    ['s',';','s',';','s','.','.',';']
+  ];
+  var measure_rep = [1,3];
+  var measure_range = [8,12];
+
+  var vrs_idx = [];
+  for (var i=0; i<valid_rhythm.length; i++) { vrs_idx.push(0); }
+
+  var stride = beats_per_measure * 1;
+  var dtune = discritize_tune(M.tune, beats_per_measure, 1);
+  var m = dtune.length;
+
+  // Check measure length in range
+  //
+  var _actual_measure = dtune.length / stride;
+  if ((_actual_measure < measure_range[0]) ||
+      (_actual_measure > measure_range[1])) {
+    return -1;
+  }
+
+  if (check_rhythm(M, valid_rhythm, beats_per_measure, 1)!=0) {
+    return -1;
+  }
+
+  var ret = 0;
+  var n_rep = dtune_measure_repetition_count(dtune, stride);
+  if ((n_rep >= measure_rep[0]) &&
+      (n_rep <= measure_rep[1])) { ret += n_rep; }
+  else if (n_rep > measure_rep[1]) { ret += measure_rep[1]; }
+
+  return ret;
+  */
+  return -1;
+}
+
+function ex_1_7_sample() {
+  /*
+  var valid_notes = ["e4", "f4", "g4", "a4", "b4", "c5", "d5", "e5"];
+  var beats_per_measure = 8;
+  var valid_rhythm = [[2,1,1,2,2], [2,2,4]];
+  var measure_rep = [1,3];
+  var measure_range = [6,10];
+
+  var nmeasure = _irand(measure_range[0], measure_range[1]+1);
+  var nrep = _irand(measure_rep[0], measure_rep[1]+1);
+
+  var meas = [];
+
+  var M = newMelody();
+  M.beats_per_measure = beats_per_measure;
+
+  // use pigeonhole to get repetitions
+  //
+  var nmeaslib = nmeasure - nrep;
+  var meas_lib = [];
+
+  for (var ii=0; ii<nmeaslib; ii++) {
+    var meas = [];
+    var r_idx = _irand(valid_rhythm.length);
+    for (var jj=0; jj<valid_rhythm[r_idx].length; jj++) {
+      var note = valid_notes[_irand(valid_notes.length)];
+      var dur = valid_rhythm[r_idx][jj];
+      meas.push({ "note":note, "dur":dur });
+    }
+
+    if (ii==0) { meas[0].note = valid_notes[0]; }
+    if (ii==(nmeaslib-1)) { meas[ meas.length-1 ].note = valid_notes[0]; }
+
+    meas_lib.push(meas);
+  }
+
+  for (var ii=0; ii<nmeasure; ii++) {
+    var m_idx = _irand(meas_lib.length);
+    if (ii==0) { m_idx=0; }
+    if (ii==(nmeasure-1)) { m_idx = meas_lib.length-1; }
+
+    for (var jj=0; jj<meas_lib[m_idx].length; jj++) {
+      M.tune.push( meas_lib[m_idx][jj] );
+    }
+  }
+
+  var score = ex_1_6(M);
+  console.log("# exercise 1.6 score", score);
+  melody_to_sonicpi(M);
+
+  */
+}
+
+//ex_1_7_sample();
+
+
+
+//-------------
+//-------------
+//-------------
+
+
+function ex_2_1(M) {
+  var diatonic_chords = [
+    ["c4", "e4", "g4"],
+    ["d4", "f4", "a4"],
+    ["e4", "g4", "b4"],
+    ["f4", "a4", "c5"],
+    ["g4", "b4", "d5"],
+    ["a4", "c5", "e5"],
+    ["b4", "d5", "f5"]  ];
+
+  // fmin, a g#min, db, bmin
+}
+
+function ex_2_1_sample() {
+}
+
+//ex_2_1_sample();
 
 
