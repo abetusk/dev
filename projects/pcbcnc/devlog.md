@@ -169,3 +169,10 @@ M3 S7000
 M5 S0
 ```
 
+---
+
+I'm still workign on height probing but the following command is probably what I want:
+
+```
+G38.2 Z-2.5 F1
+```
