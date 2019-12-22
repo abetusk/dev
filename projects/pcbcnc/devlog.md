@@ -40,11 +40,12 @@ to have all four anchor points connect to the Arduino/GRBL shield connect to the
 
 I labelled the axies on the board with a sharpie.
 
-![img/cnc1610-basic-pinout.png](basic pinout for the Arduino/GRBL board that comes with the cnc1610)
+![basic pinout for the Arduino/GRBL board that comes with the cnc1610](img/cnc1610-basic-pinout.png)
 
-![img/cnc1610-grbl0.9-board-layout.jpg](board equivalent overview)
 
-![img/cnc1610-grbl0.9-board-layout2.jpg](board equivalent overview)
+![board equivalent overview](img/cnc1610-grbl0.9-board-layout.jpg)
+
+![board equivalent overview](img/cnc1610-grbl0.9-board-layout2.jpg)
 
 From [gne/grbl issue #123](https://github.com/gnea/grbl/issues/123#issuecomment-279131776), the pinout looks to be the following (though this should be double checked):
 
