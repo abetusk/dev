@@ -120,3 +120,52 @@ $130=100.000 (x max travel, mm)
 $131=100.000 (y max travel, mm)
 $132=30.000 (z max travel, mm)
 ```
+
+2019-12-22
+---
+
+To test limit switches, set the `$10` variable appropriately:
+
+```
+$10=16
+```
+
+From the [GRBL wiki](https://github.com/grbl/grbl/wiki/Configuring-Grbl-v0.9#10---status-report-maskbinary):
+
+| Report Type | Value |
+|---|---|
+| Machine Position | 1|
+| Work Position | 2 |
+| Planner Buffer | 4 |
+| RX Buffer | 8 |
+| Limit Pins | 16 |
+
+Once I had confidence the limit switches were working, I put it through the homing cycle after turning on limit switches and enabling the homing cycle:
+
+```
+$21=1
+ok
+$22=1
+ok
+$H
+ok
+$10=1
+```
+
+I'm still having trouble getting the bounding box of work to be correct. No matter which direction setting I choose, it wants the x,y and z axis to all be negative.
+
+---
+
+I put the collet on using a clamp to press it on.
+The collet (ER11) was slightly too small and so had to be press fit.
+
+---
+
+One of the EBay listings reports that the motor is 7k rpm.
+To start and stop the motor:
+
+```
+M3 S7000
+M5 S0
+```
+
