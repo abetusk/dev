@@ -176,3 +176,12 @@ I'm still workign on height probing but the following command is probably what I
 ```
 G38.2 Z-2.5 F1
 ```
+
+2020-01-09
+---
+
+![bounds](img/pcbcnc-bounds.png)
+
+I'm using M5 bolts with washers and channel nuts to fasten a piece of FR4 down.
+
+The next task is to generate and run some calibration patterns as well as to run a script to generate a height map. 
