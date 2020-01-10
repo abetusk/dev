@@ -40,11 +40,12 @@ to have all four anchor points connect to the Arduino/GRBL shield connect to the
 
 I labelled the axies on the board with a sharpie.
 
-![img/cnc1610-basic-pinout.png](basic pinout for the Arduino/GRBL board that comes with the cnc1610)
+![basic pinout for the Arduino/GRBL board that comes with the cnc1610](img/cnc1610-basic-pinout.png)
 
-![img/cnc1610-grbl0.9-board-layout.jpg](board equivalent overview)
 
-![img/cnc1610-grbl0.9-board-layout2.jpg](board equivalent overview)
+![board equivalent overview](img/cnc1610-grbl0.9-board-layout.jpg)
+
+![board equivalent overview](img/cnc1610-grbl0.9-board-layout2.jpg)
 
 From [gne/grbl issue #123](https://github.com/gnea/grbl/issues/123#issuecomment-279131776), the pinout looks to be the following (though this should be double checked):
 
@@ -118,4 +119,60 @@ $122=10.000 (z accel, mm/sec^2)
 $130=100.000 (x max travel, mm)
 $131=100.000 (y max travel, mm)
 $132=30.000 (z max travel, mm)
+```
+
+2019-12-22
+---
+
+To test limit switches, set the `$10` variable appropriately:
+
+```
+$10=16
+```
+
+From the [GRBL wiki](https://github.com/grbl/grbl/wiki/Configuring-Grbl-v0.9#10---status-report-maskbinary):
+
+| Report Type | Value |
+|---|---|
+| Machine Position | 1|
+| Work Position | 2 |
+| Planner Buffer | 4 |
+| RX Buffer | 8 |
+| Limit Pins | 16 |
+
+Once I had confidence the limit switches were working, I put it through the homing cycle after turning on limit switches and enabling the homing cycle:
+
+```
+$21=1
+ok
+$22=1
+ok
+$H
+ok
+$10=1
+```
+
+I'm still having trouble getting the bounding box of work to be correct. No matter which direction setting I choose, it wants the x,y and z axis to all be negative.
+
+---
+
+I put the collet on using a clamp to press it on.
+The collet (ER11) was slightly too small and so had to be press fit.
+
+---
+
+One of the EBay listings reports that the motor is 7k rpm.
+To start and stop the motor:
+
+```
+M3 S7000
+M5 S0
+```
+
+---
+
+I'm still workign on height probing but the following command is probably what I want:
+
+```
+G38.2 Z-2.5 F1
 ```
