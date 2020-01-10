@@ -71,6 +71,18 @@ git push origin :x-branch
 git fetch ; git reset --hard origin/release
 ```
 
+### Move Local Changes to New Branch
+
+```bash
+git branch newbranch
+git reset --hard origin/master
+git checkout newbranch
+```
+
+Create a branch but don't switch to it.
+Remove local commits back to `origin/master`.
+Now switch to the new branch and continue work.
+
 ### Comparing Changes
 
 Local changes since last commit:
@@ -144,5 +156,18 @@ git clone --recursive https://github.com/user/repo
 ```bash
 git submodule update --init --recursive
 ```
+
+### Applying Inverse
+
+Create (add) a new commit that applies the inverse operation of the given `<SHA>`.
+
+```bash
+git revert <SHA>
+```
+
+References
+---
+
+* [How to undo (almost) anything with Git](https://web.archive.org/web/20191226044920/https://github.blog/2015-06-08-how-to-undo-almost-anything-with-git/)
 
 ###### 2017-02-10
