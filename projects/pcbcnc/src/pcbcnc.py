@@ -150,13 +150,22 @@ def interpolate_gcode(gcode, pnts_xy, pnts_z):
   unit = "mm"
   cur_x, cur_y, cur_z  = 0, 0, 0
   z_pos = 'up'
+  z_pos_prv = z_pos
 
   z_threshold = 0.0
-  z_plunge_inch = -0.003
+  z_plunge_inch = -0.006
   z_plunge_mm = z_plunge_inch * 25.4
 
   lines = []
 
+  z_leeway = 1
+  z_ub = pnts_z[0]
+
+  g1_feed = 30
+
+  for idx in range(len(pnts_z)):
+    if z_ub < pnts_z[idx]: z_ub = pnts_z[idx]
+  z_ub += z_leeway
 
   for line in gcode["lines"]:
     line = line.strip()
@@ -187,9 +196,6 @@ def interpolate_gcode(gcode, pnts_xy, pnts_z):
       g_mode = m.group(1)
       l = m.group(2)
 
-      #print "( g_mode now", g_mode, ")"
-      #lines.append("( g_mode now " + str(g_mode) + ")")
-
     m = re.match('.*[xX]\s*(-?\d+(\.\d+)?)', l)
     if m:
       is_move = 1
@@ -211,23 +217,23 @@ def interpolate_gcode(gcode, pnts_xy, pnts_z):
         z_pos = 'down'
 
     if is_move and (not g_mode):
-      #print "ERROR: g_mode not initialized"
       return None
 
     if not is_move:
-      #print l
       lines.append(l)
       continue
 
     if (z_pos == 'up'):
       #print "G" + str(g_mode), l
-      lines.append("G" + str(g_mode) + " " + str(l))
+      #lines.append("G" + str(g_mode) + " " + str(l))
+      lines.append("G" + str(g_mode) + " Z{0:.8f}".format(z_ub))
     elif (z_pos == 'down'):
+
       interpolated_z = griddata(pnts_xy, pnts_z, (cur_x, cur_y), method='linear')
 
       if np.isnan(interpolated_z):
-        sys.stderr("ERROR: NaN at "  + str(cur_x) + " " + str(cur_y))
-        sys.stdout("ERROR: NaN at "  + str(cur_x) + " " + str(cur_y))
+        sys.stderr.write("ERROR: NaN at "  + str(cur_x) + " " + str(cur_y))
+        sys.stdout.write("ERROR: NaN at "  + str(cur_x) + " " + str(cur_y))
         sys.stderr.flush()
         sys.stdout.flush()
         sys.exit(-5)
@@ -245,8 +251,15 @@ def interpolate_gcode(gcode, pnts_xy, pnts_z):
       x_f = float(cur_x)
       y_f = float(cur_y)
 
+      if z_pos_prv == "up":
+        lines.append("G0 X{0:.8f}".format(x_f) + " Y{0:.8f}".format(y_f) +  " Z{0:.8f}".format(z_ub))
+
       #print "G" + g_mode, "X{0:.8f}".format(x_f), "Y{0:.8f}".format(y_f), "Z{0:.8f}".format(interpolated_z)
-      lines.append("G" + str(g_mode) +  " X{0:.8f}".format(x_f) + " Y{0:.8f}".format(y_f) +  " Z{0:.8f}".format(interpolated_z))
+      #lines.append("G" + str(g_mode) +  " X{0:.8f}".format(x_f) + " Y{0:.8f}".format(y_f) +  " Z{0:.8f}".format(interpolated_z))
+      lines.append("G" + str(g_mode) +  " X{0:.8f}".format(x_f) + " Y{0:.8f}".format(y_f) +  " Z{0:.8f}".format(interpolated_z) + " F{0:.8f}".format(g1_feed))
+
+    z_pos_prv = z_pos
+
   return lines
 
 _gc = read_gcode_file(gcode_file)
@@ -267,17 +280,11 @@ if height_map_file is not None:
 
       pnts.append( [ float(v[0]), float(v[1]), float(v[2]) ] )
 
-  #pnts_xy = np.zeros(( len(pnts), 2))
-  #pnts_z = np.zeros((len(pnts)))
-  #for idx in range(len(pnts)):
-  #  pnts_xy[ idx, 0 ] = pnts[idx][0]
-  #  pnts_xy[ idx, 1 ] = pnts[idx][1]
-  #  pnts_z[idx] = pnts[idx][2]
 else:
 
-  if dry_run:
-    sys.stderr.write("cannot probe height when in dry run (provide height map file if you want to test this)\n")
-    sys.exit(-1)
+  #if dry_run:
+  #  sys.stderr.write("cannot probe height when in dry run (provide height map file if you want to test this)\n")
+  #  sys.exit(-1)
 
   grid_margin = 1.0
 
@@ -302,45 +309,47 @@ else:
     var = grbl.wait_for_var_position('z', z_ub)
     if verbose: print "# got:", var
 
-  _pnts = []
+  _pntsxy = []
   _y = yminmax[0]
   while _y <= yminmax[1]:
     _x = xminmax[0]
     while _x <= xminmax[1]:
-      _pnts.append( [_x, _y] )
+      _pntsxy.append( [_x, _y] )
       _x += dx
-    _pnts.append( [xminmax[1], _y] )
+    _pntsxy.append( [xminmax[1], _y] )
     _y += dy
 
   _y = yminmax[1]
   _x = xminmax[0]
   while _x <= xminmax[1]:
-    _pnts.append( [_x, _y] )
+    _pntsxy.append( [_x, _y] )
     _x += dx
+  _pntsxy.append( [xminmax[1], _y] )
 
-  for idx in range(len(_pnts)):
+  #for idx in range(len(_pntsxy)):
+  #  print _pntsxy[idx][0], _pntsxy[idx][1]
+  #sys.exit(1)
 
-    if verbose: print "# grid:", _pnts[idx][0], _pnts[idx][1]
+  for idx in range(len(_pntsxy)):
+
+    if verbose: print "# grid:", _pntsxy[idx][0], _pntsxy[idx][1]
     if not dry_run:
 
       x = grbl.send_command("g0 z" + str(z_ub))
       var = grbl.wait_for_var_position('z', z_ub)
 
-      x = grbl.send_command("g0 x" + str(_pnts[idx][0]) + " y" + str(_pnts[idx][1]))
-      var = grbl.wait_for_var_position('x', _pnts[idx][0])
-      var = grbl.wait_for_var_position('y', _pnts[idx][1])
+      x = grbl.send_command("g0 x" + str(_pntsxy[idx][0]) + " y" + str(_pntsxy[idx][1]))
+      var = grbl.wait_for_var_position('x', _pntsxy[idx][0])
+      var = grbl.wait_for_var_position('y', _pntsxy[idx][1])
 
-      if verbose: print "# height probe:", _pnts[idx][0], _pnts[idx][1], z_lb, fz
+      if verbose: print "# height probe:", _pntsxy[idx][0], _pntsxy[idx][1], z_lb, fz
       x = grbl.send_command("g38.2 z" + str(z_lb) + " f" + str(fz))
-      #if verbose: print "# got:", 
       lines = x.split("\n")
       vals = lines[0].split(":")[1].split(",")
-      #print "#", lines[0]
-      #print vals[0], vals[1], vals[2]
       pnts.append( [ float(vals[0]), float(vals[1]), float(vals[2]) ] )
 
-    x = grbl.send_command("g0 z" + str(z_ub))
-    if verbose: print "# got:", x
+      x = grbl.send_command("g0 z" + str(z_ub))
+      if verbose: print "# got:", x
 
 for _p in pnts:
   print "( grid:", _p[0], _p[1], _p[2], ")"
@@ -355,15 +364,31 @@ for idx in range(len(pnts)):
 _gc_lerp_lines = interpolate_gcode(_gc, pnts_xy, pnts_z)
 
 if verbose:
-  print "( ", _gc["min_x"], _gc["max_x"], _gc["min_y"], _gc["max_y"], ")"
+  print "( minmax", _gc["min_x"], _gc["max_x"], _gc["min_y"], _gc["max_y"], ")"
   for l in _gc_lerp_lines:
     print l
 
-cprint("\nREADY TO CUT, REMOVE PROBE AND PRESS ENTER TO CONTINUE", "red", attrs=['blink'])
+sys.stdout.write("\n#### ")
+cprint("READY TO CUT, REMOVE PROBE AND PRESS ENTER TO CONTINUE", "red", attrs=['blink'])
 sys.stdout.flush()
 sys.stdin.readline()
 
 if not dry_run:
-  print "( ... )"
-  pass
+
+  grbl.send_command("M3 S7000")
+
+  for line in _gc_lerp_lines:
+    line = line.strip()
+    if len(line)==0: continue
+    if line[0] == '#': continue
+    if line[0] == '(': continue
+
+    print("## sending:", line)
+    sys.stdout.flush()
+    r = grbl.send_command(line)
+    print "### got:", r
+    sys.stdout.flush()
+
+  grbl.send_command("M5 S0")
+
 
