@@ -16,6 +16,7 @@ import serial
 import re
 import math
 import time
+import sys
 
 
 # default values 
@@ -25,9 +26,10 @@ baud = 115200
 grbl_serial = None
 sleepy = 0.05
 var_epsilon = 0.005
+infn = None
 
-verbose = False
-#verbose = True
+#verbose = False
+verbose = True
 
 def setup( dev = device, b = baud ):
   global device 
@@ -183,7 +185,8 @@ if __name__ == "__main__":
   parser.add_argument("-B", "--baud", help="Set baud rate (default 9600)", nargs = 1, default=[baud], type=int)
   parser.add_argument("-D", "--device", help="Set device (default /dev/ttyUSB0)", nargs = 1, default=[device] )
   parser.add_argument("-v", "--verbose", help="Set verbose mode", default=verbose, action='store_true')
-  parser.add_argument("command", help="Command to send GRBL", nargs="+" )
+  parser.add_argument("-f", "--file", help="input file", nargs=1, type=str)
+  parser.add_argument("command", help="Command to send GRBL", nargs="*" )
 
   args = parser.parse_args()
 
@@ -193,6 +196,14 @@ if __name__ == "__main__":
     device = args.device[0]
   if hasattr(args, 'verbose'):
     verbose = args.verbose
+  if hasattr(args, 'file'):
+    infn = args.file[0]
+
+  if infn is None and len(args.command)==0:
+    print ""
+    parser.print_help()
+    print ""
+    sys.exit(-1)
 
   if verbose:
     print "baud:", baud
@@ -200,15 +211,27 @@ if __name__ == "__main__":
 
   setup(device, baud)
 
-  print "setup done..."
+  #print "setup done..."
 
   v = send_initial_command("")
-  print "got", v
+  #print "got", v
 
-  for cmd in args.command:
-    print "sending command", cmd
-    print send_command(cmd)
+  if infn is not None:
+    with open(infn, "r") as fp:
+      for line in fp:
+        line = line.strip()
+        if verbose:
+          print "sending command", line
+        send_command(line)
 
-  print "tearing down..."
+  else:
+
+    for cmd in args.command:
+      if verbose:
+        print "sending command", cmd
+      print send_command(cmd)
+
+  if verbose:
+    print "tearing down..."
 
   teardown()

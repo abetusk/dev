@@ -68,7 +68,7 @@ Materials
 | Fuse Holder (18Ga) | | $8 | [Amazon](amazon.com/KOLACEN-Automotive-Holder-Regular-Standard/dp/B07C5JGFRH) |
 | Fuse (blade, 10A) | |  $20 | [Amazon](amazon.com/EPAuto-AE-009-1-Pieces-Assorted-Standard/dp/B01DYQ5T3O) [Ebay](ebay.com/itm/220-Pcs-Car-Blade-Fuse-Assortment-Assorted-Kit-Blade-Set-Auto-Truck-Automotive/303300580187) |
 | SPST Rocker Switch (prewired) | | $10 | [Amazon](amazon.com/COOLOOdirect-Solder-Rocker-Switch-Toggle/dp/B071Y7SMVQ) |
-| XT30 Connectors (2 pair) | | $10 | [Amazon](amazon.com/Female-Connector-150mm-Silicone-Battery/dp/B073WWWMQP) [Ebay](ebay.com/itm/4pcs-XT30-Plug-Male-Female-Connector-Silicone-Wire-for-RC-LiPo-Battery-FPV-Drone/383041434902) |
+| XT60 Connectors (2 pair) | | $8 | [Amazon](https://www.amazon.com/Female-Connector-Housing-Silicon-Battery/dp/B073QJWVVK) |
 | Jacket | | $50 | [Amazon](https://www.amazon.com/gp/product/B01GKGWBCM) [Ebay](ebay.com/itm/Olivia-Miller-Womens-Faux-Leather-Moto-Biker-Jacket-with-Pockets/283175170552) |
 | Velcro (non-sticky backed, 0.25 inch width, black) | | $13 | [Amazon](https://www.amazon.com/dp/B07PZS5D1W) |
 | Curved Upholstery Hand Needles | | $5 | [Amazon](amazon.com/Dritz-9020-Curved-Upholstery-Needle/dp/B0009V0V5E) [Ebay](ebay.com/itm/7pcs-Curved-Carpet-Leather-Sewing-Needles-Upholstery-Canvas-Hand-Repair-New-Hot/254354399362) |
@@ -200,6 +200,41 @@ LEDs in length, one extra LED at each end.
 When possible, try to cut the LED strip to leave an already connected connection at one
 end.
 
+### Solder Connectors to LED Rope Ends
+
+For the LED rope that was cut, there will be an end of the LED strip that will be without a
+connector.
+These ends need to have a connector soldered onto them to allow for power input, where
+appropriate, and for data communication from the previous LED strip or to the next LED strip.
+
+Each LED strip end has three solder connections, one for power, one for ground and for for
+data.
+For each connector, solder the appropriate gendered 3 pin JST SM connector to the end.
+
+The LED strips are oriented in that the data direction goes in on direction and, in general,
+the LED strips cannot be flipped around arbitrarily.
+A rule of having a femail 3 pin JST-SM connector for the input side and a male JST-SM connector
+for the output side was adopted.
+
+For the power, a 2 pin JST-SM male connector was used.
+Which end of the LED strip the power connector is soldered to doesn't matter but
+a convention of soldering the power connector to the data input line was used in this
+project.
+
+Tape can be sued to hold the LED strip end and the JST-SM wires in place to help in soldering
+the connectors onto the strip.
+The JST-SM cable ends should have a small amount of copper wire exposed taking care to not expose
+too much copper and this could cause shorts other issues if too long.
+
+Heat shrink tubing should be slid onto the JST-SM connector cables or the LED strip before soldering
+as it is difficult to slide the heat shrink tubing after the components are soldered together.
+The heat shrink tubing should be slid to cover the solder joint.
+A heat gun can then be used to shrink the heat shrink tubing in place.
+
+After soldering, it's generally a good idea to test the LED strips to make sure the connectors
+for data and power were soldered properly.
+
+
 ### Sew Velcro to LED Rope
 
 Each of the segments has a strip of non-adhesive velcro sewn into the side.
@@ -264,7 +299,7 @@ Each of the data lines for the LED strips need to be hooked up in series and
 all LED strips need to have their ground lines hooked to each other.
 
 The power line needs to be disconnected when a contiguous string of LEDs is powered from one
-buck converter but connects to another segment that is powered by another buck converter
+buck converter but connects to another segment that is powered by another buck converter.
 This means that for the left lapel and collar that are powered by one buck converter, say,
 they need to share a power line but for the collar that connects to the right lapel, say,
 this power line needs to be cut as the right lapel is receiving power from another buck converter.
@@ -295,6 +330,116 @@ Pi Zero W, are powered from an 11.1V 5.5A LiPo battery.
 The 11.1V 5.5A LiPo battery is connected to a cable distribution through a fuse and power
 button.
 
+The Raspberry Pi Zero W connects a data line to communicate with the LED rope.
+
+### Power Cable
+
+The LiPo battery stores a lot of energy.
+To reduce the possibility of a short circuit causing extreme damage, a fuse is
+placed in line of the power coming from the battery
+
+A fuse holder is created as an extension cable, with XT60 connectors on either
+end so it can be placed in between the buck converters and the battery.
+
+A wire splitter is created with an XT60 connector on one end to connect to the
+fuse cable and is split out to the three buck converts to power the LED ropes
+and another buck converter to power the Raspberry Pi Zero W.
+
+A toggle power switch is soldered in line to be able to switch power on and off easily.
+
+### Power Regulators
+
+Three buck converters change the input voltage of 11.1V to the output voltage of 5V needed
+by the LED rope.
+In theory, all LED ropes could be powered by one buck converter but because of the voltage
+drop across one rope, LEDs at the tail end tend to fade or get polluted in color.
+
+The power to each of the LED ropes is "replenshed" by providing a buck converter for a
+group of segments.
+
+The three buck converters each have a screw terminal where the appropriate end of the
+wire splitter connected to the battery and fuse can be screwed in.
+The wire splitter should have a connector to connect directly into the BEC that
+powers the Raspberry Pi Zero W.
+
+All buck converters and the BEC are put into a compact housing.
+
+### Raspberry Pi Soldering
+
+The raspbery pi needs a 2 pin power connector and two 4 pin connectors to the encoders.
+The 2 pin connector is a female JST-XH 90 degree angle connector soldered directly onto
+the Raspberry Pi Zero W.
+
+Two 4 pin female JST-XH 90 angle degree connectors are also soldered onto the Raspbery Pi
+Zero W.
+Each of these will connect to the encoders for user input.
+Four wires each are needed for the encoder as two lines are for the rotation information,
+one line is for the button press and the last is for ground.
+
+The position on the Raspberry Pi Zero W is chosen so that the appropriate cable from the
+encoder lands on a ground pin in the 20x2 header row on the Raspberry Pi Zero W.
+
+The encoders are solderd onto PCB protoboard with two 4 pin female JST-XH connectors.
+Connection wires need to be created to connect the encoder to the Raspberry Pi Zero W.
+
+Software Installation
+---
+
+The `Inner-Light` project uses custom software to drive the LED rope, monitor the encoders,
+process microphone input and listen for events from the web client application.
+
+As a brief overview, the following software components are used:
+
+* `inner-light-drive` - a 'driver' that pushes values from a memory mapped file to the LED strip
+* `inner-light-generator` - state management and animation control of the memory mapped file for LED strip display
+* `beatsrv` - processes raw input from the microphone and does beat detection
+* `encoder-monitor` - listens for encoder changes and reports the encoder state
+* `inner-light-web` - the web server to serve the client application and listen for updates
+* `inner-light-monitor` - a management process to monitor all other processes, starting them or stopping them as appropriate
+
+In addition to the above software, the Raspberry Pi Zero W needs to be configured to be an access point so that
+it can be connected to when no other network is present.
+
+The installation is handled by a script in the repository which can be run once the repository has been cloned.
+
+On a fresh install of Raspbian.
+To install Raspbian on an SD card that will be used by the Raspberry Pi Zero W, follow [the tutorial by Raspberry Pi Foundation](https://www.raspberrypi.org/documentation/installation/installing-images/).
+
+Once Raspbian is installed, put it into your Raspberry Pi Zero W.
+
+Boot the Raspberry Pi Zero W with the new SD card with Raspbian installed, preferably with a keyboard and monitor attached.
+Gc through any installation process needed to get the Raspberry Pi Zero W running and have it connect to a local network.
+Once connected, executing the following command to clone the repository:
+
+```
+git clone https://github.com/abetusk/dev
+```
+
+The `dev` repository houses many other projects of which `inner-light` is one.
+To access the appropriate `inner-light` portion, go into the appropriate directory and
+run the `install.sh` script:
+
+```
+cd dev/projects/inner-light
+./install.sh
+```
+
+With any luck, the appropriate software should be installed and it should be ready to run on next boot.
+
+Electronics Housing
+---
+
+A housing was laser cut out of wood and spray painted black.
+
+Complete Installation
+---
+
+
+Wear It
+---
+
+Lessons Learned, Failures and Future Improvements
+---
 
 References
 ---

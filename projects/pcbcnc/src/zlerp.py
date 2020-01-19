@@ -13,7 +13,7 @@ import scipy
 import numpy as np
 from scipy.interpolate import griddata
 
-unit = "inch"
+unit = "mm"
 cur_x, cur_y, cur_z  = 0, 0, 0
 z_pos = 'up'
 

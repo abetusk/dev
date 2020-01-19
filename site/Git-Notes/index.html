@@ -127,6 +127,15 @@ git push origin :x-branch
 <pre><code class="bash">git fetch ; git reset --hard origin/release
 </code></pre>
 
+<h3 id="move-local-changes-to-new-branch">Move Local Changes to New Branch</h3>
+<pre><code class="bash">git branch newbranch
+git reset --hard origin/master
+git checkout newbranch
+</code></pre>
+
+<p>Create a branch but don't switch to it.
+Remove local commits back to <code>origin/master</code>.
+Now switch to the new branch and continue work.</p>
 <h3 id="comparing-changes">Comparing Changes</h3>
 <p>Local changes since last commit:</p>
 <pre><code class="bash">git diff
@@ -179,6 +188,15 @@ done
 <pre><code class="bash">git submodule update --init --recursive
 </code></pre>
 
+<h3 id="applying-inverse">Applying Inverse</h3>
+<p>Create (add) a new commit that applies the inverse operation of the given <code>&lt;SHA&gt;</code>.</p>
+<pre><code class="bash">git revert &lt;SHA&gt;
+</code></pre>
+
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://web.archive.org/web/20191226044920/https://github.blog/2015-06-08-how-to-undo-almost-anything-with-git/">How to undo (almost) anything with Git</a></li>
+</ul>
 <h6 id="2017-02-10">2017-02-10</h6>
 
       </section>
