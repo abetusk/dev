@@ -610,6 +610,7 @@ References
 * [Web Audio Weekly](http://www.webaudioweekly.com/)
 * [Tonal](https://github.com/danigb/tonal)
 * [Open Music Theory](http://openmusictheory.com)
+* [Growing Music (L-Systems)](https://www-users.cs.york.ac.uk/~susan/bib/ss/nonstd/eurogp05/index.html)
 
 Melody References
 ---
