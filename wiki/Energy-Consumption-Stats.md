@@ -3,8 +3,8 @@ Energy Consumption Stats
 
 From the [U.S. Energy Information Administration](https://www.eia.gov/tools/faqs/faq.php?id=97&t=3):
 
-* Average yearly usage of 10.812 MWh (Megawatthours)
-* ~30 kWh daily usage
+* Average yearly houshold usage of 10.812 MWh (Megawatthours)
+* ~30 kWh daily household usage
 
 Highs of 15.435 MWh (~42.28 kWh/day) to lows of 6.166 MWh (~17 kWh/day).
 
