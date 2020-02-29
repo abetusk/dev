@@ -1,7 +1,7 @@
 Is It Really Open
 ===
 
-From the Wikipedia entry on [Open Source Modeling](https://en.wikipedia.org/wiki/Open-source_model):
+From the Wikipedia entry on the [Open Source Model](https://en.wikipedia.org/wiki/Open-source_model):
 
 > Open source promotes universal access via an open-source 
 > or free license to a product's design or blueprint, and 
