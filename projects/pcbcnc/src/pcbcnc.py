@@ -31,6 +31,8 @@ from scipy.interpolate import griddata
 import grbl
 from termcolor import colored, cprint
 
+DEFAULT_FEED_RATE = 60
+
 unit = "mm"
 cur_x, cur_y, cur_z  = 0, 0, 0
 z_pos = 'up'
@@ -38,7 +40,7 @@ z_pos = 'up'
 dry_run = False
 
 z_threshold = 0.0
-z_plunge_inch = -0.003
+z_plunge_inch = -0.004
 z_plunge_mm = z_plunge_inch * 25.4
 
 output = None
@@ -49,19 +51,21 @@ def usage(ofp = sys.stdout):
   ofp.write( "\nDo a height probe, interploate GCode file then execute job\n")
   ofp.write( "\nusage:\n")
   ofp.write( "  -g <gcode file>     gcode file\n")
-  ofp.write( "  -m <height map>     height map\n")
-  ofp.write( "  -D                  dry run (do not connect to GRBL)\n")
+  ofp.write( "  [-m <height map>]   height map\n")
+  ofp.write( "  [-O <out height>]   output height map file (default stdout)\n")
+  ofp.write( "  [-D]                dry run (do not connect to GRBL)\n")
   ofp.write( "  [-z <threshold>]    z threshold (default to " + str(z_threshold) + ")\n")
-  ofp.write("   [-p <zplunge>]      amount under height sensed part to plunge (default " + str(z_plunge_mm) + "mm)\n")
+  ofp.write( "  [-p <zplunge>]      amount under height sensed part to plunge (default " + str(z_plunge_mm) + "mm)\n")
   ofp.write( "  [-h|--help]         help (this screen)\n")
   ofp.write( "\n")
 
 gcode_file = None
 height_map_file = None
+out_height_map_file = None
 
 
 try:
-  opts, args = getopt.getopt(sys.argv[1:], "hm:g:z:Dp:", ["help", "output="])
+  opts, args = getopt.getopt(sys.argv[1:], "hm:g:z:Dp:O:", ["help", "output="])
 except getopt.GetoptError, err:
   print str(err)
   usage()
@@ -82,10 +86,11 @@ for o, a in opts:
     z_plunge_mm = float(a)
   elif o == "-D":
     dry_run = True
+  elif o == "-O":
+    out_height_map_file = a
   else:
     assert False, "unhandled option"
 
-#if gcode_file is None or height_map_file is None:
 if gcode_file is None:
   sys.stderr.write("Provide gcode file\n")
   usage(sys.stderr)
@@ -146,7 +151,7 @@ def read_gcode_file(gcode_filename):
     res["status"] = "ok"
     return res
 
-def interpolate_gcode(gcode, pnts_xy, pnts_z):
+def interpolate_gcode(gcode, pnts_xy, pnts_z, _feed=DEFAULT_FEED_RATE):
   unit = "mm"
   cur_x, cur_y, cur_z  = 0, 0, 0
   z_pos = 'up'
@@ -161,7 +166,7 @@ def interpolate_gcode(gcode, pnts_xy, pnts_z):
   z_leeway = 1
   z_ub = pnts_z[0]
 
-  g1_feed = 30
+  g1_feed = _feed
 
   for idx in range(len(pnts_z)):
     if z_ub < pnts_z[idx]: z_ub = pnts_z[idx]
@@ -179,7 +184,6 @@ def interpolate_gcode(gcode, pnts_xy, pnts_z):
     m = re.match('^\s*(\(|;)', l)
 
     if m:
-      #print l
       lines.append(l)
       continue
 
@@ -192,6 +196,7 @@ def interpolate_gcode(gcode, pnts_xy, pnts_z):
         unit = "mm"
 
     m = re.match('^\s*[gG]\s*(0*[01])[^\d](.*)', l)
+
     if m:
       g_mode = m.group(1)
       l = m.group(2)
@@ -224,8 +229,6 @@ def interpolate_gcode(gcode, pnts_xy, pnts_z):
       continue
 
     if (z_pos == 'up'):
-      #print "G" + str(g_mode), l
-      #lines.append("G" + str(g_mode) + " " + str(l))
       lines.append("G" + str(g_mode) + " Z{0:.8f}".format(z_ub))
     elif (z_pos == 'down'):
 
@@ -354,6 +357,13 @@ else:
 for _p in pnts:
   print "( grid:", _p[0], _p[1], _p[2], ")"
 
+if out_height_map_file is not None:
+
+  print "# writing height to", out_height_map_file
+  with open(out_height_map_file, "w") as fp:
+    for _p in pnts:
+      fp.write("{:.8f} {:.8f} {:.8f}\n".format(_p[0], _p[1], _p[2]))
+
 pnts_xy = np.zeros(( len(pnts), 2))
 pnts_z = np.zeros((len(pnts)))
 for idx in range(len(pnts)):
@@ -366,7 +376,7 @@ _gc_lerp_lines = interpolate_gcode(_gc, pnts_xy, pnts_z)
 if verbose:
   print "( minmax", _gc["min_x"], _gc["max_x"], _gc["min_y"], _gc["max_y"], ")"
   for l in _gc_lerp_lines:
-    print l
+    print "(lerp:", l, ")"
 
 sys.stdout.write("\n#### ")
 cprint("READY TO CUT, REMOVE PROBE AND PRESS ENTER TO CONTINUE", "red", attrs=['blink'])
