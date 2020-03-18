@@ -100,7 +100,7 @@ delta_current                                    1.5          # First extruder s
 ## Laser module configuration
 # See http://smoothieware.org/laser
 laser_module_enable                           false           # Whether to activate the laser module at all
-laser_module_pwm_pin                          2.5             # This pin will be PWMed to control the laser. 
+laser_module_pwm_pin                          2.5             # This pin will be PWMed to control the laser.
                                                               # Only pins 2.0, 2.1, 2.2, 2.3, 2.4, 2.5, 1.18, 1.20, 1.21, 1.23, 1.24, 1.26, 3.25 and 3.26
                                                               # can be used since laser requires hardware PWM, see http://smoothieware.org/pinout
 #laser_module_ttl_pin 	                      1.30            # This pin turns on when the laser turns on, and off when the laser turns off.
@@ -181,11 +181,12 @@ switch.fan.output_pin                        2.6              # Pin this module 
 switch.fan.output_type                       pwm              # PWM output settable with S parameter in the input_on_comand
 #switch.fan.max_pwm                          255              # Set max pwm for the pin default is 255
 
-#switch.misc.enable                          true             # Enable this module
-#switch.misc.input_on_command                M42              # Command that will turn this switch on
-#switch.misc.input_off_command               M43              # Command that will turn this switch off
-#switch.misc.output_pin                      2.4              # Pin this module controls
-#switch.misc.output_type                     digital          # Digital means this is just an on or off pin
+switch.misc.enable                          true             # Enable this module
+switch.misc.input_on_command                M42              # Command that will turn this switch on
+switch.misc.input_off_command               M43              # Command that will turn this switch off
+switch.misc.output_pin                      2.4              # Pin this module controls
+#switch.misc.output_pin                      2.5              # Pin this module controls
+switch.misc.output_type                     digital          # Digital means this is just an on or off pin
 
 ## Temperatureswitch
 # See http://smoothieware.org/temperatureswitch
@@ -308,11 +309,11 @@ panel.bed_temperature                        60                # Temp to set bed
 
 ## Custom menus : Example of a custom menu entry, which will show up in the Custom entry.
 # NOTE _ gets converted to space in the menu and commands, | is used to separate multiple commands
-custom_menu.power_on.enable                true              #
+custom_menu.power_on.enable                false              #
 custom_menu.power_on.name                  Power_on          #
 custom_menu.power_on.command               M80               #
 
-custom_menu.power_off.enable               true              #
+custom_menu.power_off.enable               false              #
 custom_menu.power_off.name                 Power_off         #
 custom_menu.power_off.command              M81               #
 
