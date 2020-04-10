@@ -11,3 +11,17 @@ Reference
 * [Anouk Wipprecht](http://www.anoukwipprecht.nl/)
 * [Sophy Wong](https://sophywong.com/)
 * ["light of birth / 3d laser mist hologram" by nobumichi asai](https://vimeo.com/148280386)
+
+Braun (company)
+---
+
+Specifically the art direction of [Dieter Rams](https://en.wikipedia.org/wiki/Dieter_Rams)
+
+[flickr](https://www.flickr.com/photos/34019036@N05/sets/72157612596210147/)
+
+| | | |
+|---|---|---|
+| ![braun clock](img/4934011689_71719d75cc_w.jpg) | ![pocket radio](img/5212241996_015c18ae7a_w.jpg) | 
+
+
+
