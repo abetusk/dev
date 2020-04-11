@@ -1,3 +1,11 @@
+// Licnese: CC0
+//
+
+function _irnd(irange) {
+  _r = ((typeof irange === "undefined") ? 2 : irange);
+  return Math.floor(_r * Math.random());
+}
+
 
 
 var base_notes = [ -1, 0, 2, 4];
@@ -19,6 +27,15 @@ function FamiliarSynths() {
   this.noteMidiLookup = {};
   this.midiNoteLookup = {};
 
+  this.chord = {
+    "major" : [0,4,7],
+    "minor": [0,3,7],
+    "augmented":[0,4,8],
+    "diminished":[0,3,6],
+    "major7":[0,4,7,11]
+  };
+
+
   this.musicalMode = {
     "aeolian":[0,+2,+3,+5,+7,+8,+10],
     "locrian": [0,+1,+3,+5,+6,+8,+10],
@@ -29,13 +46,64 @@ function FamiliarSynths() {
     "mixolydian":  [0,+2,+4,+5,+7,+9,+10]
   };
 
-  this.chord = {
-    "major" : [0,4,7],
-    "minor": [0,3,7],
-    "augmented":[0,4,8],
-    "diminished":[0,3,6],
-    "major7":[0,4,7,11]
+  this.musicalModeList = [ "aeolian", "locrian", "ionian", "dorian", "phyrgian", "lydian", "mixolydian" ];
+
+  // key is mode (from musicalMode)
+  // val array of objects of  {"type":..., "chord":[...],"name":...}
+  //
+  this.musicalModeChord = { };
+
+  this._modeChordName = {
+    "maj" : ["I", "II", "III", "IV", "V", "VI", "VII"],
+    "min" : ["i", "ii", "iii", "iv", "v", "vi", "vii"],
+    "dim" : ["id", "iid", "iiid", "ivd", "vd", "vid", "viid"]
   };
+
+  for (var ii=0; ii<this.musicalModeList.length; ii++) {
+    var mode_name = this.musicalModeList[ii];
+    var mode = this.musicalMode[ mode_name ];
+
+    this.musicalModeChord[mode_name] = [];
+
+    var occupancy = [];
+    for (var _i=0; _i<24; _i++) { occupancy.push(0); }
+    for (var _i=0; _i<mode.length; _i++) {
+      occupancy[mode[_i]] = 1;
+      occupancy[mode[_i]+12] = 1;
+    }
+
+    chord_check_name = ["maj", "min", "dim"];
+    chord_check = [ [0,4,7], [0,3,7], [0,3,6] ];
+
+    for (var nidx=0; nidx < mode.length; nidx++) {
+      var chord_info = { "type":"", "chord":[], "name":""};
+      var base_note = mode[nidx];
+
+      for (var ch_idx=0; ch_idx < chord_check.length; ch_idx++) {
+        var found = true;
+        for (var _n=0; _n<chord_check[ch_idx].length; _n++) {
+          if (occupancy[base_note + chord_check[ch_idx][_n]] == 0) {
+            found = false;
+            break;
+          }
+        }
+        if (found) {
+          chord_info.type = chord_check_name[ch_idx];
+          chord_info.name = this._modeChordName[ chord_check_name[ch_idx] ][nidx];
+          chord_info.chord = [
+            base_note + chord_check[ch_idx][0],
+            base_note + chord_check[ch_idx][1],
+            base_note + chord_check[ch_idx][2] ];
+          break;
+        }
+      }
+
+      this.musicalModeChord[mode_name].push(chord_info);
+    }
+
+  }
+
+
 
   this.defaults =  {
     "PPQ" : 480,
@@ -1808,15 +1876,248 @@ function experiment0() {
   return { "bass":tune_bass, "arp": tune_arp };
 }
 
-var fs_bass = new FamiliarSynths();
-var fs_arp = new FamiliarSynths();
+function print_mode_chords() {
+  var fs = new FamiliarSynths();
+  var mode_list =  fs.musicalModeList;
+  for (var ii=0; ii<mode_list.length; ii++) {
+    var mode_name = mode_list[ii];
+    var _m = fs.musicalModeChord[mode_name];
+    var s = mode_name + ":";
+    for (var jj=0; jj<_m.length; jj++) {
+      s += " " + _m[jj].name;
+    }
+    console.log(s);
+  }
+}
 
-var ok_data = ok();
+function _mirror(a) {
+  var m = a.length/2;
+  var b = [];
 
-//var tune = custom_tune();
+  for (var i=0; i<a.length; i++) {
+    b.push(a[i]);
+  }
 
-var tune = force_tune();
-var midi_bass_tune = fs_bass.convertToMIDI(tune.bass);
-var midi_arp_tune = fs_arp.convertToMIDI(tune.arp);
+  for (var i=(a.length-2); i>0; i--) {
+    b.push(a[i]);
+  }
 
+  return b;
+}
+
+function _permute(a, s, n) {
+  var b = [];
+  if (n > (a.length - s)) { n = a.length-s; }
+  if (n<=0) { return; }
+  for (var ii=0; ii<a.length; ii++) { b.push(a[ii]); }
+
+  for (var ii=0; ii<n; ii++) {
+    var p = _irnd(n-ii);
+    var t = b[s+ii];
+    b[s+ii] = b[s+p];
+    b[s+p] = t;
+  }
+  return b;
+}
+
+function _apick(a, n) {
+  var b = _permute(a, 0, a.length);
+  var r = [];
+  for (var ii=0; ii<n; ii++) {
+    r.push(b[ii]);
+  }
+  return r;
+}
+
+// assume units of 4 bar lengths
+//
+// a0, a1 - arps
+// m0, m1 - melody
+// b0, b1 - bass
+// d0, d1 - drums
+// p0, p1 - pads
+//
+// a0 -> +m0 -> +d0 -> +b0 -a0 -m0 -b0 + b1 -> -b1 +m0 +b0 -> +a0 -> +p0 -> -a0
+//
+//
+function _alg_v_0_0() {
+  var rythm_opt = [
+    [ [1, 0.5, 0.5, 1, 1 ], [1, 0.5, 0.5, 1, 1 ], [1, 0.5, 0.5, 1, 1 ],  [4] ],
+    [ [1, 1, 0.5, 0.5, 0.5, 0.5], [1, 1, 0.5, 0.5, 0.5, 0.5], [1, 1, 0.5, 0.5, 0.5, 0.5], [1, 1, 0.5, 0.5, 0.5, 0.5] ],
+    [ [2, 2], [1, 1, 1, 1], [2,2], [1, 1, 1, 1] ],
+    [ [3, 1], [2, 2], [3, 1], [2, 2] ]
+  ];
+  var rythm_opt_idx = _irnd(rythm_opt.length);
+  var fs = new FamiliarSynths();
+
+  var root_note_idx = _irnd(12);
+  var root_note_name = fs.noteName[ root_note_idx ];
+
+  var song_mode = ["lydian", "aeolian"];
+
+  var mode_chord = fs.musicalModeChord[song_mode[1]];
+  var mode_maj_chord = [];
+  for (var i=0; i<mode_chord.length; i++) {
+    if (mode_chord[i].type == "maj") {
+      mode_maj_chord.push(mode_chord[i]);
+    }
+  }
+
+  var chord_prog = [];
+  chord_prog.push(mode_chord[0]);
+  for (var i=1; i<3; i++) {
+    chord_prog.push( mode_chord[ _irnd(mode_chord.length) ] );
+  }
+  chord_prog.push(mode_maj_chord[ _irnd(mode_maj_chord.length) ]);
+
+  var arp_note_occ = [];
+  for (var ii=0; ii<24; ii++) { arp_note_occ.push(0); }
+  for (var ii=0; ii<chord_prog.length; ii++) {
+    for (var jj=0; jj<chord_prog[ii].chord.length; jj++) {
+      arp_note_occ[ chord_prog[ii].chord[jj] ] = 1;
+    }
+  }
+  var arp_note = [];
+  for (var ii=0; ii<arp_note_occ.length; ii++) {
+    if (arp_note_occ[ii] == 1) {
+      arp_note.push(ii);
+    }
+  }
+
+  // mirror the arp, permute all but first note,
+  // then restrict to only
+  // 8 notes
+  //
+  var x = _mirror(arp_note);
+  //x = _permute(x, 1, arp_note.length-1);
+  var arp_prog =  [];
+  for (var prev=-1, ii=0; ii<x.length; ii++) {
+    var idx = Math.floor( 8 * ii / x.length );
+    if (idx<=prev) { continue; }
+    arp_prog.push(x[ii]);
+    prev = idx;
+  }
+
+  // create melody by choosing random two notes from
+  // each bar of chord progression
+  //
+
+  var melody0_info = [];
+  for (var ii=0; ii<chord_prog.length; ii++) {
+    var bar_notes = _apick(chord_prog[ii].chord, 2);
+    rythm = rythm_opt[ rythm_opt_idx ][ii];
+    for (var jj=0; jj<rythm.length; jj++) {
+      melody0_info.push( { "note": bar_notes[_irnd(bar_notes.length)], "dur": rythm[jj] } );
+    }
+  }
+
+  var melody1_info = [];
+  for (var ii=0; ii<chord_prog.length; ii++) {
+    var bar_notes = _apick(chord_prog[ii].chord, 2);
+    rythm = [ 1, 1, 1, 1 ];
+
+    console.log(bar_notes, bar_notes.length, _irnd(bar_notes.length), bar_notes[_irnd(bar_notes.length)]);
+    for (var jj=0; jj<rythm.length; jj++) {
+      melody1_info.push( { "note": bar_notes[_irnd(bar_notes.length)], "dur": rythm[jj] } );
+    }
+  }
+
+
+
+
+
+  // print sonic-pi output
+  //
+  var s;
+  var note_name = [];
+  for (var ii=0; ii<12; ii++) { note_name.push( fs.noteName[ii] + "4" ); }
+  for (var ii=0; ii<12; ii++) { note_name.push( fs.noteName[ii] + "5" ); }
+  for (var ii=0; ii<12; ii++) { note_name.push( fs.noteName[ii] + "6" ); }
+
+  s = "chord_prog = (ring";
+  for (var ii=0; ii<chord_prog.length; ii++) {
+    for (var jj=0; jj<chord_prog[ii].chord.length; jj++) {
+      if ((ii+jj)>0) { s += ","; }
+      s += ' "' + note_name[root_note_idx + chord_prog[ii].chord[jj]].toUpperCase() + '"';
+    }
+  }
+  s += ")";
+  console.log(s);
+
+  s = "melody = (ring";
+  for (var ii=0; ii<melody0_info.length; ii++) {
+    if (ii>0) { s += ","; }
+    s += ' "' + note_name[root_note_idx + melody0_info[ii].note].toUpperCase() + '"';
+  }
+  s += ")";
+  console.log(s);
+
+  s = "melody_s = (ring";
+  for (var ii=0; ii<melody0_info.length; ii++) {
+    if (ii>0) { s += ","; }
+    var _n = note_name[root_note_idx + melody0_info[ii].note].toUpperCase();
+    _n = _n.replace(/#/, 's');
+    //s += ' :' + note_name[root_note_idx + melody0_info[ii].note].toUpperCase() + '';
+    s += ' :' +_n; 
+  }
+  s += ")";
+  console.log(s);
+
+  s = "melody1 = (ring";
+  for (var ii=0; ii<melody1_info.length; ii++) {
+    if (ii>0) { s += ","; }
+    s += ' "' + note_name[root_note_idx + melody1_info[ii].note].toUpperCase() + '"';
+  }
+  s += ")";
+  console.log(s);
+
+  s = "melody_dt = (ring";
+  for (var ii=0; ii<melody0_info.length; ii++) {
+    if (ii>0) { s += ","; }
+    s += ' ' + melody0_info[ii].dur.toString();
+  }
+  s += ")";
+  console.log(s);
+
+  s = "melody1_dt = (ring";
+  for (var ii=0; ii<melody1_info.length; ii++) {
+    if (ii>0) { s += ","; }
+    s += ' ' + melody1_info[ii].dur.toString();
+  }
+  s += ")";
+  console.log(s);
+
+  s = "arp = (ring";
+  for (var ii=0; ii<arp_prog.length; ii++) {
+    if (ii>0) { s += ","; }
+    s += ' "' + note_name[root_note_idx + arp_prog[ii]].toUpperCase() + '"';
+  }
+  s += ")";
+
+  console.log(s);
+
+  console.log(root_note_name, root_note_idx);
+  console.log(chord_prog);
+  //console.log(arp_note, arp_note.length, x, x.length, arp_prog, arp_prog.length);
+  console.log(arp_prog);
+}
+
+function _main() {
+
+  return;
+  var fs_bass = new FamiliarSynths();
+  var fs_arp = new FamiliarSynths();
+
+  var ok_data = ok();
+
+  //var tune = custom_tune();
+
+  var tune = force_tune();
+  var midi_bass_tune = fs_bass.convertToMIDI(tune.bass);
+  var midi_arp_tune = fs_arp.convertToMIDI(tune.arp);
+}
+
+//_main();
+
+_alg_v_0_0();
 
