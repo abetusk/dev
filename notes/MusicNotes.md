@@ -611,6 +611,7 @@ References
 * [Tonal](https://github.com/danigb/tonal)
 * [Open Music Theory](http://openmusictheory.com)
 * [Growing Music (L-Systems)](https://www-users.cs.york.ac.uk/~susan/bib/ss/nonstd/eurogp05/index.html)
+* [How to Synthwave | FL Studio Tutorial](https://youtu.be/ahPindVHPK4)
 
 Melody References
 ---
