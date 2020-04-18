@@ -1,0 +1,132 @@
+# license: CC0
+#
+
+syn_lead = [
+  "/home/abe/data/music/fma/korg-mono-poly-synth-bass/",
+  "/home/abe/data/music/fma/korg-mono-poly-mr-bass/",
+  "/home/abe/data/music/fma/ax80-solids/",
+  "/home/abe/data/music/fma/ax80-crackbass/",
+  "/home/abe/data/music/fma/seashe/"
+]
+
+syn_bass = [
+  "/home/abe/data/music/fma/juno-6-pulse-bass/",
+  "/home/abe/data/music/fma/dsi-tetra-sync-bass/",
+  "/home/abe/data/music/fma/jx-3p-brassy/"
+]
+
+snd_arp = syn_lead[1]
+
+#snd_melody0 = syn_bass[1]
+snd_melody0 = syn_lead[0]
+
+#snd_chord0  = syn_bass[1]
+snd_chord0  = syn_lead[2]
+
+
+
+chord_prog = (ring "E4", "G4", "B4", "A4", "C5", "E5", "E4", "G4", "B4", "C5", "E5", "G5")
+chord_prog_rep = (ring "E4", "G4", "B4", "E4", "G4", "B4", "E4", "G4", "B4", "E4", "G4", "B4", "A4", "C5", "E5", "A4", "C5", "E5", "A4", "C5", "E5", "A4", "C5", "E5", "E4", "G4", "B4", "E4", "G4", "B4", "E4", "G4", "B4", "E4", "G4", "B4", "C5", "E5", "G5", "C5", "E5", "G5", "C5", "E5", "G5", "C5", "E5", "G5")
+arp_chord_prog = (ring "E4", "G4", "B4", "D5", "E4", "G4", "B4", "D5", "E4", "G4", "B4", "D5", "E4", "G4", "B4", "D5", "F#4", "A4", "C5", "E5", "F#4", "A4", "C5", "E5", "G4", "B4", "D5", "F#5", "G4", "B4", "D5", "F#5", "C5", "E5", "G5", "B5", "C5", "E5", "G5", "B5")
+arp_chord_prog_dt = (ring 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5)
+melody = (ring "B4", "B4", "G4", "G4", "B4", "G4", "A4", "E5", "A4", "E5", "A4", "E5", "B4", "B4", "B4", "E4", "B4", "E4", "G5", "G5", "C5", "G5", "C5", "G5")
+melody_s = (ring :B4, :B4, :G4, :G4, :B4, :G4, :A4, :E5, :A4, :E5, :A4, :E5, :B4, :B4, :B4, :E4, :B4, :E4, :G5, :G5, :C5, :G5, :C5, :G5)
+melody1 = (ring "G4", "G4", "B4", "G4", "G4", "A4", "A4", "A4", "A4", "E5", "E4", "B4", "E4", "E4", "B4", "C5")
+melody_dt = (ring 1, 1, 0.5, 0.5, 0.5, 0.5, 1, 1, 0.5, 0.5, 0.5, 0.5, 1, 1, 0.5, 0.5, 0.5, 0.5, 1, 1, 0.5, 0.5, 0.5, 0.5)
+melody1_dt = (ring 1, 0.5, 0.5, 1, 1, 1, 0.5, 0.5, 1, 1, 1, 0.5, 0.5, 1, 1, 4)
+arp = (ring "E4", "A4", "B4", "E5", "G5", "C5", "B4", "G4")
+
+chord_prog_dt = (ring 2, 1, 1)
+
+#arp_dt = 0.5
+#arp_dtm = 0.3
+arp_dt = 0.5
+arp_dtm = 0.5
+
+melody_tf = 1
+
+
+#dtm = 1.03
+
+use_bpm 180
+live_loop :x do
+
+  n = arp.tick(:a0)
+  #n = arp_chord_prog.tick(:a1)
+
+
+  #with_fx :reverb, mix: 0.35 do
+  #with_fx :echo, phase: 0.13, decay: 0.25 do
+  #with_fx :flanger do
+  #with_fx :ixi_techno do
+  with_fx :distortion, distort: 0.85 do
+    #with_fx :krush do
+    #with_fx :pitch_shift, window_size: 0.1 do
+    #sample snd + n + ".wav", amp: 1, attack: 0.01, sustain: 0, beat_stretch: 2
+    sample snd_arp + n + ".wav", amp: 1.0, release: arp_dtm, sustain: 0, attack: 0.01
+    #sample syn_bass + n + ".wav", amp: 2, start: 0.105, release: dtm, sustain: 0, attack: 0.01
+    #control e, distort: d
+    #end
+  end
+
+  #end
+  #end
+  sleep arp_dt
+  #sleep 1
+end
+
+live_loop :mel, sync: :x do
+  n = melody_s.tick(:m0)
+  n_s = melody1.tick(:ms0)
+  m_dt = melody1_dt.tick(:mt0)
+  #with_fx :distortion do
+  #with_fx :pitch_shift do
+  with_fx :flanger do
+    with_fx :krush do
+      #with_fx :flanger do
+      sample snd_melody0 + n_s + ".wav", amp: 1, release: 1-0.5, sustain: 0, attack: 0.01
+      #use_synth :prophet
+      #play n, amp: 0.25, release: 1, sustain: 0, attack: 0.21
+      #end
+      #end
+    end
+  end
+
+  sleep melody_tf*m_dt
+end
+
+clen = 4
+live_loop :chord_prog, sync: :x do
+  chord_dt = chord_prog_dt.tick(:ct1)
+  n0 = chord_prog.tick(:c1)
+  n1 = chord_prog.tick(:c1)
+  n2 = chord_prog.tick(:c1)
+  #c_dt = chord_dt.tick
+  #  with_fx :lpf , cutoff: 80 do
+  #    sample snd_chord0 + n0 + ".wav", amp: 6, release: clen-1, sustain: 0, attack: 0.13
+  #    sample snd_chord0 + n1 + ".wav", amp: 6, release: clen-1, sustain: 0, attack: 0.13
+  #    sample snd_chord0 + n2 + ".wav", amp: 6, release: clen-1, sustain: 0, attack: 0.13
+  #  sample snd_chord0 + n1 + ".wav", amp: 1, release: clen-1, sustain: 0, attack: 0.3
+  #  end
+  sleep melody_tf*clen
+  #sleep chord_dt
+end
+
+## rep chord
+clen_rep = 1
+live_loop :chord_prog_rep, sync: :x do
+  #  chord_dt = chord_prog_dt.tick(:ct1)
+  n0 = chord_prog_rep.tick(:c1)
+  n1 = chord_prog_rep.tick(:c1)
+  n2 = chord_prog_rep.tick(:c1)
+  #c_dt = chord_dt.tick
+  with_fx :lpf, cutoff: 100 do
+    with_fx :distortion do
+      sample snd_chord0 + n0 + ".wav", amp: 1, release: clen_rep-0.1, sustain: 0, attack: 0.013
+      sample snd_chord0 + n1 + ".wav", amp: 1, release: clen_rep-0.1, sustain: 0, attack: 0.013
+      sample snd_chord0 + n2 + ".wav", amp: 1, release: clen_rep-0.1, sustain: 0, attack: 0.013
+    end
+  end
+  sleep melody_tf*clen_rep
+  #sleep chord_dt
+end

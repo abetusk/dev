@@ -1981,11 +1981,11 @@ function _apick(a, n) {
 //
 function _alg_v_0_0() {
   var rythm_opt = [
+    [ [2, 2], [1, 1, 1, 1], [2,2], [1, 1, 1, 1] ],
+    [ [3, 1], [2, 2], [3, 1], [2, 2] ],
     [ [1, 0.5, 0.5, 1, 1 ], [1, 0.5, 0.5, 1, 1 ], [1, 0.5, 0.5, 1, 1 ],  [4] ],
     [ [1, 1, 0.5, 0.5, 0.5, 0.5], [1, 1, 0.5, 0.5, 0.5, 0.5], [1, 1, 0.5, 0.5, 0.5, 0.5], [1, 1, 0.5, 0.5, 0.5, 0.5] ],
     [ [1, 1, 0.5, 0.5, 0.5, 0.5], [0.5, 0.5, 0.5, 0.5, 1, 1], [ 0.5, 0.5, 0.5, 0.5, 1, 1], [1, 1, 0.5, 0.5, 0.5, 0.5] ]
-    //[ [2, 2], [1, 1, 1, 1], [2,2], [1, 1, 1, 1] ],
-    //[ [3, 1], [2, 2], [3, 1], [2, 2] ]
   ];
   var rythm_opt_idx = _irnd(rythm_opt.length);
   var fs = new FamiliarSynths();
@@ -2135,6 +2135,18 @@ function _alg_v_0_0() {
     for (var jj=0; jj<chord_prog[ii].chord.length; jj++) {
       if ((ii+jj)>0) { s += ","; }
       s += ' "' + note_name[root_note_idx + chord_prog[ii].chord[jj]].toUpperCase() + '"';
+    }
+  }
+  s += ")";
+  console.log(s);
+
+  s = "chord_prog_rep = (ring";
+  for (var ii=0; ii<chord_prog.length; ii++) {
+    for (var rr=0; rr<4; rr++) {
+      for (var jj=0; jj<chord_prog[ii].chord.length; jj++) {
+        if ((ii+jj+rr)>0) { s += ","; }
+        s += ' "' + note_name[root_note_idx + chord_prog[ii].chord[jj]].toUpperCase() + '"';
+      }
     }
   }
   s += ")";
