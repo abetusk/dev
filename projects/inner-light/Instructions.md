@@ -444,6 +444,10 @@ With any luck, the appropriate software should be installed and it should be rea
 Electronics Housing
 ---
 
+| | |
+|---|---|
+| ![housing svg](hardware/compute-housing-a.svg) | |
+
 A housing was laser cut out of wood and spray painted black.
 
 Though not necessary, having a housing helps manage all of the electronics and provides strain relief to the wires going into and out
