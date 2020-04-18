@@ -209,8 +209,8 @@ appropriate, and for data communication from the previous LED strip or to the ne
 
 | | |
 |---|---|
-| ![led conn](20190626_042444.jpg) | ![x](20190626_040141.jpg) | 
-| ![led conn](20190626_042907.jpg) | ![led conn]( 20190626_043323.jpg) |
+| ![led conn](doc/img/20190626_042444.jpg) | ![x](doc/img/20190626_040141.jpg) | 
+| ![led conn](doc/img/20190626_042907.jpg) | ![led conn](doc/img/20190626_043323.jpg) |
 
 Each LED strip end has three solder connections, one for power, one for ground and for for
 data.
@@ -373,7 +373,7 @@ All buck converters and the BEC are put into a compact housing.
 
 | | |
 |---|---|
-| ![encoder front](20190624_213842.jpg) | ![encoder back](20190624_213854.jpg) |
+| ![encoder front](doc/img/20190624_213842.jpg) | ![encoder back](doc/img/20190624_213854.jpg) |
 | ![rpi headers back](doc/img/20190626_003747.jpg) | |
 
 The raspberry pi needs a 2 pin power connector and two 4 pin connectors to the encoders.
