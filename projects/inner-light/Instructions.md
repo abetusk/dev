@@ -111,7 +111,7 @@ The mapping for how the LEDs show up is done in software on the Raspberry Pi.
 There are three 5V 10A buck converters to power all of the LED strips.
 The LED "rope" lights are 60 LEDs per meter.
 The LED "rope" lights operate at 5V and each LED in the strip can potentially pull 60mA of current.
-In theory this means that each strip only consumes about 3.6A in total, or about 18W, but in practice
+In theory this means that each strip only consumes 3.6A in total, or about 18W, but in practice
 the voltage drop across a meter of LED strip is so significant that multiple power sources need
 to be deployed to make sure there is no color degradation from power loss.
 
@@ -213,7 +213,7 @@ For each connector, solder the appropriate gendered 3 pin JST SM connector to th
 
 The LED strips are oriented in that the data direction goes in on direction and, in general,
 the LED strips cannot be flipped around arbitrarily.
-A rule of having a femail 3 pin JST-SM connector for the input side and a male JST-SM connector
+A rule of having a female 3 pin JST-SM connector for the input side and a male JST-SM connector
 for the output side was adopted.
 
 For the power, a 2 pin JST-SM male connector was used.
@@ -221,7 +221,7 @@ Which end of the LED strip the power connector is soldered to doesn't matter but
 a convention of soldering the power connector to the data input line was used in this
 project.
 
-Tape can be sued to hold the LED strip end and the JST-SM wires in place to help in soldering
+Tape can be used to hold the LED strip end and the JST-SM wires in place to help in soldering
 the connectors onto the strip.
 The JST-SM cable ends should have a small amount of copper wire exposed taking care to not expose
 too much copper and this could cause shorts other issues if too long.
@@ -250,7 +250,7 @@ to push it through.
 
 A spacing of about 0.5 inches should be used, with an 'X' pattern to ensure equal distribution
 of force.
-When choosing which side the velcro should go on, remeber that the lit portion of the LED "rope"
+When choosing which side the velcro should go on, remember that the lit portion of the LED "rope"
 should be facing 'away' from the interior of the jacket.
 For the collar, this means the LED "rope" should be pointing upwards, the lapels 'outwards',
 the waist 'down' and the cuffs 'out'.
