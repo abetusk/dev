@@ -33,8 +33,13 @@ LED Rope Assembly
 * overlaid shot of jacket with power connectors highlighted
 * shot of power line cut
 * rpi w zero with headers soldered on
+* Power cable housing
 
+---
 
+* shot of electronics housing
+
+* action shots
 
 
 
