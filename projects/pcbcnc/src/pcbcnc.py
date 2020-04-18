@@ -270,7 +270,7 @@ _gc = read_gcode_file(gcode_file)
 pnts = []
 
 if not dry_run:
-  grbl.setup()
+  grbl.setup("/dev/ttyUSB0")
   grbl.send_initial_command("")
 
 if height_map_file is not None:
@@ -291,8 +291,8 @@ else:
 
   grid_margin = 1.0
 
-  z_ub = -5.0
-  z_lb = -8.0
+  z_ub = -3.0
+  z_lb = -15.0
   fz = 1
 
   xminmax = [ _gc["min_x"] - grid_margin, _gc["max_x"] + grid_margin]
@@ -376,7 +376,9 @@ _gc_lerp_lines = interpolate_gcode(_gc, pnts_xy, pnts_z)
 if verbose:
   print "( minmax", _gc["min_x"], _gc["max_x"], _gc["min_y"], _gc["max_y"], ")"
   for l in _gc_lerp_lines:
-    print "(lerp:", l, ")"
+    #print "(lerp:", l, ")"
+    line = l.strip()
+    print line
 
 sys.stdout.write("\n#### ")
 cprint("READY TO CUT, REMOVE PROBE AND PRESS ENTER TO CONTINUE", "red", attrs=['blink'])

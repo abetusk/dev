@@ -52,6 +52,7 @@ function FamiliarSynths() {
   // val array of objects of  {"type":..., "chord":[...],"name":...}
   //
   this.musicalModeChord = { };
+  this.musicalModeChord4 = { };
 
   this._modeChordName = {
     "maj" : ["I", "II", "III", "IV", "V", "VI", "VII"],
@@ -59,11 +60,21 @@ function FamiliarSynths() {
     "dim" : ["id", "iid", "iiid", "ivd", "vd", "vid", "viid"]
   };
 
+  this._modeChordName4 = {
+    "maj7" : ["I7", "II7", "III7", "IV7", "V7", "VI7", "VII7"],
+    "maj7f" : ["I7f", "II7f", "III7f", "IV7f", "V7f", "VI7f", "VII7f"],
+    "min7" : ["i7", "ii7", "iii7", "iv7", "v7", "vi7", "vii7"],
+    "min7f" : ["i7f", "ii7f", "iii7f", "iv7f", "v7f", "vi7f", "vii7f"],
+    "dim7" : ["id7", "iid7", "iiid7", "ivd7", "vd7", "vid7", "viid7"],
+    "dim7f" : ["id7f", "iid7f", "iiid7f", "ivd7f", "vd7f", "vid7f", "viid7f"]
+  };
+
   for (var ii=0; ii<this.musicalModeList.length; ii++) {
     var mode_name = this.musicalModeList[ii];
     var mode = this.musicalMode[ mode_name ];
 
     this.musicalModeChord[mode_name] = [];
+    this.musicalModeChord4[mode_name] = [];
 
     var occupancy = [];
     for (var _i=0; _i<24; _i++) { occupancy.push(0); }
@@ -74,6 +85,10 @@ function FamiliarSynths() {
 
     chord_check_name = ["maj", "min", "dim"];
     chord_check = [ [0,4,7], [0,3,7], [0,3,6] ];
+    chord_check4_name = ["maj7", "maj7f", "min7", "min7f", "dim7", "dim7f"];
+    chord_check4 = [ [0,4,7,10], [0,4,7,11],
+                     [0,3,7,10], [0,3,7,11],
+                     [0,3,6,9], [0,3,6,10] ];
 
     for (var nidx=0; nidx < mode.length; nidx++) {
       var chord_info = { "type":"", "chord":[], "name":""};
@@ -97,8 +112,32 @@ function FamiliarSynths() {
           break;
         }
       }
-
       this.musicalModeChord[mode_name].push(chord_info);
+
+      // now '4' chords
+      //
+      var chord_info4 = {"type":"", "chord":[], "name":"" };
+      for (var ch_idx=0; ch_idx < chord_check4.length; ch_idx++) {
+        var found = true;
+        for (var _n=0; _n<chord_check4[ch_idx].length; _n++) {
+          if (occupancy[base_note + chord_check4[ch_idx][_n]] == 0) {
+            found = false;
+            break;
+          }
+        }
+        if (found) {
+          chord_info4.type = chord_check4_name[ch_idx];
+          chord_info4.name = this._modeChordName4[ chord_check4_name[ch_idx] ][nidx];
+          chord_info4.chord = [
+            base_note + chord_check4[ch_idx][0],
+            base_note + chord_check4[ch_idx][1],
+            base_note + chord_check4[ch_idx][2],
+            base_note + chord_check4[ch_idx][3] ];
+          break;
+        }
+      }
+      this.musicalModeChord4[mode_name].push(chord_info4);
+
     }
 
   }
@@ -1944,8 +1983,9 @@ function _alg_v_0_0() {
   var rythm_opt = [
     [ [1, 0.5, 0.5, 1, 1 ], [1, 0.5, 0.5, 1, 1 ], [1, 0.5, 0.5, 1, 1 ],  [4] ],
     [ [1, 1, 0.5, 0.5, 0.5, 0.5], [1, 1, 0.5, 0.5, 0.5, 0.5], [1, 1, 0.5, 0.5, 0.5, 0.5], [1, 1, 0.5, 0.5, 0.5, 0.5] ],
-    [ [2, 2], [1, 1, 1, 1], [2,2], [1, 1, 1, 1] ],
-    [ [3, 1], [2, 2], [3, 1], [2, 2] ]
+    [ [1, 1, 0.5, 0.5, 0.5, 0.5], [0.5, 0.5, 0.5, 0.5, 1, 1], [ 0.5, 0.5, 0.5, 0.5, 1, 1], [1, 1, 0.5, 0.5, 0.5, 0.5] ]
+    //[ [2, 2], [1, 1, 1, 1], [2,2], [1, 1, 1, 1] ],
+    //[ [3, 1], [2, 2], [3, 1], [2, 2] ]
   ];
   var rythm_opt_idx = _irnd(rythm_opt.length);
   var fs = new FamiliarSynths();
@@ -1953,22 +1993,75 @@ function _alg_v_0_0() {
   var root_note_idx = _irnd(12);
   var root_note_name = fs.noteName[ root_note_idx ];
 
+  // transition from one mode to another?
+  //
   var song_mode = ["lydian", "aeolian"];
 
+  // Get the chord progression for the mode of our choice
+  //
   var mode_chord = fs.musicalModeChord[song_mode[1]];
+  var mode_chord4 = fs.musicalModeChord4[song_mode[1]];
+
+  // Get list of major chords for chord progression below.
+  // Also save the index lookup from major chords back to the
+  // original chord list.
+  //
+  var mode_maj_chord_idx_map = {};
   var mode_maj_chord = [];
   for (var i=0; i<mode_chord.length; i++) {
     if (mode_chord[i].type == "maj") {
+      mode_maj_chord_idx_map[mode_maj_chord.length] = i;
       mode_maj_chord.push(mode_chord[i]);
     }
   }
 
+  var chord_prog_idx = [];
+
+  // basic chord progression:
+  // * 4 bars
+  // * root chord to start
+  // * any two chord transitions
+  // * end on major chord
+  //
   var chord_prog = [];
+  chord_prog_idx.push(0);
   chord_prog.push(mode_chord[0]);
   for (var i=1; i<3; i++) {
-    chord_prog.push( mode_chord[ _irnd(mode_chord.length) ] );
+    var r = _irnd(mode_chord.length);
+    chord_prog_idx.push(r);
+    chord_prog.push( mode_chord[r] );
   }
-  chord_prog.push(mode_maj_chord[ _irnd(mode_maj_chord.length) ]);
+  var r = _irnd(mode_maj_chord.length);
+  chord_prog_idx.push(r);
+  chord_prog.push( mode_maj_chord[r] );
+
+
+  // playing with 7th chords for arp
+  //
+  var arp_chord = [];
+  arp_chord.push( mode_chord4[0] );
+  for (var i=0; i<(chord_prog.length-1); i++) {
+    arp_chord.push( mode_chord4[i] );
+  }
+  var idx = mode_maj_chord_idx_map[ chord_prog_idx[ chord_prog_idx.length-1 ] ];
+  arp_chord.push( mode_chord4[idx] );
+
+  var arp_chord_note = [];
+  var arp_chord_note_dt = [];
+  for (var i=0; i<arp_chord.length; i++) {
+    for (var j=0; j<arp_chord[i].chord.length; j++) {
+      arp_chord_note.push(arp_chord[i].chord[j]);
+      arp_chord_note_dt.push(0.5);
+    }
+    for (var j=0; j<arp_chord[i].chord.length; j++) {
+      arp_chord_note.push(arp_chord[i].chord[j]);
+      arp_chord_note_dt.push(0.5);
+    }
+  }
+
+
+  // arp
+  //
 
   var arp_note_occ = [];
   for (var ii=0; ii<24; ii++) { arp_note_occ.push(0); }
@@ -1991,8 +2084,9 @@ function _alg_v_0_0() {
   var x = _mirror(arp_note);
   //x = _permute(x, 1, arp_note.length-1);
   var arp_prog =  [];
+  var n_arp = 8;
   for (var prev=-1, ii=0; ii<x.length; ii++) {
-    var idx = Math.floor( 8 * ii / x.length );
+    var idx = Math.floor( n_arp * ii / x.length );
     if (idx<=prev) { continue; }
     arp_prog.push(x[ii]);
     prev = idx;
@@ -2011,11 +2105,13 @@ function _alg_v_0_0() {
     }
   }
 
+  var rythm1_opt_idx = _irnd(rythm_opt.length);
   var melody1_info = [];
   for (var ii=0; ii<chord_prog.length; ii++) {
     var bar_notes = _apick(chord_prog[ii].chord, 2);
-    rythm = [ 1, 1, 1, 1 ];
+    //rythm = [ 1, 1, 1, 1 ];
 
+    rythm = rythm_opt[ rythm1_opt_idx ][ii];
     console.log(bar_notes, bar_notes.length, _irnd(bar_notes.length), bar_notes[_irnd(bar_notes.length)]);
     for (var jj=0; jj<rythm.length; jj++) {
       melody1_info.push( { "note": bar_notes[_irnd(bar_notes.length)], "dur": rythm[jj] } );
@@ -2043,6 +2139,23 @@ function _alg_v_0_0() {
   }
   s += ")";
   console.log(s);
+
+  s = "arp_chord_prog = (ring";
+  for (var ii=0; ii<arp_chord_note.length; ii++) {
+    if (ii>0) { s += ","; }
+    s += ' "' + note_name[root_note_idx + arp_chord_note[ii]].toUpperCase() + '"';
+  }
+  s += ")";
+  console.log(s);
+
+  s = "arp_chord_prog_dt = (ring";
+  for (var ii=0; ii<arp_chord_note_dt.length; ii++) {
+    if (ii>0) { s += ","; }
+    s += ' ' + arp_chord_note_dt[ii];
+  }
+  s += ")";
+  console.log(s);
+
 
   s = "melody = (ring";
   for (var ii=0; ii<melody0_info.length; ii++) {
@@ -2098,11 +2211,24 @@ function _alg_v_0_0() {
 
   console.log(root_note_name, root_note_idx);
   console.log(chord_prog);
+  console.log(arp_chord);
   //console.log(arp_note, arp_note.length, x, x.length, arp_prog, arp_prog.length);
   console.log(arp_prog);
 }
 
 function _main() {
+  var fs = new FamiliarSynths();
+
+  var song_mode = ["lydian", "aeolian"];
+
+  var mode_chord = fs.musicalModeChord[song_mode[1]];
+  var mode_chord4 = fs.musicalModeChord4[song_mode[1]];
+
+  for (var ii=0; ii<mode_chord4.length; ii++) {
+    console.log(mode_chord4[ii]);
+  }
+
+
 
   return;
   var fs_bass = new FamiliarSynths();
