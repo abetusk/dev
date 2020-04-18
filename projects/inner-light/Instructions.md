@@ -417,6 +417,11 @@ To install Raspbian on an SD card that will be used by the Raspberry Pi Zero W, 
 
 Once Raspbian is installed, put it into your Raspberry Pi Zero W.
 
+| | |
+|---|---|
+| ![webui top](doc/img/webui-landing_top.jpg) | ![webui bot](doc/img/webui-landing_bot.jpg) |
+| ![webui tap](doc/img/webui-tapbeat.jpg) | ![webui solidcolor](doc/img/webui-solidcolor.jpg)  |
+
 Boot the Raspberry Pi Zero W with the new SD card with Raspbian installed, preferably with a keyboard and monitor attached.
 Go through any installation process needed to get the Raspberry Pi Zero W running and have it connect to a local network.
 Once connected, executing the following command to clone the repository:
