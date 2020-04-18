@@ -207,6 +207,11 @@ connector.
 These ends need to have a connector soldered onto them to allow for power input, where
 appropriate, and for data communication from the previous LED strip or to the next LED strip.
 
+| | |
+|---|---|
+| ![led conn](20190626_042444.jpg) | ![x](20190626_040141.jpg) | 
+| ![led conn](20190626_042907.jpg) | ![led conn]( 20190626_043323.jpg) |
+
 Each LED strip end has three solder connections, one for power, one for ground and for for
 data.
 For each connector, solder the appropriate gendered 3 pin JST SM connector to the end.
@@ -365,6 +370,11 @@ powers the Raspberry Pi Zero W.
 All buck converters and the BEC are put into a compact housing.
 
 ### Raspberry Pi Soldering
+
+| | |
+|---|---|
+| ![encoder front](20190624_213842.jpg) | ![encoder back](20190624_213854.jpg) |
+| ![rpi headers back](doc/img/20190626_003747.jpg) | |
 
 The raspberry pi needs a 2 pin power connector and two 4 pin connectors to the encoders.
 The 2 pin connector is a female JST-XH 90 degree angle connector soldered directly onto
