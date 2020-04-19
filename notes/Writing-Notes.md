@@ -44,6 +44,20 @@ something that puts an end to the current pursuit and offers a new single, physi
 
 "Standard" is 21 "hero goal sequences".
 
+Dan Harmon (story structure)
+---
+
+| Act | Description | |
+|---|---|---|
+| 1 | A character is in their zone of comfort (the normal world) | You/World |
+| 2 | but they want something | Need |
+| 3 | They enter an unfamiliar situation | Go/Challenge |
+| 4 | They adapt to it | Search/Adapt |
+| 5 | They get what they wanted | Find |
+| 6 | but pay a heavy price for it | Take/Cost |
+| 7 | then return to their familiar situation | Return |
+| 8 | having changed | Change/Reflection |
+
 Misc
 ---
 
