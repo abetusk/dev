@@ -8,6 +8,7 @@ and insight I've gained as I learn.
 The focus is on synths.
 
 
+
 Timbre
 ---
 
@@ -612,6 +613,7 @@ References
 * [Open Music Theory](http://openmusictheory.com)
 * [Growing Music (L-Systems)](https://www-users.cs.york.ac.uk/~susan/bib/ss/nonstd/eurogp05/index.html)
 * [How to Synthwave | FL Studio Tutorial](https://youtu.be/ahPindVHPK4)
+* [Measures of Consonances in a Goodness-of-fit Model for Equal-tempered Scales by Aline Honingh](https://github.com/abetusk/papers/blob/release/Music/measures-consonances_honingh.pdf)
 
 Melody References
 ---
