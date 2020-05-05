@@ -587,15 +587,27 @@ Glossary
 
 | Name | Description |
 |------|-------------|
-| `timbre` | The sound an instrument makes.  As far as I can tell, this is essentially synonymous with the Fourier coefficients of the resulting waveform of the instrument | |
-| `chord` | A collection of notes played together. Usually at least 3. | `C E G` |
-| `arpeggio` | A note progression where each note in a chord is played individually | `C E G` |
+| `accidental` | Symbols that raise or lower the pitch of a note by a half-step (example: sharp, flat, natural) |
+| `arpeggio` | A note progression where each note in a chord is played individually (example: `C E G`) |
+| `chord` | A collection of notes played together. Commonly 2, 3 or 4 notes played together. (example: `C E G`) |
+| `common time` | 4/4 meter |
+| `cut time` | 2/2 meter |
+| `diatonic chords` | Chords that fit in a key |
+| `double flat` | A symbol that lowers a note by a whole step (written as two connected flat symbols to the left of the note) |
+| `double sharp` | A symbol that raises a note by a whole step (written as an `X` to the left of a note) |
+| `fermata` | A symbol indicating the note can be held as long as desired but no more than the written note length |
+| `flat` | A symbol indicating a note should be lowered a half step (`\flat`)
+| `gallop` | An eight followed by two sixteenth notes (`[1/8,1/16,1/16]`) |
+| `half-step` | A $\frac{1}{12}$ music interval ($2^{\frac{1}{12}}$) |
 | `key` | A group of notes | key of `G`, which has all the `G A B C D E F#` pitches |
-| `scale` | a set of musical notes ordered by frequency | `c b a g f e d` |
+| `natural` | A symbol written to the left of a note that cancels a sharp or flat symbol |
+| `ostinato` | A short musical pattern that repeats in a passage |
+| `timbre` | The sound an instrument makes.  As far as I can tell, this is essentially synonymous with the Fourier coefficients of the resulting waveform of the instrument | |
+| `tie` | A curved line connecting two notes to indicate they should be played as one (that is, without a break) |
+| `reverse gallop` | Two sixteenth notes followed by an eight note (`[1/16,1/16,1/8]`) |
+| `scale` | A set of musical notes ordered by frequency (example: `c b a g f e d`) |
+| `step (whole)`| Two half-steps ($2^{\frac{2}{12}}$) |
 | `time signature` | Two numbers where the upper one represents the number of "beats" in a bar and the lower represents the inverse note length (power of 2). | `3/8`, 3 beats per bar with each note being an `eighth` note |
-| `diatonic chords` | chords that fit in a key |
-| `gallop` | an eight followed by two sixteenth notes (`[1/8,1/16,1/16]`) |
-| `reverse gallop` | two sixteenth notes followed by an eight note (`[1/16,1/16,1/8]`) |
 
 
 References
