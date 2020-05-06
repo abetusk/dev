@@ -61,6 +61,15 @@ color placement depending on the prisoner's strategy.
 
 **Q: What tactic should be employed by the prisoners to save the maximum number of people?**
 
+Dominoes on a Mutilated Chessboard
+---
+
+A chessboard has 64 squares on it (8 rows by 8 columns).
+A domino takes up 2 squares on a chessboard.
+
+If two squares are removed from the chessboard, one from the upper left corner and the other from the lower right corner,
+Can 31 dominoes be put on a chessboard to completely cover it?
+
 Green Eyed Islanders and the Outsider
 ---
 
@@ -85,6 +94,28 @@ Numbered Boxes
 * Once the game starts, no communication is allowed between players
 
 **Q: What strategy maximizes each player finding their own number in a box?**
+
+Drunk Passengers on a Plane
+---
+
+* There are $N$ seats on a plane
+* There are $N$ passengers, each uniquely assigned one of the $N$ seats
+* Each passenger will take their assigned seat if available, otherwise they will pick a seat at random
+* Each passenger boards one by one
+* The first passenger is drunk and sits in the incorrect seat
+
+**Q: What is the probability that the last passenger will sit in their assigned seat?**
+
+Duplicates in a List
+---
+
+* An array of length $N+1$
+* Elements are only drawn from $[1,N]$
+
+Note: there is at least one duplicate entry in the array.
+
+**Q: In $O(\lg N)$ space and $O(N)$ time, find any duplicated entry**
+
 
 Cat in a Box
 ---
@@ -130,6 +161,8 @@ is allowed while playing.
 The Devil is assumed to be listening in while you and your partner collude.
 
 **Q: What strategy can be employed to maximize the chances of your partner guessing the pointed to position correctly?**
+
+
 
 Solutions
 ===
@@ -215,6 +248,14 @@ of the $(N-1)$ prisoners in front of them.
 
 Each subsequent prisoner will have full information to guess their own hat color correctly.
 
+Dominoes on a Mutilated Chessboard
+---
+
+No, by a parity argument.
+
+The 62 squares now have 30 white squares and 32 black squares.
+Since a domino must cover both a white and black square, a domino must cover two black squares, which
+is an impossibility.
 
 Green Eyed Islanders and the Outsider
 ---
@@ -236,11 +277,39 @@ They then jump to the box of the number that is written on the piece of paper.
 This becomes the probability that the maximum cycle in a random permutation is less than $\frac{N}{2}$
 
 
+Drunk Passengers on a Plane
+---
+
+One "quick and dirty" way is to approximate by asking what the probability is of "drawing"
+a number from a dwindling pool of seats.
+
+$$
+\prod_{k=0}^{N-1} (1 - \frac{1}{n-k}) \approx 
+\prod_{k=0}^{N-1} (1 - \frac{1}{n}) = (1 - \frac{1}{n})^n \to \frac{1}{e}
+$$
+
+Giving $1-e^{-1}$.
+
+This assumes independence and a lot of hand waiving.
+
+The more rigorous analysis...
+
+
+Duplicates in a List
+---
+
+hmm...
+
 Cat in a Box
 ---
 
 Start from the left most room, then increment to the right by one at each round.
 Wait an extra round at the right most door, then start going from right to left by an increment of 1 at each round.
+
+Starting from the left and then moving right forces the cat's position to the left of the current position into box positions
+of the same parity.
+Once the right has been reached, moving back towards the left with the cat's position forced into room positions of the
+same parity ensures the cat can't "skip" over the current position.
 
 Prisoners and the Coin
 ---
