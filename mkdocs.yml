@@ -35,6 +35,7 @@ pages:
   - "Empirical-Laws.md"
   - "Food-CO2-Water.md"
   - "SSH-Recipes.md"
+  - "Future-Predictions.md"
 
 docs_dir: 'wiki'
 theme_dir: 'dev_theme'
