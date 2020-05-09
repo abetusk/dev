@@ -568,6 +568,17 @@ Data
 | aeolian | `[0,2,3,5,7,8,10]` | `[c,d,d#,f,g,g#,a#]` |   `[2,1,2,2,1,2,2]` | dark/sad |
 | locrian | `[0,1,3,5,6,8,10]` | `[c,c#,d#,f,f#,g#,a#]` | `[1,2,2,1,2,2,2]` | ? |
 
+| Mode | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|---|---|---|---|---|---|---|---|
+| ionian | `I` `[0,4,7]` | `ii` `[2,5,9]` | `iii` `[4,7,11]` | `IV` `[5,9,12]` | `V` `[7,11,14]` | `vi` `[9,12,16]` | `viid` `[11,14,17]` |
+| dorian | `i` `[0,3,7]` | `ii` `[2,5,9]` | `III` `[3,7,10]` | `IV` `[5,9,12]` | `v` `[7,10,14]` | `vid` `[9,12,15]` | `VII` `[10,14,17]` |
+| phyrgian | `i` `[0,3,7]` | `II` `[1,5,8]` | `III` `[3,7,10]` | `iv` `[5,8,12]` | `vd` `[7,10,13]` | `VI` `[8,12,15]` | `vii` `[10,13,17]` |
+| lydian | `I` `[0,4,7]` | `II` `[2,6,9]` | `iii` `[4,7,11]` | `ivd` `[6,9,12]` | `V` `[7,11,14]` | `vi` `[9,12,16]` | `vii` `[11,14,18]` |
+| mixolydian | `I` `[0,4,7]` | `ii` `[2,5,9]` | `iiid` `[4,7,10]` | `IV` `[5,9,12]` | `v` `[7,10,14]` | `vi` `[9,12,16]` | `VII` `[10,14,17]` |
+| aeolian | `i` `[0,3,7]` | `iid` `[2,5,8]` | `III` `[3,7,10]` | `iv` `[5,8,12]` | `v` `[7,10,14]` | `VI` `[8,12,15]` | `VII` `[10,14,17]` |
+| locrian | `id` `[0,3,6]` | `II` `[1,5,8]` | `iii` `[3,6,10]` | `iv` `[5,8,12]` | `V` `[6,10,13]` | `VI` `[8,12,15]` | `vii` `[10,13,17]` |
+
+
 | 2-chord progression | code | description |
 |---------------------|------|-------------|
 | `[+0,+4,+7] [+2,+6,+9]` | M2M | Protagonism |
@@ -580,6 +591,77 @@ Data
 | `[+0,+3,+7] [+11,+15,+18]` | m11M | Dramatic |
 | `[+0,+3,+7] [+6,+9,+13]` | m6m | Danger |
 | `[+0,+3,+7] [+8,+11,+15]` | m8m | Evil |
+
+Misc Code
+---
+
+To find the chords for a mode:
+
+```
+var mode_notes = {
+    "aeolian":[0,+2,+3,+5,+7,+8,+10],
+    "locrian": [0,+1,+3,+5,+6,+8,+10],
+    "ionian":  [0,+2,+4,+5,+7,+9,+11],
+    "dorian":  [0,+2,+3,+5,+7,+9,+10],
+    "phyrgian": [0,+1,+3,+5,+7,+8,+10],
+    "lydian":  [0,+2,+4,+6,+7,+9,+11] ,
+    "mixolydian":  [0,+2,+4,+5,+7,+9,+10]
+  };
+
+var mode_names = [ "aeolian", "locrian", "ionian", "dorian", "phyrgian", "lydian", "mixolydian" ];
+var mode_chord = {};
+
+var chord_name = {
+  "maj" : ["I", "II", "III", "IV", "V", "VI", "VII"],
+  "min" : ["i", "ii", "iii", "iv", "v", "vi", "vii"],
+  "dim" : ["id", "iid", "iiid", "ivd", "vd", "vid", "viid"]
+};
+
+for (var ii=0; ii<mode_names.length; ii++) {
+  var mode_name = mode_names[ii];
+  var notes = mode_notes[mode_name];
+
+  mode_chord[mode_name] = [];
+
+  var occupancy = [];
+  for (var _i=0; _i<24; _i++) { occupancy.push(0); }
+  for (var _i=0; _i<notes.length; _i++) {
+    occupancy[notes[_i]] = 1;
+    occupancy[notes[_i]+12] = 1;
+  }
+
+  chord_check_name = ["maj", "min", "dim"];
+  chord_check = [ [0,4,7], [0,3,7], [0,3,6] ];
+
+  for (var nidx=0; nidx < notes.length; nidx++) {
+    var chord_info = { "type":"", "chord":[], "name":""};
+    var base_note = notes[nidx];
+
+    for (var ch_idx=0; ch_idx < chord_check.length; ch_idx++) {
+      var found = true;
+      for (var _n=0; _n<chord_check[ch_idx].length; _n++) {
+        if (occupancy[base_note + chord_check[ch_idx][_n]] == 0) {
+          found = false;
+          break;
+        }
+      }
+      if (found) {
+        chord_info.type = chord_check_name[ch_idx];
+        chord_info.name = chord_name[ chord_check_name[ch_idx] ][nidx];
+        chord_info.chord = [
+          base_note + chord_check[ch_idx][0],
+          base_note + chord_check[ch_idx][1],
+          base_note + chord_check[ch_idx][2] ];
+        break;
+      }
+    }
+    mode_chord[mode_name].push(chord_info);
+  }
+}
+
+console.log(JSON.stringify(mode_chord));
+
+```
 
 Glossary
 ---
