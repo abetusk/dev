@@ -90,5 +90,29 @@ Note: at present, costs halve at every 10 years.
 
 [Wikipedia](https://en.wikipedia.org/wiki/Wagner%27s_law)
 
+### Wright's Law
+
+> Production doubling leads to a constant percent decrease in cost.
+
+aka Experience curve effects.
+
+The above is paraphrased.
+Wright noticed that every time total aircraft production doubled, the required labor cost fell 20%.
+
+For unit number $n$, cost $P_n$ is approximately:
+
+$$
+P_n = P_1 n^{ \lg(\beta) } = P_1 n^{-\alpha}
+$$
+
+Where $(1-\beta)$ is the reduction proportion and $\alpha$ is the "elasticity of cost" ($\alpha = -\lg(\beta)$).
+Note that $ \frac{ P_{2n} }{P_n} = 2^{-\alpha} $
+
+It appears that $(1-\beta)$ estimates can typically range from $0.1$ to $0.25$.
+
+Also note that economies of scale might be intertwined with with the experience curve effects and that it might be hard to separate the two.
+
+[Wikipedia](https://en.wikipedia.org/wiki/Experience_curve_effects)
+
 
 ###### 2019-03-18
