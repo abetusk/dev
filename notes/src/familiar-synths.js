@@ -2228,6 +2228,28 @@ function _alg_v_0_0() {
   console.log(arp_prog);
 }
 
+function _list_mode_chords() {
+  var fs = new FamiliarSynths();
+
+  console.log("| mode | 1 | 2 | 3 | 4 | 5 | 6 | 7 |");
+  console.log("|---|---|---|---|---|---|---|---|");
+  for (var ii=0; ii<fs.musicalModeList.length; ii++) {
+    var _row = [];
+    var mode = fs.musicalModeList[ii];
+    var chords = fs.musicalModeChord[mode];
+
+    _row.push(mode);
+    for (var jj=0; jj<chords.length; jj++) {
+      //console.log( chords[jj]);
+
+      _row.push( "`" + chords[jj].name + "` `[" + chords[jj].chord.join(",") + "]`" );
+    }
+    //console.log(mode, chords);
+    //
+    console.log("| " + _row.join(" | ") + " |")
+  }
+}
+
 function _main() {
   var fs = new FamiliarSynths();
 
@@ -2257,5 +2279,7 @@ function _main() {
 
 //_main();
 
-_alg_v_0_0();
+//_alg_v_0_0();
 
+
+_list_mode_chords();
