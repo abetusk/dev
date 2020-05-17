@@ -12,6 +12,7 @@ Reference
 * [Sophy Wong](https://sophywong.com/)
 * ["light of birth / 3d laser mist hologram" by nobumichi asai](https://vimeo.com/148280386)
 * [Eran Hilleli](https://eranhilleli.com/)
+* [Memphis Design Group](https://en.wikipedia.org/wiki/Memphis_Group)
 
 Braun (company)
 ---
