@@ -1,6 +1,8 @@
 Live Fast, Live Forever - Light Up Patch
 ---
 
+![lflf](img/lflf_v0.1.2.jpg)
+
 This is a project inspired by [Alzbeta Trojanova's](https://twitter.com/TaAlzbeta/status/1163131956902662145) [Cyberpunk 2077 jacket build](https://imgur.com/gallery/x0hWPJd).
 Alzbeta printed a logo on light fabric and then used LED strips to illuminate it from behind.
 I had thought that the LEDs would not be diffused enough or otherwise be too clunky but her build looks great and so I'd thought
