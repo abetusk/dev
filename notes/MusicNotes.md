@@ -684,7 +684,7 @@ Glossary
 | `key` | A group of notes | key of `G`, which has all the `G A B C D E F#` pitches |
 | `natural` | A symbol written to the left of a note that cancels a sharp or flat symbol |
 | `ostinato` | A short musical pattern that repeats in a passage |
-| `timbre` | The sound an instrument makes.  As far as I can tell, this is essentially synonymous with the Fourier coefficients of the resulting waveform of the instrument | |
+| `timbre` | The sound an instrument makes.  As far as I can tell, this is essentially synonymous with the Fourier coefficients of the resulting waveform of the instrument [yt](https://www.youtube.com/watch?v=VRAXK4QKJ1Q) |
 | `tie` | A curved line connecting two notes to indicate they should be played as one (that is, without a break) |
 | `reverse gallop` | Two sixteenth notes followed by an eight note (`[1/16,1/16,1/8]`) |
 | `scale` | A set of musical notes ordered by frequency (example: `c b a g f e d`) |

@@ -26,7 +26,7 @@ $$
 
 $$
 
-\begin{equation} \label{eq1}
+\begin{equation} \label{eq2}
 \begin{split}
 
 e(n) &=
@@ -95,7 +95,7 @@ $$
 ---
 
 $$
-\begin{equation} \label{eq1}
+\begin{equation} \label{eq3}
 \begin{split}
 
 \sum_{d|n} \mu(d) &= \sum_{ < p > } \mu(\prod_{k=0}^{m-1} p_k^{\alpha_k} ) \\\\
