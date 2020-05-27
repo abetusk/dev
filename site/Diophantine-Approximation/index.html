@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>dev blog</title>
 
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="/css/pygment_trac.css">
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
 
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({
@@ -15,8 +15,8 @@
         tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
       });
     </script>
-    <script type="text/javascript" src="/js/MathJax.js"></script>
-    <!-- <script type="text/javascript" src="/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
 
     <meta name="viewport" content="width=device-width">
   </head>
@@ -28,7 +28,7 @@
 
         <table>
           <body>
-            <tr><td><a href="/">./dev</a></td></tr>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
            <tr>
               <td>
                 <br /> <br /> <br />
@@ -39,7 +39,7 @@
                 Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
                 <br />
 
-                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/img/cc-by-sa-80x15.png" /></a>
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
                 </p>
               </td>
             </tr>
@@ -145,7 +145,7 @@ with gmpy2.local_context(gmpy2.coneext(), precision=1000) as ctx:
 \begin{array}{cc}
 \forall p(x) = \sum_{k=0}^{n} c_k x^k, &amp; c_k \in \mathbb{Z}, \ \ p(\alpha) = 0 \\
 \exists A &gt; 0, &amp; \forall p,q \in \mathbb{Z}_{+} \\
-| \alpha - \frac{p}{a} &gt; \frac{A}{q^n}
+| \alpha - \frac{p}{a}|  &gt; \frac{A}{q^n}
 \end{array}
 $$</p>
 <p>$\alpha_k$ the roots of $p(x)$ above, with $\alpha$ distinct from the rest, and $M$ is the maximum value of $|p'(x)|$ on the interval $[\alpha-1,\alpha+1]$:</p>
@@ -180,6 +180,6 @@ $$</p>
       -->
 
     </div>
-    <script src="/js/scale.fix.js"></script>
+    <script src="/dev/js/scale.fix.js"></script>
   </body
 </html>
