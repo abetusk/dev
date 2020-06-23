@@ -59,6 +59,11 @@ Note: "The Losers are not social losers (as in the opposite of “cool”), but 
 
 [Wikipedia](https://en.wikipedia.org/wiki/Peter_principle)
 
+### Planck's Principle
+
+> Scientific change does not occur because individual scientists change their mind, but rather that successive generations of scientists have different views.
+
+[Wikipedia](https://en.wikipedia.org/wiki/Planck%27s_principle)
 
 ### Spolsky's Observation
 

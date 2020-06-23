@@ -58,6 +58,17 @@ Dan Harmon (story structure)
 | 7 | then return to their familiar situation | Return |
 | 8 | having changed | Change/Reflection |
 
+readwrite.today
+---
+
+Three main hero desires:
+
+* possession - house, money, power, mcguffin, marriage, etc.
+* deliverance - graduate, acceptance to school/country/business, escape country/abusive relationship/prison, etc.
+* revenge - punish someone for wrongdoing
+
+[src](https://readandwrite.today/essay/what-makes-a-character-memorable.html)
+
 Misc
 ---
 
@@ -65,7 +76,7 @@ Misc
   happen to them.
 * Make a protagonist that has clear visible goals
 * (Maybe only for comedies) have protagonist have learning moments where initial goal changes
-* Each minute shoul dhave ticking clocks, reaising stakes, good news / bad news
+* Each minute should have ticking clocks, realising stakes, good news / bad news
 * Need peaks and valleys of intensity
 * Protagonist should have flaws, should have sympathy for antagonist
 
