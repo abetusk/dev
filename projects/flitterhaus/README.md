@@ -125,6 +125,38 @@ Create the HTML file `/var/www/html/vid.html`:
 </html>
 ```
 
+---
+
+Work in progress:
+
+```
+wget "https://vjs.zencdn.net/7.8.2/video-js.min.css"
+wget "https://vjs.zencdn.net/7.8.2/video.min.js"
+wget "https://unpkg.com/browse/@videojs/http-streaming@1.13.3/dist/videojs-http-streaming.js"
+```
+
+
+```
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>fliiterhaus m3u8</title>
+    <script src="js/video.js"></script>
+    <script src="js/videojs-http-streaming.js"></script>
+  </head>
+  <body>
+    <div>
+      <video-js id='vid1' width='640' height='480' class='vjs-default-skin' controls>
+        <source src='http://localhost/hls/pi.m3u8" type='applicaiton/x-mpegURL'>
+      </video-js>
+    </div>
+  </body>
+</html>
+```
+
+---
+
 Run `ffmpeg`:
 
 ```
