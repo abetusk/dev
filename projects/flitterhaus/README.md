@@ -119,7 +119,7 @@ Create the HTML file `/var/www/html/vid.html`:
   </head>
   <body>
   <div>
-      <video data-dashjs-player="" autoplay="" src="http://192.168.0.33/dash/pi.mpd" controls="true"></video>
+      <video data-dashjs-player="" autoplay="" src="http://192.168.10.32/dash/pi.mpd" controls="true"></video>
   </div>
   </body>
 </html>
@@ -135,22 +135,25 @@ wget "https://vjs.zencdn.net/7.8.2/video.min.js"
 wget "https://unpkg.com/browse/@videojs/http-streaming@1.13.3/dist/videojs-http-streaming.js"
 ```
 
-
 ```
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>fliiterhaus m3u8</title>
-    <script src="js/video.js"></script>
-    <script src="js/videojs-http-streaming.js"></script>
+    <title>flitterhaus m3u8</title>
+    <link href='css/video-js.min.css' rel='stylesheet'>
   </head>
+  <script src='js/video.min.js'></script>
+  <script src='js/videojs-http-streaming.js'></script>
+
   <body>
-    <div>
-      <video-js id='vid1' width='640' height='480' class='vjs-default-skin' controls>
-        <source src='http://localhost/hls/pi.m3u8" type='applicaiton/x-mpegURL'>
-      </video-js>
-    </div>
+    <video-js id=vid1 width=600 height=300 class='vjs-default-skin' controls>
+      <source src='http://192.168.10.32/hls/pi.m3u8' type='application/x-mpegURL'>
+    </video-js>
+  <script>
+    var player = videojs('vid1');
+		player.play();
+  </script>
   </body>
 </html>
 ```
@@ -167,12 +170,33 @@ ffmpeg -f video4linux2 \
   -framerate 30 \
   -i /dev/video0  \
   -vcodec copy \
-  -an -f flv rtmp://192.168.0.33/show/pi
+  -an -f flv rtmp://192.168.10.32/show/pi
 ```
 
-Replace `192.168.0.33` as necessary.
+or (?):
 
-Point Firefox to `http://192.168.0.33/vid.html` and you should see a video feed, perhaps with a ~20s delay.
+```
+ffmpeg -f video4linux2 \
+  -input_format h264 \
+  -video_size 640x360 \
+  -framerate 30 \
+  -i /dev/video0 \
+  -vcodec copy \
+  -an -f flv \
+  rtmp://localhost/show/pi
+```
+
+Replace `192.168.10.32` as necessary.
+
+Point Firefox to `http://192.168.10.32/vid.html` and you should see a video feed, perhaps with a ~20s delay.
+
+---
+
+To turn off the LED on the camera, try:
+
+```
+echo disable_camera_led=1 >> /boot/config.txt
+```
 
 References
 ---
