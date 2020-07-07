@@ -198,6 +198,41 @@ To turn off the LED on the camera, try:
 echo disable_camera_led=1 >> /boot/config.txt
 ```
 
+---
+
+To use a custom DNS entry, add this to `/etc/dnsmasq.conf`:
+
+```
+echo 'address=/flitter.haus/192.168.10.32' >> /etc/dnsmasq.conf
+```
+
+And be sure to make an appropriate HTML page:
+
+```
+cat > /var/www/html/flittervid.html <<EOF
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>flitterhaus m3u8</title>
+    <link href='css/video-js.min.css' rel='stylesheet'>
+  </head>
+  <script src='js/video.min.js'></script>
+  <script src='js/videojs-http-streaming.js'></script>
+
+  <body>
+    <video-js id=vid1 width=600 height=300 class='vjs-default-skin' controls>
+      <source src='http://flitter.haus/hls/pi.m3u8' type='application/x-mpegURL'>
+    </video-js>
+  <script>
+    var player = videojs('vid1');
+		player.play();
+  </script>
+  </body>
+</html>
+EOF
+```
+
 References
 ---
 
