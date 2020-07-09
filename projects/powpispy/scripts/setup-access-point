@@ -1,0 +1,261 @@
+#!/bin/bash
+#
+# License: CC0
+
+# Meant to be run as root.
+#
+# This script attempts to setup a Raspberry Pi Zero W
+# as an access point.
+# Be wary of running this script if you don't know what you're
+# doing!
+#
+# This script installs:
+#
+# * dnsmasq  - to provide a dns server
+# * hostapd  - to provide an access point
+# * nginx    - so the access point can server files itself
+#
+# and disables the (default) dhcpcd dns daemon
+# that comes pre-installed (on Raspbian at least).
+#
+# A 'udev' rule is added to enable the wifi card to
+# be used as an access point.
+#
+# 'hostapd' is configured appropriately
+#
+# If a client SSID and paswword are given, the appropriate
+# entry for wpa_supplicant will be provided.
+#
+# A script is created to fiddle with the interfaces
+# and hook up the access point to the wider internet.
+# This script is added to user 'pi's crontab to run
+# at reboot.
+#
+
+# Note that dnsmasq is configured to give 12 hour leases
+# in the IP range of 192.168.10.50 to 192.168.10.150
+# (see the dnsmasq.conf line 'dhcp-range=192.168.10.50,192.168.10.150,12h').
+#
+# The access point itself is given an IP of 192.168.10.32.
+# If you have a web server running, once you connect to the access
+# point, you can access web pages running local to the access point by
+# pointing your browser to:
+#
+# http://192.168.10.32
+#
+# If you would like to create a custom domain for, see the below comment
+# for dnsmasq.conf
+#
+
+# I've added some things to this script without testing,
+# so please run at your own risk.
+#
+
+# Some common problems:
+#
+# * The wifi card is not showing up:
+#  - Is the MAC address correct in "70-persistent-net.rules" (maybe from swapping
+#    the SD card from one machine to another?). If not, change appropriately
+# * The access point is not coming up on boot:
+#  - Are you impatient? Does it come up after 120s from first power on?
+#  - Is the start-ap-managed-wifi running? Is it waiting long enough? Does running it by
+#    hand work?
+# * The access point is working but not passing through/connecting to the internet connected
+#   router
+#  - Check /etc/wpa_supplicant/wpa_supplicant.conf. Does it have the correct SSID and password?
+#    Does it have the id_str="AP1" line? Does it have the correct key-mgmt? If not, change and test
+#
+
+export AP_SSID="powpispy"
+export AP_PASS=""
+export CLIENT_SSID="$3"
+export CLIENT_PASS="$4"
+
+if [[ "$1" == '-h' ]] || [[ "$1" == '--help' ]] ; then
+  echo ""
+  echo "usage:"
+  echo ""
+  echo "  setup-access-point [ap-ssid] [ap-pass] [client-ssid] [client-pass]"
+  echo ""
+  exit 1
+fi
+
+if [[ "$1" != "" ]] ; then AP_SSID="$1" ; fi
+if [[ "$2" != "" ]] ; then AP_PASS="$2" ; fi
+
+# Install pre-requisite packages
+#
+apt-get install -y dnsmasq hostapd at jq nginx
+
+# Disable dhcpcd and other services
+#
+systemctl mask networking.service dhcpcd.service
+systemctl unmask hostapd
+systemctl enable hostapd
+systemctl start hostapd
+
+# Start nginx
+#
+systemctl enable nginx
+systemctl start nginx
+
+# add ap0 as access point interface
+#
+export wifimac=`cat /sys/class/net/wlan0/address`
+cat > /etc/udev/rules.d/70-persistent-net.rules <<EOF
+SUBSYSTEM=="ieee80211", ACTION=="add|change", ATTR{macaddress}=="$wifimac", KERNEL=="phy0", \
+  RUN+="/sbin/iw phy phy0 interface add ap0 type __ap", \
+  RUN+="/bin/ip link set ap0 address $wifimac"
+EOF
+
+# Setup access point config file
+#
+cat > /etc/hostapd/hostapd.conf <<EOF
+ctrl_interface=/var/run/hostapd
+ctrl_interface_group=0
+interface=ap0
+driver=nl80211
+ssid=$AP_SSID
+#wpa_passphrase=$AP_PASS
+hw_mode=g
+channel=11
+wmm_enabled=0
+macaddr_acl=0
+auth_algs=1
+wpa=2
+wpa_key_mgmt=WPA-PSK
+wpa_pairwise=TKIP CCMP
+rsn_pairwise=CCMP
+EOF
+
+if [[ "$AP_PASS" != "" ]] ; then
+  sed -i 's/^#wpa_passphrase=/wpa_passphrase=/' /etc/hostapd/hostapd.conf
+fi
+
+# Point hostapd to appropriate config file
+#
+sed -i 's;^#\?DAEMON_CONF=.*;DAEMON_CONF="/etc/hostapd/hostapd.conf";' /etc/default/hostapd
+
+# Populate wpa_supplicant.conf (left commented out as this can be used as is if this is already set up)
+# Note: the id_str="AP1" line is **necessary**.
+#
+if [[ "$CLIENT_SSID" != "" ]] && [[ "$CLIENT_PASS" != "" ]] ; then
+cp /etc/wpa_supplicatn/wpa_supplicant.conf /root/wpa_supplicant.conf.bak
+cat > /etc/wpa_supplicant/wpa_supplicant.conf <<EOF
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+country=US
+
+network={
+  ssid="$CLIENT_SSID"
+  psk="$CLIENT_PASS"
+  key_mgmt=WPA-PSK
+  id_str="AP1"
+}
+EOF
+fi
+
+# setup DNS so connected devices through access point get an actual IP.
+# Note that this overwrites /etc/dnsmasq.conf
+#
+# To add in a custom domain name, add the following line to the bottom
+# (before the EOF and without the leading '#'):
+# 
+# address=/powpi.spy/192.168.10.32
+#
+cat > /etc/dnsmasq.conf <<EOF
+interface=lo,ap0
+no-dhcp-interface=lo,wlan0
+bind-interfaces
+server=8.8.8.8
+domain-needed
+bogus-priv
+dhcp-range=192.168.10.50,192.168.10.150,12h
+EOF
+
+# Setup networking
+#
+cat > /etc/network/interfaces <<EOF
+# interfaces(5) file used by ifup(8) and ifdown(8)
+
+# Please note that this file is written to be used with dhcpcd
+# For static IP, consult /etc/dhcpcd.conf and 'man dhcpcd.conf'
+
+# Include files from /etc/network/interfaces.d:
+source-directory /etc/network/interfaces.d
+
+auto lo
+auto ap0
+auto wlan0
+iface lo inet loopback
+
+allow-hotplug ap0
+iface ap0 inet static
+    address 192.168.10.32
+    netmask 255.255.255.0
+    hostapd /etc/hostapd/hostapd.conf
+
+allow-hotplug wlan0
+iface wlan0 inet manual
+    wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
+iface AP1 inet dhcp
+EOF
+
+# There are problems with bringing up the interface so we have to do some trickery
+# to wait a bit after reboot and then force them down and up again, as well
+# as 'manually' add routing from the access point to the wider internet
+#
+cat > /home/pi/start-ap-managed-wifi <<EOF
+#!/bin/bash
+#
+# License: CC0
+#
+
+# The Raspberry Pi Zero W WiFi card has some
+# issues creating the access point and also
+# providing the wlan0 interface.
+# To help get more consistency in providing
+# both the access point and the wlan0 interface,
+# bring both of them down, then bring ap0 up,
+# then wlan0 up.
+#
+# The sysctl and iptables calls are to hook up
+# routing between connections through the access
+# point to the broader internet through the wlan0
+# interface, so the rpi essentially acts as a
+# hotspot or router.
+#
+# The initial 'sleep 30' is provided to give the
+# rpi time to boot up before cycling the interfaces
+# and doing the routing, as this script is meant to
+# be run at bootup.
+#
+
+sleep 30
+sudo ifdown --force wlan0 && \
+  sleep 1 && \
+  sudo ifdown --force ap0 && \
+  sleep 1 && \
+  sudo ifup ap0 && \
+  sleep 1 && \
+  sudo ifup wlan0
+sleep 1
+sudo sysctl -w net.ipv4.ip_forward=1
+sleep 1
+sudo iptables -t nat -A POSTROUTING -s 192.168.10.0/24 ! -d 192.168.10.0/24 -j MASQUERADE
+sleep 1
+sudo systemctl restart dnsmasq
+
+EOF
+
+chown pi:pi /home/pi/start-ap-managed-wifi
+chmod 744 /home/pi/start-ap-managed-wifi
+
+cat > /home/pi/crontab <<EOF
+@reboot /home/pi/start-ap-managed-wifi
+EOF
+
+chown pi:pi /home/pi/crontab
+chmod 744 /home/pi/crontab
+
+su - pi bash -c "crontab < /home/pi/crontab"
