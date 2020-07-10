@@ -99,6 +99,19 @@ server {
 }
 ```
 
+Above this, add the following to get rid of the `.html` extension ([so](https://stackoverflow.com/questions/38228393/nginx-remove-html-extension)):
+
+```
+location / {
+    if ($request_uri ~ ^/(.*)\.html$) {
+        return 302 /$1;
+    }
+    try_files $uri $uri.html $uri/ =404;
+}
+```
+
+---
+
 Add necessary JavaScript libraries:
 
 ```
@@ -114,20 +127,46 @@ Create the HTML file `/var/www/html/vid.html`:
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
-    <script src="js/dash.all.min.js"></script>
-  </head>
+    <meta charset='UTF-8'>
+    <script src='js/dash.all.min.js'></script>
+  <head>
   <body>
-  <div>
-      <video data-dashjs-player="" autoplay="" src="http://192.168.10.32/dash/pi.mpd" controls="true"></video>
-  </div>
+    <div>
+      <video data-dashjs-player='' autoplay='' src='dash/pi.mpd' controls=true'></video>
+    </div>
   </body>
 </html>
+```
+
+Create a "nice" landing page:
+
+```
+<!DOCTYPE html>
+<html>
+<head>
+<title>FlitterHaus</title>
+<style>
+    body {
+        width: 35em;
+        margin: 0 auto;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+    }
+</style>
+</head>
+<body>
+  <a href='/vid'><img src='img/vampirepuff-friend.png' style='width:500px;'></img></a>
+<br>
+
+</body>
+</html>
+
 ```
 
 ---
 
 Work in progress:
+
+Here is the HLS/m3u8 alternative to dash:
 
 ```
 wget "https://vjs.zencdn.net/7.8.2/video-js.min.css"
@@ -148,12 +187,12 @@ wget "https://unpkg.com/browse/@videojs/http-streaming@1.13.3/dist/videojs-http-
 
   <body>
     <video-js id=vid1 width=600 height=300 class='vjs-default-skin' controls>
-      <source src='http://192.168.10.32/hls/pi.m3u8' type='application/x-mpegURL'>
+      <source src='hls/pi.m3u8' type='application/x-mpegURL'>
     </video-js>
-  <script>
-    var player = videojs('vid1');
-		player.play();
-  </script>
+    <script>
+      var player = videojs('vid1');
+      player.play();
+    </script>
   </body>
 </html>
 ```
@@ -226,7 +265,7 @@ cat > /var/www/html/flittervid.html <<EOF
     </video-js>
   <script>
     var player = videojs('vid1');
-		player.play();
+    player.play();
   </script>
   </body>
 </html>
@@ -243,6 +282,7 @@ References
 * [GitHub: dash.js](https://github.com/Dash-Industry-Forum/dash.js)
 * [Ben's Place: Raspberry Pi Streaming Camera](https://www.hardill.me.uk/wordpress/2020/05/18/raspberry-pi-streaming-camera/)
 * [Ben's Place: Streaming Camera to Chromecast](https://www.hardill.me.uk/wordpress/2020/05/03/streaming-camera-to-chromecast/)
+* [Makerfocus Raspberry Pi Zero W Camera with Night Vision](https://www.amazon.com/gp/product/B073HYJDCM/)
 
 License
 ---

@@ -2063,6 +2063,9 @@ function _alg_v_0_0() {
   // arp
   //
 
+  // simple hill ( _/-\_ )
+  //
+
   var arp_note_occ = [];
   for (var ii=0; ii<24; ii++) { arp_note_occ.push(0); }
   for (var ii=0; ii<chord_prog.length; ii++) {
@@ -2090,6 +2093,15 @@ function _alg_v_0_0() {
     if (idx<=prev) { continue; }
     arp_prog.push(x[ii]);
     prev = idx;
+  }
+
+  // play with permuting arp...
+  //
+  for (var ii=1; ii<arp_prog.length; ii++) {
+    var nt = arp_prog[ii];
+    var p = ii + Math.floor( Math.random() * (arp_prog.length - ii) );
+    arp_prog[ii] = arp_prog[p];
+    arp_prog[p] = nt;
   }
 
   // create melody by choosing random two notes from
@@ -2279,7 +2291,7 @@ function _main() {
 
 //_main();
 
-//_alg_v_0_0();
+_alg_v_0_0();
 
 
-_list_mode_chords();
+//_list_mode_chords();
