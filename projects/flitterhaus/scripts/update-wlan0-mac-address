@@ -1,0 +1,19 @@
+#!/bin/bash
+#
+# License: CC0
+#
+
+fn="$1"
+
+if [[ "$fn" == -h ]] ; then
+  echo "provide file"
+  exit 1
+fi
+
+if [[ "$fn" == "" ]] ; then
+  fn='/etc/udev/rules.d/70-persistent-net.rules'
+fi
+
+wifimac=`cat /sys/class/net/wlan0/address`
+
+sed -i 's/\(..:..:..:..:..:..\)/'$wifimac'/g' $fn
