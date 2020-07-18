@@ -33,12 +33,18 @@ module main_body() {
       translate([ dx-4*_M3,-dy-2*_M3]) square([4*_M3, 4*_M3]);
       translate([-dx,-dy-2*_M3]) square([4*_M3, 4*_M3]);
 
+      //translate([-dx+2*_M3,0]) square([4*_M3, 4*_M3], center=true);
+      //translate([ dx-2*_M3,0]) square([4*_M3, 4*_M3], center=true);
+
       // m3 support
       //
       translate([-dx, dy]) circle(2*_M3);
       translate([ dx, dy]) circle(2*_M3);
       translate([ dx,-dy]) circle(2*_M3);
       translate([-dx,-dy]) circle(2*_M3);
+
+      //translate([-dx,0]) circle(2*_M3);
+      //translate([ dx,0]) circle(2*_M3);
     }
 
     // spindle body
@@ -52,6 +58,9 @@ module main_body() {
     translate([ dx, dy]) circle(_M3r);
     translate([-dx,-dy]) circle(_M3r);
     translate([ dx,-dy]) circle(_M3r);
+
+    //translate([-dx, 0]) circle(_M3r);
+    //translate([ dx, 0]) circle(_M3r);
   }
 }
 
@@ -78,6 +87,10 @@ module top_plate() {
   }
 }
 
+module back_support() {
+  main_body();
+}
+
 
 module bot_plate() {
 
@@ -102,5 +115,8 @@ module bot_plate() {
   }
 }
 
-top_plate();
-translate([110,0]) bot_plate();
+//top_plate();
+//translate([110,0]) bot_plate();
+
+back_support();
+translate([110,0]) back_support();
