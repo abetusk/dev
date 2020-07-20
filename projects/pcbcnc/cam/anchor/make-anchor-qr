@@ -1,0 +1,18 @@
+#!/bin/bash
+
+qrencode -l H -o anchor0.png 'anchor0-pcbcnc-meowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeow'
+qrencode -l H -o anchor1.png 'anchor1-pcbcnc-meowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeow'
+qrencode -l H -o anchor2.png 'anchor2-pcbcnc-meowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeow'
+qrencode -l H -o anchor3.png 'anchor3-pcbcnc-meowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeow'
+
+
+qrencode -l H -o anchor0s.png 'anchor0-pcbcnc-meowmeowmeowmeowmeowmeowmeowmeow'
+qrencode -l H -o anchor1s.png 'anchor1-pcbcnc-meowmeowmeowmeowmeowmeowmeowmeow'
+qrencode -l H -o anchor2s.png 'anchor2-pcbcnc-meowmeowmeowmeowmeowmeowmeowmeow'
+qrencode -l H -o anchro3s.png 'anchor3-pcbcnc-meowmeowmeowmeowmeowmeowmeowmeow'
+
+qrencode -l H -o anchor0ss.png 'anchor0-pcbcnc-meow'
+qrencode -l H -o anchor1ss.png 'anchor1-pcbcnc-meow'
+qrencode -l H -o anchor2ss.png 'anchor2-pcbcnc-meow'
+qrencode -l H -o anchro3ss.png 'anchor3-pcbcnc-meow'
+
