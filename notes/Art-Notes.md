@@ -32,5 +32,5 @@ Jennifer Townley
 
 | |
 |---|
-| ![asinas1](jennifer-townley_asinas1.jpg) |
+| ![asinas1](img/jennifer-townley_asinas1.jpg) |
 
