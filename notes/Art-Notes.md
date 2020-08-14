@@ -13,6 +13,7 @@ Reference
 * ["light of birth / 3d laser mist hologram" by nobumichi asai](https://vimeo.com/148280386)
 * [Eran Hilleli](https://eranhilleli.com/)
 * [Memphis Design Group](https://en.wikipedia.org/wiki/Memphis_Group)
+* [Jennifer Townley](http://www.jennifertownley.com/bussola)
 
 Braun (company)
 ---
@@ -25,4 +26,11 @@ Specifically the art direction of [Dieter Rams](https://en.wikipedia.org/wiki/Di
 |---|---|---|
 | ![braun clock](img/4934011689_71719d75cc_w.jpg) | ![pocket radio](img/5212241996_015c18ae7a_w.jpg) | 
 
+
+Jennifer Townley
+---
+
+| |
+|---|
+| ![asinas1](jennifer-townley_asinas1.jpg) |
 
