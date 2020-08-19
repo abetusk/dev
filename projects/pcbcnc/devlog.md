@@ -190,3 +190,28 @@ The next task is to generate and run some calibration patterns as well as to run
 ---
 
 Doing a test run of a cut I've measured the kerf at `0.3mm`.
+
+2020-08-19
+---
+
+I've purchased a CNC3-3018Pro.
+
+It looks to be running GRBL 1.1f.
+
+Some relevant commands (see the [grbl docs](https://github.com/gnea/grbl/wiki/Grbl-v1.1-Commands#grbl--commands)):
+
+| | |
+|---|---|
+| `$#` | Show gcode parameters | Probe is `PRB` |
+| `G38.2` | Probe towards target, stops on contact, error if probe does not trigger | `G38.2 [<frate>] [<xpos>] [<ypos>] [<zpos>]`  |
+| `G38.3` | Probe towards target, stops on contact, no error if probe does not trigger | `G38.3 [F<frate>] [X<xpos>] [Y<ypos>] [Z<zpos>]`  |
+| `G38.4` | Probe away target, stops on loss of contact, error if probe does not trigger | `G38.4 [<frate>] [<xpos>] [<ypos>] [<zpos>]`  |
+| `G38.5` | Probe away target, stops on loss of contact, no error if probe does not trigger | `G38.5 [<frate>] [<xpos>] [<ypos>] [<zpos>]`  |
+
+The `A5` pin should be used for the probe.
+
+| | |
+|---|---|
+| ![cnc 3018 controller](img/cnc3018-controller.png) | ![cnc 3018 pin detail](img/cnc3018-pin-detail.png) |
+
+
