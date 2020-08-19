@@ -214,4 +214,17 @@ The `A5` pin should be used for the probe.
 |---|---|
 | ![cnc 3018 controller](img/cnc3018-controller.png) | ![cnc 3018 pin detail](img/cnc3018-pin-detail.png) |
 
+As an example usage:
+
+```
+g0 z10
+g38.2 f10 z0
+[PRB:0.000,0.000,7.439:1]
+ok
+g0 z10
+?<Idle|MPos:0.000,0.000,10.000|FS:0,0|Pn:P>
+```
+
+I was getting an `error:12` which is a "no feed rate specified".
+See the [grbl error codes](https://github.com/grbl/grbl/blob/master/grbl/report.h) for more detail.
 
