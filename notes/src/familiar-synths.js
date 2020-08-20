@@ -27,6 +27,44 @@ function FamiliarSynths() {
   this.noteMidiLookup = {};
   this.midiNoteLookup = {};
 
+  // b - bass (kick)
+  // s - snare
+  // c - clap
+  // H - high hat (open)
+  // h - high hat (closed)
+  //
+  // 8 
+  //
+
+
+  // see https://docs.google.com/spreadsheets/d/19_3BxUMy3uy1Gb0V8Wc-TcG7q16Amfn6e8QVw4-HuD0/edit#gid=0
+  //
+                          // : : : :      : : : :
+                          // 0   4        0   4
+                          // 01234567     01234567
+  this.drumBeat = {
+    "four_on_the_floor" : ["b...b..." + "b...b.b.",
+                            "....s..." + "....s...",
+                            "........" + ".h......",
+                            "..H...H." + "..H...H.",
+                            "....c..." + "....c..." ],
+
+ 
+    "billie_jean" :       [ "b......." + "b.......",
+                            "....s..." + "....s...",
+                            "H.H.H.H." + "H.H.H.H." ],
+
+                          // : : : :      : : : :
+                          // 0   4        0   4
+                          // 01234567     01234567
+    "funky_drummer" :     [ "b.b...b." + "..b..b..",
+                            "....s..s" + ".s.ss..s",
+                            "........" + ".h......",
+                            "hhhhhhh." + "hhhhh.hh",
+                            ".......H" + ".....H.." ]
+
+  };
+
   this.chord = {
     "major" : [0,4,7],
     "minor": [0,3,7],
@@ -1966,6 +2004,11 @@ function _apick(a, n) {
     r.push(b[ii]);
   }
   return r;
+}
+
+function _alg_v_1_0() {
+  var drum_track = [
+  ];
 }
 
 // assume units of 4 bar lengths
