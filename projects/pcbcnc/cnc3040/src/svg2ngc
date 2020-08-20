@@ -1,0 +1,76 @@
+#!/bin/bash
+
+inpsvg="$1"
+sf='1'
+#sf=`echo '25.4/72' | bc -l`
+#sf=`echo '90/25.4' | bc -l`
+#sf=`echo '25.4/90' | bc -l`
+sf=`echo '1.0/3.57829308425688428592' | bc -l`
+
+if [[ "$2" != "" ]] ; then
+  sf="$2"
+fi
+
+premul=`echo "1000000" | bc -l`
+invmul=`echo "( 1 / $premul ) * $sf" | bc -l`
+
+frapid="F800"
+fslow="F150"
+S="1.0"
+
+if [[ "$inpsvg" == "" ]] ; then
+  echo "provide input svg"
+  exit 1
+fi
+
+rawtype=`file $inpsvg`
+checktype=`file -b $inpsvg | cut -f1 -d' '`
+if [[ "$checktype" != "SVG" ]] ; then
+  echo -e "file $inpsvg is of type:\n\n$rawtype\n\nNnot an SVG file? Exiting.\n"
+  exit 1
+fi
+
+bn=`basename $inpsvg .svg`
+
+# causes duplicate paths otherwise
+#
+sed -i 's/fill="[^"]*"/fill="none"/g' $inpsvg
+
+echo "creating $bn.ps"
+rsvg-convert -f ps -o $bn.ps $inpsvg
+
+rm -f $bn.gp ${bn}-ord.gp
+
+pstoedit -f gnuplot $bn.ps $bn.gp
+
+zplunge="-5.5"
+zraise="10"
+
+bitr_x=`echo "$premul*1.0/2" | bc -l`
+bitr=`echo "(1.0 - 0.001)/2" | bc -l`
+bitr=`echo "(1.0 - 0.1)/($sf*2)" | bc -l`
+
+rm -f {$bn}-ord.gp
+#clipcli -s $bn.gp -F $premul -R "$bitr" -T >> ${bn}-ord.gp
+clipcli -s $bn.gp -F -x $premul -T >> ${bn}-orig.gp
+clipcli -s $bn.gp -F -x $premul -R "$bitr" -T >> ${bn}-ord.gp
+
+
+rm -f ${bn}.ngc
+echo -e "G90\nG21\nG1 Z$zraise" >> ${bn}.ngc
+
+echo "./gp2ngc --preset 3040 --z-raise "$zplunge" --z-plunge "$zraise" -i ${bn}-ord.gp -->> ${bn}.ngc"
+./gp2ngc \
+  --tab-offset 0 \
+  --preset 3040 \
+  --z-raise "$zraise" \
+  --z-plunge "$zplunge" \
+  --z-step -0.5 \
+  --slow "$fslow" \
+  --rapid "$frapid" \
+  --premul "$invmul" \
+  --min-length-for-tab "20.0" \
+  -i ${bn}-ord.gp >> ${bn}.ngc
+
+grecode -shift -12 -216 ${bn}.ngc > out.ngc
+
