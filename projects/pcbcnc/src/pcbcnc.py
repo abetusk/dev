@@ -31,7 +31,7 @@ from scipy.interpolate import griddata
 import grbl
 from termcolor import colored, cprint
 
-DEFAULT_FEED_RATE = 60
+DEFAULT_FEED_RATE = 25
 
 unit = "mm"
 cur_x, cur_y, cur_z  = 0, 0, 0
@@ -39,13 +39,21 @@ z_pos = 'up'
 
 dry_run = False
 
+# The copper layer is reported to be
+# (https://www.amazon.com/gp/product/B01MCVLDDZ)
+#
+# 18 um ~ 0.000708661 inch
+# so around 1 mil
+
 z_threshold = 0.0
 z_plunge_inch = -0.004
+#z_plunge_inch = -0.002
 z_plunge_mm = z_plunge_inch * 25.4
 
 output = None
 verbose = True
 
+do_homing = True
 
 def usage(ofp = sys.stdout):
   ofp.write( "\nDo a height probe, interploate GCode file then execute job\n")
@@ -56,6 +64,7 @@ def usage(ofp = sys.stdout):
   ofp.write( "  [-D]                dry run (do not connect to GRBL)\n")
   ofp.write( "  [-z <threshold>]    z threshold (default to " + str(z_threshold) + ")\n")
   ofp.write( "  [-p <zplunge>]      amount under height sensed part to plunge (default " + str(z_plunge_mm) + "mm)\n")
+  ofp.write( "  [-no-homing]        don't execute homing operation\n")
   ofp.write( "  [-h|--help]         help (this screen)\n")
   ofp.write( "\n")
 
@@ -65,7 +74,7 @@ out_height_map_file = None
 
 
 try:
-  opts, args = getopt.getopt(sys.argv[1:], "hm:g:z:Dp:O:", ["help", "output="])
+  opts, args = getopt.getopt(sys.argv[1:], "hm:g:z:Dp:O:", ["help", "output=", "no-homing"])
 except getopt.GetoptError, err:
   print str(err)
   usage()
@@ -88,6 +97,8 @@ for o, a in opts:
     dry_run = True
   elif o == "-O":
     out_height_map_file = a
+  elif o == "--no-homing":
+    do_homing=False
   else:
     assert False, "unhandled option"
 
@@ -158,8 +169,8 @@ def interpolate_gcode(gcode, pnts_xy, pnts_z, _feed=DEFAULT_FEED_RATE):
   z_pos_prv = z_pos
 
   z_threshold = 0.0
-  z_plunge_inch = -0.006
-  z_plunge_mm = z_plunge_inch * 25.4
+  #z_plunge_inch = -0.006
+  #z_plunge_mm = z_plunge_inch * 25.4
 
   lines = []
 
@@ -291,7 +302,8 @@ else:
 
   grid_margin = 1.0
 
-  z_ub = -3.0
+  #z_ub = -3.0
+  z_ub = 0.0
   z_lb = -15.0
   fz = 1
 
@@ -302,9 +314,11 @@ else:
   dy = 10.0
 
   if not dry_run:
-    if verbose: print "# homing..."
-    x = grbl.send_command("$H")
-    if verbose: print "# got:", x
+
+    if do_homing:
+      if verbose: print "# homing..."
+      x = grbl.send_command("$H")
+      if verbose: print "# got:", x
 
     if verbose: print "# moving z to:", z_ub
     x = grbl.send_command("g0 z" + str(z_ub))
@@ -387,7 +401,7 @@ sys.stdin.readline()
 
 if not dry_run:
 
-  grbl.send_command("M3 S7000")
+  grbl.send_command("M3 S1000")
 
   for line in _gc_lerp_lines:
     line = line.strip()

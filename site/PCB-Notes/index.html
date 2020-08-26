@@ -32,7 +32,7 @@
            <tr>
               <td>
                 <br /> <br /> <br />
-                <p><small> Original heme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+                <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
 
                 <br />
                 <p>
@@ -50,6 +50,7 @@
       <section>
 
         <h1 id="pcb-notes">PCB Notes</h1>
+<h2 id="pcb-thickness">PCB Thickness</h2>
 <p>Copper thickness is commonly expressed in <code>oz</code>, for example <code>1 oz Cu</code>.
 This is shorthand for the height of copper if spread over a square foot
 surface.</p>
@@ -68,13 +69,21 @@ surface.</p>
 <p>Or, in general,</p>
 <p>$$ z\ \mathrm{oz}\ \mathrm{Cu} \rightarrow z \cdot 1.34\ \mathrm{mil} $$</p>
 <p>Where $1\ \mathrm{mil} = \frac{1}{1000}\ \mathrm{in}$.</p>
+<hr />
+<h2 id="decoupling-capacitors">Decoupling Capacitors</h2>
+<ul>
+<li>Either one 100nF or two, one of 0.1uF and another of 10uF </li>
+<li>Place as close to the chip as possible</li>
+<li>Place the decoupling capacitor across the power supply (3.3v or 5v)</li>
+</ul>
+<p>(<a href="https://www.autodesk.com/products/eagle/blog/what-are-decoupling-capacitors/">src</a>)</p>
 <h6 id="2018-02-03">2018-02-03</h6>
 
       </section>
 
       <!--
       <footer>
-        <p><small> Original heme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+        <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
       </footer>
       -->
 

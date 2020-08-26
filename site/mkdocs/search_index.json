@@ -717,13 +717,23 @@
         }, 
         {
             "location": "/PCB-Notes/", 
-            "text": "PCB Notes\n\n\nCopper thickness is commonly expressed in \noz\n, for example \n1 oz Cu\n.\nThis is shorthand for the height of copper if spread over a square foot\nsurface.\n\n\nTo calculate the height for \n1 oz\n \nCu\n, we need a few conversions:\n\n\n\n\n$ 1\\ \\mathrm{oz} = 0.0625\\ \\mathrm{lbs}$\n\n\n$\\mathrm{Cu}\\ \\mathrm{density} = 8.96 \\frac{\\mathrm{g}}{\\mathrm{cm}^3} $\n\n\n$ 1\\ \\mathrm{g} \\approx 0.00220462\\ \\mathrm{lbs} $\n\n\n$ 1\\ \\mathrm{cm} \\approx 0.393701\\ \\mathrm{in} $\n\n\n\n\nThis implies:\n\n\n\n\n$\\mathrm{Cu}\\ \\mathrm{density} = \\frac{8.96 \\cdot 0.00220462\\ \\mathrm{lbs}}{(0.393701^3)\\ \\mathrm{in}^3} \\approx 0.324 \\frac{\\mathrm{lbs}}{\\mathrm{in}^3} $\n\n\n$ h\\ \\mathrm{in} = \\frac{1\\ \\mathrm{oz}}{ 1\\ \\mathrm{ft}^2 } = \\frac{0.0625\\ \\mathrm{lbs}}{ 144\\ \\mathrm{in}^2 } \\approx .00134 $\n\n\n\n\nOr, in general,\n\n\n$$ z\\ \\mathrm{oz}\\ \\mathrm{Cu} \\rightarrow z \\cdot 1.34\\ \\mathrm{mil} $$\n\n\nWhere $1\\ \\mathrm{mil} = \\frac{1}{1000}\\ \\mathrm{in}$.\n\n\n2018-02-03", 
+            "text": "PCB Notes\n\n\nPCB Thickness\n\n\nCopper thickness is commonly expressed in \noz\n, for example \n1 oz Cu\n.\nThis is shorthand for the height of copper if spread over a square foot\nsurface.\n\n\nTo calculate the height for \n1 oz\n \nCu\n, we need a few conversions:\n\n\n\n\n$ 1\\ \\mathrm{oz} = 0.0625\\ \\mathrm{lbs}$\n\n\n$\\mathrm{Cu}\\ \\mathrm{density} = 8.96 \\frac{\\mathrm{g}}{\\mathrm{cm}^3} $\n\n\n$ 1\\ \\mathrm{g} \\approx 0.00220462\\ \\mathrm{lbs} $\n\n\n$ 1\\ \\mathrm{cm} \\approx 0.393701\\ \\mathrm{in} $\n\n\n\n\nThis implies:\n\n\n\n\n$\\mathrm{Cu}\\ \\mathrm{density} = \\frac{8.96 \\cdot 0.00220462\\ \\mathrm{lbs}}{(0.393701^3)\\ \\mathrm{in}^3} \\approx 0.324 \\frac{\\mathrm{lbs}}{\\mathrm{in}^3} $\n\n\n$ h\\ \\mathrm{in} = \\frac{1\\ \\mathrm{oz}}{ 1\\ \\mathrm{ft}^2 } = \\frac{0.0625\\ \\mathrm{lbs}}{ 144\\ \\mathrm{in}^2 } \\approx .00134 $\n\n\n\n\nOr, in general,\n\n\n$$ z\\ \\mathrm{oz}\\ \\mathrm{Cu} \\rightarrow z \\cdot 1.34\\ \\mathrm{mil} $$\n\n\nWhere $1\\ \\mathrm{mil} = \\frac{1}{1000}\\ \\mathrm{in}$.\n\n\n\n\nDecoupling Capacitors\n\n\n\n\nEither one 100nF or two, one of 0.1uF and another of 10uF \n\n\nPlace as close to the chip as possible\n\n\nPlace the decoupling capacitor across the power supply (3.3v or 5v)\n\n\n\n\n(\nsrc\n)\n\n\n2018-02-03", 
             "title": "PCB Notes"
         }, 
         {
             "location": "/PCB-Notes/#pcb-notes", 
-            "text": "Copper thickness is commonly expressed in  oz , for example  1 oz Cu .\nThis is shorthand for the height of copper if spread over a square foot\nsurface.  To calculate the height for  1 oz   Cu , we need a few conversions:   $ 1\\ \\mathrm{oz} = 0.0625\\ \\mathrm{lbs}$  $\\mathrm{Cu}\\ \\mathrm{density} = 8.96 \\frac{\\mathrm{g}}{\\mathrm{cm}^3} $  $ 1\\ \\mathrm{g} \\approx 0.00220462\\ \\mathrm{lbs} $  $ 1\\ \\mathrm{cm} \\approx 0.393701\\ \\mathrm{in} $   This implies:   $\\mathrm{Cu}\\ \\mathrm{density} = \\frac{8.96 \\cdot 0.00220462\\ \\mathrm{lbs}}{(0.393701^3)\\ \\mathrm{in}^3} \\approx 0.324 \\frac{\\mathrm{lbs}}{\\mathrm{in}^3} $  $ h\\ \\mathrm{in} = \\frac{1\\ \\mathrm{oz}}{ 1\\ \\mathrm{ft}^2 } = \\frac{0.0625\\ \\mathrm{lbs}}{ 144\\ \\mathrm{in}^2 } \\approx .00134 $   Or, in general,  $$ z\\ \\mathrm{oz}\\ \\mathrm{Cu} \\rightarrow z \\cdot 1.34\\ \\mathrm{mil} $$  Where $1\\ \\mathrm{mil} = \\frac{1}{1000}\\ \\mathrm{in}$.", 
+            "text": "", 
             "title": "PCB Notes"
+        }, 
+        {
+            "location": "/PCB-Notes/#pcb-thickness", 
+            "text": "Copper thickness is commonly expressed in  oz , for example  1 oz Cu .\nThis is shorthand for the height of copper if spread over a square foot\nsurface.  To calculate the height for  1 oz   Cu , we need a few conversions:   $ 1\\ \\mathrm{oz} = 0.0625\\ \\mathrm{lbs}$  $\\mathrm{Cu}\\ \\mathrm{density} = 8.96 \\frac{\\mathrm{g}}{\\mathrm{cm}^3} $  $ 1\\ \\mathrm{g} \\approx 0.00220462\\ \\mathrm{lbs} $  $ 1\\ \\mathrm{cm} \\approx 0.393701\\ \\mathrm{in} $   This implies:   $\\mathrm{Cu}\\ \\mathrm{density} = \\frac{8.96 \\cdot 0.00220462\\ \\mathrm{lbs}}{(0.393701^3)\\ \\mathrm{in}^3} \\approx 0.324 \\frac{\\mathrm{lbs}}{\\mathrm{in}^3} $  $ h\\ \\mathrm{in} = \\frac{1\\ \\mathrm{oz}}{ 1\\ \\mathrm{ft}^2 } = \\frac{0.0625\\ \\mathrm{lbs}}{ 144\\ \\mathrm{in}^2 } \\approx .00134 $   Or, in general,  $$ z\\ \\mathrm{oz}\\ \\mathrm{Cu} \\rightarrow z \\cdot 1.34\\ \\mathrm{mil} $$  Where $1\\ \\mathrm{mil} = \\frac{1}{1000}\\ \\mathrm{in}$.", 
+            "title": "PCB Thickness"
+        }, 
+        {
+            "location": "/PCB-Notes/#decoupling-capacitors", 
+            "text": "Either one 100nF or two, one of 0.1uF and another of 10uF   Place as close to the chip as possible  Place the decoupling capacitor across the power supply (3.3v or 5v)   ( src )", 
+            "title": "Decoupling Capacitors"
         }, 
         {
             "location": "/PCB-Notes/#2018-02-03", 

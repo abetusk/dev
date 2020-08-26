@@ -1,6 +1,9 @@
 PCB Notes
 ===
 
+PCB Thickness
+---
+
 Copper thickness is commonly expressed in `oz`, for example `1 oz Cu`.
 This is shorthand for the height of copper if spread over a square foot
 surface.
@@ -22,6 +25,18 @@ Or, in general,
 $$ z\ \mathrm{oz}\ \mathrm{Cu} \rightarrow z \cdot 1.34\ \mathrm{mil} $$
 
 Where $1\ \mathrm{mil} = \frac{1}{1000}\ \mathrm{in}$.
+
+---
+
+
+Decoupling Capacitors
+---
+
+* Either one 100nF or two, one of 0.1uF and another of 10uF 
+* Place as close to the chip as possible
+* Place the decoupling capacitor across the power supply (3.3v or 5v)
+
+([src](https://www.autodesk.com/products/eagle/blog/what-are-decoupling-capacitors/))
 
 
 ###### 2018-02-03

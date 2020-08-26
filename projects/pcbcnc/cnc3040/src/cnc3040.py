@@ -56,12 +56,11 @@ def usage(ofp = sys.stdout):
   ofp.write( "  [-m <height map>]   height map\n")
   ofp.write( "  [-O <out height>]   output height map file (default stdout)\n")
   ofp.write( "  [-D]                dry run (do not connect to GRBL)\n")
-  ofp.write( "  [--grbl-spindle]    Use M03/M05 for spindle control\n")
   ofp.write( "  [-S <S>]            Set S value\n")
   ofp.write( "  [-z <threshold>]    z threshold (default to " + str(z_threshold) + ")\n")
   ofp.write( "  [-p <zplunge>]      amount under height sensed part to plunge (default " + str(z_plunge_mm) + "mm)\n")
   ofp.write( "  [-T <device>]       use <device>\n")
-  ofp.write( "  [-grbl-spindle]     use GRBL specific spindle start/stop gcodes\n")
+  ofp.write( "  [--grbl-spindle]    Use M03/M05 for spindle control\n")
   ofp.write( "  [-h|--help]         help (this screen)\n")
   ofp.write( "\n")
 

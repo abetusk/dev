@@ -122,7 +122,7 @@ def get_position():
   grbl_serial.write("?")
   grbl_out = grbl_serial.readline()
 
-  m = re.search( "^<([^,]*),MPos:([^,]*),([^,]*),([^,]*),", grbl_out)
+  m = re.search( "^<([^,]*)[|,]MPos:([^,]*),([^,]*),([^|,]*)[|,]", grbl_out)
   if ( m ):
     if verbose:
       print "# matched", m.group(0)
@@ -147,7 +147,7 @@ def get_var_position( var_name ):
   if verbose:
     print "#  get_var_position(", var_name, "): got :", grbl_out.strip()
 
-  m = re.search( "^<([^,]*),MPos:([^,]*),([^,]*),([^,]*),", grbl_out)
+  m = re.search( "^<([^,]*)[|,]MPos:([^,]*),([^,]*),([^|,]*)[|,]", grbl_out)
   if ( m ):
     if verbose:
       print "# matched", m.group(0)

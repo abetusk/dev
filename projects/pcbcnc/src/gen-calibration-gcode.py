@@ -5,7 +5,7 @@ import sys
 import math
 import random
 
-START = [-70.0, -70.0]
+START = [0.0, 0.0]
 NSTRIPE = 5
 del_range_mm = [0.2, 1.0, 0.05]
 
@@ -42,7 +42,7 @@ def gen_pattern( start_xy, nstripe, w, zup=1.0, zdown=-1.0, alg="in-order"):
   _x = start_xy[0] + dl/2
   _y = start_xy[1]
   print "G0 X" + str(_x) + " Y" + str(_y)
-  print "G0 Z" + str(zdown)
+  print "G1 Z" + str(zdown)
   _x = start_xy[0] + dl/2
   _y = start_xy[1] + dl
   print "G1 X" + str(_x) + " Y" + str(_y)
@@ -54,7 +54,7 @@ def gen_pattern( start_xy, nstripe, w, zup=1.0, zdown=-1.0, alg="in-order"):
   _x = start_xy[0]
   _y = start_xy[1] + dl/2
   print "G0 X" + str(_x) + " Y" + str(_y)
-  print "G0 Z" + str(zdown)
+  print "G1 Z" + str(zdown)
   _x = start_xy[0] + dl
   _y = start_xy[1] + dl/2
   print "G1 X" + str(_x) + " Y" + str(_y)
@@ -184,7 +184,8 @@ for idx in range(m):
   _idx_x += 1
 
   w = del_range_mm[0] + del_range_mm[2]*idx
-  dl = 2.0*((float(NSTRIPE)+3.0) * w)
+  #dl = 2.0*((float(NSTRIPE)+3.0) * w)
+  dl = 2.0*((float(NSTRIPE)+2.0) * w)
 
   gen_pattern( [ START[0] + _fx, START[1] + _fy ], NSTRIPE, w, 1, -1, "random")
 
