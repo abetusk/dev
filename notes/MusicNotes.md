@@ -519,9 +519,9 @@ Misc
 | voice | intro | verse | chorus | verse | chorus | bridge | chorus |
 |-------|-------|-------|--------|-------|--------|--------|--------|
 | singer|   -   | start | high   | verse0 | chorus0 | -    | chorus0 |
-| keyboard | hook | hook | chords| verse0 | chorus0 | chords | chorus0 |
-| guitar |
-| drums |
+| keyboard | hook | hook | chords | verse0 | chorus0 | chords | chorus0 |
+| guitar | - | long | short | mid | chorus0 | follow | - | chorus0 |
+| drums | - | kick | +snare | +hihat | chorus0 | ride | - | chorus0 |
 
 Data
 ---
