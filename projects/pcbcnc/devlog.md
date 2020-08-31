@@ -214,6 +214,17 @@ The `A5` pin should be used for the probe.
 |---|---|
 | ![cnc 3018 controller](img/cnc3018-controller.png) | ![cnc 3018 pin detail](img/cnc3018-pin-detail.png) |
 
+Note, from the GRBL site on [wiring limit switches](https://github.com/gnea/grbl/wiki/Wiring-Limit-Switches),
+the labelled silk screen `X` and `Z` limit switches appear to be reversed (and can confirm from experimentation).
+
+Here is a picture for reference:
+
+| |
+|---|
+| ![cnc 3018 controller](img/cnc3018-pin-detail-limit-fix.png) |
+
+---
+
 As an example usage:
 
 ```
