@@ -11,6 +11,12 @@ START = [0.0, 0.0]
 NSTRIPE = 5
 del_range_mm = [0.2, 1.0, 0.05]
 
+def _i2m(inch):
+  return float(inch)*25.4
+
+def _m2i(mm):
+  return float(mm)/25.4
+
 def _circle(r,cx=0.0, cy=0.0, n=32):
   v = []
   for ii in range(n):
@@ -42,11 +48,24 @@ _NY = 4
 cx = 0.0
 cy = 0.0
 
-pitch_x = 5.0
-pitch_y = 5.0
+bit_iso_r = 0.2
+bit_drill_r = 0.8
 
-hole_r = 1.0
-out_r = 2.0
+pitch_x = _i2m(0.1)
+pitch_y = _i2m(0.1)
+
+#pitch_x = 3.0
+#pitch_y = 3.0
+
+#print(_i2m(0.1), pitch_x, pitch_y)
+#sys.exit(0)
+
+#hole_r = 1.0
+hole_r = _i2m(0.035/2.0) - bit_drill_r
+hole_r = _i2m(0.04/2.0) - bit_drill_r
+
+#out_r = 2.0
+out_r = _i2m(0.08/2.0) - bit_iso_r
 
 def isolation_hole():
 
@@ -87,11 +106,11 @@ def drill_outline():
 
   margin = out_r/2.0 + 3
 
-  min_x = 0.0 - margin
-  min_y = 0.0 - margin
+  min_x = 0.0 - margin - bit_drill_r
+  min_y = 0.0 - margin - bit_drill_r
 
-  max_x = float(_NX-1) * pitch_x + 2*margin
-  max_y = float(_NY-1) * pitch_y + 2*margin
+  max_x = float(_NX-1) * pitch_x + 2*margin + bit_drill_r
+  max_y = float(_NY-1) * pitch_y + 2*margin + bit_drill_r
 
   v = []
   v.append( [ min_x, min_y ] )
@@ -116,7 +135,7 @@ def drill_outline():
     z_c = z_d
 
 
-#isolation_hole()
-#drill_hole()
-#drill_outline()
+isolation_hole()
+drill_hole()
+drill_outline()
 
