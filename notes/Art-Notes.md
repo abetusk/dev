@@ -14,6 +14,7 @@ Reference
 * [Eran Hilleli](https://eranhilleli.com/)
 * [Memphis Design Group](https://en.wikipedia.org/wiki/Memphis_Group)
 * [Jennifer Townley](http://www.jennifertownley.com/bussola)
+* [Heiko Blankenstein](http://www.heikoblankenstein.com/)
 
 Braun (company)
 ---
@@ -34,3 +35,9 @@ Jennifer Townley
 |---|
 | ![asinas1](img/jennifer-townley_asinas1.jpg) |
 
+Heiko Blankenstein
+---
+
+| |
+|---|
+| ![blankenstein](img/rsz_h575_69_315.jpg) |
