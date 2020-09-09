@@ -136,6 +136,6 @@ def drill_outline():
 
 
 isolation_hole()
-drill_hole()
-drill_outline()
+#drill_hole()
+#drill_outline()
 

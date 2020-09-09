@@ -239,3 +239,20 @@ g0 z10
 I was getting an `error:12` which is a "no feed rate specified".
 See the [grbl error codes](https://github.com/grbl/grbl/blob/master/grbl/report.h) for more detail.
 
+2020-09-02
+---
+
+Homing is controlled with the `$22` parameter.
+`$22=1` to enable homing.
+
+The z-axis limit switch (top only) is from [here](https://www.thingiverse.com/thing:2796202).
+
+
+
+To set up hard limits, that is, stopping when it crashes into a limit switch, set `$21=1`.
+
+Homing direction parameters can be set with the `$23` option.
+See the [grbl documentation](https://github.com/gnea/grbl/wiki/Set-up-the-Homing-Cycle) for more detail.
+
+
+See the [FAQ](https://github.com/gnea/grbl/wiki/Frequently-Asked-Questions#why-is-grbl-in-all-negative-coordinates-after-homing-or-it-so-annoying-and-not-what-im-used-to) for details on why the coordinates are negative.
