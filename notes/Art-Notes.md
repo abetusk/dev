@@ -23,10 +23,72 @@ Specifically the art direction of [Dieter Rams](https://en.wikipedia.org/wiki/Di
 
 [flickr](https://www.flickr.com/photos/34019036@N05/sets/72157612596210147/)
 
-| | | |
-|---|---|---|
+| | |
+|---|---|
 | ![braun clock](img/4934011689_71719d75cc_w.jpg) | ![pocket radio](img/5212241996_015c18ae7a_w.jpg) | 
 
+Leah Buechley
+---
+
+| |
+|---|
+| ![bike turn signal](img/FRCII3VFHY0I8RW.jpg) |
+
+[LeahBuechley.com](http://leahbuechley.com/)
+
+
+Melissa Coleman
+---
+
+| |
+|---|
+| ![the holy dress](img/melissacoleman-theholydress.jpg) |
+
+[MelissaColeman.nl](https://melissacoleman.nl/)
+
+Maartje Dijsktra
+---
+
+| |
+|---|
+| ![intimacy dress](img/intimacy.jpg) |
+
+[MaartjeDijsktra.com](http://www.maartjedijkstra.com/)
+
+* [Intimacy White](https://vimeo.com/13736739)
+
+Behnaz Farahi
+---
+
+| | |
+|---|---|
+| ![caress of the gaze](img/caress-of-the-gaze.jpg) | ![subaltern](img/behnazfarahi-subaltern.jpg) |
+
+[BehnazFarahi.com](http://behnazfarahi.com/)
+
+* [Caress of the gaze](http://behnazfarahi.com/caress-of-the-gaze/)
+* [can the subaltern speak?](http://behnazfarahi.com/can-the-subaltern-speak/)
+
+Iris Van Herpen
+---
+
+| | |
+|---|---|
+| ![bone dress](img/irisvanherpen-bones.jpg) | ![snake dress](img/irisvanherpen-snakes.jpg) |
+
+[IrisVanHerpen.com](https://www.irisvanherpen.com/)
+
+Wei Chieh Shih
+---
+
+| |
+|---|
+|![laser jacket](img/weichiehshih.jpg)  |
+
+
+[Wei Chieh Shih](https://www.behance.net/shihweichieh)
+
+* ([Laser Jacket](https://www.behance.net/gallery/5505381/laser-Jacket-for-Yoshii-Kazuya))
 
 Jennifer Townley
 ---
@@ -34,6 +96,9 @@ Jennifer Townley
 | |
 |---|
 | ![asinas1](img/jennifer-townley_asinas1.jpg) |
+
+
+[JenniferTownley.com](http://www.jennifertownley.com/bussola)
 
 Heiko Blankenstein
 ---
