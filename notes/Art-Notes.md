@@ -146,7 +146,7 @@ Anouk Wipprecth
 
 | | |
 |---|---|
-| ![spider dress](img/wipprecht_spiderdress.jpg)  | ![smoke dress](img/wipprecth_spiderdress.jpg)  | 
+| ![spider dress](img/wipprecht_spiderdress.jpg)  | ![smoke dress](img/wipprecht_smoke-dress.jpg)  | 
 
 
 [AnoukWipprecht.nl](http://www.anoukwipprecht.nl/)
