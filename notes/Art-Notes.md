@@ -113,7 +113,7 @@ Memphis Design Group
 
 | |
 |---|
-| ![Memphis design collection](Memphis-Milano_Movement.jpg) |
+| ![Memphis design collection](img/Memphis-Milano_Movement.jpg) |
 
 [Wikipedia](https://en.wikipedia.org/wiki/Memphis_Group)
 
