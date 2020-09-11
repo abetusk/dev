@@ -15,6 +15,27 @@ Reference
 * [Memphis Design Group](https://en.wikipedia.org/wiki/Memphis_Group)
 * [Jennifer Townley](http://www.jennifertownley.com/bussola)
 * [Heiko Blankenstein](http://www.heikoblankenstein.com/)
+* [Nobumichi Asai](https://www.nobumichiasai.com/)
+
+Nobumichi Asai
+---
+
+| | |
+|---|---|
+| ![face mapping](img/asai_face-mapping.jpg) | ![hologram](img/asai_hologram.jpg)  |
+
+[NobumichiAsai.com](https://www.nobumichiasai.com)
+
+* [INORI](https://vimeo.com/210599507)
+* [Laser Mist Hologram](https://vimeo.com/148280386)
+
+Heiko Blankenstein
+---
+
+| |
+|---|
+| ![blankenstein](img/rsz_h575_69_315.jpg) |
+
 
 Braun (company)
 ---
@@ -78,6 +99,25 @@ Iris Van Herpen
 
 [IrisVanHerpen.com](https://www.irisvanherpen.com/)
 
+Eran Hilleli
+---
+
+| | |
+|---|---|
+| ![people](img/hilleli_people.png) | ![people woods](img/hilleli_people-woods.jpg) |
+
+[EranHilleli.com](https://eranhilleli.com/)
+
+Memphis Design Group
+---
+
+| |
+|---|
+| ![Memphis design collection](Memphis-Milano_Movement.jpg) |
+
+[Wikipedia](https://en.wikipedia.org/wiki/Memphis_Group)
+
+
 Wei Chieh Shih
 ---
 
@@ -100,9 +140,24 @@ Jennifer Townley
 
 [JenniferTownley.com](http://www.jennifertownley.com/bussola)
 
-Heiko Blankenstein
+
+Anouk Wipprecth
+---
+
+| | |
+|---|---|
+| ![spider dress](img/wipprecht_spiderdress.jpg)  | ![smoke dress](img/wipprecth_spiderdress.jpg)  | 
+
+
+[AnoukWipprecht.nl](http://www.anoukwipprecht.nl/)
+
+
+Sophie Wong
 ---
 
 | |
 |---|
-| ![blankenstein](img/rsz_h575_69_315.jpg) |
+| ![led jacket](img/sophie-wong_jacket.jpg) |
+
+[SophyWong.com](https://sophywong.com/)
+
