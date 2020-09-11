@@ -1,0 +1,18 @@
+G04 ( created by brdgerber.py ( brdgerber.py v0.1 2014-03-12 ) ) date 2020-09-09 16:52:56 EDT*
+G04 Gerber Fmt 3.4, Leading zero omitted, Abs format*
+%MOIN*%
+%FSLAX34Y34*%
+G01*
+G70*
+G90*
+G04 APERTURE LIST*
+%ADD14C,0.0600*%
+%ADD11C,0.0000*%
+%ADD10C,0.0760*%
+%ADD13C,0.0050*%
+%ADD12C,0.0060*%
+%ADD16C,0.0100*%
+%ADD15C,0.0200*%
+G04 APERTURE END LIST*
+G54D14*
+M02*

@@ -1304,6 +1304,21 @@
             "location": "/Diophantine-Approximation/#2020-05-22", 
             "text": "", 
             "title": "2020-05-22"
+        }, 
+        {
+            "location": "/GCode-Common/", 
+            "text": "Common GCode Commands\n\n\n\n\n\n\n\n\nGCode\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\nG0\n\n\nRapid motion\n\n\n\n\n\n\nG1\n\n\nSlow motion\n\n\n\n\n\n\nG20\n\n\nUnits in inches\n\n\n\n\n\n\nG21\n\n\nUnits in mm\n\n\n\n\n\n\nG38.2\n\n\nProbe towards workspace (-), stop on contact, alarm if probe not tripped\n\n\n\n\n\n\nG38.3\n\n\nProbe towards workspace (-), stop on contact\n\n\n\n\n\n\nG38.4\n\n\nProbe away from workspace (+), stop on loss of contact, alarm if probe not tripped\n\n\n\n\n\n\nG38.5\n\n\nProbe away from workspace (+), stop on loss of contact\n\n\n\n\n\n\nM3[S\nS\n]\n\n\nStart spindle\n\n\n\n\n\n\nM5\n\n\nStop spindle\n\n\n\n\n\n\n\n\n2020-09-09", 
+            "title": "GCode Common"
+        }, 
+        {
+            "location": "/GCode-Common/#common-gcode-commands", 
+            "text": "GCode  Description      G0  Rapid motion    G1  Slow motion    G20  Units in inches    G21  Units in mm    G38.2  Probe towards workspace (-), stop on contact, alarm if probe not tripped    G38.3  Probe towards workspace (-), stop on contact    G38.4  Probe away from workspace (+), stop on loss of contact, alarm if probe not tripped    G38.5  Probe away from workspace (+), stop on loss of contact    M3[S S ]  Start spindle    M5  Stop spindle", 
+            "title": "Common GCode Commands"
+        }, 
+        {
+            "location": "/GCode-Common/#2020-09-09", 
+            "text": "", 
+            "title": "2020-09-09"
         }
     ]
 }

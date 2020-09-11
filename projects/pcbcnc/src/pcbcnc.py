@@ -303,8 +303,8 @@ else:
   grid_margin = 1.0
 
   #z_ub = -3.0
-  z_ub = 0.0
-  z_lb = -15.0
+  z_ub = -10.0
+  z_lb = -20.0
   fz = 1
 
   xminmax = [ _gc["min_x"] - grid_margin, _gc["max_x"] + grid_margin]
