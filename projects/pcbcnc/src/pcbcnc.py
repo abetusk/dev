@@ -33,6 +33,17 @@ from termcolor import colored, cprint
 
 DEFAULT_FEED_RATE = 25
 
+HEIGHT_MAP_COUNT = 1
+G1_SPEED = 25
+G0_SPEED = 200
+
+G1_SPEED_Z = 25
+
+#works?
+#G0_SPEED_Z = 100
+
+G0_SPEED_Z = 800
+
 unit = "mm"
 cur_x, cur_y, cur_z  = 0, 0, 0
 z_pos = 'up'
@@ -278,7 +289,8 @@ def interpolate_gcode(gcode, pnts_xy, pnts_z, _feed=DEFAULT_FEED_RATE):
 
 _gc = read_gcode_file(gcode_file)
 
-pnts = []
+#pnts = []
+height_pnts = []
 
 if not dry_run:
   grbl.setup("/dev/ttyUSB0")
@@ -303,8 +315,15 @@ else:
   grid_margin = 1.0
 
   #z_ub = -3.0
+  z_safe = -1.0
+
+  # works?
+  #z_ub = -15.0
+
+  #testing
   z_ub = -10.0
-  z_lb = -20.0
+
+  z_lb = -25.0
   fz = 1
 
   xminmax = [ _gc["min_x"] - grid_margin, _gc["max_x"] + grid_margin]
@@ -321,9 +340,9 @@ else:
       if verbose: print "# got:", x
 
     if verbose: print "# moving z to:", z_ub
-    x = grbl.send_command("g0 z" + str(z_ub))
+    x = grbl.send_command("g0 z" + str(z_safe) + " f" + str(G1_SPEED_Z))
     if verbose: print "# got:", x
-    var = grbl.wait_for_var_position('z', z_ub)
+    var = grbl.wait_for_var_position('z', z_safe)
     if verbose: print "# got:", var
 
   _pntsxy = []
@@ -347,36 +366,54 @@ else:
   #  print _pntsxy[idx][0], _pntsxy[idx][1]
   #sys.exit(1)
 
-  for idx in range(len(_pntsxy)):
+  if verbose: print "# moving z to:", z_safe
+  x = grbl.send_command("g0 z" + str(z_safe) + " f" + str(G1_SPEED_Z))
+  var = grbl.wait_for_var_position('z', z_safe)
+  if verbose: print "# got:", var
+  x = grbl.send_command("g0 x" + str(_pntsxy[0][0]) + " y" + str(_pntsxy[0][1]) + " f" + str(G1_SPEED))
+  var = grbl.wait_for_var_position('x', _pntsxy[0][0])
+  var = grbl.wait_for_var_position('y', _pntsxy[0][1])
 
-    if verbose: print "# grid:", _pntsxy[idx][0], _pntsxy[idx][1]
-    if not dry_run:
+  for height_run in range(HEIGHT_MAP_COUNT):
+    height_pnts.append([])
 
-      x = grbl.send_command("g0 z" + str(z_ub))
-      var = grbl.wait_for_var_position('z', z_ub)
+    for idx in range(len(_pntsxy)):
 
-      x = grbl.send_command("g0 x" + str(_pntsxy[idx][0]) + " y" + str(_pntsxy[idx][1]))
-      var = grbl.wait_for_var_position('x', _pntsxy[idx][0])
-      var = grbl.wait_for_var_position('y', _pntsxy[idx][1])
+      if verbose: print "# grid:", _pntsxy[idx][0], _pntsxy[idx][1]
+      if not dry_run:
 
-      if verbose: print "# height probe:", _pntsxy[idx][0], _pntsxy[idx][1], z_lb, fz
-      x = grbl.send_command("g38.2 z" + str(z_lb) + " f" + str(fz))
-      lines = x.split("\n")
-      vals = lines[0].split(":")[1].split(",")
-      pnts.append( [ float(vals[0]), float(vals[1]), float(vals[2]) ] )
+        x = grbl.send_command("g1 z" + str(z_ub) + " f" + str(G1_SPEED_Z))
+        var = grbl.wait_for_var_position('z', z_ub)
 
-      x = grbl.send_command("g0 z" + str(z_ub))
-      if verbose: print "# got:", x
+        x = grbl.send_command("g0 x" + str(_pntsxy[idx][0]) + " y" + str(_pntsxy[idx][1]))
+        var = grbl.wait_for_var_position('x', _pntsxy[idx][0])
+        var = grbl.wait_for_var_position('y', _pntsxy[idx][1])
 
-for _p in pnts:
-  print "( grid:", _p[0], _p[1], _p[2], ")"
+        if verbose: print "# height probe:", _pntsxy[idx][0], _pntsxy[idx][1], z_lb, fz
+        x = grbl.send_command("g38.2 z" + str(z_lb) + " f" + str(fz))
+        lines = x.split("\n")
+        vals = lines[0].split(":")[1].split(",")
+        height_pnts[height_run].append( [ float(vals[0]), float(vals[1]), float(vals[2]) ] )
+
+        x = grbl.send_command("g1 z" + str(z_ub) + " f" + str(G1_SPEED_Z))
+        if verbose: print "# got:", x
+
+for h in range(len(height_pnts)):
+  _pnts = height_pnts[h]
+  for _p in _pnts:
+    print "( grid["+ str(h) + "]:", _p[0], _p[1], _p[2], ")"
 
 if out_height_map_file is not None:
 
   print "# writing height to", out_height_map_file
   with open(out_height_map_file, "w") as fp:
-    for _p in pnts:
-      fp.write("{:.8f} {:.8f} {:.8f}\n".format(_p[0], _p[1], _p[2]))
+
+    for h in range(len(height_pnts)):
+      _pnts = height_pnts[h]
+      for _p in _pnts:
+        fp.write("{:.8f} {:.8f} {:.8f}\n".format(_p[0], _p[1], _p[2]))
+      fp.write("\n")
+
 
 pnts_xy = np.zeros(( len(pnts), 2))
 pnts_z = np.zeros((len(pnts)))
