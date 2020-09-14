@@ -31,22 +31,22 @@ from scipy.interpolate import griddata
 import grbl
 from termcolor import colored, cprint
 
-DEFAULT_FEED_RATE = 25
 
+#HEIGHT_MAP_COUNT = 5
 HEIGHT_MAP_COUNT = 1
-G1_SPEED = 25
-G0_SPEED = 200
+G1_SPEED = 5
+G0_SPEED = 12
 
-G1_SPEED_Z = 25
-
-#works?
-#G0_SPEED_Z = 100
-
-G0_SPEED_Z = 800
+G1_SPEED_Z = 5
+G0_SPEED_Z = 12
 
 unit = "mm"
 cur_x, cur_y, cur_z  = 0, 0, 0
 z_pos = 'up'
+
+DEFAULT_FEED_RATE = G1_SPEED
+DEFAULT_SPEED_RATE = G0_SPEED
+
 
 dry_run = False
 
@@ -57,7 +57,8 @@ dry_run = False
 # so around 1 mil
 
 z_threshold = 0.0
-z_plunge_inch = -0.004
+#z_plunge_inch = -0.004
+z_plunge_inch = -0.0015
 #z_plunge_inch = -0.002
 z_plunge_mm = z_plunge_inch * 25.4
 
@@ -173,15 +174,13 @@ def read_gcode_file(gcode_filename):
     res["status"] = "ok"
     return res
 
-def interpolate_gcode(gcode, pnts_xy, pnts_z, _feed=DEFAULT_FEED_RATE):
+def interpolate_gcode(gcode, pnts_xy, pnts_z, _feed=DEFAULT_FEED_RATE, _speed=DEFAULT_SPEED_RATE):
   unit = "mm"
   cur_x, cur_y, cur_z  = 0, 0, 0
   z_pos = 'up'
   z_pos_prv = z_pos
 
   z_threshold = 0.0
-  #z_plunge_inch = -0.006
-  #z_plunge_mm = z_plunge_inch * 25.4
 
   lines = []
 
@@ -189,6 +188,7 @@ def interpolate_gcode(gcode, pnts_xy, pnts_z, _feed=DEFAULT_FEED_RATE):
   z_ub = pnts_z[0]
 
   g1_feed = _feed
+  g0_feed = _speed
 
   for idx in range(len(pnts_z)):
     if z_ub < pnts_z[idx]: z_ub = pnts_z[idx]
@@ -251,7 +251,8 @@ def interpolate_gcode(gcode, pnts_xy, pnts_z, _feed=DEFAULT_FEED_RATE):
       continue
 
     if (z_pos == 'up'):
-      lines.append("G" + str(g_mode) + " Z{0:.8f}".format(z_ub))
+      #lines.append("G" + str(g_mode) + " Z{0:.8f}".format(z_ub))
+      lines.append("G1 Z{0:.8f}".format(z_ub) + " F{0:.8f}".format(g1_feed))
     elif (z_pos == 'down'):
 
       interpolated_z = griddata(pnts_xy, pnts_z, (cur_x, cur_y), method='linear')
@@ -277,7 +278,7 @@ def interpolate_gcode(gcode, pnts_xy, pnts_z, _feed=DEFAULT_FEED_RATE):
       y_f = float(cur_y)
 
       if z_pos_prv == "up":
-        lines.append("G0 X{0:.8f}".format(x_f) + " Y{0:.8f}".format(y_f) +  " Z{0:.8f}".format(z_ub))
+        lines.append("G0 X{0:.8f}".format(x_f) + " Y{0:.8f}".format(y_f) +  " Z{0:.8f}".format(z_ub) + " F{0:.8f}".format(g0_feed))
 
       #print "G" + g_mode, "X{0:.8f}".format(x_f), "Y{0:.8f}".format(y_f), "Z{0:.8f}".format(interpolated_z)
       #lines.append("G" + str(g_mode) +  " X{0:.8f}".format(x_f) + " Y{0:.8f}".format(y_f) +  " Z{0:.8f}".format(interpolated_z))
@@ -318,10 +319,10 @@ else:
   z_safe = -1.0
 
   # works?
-  #z_ub = -15.0
+  z_ub = -15.0
 
   #testing
-  z_ub = -10.0
+  #z_ub = -10.0
 
   z_lb = -25.0
   fz = 1
@@ -414,6 +415,7 @@ if out_height_map_file is not None:
         fp.write("{:.8f} {:.8f} {:.8f}\n".format(_p[0], _p[1], _p[2]))
       fp.write("\n")
 
+pnts = height_pnts[0]
 
 pnts_xy = np.zeros(( len(pnts), 2))
 pnts_z = np.zeros((len(pnts)))
