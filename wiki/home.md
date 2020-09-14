@@ -37,3 +37,4 @@ dev
 * [SSH Recipes](SSH-Recipes.md)
 * [Future Predictions](Future-Predictions.md)
 * [Diophantine Approximation](Diophantine-Approximation.md)
+* [Common GCode Commands](GCode-Common.md)
