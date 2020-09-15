@@ -31,6 +31,7 @@ from scipy.interpolate import griddata
 import grbl
 from termcolor import colored, cprint
 
+VERBOSITY_LEVEL = 3
 
 #HEIGHT_MAP_COUNT = 5
 HEIGHT_MAP_COUNT = 1
@@ -49,6 +50,8 @@ DEFAULT_SPEED_RATE = G0_SPEED
 
 
 dry_run = False
+
+VERBOSITY_LEVEL = 3
 
 # The copper layer is reported to be
 # (https://www.amazon.com/gp/product/B01MCVLDDZ)
@@ -92,6 +95,10 @@ except getopt.GetoptError, err:
   usage()
   sys.exit(2)
 
+z_threshold = 0.0
+z_plunge_inch = -0.0015
+z_plunge_mm = z_plunge_inch * 25.4
+
 
 for o, a in opts:
   if o == "-g":
@@ -119,6 +126,27 @@ if gcode_file is None:
   usage(sys.stderr)
   sys.exit(-1)
 
+dry_run = False
+
+# The copper layer is reported to be
+# (https://www.amazon.com/gp/product/B01MCVLDDZ)
+#
+# 18 um ~ 0.000708661 inch
+# so around 1 mil
+
+if VERBOSITY_LEVEL > 2:
+  print("# HEIGHT_MAP_COUNT:", HEIGHT_MAP_COUNT)
+  print("# G1_SPEED:", G1_SPEED)
+  print("# G0_SPEED:", G0_SPEED)
+
+  print("# G1_SPEED_Z:", G1_SPEED_Z)
+  print("# G0_SPEED_Z:", G0_SPEED_Z)
+
+  print("# unit:", unit)
+  print("# z_threshold:", z_threshold)
+  print("# z_plunge_inch:", z_plunge_inch, ", z_plunge_mm:", z_plunge_mm)
+
+
 pnts = []
 pnts_xy = []
 pntz_z = []
@@ -131,8 +159,7 @@ def read_gcode_file(gcode_filename):
   yvalid = False
 
   res = {
-    "lines":[],
-    "status":"init",
+    "lines":[], "status":"init",
     "error":"",
     "min_x":0.0,
     "min_y":0.0,
@@ -274,6 +301,9 @@ def interpolate_gcode(gcode, pnts_xy, pnts_z, _feed=DEFAULT_FEED_RATE, _speed=DE
 
       interpolated_z += z_plunge
 
+      if VERBOSITY_LEVEL > 2:
+        print("# z_plunge {0:.8f}".format(z_plunge) + " (" + str(unit) + "), zlerp: {0:.8f}".format(interpolated_z))
+
       x_f = float(cur_x)
       y_f = float(cur_y)
 
@@ -315,16 +345,9 @@ else:
 
   grid_margin = 1.0
 
-  #z_ub = -3.0
   z_safe = -1.0
-
-  # works?
-  z_ub = -15.0
-
-  #testing
-  #z_ub = -10.0
-
-  z_lb = -25.0
+  z_ub = -10.0
+  z_lb = -20.0
   fz = 1
 
   xminmax = [ _gc["min_x"] - grid_margin, _gc["max_x"] + grid_margin]
@@ -341,7 +364,7 @@ else:
       if verbose: print "# got:", x
 
     if verbose: print "# moving z to:", z_ub
-    x = grbl.send_command("g0 z" + str(z_safe) + " f" + str(G1_SPEED_Z))
+    x = grbl.send_command("g1 z" + str(z_safe) + " f" + str(G1_SPEED_Z))
     if verbose: print "# got:", x
     var = grbl.wait_for_var_position('z', z_safe)
     if verbose: print "# got:", var
@@ -368,10 +391,10 @@ else:
   #sys.exit(1)
 
   if verbose: print "# moving z to:", z_safe
-  x = grbl.send_command("g0 z" + str(z_safe) + " f" + str(G1_SPEED_Z))
+  x = grbl.send_command("g1 z" + str(z_safe) + " f" + str(G1_SPEED_Z))
   var = grbl.wait_for_var_position('z', z_safe)
   if verbose: print "# got:", var
-  x = grbl.send_command("g0 x" + str(_pntsxy[0][0]) + " y" + str(_pntsxy[0][1]) + " f" + str(G1_SPEED))
+  x = grbl.send_command("g0 x" + str(_pntsxy[0][0]) + " y" + str(_pntsxy[0][1]) + " f" + str(G0_SPEED))
   var = grbl.wait_for_var_position('x', _pntsxy[0][0])
   var = grbl.wait_for_var_position('y', _pntsxy[0][1])
 
@@ -386,7 +409,7 @@ else:
         x = grbl.send_command("g1 z" + str(z_ub) + " f" + str(G1_SPEED_Z))
         var = grbl.wait_for_var_position('z', z_ub)
 
-        x = grbl.send_command("g0 x" + str(_pntsxy[idx][0]) + " y" + str(_pntsxy[idx][1]))
+        x = grbl.send_command("g0 x" + str(_pntsxy[idx][0]) + " y" + str(_pntsxy[idx][1]) + " f" + str(G0_SPEED) )
         var = grbl.wait_for_var_position('x', _pntsxy[idx][0])
         var = grbl.wait_for_var_position('y', _pntsxy[idx][1])
 

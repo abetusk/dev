@@ -256,3 +256,8 @@ See the [grbl documentation](https://github.com/gnea/grbl/wiki/Set-up-the-Homing
 
 
 See the [FAQ](https://github.com/gnea/grbl/wiki/Frequently-Asked-Questions#why-is-grbl-in-all-negative-coordinates-after-homing-or-it-so-annoying-and-not-what-im-used-to) for details on why the coordinates are negative.
+
+References
+---
+
+* [Milling PCBs with cheap Chinese "desktop" CNC-router](https://forum.electricunicycle.org/topic/11205-milling-pcbs-with-cheap-chinese-desktop-cnc-router/)
