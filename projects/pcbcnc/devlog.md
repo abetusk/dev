@@ -257,7 +257,46 @@ See the [grbl documentation](https://github.com/gnea/grbl/wiki/Set-up-the-Homing
 
 See the [FAQ](https://github.com/gnea/grbl/wiki/Frequently-Asked-Questions#why-is-grbl-in-all-negative-coordinates-after-homing-or-it-so-annoying-and-not-what-im-used-to) for details on why the coordinates are negative.
 
+2020-09-15
+---
+
+I'm getting some 'burrs' on the end of cuts.
+I believe this is due to vibration in the CNC.
+I suspect I did something to the z-axis when attaching the limit switch.
+
+Evidence:
+
+* Create a job that does height sensing and goes only 1.5mil deep
+* The jobs would sometimes cut through, sometimes not (1.5 is too shallow)
+  with the cut portions having 'raised edges' that look rough
+
+I initially thought it was because the height sensing was incorrect.
+At one point the height sensing was off, but I fixed it and was getting
+consistent height readings but still having bad cuts.
+
+From looking around, z-axis vibration is a common source of error.
+One fix is to put a bushing at the bottom of the lead screw z-axis
+so that it's not free-floating.
+
+From [richardsenior.net](http://www.richardsenior.net/cnc3018pro/),
+an 'oilite' bushing with 8mm bore (ID), 16mm length and 12mm OD with a
+flange helps fix 50% of the vibration problems.
+
+### A note about the height issue
+
+I think the height sensing was off because I was going too fast.
+From looking at it, there seemed to be two heights that would ping pong back
+and forth.
+I suspect what was happening is that I was moving down or backing off too fast
+and it was skipping steps, which is potentially the reason for having two distinct
+heights.
+I suspect, by default, the `g0` command goes at max speed (800mm/min).
+Slowing it down to 100-200 for `g0` and 25 or so for `g1` looks to give consistent
+height results.
+
+
 References
 ---
 
 * [Milling PCBs with cheap Chinese "desktop" CNC-router](https://forum.electricunicycle.org/topic/11205-milling-pcbs-with-cheap-chinese-desktop-cnc-router/)
+* [Small Chinese Hobby CNC Routing Machines](http://www.richardsenior.net/cnc3018pro/)

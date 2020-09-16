@@ -35,11 +35,11 @@ VERBOSITY_LEVEL = 3
 
 #HEIGHT_MAP_COUNT = 5
 HEIGHT_MAP_COUNT = 1
-G1_SPEED = 5
-G0_SPEED = 12
+G1_SPEED = 25
+G0_SPEED = 100
 
-G1_SPEED_Z = 5
-G0_SPEED_Z = 12
+G1_SPEED_Z = 15
+G0_SPEED_Z = 25
 
 unit = "mm"
 cur_x, cur_y, cur_z  = 0, 0, 0
@@ -60,9 +60,7 @@ VERBOSITY_LEVEL = 3
 # so around 1 mil
 
 z_threshold = 0.0
-#z_plunge_inch = -0.004
-z_plunge_inch = -0.0015
-#z_plunge_inch = -0.002
+z_plunge_inch = -0.004
 z_plunge_mm = z_plunge_inch * 25.4
 
 output = None
@@ -346,7 +344,7 @@ else:
   grid_margin = 1.0
 
   z_safe = -1.0
-  z_ub = -10.0
+  z_ub = 0.0
   z_lb = -20.0
   fz = 1
 

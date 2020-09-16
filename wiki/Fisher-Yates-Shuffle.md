@@ -101,4 +101,49 @@ Though hidden in such a large configuration space, `nofish_shuffle`,
 `noyaks_shuffle` and `nomaar_shuffle` produce configurations that are not uniformly
 distributed.
 
+---
+
+### Addendum
+
+Sattalo's algorithm creates a random single cycle permutation.
+The algorithm is similar to Fisher-Yates but does not allow the
+choice of the current index element when swapping:
+
+```
+function sattalo_shuffle(a) {
+  var t, n = a.length;
+  for (var i=0; i<(n-1); i++) {
+    var idx = i + 1 + Math.floor(Math.random()*(n-i-1));
+    t = a[i];
+    a[i] = a[idx];
+    a[idx] = t;
+  }
+}
+```
+
+There are $(n-1)!$ configurations, so we know the above algorithm
+subsamples from the space of all permutation possibilities.
+
+To see that it produces a single cycle, note that swapping elements
+has two possibilities:
+
+![swapping nodes produces 1 or 2 cycles](img/swap-node.jpg)
+
+* If both elements are in the same cycle, swapping elements creates
+  two disjoint cycles
+* If both elements are in different cycles, swapping elements creates
+  a single cycle
+
+The swap step in Sattalo's algorithm can be thought of as swapping
+a cycle of length one, the current index position, with another cycle pointed
+to by the chosen random index.
+Since these are two distinct cycles, they join to create a single cycle.
+This is done $(n-1)$ times forcing a single large cycle.
+
+To see that this draws uniformly from single cycle permutations, 
+proceed inductively by noticing that if a single cycle of length $(n-1)$
+is produced uniformly at random, then extending it to a single cycle of
+length $n$ by the above method will favor each of the $(n-1)$ possible
+extensions equally.
+
 ###### 2018-06-13
