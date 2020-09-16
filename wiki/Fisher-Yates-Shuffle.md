@@ -127,7 +127,7 @@ subsamples from the space of all permutation possibilities.
 To see that it produces a single cycle, note that swapping elements
 has two possibilities:
 
-![swapping nodes produces 1 or 2 cycles](img/swap-node.jpg)
+![swapping nodes produces 1 or 2 cycles](img/node-swap.jpg)
 
 * If both elements are in the same cycle, swapping elements creates
   two disjoint cycles
