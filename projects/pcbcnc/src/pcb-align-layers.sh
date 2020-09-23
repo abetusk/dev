@@ -80,7 +80,7 @@ grecode -yflip $ifn.1 > $ifn.2
 grecode -shift $shiftx $shifty $ifn.2 > $ifn.3
 cp $ifn.3 fin-edge.ngc
 
-./calibration/gbr-simple-drill.py ${pfx}.drl > ${pfx}-drill.ngc
+./calibration/gbr-simple-drill.py -f ${pfx}.drl > ${pfx}-drill.ngc
 ifn="${pfx}-drill.ngc"
 grecode -shift $sx $sy $ifn > $ifn.1
 grecode -yflip $ifn.1 > $ifn.2

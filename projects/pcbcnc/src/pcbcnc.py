@@ -36,10 +36,16 @@ VERBOSITY_LEVEL = 3
 #HEIGHT_MAP_COUNT = 5
 HEIGHT_MAP_COUNT = 1
 G1_SPEED = 25
-G0_SPEED = 100
+G0_SPEED = 50
 
 G1_SPEED_Z = 15
 G0_SPEED_Z = 25
+
+SPINDLE_SPEED = 1000.0
+
+Z_SAFE = -1.0
+Z_UP = -10.0
+Z_MAX_DOWN = -20.0
 
 unit = "mm"
 cur_x, cur_y, cur_z  = 0, 0, 0
@@ -50,8 +56,6 @@ DEFAULT_SPEED_RATE = G0_SPEED
 
 
 dry_run = False
-
-VERBOSITY_LEVEL = 3
 
 # The copper layer is reported to be
 # (https://www.amazon.com/gp/product/B01MCVLDDZ)
@@ -77,7 +81,8 @@ def usage(ofp = sys.stdout):
   ofp.write( "  [-D]                dry run (do not connect to GRBL)\n")
   ofp.write( "  [-z <threshold>]    z threshold (default to " + str(z_threshold) + ")\n")
   ofp.write( "  [-p <zplunge>]      amount under height sensed part to plunge (default " + str(z_plunge_mm) + "mm)\n")
-  ofp.write( "  [-no-homing]        don't execute homing operation\n")
+  ofp.write( "  [-S <spindle>]      Spindle speed (default " + str(SPINDLE_SPEED) + ")\n")
+  ofp.write( "  [--no-homing]        don't execute homing operation\n")
   ofp.write( "  [-h|--help]         help (this screen)\n")
   ofp.write( "\n")
 
@@ -85,18 +90,12 @@ gcode_file = None
 height_map_file = None
 out_height_map_file = None
 
-
 try:
-  opts, args = getopt.getopt(sys.argv[1:], "hm:g:z:Dp:O:", ["help", "output=", "no-homing"])
+  opts, args = getopt.getopt(sys.argv[1:], "hm:g:z:Dp:O:S:", ["help", "output=", "no-homing"])
 except getopt.GetoptError, err:
   print str(err)
   usage()
   sys.exit(2)
-
-z_threshold = 0.0
-z_plunge_inch = -0.0015
-z_plunge_mm = z_plunge_inch * 25.4
-
 
 for o, a in opts:
   if o == "-g":
@@ -114,6 +113,8 @@ for o, a in opts:
     dry_run = True
   elif o == "-O":
     out_height_map_file = a
+  elif o == "-S":
+    SPINDLE_SPEED = float(a)
   elif o == "--no-homing":
     do_homing=False
   else:
@@ -337,15 +338,16 @@ if height_map_file is not None:
 
 else:
 
-  #if dry_run:
-  #  sys.stderr.write("cannot probe height when in dry run (provide height map file if you want to test this)\n")
-  #  sys.exit(-1)
-
   grid_margin = 1.0
 
-  z_safe = -1.0
-  z_ub = 0.0
-  z_lb = -20.0
+  #z_safe = -1.0
+  #z_ub = -1.0
+  #z_lb = -20.0
+
+  z_safe = Z_SAFE
+  z_ub = Z_UP
+  z_lb = Z_MAX_DOWN
+
   fz = 1
 
   xminmax = [ _gc["min_x"] - grid_margin, _gc["max_x"] + grid_margin]
@@ -383,10 +385,6 @@ else:
     _pntsxy.append( [_x, _y] )
     _x += dx
   _pntsxy.append( [xminmax[1], _y] )
-
-  #for idx in range(len(_pntsxy)):
-  #  print _pntsxy[idx][0], _pntsxy[idx][1]
-  #sys.exit(1)
 
   if verbose: print "# moving z to:", z_safe
   x = grbl.send_command("g1 z" + str(z_safe) + " f" + str(G1_SPEED_Z))
@@ -461,7 +459,7 @@ sys.stdin.readline()
 
 if not dry_run:
 
-  grbl.send_command("M3 S1000")
+  grbl.send_command( "M3 S{:.8f}".format(SPINDLE_SPEED) )
 
   for line in _gc_lerp_lines:
     line = line.strip()
@@ -477,4 +475,4 @@ if not dry_run:
 
   grbl.send_command("M5 S0")
 
-
+ 

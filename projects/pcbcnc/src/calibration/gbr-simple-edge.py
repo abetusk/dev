@@ -53,13 +53,13 @@ def _s(x):
   return "{:.8f}".format(x)
 
 
-Z_UP = _m2u(10)
-Z_DOWN = _m2u(-2.5)
+Z_UP = _m2u(-1)
+Z_DOWN = _m2u(-22.0)
 Z_STEP = _m2u(-0.4)
-Z_ZERO = _m2u(0.0)
+Z_ZERO = _m2u(-17.0)
 
-G0_SPEED = _m2u(800)
-G1_SPEED = _m2u(50)
+G0_SPEED = _m2u(50)
+G1_SPEED = _m2u(20)
 
 HOLE_R = _m2u(1.0/2.0)
 

@@ -294,9 +294,43 @@ I suspect, by default, the `g0` command goes at max speed (800mm/min).
 Slowing it down to 100-200 for `g0` and 25 or so for `g1` looks to give consistent
 height results.
 
+2020-09-16
+---
+
+After disassembling and re-assembling the CNC to try and fix the
+z-axis vibration issues, I see the height probe discrepancy come back.
+
+I notice 'chunk' sound occasionally when it's operating and I wonder
+if enabling/disabling the steppers is what causes that sound and if
+keeping the motors constantly on is a better idea.
+
+To enable stepper motors always energized:
+
+```
+$1=255
+```
+
+It was `$1=25`.
+See the [wiki](https://github.com/gnea/grbl/wiki/Grbl-v1.1-Configuration#1---step-idle-delay-milliseconds).
+
+It could also be losing steps.
+
+---
+
+The fan on the board started being really loud.
+I broke it while tapping on it and so removed the top assembly completely.
+
+If the drivers are overheating, this could be another cause of lost steps.
+
+---
+
+I put a ferrite bead on the probe line in case the probe line is getting spurious
+noise and in the hopes that the bead will mitigate some of the issue.
+
 
 References
 ---
 
 * [Milling PCBs with cheap Chinese "desktop" CNC-router](https://forum.electricunicycle.org/topic/11205-milling-pcbs-with-cheap-chinese-desktop-cnc-router/)
 * [Small Chinese Hobby CNC Routing Machines](http://www.richardsenior.net/cnc3018pro/)
+* [github.com/gnea/grbl/wiki - Configuration](https://github.com/gnea/grbl/wiki/Grbl-v1.1-Configuration#1---step-idle-delay-milliseconds)
