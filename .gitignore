@@ -44,3 +44,6 @@
 
 .wd
 
+.scratch
+
+*.pyc
