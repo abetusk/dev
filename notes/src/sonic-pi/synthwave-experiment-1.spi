@@ -1,0 +1,37 @@
+# License: CC0
+#
+#
+
+# intro,
+#   verse, pre, chorus,
+#   verse, pre, chorus,
+#   bridge, chorus,
+# outro
+
+# https://github.com/epnlespieux/code-avec-sonicpi-college/blob/master/2020/structure-simple.rb
+
+use_bpm 120
+
+sample_free_all
+
+define :intro do
+  4.times do
+  end
+end
+
+define :verse do
+end
+
+define :transition do
+end
+
+define :chorus do
+end
+
+define :bridge do
+end
+
+define :outro do
+end
+
+
