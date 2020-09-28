@@ -190,3 +190,147 @@ The next task is to generate and run some calibration patterns as well as to run
 ---
 
 Doing a test run of a cut I've measured the kerf at `0.3mm`.
+
+2020-08-19
+---
+
+I've purchased a CNC3-3018Pro.
+
+It looks to be running GRBL 1.1f.
+
+Some relevant commands (see the [grbl docs](https://github.com/gnea/grbl/wiki/Grbl-v1.1-Commands#grbl--commands)):
+
+| | |
+|---|---|
+| `$#` | Show gcode parameters | Probe is `PRB` |
+| `G38.2` | Probe towards target, stops on contact, error if probe does not trigger | `G38.2 [<frate>] [<xpos>] [<ypos>] [<zpos>]`  |
+| `G38.3` | Probe towards target, stops on contact, no error if probe does not trigger | `G38.3 [F<frate>] [X<xpos>] [Y<ypos>] [Z<zpos>]`  |
+| `G38.4` | Probe away target, stops on loss of contact, error if probe does not trigger | `G38.4 [<frate>] [<xpos>] [<ypos>] [<zpos>]`  |
+| `G38.5` | Probe away target, stops on loss of contact, no error if probe does not trigger | `G38.5 [<frate>] [<xpos>] [<ypos>] [<zpos>]`  |
+
+The `A5` pin should be used for the probe.
+
+| | |
+|---|---|
+| ![cnc 3018 controller](img/cnc3018-controller.png) | ![cnc 3018 pin detail](img/cnc3018-pin-detail.png) |
+
+Note, from the GRBL site on [wiring limit switches](https://github.com/gnea/grbl/wiki/Wiring-Limit-Switches),
+the labelled silk screen `X` and `Z` limit switches appear to be reversed (and can confirm from experimentation).
+
+Here is a picture for reference:
+
+| |
+|---|
+| ![cnc 3018 controller](img/cnc3018-pin-detail-limit-fix.png) |
+
+---
+
+As an example usage:
+
+```
+g0 z10
+g38.2 f10 z0
+[PRB:0.000,0.000,7.439:1]
+ok
+g0 z10
+?<Idle|MPos:0.000,0.000,10.000|FS:0,0|Pn:P>
+```
+
+I was getting an `error:12` which is a "no feed rate specified".
+See the [grbl error codes](https://github.com/grbl/grbl/blob/master/grbl/report.h) for more detail.
+
+2020-09-02
+---
+
+Homing is controlled with the `$22` parameter.
+`$22=1` to enable homing.
+
+The z-axis limit switch (top only) is from [here](https://www.thingiverse.com/thing:2796202).
+
+
+
+To set up hard limits, that is, stopping when it crashes into a limit switch, set `$21=1`.
+
+Homing direction parameters can be set with the `$23` option.
+See the [grbl documentation](https://github.com/gnea/grbl/wiki/Set-up-the-Homing-Cycle) for more detail.
+
+
+See the [FAQ](https://github.com/gnea/grbl/wiki/Frequently-Asked-Questions#why-is-grbl-in-all-negative-coordinates-after-homing-or-it-so-annoying-and-not-what-im-used-to) for details on why the coordinates are negative.
+
+2020-09-15
+---
+
+I'm getting some 'burrs' on the end of cuts.
+I believe this is due to vibration in the CNC.
+I suspect I did something to the z-axis when attaching the limit switch.
+
+Evidence:
+
+* Create a job that does height sensing and goes only 1.5mil deep
+* The jobs would sometimes cut through, sometimes not (1.5 is too shallow)
+  with the cut portions having 'raised edges' that look rough
+
+I initially thought it was because the height sensing was incorrect.
+At one point the height sensing was off, but I fixed it and was getting
+consistent height readings but still having bad cuts.
+
+From looking around, z-axis vibration is a common source of error.
+One fix is to put a bushing at the bottom of the lead screw z-axis
+so that it's not free-floating.
+
+From [richardsenior.net](http://www.richardsenior.net/cnc3018pro/),
+an 'oilite' bushing with 8mm bore (ID), 16mm length and 12mm OD with a
+flange helps fix 50% of the vibration problems.
+
+### A note about the height issue
+
+I think the height sensing was off because I was going too fast.
+From looking at it, there seemed to be two heights that would ping pong back
+and forth.
+I suspect what was happening is that I was moving down or backing off too fast
+and it was skipping steps, which is potentially the reason for having two distinct
+heights.
+I suspect, by default, the `g0` command goes at max speed (800mm/min).
+Slowing it down to 100-200 for `g0` and 25 or so for `g1` looks to give consistent
+height results.
+
+2020-09-16
+---
+
+After disassembling and re-assembling the CNC to try and fix the
+z-axis vibration issues, I see the height probe discrepancy come back.
+
+I notice 'chunk' sound occasionally when it's operating and I wonder
+if enabling/disabling the steppers is what causes that sound and if
+keeping the motors constantly on is a better idea.
+
+To enable stepper motors always energized:
+
+```
+$1=255
+```
+
+It was `$1=25`.
+See the [wiki](https://github.com/gnea/grbl/wiki/Grbl-v1.1-Configuration#1---step-idle-delay-milliseconds).
+
+It could also be losing steps.
+
+---
+
+The fan on the board started being really loud.
+I broke it while tapping on it and so removed the top assembly completely.
+
+If the drivers are overheating, this could be another cause of lost steps.
+
+---
+
+I put a ferrite bead on the probe line in case the probe line is getting spurious
+noise and in the hopes that the bead will mitigate some of the issue.
+
+
+References
+---
+
+* [Milling PCBs with cheap Chinese "desktop" CNC-router](https://forum.electricunicycle.org/topic/11205-milling-pcbs-with-cheap-chinese-desktop-cnc-router/)
+* [Small Chinese Hobby CNC Routing Machines](http://www.richardsenior.net/cnc3018pro/)
+* [github.com/gnea/grbl/wiki - Configuration](https://github.com/gnea/grbl/wiki/Grbl-v1.1-Configuration#1---step-idle-delay-milliseconds)

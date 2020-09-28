@@ -1,0 +1,197 @@
+#!/usr/bin/python3
+#
+# License: CC0
+#
+
+# Poll the hooked up INA260 power monitor
+# module via I2C and update logfiles
+# and various HTML files.
+#
+# This script will poll the INA260 module
+# every 0.25 of a second (the variable 'sleep_dt'
+# below), flushing to # a logfile every 2 seconds
+# (the variable 'flush_freq_sec' below).
+#
+# The entries are added to a logfile of the form
+# 
+# ina260_YYYY-MM-DD-HH-mm-SS.log
+#
+# Where YYYY is the year, MM is the month, DD is the day,
+# HH is the hour, mm is the minute and SS is the second
+# of the logfile when first created.
+#
+# Data is collected over the period of an hour at which
+# point a new logfile is created. See the
+# 'log_rotate_freq_sec' variable below to set the log
+# rotation frequency.
+#
+# Logs are located in /var/www/html/ for ease of use
+# via a web viewer.
+#
+# A symbolic link '/var/www/html/ina260.log' is created
+# that points to the most recent log.
+#
+# On log rotation, an HTML file is created as
+# '/var/www/html/logs.html' that lists all logs
+# in the '/var/www/html/' directory available for easy
+# download.
+#
+
+# Logfile entries are individual JSON formated lines.
+# Note that the logfiles themselves are not valid JSON
+# whereas an individual line is.
+# This is done to allow for ease of streaming.
+#
+# Here are a few lines of an example logfile:
+#
+# {"s": 1594247409.474113, "datetime": "2020-07-08_18:30:09.474113", "current_ma": 0.0, "voltage": 0.1775, "power_mw": 0}
+# {"s": 1594247409.7360773, "datetime": "2020-07-08_18:30:09.736077", "current_ma": 1.25, "voltage": 0.09125, "power_mw": 0}
+# {"s": 1594247409.9962654, "datetime": "2020-07-08_18:30:09.996265", "current_ma": 1.25, "voltage": 0.0, "power_mw": 0}
+# 
+# The fields:
+#
+# "s"           - unix time since epoch, in (float) seconds
+# "datetime"    - converted unix time for ease of viewing
+# "current_ma"  - ina260 current in milli amps (mA)
+# "voltage"     - ina260 voltage in volts (V)
+# "power_mw"    - ina260 power in milli watts (mW)
+#
+
+import time
+import board
+import adafruit_ina260
+
+from datetime import datetime
+import json
+
+import shutil
+import os
+import uuid
+
+import re
+from os import listdir
+from os.path import isfile, join
+
+to_stdout = False
+
+sleep_dt = 0.25
+
+# every 2 seconds
+#
+flush_freq_sec = 2.0
+flush_every = flush_freq_sec / sleep_dt
+flush_count = 0
+
+# every hour
+#
+#log_rotate_freq_sec = 5*60
+log_rotate_freq_sec = 60.0*60.0
+log_rotate_every = log_rotate_freq_sec / sleep_dt
+log_rotate_count = 0
+
+def create_log_html(logdir="/var/www/html/", htmlfn="/var/www/html/logs.html"):
+  fns = [f for f in listdir(logdir) if isfile(join(logdir, f))]
+
+  hdr = """
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>ina260 log file download</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="wrapper"> <header> <h1>Logs</h1> </header>
+  <section>
+  <ul>
+  """
+
+  ftr = """</ul></section>
+</body>
+</html>
+"""
+
+  fp = open(htmlfn, "w")
+  fp.write(hdr)
+
+  for fn in fns:
+    if not re.search( '\.log$', fn ):
+      continue
+    fp.write("<li><a href='" + fn + "'>" + fn + "</a></li>\n")
+    print(fn)
+
+  fp.write(ftr)
+  fp.close()
+
+
+def logfilename():
+  sec = time.time()
+  now = datetime.fromtimestamp(sec)
+  dtstr = now.strftime("%Y-%m-%d-%H-%M-%S")
+
+  base_dir = "/var/www/html/"
+  file_pfx = "ina260_"
+  file_sfx = ".log"
+
+  fn = base_dir + file_pfx + dtstr + file_sfx
+  return fn
+
+def setupsymlink(fn, fnlink="/var/www/html/ina260.log"):
+  tmplink = "/tmp/" + str(uuid.uuid1())
+  os.symlink(fn, tmplink)
+  shutil.move(tmplink, fnlink)
+
+
+fn = logfilename()
+fp = open(fn, "w")
+
+setupsymlink(fn)
+create_log_html()
+
+i2c = board.I2C()
+ina260 = adafruit_ina260.INA260(i2c)
+while True:
+  sec = time.time()
+  now = datetime.fromtimestamp(sec)
+  dtstr = now.strftime("%Y-%m-%d_%H:%M:%S.%f")
+
+  data = {
+    "s" : sec,
+    "datetime" : dtstr,
+    "current_ma" : ina260.current,
+    "voltage" : ina260.voltage,
+    "power_mw" : ina260.power
+  }
+
+  fp.write(json.dumps(data) + "\n")
+
+  flush_count += 1
+  if (flush_count >= flush_every) :
+    flush_count = 0
+    fp.flush()
+
+    if to_stdout:
+      print("# flush")
+
+  log_rotate_count += 1
+  if (log_rotate_count >= log_rotate_every) :
+    log_rotate_count = 0
+
+    if to_stdout:
+      print("# log rotate")
+
+    fp.close()
+    fn = logfilename()
+    fp = open(fn, "w")
+
+    setupsymlink(fn)
+    create_log_html()
+
+
+  if to_stdout:
+    print(json.dumps(data))
+
+  #print("Current: %.2f mA Voltage: %.2f V Power:%.2f mW"
+  #  % (ina260.current, ina260.voltage, ina260.power)
+  #)
+  time.sleep(sleep_dt)

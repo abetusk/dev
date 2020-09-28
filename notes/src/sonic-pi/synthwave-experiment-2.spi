@@ -1,0 +1,71 @@
+# License: CC0
+#
+#
+# intro,
+#   verse, pre, chorus,
+#   verse, pre, chorus,
+#   bridge, chorus,
+# outro
+
+use_bpm 180
+
+# b - bass (kick)
+# s - snare
+# c - clap
+# H - high hat (open)
+# h - high hat (closed)
+#
+beat_mask = { "b" => 1, "s" => 2, "h" => 4, "H" => 8, "c" => 16 }
+
+use_bpm 180
+
+snd_arp = syn_lead[2]
+snd_melody0 = syn_lead[19]
+snd_chord0  = syn_lead[19]
+
+drum = (ring 1, 0, 8, 0, 19, 0, 8, 0, 1, 4, 8, 0, 19, 0, 9, 0)
+
+btz = (ring 1, 0, 0, 0, 1, 0, 0, 0,
+       1, 0, 0, 0, 1, 0, 0, 0,
+       1, 0, 0, 0, 1, 0, 0, 0,
+       1, 0, 0, 0, 1, 0, 1, 0 )
+
+chord_prog_dt = (ring 2, 1, 1)
+
+arp_dt = 0.5
+arp_dtm = 0.35
+arp_amp = 1.0
+
+melody_tf = 1
+melody_amp = 1
+
+chord_amp = 1
+
+arp_a = []
+
+###
+
+live_loop :arp0 do
+end
+
+live_loop :arp1 do
+end
+
+live_loop :chord0 do
+end
+
+live_loop :chord1 do
+end
+
+live_loop :melody0 do
+end
+
+live_loop :melody1 do
+end
+
+live_loop :drum0 do
+end
+
+live_loop :drum1 do
+end
+

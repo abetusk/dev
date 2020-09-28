@@ -31,13 +31,37 @@ from scipy.interpolate import griddata
 import grbl
 from termcolor import colored, cprint
 
-DEFAULT_FEED_RATE = 60
+VERBOSITY_LEVEL = 3
+
+#HEIGHT_MAP_COUNT = 5
+HEIGHT_MAP_COUNT = 1
+G1_SPEED = 25
+G0_SPEED = 50
+
+G1_SPEED_Z = 15
+G0_SPEED_Z = 25
+
+SPINDLE_SPEED = 1000.0
+
+Z_SAFE = -1.0
+Z_UP = -10.0
+Z_MAX_DOWN = -20.0
 
 unit = "mm"
 cur_x, cur_y, cur_z  = 0, 0, 0
 z_pos = 'up'
 
+DEFAULT_FEED_RATE = G1_SPEED
+DEFAULT_SPEED_RATE = G0_SPEED
+
+
 dry_run = False
+
+# The copper layer is reported to be
+# (https://www.amazon.com/gp/product/B01MCVLDDZ)
+#
+# 18 um ~ 0.000708661 inch
+# so around 1 mil
 
 z_threshold = 0.0
 z_plunge_inch = -0.004
@@ -46,6 +70,7 @@ z_plunge_mm = z_plunge_inch * 25.4
 output = None
 verbose = True
 
+do_homing = True
 
 def usage(ofp = sys.stdout):
   ofp.write( "\nDo a height probe, interploate GCode file then execute job\n")
@@ -56,6 +81,8 @@ def usage(ofp = sys.stdout):
   ofp.write( "  [-D]                dry run (do not connect to GRBL)\n")
   ofp.write( "  [-z <threshold>]    z threshold (default to " + str(z_threshold) + ")\n")
   ofp.write( "  [-p <zplunge>]      amount under height sensed part to plunge (default " + str(z_plunge_mm) + "mm)\n")
+  ofp.write( "  [-S <spindle>]      Spindle speed (default " + str(SPINDLE_SPEED) + ")\n")
+  ofp.write( "  [--no-homing]        don't execute homing operation\n")
   ofp.write( "  [-h|--help]         help (this screen)\n")
   ofp.write( "\n")
 
@@ -63,14 +90,12 @@ gcode_file = None
 height_map_file = None
 out_height_map_file = None
 
-
 try:
-  opts, args = getopt.getopt(sys.argv[1:], "hm:g:z:Dp:O:", ["help", "output="])
+  opts, args = getopt.getopt(sys.argv[1:], "hm:g:z:Dp:O:S:", ["help", "output=", "no-homing"])
 except getopt.GetoptError, err:
   print str(err)
   usage()
   sys.exit(2)
-
 
 for o, a in opts:
   if o == "-g":
@@ -88,6 +113,10 @@ for o, a in opts:
     dry_run = True
   elif o == "-O":
     out_height_map_file = a
+  elif o == "-S":
+    SPINDLE_SPEED = float(a)
+  elif o == "--no-homing":
+    do_homing=False
   else:
     assert False, "unhandled option"
 
@@ -95,6 +124,27 @@ if gcode_file is None:
   sys.stderr.write("Provide gcode file\n")
   usage(sys.stderr)
   sys.exit(-1)
+
+dry_run = False
+
+# The copper layer is reported to be
+# (https://www.amazon.com/gp/product/B01MCVLDDZ)
+#
+# 18 um ~ 0.000708661 inch
+# so around 1 mil
+
+if VERBOSITY_LEVEL > 2:
+  print("# HEIGHT_MAP_COUNT:", HEIGHT_MAP_COUNT)
+  print("# G1_SPEED:", G1_SPEED)
+  print("# G0_SPEED:", G0_SPEED)
+
+  print("# G1_SPEED_Z:", G1_SPEED_Z)
+  print("# G0_SPEED_Z:", G0_SPEED_Z)
+
+  print("# unit:", unit)
+  print("# z_threshold:", z_threshold)
+  print("# z_plunge_inch:", z_plunge_inch, ", z_plunge_mm:", z_plunge_mm)
+
 
 pnts = []
 pnts_xy = []
@@ -108,8 +158,7 @@ def read_gcode_file(gcode_filename):
   yvalid = False
 
   res = {
-    "lines":[],
-    "status":"init",
+    "lines":[], "status":"init",
     "error":"",
     "min_x":0.0,
     "min_y":0.0,
@@ -151,15 +200,13 @@ def read_gcode_file(gcode_filename):
     res["status"] = "ok"
     return res
 
-def interpolate_gcode(gcode, pnts_xy, pnts_z, _feed=DEFAULT_FEED_RATE):
+def interpolate_gcode(gcode, pnts_xy, pnts_z, _feed=DEFAULT_FEED_RATE, _speed=DEFAULT_SPEED_RATE):
   unit = "mm"
   cur_x, cur_y, cur_z  = 0, 0, 0
   z_pos = 'up'
   z_pos_prv = z_pos
 
   z_threshold = 0.0
-  z_plunge_inch = -0.006
-  z_plunge_mm = z_plunge_inch * 25.4
 
   lines = []
 
@@ -167,6 +214,7 @@ def interpolate_gcode(gcode, pnts_xy, pnts_z, _feed=DEFAULT_FEED_RATE):
   z_ub = pnts_z[0]
 
   g1_feed = _feed
+  g0_feed = _speed
 
   for idx in range(len(pnts_z)):
     if z_ub < pnts_z[idx]: z_ub = pnts_z[idx]
@@ -229,7 +277,8 @@ def interpolate_gcode(gcode, pnts_xy, pnts_z, _feed=DEFAULT_FEED_RATE):
       continue
 
     if (z_pos == 'up'):
-      lines.append("G" + str(g_mode) + " Z{0:.8f}".format(z_ub))
+      #lines.append("G" + str(g_mode) + " Z{0:.8f}".format(z_ub))
+      lines.append("G1 Z{0:.8f}".format(z_ub) + " F{0:.8f}".format(g1_feed))
     elif (z_pos == 'down'):
 
       interpolated_z = griddata(pnts_xy, pnts_z, (cur_x, cur_y), method='linear')
@@ -251,11 +300,14 @@ def interpolate_gcode(gcode, pnts_xy, pnts_z, _feed=DEFAULT_FEED_RATE):
 
       interpolated_z += z_plunge
 
+      if VERBOSITY_LEVEL > 2:
+        print("# z_plunge {0:.8f}".format(z_plunge) + " (" + str(unit) + "), zlerp: {0:.8f}".format(interpolated_z))
+
       x_f = float(cur_x)
       y_f = float(cur_y)
 
       if z_pos_prv == "up":
-        lines.append("G0 X{0:.8f}".format(x_f) + " Y{0:.8f}".format(y_f) +  " Z{0:.8f}".format(z_ub))
+        lines.append("G0 X{0:.8f}".format(x_f) + " Y{0:.8f}".format(y_f) +  " Z{0:.8f}".format(z_ub) + " F{0:.8f}".format(g0_feed))
 
       #print "G" + g_mode, "X{0:.8f}".format(x_f), "Y{0:.8f}".format(y_f), "Z{0:.8f}".format(interpolated_z)
       #lines.append("G" + str(g_mode) +  " X{0:.8f}".format(x_f) + " Y{0:.8f}".format(y_f) +  " Z{0:.8f}".format(interpolated_z))
@@ -267,10 +319,11 @@ def interpolate_gcode(gcode, pnts_xy, pnts_z, _feed=DEFAULT_FEED_RATE):
 
 _gc = read_gcode_file(gcode_file)
 
-pnts = []
+#pnts = []
+height_pnts = []
 
 if not dry_run:
-  grbl.setup()
+  grbl.setup("/dev/ttyUSB0")
   grbl.send_initial_command("")
 
 if height_map_file is not None:
@@ -285,14 +338,16 @@ if height_map_file is not None:
 
 else:
 
-  #if dry_run:
-  #  sys.stderr.write("cannot probe height when in dry run (provide height map file if you want to test this)\n")
-  #  sys.exit(-1)
-
   grid_margin = 1.0
 
-  z_ub = -5.0
-  z_lb = -8.0
+  #z_safe = -1.0
+  #z_ub = -1.0
+  #z_lb = -20.0
+
+  z_safe = Z_SAFE
+  z_ub = Z_UP
+  z_lb = Z_MAX_DOWN
+
   fz = 1
 
   xminmax = [ _gc["min_x"] - grid_margin, _gc["max_x"] + grid_margin]
@@ -302,14 +357,16 @@ else:
   dy = 10.0
 
   if not dry_run:
-    if verbose: print "# homing..."
-    x = grbl.send_command("$H")
-    if verbose: print "# got:", x
+
+    if do_homing:
+      if verbose: print "# homing..."
+      x = grbl.send_command("$H")
+      if verbose: print "# got:", x
 
     if verbose: print "# moving z to:", z_ub
-    x = grbl.send_command("g0 z" + str(z_ub))
+    x = grbl.send_command("g1 z" + str(z_safe) + " f" + str(G1_SPEED_Z))
     if verbose: print "# got:", x
-    var = grbl.wait_for_var_position('z', z_ub)
+    var = grbl.wait_for_var_position('z', z_safe)
     if verbose: print "# got:", var
 
   _pntsxy = []
@@ -329,40 +386,55 @@ else:
     _x += dx
   _pntsxy.append( [xminmax[1], _y] )
 
-  #for idx in range(len(_pntsxy)):
-  #  print _pntsxy[idx][0], _pntsxy[idx][1]
-  #sys.exit(1)
+  if verbose: print "# moving z to:", z_safe
+  x = grbl.send_command("g1 z" + str(z_safe) + " f" + str(G1_SPEED_Z))
+  var = grbl.wait_for_var_position('z', z_safe)
+  if verbose: print "# got:", var
+  x = grbl.send_command("g0 x" + str(_pntsxy[0][0]) + " y" + str(_pntsxy[0][1]) + " f" + str(G0_SPEED))
+  var = grbl.wait_for_var_position('x', _pntsxy[0][0])
+  var = grbl.wait_for_var_position('y', _pntsxy[0][1])
 
-  for idx in range(len(_pntsxy)):
+  for height_run in range(HEIGHT_MAP_COUNT):
+    height_pnts.append([])
 
-    if verbose: print "# grid:", _pntsxy[idx][0], _pntsxy[idx][1]
-    if not dry_run:
+    for idx in range(len(_pntsxy)):
 
-      x = grbl.send_command("g0 z" + str(z_ub))
-      var = grbl.wait_for_var_position('z', z_ub)
+      if verbose: print "# grid:", _pntsxy[idx][0], _pntsxy[idx][1]
+      if not dry_run:
 
-      x = grbl.send_command("g0 x" + str(_pntsxy[idx][0]) + " y" + str(_pntsxy[idx][1]))
-      var = grbl.wait_for_var_position('x', _pntsxy[idx][0])
-      var = grbl.wait_for_var_position('y', _pntsxy[idx][1])
+        x = grbl.send_command("g1 z" + str(z_ub) + " f" + str(G1_SPEED_Z))
+        var = grbl.wait_for_var_position('z', z_ub)
 
-      if verbose: print "# height probe:", _pntsxy[idx][0], _pntsxy[idx][1], z_lb, fz
-      x = grbl.send_command("g38.2 z" + str(z_lb) + " f" + str(fz))
-      lines = x.split("\n")
-      vals = lines[0].split(":")[1].split(",")
-      pnts.append( [ float(vals[0]), float(vals[1]), float(vals[2]) ] )
+        x = grbl.send_command("g0 x" + str(_pntsxy[idx][0]) + " y" + str(_pntsxy[idx][1]) + " f" + str(G0_SPEED) )
+        var = grbl.wait_for_var_position('x', _pntsxy[idx][0])
+        var = grbl.wait_for_var_position('y', _pntsxy[idx][1])
 
-      x = grbl.send_command("g0 z" + str(z_ub))
-      if verbose: print "# got:", x
+        if verbose: print "# height probe:", _pntsxy[idx][0], _pntsxy[idx][1], z_lb, fz
+        x = grbl.send_command("g38.2 z" + str(z_lb) + " f" + str(fz))
+        lines = x.split("\n")
+        vals = lines[0].split(":")[1].split(",")
+        height_pnts[height_run].append( [ float(vals[0]), float(vals[1]), float(vals[2]) ] )
 
-for _p in pnts:
-  print "( grid:", _p[0], _p[1], _p[2], ")"
+        x = grbl.send_command("g1 z" + str(z_ub) + " f" + str(G1_SPEED_Z))
+        if verbose: print "# got:", x
+
+for h in range(len(height_pnts)):
+  _pnts = height_pnts[h]
+  for _p in _pnts:
+    print "( grid["+ str(h) + "]:", _p[0], _p[1], _p[2], ")"
 
 if out_height_map_file is not None:
 
   print "# writing height to", out_height_map_file
   with open(out_height_map_file, "w") as fp:
-    for _p in pnts:
-      fp.write("{:.8f} {:.8f} {:.8f}\n".format(_p[0], _p[1], _p[2]))
+
+    for h in range(len(height_pnts)):
+      _pnts = height_pnts[h]
+      for _p in _pnts:
+        fp.write("{:.8f} {:.8f} {:.8f}\n".format(_p[0], _p[1], _p[2]))
+      fp.write("\n")
+
+pnts = height_pnts[0]
 
 pnts_xy = np.zeros(( len(pnts), 2))
 pnts_z = np.zeros((len(pnts)))
@@ -376,7 +448,9 @@ _gc_lerp_lines = interpolate_gcode(_gc, pnts_xy, pnts_z)
 if verbose:
   print "( minmax", _gc["min_x"], _gc["max_x"], _gc["min_y"], _gc["max_y"], ")"
   for l in _gc_lerp_lines:
-    print "(lerp:", l, ")"
+    #print "(lerp:", l, ")"
+    line = l.strip()
+    print line
 
 sys.stdout.write("\n#### ")
 cprint("READY TO CUT, REMOVE PROBE AND PRESS ENTER TO CONTINUE", "red", attrs=['blink'])
@@ -385,7 +459,7 @@ sys.stdin.readline()
 
 if not dry_run:
 
-  grbl.send_command("M3 S7000")
+  grbl.send_command( "M3 S{:.8f}".format(SPINDLE_SPEED) )
 
   for line in _gc_lerp_lines:
     line = line.strip()
@@ -401,4 +475,4 @@ if not dry_run:
 
   grbl.send_command("M5 S0")
 
-
+ 

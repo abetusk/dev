@@ -18,7 +18,6 @@ import math
 import time
 import sys
 
-
 # default values 
 #
 device = "/dev/ttyUSB0"
@@ -122,7 +121,7 @@ def get_position():
   grbl_serial.write("?")
   grbl_out = grbl_serial.readline()
 
-  m = re.search( "^<([^,]*),MPos:([^,]*),([^,]*),([^,]*),", grbl_out)
+  m = re.search( "^<([^,]*)[|,]MPos:([^,]*),([^,]*),([^|,]*)[|,]", grbl_out)
   if ( m ):
     if verbose:
       print "# matched", m.group(0)
@@ -147,7 +146,7 @@ def get_var_position( var_name ):
   if verbose:
     print "#  get_var_position(", var_name, "): got :", grbl_out.strip()
 
-  m = re.search( "^<([^,]*),MPos:([^,]*),([^,]*),([^,]*),", grbl_out)
+  m = re.search( "^<([^,]*)[|,]MPos:([^,]*),([^,]*),([^|,]*)[|,]", grbl_out)
   if ( m ):
     if verbose:
       print "# matched", m.group(0)
@@ -182,7 +181,7 @@ def wait_for_var_position( var_name, var_val ):
 if __name__ == "__main__":
   import argparse
   parser = argparse.ArgumentParser(description='Send GRBL commands.')
-  parser.add_argument("-B", "--baud", help="Set baud rate (default 9600)", nargs = 1, default=[baud], type=int)
+  parser.add_argument("-B", "--baud", help="Set baud rate (default " + str(baud) + ")", nargs = 1, default=[baud], type=int)
   parser.add_argument("-D", "--device", help="Set device (default /dev/ttyUSB0)", nargs = 1, default=[device] )
   parser.add_argument("-v", "--verbose", help="Set verbose mode", default=verbose, action='store_true')
   parser.add_argument("-f", "--file", help="input file", nargs=1, type=str)
@@ -211,10 +210,7 @@ if __name__ == "__main__":
 
   setup(device, baud)
 
-  #print "setup done..."
-
   v = send_initial_command("")
-  #print "got", v
 
   if infn is not None:
     with open(infn, "r") as fp:

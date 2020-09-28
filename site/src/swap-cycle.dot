@@ -1,0 +1,18 @@
+digraph swap {
+  node [shape = doublecircle] x y;
+  node [shape = circle,style=filled,label=""];
+
+  subgraph r0 {
+    rank = same;
+    a;
+    b;
+    x;
+    y;
+  }
+
+  a0 
+  x -> a;
+  a -> y;
+  y -> b;
+  b -> x;
+}

@@ -287,7 +287,9 @@ module z_top_all() {
 
 }
 
-translate([60,50]) z_top_all();
+//z_side();
+
+//translate([60,50]) z_top_all();
 //z_top_plate();
 
 
@@ -322,6 +324,34 @@ module z_support() {
     translate([dx + th/2, dy/2]) square([th,zbp_finger_1], center=true);
   }
 }
+
+
+module z_side_x() {
+  
+  qq = zbp_depth/2 - 3;
+  th = MATERIAL_THICKNESS;
+  m2_ds = (2*(zbp_depth/2 - 3) - th)/2 - 2;
+  difference() {
+
+    union() {
+      translate([zbp_side_len/2 - zbp_depth/2, 0]) square([zbp_side_len, zbp_height], center=true);
+      //translate([0,-zbp_height/2 - th/2]) square([zbp_finger_0, th], center=true);
+    };
+    
+
+    //translate([m2_ds, m2_ds]) circle(1, $fn=16);
+    //translate([-m2_ds,-m2_ds]) circle(1, $fn=16);
+    
+    //translate([qq,0]) square([th, zbp_finger_1], center=true);
+    //translate([-qq,0]) square([th, zbp_finger_1], center=true);
+    //circle(2.5, $fn=16);
+    
+    translate([zbp_depth + th,0]) switch_holes2();
+    translate([th*0,0]) switch_holes2();
+  }
+}
+
+z_side_x();
 
 module z_side() {
   

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+v4l2-ctl --set-ctrl video_bitrate=300000
+ffmpeg -f video4linux2 \
+  -input_format h264 \
+  -video_size 640x360 \
+  -framerate 30 \
+  -i /dev/video0 \
+  -vcodec copy \
+  -an -f flv rtmp://localhost/show/pi

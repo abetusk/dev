@@ -1,0 +1,40 @@
+#!/bin/bash
+#
+# License: CC0
+#
+
+# The Raspberry Pi Zero W WiFi card has some
+# issues creating the access point and also
+# providing the wlan0 interface.
+# To help get more consistency in providing
+# both the access point and the wlan0 interface,
+# bring both of them down, then bring ap0 up,
+# then wlan0 up.
+#
+# The sysctl and iptables calls are to hook up
+# routing between connections through the access
+# point to the broader internet through the wlan0
+# interface, so the rpi essentially acts as a
+# hotspot or router.
+#
+# The initial `sleep 30` is provided to give the
+# rpi time to boot up before cycling the interfaces
+# and doing the routing, as this script is meant to
+# be run at bootup.
+#
+
+sleep 30
+sudo ifdown --force wlan0 && \
+  sleep 1 && \
+  sudo ifdown --force ap0 && \
+  sleep 1 && \
+  sudo ifup ap0 && \
+  sleep 1 && \
+  sudo ifup wlan0
+sleep 1
+sudo sysctl -w net.ipv4.ip_forward=1
+sleep 1
+sudo iptables -t nat -A POSTROUTING -s 192.168.10.0/24 ! -d 192.168.10.0/24 -j MASQUERADE
+sleep 1
+sudo systemctl restart dnsmasq
+

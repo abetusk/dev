@@ -35,3 +35,6 @@ dev
 * [Empirical Laws](Empirical-Laws.md)
 * [Food - CO2 emissions and water usage](Food-CO2-Water.md)
 * [SSH Recipes](SSH-Recipes.md)
+* [Future Predictions](Future-Predictions.md)
+* [Diophantine Approximation](Diophantine-Approximation.md)
+* [Common GCode Commands](GCode-Common.md)

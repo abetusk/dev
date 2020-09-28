@@ -40,4 +40,10 @@
 *.svg
 *.ps
 
-.tmp
+.tmp*
+
+.wd
+
+.scratch
+
+*.pyc

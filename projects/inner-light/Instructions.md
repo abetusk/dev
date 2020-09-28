@@ -111,7 +111,7 @@ The mapping for how the LEDs show up is done in software on the Raspberry Pi.
 There are three 5V 10A buck converters to power all of the LED strips.
 The LED "rope" lights are 60 LEDs per meter.
 The LED "rope" lights operate at 5V and each LED in the strip can potentially pull 60mA of current.
-In theory this means that each strip only consumes about 3.6A in total, or about 18W, but in practice
+In theory this means that each strip only consumes 3.6A in total, or about 18W, but in practice
 the voltage drop across a meter of LED strip is so significant that multiple power sources need
 to be deployed to make sure there is no color degradation from power loss.
 
@@ -207,13 +207,18 @@ connector.
 These ends need to have a connector soldered onto them to allow for power input, where
 appropriate, and for data communication from the previous LED strip or to the next LED strip.
 
+| | |
+|---|---|
+| ![led conn](doc/img/20190626_042444.jpg) | ![x](doc/img/20190626_040141.jpg) | 
+| ![led conn](doc/img/20190626_042907.jpg) | ![led conn](doc/img/20190626_043323.jpg) |
+
 Each LED strip end has three solder connections, one for power, one for ground and for for
 data.
 For each connector, solder the appropriate gendered 3 pin JST SM connector to the end.
 
 The LED strips are oriented in that the data direction goes in on direction and, in general,
 the LED strips cannot be flipped around arbitrarily.
-A rule of having a femail 3 pin JST-SM connector for the input side and a male JST-SM connector
+A rule of having a female 3 pin JST-SM connector for the input side and a male JST-SM connector
 for the output side was adopted.
 
 For the power, a 2 pin JST-SM male connector was used.
@@ -221,7 +226,7 @@ Which end of the LED strip the power connector is soldered to doesn't matter but
 a convention of soldering the power connector to the data input line was used in this
 project.
 
-Tape can be sued to hold the LED strip end and the JST-SM wires in place to help in soldering
+Tape can be used to hold the LED strip end and the JST-SM wires in place to help in soldering
 the connectors onto the strip.
 The JST-SM cable ends should have a small amount of copper wire exposed taking care to not expose
 too much copper and this could cause shorts other issues if too long.
@@ -250,7 +255,7 @@ to push it through.
 
 A spacing of about 0.5 inches should be used, with an 'X' pattern to ensure equal distribution
 of force.
-When choosing which side the velcro should go on, remeber that the lit portion of the LED "rope"
+When choosing which side the velcro should go on, remember that the lit portion of the LED "rope"
 should be facing 'away' from the interior of the jacket.
 For the collar, this means the LED "rope" should be pointing upwards, the lapels 'outwards',
 the waist 'down' and the cuffs 'out'.
@@ -260,7 +265,7 @@ For any cut segment, an extension connector needs to be soldered on and attached
 Directionality is important so care has to be taken to ensure the proper connector
 orientation.
 
-For each connector soldered on, heat shrink tubing should be appled to the solder points
+For each connector soldered on, heat shrink tubing should be applied to the solder points
 to help keep the solder joint in place and to minimize live wire exposure.
 
 To help with strain, a single LED 'pixel' at either end of the waist, lapel, collar and cuff segments
@@ -270,7 +275,7 @@ can be sewn back into the silicone housing helps prevent this fraying and provid
 
 The extra LED that is folded over will still output light and might have undesirable light 'bleeding'.
 One option is to cover it with tape or paint but the LED can just as easily be deactivated in software,
-which is the route we took to make sure the extra LEDs weren't actiavted during normal run.
+which is the route we took to make sure the extra LEDs weren't activated during normal run.
 
 To sew the extra LED that is folded over for structural support, a small slit should be cut
 on the end of the LED "rope" to allow the extra LED strip to be inserted in and sewn on.
@@ -354,7 +359,7 @@ by the LED rope.
 In theory, all LED ropes could be powered by one buck converter but because of the voltage
 drop across one rope, LEDs at the tail end tend to fade or get polluted in color.
 
-The power to each of the LED ropes is "replenshed" by providing a buck converter for a
+The power to each of the LED ropes is "replenished" by providing a buck converter for a
 group of segments.
 
 The three buck converters each have a screw terminal where the appropriate end of the
@@ -366,11 +371,16 @@ All buck converters and the BEC are put into a compact housing.
 
 ### Raspberry Pi Soldering
 
-The raspbery pi needs a 2 pin power connector and two 4 pin connectors to the encoders.
+| | |
+|---|---|
+| ![encoder front](doc/img/20190624_213842.jpg) | ![encoder back](doc/img/20190624_213854.jpg) |
+| ![rpi headers back](doc/img/20190626_003747.jpg) | |
+
+The raspberry pi needs a 2 pin power connector and two 4 pin connectors to the encoders.
 The 2 pin connector is a female JST-XH 90 degree angle connector soldered directly onto
 the Raspberry Pi Zero W.
 
-Two 4 pin female JST-XH 90 angle degree connectors are also soldered onto the Raspbery Pi
+Two 4 pin female JST-XH 90 angle degree connectors are also soldered onto the Raspberry Pi
 Zero W.
 Each of these will connect to the encoders for user input.
 Four wires each are needed for the encoder as two lines are for the rotation information,
@@ -379,7 +389,7 @@ one line is for the button press and the last is for ground.
 The position on the Raspberry Pi Zero W is chosen so that the appropriate cable from the
 encoder lands on a ground pin in the 20x2 header row on the Raspberry Pi Zero W.
 
-The encoders are solderd onto PCB protoboard with two 4 pin female JST-XH connectors.
+The encoders are soldered onto PCB protoboard with two 4 pin female JST-XH connectors.
 Connection wires need to be created to connect the encoder to the Raspberry Pi Zero W.
 
 Software Installation
@@ -407,8 +417,13 @@ To install Raspbian on an SD card that will be used by the Raspberry Pi Zero W, 
 
 Once Raspbian is installed, put it into your Raspberry Pi Zero W.
 
+| | |
+|---|---|
+| ![webui top](doc/img/webui-landing_top.jpg) | ![webui bot](doc/img/webui-landing_bot.jpg) |
+| ![webui tap](doc/img/webui-tapbeat.jpg) | ![webui solidcolor](doc/img/webui-solidcolor.jpg)  |
+
 Boot the Raspberry Pi Zero W with the new SD card with Raspbian installed, preferably with a keyboard and monitor attached.
-Gc through any installation process needed to get the Raspberry Pi Zero W running and have it connect to a local network.
+Go through any installation process needed to get the Raspberry Pi Zero W running and have it connect to a local network.
 Once connected, executing the following command to clone the repository:
 
 ```
@@ -429,17 +444,65 @@ With any luck, the appropriate software should be installed and it should be rea
 Electronics Housing
 ---
 
+| | |
+|---|---|
+| ![housing svg](hardware/compute-housing-a.svg) | |
+
 A housing was laser cut out of wood and spray painted black.
+
+Though not necessary, having a housing helps manage all of the electronics and provides strain relief to the wires going into and out
+of the Raspberry Pi.
+The files are provided in the [hardware](https://github.com/abetusk/dev/tree/release/projects/inner-light/hardware) directory of the `inner-light`
+repo.
+
+Once the housing is cut out of wood, it's spray painted black.
+Once the paint has dried, the housing is assembled out of M3 screws.
+
+A custom cast for the buck converters, batteries, fuse and power toggle switch was constructed out of aluminum channel.
+This was done for compactness.
+
 
 Complete Installation
 ---
+
+The Raspberry Pi housing was affixed to the jacket.
+In our iteration, we put it on the outside, fixing the housing to the jacket with additional M3 screws.
+
+The microphone sensor was attached to the lapel via a clip.
+
+The battery, fuse and buck converter casing was put in the inner pocket of the jacket with wiring connected to the appropriate places for the Raspberry Pi
+and the LED ropes.
 
 
 Wear It
 ---
 
+
 Lessons Learned, Failures and Future Improvements
 ---
+
+* The housing can get big and clunky and it's better to try and make custom housing as compact as possible for ease of wearability
+* Strain relief is an absolute must as there are strains from normal wear that most electronics components are not well suited to
+* Fuses are nearly a requirement to prevent short circuits from damage, destruction or personal harm
+* Heat shrinking the connectors would often cause shorts, causing failure for a strip that was tested and working just a short time
+  before. Preventing these shorts is still an ongoing exercise in experimentation but being careful as to how the heat shrink curls
+  and perhaps adding some extra buffer in terms of hot glue or other insulation might help mitigate this issue
+* Real time access to control the jacket is extremely useful and some type of ability to play with modes or other control is a boon
+  to experimentation and play
+* The access point to the Raspberry Pi is finicky and isn't robust, sometimes not coming up at all, sometimes requiring internet to
+  be turned off on the phone or dropping connections randomly. This is an ongoing experiment to how to robustly control the running
+  Raspberry Pi
+* Beat detection is still finicky and often doesn't work, with sound getting saturated and causing the strips to light up continuously.
+  I remain convinced this is possible but I have been unable to get this to work in all but the most simple of test environments
+* Tap to beat detection is a good compromise as this allows the user to 'set the beat' without relying on the finicky microphone
+* The encoders would unreliably work and would sometimes destroy the Raspberry Pi Zero pins. I suspect this is because of pins being
+  in an unreliable state when booting but I wasn't able to diagnose the problem to my satisfaction. In the future I plan on using
+  a microcontroller, like an Arduino (Nano), to act as a go-between to the input electronics. Using some communication protocol like
+  I2C, SPI or even USB-to-RS232 would be a more reliable way to get input to the Raspberry Pi then rely on the Raspberry Pi to interface
+  with the input electronics directly.
+* The LED ropes are large and clunky. Were I to do this project again, I would choose lighter LED ropes or find some other diffusor
+  that was lighter and more plyable
+* Experimentation with custom diffusors was a failure. The LED ropes were chosen because of their diffusion and quality of light
 
 References
 ---
