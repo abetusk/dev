@@ -90,10 +90,11 @@ with open(fn) as fp:
       f[0] = math.pow(10, -float(m.group(2)))
       f[1] = math.pow(10, -float(m.group(4)))
 
-    m = re.match('^ *[gG]0?1X(\-?\d+)Y(\-?\d+)D\d+\*$', line)
+    m = re.match('^ *[gG]0?1X(\-?\d+)Y(\-?\d+)D(\d+)\*$', line)
     if m:
-      ipos = [ int(m.group(1)), int(m.group(2)) ]
-      fpos = [ _u(f[0] * float(ipos[0])), _u(f[1] * float(ipos[1])) ]
+      dval = int(m.group(3))
+      ipos = [ int(m.group(1)), int(m.group(2)) , dval]
+      fpos = [ _u(f[0] * float(ipos[0])), _u(f[1] * float(ipos[1])) , dval]
 
       if REMOVE_DUPLICATES:
         n = len(raw_icoord)
@@ -119,7 +120,13 @@ while cur_z >= Z_DOWN:
   for idx,xy in enumerate(raw_coord):
     if idx==0:
       print("G1 Z" + _s(cur_z) + " F" + _s(G1_SPEED))
-    print("G1 X" + _s(xy[0]) + " Y" + _s(xy[1]) + " F" + _s(G1_SPEED))
+
+    if xy[2] == 2:
+      print("G1 Z" + _s(Z_UP) + " F" + _s(G1_SPEED))
+      print("G0 X" + _s(xy[0]) + " Y" + _s(xy[1]) + " F" + _s(G0_SPEED))
+      print("G1 Z" + _s(cur_z) + " F" + _s(G1_SPEED))
+    else:
+      print("G1 X" + _s(xy[0]) + " Y" + _s(xy[1]) + " F" + _s(G1_SPEED))
 
   prv_z = cur_z
   cur_z += Z_STEP

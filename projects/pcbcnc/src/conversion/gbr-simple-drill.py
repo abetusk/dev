@@ -6,6 +6,14 @@
 import os, re, sys, math
 import getopt
 
+UNITS_SRC = "inch"
+UNITS_DST = "mm"
+
+# setup, main
+#
+STATE = "setup"
+
+
 # inch to mm
 #
 def _i2m(inch):
@@ -49,9 +57,6 @@ def _s(x):
   return "{:.8f}".format(x)
 
 
-UNITS_SRC = "inch"
-UNITS_DST = "mm"
-
 Z_UP = _m2u(-1)
 Z_DOWN = _m2u(-18.5)
 Z_STEP = _m2u(-0.4)
@@ -64,22 +69,26 @@ G1_SPEED = _m2u(15)
 HOLE_R = _m2u(0.8/2.0)
 TOOL_R = _m2u(0.8/2.0 )
 
+LIB_T = { "T0": HOLE_R  }
+
+
 IFN = ""
 
 def usage(fp=sys.stderr):
   fp.write("usage:\n")
   fp.write("\n")
   fp.write("  -f <file>               input .drl file\n")
-  fp.write("  [--z-up <zup>]          z up height (default " + _s(Z_UP) + ")\n")
-  fp.write("  [--z-down <zdown>]      z down height (default " + _s(Z_DOWN) + ")\n")
-  fp.write("  [--z-zero <zzero>]      z 'zero' height (default " + _s(Z_ZERO) + ")\n")
-  fp.write("  [--z-step <zstep>]      z step (default " + _s(Z_STEP) + ")\n")
+  fp.write("  [-r <tool-radius>]      tool radius (default " + _s(TOOL_R) + "mm)\n")
+  fp.write("  [--z-up <zup>]          z up height (default " + _s(Z_UP) + "mm)\n")
+  fp.write("  [--z-down <zdown>]      z down height (default " + _s(Z_DOWN) + "mm)\n")
+  fp.write("  [--z-zero <zzero>]      z 'zero' height (default " + _s(Z_ZERO) + "mm)\n")
+  fp.write("  [--z-step <zstep>]      z step (default " + _s(Z_STEP) + "mm)\n")
   fp.write("  [-h]                    help (this screen)\n")
   fp.write("\n")
 
 
 try:
-  opts, args = getopt.getopt(sys.argv[1:], "hf:", ["help", "z-up=", "z-down=", "z-zero=", "z-step="])
+  opts, args = getopt.getopt(sys.argv[1:], "hf:r:", ["help", "z-up=", "z-down=", "z-zero=", "z-step="])
 except (getopt.GetoptError, err):
   print(str(err))
   usage()
@@ -91,6 +100,8 @@ for o, a in opts:
     sys.exit(0)
   elif o == "-f":
     IFN = a
+  elif o == "-r":
+    TOOL_R = _m2u(float(a))
   elif o == "--z-up":
     Z_UP = _m2u(float(a))
   elif o == "--z-down":
@@ -136,7 +147,42 @@ with open(IFN) as fp:
 
     pos = [0,0]
 
-    m = re.match('X(\-?\d*(\.\d*)) *Y(\-?\d*(\.\d*))$', line)
+    m = re.match('^.*;', line)
+    if m:
+
+      #print("# COMMENT")
+      continue
+
+    m = re.match('^ *INCH,', line)
+    if m:
+      UNITS_SRC = "inch"
+
+      #print("# UNIT_SRC: " + str(UNITS_SRC))
+      continue
+
+    m = re.match('^ *T(\d+)C(\d+(\.\d*)?)$', line)
+    if m:
+      tname = "T" + m.group(1)
+      tdiam = _u(m.group(2))
+      LIB_T[tname] = tdiam
+
+      #print("# LIB_T " + str(tname) + " " + str(tdiam))
+      continue
+
+    m = re.match('^ *T(\d+)$', line)
+    if m:
+      tname = "T" + m.group(1)
+      if not (tname in LIB_T):
+        print("ERROR: tname: " + tname + " not in LIB_T")
+        continue
+      HOLE_R = LIB_T["T" + m.group(1)]/2.0
+
+      #print("# HOLE_R now " + str(HOLE_R))
+      continue
+
+
+
+    m = re.match('^ *X(\-?\d*(\.\d*)) *Y(\-?\d*(\.\d*))$', line)
     if m:
       pos[0] = _u(float(m.group(1)))
       pos[1] = _u(float(m.group(3)))
@@ -167,6 +213,8 @@ with open(IFN) as fp:
       cur_iter += 1
 
 
+    print()
+    print("G1 Z" + _s(Z_UP) + " F" + _s(G1_SPEED))
     print()
 
 
