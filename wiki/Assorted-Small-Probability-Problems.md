@@ -83,6 +83,93 @@ $$
 
 For $m=365$ we get $n \approx 22.494...$.
 
+
+Weighted Birthday Problem
+---
+
+Consider $n$ bins with $t$ balls being thrown in them.
+Bin $j$ has probability $p_j$ of receiving a ball.
+
+$$
+\begin{align}
+\vec{p} = ( p_0, p_1, \cdots, p_{n-1}) \\\\
+\sum_{j=0}^{n-1} p_j = 1
+\end{align}
+$$
+
+Call the random variable $X_{t,k}$ the number of bins that have $k$ balls after $t$ throws.
+
+**Claim**:
+
+$$
+E[X_{t,k}] \le \frac{t^k}{k!} \sum_{j=0}^{n-1} p_j^k
+$$
+
+*Proof*:
+
+Call the random variable $Y_{t,j}$ the number of balls in bin $j$ after $t$ throws.
+
+$$
+\begin{align}
+ X_{t,k} & = \sum_{j=0}^{n-1} Y_{t,j} \\\\
+\to E[X_{t,k}] & = E[ \sum_{j=0}^{n-1} Y_{t,j} ] \\\\
+ & = \sum_{j=0}^{n-1} E[Y_{t,j}] 
+\end{align}
+$$
+
+By linearity of expectation.
+
+$ Y_{t,j} \sim \text{Bin}(k,t,p_j) $:
+
+$$
+\begin{align}
+E[Y_{t,j}] & = {{t}\choose{k}} p_j^k (1-p_j)^{n-k} \\\\
+ & \le \frac{ (t)_k }{ k! } p_j^k \\\\
+ & \le \frac{ t^k }{k!} p_j^k  \\\\
+\end{align}
+$$
+
+$$
+\begin{align}
+ E[X_{t,k}] & = \sum_{j=0}^{n-1} E[Y_{t,j}] \\\\
+ & \le \frac{t^k}{k!} \sum_{j=0}^{n-1} p_j^k \\\\
+ & = \frac{t^k}{k!} || \vec{p} ||_k^k
+\end{align}
+$$
+
+---
+
+In particular, after $t$ throws, the expectation for a birthday like problem ($k=2$) is:
+
+$$
+E[X_{t,2}] \le \frac{t^2}{2} \sum_{j=0}^{n-1} p_j^2
+$$
+
+To find the time at which we expect to have at least one collision, we can set $E[X_{t,2}]=1$ and solve
+for $t$:
+
+$$
+\begin{align}
+t & \ge \sqrt{ 2 \sum_{j=0}^{n-1}p_j^2 } \\\\
+\to t & \ge \sqrt{2} ||\vec{p}||_2 
+\end{align}
+$$
+
+For the case $p_j = \frac{1}{n}$, setting $E[X_{t,2}]=1$ and solving for $t$, we get:
+
+$$
+\begin{align}
+  1 & \le \frac{t^2}{2} \sum_{j=0}^{n-1} \frac{1}{n^2} \\\\
+\to  t^2 & \ge \frac{2}{ \frac{1}{n} } \\\\
+\to  t^2 & \ge 2 n \\\\
+\to  t & \ge \sqrt{2 n} \\\\
+\end{align}
+$$
+
+which is on the order of the standard birthday problem.
+
+([ref](https://github.com/abetusk/papers/blob/release/Probability/MSR-TR-2014-153.pdf))
+
 Best Choice Problem
 ---
 
