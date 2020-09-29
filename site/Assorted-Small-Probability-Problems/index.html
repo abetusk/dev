@@ -113,69 +113,6 @@ $$</p>
 \end{align}
 $$</p>
 <p>For $m=365$ we get $n \approx 22.494...$.</p>
-<h2 id="weighted-birthday-problem">Weighted Birthday Problem</h2>
-<p>Consider $n$ bins with $t$ balls being thrown in them.
-Bin $j$ has probability $p_j$ of receiving a ball.</p>
-<p>$$
-\begin{align}
-\vec{p} = ( p_0, p_1, \cdots, p_{n-1}) \\
-\sum_{j=0}^{n-1} p_j = 1
-\end{align}
-$$</p>
-<p>Call the random variable $X_{t,k}$ the number of bins that have $k$ balls after $t$ throws.</p>
-<p><strong>Claim</strong>:</p>
-<p>$$
-E[X_{t,k}] \le \frac{t^k}{k!} \sum_{j=0}^{n-1} p_j^k
-$$</p>
-<p><em>Proof</em>:</p>
-<p>Call the random variable $Y_{t,j}$ the number of balls in bin $j$ after $t$ throws.</p>
-<p>$$
-\begin{align}
- X_{t,k} &amp; = \sum_{j=0}^{n-1} Y_{t,j} \\
-\to E[X_{t,k}] &amp; = E[ \sum_{j=0}^{n-1} Y_{t,j} ] \\
- &amp; = \sum_{j=0}^{n-1} E[Y_{t,j}] 
-\end{align}
-$$</p>
-<p>By linearity of expectation.</p>
-<p>$ Y_{t,j} \sim \text{Bin}(k,t,p_j) $:</p>
-<p>$$
-\begin{align}
-E[Y_{t,j}] &amp; = {{t}\choose{k}} p_j^k (1-p_j)^{n-k} \\
- &amp; \le \frac{ (t)_k }{ k! } p_j^k \\
- &amp; \le \frac{ t^k }{k!} p_j^k  \\
-\end{align}
-$$</p>
-<p>$$
-\begin{align}
- E[X_{t,k}] &amp; = \sum_{j=0}^{n-1} E[Y_{t,j}] \\
- &amp; \le \frac{t^k}{k!} \sum_{j=0}^{n-1} p_j^k \\
- &amp; = \frac{t^k}{k!} || \vec{p} ||_k^k
-\end{align}
-$$</p>
-<hr />
-<p>In particular, after $t$ throws, the expectation for a birthday like problem ($k=2$) is:</p>
-<p>$$
-E[X_{t,2}] \le \frac{t^2}{2} \sum_{j=0}^{n-1} p_j^2
-$$</p>
-<p>To find the time at which we expect to have at least one collision, we can set $E[X_{t,2}]=1$ and solve
-for $t$:</p>
-<p>$$
-\begin{align}
-t &amp; \ge \sqrt{ 2 \sum_{j=0}^{n-1}p_j^2 } \\
-\to t &amp; \ge \sqrt{2} ||\vec{p}||_2 
-\end{align}
-$$</p>
-<p>For the case $p_j = \frac{1}{n}$, setting $E[X_{t,2}]=1$ and solving for $t$, we get:</p>
-<p>$$
-\begin{align}
-  1 &amp; \le \frac{t^2}{2} \sum_{j=0}^{n-1} \frac{1}{n^2} \\
-\to  t^2 &amp; \ge \frac{2}{ \frac{1}{n} } \\
-\to  t^2 &amp; \ge 2 n \\
-\to  t &amp; \ge \sqrt{2 n} \\
-\end{align}
-$$</p>
-<p>which is on the order of the standard birthday problem.</p>
-<p>(<a href="https://github.com/abetusk/papers/blob/release/Probability/MSR-TR-2014-153.pdf">ref</a>)</p>
 <h2 id="best-choice-problem">Best Choice Problem</h2>
 <p>$n$ candidates, with each that can be ranked relative to the others.
 The candidates file in one at a time and are ranked relative to the candidates
