@@ -1,0 +1,12 @@
+#!/bin/bash
+
+./drills.sh
+
+grecode -shift 0 -200 board-cuts.ngc > fin-cuts.ngc
+
+cat ../gcode/board-F_Cu.gtl | grbl_inch2mm.py > cu.ngc
+
+grecode -shift 0 -200 cu.ngc > fin-cu.ngc
+
+cat fin-cu.ngc fin-cuts.ngc > preview.ngc
+
