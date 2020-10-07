@@ -18,4 +18,4 @@ License
 
 CC0
 
-[CC0](img/cc0_88x31.png)
+![CC0](img/cc0_88x31.png)
