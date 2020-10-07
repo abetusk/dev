@@ -1,0 +1,8 @@
+( union path size 0)
+g20
+g90
+f10
+g1 z0.100000
+( feed 10 zsafe 0.100000, zcut -0.050000 )
+
+

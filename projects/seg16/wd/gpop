@@ -1,0 +1,52 @@
+#!/usr/bin/python3
+
+import sys
+
+sx = (18000 + 3500.0)
+sy = (35000)
+
+origin = [-4800, -6000]
+
+lines = []
+
+first = True
+minmax = { "x": [0.0, 0.0], "y": [0.0, 0.0] }
+
+for line in sys.stdin:
+  line = line.strip()
+  _tok = line.split(" ")
+  if len(_tok) != 2: continue
+  _z = [0.0, 0.0]
+  _z[0] = float(_tok[0])
+  _z[1] = float(_tok[1])
+
+  if first:
+    minmax['x'][0] = _z[0]
+    minmax['x'][1] = _z[0]
+    minmax['y'][0] = _z[1]
+    minmax['y'][1] = _z[1]
+    first=False
+  else:
+    if minmax['x'][0] > _z[0]: minmax['x'][0] = _z[0]
+    if minmax['x'][1] < _z[0]: minmax['x'][1] = _z[0]
+    if minmax['y'][0] > _z[1]: minmax['y'][0] = _z[1]
+    if minmax['y'][1] < _z[1]: minmax['y'][1] = _z[1]
+
+  lines.append( [_z[0], _z[1] ] )
+
+src_dx = abs(minmax['x'][1] - minmax['x'][0])
+src_dy = abs(minmax['y'][1] - minmax['y'][0])
+
+if src_dx < 1.0 : src_dx = 1.0
+if src_dy < 1.0 : src_dy = 1.0
+
+scalef = src_dy
+
+if src_dx > src_dy : src_dx
+
+sy *= 1.25
+
+for xy in lines:
+  _x = (xy[0]/scalef)*sy + origin[0]
+  _y = (xy[1]/scalef)*sy + origin[1]
+  print(_x, _y)
