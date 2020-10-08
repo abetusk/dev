@@ -2,7 +2,7 @@ seg16
 ---
 
 A 16 segment digit (base board) using WS2812B 5050 parts.
-Size should be about 5.2"x4" (132mmx100mm).
+Size should be about 5.2"x3.5" (132mmx89mm).
 
 Currently this project is **untested and unassembled**.
 
