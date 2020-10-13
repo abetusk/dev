@@ -328,6 +328,22 @@ I put a ferrite bead on the probe line in case the probe line is getting spuriou
 noise and in the hopes that the bead will mitigate some of the issue.
 
 
+2020-10-13
+---
+
+For a large PCB, repeated height probes give a discrepancy of up to .2mm (7-8 mil), which is large.
+
+`G0` command on the woodpecker ignore the `F` directive so I've changed the max `G0` travel speed
+to `400` for `X` and `Y` and `300` for `Z`.
+
+```
+$110=400
+$111=400
+$112=300
+```
+
+
+
 References
 ---
 
