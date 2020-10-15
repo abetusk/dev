@@ -44,8 +44,9 @@ G0_SPEED_Z = 25
 SPINDLE_SPEED = 1000.0
 
 Z_SAFE = -1.0
-Z_UP = -10.0
-Z_MAX_DOWN = -20.0
+#Z_UP = -10.0
+Z_UP = -5.0
+Z_MAX_DOWN = -10.0
 
 unit = "mm"
 cur_x, cur_y, cur_z  = 0, 0, 0
@@ -82,7 +83,8 @@ def usage(ofp = sys.stdout):
   ofp.write( "  [-z <threshold>]    z threshold (default to " + str(z_threshold) + ")\n")
   ofp.write( "  [-p <zplunge>]      amount under height sensed part to plunge (default " + str(z_plunge_mm) + "mm)\n")
   ofp.write( "  [-S <spindle>]      Spindle speed (default " + str(SPINDLE_SPEED) + ")\n")
-  ofp.write( "  [--no-homing]        don't execute homing operation\n")
+  ofp.write( "  [--no-homing]       don't execute homing operation\n")
+  ofp.write( "  [--heightmap-count <N>]   Do height map N times\n")
   ofp.write( "  [-h|--help]         help (this screen)\n")
   ofp.write( "\n")
 
@@ -91,7 +93,7 @@ height_map_file = None
 out_height_map_file = None
 
 try:
-  opts, args = getopt.getopt(sys.argv[1:], "hm:g:z:Dp:O:S:", ["help", "output=", "no-homing"])
+  opts, args = getopt.getopt(sys.argv[1:], "hm:g:z:Dp:O:S:", ["help", "output=", "no-homing", "heightmap-count="])
 except getopt.GetoptError, err:
   print str(err)
   usage()
@@ -117,8 +119,15 @@ for o, a in opts:
     SPINDLE_SPEED = float(a)
   elif o == "--no-homing":
     do_homing=False
+  elif o == "--heightmap-count":
+    HEIGHT_MAP_COUNT = int(a)
   else:
     assert False, "unhandled option"
+
+if HEIGHT_MAP_COUNT < 1:
+  sys.stderr.write("height map count must be > 0")
+  usage(sys.stderr)
+  sys.exit(-1)
 
 if gcode_file is None:
   sys.stderr.write("Provide gcode file\n")
@@ -328,6 +337,7 @@ if not dry_run:
 
 if height_map_file is not None:
   with open(height_map_file, "r") as fp:
+    height_pnts.append([])
     for line in fp:
       line = line.strip()
       if len(line)==0: continue
@@ -335,6 +345,7 @@ if height_map_file is not None:
       v = line.split()
 
       pnts.append( [ float(v[0]), float(v[1]), float(v[2]) ] )
+      height_pnts[0].append( [ float(v[0]), float(v[1]), float(v[2]) ] )
 
 else:
 
@@ -364,7 +375,7 @@ else:
       if verbose: print "# got:", x
 
     if verbose: print "# moving z to:", z_ub
-    x = grbl.send_command("g1 z" + str(z_safe) + " f" + str(G1_SPEED_Z))
+    x = grbl.send_command("G1 Z" + str(z_safe) + " F" + str(G1_SPEED_Z))
     if verbose: print "# got:", x
     var = grbl.wait_for_var_position('z', z_safe)
     if verbose: print "# got:", var
@@ -387,10 +398,10 @@ else:
   _pntsxy.append( [xminmax[1], _y] )
 
   if verbose: print "# moving z to:", z_safe
-  x = grbl.send_command("g1 z" + str(z_safe) + " f" + str(G1_SPEED_Z))
+  x = grbl.send_command("G1 Z" + str(z_safe) + " F" + str(G1_SPEED_Z))
   var = grbl.wait_for_var_position('z', z_safe)
   if verbose: print "# got:", var
-  x = grbl.send_command("g0 x" + str(_pntsxy[0][0]) + " y" + str(_pntsxy[0][1]) + " f" + str(G0_SPEED))
+  x = grbl.send_command("G0 X" + str(_pntsxy[0][0]) + " Y" + str(_pntsxy[0][1]) + " F" + str(G0_SPEED))
   var = grbl.wait_for_var_position('x', _pntsxy[0][0])
   var = grbl.wait_for_var_position('y', _pntsxy[0][1])
 
@@ -402,10 +413,10 @@ else:
       if verbose: print "# grid:", _pntsxy[idx][0], _pntsxy[idx][1]
       if not dry_run:
 
-        x = grbl.send_command("g1 z" + str(z_ub) + " f" + str(G1_SPEED_Z))
+        x = grbl.send_command("G1 Z" + str(z_ub) + " F" + str(G1_SPEED_Z))
         var = grbl.wait_for_var_position('z', z_ub)
 
-        x = grbl.send_command("g0 x" + str(_pntsxy[idx][0]) + " y" + str(_pntsxy[idx][1]) + " f" + str(G0_SPEED) )
+        x = grbl.send_command("G0 X" + str(_pntsxy[idx][0]) + " Y" + str(_pntsxy[idx][1]) + " F" + str(G0_SPEED) )
         var = grbl.wait_for_var_position('x', _pntsxy[idx][0])
         var = grbl.wait_for_var_position('y', _pntsxy[idx][1])
 
@@ -415,7 +426,7 @@ else:
         vals = lines[0].split(":")[1].split(",")
         height_pnts[height_run].append( [ float(vals[0]), float(vals[1]), float(vals[2]) ] )
 
-        x = grbl.send_command("g1 z" + str(z_ub) + " f" + str(G1_SPEED_Z))
+        x = grbl.send_command("G1 Z" + str(z_ub) + " F" + str(G1_SPEED_Z))
         if verbose: print "# got:", x
 
 for h in range(len(height_pnts)):
@@ -441,7 +452,14 @@ pnts_z = np.zeros((len(pnts)))
 for idx in range(len(pnts)):
   pnts_xy[ idx, 0 ] = pnts[idx][0]
   pnts_xy[ idx, 1 ] = pnts[idx][1]
-  pnts_z[idx] = pnts[idx][2]
+
+  for hidx in range(len(height_pnts)):
+    pnts_z[idx] += height_pnts[hidx][idx][2]
+  pnts_z[idx] /= float(len(height_pnts))
+
+if verbose:
+  for idx in range(len(pnts)):
+    print "( pnts_z", idx, pnts_xy[idx, 0], pnts_xy[idx, 1], pnts_z[idx], ")"
 
 _gc_lerp_lines = interpolate_gcode(_gc, pnts_xy, pnts_z)
 
