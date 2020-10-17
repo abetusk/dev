@@ -65,7 +65,8 @@ dry_run = False
 # so around 1 mil
 
 z_threshold = 0.0
-z_plunge_inch = -0.004
+#z_plunge_inch = -0.004
+z_plunge_inch = -0.012
 z_plunge_mm = z_plunge_inch * 25.4
 
 output = None
@@ -346,6 +347,20 @@ if height_map_file is not None:
 
       pnts.append( [ float(v[0]), float(v[1]), float(v[2]) ] )
       height_pnts[0].append( [ float(v[0]), float(v[1]), float(v[2]) ] )
+
+  if not dry_run:
+
+    if do_homing:
+      if verbose: print "# homing..."
+      x = grbl.send_command("$H")
+      if verbose: print "# got:", x
+
+    sx = height_pnts[0][0][0]
+    sy = height_pnts[0][0][1]
+
+    start_line = "G0 X{:.8f} Y{:.8f}".format(float(sx), float(sy))
+    #start_line = "G0 X{:.8f}".format(sx) + " Y{:.8f}".format(sy)
+    r = grbl.send_command(start_line)
 
 else:
 
