@@ -45,8 +45,8 @@ SPINDLE_SPEED = 1000.0
 
 Z_SAFE = -1.0
 #Z_UP = -10.0
-Z_UP = -5.0
-Z_MAX_DOWN = -10.0
+Z_UP = -30.0
+Z_MAX_DOWN = -40.0
 
 unit = "mm"
 cur_x, cur_y, cur_z  = 0, 0, 0
@@ -81,6 +81,11 @@ def usage(ofp = sys.stdout):
   ofp.write( "  [-m <height map>]   height map\n")
   ofp.write( "  [-O <out height>]   output height map file (default stdout)\n")
   ofp.write( "  [-D]                dry run (do not connect to GRBL)\n")
+
+  ofp.write( "  [-U <zup>]          when probing, height (NOT z-safe) (default" + str(Z_UP) + ")\n")
+  ofp.write( "  [-L <maxzdown>]     max z probe depth (default " + str(Z_MAX_DOWN) + ")\n")
+  ofp.write( "  [--zsafe <zsafe>]   safe z height (default " + str(Z_SAFE) + ")\n")
+
   ofp.write( "  [-z <threshold>]    z threshold (default to " + str(z_threshold) + ")\n")
   ofp.write( "  [-p <zplunge>]      amount under height sensed part to plunge (default " + str(z_plunge_mm) + "mm)\n")
   ofp.write( "  [-S <spindle>]      Spindle speed (default " + str(SPINDLE_SPEED) + ")\n")
@@ -94,7 +99,7 @@ height_map_file = None
 out_height_map_file = None
 
 try:
-  opts, args = getopt.getopt(sys.argv[1:], "hm:g:z:Dp:O:S:", ["help", "output=", "no-homing", "heightmap-count="])
+  opts, args = getopt.getopt(sys.argv[1:], "hm:g:z:Dp:O:S:U:L:", ["help", "output=", "no-homing", "heightmap-count=", "zsafe="])
 except getopt.GetoptError, err:
   print str(err)
   usage()
@@ -106,6 +111,14 @@ for o, a in opts:
   elif o in ("-h", "--help"):
     usage(sys.stdout)
     sys.exit(0)
+
+  elif o == "-U":
+    Z_UP = float(a)
+  elif o == "-L":
+    Z_MAX_DOWN = float(a)
+  elif o == "--zsafe":
+    Z_SAFE = float(a)
+
   elif o == "-m":
     height_map_file = a
   elif o == "-z":
