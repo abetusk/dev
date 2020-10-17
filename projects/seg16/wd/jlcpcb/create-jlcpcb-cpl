@@ -1,0 +1,9 @@
+#!/bin/bash
+
+
+echo 'Designator,Mid X,Mid Y,Layer,Rotation'
+
+jq -c '.element[]' ../../export/json/board.json  | \
+  grep -v -P '"track"|"drawsegment"' | \
+  grep '"SMD"' | \
+  jq -r '. | [.text[0].text, 25.4*.x/10000, 25.4*.y/10000, "Top",((( (.orientation | tonumber)/10 ) + 360) % 360) ] | @csv'
