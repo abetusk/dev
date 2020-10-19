@@ -48,6 +48,8 @@ Z_SAFE = -1.0
 Z_UP = -30.0
 Z_MAX_DOWN = -40.0
 
+Z_PROBE_SPEED = 1
+
 unit = "mm"
 cur_x, cur_y, cur_z  = 0, 0, 0
 z_pos = 'up'
@@ -66,7 +68,7 @@ dry_run = False
 
 z_threshold = 0.0
 #z_plunge_inch = -0.004
-z_plunge_inch = -0.012
+z_plunge_inch = -0.004
 z_plunge_mm = z_plunge_inch * 25.4
 
 output = None
@@ -85,6 +87,7 @@ def usage(ofp = sys.stdout):
   ofp.write( "  [-U <zup>]          when probing, height (NOT z-safe) (default" + str(Z_UP) + ")\n")
   ofp.write( "  [-L <maxzdown>]     max z probe depth (default " + str(Z_MAX_DOWN) + ")\n")
   ofp.write( "  [--zsafe <zsafe>]   safe z height (default " + str(Z_SAFE) + ")\n")
+  ofp.write( "  [--zprobe-speed <zspeed>]   probe speed (default " + str(Z_PROBE_SPEED) + ")\n")
 
   ofp.write( "  [-z <threshold>]    z threshold (default to " + str(z_threshold) + ")\n")
   ofp.write( "  [-p <zplunge>]      amount under height sensed part to plunge (default " + str(z_plunge_mm) + "mm)\n")
@@ -99,7 +102,7 @@ height_map_file = None
 out_height_map_file = None
 
 try:
-  opts, args = getopt.getopt(sys.argv[1:], "hm:g:z:Dp:O:S:U:L:", ["help", "output=", "no-homing", "heightmap-count=", "zsafe="])
+  opts, args = getopt.getopt(sys.argv[1:], "hm:g:z:Dp:O:S:U:L:", ["help", "output=", "no-homing", "heightmap-count=", "zsafe=", "zprobe-speed="])
 except getopt.GetoptError, err:
   print str(err)
   usage()
@@ -118,6 +121,8 @@ for o, a in opts:
     Z_MAX_DOWN = float(a)
   elif o == "--zsafe":
     Z_SAFE = float(a)
+  elif o == "--zprobe-speed":
+    Z_PROBE_SPEED = float(a)
 
   elif o == "-m":
     height_map_file = a
@@ -163,6 +168,12 @@ if VERBOSITY_LEVEL > 2:
 
   print("# G1_SPEED_Z:", G1_SPEED_Z)
   print("# G0_SPEED_Z:", G0_SPEED_Z)
+
+  print("# Z_SAFE:", Z_SAFE)
+  print("# Z_UP:", Z_UP)
+  print("# Z_MAX_DOWN:", Z_MAX_DOWN)
+
+  print("# Z_PROBE_SPEED:", Z_PROBE_SPEED)
 
   print("# unit:", unit)
   print("# z_threshold:", z_threshold)
@@ -387,7 +398,7 @@ else:
   z_ub = Z_UP
   z_lb = Z_MAX_DOWN
 
-  fz = 1
+  fz = Z_PROBE_SPEED
 
   xminmax = [ _gc["min_x"] - grid_margin, _gc["max_x"] + grid_margin]
   yminmax = [ _gc["min_y"] - grid_margin, _gc["max_y"] + grid_margin]
@@ -507,6 +518,9 @@ if not dry_run:
 
   grbl.send_command( "M3 S{:.8f}".format(SPINDLE_SPEED) )
 
+  cur_line = 0
+  tot_lines = len(_gc_lerp_lines)
+
   for line in _gc_lerp_lines:
     line = line.strip()
     if len(line)==0: continue
@@ -516,8 +530,10 @@ if not dry_run:
     print("## sending:", line)
     sys.stdout.flush()
     r = grbl.send_command(line)
-    print "### got:", r
+    print "### got:", r, "(", cur_line, "/", tot_lines, ")"
     sys.stdout.flush()
+
+    cur_line+=1
 
   grbl.send_command("M5 S0")
 
