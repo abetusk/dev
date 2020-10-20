@@ -386,6 +386,17 @@ $131=200.000 (y max travel, mm)
 $132=40.000 (z max travel, mm)
 ```
 
+2020-10-19
+---
+
+After some missteps, here is a brief list of things to watch out for:
+
+* Make sure the connection to the probe is working. I think loose connections were causing height discrepancies
+* Have a support underneath instead of having the PCB float (MDF or something similar)
+* Superglue the PCB to the work to limit shaking/warping and travel during cut
+* Double sided tape comes unstuck too quickly
+* Using `f10` for the zprobe speed seems to be fine
+* Use fan to cools the stepper driers. Overheating is an issue and can cause missed steps
 
 References
 ---
