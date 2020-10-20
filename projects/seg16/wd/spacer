@@ -1,0 +1,5 @@
+#!/bin/bash
+
+ifn='seg16-digi.ngc'
+
+ngc_scale -f $ifn -s '.0975'  > spacer.ngc
