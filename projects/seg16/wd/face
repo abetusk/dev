@@ -1,0 +1,18 @@
+#!/bin/bash
+
+
+ifn='seg16-digi_face.svg'
+ngc=`basename $ifn .svg`.ngc
+
+xmltojson < $ifn | \
+  jq -r '.svg.g.path[].d' | \
+  svgpath2gp --ngc /dev/stdin > face.ngc
+  #svgpath2gp /dev/stdin > face.gp
+
+grecode -shift 0 300 face.ngc > _face.ngc
+mv _face.ngc face.ngc
+
+#gp2ngc --preset laser --tab-n 0 face.gp face.ngc
+
+
+

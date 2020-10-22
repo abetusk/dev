@@ -1,5 +1,11 @@
 #!/bin/bash
 
-ifn='seg16-digi.ngc'
 
-ngc_scale -f $ifn -s '.0975'  > spacer.ngc
+ifn='seg16-digi_inset.1.svg'
+ngc=`basename $ifn .svg`.ngc
+
+svg2ngc $ifn > $ngc
+
+rm -f spacer.ngc
+#ngc_scale -f $ngc -s '.0975'  > spacer.ngc
+ngc_scale -f $ngc -s '.098'  > spacer.ngc
