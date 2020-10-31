@@ -49,54 +49,53 @@
       </header>
       <section>
 
-        <h1 id="example-c-project-template">Example C Project Template</h1>
-<p>This is a basic template for using automake tools for creating the <code>configure</code> and <code>Makefile</code>
-in a C/C++ program.</p>
-<h2 id="requirements">Requirements</h2>
-<ul>
-<li><code>automake</code> - e.g. <code>sudo apt-get install automake</code></li>
-<li><code>gcc</code></li>
-</ul>
-<h2 id="mainc"><code>main.c</code></h2>
-<pre><code>#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-
-int main(int argc, char **argv) {
-  printf(&quot;hello, friend\n&quot;);
-}
-</code></pre>
-
-<h2 id="configurein"><code>configure.in</code></h2>
-<pre><code>AC_INIT([hellofriend], [0.1], [abetusk@mechaelephant.com])
-AM_INIT_AUTOMAKE
-AC_PROG_CC
-AC_CONFIG_FILES([Makefile])
-AC_OUTPUT
-</code></pre>
-
-<h2 id="makefileam"><code>Makefile.am</code></h2>
-<pre><code>AUTOMAKE_OPTIONS = foreign
-bin_PROGRAMS = hellofriend
-hellofriend_SOURCES = main.c
-</code></pre>
-
-<h2 id="run-automake">Run automake</h2>
-<pre><code>aclocal
-autoconf
-automake --add-missing
-</code></pre>
-
-<h2 id="configure-make-make-install"><code>configure, make, make install</code></h2>
-<pre><code>./configure
-make
-make install
-</code></pre>
-
-<h2 id="references">References</h2>
-<ul>
-<li><a href="https://robots.thoughtbot.com/the-magic-behind-configure-make-make-install">The magic behind configure, make, make install</a></li>
-</ul>
-<h6 id="2017-08-05">2017-08-05</h6>
+        <h1 id="misc-math">Misc. Math</h1>
+<h2 id="landau-notation">Landau Notation</h2>
+<p>$$
+f(x) = O(g(x)) \iff \limsup_{x \to \infty} \frac{f(x)}{g(x)} &lt; \infty
+$$</p>
+<p>$$
+f(x) = o(g(x)) \iff \lim_{x \to \infty} \frac{f(x)}{g(x)} = 0
+$$</p>
+<p>$$
+f(x) = \Omega(g(x)) \iff \liminf_{x \to \infty} \frac{f(x)}{g(x)} &gt; 0
+$$</p>
+<p>$$
+f(x) = \omega(g(x)) \iff \liminf_{x \to \infty} \frac{f(x)}{g(x)} = \infty
+$$</p>
+<p>$$
+f(x) = \Theta(g(x)) \iff f(x) = O(g(x)) \ \&amp; \ f(x) = \Omega(g(x))
+$$</p>
+<hr />
+<h2 id="e-is-irrational">$e$ is Irrational</h2>
+<p>Proof by contradiction.</p>
+<p>Assume $e$ is rational.
+This means $e = \frac{p}{v}$.</p>
+<p>We use the identity:</p>
+<p>$$
+e = \sum_{k=0}^{\infty} \frac{1}{k!}
+$$</p>
+<p>With the usual convention that $0!=1$.</p>
+<p>$$
+\begin{align}
+ &amp; e &amp; = \frac{p}{v} \\
+ &amp; &amp; = \sum_{k=0}^{\v} \frac{1}{k!} + \sum_{k=v+1}^{\infty} \frac{1}{k!} \\
+\to &amp; (v!) e  &amp; = (v-1)! p \\
+ &amp; &amp; = \sum_{k=0}^{v!}{k!} + ( \frac{1}{v+1} + \frac{1}{(v+1)(v+2)} + \cdots )
+\end{align}
+$$</p>
+<p>By assumption, $(v!) e = (v-1)! p \in \mathbb{Z}$.
+We also have the first part of the sum $\sum_{k=0}^{v!}{k!} \in \mathbb{Z}$.</p>
+<p>The second part of the sum is greater than 0 and we can get bounds:</p>
+<p>$$
+\begin{align}
+ &amp;  0 &amp; &lt; \frac{1}{v+1} + \frac{1}{(v+1)(v+2)} + \cdots &amp; \le \frac{1}{v+1} \sum_{k=0}^{\infty} (\frac{1}{(v+1)})^k \\
+\to &amp; 0 &amp; &lt; \frac{1}{v+1} + \frac{1}{(v+1)(v+2)} + \cdots &amp; \le \frac{1}{v}
+\end{align}
+$$</p>
+<p>Choose $v &gt; 1$ and we have the second part of the sum as non-integral, contradicting the assumption of rationality.</p>
+<hr />
+<h6 id="2020-10-31">2020-10-31</h6>
 
       </section>
 

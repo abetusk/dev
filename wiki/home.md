@@ -38,3 +38,4 @@ dev
 * [Future Predictions](Future-Predictions.md)
 * [Diophantine Approximation](Diophantine-Approximation.md)
 * [Common GCode Commands](GCode-Common.md)
+* [Misc. Math](Misc-Math.md)

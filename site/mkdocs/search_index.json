@@ -2,12 +2,12 @@
     "docs": [
         {
             "location": "/", 
-            "text": "dev\n\n\n\n\nTextile Cheat Sheet\n\n\nScaling images, animated GIFs in Gimp\n\n\nScreenshots, Screencasts, Animated Gifs\n\n\nffmpeg Notes\n\n\nUnix-y Notes\n\n\nLattice Reduction Notes\n\n\nPS/SVG to GCode Conversion\n\n\nChange Git default 'master' branch to 'release'\n\n\nMkDocs Quickstart\n\n\nGPG Notes\n\n\nGit Notes\n\n\nShannon Entropy\n\n\nEnabling Server HTTPS\n\n\nBGZF Example\n\n\nC Project Template\n\n\nProject Organization\n\n\nKelly Criterion\n\n\nFile Naming Conventions\n\n\nLoose Standards for Command Line Options\n\n\nPCB Notes\n\n\nElements of Coding Style\n\n\nEnergy Consumption Stats\n\n\nSimple Sums\n\n\nFisher Yates Shuffle\n\n\nHalting Problem\n\n\nAssorted Small Probability Problems\n\n\nProbability Notes\n\n\nAmdahl's Law\n\n\nIs It Really Open\n\n\nNumber Theory Notes\n\n\nArbitrary Binary Functions\n\n\nEmpirical Laws\n\n\nFood - CO2 emissions and water usage\n\n\nSSH Recipes\n\n\nFuture Predictions\n\n\nDiophantine Approximation\n\n\nCommon GCode Commands", 
+            "text": "dev\n\n\n\n\nTextile Cheat Sheet\n\n\nScaling images, animated GIFs in Gimp\n\n\nScreenshots, Screencasts, Animated Gifs\n\n\nffmpeg Notes\n\n\nUnix-y Notes\n\n\nLattice Reduction Notes\n\n\nPS/SVG to GCode Conversion\n\n\nChange Git default 'master' branch to 'release'\n\n\nMkDocs Quickstart\n\n\nGPG Notes\n\n\nGit Notes\n\n\nShannon Entropy\n\n\nEnabling Server HTTPS\n\n\nBGZF Example\n\n\nC Project Template\n\n\nProject Organization\n\n\nKelly Criterion\n\n\nFile Naming Conventions\n\n\nLoose Standards for Command Line Options\n\n\nPCB Notes\n\n\nElements of Coding Style\n\n\nEnergy Consumption Stats\n\n\nSimple Sums\n\n\nFisher Yates Shuffle\n\n\nHalting Problem\n\n\nAssorted Small Probability Problems\n\n\nProbability Notes\n\n\nAmdahl's Law\n\n\nIs It Really Open\n\n\nNumber Theory Notes\n\n\nArbitrary Binary Functions\n\n\nEmpirical Laws\n\n\nFood - CO2 emissions and water usage\n\n\nSSH Recipes\n\n\nFuture Predictions\n\n\nDiophantine Approximation\n\n\nCommon GCode Commands\n\n\nMisc. Math", 
             "title": "Home"
         }, 
         {
             "location": "/#dev", 
-            "text": "Textile Cheat Sheet  Scaling images, animated GIFs in Gimp  Screenshots, Screencasts, Animated Gifs  ffmpeg Notes  Unix-y Notes  Lattice Reduction Notes  PS/SVG to GCode Conversion  Change Git default 'master' branch to 'release'  MkDocs Quickstart  GPG Notes  Git Notes  Shannon Entropy  Enabling Server HTTPS  BGZF Example  C Project Template  Project Organization  Kelly Criterion  File Naming Conventions  Loose Standards for Command Line Options  PCB Notes  Elements of Coding Style  Energy Consumption Stats  Simple Sums  Fisher Yates Shuffle  Halting Problem  Assorted Small Probability Problems  Probability Notes  Amdahl's Law  Is It Really Open  Number Theory Notes  Arbitrary Binary Functions  Empirical Laws  Food - CO2 emissions and water usage  SSH Recipes  Future Predictions  Diophantine Approximation  Common GCode Commands", 
+            "text": "Textile Cheat Sheet  Scaling images, animated GIFs in Gimp  Screenshots, Screencasts, Animated Gifs  ffmpeg Notes  Unix-y Notes  Lattice Reduction Notes  PS/SVG to GCode Conversion  Change Git default 'master' branch to 'release'  MkDocs Quickstart  GPG Notes  Git Notes  Shannon Entropy  Enabling Server HTTPS  BGZF Example  C Project Template  Project Organization  Kelly Criterion  File Naming Conventions  Loose Standards for Command Line Options  PCB Notes  Elements of Coding Style  Energy Consumption Stats  Simple Sums  Fisher Yates Shuffle  Halting Problem  Assorted Small Probability Problems  Probability Notes  Amdahl's Law  Is It Really Open  Number Theory Notes  Arbitrary Binary Functions  Empirical Laws  Food - CO2 emissions and water usage  SSH Recipes  Future Predictions  Diophantine Approximation  Common GCode Commands  Misc. Math", 
             "title": "dev"
         }, 
         {
@@ -1324,6 +1324,31 @@
             "location": "/GCode-Common/#2020-09-09", 
             "text": "", 
             "title": "2020-09-09"
+        }, 
+        {
+            "location": "/Misc-Math/", 
+            "text": "Misc. Math\n\n\nLandau Notation\n\n\n$$\nf(x) = O(g(x)) \\iff \\limsup_{x \\to \\infty} \\frac{f(x)}{g(x)} \n \\infty\n$$\n\n\n$$\nf(x) = o(g(x)) \\iff \\lim_{x \\to \\infty} \\frac{f(x)}{g(x)} = 0\n$$\n\n\n$$\nf(x) = \\Omega(g(x)) \\iff \\liminf_{x \\to \\infty} \\frac{f(x)}{g(x)} \n 0\n$$\n\n\n$$\nf(x) = \\omega(g(x)) \\iff \\liminf_{x \\to \\infty} \\frac{f(x)}{g(x)} = \\infty\n$$\n\n\n$$\nf(x) = \\Theta(g(x)) \\iff f(x) = O(g(x)) \\ \\\n \\ f(x) = \\Omega(g(x))\n$$\n\n\n\n\n$e$ is Irrational\n\n\nProof by contradiction.\n\n\nAssume $e$ is rational.\nThis means $e = \\frac{p}{v}$.\n\n\nWe use the identity:\n\n\n$$\ne = \\sum_{k=0}^{\\infty} \\frac{1}{k!}\n$$\n\n\nWith the usual convention that $0!=1$.\n\n\n$$\n\\begin{align}\n \n e \n = \\frac{p}{v} \\\\\n \n \n = \\sum_{k=0}^{\\v} \\frac{1}{k!} + \\sum_{k=v+1}^{\\infty} \\frac{1}{k!} \\\\\n\\to \n (v!) e  \n = (v-1)! p \\\\\n \n \n = \\sum_{k=0}^{v!}{k!} + ( \\frac{1}{v+1} + \\frac{1}{(v+1)(v+2)} + \\cdots )\n\\end{align}\n$$\n\n\nBy assumption, $(v!) e = (v-1)! p \\in \\mathbb{Z}$.\nWe also have the first part of the sum $\\sum_{k=0}^{v!}{k!} \\in \\mathbb{Z}$.\n\n\nThe second part of the sum is greater than 0 and we can get bounds:\n\n\n$$\n\\begin{align}\n \n  0 \n \n \\frac{1}{v+1} + \\frac{1}{(v+1)(v+2)} + \\cdots \n \\le \\frac{1}{v+1} \\sum_{k=0}^{\\infty} (\\frac{1}{(v+1)})^k \\\\\n\\to \n 0 \n \n \\frac{1}{v+1} + \\frac{1}{(v+1)(v+2)} + \\cdots \n \\le \\frac{1}{v}\n\\end{align}\n$$\n\n\nChoose $v \n 1$ and we have the second part of the sum as non-integral, contradicting the assumption of rationality.\n\n\n\n\n2020-10-31", 
+            "title": "Misc Math"
+        }, 
+        {
+            "location": "/Misc-Math/#misc-math", 
+            "text": "", 
+            "title": "Misc. Math"
+        }, 
+        {
+            "location": "/Misc-Math/#landau-notation", 
+            "text": "$$\nf(x) = O(g(x)) \\iff \\limsup_{x \\to \\infty} \\frac{f(x)}{g(x)}   \\infty\n$$  $$\nf(x) = o(g(x)) \\iff \\lim_{x \\to \\infty} \\frac{f(x)}{g(x)} = 0\n$$  $$\nf(x) = \\Omega(g(x)) \\iff \\liminf_{x \\to \\infty} \\frac{f(x)}{g(x)}   0\n$$  $$\nf(x) = \\omega(g(x)) \\iff \\liminf_{x \\to \\infty} \\frac{f(x)}{g(x)} = \\infty\n$$  $$\nf(x) = \\Theta(g(x)) \\iff f(x) = O(g(x)) \\ \\  \\ f(x) = \\Omega(g(x))\n$$", 
+            "title": "Landau Notation"
+        }, 
+        {
+            "location": "/Misc-Math/#e-is-irrational", 
+            "text": "Proof by contradiction.  Assume $e$ is rational.\nThis means $e = \\frac{p}{v}$.  We use the identity:  $$\ne = \\sum_{k=0}^{\\infty} \\frac{1}{k!}\n$$  With the usual convention that $0!=1$.  $$\n\\begin{align}\n   e   = \\frac{p}{v} \\\\\n     = \\sum_{k=0}^{\\v} \\frac{1}{k!} + \\sum_{k=v+1}^{\\infty} \\frac{1}{k!} \\\\\n\\to   (v!) e    = (v-1)! p \\\\\n     = \\sum_{k=0}^{v!}{k!} + ( \\frac{1}{v+1} + \\frac{1}{(v+1)(v+2)} + \\cdots )\n\\end{align}\n$$  By assumption, $(v!) e = (v-1)! p \\in \\mathbb{Z}$.\nWe also have the first part of the sum $\\sum_{k=0}^{v!}{k!} \\in \\mathbb{Z}$.  The second part of the sum is greater than 0 and we can get bounds:  $$\n\\begin{align}\n    0     \\frac{1}{v+1} + \\frac{1}{(v+1)(v+2)} + \\cdots   \\le \\frac{1}{v+1} \\sum_{k=0}^{\\infty} (\\frac{1}{(v+1)})^k \\\\\n\\to   0     \\frac{1}{v+1} + \\frac{1}{(v+1)(v+2)} + \\cdots   \\le \\frac{1}{v}\n\\end{align}\n$$  Choose $v   1$ and we have the second part of the sum as non-integral, contradicting the assumption of rationality.", 
+            "title": "$e$ is Irrational"
+        }, 
+        {
+            "location": "/Misc-Math/#2020-10-31", 
+            "text": "", 
+            "title": "2020-10-31"
         }
     ]
 }
