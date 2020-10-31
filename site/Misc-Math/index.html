@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>dev blog</title>
 
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="/css/pygment_trac.css">
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
 
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({
@@ -15,8 +15,8 @@
         tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
       });
     </script>
-    <script type="text/javascript" src="/js/MathJax.js"></script>
-    <!-- <script type="text/javascript" src="/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
 
     <meta name="viewport" content="width=device-width">
   </head>
@@ -28,7 +28,7 @@
 
         <table>
           <body>
-            <tr><td><a href="/">./dev</a></td></tr>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
            <tr>
               <td>
                 <br /> <br /> <br />
@@ -39,7 +39,7 @@
                 Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
                 <br />
 
-                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/img/cc-by-sa-80x15.png" /></a>
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
                 </p>
               </td>
             </tr>
@@ -77,23 +77,23 @@ e = \sum_{k=0}^{\infty} \frac{1}{k!}
 $$</p>
 <p>With the usual convention that $0!=1$.</p>
 <p>$$
-\begin{align}
+\begin{array}{lcl}
  &amp; e &amp; = \frac{p}{v} \\
- &amp; &amp; = \sum_{k=0}^{\v} \frac{1}{k!} + \sum_{k=v+1}^{\infty} \frac{1}{k!} \\
+ &amp; &amp; = \sum_{k=0}^{v} \frac{1}{k!} + \sum_{k=v+1}^{\infty} \frac{1}{k!} \\
 \to &amp; (v!) e  &amp; = (v-1)! p \\
- &amp; &amp; = \sum_{k=0}^{v!}{k!} + ( \frac{1}{v+1} + \frac{1}{(v+1)(v+2)} + \cdots )
-\end{align}
+ &amp; &amp; = \sum_{k=0}^{v} \frac{v!}{k!} + ( \frac{1}{v+1} + \frac{1}{(v+1)(v+2)} + \cdots )
+\end{array}
 $$</p>
 <p>By assumption, $(v!) e = (v-1)! p \in \mathbb{Z}$.
-We also have the first part of the sum $\sum_{k=0}^{v!}{k!} \in \mathbb{Z}$.</p>
-<p>The second part of the sum is greater than 0 and we can get bounds:</p>
+We also have the first sum $\sum_{k=0}^{v} \frac{v!}{k!} \in \mathbb{Z}$.</p>
+<p>The second sum is greater than 0 and we can get bounds:</p>
 <p>$$
-\begin{align}
- &amp;  0 &amp; &lt; \frac{1}{v+1} + \frac{1}{(v+1)(v+2)} + \cdots &amp; \le \frac{1}{v+1} \sum_{k=0}^{\infty} (\frac{1}{(v+1)})^k \\
+\begin{array}{lrcl}
+ &amp;  0 &amp; &lt; \frac{1}{v+1} + \frac{1}{(v+1)(v+2)} + \cdots &amp; \le \frac{1}{v+1} \sum_{k=0}^{\infty} \frac{1}{(v+1)^k} \\
 \to &amp; 0 &amp; &lt; \frac{1}{v+1} + \frac{1}{(v+1)(v+2)} + \cdots &amp; \le \frac{1}{v}
-\end{align}
+\end{array}
 $$</p>
-<p>Choose $v &gt; 1$ and we have the second part of the sum as non-integral, contradicting the assumption of rationality.</p>
+<p>Choose $v &gt; 1$ and we have the second sum as non-integral, contradicting the assumption of rationality.</p>
 <hr />
 <h6 id="2020-10-31">2020-10-31</h6>
 
@@ -106,6 +106,6 @@ $$</p>
       -->
 
     </div>
-    <script src="/js/scale.fix.js"></script>
+    <script src="/dev/js/scale.fix.js"></script>
   </body
 </html>
