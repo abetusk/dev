@@ -39,3 +39,4 @@ dev
 * [Diophantine Approximation](Diophantine-Approximation.md)
 * [Common GCode Commands](GCode-Common.md)
 * [Misc. Math](Misc-Math.md)
+* [Socio-Economic Definitions](Socio-Economic-Definitions.md)

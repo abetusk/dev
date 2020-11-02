@@ -39,6 +39,7 @@ pages:
   - "Diophantine-Approximation.md"
   - "GCode-Common.md"
   - "Misc-Math.md"
+  - "Socio-Economic-Definitions.md"
 
 docs_dir: 'wiki'
 theme_dir: 'dev_theme'
