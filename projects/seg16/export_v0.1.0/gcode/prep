@@ -1,0 +1,22 @@
+#!/bin/bash
+
+
+## replace with measured z
+##
+#drillz="0"
+drillz="-28.2"
+drillzplunge=`echo "$drillz - 5" | bc -l`
+
+grecode -cw board-F_Cu.gtl > _cu.ngc
+grecode -shift -20 -105 _cu.ngc | grbl_inch2mm > cu.ngc
+
+echo 'G21' > __drl.ngc
+#gbr-simple-drill --z-zero "$drillz" --z-down "$drillzplunge" -f ../gerber/board.drl >> __drl.ngc
+gbr-simple-drill -r 0.5 --z-zero "$drillz" --z-down "$drillzplunge" -f ../gerber/board.drl >> __drl.ngc
+grecode -cw __drl.ngc > _drl.ngc
+grecode -shift -20 -105 _drl.ngc > drl.ngc
+
+cat cu.ngc drl.ngc > preview.ngc
+
+
+
