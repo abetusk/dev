@@ -1,7 +1,9 @@
 seg16
 ---
 
-[![16seg demo](img/seg16_diffusor_test.gif)](https://www.youtube.com/watch?v=fP0ltvnkAXw)
+| | |
+|---|---|
+| [![16seg demo](img/seg16_diffusor_test.gif)](https://www.youtube.com/watch?v=fP0ltvnkAXw) | ![seg16 board](img/seg16_assembled.1.jpg) |
 
 A 16 segment digit (base board) using WS2812B/SK6812 5050 parts.
 Size should be about 5.2"x3.9" (132mmx100mm).
