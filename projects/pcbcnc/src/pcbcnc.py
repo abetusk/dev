@@ -44,8 +44,8 @@ G0_SPEED_Z = 25
 SPINDLE_SPEED = 1000.0
 
 Z_SAFE = -1.0
-#Z_UP = -10.0
-Z_UP = -30.0
+Z_UP = -10.0
+#Z_UP = -30.0
 Z_MAX_DOWN = -40.0
 
 Z_PROBE_SPEED = 1
