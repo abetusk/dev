@@ -1,6 +1,10 @@
 GoPro Driver (L6234)
 ===
 
+| | |
+|---|---|
+| ![sch](img/drv_v0.1.2-sch.png) | ![brd](img/drv_v0.1.2-brd.png) | 
+
 BLDC driver based on the L6234 chip.
 
 **Completely untested**.
