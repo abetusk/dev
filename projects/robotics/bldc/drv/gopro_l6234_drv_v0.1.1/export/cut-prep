@@ -1,0 +1,10 @@
+#!/bin/bash
+#
+# measure z after tool change (g38.2z-30f10)
+#
+# then translate by that amount (z)
+#
+
+zmeasure=-16
+
+ngc_translate -f fin-cuts.ngc -o fin-cuts_z.ngc -z "$zmeasure" -U -S
