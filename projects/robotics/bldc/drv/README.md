@@ -23,3 +23,5 @@ CC0
 
 [![CC0](img/cc0_88x31.png)](https://creativecommons.org/publicdomain/zero/1.0/)
 
+
+![cc0](img/oshw_facts.png)
