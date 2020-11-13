@@ -155,11 +155,11 @@ Wang, Zi Won
 
 | |
 |---|
-| [ ![](kwanon-z.jpg) ](http://wangziwon.com/?p=70) |
+| [ ![](img/kwanon-z.jpg) ](http://wangziwon.com/?p=70) |
 
 [Wang, Zi Won](http://wangziwon.com/)
 
-
+([video](https://www.youtube.com/watch?v=FGz7tuGI6Ns))
 
 Anouk Wipprecth
 ---
