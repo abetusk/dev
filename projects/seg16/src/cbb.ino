@@ -9,7 +9,10 @@
 #define LED_COUNT (N_DIGIT_LED * N_DIGIT)
 
 #define START_CHAR '!'
-#define END_CHAR '}'
+
+// end char is inclusive
+//
+#define END_CHAR '~'
 
 Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
 
@@ -395,8 +398,7 @@ void setup() {
   strip.setBrightness(200); // Set BRIGHTNESS to about 1/5 (max = 255)
 }
 
-
-void loop() {
+void _test_chars() {
   char ch;
   int digi_idx=0;
   uint32_t color;
@@ -410,22 +412,34 @@ void loop() {
     digi_idx = (digi_idx+1)%N_DIGIT;
     delay(1000);
   }
-  return;
 
-// full brightness test
-/*
-  for (int i=0; i<10; i++) {
-    clear_char(i);
-  }
+}
+
+void _test_full_brightness() {
+  char ch;
+  int digi_idx=0;
+  uint32_t color;
+
+  int n=1;
+
+  for (int i=0; i<10; i++) { clear_char(i);  }
   for (int i=0; i<(20*10); i++) {
     strip.setPixelColor( i, strip.Color(255,255,255));
   }
   strip.show();
   delay(1000);
-  return;
-*/
 
 
+}
+
+void _test_random() {
+  char ch;
+  int digi_idx=0;
+  uint32_t color;
+
+  int n=1;
+
+  
   n += random(2);
 
 
@@ -441,54 +455,40 @@ void loop() {
   
     delay( 100 + random(250) );
   }
-return;
 
+}
 
-  /*
-  for (ch = '0'; ch <= 'z'; ch++) {
-    clear_char(digi_idx);
-    display_char(strip.Color(255, 0, 0), digi_idx, ch);
-    digi_idx = (digi_idx + 1)%10;
-
-    delay(100);
+void show_message(uint32_t color, const char *msg) {
+  for (int i=0; i<N_DIGIT; i++) { clear_char(i); }
+  for (int i=0; i<N_DIGIT; i++) {
+    if (msg[i]==0) { break; }
+    display_char(color, i, msg[i]);
   }
-  */
+}
 
+void loop() {
+  char ch;
+  int digi_idx=0;
+  uint32_t color;
 
-  color = strip.Color(255,0,0);
+  int n=1;
 
-  for (int i=0; i<10; i++) { clear_char(i); }
-  display_char(color, 0, 'G');
-  display_char(color, 1, 'O');
-  //display_char(color, 2, '');
-  display_char(color, 3, 'T');
-  display_char(color, 4, 'O');
+  char msg[] = "STAY ALIVE";
 
-  display_char(color, 5, 'H');
-  display_char(color, 6, 'E');
-  display_char(color, 7, 'L');
-  display_char(color, 8, 'L');
-  //display_char(color, 9, 'E');
-  delay(1000);
-
-
+  
+  //_test_random();
+  //_test_full_brightness();
+  //_test_chars();
 
   color = strip.Color(255,0,0);
-
-  for (int i=0; i<10; i++) { clear_char(i); }
-  display_char(color, 0, 'S');
-  display_char(color, 1, 'T');
-  display_char(color, 2, 'A');
-  display_char(color, 3, 'Y');
-
-  display_char(color, 5, 'A');
-  display_char(color, 6, 'L');
-  display_char(color, 7, 'I');
-  display_char(color, 8, 'V');
-  display_char(color, 9, 'E');
+  
+  show_message(color, "STAY ALIVE");
   delay(1000);
-  //colorWipe(strip.Color(255, 0, 0), 100);
-  //rainbow(10);
+
+  show_message(color, "GOTO HELL");
+  delay(5000);
+  return;
+
 }
 
 void step(uint32_t color, uint32_t n, int wait) {
