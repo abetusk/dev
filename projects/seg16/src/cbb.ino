@@ -62,84 +62,84 @@ uint16_t char_seg_map_start[] = {
 64 , // dl // /
 66 , // abcdglmnop // 0
 76 , // cdp // 1
-79 , // abchimnop // 2
-88 , // abcinop // 3
-95 , // cghip // 4
-100 , // abghjno // 5
-107 , // abghimnop // 6
-116 , // abcp // 7
-120 , // abcghimnop // 8
-130 , // abcghip // 9
-137 , // ek // :
-139 , // el // ;
-141 , // dj // <
-143 , // ihno // =
-147 , // fl // >
-149 , // abcik // ?
-154 , // abcegimno // @
-163 , // abcghimp // A
-171 , // abceiknop // B
-180 , // abgmno // C
-186 , // abceknop // D
-194 , // abghmno // E
-201 , // abghm // F
-206 , // abgimnop // G
-214 , // cghimp // H
-220 , // abekno // I
-226 , // cmnop // J
-231 , // dghjm // K
-236 , // gmno // L
-240 , // cdfgmp // M
-246 , // cfgjmp // N
-252 , // abcgmnop // O
-260 , // abcghim // P
-267 , // abcgjmnop // Q
-276 , // abcghijm // R
-284 , // abghinop // S
-292 , // abek // T
-296 , // cgmnop // U
-302 , // dglm // V
-306 , // cgjlmp // W
-312 , // dfjl // X
-316 , // cghinop // Y
-323 , // abdlno // Z
-329 , // beko // [
-333 , // fj // \
-335 , // aekn // ]
-339 , // lj // ^
-341 , // no // _
-343 , // f // `
-344 , // hikmno // a
-350 , // ghimnop // b
-357 , // hmn // c
-360 , // cikop // d
-365 , // hlmno // e
-370 , // behik // f
-375 , // aeghkn // g
-381 , // ghkm // h
-385 , // k // i
-386 , // ekmn // j
-390 , // dejk // k
-394 , // gm // l
-396 , // hikmp // m
-401 , // hkm // n
-404 , // hkmn // o
-408 , // aeghm // p
-413 , // aeghk // q
-418 , // hm // r
-420 , // aghkn // s
-425 , // ghmn // t
-429 , // kmn // u
-432 , // lm // v
-434 , // jlmp // w
-438 , // dfjl // x
-442 , // ceiop // y
-447 , // hln // z
-450 , // behko // {
-455 , // ek // |
-457 , // aiekn // }
-462 , // dfg // ~
-465 // ...
+79 , // abchimno // 2
+87 , // abcinop // 3
+94 , // cghip // 4
+99 , // abghjno // 5
+106 , // abghimnop // 6
+115 , // abcp // 7
+119 , // abcghimnop // 8
+129 , // abcghip // 9
+136 , // ek // :
+138 , // el // ;
+140 , // dj // <
+142 , // ihno // =
+146 , // fl // >
+148 , // abcik // ?
+153 , // abcegimno // @
+162 , // abcghimp // A
+170 , // abceiknop // B
+179 , // abgmno // C
+185 , // abceknop // D
+193 , // abghmno // E
+200 , // abghm // F
+205 , // abgimnop // G
+213 , // cghimp // H
+219 , // abekno // I
+225 , // cmnop // J
+230 , // dghjm // K
+235 , // gmno // L
+239 , // cdfgmp // M
+245 , // cfgjmp // N
+251 , // abcgmnop // O
+259 , // abcghim // P
+266 , // abcgjmnop // Q
+275 , // abcghijm // R
+283 , // abghinop // S
+291 , // abek // T
+295 , // cgmnop // U
+301 , // dglm // V
+305 , // cgjlmp // W
+311 , // dfjl // X
+315 , // cghinop // Y
+322 , // abdlno // Z
+328 , // beko // [
+332 , // fj // backslash
+334 , // aekn // ]
+338 , // lj // ^
+340 , // no // _
+342 , // f // `
+343 , // hikmno // a
+349 , // ghimnop // b
+356 , // hmn // c
+359 , // cikop // d
+364 , // hlmno // e
+369 , // behik // f
+374 , // aeghkn // g
+380 , // ghkm // h
+384 , // k // i
+385 , // ekmn // j
+389 , // dejk // k
+393 , // gm // l
+395 , // hikmp // m
+400 , // hkm // n
+403 , // hkmn // o
+407 , // aeghm // p
+412 , // aeghk // q
+417 , // hm // r
+419 , // aghkn // s
+424 , // ghmn // t
+428 , // kmn // u
+431 , // lm // v
+433 , // jlmp // w
+437 , // dfjl // x
+441 , // ceiop // y
+446 , // hln // z
+449 , // behko // {
+454 , // ek // |
+456 , // aiekn // }
+461 , // dfg // ~
+464 // ...
 
 };
 
@@ -175,7 +175,7 @@ char char_seg_map[] =
   "n"
   // /
   "dl"
-
+  
   // 0
   "abcdglmnop"
   // 1
@@ -199,25 +199,25 @@ char char_seg_map[] =
 
   // :
   "ek"
-
+  
   // ;
   "el"
-
+  
   // <
   "dj"
-
+  
   // =
   "ihno"
-
+  
   // >
   "fl"
-
+  
   // ?
   "abcik"
-
+  
   // @
   "abcegimno"
-
+  
 
   // A
   "abcghimp"
@@ -274,7 +274,7 @@ char char_seg_map[] =
 
   // [
   "beko"
-  // \
+  // backslash
   "fj"
   // ]
   "aekn"
@@ -284,7 +284,7 @@ char char_seg_map[] =
   "no"
   // `
   "f"
-
+  
   // a
   "hikmno"
   // b
@@ -385,9 +385,9 @@ void display_char(uint32_t color, uint32_t char_idx, char ch) {
   }
 
   strip.show();
-
+  
 }
-
+  
 
 void setup() {
   strip.begin();           // INITIALIZE NeoPixel strip object (REQUIRED)
@@ -435,10 +435,10 @@ void loop() {
     color = random_color();
     //color = strip.Color(255,255,255);
     ch = random(START_CHAR, END_CHAR + 1);
-
+  
     clear_char(digi_idx);
     display_char(color, digi_idx, ch);
-
+  
     delay( 100 + random(250) );
   }
 return;
