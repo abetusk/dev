@@ -8,6 +8,9 @@
 #define N_DIGIT_LED 20
 #define LED_COUNT (N_DIGIT_LED * N_DIGIT)
 
+#define START_CHAR '!'
+#define END_CHAR '}'
+
 Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
 
 //
@@ -42,87 +45,143 @@ uint8_t digit_segment[] = {
 };
 
 uint16_t char_seg_map_start[] = {
-0 , // abcdglmnop // 0
-10 , // cdp // 1
-13 , // abchimnop // 2
-22 , // abcinop // 3
-29 , // cghip // 4
-34 , // abghjno // 5
-41 , // abghimnop // 6
-50 , // abcp // 7
-54 , // abcghimnop // 8
-64 , // abcghip // 9
-
-//  :   ;   <   =   >   ?   @
-   71, 71, 71, 71, 71, 71, 71,
-
-71 , // abcghimp // A
-79 , // abceiknop // B
-88 , // abgmno // C
-94 , // abceknop // D
-102 , // abghmno // E
-109 , // abghm // F
-114 , // abgimnop // G
-122 , // cghimp // H
-128 , // abekno // I
-134 , // cmnop // J
-139 , // dghijm // K
-145 , // gmno // L
-149 , // cdfgmp // M
-155 , // cfgjmp // N
-161 , // abcgmnop // O
-169 , // abcghim // P
-176 , // abcgjmnop // Q
-185 , // abcghijm // R
-193 , // abghinop // S
-201 , // abek // T
-205 , // cgmnop // U
-211 , // dglm // V
-215 , // cgjlmp // W
-221 , // dfjl // X
-225 , // cghinop // Y
-232 , // abdlno // Z
-
-// [    \    ]    ^    _    1
-  238, 238, 238, 238, 238, 238,
-
-238 , // hikmno // a
-244 , // ghimnop // b
-251 , // hmn // c
-254 , // cikop // d
-259 , // hlmno // e
-264 , // behik // f
-269 , // aeghkn // g
-275 , // ghkm // h
-279 , // k // i
-280 , // ekmn // j
-284 , // dejk // k
-288 , // gm // l
-290 , // hikmp // m
-295 , // hkm // n
-298 , // hkmn // o
-302 , // aeghm // p
-307 , // aeghk // q
-312 , // hm // r
-314 , // aghkn // s
-319 , // ghmn // t
-323 , // kmn // u
-326 , // lm // v
-328 , // jlmp // w
-332 , // dfjl // x
-336 , // ceiop // y
-341 , // hln // z
-344 // ...
+0 , // en // !
+2 , // ce // "
+4 , // cehiknop // #
+12 , // abeghiknop // $
+22 , // adefghiklop // %
+33 , // aefhjmno // &
+41 , // e // '
+42 , // dko // (
+45 , // fkn // )
+48 , // defhijkl // *
+56 , // ehik // +
+60 , // l // ,
+61 , // ih // -
+63 , // n // .
+64 , // dl // /
+66 , // abcdglmnop // 0
+76 , // cdp // 1
+79 , // abchimnop // 2
+88 , // abcinop // 3
+95 , // cghip // 4
+100 , // abghjno // 5
+107 , // abghimnop // 6
+116 , // abcp // 7
+120 , // abcghimnop // 8
+130 , // abcghip // 9
+137 , // ek // :
+139 , // el // ;
+141 , // dj // <
+143 , // ihno // =
+147 , // fl // >
+149 , // abcik // ?
+154 , // abcegimno // @
+163 , // abcghimp // A
+171 , // abceiknop // B
+180 , // abgmno // C
+186 , // abceknop // D
+194 , // abghmno // E
+201 , // abghm // F
+206 , // abgimnop // G
+214 , // cghimp // H
+220 , // abekno // I
+226 , // cmnop // J
+231 , // dghjm // K
+236 , // gmno // L
+240 , // cdfgmp // M
+246 , // cfgjmp // N
+252 , // abcgmnop // O
+260 , // abcghim // P
+267 , // abcgjmnop // Q
+276 , // abcghijm // R
+284 , // abghinop // S
+292 , // abek // T
+296 , // cgmnop // U
+302 , // dglm // V
+306 , // cgjlmp // W
+312 , // dfjl // X
+316 , // cghinop // Y
+323 , // abdlno // Z
+329 , // beko // [
+333 , // fj // \
+335 , // aekn // ]
+339 , // lj // ^
+341 , // no // _
+343 , // f // `
+344 , // hikmno // a
+350 , // ghimnop // b
+357 , // hmn // c
+360 , // cikop // d
+365 , // hlmno // e
+370 , // behik // f
+375 , // aeghkn // g
+381 , // ghkm // h
+385 , // k // i
+386 , // ekmn // j
+390 , // dejk // k
+394 , // gm // l
+396 , // hikmp // m
+401 , // hkm // n
+404 , // hkmn // o
+408 , // aeghm // p
+413 , // aeghk // q
+418 , // hm // r
+420 , // aghkn // s
+425 , // ghmn // t
+429 , // kmn // u
+432 , // lm // v
+434 , // jlmp // w
+438 , // dfjl // x
+442 , // ceiop // y
+447 , // hln // z
+450 , // behko // {
+455 , // ek // |
+457 , // aiekn // }
+462 , // dfg // ~
+465 // ...
 
 };
 
+
 char char_seg_map[] =
+  // !
+  "en"
+  // "
+  "ce"
+  // #
+  "cehiknop"
+  // $
+  "abeghiknop"
+  // %
+  "adefghiklop"
+  // &
+  "aefhjmno"
+  // '
+  "e"
+  // (
+  "dko"
+  // )
+  "fkn"
+  // *
+  "defhijkl"
+  // +
+  "ehik"
+  // ,
+  "l"
+  // -
+  "ih"
+  // .
+  "n"
+  // /
+  "dl"
+
   // 0
   "abcdglmnop"
   // 1
   "cdp"
   // 2
-  "abchimnop"
+  "abchimno"
   // 3
   "abcinop"
   // 4
@@ -137,6 +196,28 @@ char char_seg_map[] =
   "abcghimnop"
   // 9
   "abcghip"
+
+  // :
+  "ek"
+
+  // ;
+  "el"
+
+  // <
+  "dj"
+
+  // =
+  "ihno"
+
+  // >
+  "fl"
+
+  // ?
+  "abcik"
+
+  // @
+  "abcegimno"
+
 
   // A
   "abcghimp"
@@ -159,7 +240,7 @@ char char_seg_map[] =
   // J
   "cmnop"
   // K
-  "dghijm"
+  "dghjm"
   // L
   "gmno"
   // M
@@ -190,8 +271,20 @@ char char_seg_map[] =
   "cghinop"
   // Z
   "abdlno"
-  
-  
+
+  // [
+  "beko"
+  // \
+  "fj"
+  // ]
+  "aekn"
+  // ^
+  "lj"
+  // _
+  "no"
+  // `
+  "f"
+
   // a
   "hikmno"
   // b
@@ -244,6 +337,15 @@ char char_seg_map[] =
   "ceiop"
   // z
   "hln"
+
+  // {
+  "behko"
+  // |
+  "ek"
+  // }
+  "aiekn"
+  // ~
+  "dfg"
   ;
 
 void clear_char(uint32_t char_idx) {
@@ -263,12 +365,12 @@ void display_char(uint32_t color, uint32_t char_idx, char ch) {
   int rel_idx, rel_n;
   char chseg;
 
-  if ((ch < '0') || (ch > 'z')) { return; }
+  if ((ch < START_CHAR) || (ch > END_CHAR)) { return; }
 
   start = char_idx * N_DIGIT_LED;
 
-  _s = char_seg_map_start[ch - '0'];
-  _n = char_seg_map_start[ch - '0' + 1] - _s;
+  _s = char_seg_map_start[ch - START_CHAR];
+  _n = char_seg_map_start[ch - START_CHAR + 1] - _s;
 
   for (int i=0; i<_n; i++) {
     _idx = char_seg_map[_s + i] - 'a';
@@ -283,14 +385,14 @@ void display_char(uint32_t color, uint32_t char_idx, char ch) {
   }
 
   strip.show();
-  
+
 }
-  
+
 
 void setup() {
   strip.begin();           // INITIALIZE NeoPixel strip object (REQUIRED)
   strip.show();            // Turn OFF all pixels ASAP
-  strip.setBrightness(250); // Set BRIGHTNESS to about 1/5 (max = 255)
+  strip.setBrightness(200); // Set BRIGHTNESS to about 1/5 (max = 255)
 }
 
 
@@ -301,20 +403,46 @@ void loop() {
 
   int n=1;
 
+  for (ch = START_CHAR; ch <= END_CHAR; ch++) {
+    color = random_color();
+    clear_char(digi_idx);
+    display_char(color, digi_idx, ch);
+    digi_idx = (digi_idx+1)%N_DIGIT;
+    delay(1000);
+  }
+  return;
+
+// full brightness test
+/*
+  for (int i=0; i<10; i++) {
+    clear_char(i);
+  }
+  for (int i=0; i<(20*10); i++) {
+    strip.setPixelColor( i, strip.Color(255,255,255));
+  }
+  strip.show();
+  delay(1000);
+  return;
+*/
+
+
   n += random(2);
+
 
   for (int i=0; i<n; i++) {
 
     digi_idx = random(10);
     color = random_color();
-    ch = random('z' - '0') + '0';
-  
+    //color = strip.Color(255,255,255);
+    ch = random(START_CHAR, END_CHAR + 1);
+
     clear_char(digi_idx);
     display_char(color, digi_idx, ch);
-  
+
     delay( 100 + random(250) );
   }
 return;
+
 
   /*
   for (ch = '0'; ch <= 'z'; ch++) {
@@ -325,6 +453,25 @@ return;
     delay(100);
   }
   */
+
+
+  color = strip.Color(255,0,0);
+
+  for (int i=0; i<10; i++) { clear_char(i); }
+  display_char(color, 0, 'G');
+  display_char(color, 1, 'O');
+  //display_char(color, 2, '');
+  display_char(color, 3, 'T');
+  display_char(color, 4, 'O');
+
+  display_char(color, 5, 'H');
+  display_char(color, 6, 'E');
+  display_char(color, 7, 'L');
+  display_char(color, 8, 'L');
+  //display_char(color, 9, 'E');
+  delay(1000);
+
+
 
   color = strip.Color(255,0,0);
 
