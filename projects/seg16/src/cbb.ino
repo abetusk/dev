@@ -2,6 +2,7 @@
 //
 
 #include <Adafruit_NeoPixel.h>
+#include <FastLED.h>
 
 #define LED_PIN    6
 #define N_DIGIT 10
@@ -14,7 +15,13 @@
 //
 #define END_CHAR '~'
 
+
 Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
+
+
+uint32_t random_color() {
+  return strip.gamma32(strip.ColorHSV( random(65536L) ));
+}
 
 //
 //  a         b
@@ -362,7 +369,7 @@ void clear_char(uint32_t char_idx) {
 
 }
 
-// char_seg_map, char_seg_map_start, digit_segment
+
 void display_char(uint32_t color, uint32_t char_idx, char ch) {
   int _s, _n, _idx, start;
   int rel_idx, rel_n;
@@ -390,7 +397,31 @@ void display_char(uint32_t color, uint32_t char_idx, char ch) {
   strip.show();
   
 }
-  
+
+
+void _display_char(uint32_t color, uint32_t char_idx, char ch) {
+  int _s, _n, _idx, start;
+  int rel_idx, rel_n;
+  char chseg;
+
+  if ((ch < START_CHAR) || (ch > END_CHAR)) { return; }
+
+  start = char_idx * N_DIGIT_LED;
+
+  _s = char_seg_map_start[ch - START_CHAR];
+  _n = char_seg_map_start[ch - START_CHAR + 1] - _s;
+
+  for (int i=0; i<_n; i++) {
+    _idx = char_seg_map[_s + i] - 'a';
+    rel_idx = digit_segment[ 3*_idx ];
+    rel_n = digit_segment[ 3*_idx + 1];
+    for (int j=0; j<rel_n; j++) {
+      strip.setPixelColor( start + rel_idx + j, color );
+    }
+  }
+
+}
+
 
 void setup() {
   strip.begin();           // INITIALIZE NeoPixel strip object (REQUIRED)
@@ -466,15 +497,128 @@ void show_message(uint32_t color, const char *msg) {
   }
 }
 
+
+void mask_message(uint32_t color, const char *msg) {
+  for (int i=0; i<N_DIGIT; i++) {
+    if (msg[i]==0) { break; }
+    _display_char(color, i, msg[i]);
+  }
+}
+
+void _noi() {
+  static uint16_t _t = 0;
+  uint8_t res = 0;
+
+/*
+  uint32_t c0 = strip.Color(20,0,0);
+  uint32_t c1 = strip.Color(255,0,0);
+  uint32_t c2 = strip.Color(255,255,0);
+  uint32_t c3 = strip.Color(255,255,255);
+  */
+
+
+  uint32_t c0 = strip.Color(20,0,0);
+  uint32_t c1 = strip.Color(55,0,0);
+  uint32_t c2 = strip.Color(55,55,0);
+  uint32_t c3 = strip.Color(55,55,55);
+
+
+  uint32_t _c = strip.Color(0,255,255);
+
+  uint16_t digi_pos2d[] = {
+    1, 6,  // a
+    3, 6,  // b
+    4, 5,  // c
+    4, 4,  // c
+    3, 4,  // d
+    2, 3,  // e
+    1, 3,  // f
+    0, 5,  // g
+    0, 4,  // g
+    1, 3,  // h
+    3, 3 ,  // i
+    3, 2,   // j
+    2, 2,  // k
+    1, 2,  // l
+    0, 2,  // m
+    0, 1,  // m
+    1, 0,  // n
+    3, 0,  // o
+    4, 1,  // p
+    4, 2   // p
+  };
+  uint16_t digi_dx = 5;
+  uint16_t digi_dy = 7;
+  uint16_t _x = 0, _y = 0;
+  uint16_t _dx =0, _dy = 0;
+
+
+  for (uint16_t i=0; i<10; i++) {
+    for (uint16_t j=0; j<20; j++) {
+
+      _dx = digi_pos2d[2*j];
+      _dy = digi_pos2d[2*j+1];
+      
+      res = inoise8((uint16_t)(_x + _dx)*64, (uint16_t)(_y + _dy)*64, (uint16_t)_t*4);
+
+      //if (res < 32) { _c = c0; }
+      if (res < 64) { _c = c0; }
+      else if (res < 150) { _c = c1; }
+      else if (res < 215) { _c = c2; }
+      else  { _c = c3; }
+
+
+      strip.setPixelColor(i*20 + j, _c);
+
+      
+    }
+    if (i==4) {
+      _y += digi_dy;
+      _x = 0;
+    }
+    else {
+      _x += digi_dx;
+    }
+
+  }
+
+  //strip.show();
+
+  _t++;
+}
+
+
 void loop() {
   char ch;
   int digi_idx=0;
   uint32_t color;
+  static uint32_t _t = 0;
+  static uint32_t flip = 8;
 
   int n=1;
 
+  //_noi();
+
+  if (_t >= flip) {
+    mask_message(random_color(), "STAY ALIVE");
+    _t = 0;
+    flip = random(5,20);
+  }
+  _t++;
+  strip.show();
+  return;
   
-  _test_random();
+  if (_t < flip) {
+    mask_message(strip.Color(0,128,0), "STAY ALIVE");
+  } else {
+    mask_message(strip.Color(0,0,128), "STAY ALIVE");
+  }
+  strip.show();
+
+  _t++;
+  if (_t >= (2*flip)) { _t = 0; }
+  
+  //_test_random();
   return;
   //_test_full_brightness();
   //_test_chars();
@@ -530,9 +674,6 @@ void theaterChase(uint32_t color, int wait) {
   }
 }
 
-uint32_t random_color() {
-  return strip.gamma32(strip.ColorHSV( random(65536L) ));
-}
 
 // Rainbow cycle along whole strip. Pass delay time (in ms) between frames.
 void rainbow(int wait) {
