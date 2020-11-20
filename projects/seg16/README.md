@@ -44,6 +44,11 @@ From some simple experiments, it takes about 2-3 digits before there's a noticea
 in color.
 So, for a single power supply in a row, it's probably wise to distribute power spaced every 2-3 digits.
 
+###### 2020-11-19
+
+The order of the LEDs is given by the following diagram:
+
+![seg6 LED order](img/seg16-LED-order.png)
 
 License
 ---
