@@ -370,6 +370,17 @@ void clear_char(uint32_t char_idx) {
 }
 
 
+void _clear_char(uint32_t char_idx) {
+  int _s;
+
+  _s = char_idx * N_DIGIT_LED;
+  for (int i=_s; i < (_s + N_DIGIT_LED); i++) {
+    strip.setPixelColor(i, 0);
+  }
+
+}
+
+
 void display_char(uint32_t color, uint32_t char_idx, char ch) {
   int _s, _n, _idx, start;
   int rel_idx, rel_n;
@@ -420,6 +431,20 @@ void _display_char(uint32_t color, uint32_t char_idx, char ch) {
     }
   }
 
+}
+
+
+void _show_segment(char seg, uint32_t color, uint32_t digit) {
+  int _idx, rel_idx, rel_n, start;
+
+  start = digit*N_DIGIT_LED;
+  _idx = seg-'a';
+  rel_idx = digit_segment[3*_idx];
+  rel_n = digit_segment[3*_idx + 1];
+  for (int i=0; i<rel_n; i++) {
+    strip.setPixelColor(start + rel_idx + i, color);
+  }
+  
 }
 
 
@@ -503,6 +528,24 @@ void mask_message(uint32_t color, const char *msg) {
     if (msg[i]==0) { break; }
     _display_char(color, i, msg[i]);
   }
+}
+
+void randseg() {
+  char seg[] = "abcdefghijklmnop";
+  int n, idx;
+  uint32_t color;
+
+  for (int digit=0; digit<N_DIGIT; digit++) {
+    _clear_char(digit);
+
+    n = random(16);
+    for (int x=0; x<n; x++) {
+      idx = random(16);
+      color = random_color();
+      _show_segment( seg[idx], color, digit );
+    }
+  }
+  strip.show();
 }
 
 void _noi() {
@@ -597,6 +640,15 @@ void loop() {
 
   int n=1;
 
+
+  _t++;
+  if (_t >= flip) {
+    randseg();
+    flip = random(200000);
+    _t = 0;
+  }
+  return;
+  
   //_noi();
 
   if (_t >= flip) {
