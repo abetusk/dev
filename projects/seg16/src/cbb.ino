@@ -473,10 +473,9 @@ void loop() {
 
   int n=1;
 
-  char msg[] = "STAY ALIVE";
-
   
-  //_test_random();
+  _test_random();
+  return;
   //_test_full_brightness();
   //_test_chars();
 
