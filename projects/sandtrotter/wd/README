@@ -1,0 +1,18 @@
+How to make QR codes into nice module footprint files for Kicad.
+Written by Matthew Beckler of Wayne and Layne, LLC
+Questions? Email: layne at wayneandlayne dot com
+
+1. I used this converter from URL->QR image, because the original website was down.
+http://chart.apis.google.com/chart?cht=qr&chs=140x140&chl=http%3A%2F%2Fwayneandlayne.com%2F&chld=H|0
+
+2. Save that PNG and open in the Gimp, go to Image-Mode-"Use black and white (1-bit) palette". Make sure dithering is None.
+
+3. Look to see how big each "qr pixel" is (let's call it N), and then scale the image by 1/N percent. IE. if each qr pixel is 4 actually pixels wide, resize image to 25%. Make sure the quality-interpolation is set to "None"! Save the image.
+
+4. Run the img2mod.py script. Something like this should work:
+./img2mod.py qr_wnl_m_thbl3.png qr_wnl_m_thbl3.mod LOGO_QR_WNL_M_THBL3 286
+
+The last number is how wide each image pixel becomes in units of 0.0001" (tenths of mils). The script will tell you how wide the output module footprint will be, so you can play with this number to adjust how big the output is.
+
+Please send any questions, comments, or feedback to layne at wayneandlayne dot com.
+
