@@ -1,0 +1,16 @@
+#!/bin/bash
+
+
+ifn='seg16-digi_frame.svg'
+ngc=`basename $ifn .svg`.ngc
+
+xmltojson < $ifn | \
+  jq -r '.svg.g.path[].d' | \
+  svgpath2gp --ngc /dev/stdin > frame.ngc
+  #svgpath2gp /dev/stdin > face.gp
+
+grecode -shift 0 310 frame.ngc > _frame.ngc
+mv _frame.ngc frame.ngc
+
+
+
