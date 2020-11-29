@@ -80,6 +80,8 @@ in particular, the [synth presets](https://github.com/charlieroberts/gibber.audi
 
 Here are some table for ease of perusal:
 
+---
+
 | Synth Presets | Synth Presets |
 |---|---|
 | acidBass | acidBass2 | bleep.dry |
@@ -92,6 +94,7 @@ Here are some table for ease of perusal:
 
 ([synth_presets.js](https://github.com/charlieroberts/gibber.audio.lib/blob/main/js/presets/synth_presets.js))
 
+---
 
 | FM Presets | FM Presets | FM Presets |
 |---|---|---|
@@ -100,6 +103,8 @@ Here are some table for ease of perusal:
 | gong  | drum  | |
 
 ([fm_presets.js](https://github.com/charlieroberts/gibber.audio.lib/blob/main/js/presets/fm_presets.js))
+
+---
 
 
 | MonoSynth Presets | MonoSynth Presets | MonoSynth Presets |
