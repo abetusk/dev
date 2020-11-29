@@ -82,32 +82,36 @@ Here are some table for ease of perusal:
 
 | Synth Presets | Synth Presets |
 |---|---|
-| acidBass | acidBass2 |
-| shimmer | stringPad |
-| cry | brass |
-| chirp | rhodes |
+| acidBass | acidBass2 | bleep.dry |
+| bleep | bleep.echo | shimmer |
+| stringPad | cry | brass |
+| brass.short | pwm.squeak | pwm.short |
+| chirp | square.perc | square.perc.long |
+| rhodes | | |
+
 
 ([synth_presets.js](https://github.com/charlieroberts/gibber.audio.lib/blob/main/js/presets/synth_presets.js))
 
 
-| FM Presets | FM Presets |
-|---|---|
-| bass  | kick |
-| glockenspiel | frog  |
-| gong  | | drum  |
+| FM Presets | FM Presets | FM Presets |
+|---|---|---|
+| bass  | kick | bass.electro |
+| glockenspiel | glockenspiel.short | frog  |
+| gong  | drum  | |
 
 ([fm_presets.js](https://github.com/charlieroberts/gibber.audio.lib/blob/main/js/presets/fm_presets.js))
 
 
 | MonoSynth Presets | MonoSynth Presets | MonoSynth Presets |
 |---|---|---|
-| arpy  | lead  | lead2  |
-| dirty | winsome  | pluckEcho |
-| bassPad | warble  | dark |
-| bass | bass2  | edgy |
-| easy  | easyfx  | chords |
-| jump | shinybass2 | shinybass |
-| short | noise | | 
+|  short.dry | arpy | lead |
+|  lead2 | dirty | winsome |
+|  pluckEcho | bassPad | warble |
+|  dark | bass | bass2 |
+|  edgy | easy | easyfx |
+|  chords | chords.short | jump |
+|  shinybass2 | shinybass | bass.muted |
+|  short | noise |  |
 
 ([monosynth_presets.js](https://github.com/charlieroberts/gibber.audio.lib/blob/main/js/presets/monosynth_presets.js))
 
