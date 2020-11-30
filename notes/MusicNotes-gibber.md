@@ -122,6 +122,51 @@ Here are some table for ease of perusal:
 
 ---
 
+old version presets:
+
+| FM |
+|---|
+| bass |
+| brass |
+| clarinet |
+| drum |
+| drum2 |
+| frog |
+| glockenspiel |
+| gong |
+| noise |
+| radio |
+| stabs |
+
+| Mono |
+|---|
+| bass |
+| bass2 |
+| dark |
+| dark2 |
+| easy |
+| easyfx |
+| edgy |
+| lead |
+| noise |
+| short |
+| winsome |
+
+| Synth |
+|---|
+| bleep |
+| bleepEcho |
+| calvin |
+| cascade |
+| rhodes |
+| short |
+| warble |
+
+| Synth2 |
+|---|
+| pad2 |
+| pad4 |
+
 Buses connect multiple inputs or outputs to single effect.
 For example, it might be a desired effect to twiddle a single parameter that then has an effect on multiple
 instruments.
