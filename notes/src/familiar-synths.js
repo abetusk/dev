@@ -2314,6 +2314,7 @@ function _alg_v_1_0() {
 }
 
 function _alg_v_1_1() {
+  var rythm_rescale = 4.0;
 
   var rythm_opt = [
     [ [2, 2], [1, 1, 1, 1], [2,2], [1, 1, 1, 1] ],
@@ -2388,11 +2389,11 @@ function _alg_v_1_1() {
   for (var i=0; i<arp_chord.length; i++) {
     for (var j=0; j<arp_chord[i].chord.length; j++) {
       arp_chord_note.push(arp_chord[i].chord[j]);
-      arp_chord_note_dt.push(0.25);
+      arp_chord_note_dt.push( 1.0 / rythm_rescale );
     }
     for (var j=0; j<arp_chord[i].chord.length; j++) {
       arp_chord_note.push(arp_chord[i].chord[j]);
-      arp_chord_note_dt.push(0.25);
+      arp_chord_note_dt.push( 1.0 / rythm_rescale );
     }
   }
 
@@ -2450,7 +2451,7 @@ function _alg_v_1_1() {
     var bar_notes = _apick(chord_prog[ii].chord, 2);
     rythm = rythm_opt[ rythm_opt_idx ][ii];
     for (var jj=0; jj<rythm.length; jj++) {
-      melody0_info.push( { "note": bar_notes[_irnd(bar_notes.length)], "dur": rythm[jj] } );
+      melody0_info.push( { "note": bar_notes[_irnd(bar_notes.length)], "dur": rythm[jj] / rythm_rescale } );
     }
   }
 
@@ -2463,7 +2464,7 @@ function _alg_v_1_1() {
     rythm = rythm_opt[ rythm1_opt_idx ][ii];
     //console.log(bar_notes, bar_notes.length, _irnd(bar_notes.length), bar_notes[_irnd(bar_notes.length)]);
     for (var jj=0; jj<rythm.length; jj++) {
-      melody1_info.push( { "note": bar_notes[_irnd(bar_notes.length)], "dur": rythm[jj] } );
+      melody1_info.push( { "note": bar_notes[_irnd(bar_notes.length)], "dur": rythm[jj] / rythm_rescale } );
     }
   }
 
@@ -2489,8 +2490,11 @@ function _alg_v_1_1() {
   for (var ii=0; ii<12; ii++) { note_name.push( fs.noteName[ii] + "6" ); }
 
 
-  var bass_instrument = { "type":"PolySynth", "preset":"stringPad"};
-  var arp_instrument = {"type":"FM", "preset":"bass"};
+  var bass_instrument = { "type":"PolySynth", "preset":"stringPad", "loudness":1, "decay":4};
+  //var bass_instrument = { "type":"PolySynth", "preset":"brass", "loudness":1, "decay":4};
+
+  //var arp_instrument = {"type":"FM", "preset":"bass"};
+  var arp_instrument = {"type":"Monosynth", "preset":"bass2", "loudness":0.8, "decay":0.12}; // **
 
   // having some trouble...
   // lead, lead2, dark, short.dry,
@@ -2502,7 +2506,7 @@ function _alg_v_1_1() {
   // 
   // looks like loudness > 1 might screw things up
   //
-  var melody0_instrument = {"type":"FM", "preset":"brass"};
+  //var melody0_instrument = {"type":"FM", "preset":"brass"};
 
   // ones I like...
   //var melody0_instrument = {"type":"Monosynth", "preset":"short.dry"};
@@ -2515,20 +2519,36 @@ function _alg_v_1_1() {
   //var melody0_instrument = {"type":"Monosynth", "preset":"bass2", "loudness":2, "decay":0.95};
   //var melody0_instrument = {"type":"Monosynth", "preset":"easy", "loudness":1, "decay":0.95};
   //var melody0_instrument = {"type":"Monosynth", "preset":"shinybass2", "loudness":2, "decay":0.95}; // **
-  //var melody0_instrument = {"type":"Monosynth", "preset":"shinybass", "loudness":3, "decay":1.95}; // **
+  var melody0_instrument = {"type":"Monosynth", "preset":"shinybass", "loudness":1, "decay":0.95}; // **
   //var melody0_instrument = {"type":"Monosynth", "preset":"bass.muted", "loudness":4, "decay":1.95};
   //var melody0_instrument = {"type":"Monosynth", "preset":"short", "loudness":1, "decay":0.95};
 
+  var melody1_instrument = {"type":"Monosynth", "preset":"shinybass", "loudness":1, "decay":0.95}; // **
+
   console.log("");
   console.log('Gibber.clear();');
-  console.log("Clock.bpm=240;");
+  console.log("Clock.bpm=180;");
   console.log('Theory.mode = "chromatic";');
   console.log('Theory.root = "' + note_name[root_note_idx] + '";');
   console.log('sv = Bus2("spaceverb");');
 
+  // simple drums for now
+  console.log("// simple drums");
+  console.log('/*');
+  console.log('* kik = Kick("tight");');
+  console.log('* kik.gain = 2;');
+  console.log('* kik.connect(sv, 0.5);');
+  console.log('* kik.trigger.seq( 1, Euclid(2,4)) ;');
+  console.log('* */;');
+  console.log('e = EDrums().connect( sv, .1 );');
+  console.log('e.tidal("kd <cp kd cp kd>");');
+  console.log('e.kick.gain = 2.5;');
+  console.log('e.kick.decay = .995;');
+  console.log('e.kick.frequency = 60;');
+
 
   console.log("// chord progression");
-  s = 'bass = ' + bass_instrument.type + '("' + bass_instrument.preset + '", {"decay":1, "maxVoices":4, "loudness":2});\n';
+  s = 'bass = ' + bass_instrument.type + '("' + bass_instrument.preset + '", {"decay":' + bass_instrument.decay.toString() + ', "maxVoices":4, "loudness":' + bass_instrument.loudness.toString() + '});\n';
   s += 'bass.connect(sv, .35);\n';
   s += "bass.chord.seq( [";
   for (var ii=0; ii<chord_prog.length; ii++) {
@@ -2576,7 +2596,7 @@ function _alg_v_1_1() {
   */
 
   console.log("// arp progression");
-  s = 'a = ' + arp_instrument.type + '("' + arp_instrument.preset + '", {"decay":0.45,"loudness":0.25});\n';
+  s = 'a = ' + arp_instrument.type + '("' + arp_instrument.preset + '", {"decay":' + arp_instrument.decay.toString() + ',"loudness":' + arp_instrument.loudness.toString() + '});\n';
   s += 'a.connect(sv, 0.5);\n';
   s += "a.note.seq( [";
   for (var ii=0; ii<arp_prog.length; ii++) {
@@ -2593,7 +2613,7 @@ function _alg_v_1_1() {
   s += "], [";
   for (var ii=0; ii<arp_prog.length; ii++) {
     if (ii>0) { s += ","; }
-    s += ' 0.5';
+    s += ' 0.125';
   }
   s += "]);";
   console.log(s);
@@ -2604,7 +2624,7 @@ function _alg_v_1_1() {
 
   console.log("// melody0");
 
-  s = 'm0 = ' + melody0_instrument.type + '("' + melody0_instrument.preset + '", {"loudness":2});\n';
+  s = 'm0 = ' + melody0_instrument.type + '("' + melody0_instrument.preset + '", {"decay":' + melody0_instrument.decay.toString() + ',"loudness":' + melody0_instrument.loudness.toString() + '});\n';
   s += 'm0.connect(sv, 0.5);\n';
   s += 'm0.note.seq( [';
   for (var ii=0; ii<melody0_info.length; ii++) {
@@ -2622,6 +2642,36 @@ function _alg_v_1_1() {
   for (var ii=0; ii<melody0_info.length; ii++) {
     if (ii>0) { s += ","; }
     s += ' ' + melody0_info[ii].dur.toString();
+  }
+  s += "] );";
+  console.log(s);
+
+
+  //---
+  // melody 1
+  //---
+
+  console.log("");
+  console.log("// melody1");
+
+  s = 'm1 = ' + melody1_instrument.type + '("' + melody1_instrument.preset + '", {"loudness":2});\n';
+  s += 'm1.connect(sv, 0.5);\n';
+  s += 'm1.note.seq( [';
+  for (var ii=0; ii<melody1_info.length; ii++) {
+    if (ii>0) { s += ","; }
+
+    if (use_str_note) {
+      s += ' "' + note_name[root_note_idx + melody1_info[ii].note].toUpperCase() + '"';
+    } else {
+      var _n = root_note_idx + melody1_info[ii].note;
+      s += ' ' + _n.toString() + ' ';
+    }
+
+  }
+  s += " ], [ ";
+  for (var ii=0; ii<melody1_info.length; ii++) {
+    if (ii>0) { s += ","; }
+    s += ' ' + melody1_info[ii].dur.toString();
   }
   s += "] );";
   console.log(s);
