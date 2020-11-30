@@ -82,8 +82,8 @@ Here are some table for ease of perusal:
 
 ---
 
-| Synth Presets | Synth Presets |
-|---|---|
+| Synth Presets | Synth Presets | Synth Presets |
+|---|---|---|
 | acidBass | acidBass2 | bleep.dry |
 | bleep | bleep.echo | shimmer |
 | stringPad | cry | brass |
