@@ -142,3 +142,4 @@ References
 * [Tutorial Vid](https://www.youtube.com/watch?v=hqWIdaAjdmI)
 * [github.com/charlieroberts/gibber.audio.lib](https://github.com/charlieroberts/gibber.audio.lib)
 * [TidalCycles](https://tidalcycles.org/index.php/Userbase)
+* [Gibber User Manual](https://bigbadotis.gitbooks.io/gibber-user-manual/content/index.html)
