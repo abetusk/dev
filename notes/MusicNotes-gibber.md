@@ -74,6 +74,33 @@ Note, as a sanity check, you can use the web application [pitchdetect](https://w
 
 ---
 
+Here is a quick snippet to fade out the gain:
+
+```
+bass = Monosynth('bass')
+bass.note.seq( [0,7], 1/4 )
+bass.gain.fade(1,0,8);
+```
+
+This works to stop `bass` from playing:
+
+```
+bass.stop();
+```
+
+There's a way to do this in the old version of Gibber (with future?) and I suspect with the new Gibber as well but
+here's a hacky way to do this:
+
+```
+bass = Monosynth('bass')
+bass.note.seq( [0,7], 1/4 )
+
+setTimeout( function() { bass.gain.fade( bass.gain.value, 0, 2); }, 1000);
+setTimeout( function() { bass.stop(); }, 8000);
+```
+
+---
+
 Gibber comes with presets of instruments but I can't find documentation for them anywhere.
 See the [presets directory](https://github.com/charlieroberts/gibber.audio.lib/tree/main/js/presets),
 in particular, the [synth presets](https://github.com/charlieroberts/gibber.audio.lib/blob/main/js/presets/synth_presets.js).
