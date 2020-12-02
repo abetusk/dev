@@ -58,7 +58,7 @@ def conv_image_to_module(image, module_name, scale_factor):
         for x in range(w):
             #print image.getpixel((x,y))
             if image.getpixel((x, y)) == 0:
-                module += make_pixel(scale_factor * x, scale_factor * y, scale_factor)
+                module += make_pixel(scale_factor * float(x), scale_factor * float(y), scale_factor)
     module += footer % {"name": module_name}
     return module, (scale_factor * w, scale_factor * h)
 
@@ -77,7 +77,7 @@ def main():
     input_image = sys.argv[1]
     output_filename = sys.argv[2]
     module_name = sys.argv[3]
-    scale_factor = int(sys.argv[4])
+    scale_factor = float(sys.argv[4])
 
     print "Reading image from \"%s\"" % input_image
 
