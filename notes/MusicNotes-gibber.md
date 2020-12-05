@@ -98,6 +98,42 @@ bass.note.seq( [0,7], 1/4 )
 setTimeout( function() { bass.gain.fade( bass.gain.value, 0, 2); }, 1000);
 setTimeout( function() { bass.stop(); }, 8000);
 ```
+---
+
+There's a `future` function that looks to maybe do what I want.
+
+The problem I was running into is that the audio thread is working in it's own sectioned off environment (web worker?)
+so it doesn't have a lot of context.
+
+From  `charlieroberts` in a `TOPLAP` discussion, this schedules an event for 1s in the future (presumably because of 44100 sample rate):
+
+```
+Clock.bpm = 120
+Theory.root = 'd#4'
+Theory.mode = 'dorian'
+  
+verb  = Bus2( 'spaceverb' )
+delay = Bus2( 'delay.1/6' )
+  
+bass = Synth('acidBass2', { saturation:20, gain:.3 })
+  .connect( delay, .25 )
+  
+bass.note.tidal( '0 0 0 0 4 6 0 ~ 0 ~ 7 -7 ~ 0 -7 0' )
+bass.decay.seq( [1/32, 1/16], 1/2 )
+bass.glide.seq( [1,1,100,100 ], 1/4 )
+bass.Q = gen( 0.5 + cycle(0.1) * 0.49 )
+bass.cutoff = gen( 0.5 + cycle(0.07) * 0.45 ) 
+bass.gain = 0.0 
+
+future( s => {s.gain = 0.2;}, 44100, { s:bass });
+```
+
+Doing the following doesn't work (and crashes the audio thread?):
+
+```
+...
+future( s => { s.gain.fade( a.gain.value, 0.2, 1; }, 44100, { s:bass });
+```
 
 ---
 
