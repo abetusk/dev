@@ -3399,7 +3399,7 @@ function _alg_v_1_3() {
 
   var bass_choice = [
     { "type":"PolySynth", "preset":"stringPad", "loudness":1, "decay":4},
-    { "type":"PolySynth", "preset":"rhodes", "loudness":1, "decay":4},
+    { "type":"PolySynth", "preset":"rhodes", "loudness":2, "decay":4},
     { "type":"PolySynth", "preset":"cry", "loudness":1, "decay":4},
     { "type":"PolySynth", "preset":"brass", "loudness":1, "decay":4}
   ];
@@ -3508,8 +3508,8 @@ function _alg_v_1_3() {
         s += ' "' + note_name[root_note_idx + chord_prog[ii].chord[jj]] + '"';
       } else{
         //var _n = root_note_idx + chord_prog[ii].chord[jj];
-        //var _n = chord_prog[ii].chord[jj];
-        var _n = chord_prog[ii].chord[jj] - 12;
+        var _n = chord_prog[ii].chord[jj];
+        //var _n = chord_prog[ii].chord[jj] - 12;
         s += ' ' + _n.toString() + ' ';
       }
     }
@@ -3682,20 +3682,86 @@ function _alg_v_1_3() {
   s += "] );";
   console.log(s);
 
-  console.log("m0.gain.fade(m0.gain.value, 0, 0.01);");
-  console.log("m0_u.gain.fade(m0_u.gain.value, 0, 0.01);");
-  console.log("m1.gain.fade(m1.gain.value, 0, 0.01);");
-  console.log("m1_u.gain.fade(m1_u.gain.value, 0, 0.01);");
-  console.log("a.gain.fade(a.gain.value, 0, 0.01);");
-  console.log("a_u.gain.fade(a_u.gain.value, 0, 0.01);");
-  console.log("bass.gain.fade(bass.gain.value, 0, 0.01);");
-  console.log("e.gain.fade(e.gain.value, 0, 0.01);");
+  console.log("m0.gain = 0;");
+  console.log("m0_u.gain = 0;");
+  console.log("m1.gain = 0;");
+  console.log("m1_u.gain = 0;");
+  console.log("a.gain = 0;");
+  console.log("a_u.gain = 0;");
+  console.log("bass.gain = 0;");
+  console.log("e.gain = 0;");
+
 
   var beat_ms = 60*1000 / bpm;
   var measure_ms = 4*4*beat_ms;
   var wait_unit_ms = 4*measure_ms;
   var fudge = 50;
+
+  var _quarter = 4;
+  var _half = 8;
+  var _full = 16;
+  var _song_t = 0;
+
   console.log(" ");
+  _song_t += _half;
+  console.log("future( _a => { _a.gain = 0.2; }, ", _song_t, ", {_a:a});");
+
+  _song_t += _half;
+  console.log("bass.gain.fade( 0.0, 0.2, 4, ", _song_t, ");");
+
+  _song_t += _quarter;
+  console.log("a_u.gain.fade ( 0.0, 0.1, 1, ", _song_t, ");");
+
+  _song_t += _half;
+  console.log("a_u.gain.fade ( 0.1, 0.0, 1, ", _song_t, ");");
+
+  _song_t += _quarter;
+  console.log("e.gain.fade   ( 0.0, 1.0, 1, ", _song_t, ");");
+
+  _song_t += _full;
+  console.log("future( _m0 => { _m0.gain = 0.2; } , ", _song_t, ", {_m0:m0});");
+
+  _song_t += _full;
+  console.log("future( _m0 => { _m0.gain = 0.0; } , ", _song_t, ", {_m0:m0});");
+  console.log("future( _m1 => { _m1.gain = 0.2; } , ", _song_t, ", {_m1:m1});");
+
+  _song_t += _full;
+  console.log("future( _m1 => { _m1.gain = 0.0; } , ", _song_t, ", {_m1:m1});");
+  console.log("a_u.gain.fade( 0.0, 0.2, 2, ", _song_t, ");");
+
+  _song_t += _quarter;
+  console.log("m0.gain.fade( 0.0, 0.2, 4, ", _song_t, ");");
+  console.log("m0_u.gain.fade( 0.0, 0.2, 4, ", _song_t, ");");
+
+  _song_t += _quarter;
+  console.log("m1.gain.fade( 0.0, 0.2, 4, ", _song_t, ");");
+  console.log("m1_u.gain.fade( 0.0, 0.2, 4, ", _song_t, ");");
+
+  _song_t += _half;
+  console.log("bass.gain.fade(0.2, 0.0, 4, ", _song_t, ");");
+
+  _song_t += _quarter;
+  console.log("future( _m0   => { _m0.gain   = 0.0; } , ", _song_t, ", { _m0   : m0   });");
+  console.log("future( _m0_u => { _m0_u.gain = 0.0; } , ", _song_t, ", { _m0_u : m0_u });");
+
+  _song_t += _quarter;
+  console.log("future( _m1   => { _m1.gain   = 0.0; } , ", _song_t, ", { _m1   : m1   });");
+  console.log("future( _m1_u => { _m1_u.gain = 0.0; } , ", _song_t, ", { _m1_u : m1_u });");
+
+  _song_t += _quarter;
+  console.log("future( _a    => { _a.gain    = 0.0; } , ", _song_t, ", { _a    : a    });");
+  console.log("future( _a_u  => { _a_u.gain  = 0.0; } , ", _song_t, ", { _a_u  : a_u  });");
+
+  _song_t += _quarter;
+  //console.log("future( _e    => { _e.gain    = 0.0; } , ", _song_t, ", { _e    : e    });");
+  console.log("e.gain.fade( 1.0, 0.0, 0.24, ", _song_t, ");");
+
+
+  /*
+
+
+  console.log("");
+
   console.log("setTimeout( function() { console.log('+a'); a.gain.fade(a.gain.value, 0.2, 0.1); }, ", 2*measure_ms - fudge, ");");
   console.log("setTimeout( function() { console.log('+b'); bass.gain.fade(bass.gain.value, 0.2, 16); }, ", wait_unit_ms - fudge, ");");
 
@@ -3727,6 +3793,7 @@ function _alg_v_1_3() {
   console.log("setTimeout( function() { console.log('-d'); e.gain.fade(e.gain.value, 0.0, 0.25); }, ", 8*wait_unit_ms  + 4*measure_ms - fudge, ");");
 
 
+  */
 
 }
 
