@@ -2537,12 +2537,6 @@ function _alg_v_1_1() {
 
   // simple drums for now
   console.log("// simple drums");
-  console.log('/*');
-  console.log('* kik = Kick("tight");');
-  console.log('* kik.gain = 2;');
-  console.log('* kik.connect(sv, 0.5);');
-  console.log('* kik.trigger.seq( 1, Euclid(2,4)) ;');
-  console.log('* */;');
   console.log('e = EDrums().connect( sv, .1 );');
   console.log('e.tidal("kd <cp kd cp kd>");');
   console.log('e.kick.gain = 2.5;');
@@ -3150,7 +3144,8 @@ function _alg_v_1_3() {
     [0, 1, 1, 0],
     [0, 0, 0, 1]
   ];
-  var rythm0 = [], rythm1 = [];
+  var rythm0 = [], rythm1 = [],
+      rythm_lib = [];
 
   // random rythms...
   //
@@ -3515,7 +3510,7 @@ function _alg_v_1_3() {
     }
     s += ' ]';
   }
-  s += "], 4);";
+  s += "], 1);";
   console.log(s);
 
   // arp 0
@@ -3697,9 +3692,9 @@ function _alg_v_1_3() {
   var wait_unit_ms = 4*measure_ms;
   var fudge = 50;
 
-  var _quarter = 4;
-  var _half = 8;
-  var _full = 16;
+  var _quarter = 1;
+  var _half = 2;
+  var _full = 4;
   var _song_t = 0;
 
   console.log(" ");
@@ -3753,47 +3748,560 @@ function _alg_v_1_3() {
   console.log("future( _a_u  => { _a_u.gain  = 0.0; } , ", _song_t, ", { _a_u  : a_u  });");
 
   _song_t += _quarter;
-  //console.log("future( _e    => { _e.gain    = 0.0; } , ", _song_t, ", { _e    : e    });");
   console.log("e.gain.fade( 1.0, 0.0, 0.24, ", _song_t, ");");
 
+}
 
-  /*
+function _alg_v_1_4() {
+
+  var bpm = 100;
+  var rythm_rescale = 8.0;
+
+  var fs = new FamiliarSynths();
+  var arp_dt = 0.5 / rythm_rescale;
+
+  var rythm_symmetry = [
+    [0, 1, 0, 1],
+    [0, 1, 1, 0],
+    [0, 0, 0, 1]
+  ];
+  var rythm_lib = [];
+  var melody_count = 4;
+  var melody_info = [];
+
+
+  // random rythms...
+  //
+  //var beat_quantize = 0.125;
+  var beat_quantize = 0.25;
+
+  //var pareto_m = 0.125, pareto_alpha = 2.5;
+  //var pareto_m = 0.2, pareto_alpha = 2.95;
+  var pareto_m = 0.1, pareto_alpha = 1.25;
+
+  // measure patterns hold the two measures,
+  // each randomely generated (4 below, but only 2 are used).
+  // They symmetry above is used to give some structure
+  // to the 4 bar measure so it doesn't sound completely random.
+  //
+  var _measure_pattern = [];
+  for (var _measure_pattern_idx=0; _measure_pattern_idx < melody_count; _measure_pattern_idx++) {
+    for (var ii=0; ii<4; ii++) {
+
+      _measure_pattern.push([]);
+
+      var beat_sum = 0.0;
+      var _measure = [];
+      for (var jj=0; jj<16; jj++) {
+        var dt = _quantize( stoch.pareto(pareto_m, pareto_alpha), beat_quantize ) + beat_quantize;
+        if ((beat_sum+dt) >= 1.0) {
+          _measure.push(1.0 - beat_sum);
+          break;
+        }
+        else {
+          _measure.push(dt);
+        }
+        beat_sum += dt;
+      }
+      _measure_pattern[_measure_pattern_idx].push(_measure);
+    }
+
+  }
+
+  // pick the melody timing 'symmetry' and create the two
+  // rythms for both melodies.
+  //
+
+  for (var _measure_idx=0; _measure_idx < melody_count; _measure_idx++) {
+
+    rythm_lib.push([]);
+
+    var rythm_symmetry_idx = _irnd(rythm_symmetry.length);
+
+    console.log("// sym:", rythm_symmetry[rythm_symmetry_idx]);
+
+    for (var jj=0; jj<4; jj++) {
+
+      var _m = _measure_pattern[_measure_idx][ rythm_symmetry[rythm_symmetry_idx][jj] ];
+      var _measure = [];
+      for (var _n=0; _n<_m.length; _n++) {
+        _measure.push( _m[_n] );
+      }
+      rythm_lib[_measure_idx].push(_measure);
+    }
+
+  }
+
+
+
+  var root_note_idx = _irnd(12);
+  var root_note_name = fs.noteName[ root_note_idx ];
+
+  // transition from one mode to another?
+  //
+  var song_mode = ["lydian", "aeolian"];
+
+  // Get the chord progression for the mode of our choice
+  //
+  var mode_chord = fs.musicalModeChord[song_mode[1]];
+  var mode_chord4 = fs.musicalModeChord4[song_mode[1]];
+
+  // Get list of major chords for chord progression below.
+  // Also save the index lookup from major chords back to the
+  // original chord list.
+  //
+  var mode_maj_chord_idx_map = {};
+  var mode_maj_chord = [];
+  for (var i=0; i<mode_chord.length; i++) {
+    if (mode_chord[i].type == "maj") {
+      mode_maj_chord_idx_map[mode_maj_chord.length] = i;
+      mode_maj_chord.push(mode_chord[i]);
+    }
+  }
+
+  var chord_prog_idx = [];
+
+  // basic chord progression:
+  // * 4 bars
+  // * root chord to start
+  // * any two chord transitions
+  // * end on major chord
+  //
+  var chord_prog = [];
+  chord_prog_idx.push(0);
+  chord_prog.push(mode_chord[0]);
+  for (var i=1; i<3; i++) {
+    var r = _irnd(mode_chord.length);
+    chord_prog_idx.push(r);
+    chord_prog.push( mode_chord[r] );
+  }
+  var r = _irnd(mode_maj_chord.length);
+  chord_prog_idx.push(r);
+  chord_prog.push( mode_maj_chord[r] );
+
+
+  // playing with 7th chords for arp
+  //
+  var arp_chord = [];
+  arp_chord.push( mode_chord4[0] );
+  for (var i=0; i<(chord_prog.length-1); i++) {
+    arp_chord.push( mode_chord4[i] );
+  }
+  var idx = mode_maj_chord_idx_map[ chord_prog_idx[ chord_prog_idx.length-1 ] ];
+  arp_chord.push( mode_chord4[idx] );
+
+  var arp_chord_note = [];
+  var arp_chord_note_dt = [];
+  for (var i=0; i<arp_chord.length; i++) {
+    for (var j=0; j<arp_chord[i].chord.length; j++) {
+      arp_chord_note.push(arp_chord[i].chord[j]);
+      //arp_chord_note_dt.push( 1.0 / rythm_rescale );
+      arp_chord_note_dt.push( 0.5 / rythm_rescale );
+    }
+    for (var j=0; j<arp_chord[i].chord.length; j++) {
+      arp_chord_note.push(arp_chord[i].chord[j]);
+      //arp_chord_note_dt.push( 1.0 / rythm_rescale );
+      arp_chord_note_dt.push( 0.5 / rythm_rescale );
+    }
+  }
+
+
+  // arp
+  //
+
+  // simple hill ( _/-\_ )
+  //
+
+  var arp_octave = 1;
+  var arp_note_occ = [];
+  for (var ii=0; ii<24; ii++) { arp_note_occ.push(0); }
+  for (var ii=0; ii<chord_prog.length; ii++) {
+    for (var jj=0; jj<chord_prog[ii].chord.length; jj++) {
+      arp_note_occ[ chord_prog[ii].chord[jj] ] = 1;
+    }
+  }
+  var arp_note = [];
+  for (var ii=0; ii<arp_note_occ.length; ii++) {
+    if (arp_note_occ[ii] == 1) {
+      arp_note.push(ii + 12*arp_octave);
+    }
+  }
+
+  // mirror the arp, permute all but first note,
+  // then restrict to only
+  // 8 notes
+  //
+  var x = _mirror(arp_note);
+  //x = _permute(x, 1, arp_note.length-1);
+  var arp_prog =  [];
+  var n_arp = 8;
+  for (var prev=-1, ii=0; ii<x.length; ii++) {
+    var idx = Math.floor( n_arp * ii / x.length );
+    if (idx<=prev) { continue; }
+    arp_prog.push(x[ii]);
+    prev = idx;
+  }
+
+  // play with permuting arp...
+  //
+  var permute_arp = true;
+  if (permute_arp) {
+    for (var ii=1; ii<arp_prog.length; ii++) {
+      var nt = arp_prog[ii];
+      var p = ii + Math.floor( Math.random() * (arp_prog.length - ii) );
+      arp_prog[ii] = arp_prog[p];
+      arp_prog[p] = nt;
+    }
+  }
+
+  // create melody by choosing random two notes from
+  // each bar of chord progression
+  //
+
+  for (_melody_idx=0; _melody_idx<melody_count; _melody_idx++) {
+
+    melody_info.push([]);
+
+    for (var ii=0; ii<chord_prog.length; ii++) {
+      var bar_notes = _apick(chord_prog[ii].chord, 2);
+
+      console.log("//m", _melody_idx, "...", ii, "bar_notes:", bar_notes);
+
+      for (var jj=0; jj<rythm_lib[_melody_idx][ii].length; jj++) {
+        melody_info[_melody_idx].push( { "note": bar_notes[_irnd(bar_notes.length)], "dur": rythm_lib[_melody_idx][ii][jj] } );
+      }
+    }
+
+  }
+
+
+  var _song_structure = [ [''] ];
+
+  //**************************
+  //**************************
+  //**************************
+  //**************************
+  //**************************
+  // print gibber output
+  //
+
+  var use_str_note = false;
+
+  var s;
+  var note_name = [];
+  for (var ii=0; ii<12; ii++) { note_name.push( fs.noteName[ii] + "3" ); }
+  for (var ii=0; ii<12; ii++) { note_name.push( fs.noteName[ii] + "4" ); }
+  for (var ii=0; ii<12; ii++) { note_name.push( fs.noteName[ii] + "5" ); }
+  for (var ii=0; ii<12; ii++) { note_name.push( fs.noteName[ii] + "6" ); }
+
+
+  var bass_choice = [
+    { "type":"PolySynth", "preset":"stringPad", "loudness":0.5, "decay":1},
+    //{ "type":"PolySynth", "preset":"rhodes", "loudness":2, "decay":4},
+    { "type":"PolySynth", "preset":"cry", "loudness":0.5, "decay":1},
+    { "type":"PolySynth", "preset":"brass", "loudness":0.5, "decay":1}
+  ];
+  //var bass_instrument = { "type":"PolySynth", "preset":"stringPad", "loudness":2, "decay":4};
+  //var bass_instrument = { "type":"PolySynth", "preset":"rhodes", "loudness":2, "decay":4};
+  //var bass_instrument = { "type":"PolySynth", "preset":"cry", "loudness":2, "decay":4};
+  //var bass_instrument = { "type":"PolySynth", "preset":"brass", "loudness":1, "decay":4};
+  var bass_instrument = bass_choice[ _irnd(bass_choice.length) ];
+
+  //var arp_instrument = {"type":"FM", "preset":"bass"};
+  //var arp_instrument = {"type":"Monosynth", "preset":"bass2", "loudness":0.8, "decay":0.12}; // **
+  //var arp_instrument = {"type":"Monosynth", "preset":"bass2", "loudness":1.2, "decay":0.12}; // **
+  //var arp_instrument = {"type":"Monosynth", "preset":"shinybass", "loudness":1.2, "decay":0.12}; // **
+  var arp_instrument = {"type":"Monosynth", "preset":"shinybass", "loudness":2, "decay":0.12}; // **
+  //var arp_instrument = {"type":"Monosynth", "preset":"arpy", "loudness":0.8, "decay":0.12}; // **
+
+  // ones I like...
+  //var melody0_instrument = {"type":"Monosynth", "preset":"short.dry"};
+  //var melody0_instrument = {"type":"Monosynth", "preset":"arpy", "loudness":2, "decay":0.95};
+  //var melody0_instrument = {"type":"Monosynth", "preset":"lead", "loudness":1, "decay":0.5};
+  //var melody0_instrument = {"type":"Monosynth", "preset":"dirty", "loudness":1, "decay":0.5};
+  //var melody0_instrument = {"type":"Monosynth", "preset":"pluckedEcho", "loudness":1, "decay":0.5};
+  //var melody0_instrument = {"type":"Monosynth", "preset":"dark", "loudness":1, "decay":0.5};
+  //var melody0_instrument = {"type":"Monosynth", "preset":"bass", "loudness":2, "decay":0.95}; // **
+  //var melody0_instrument = {"type":"Monosynth", "preset":"bass2", "loudness":2, "decay":0.95};
+  //var melody0_instrument = {"type":"Monosynth", "preset":"easy", "loudness":1, "decay":0.95};
+  //var melody0_instrument = {"type":"Monosynth", "preset":"shinybass2", "loudness":2, "decay":0.95}; // **
+
+
+  //var melody0_instrument = {"type":"Monosynth", "preset":"shinybass", "loudness":2, "decay":0.95}; // **
+  var melody_instrument = [
+    {"type":"Monosynth", "preset":"bass2", "loudness":2, "decay":0.95},
+    {"type":"Monosynth", "preset":"bass2", "loudness":2, "decay":0.95},
+    {"type":"Monosynth", "preset":"arpy", "loudness":2, "decay":0.95},
+    {"type":"Monosynth", "preset":"arpy", "loudness":2, "decay":0.95}
+  ];
+
+  //var melody0_instrument = {"type":"Monosynth", "preset":"bass.muted", "loudness":4, "decay":1.95};
+  //var melody0_instrument = {"type":"Monosynth", "preset":"short", "loudness":1, "decay":0.95};
+
+  // change melody decay rate based on max note length
+  //
+  for (var _melody_idx = 0; _melody_idx < melody_count; _melody_idx++) {
+    var min_dt = 0.95;
+    for (var ii=0; ii<melody_info[_melody_idx].length; ii++) {
+      if (min_dt > melody_info[_melody_idx][ii].dur) {
+        min_dt = melody_info[_melody_idx][ii].dur;
+      }
+    }
+    melody_instrument[_melody_idx].decay = min_dt;
+  }
 
 
   console.log("");
+  console.log('Gibber.clear();');
+  console.log("Clock.bpm=", bpm, ";");
+  console.log('Theory.mode = "chromatic";');
+  console.log("// root_note_idx", root_note_idx);
+  console.log('Theory.root = "' + note_name[root_note_idx] + '";');
+  console.log('sv = Bus2("spaceverb");');
 
-  console.log("setTimeout( function() { console.log('+a'); a.gain.fade(a.gain.value, 0.2, 0.1); }, ", 2*measure_ms - fudge, ");");
-  console.log("setTimeout( function() { console.log('+b'); bass.gain.fade(bass.gain.value, 0.2, 16); }, ", wait_unit_ms - fudge, ");");
-
-  console.log("setTimeout( function() { console.log('+a^'); a_u.gain.fade(a_u.gain.value, 0.1, 1); }, ", wait_unit_ms  + 1*measure_ms- fudge, ");");
-  //console.log("setTimeout( function() { console.log('+a'); a.gain.fade(a.gain.value, 0.3, 1); }, ", wait_unit_ms  + 1*measure_ms- fudge, ");");
-
-  console.log("setTimeout( function() { console.log('-a^'); a_u.gain.fade(a_u.gain.value, 0.03, 1); }, ", wait_unit_ms  + 3*measure_ms- fudge, ");");
- // console.log("setTimeout( function() { console.log('~a'); a.gain.fade(a.gain.value, 0.2, 1); }, ", wait_unit_ms  + 3*measure_ms- fudge, ");");
-
-  console.log("setTimeout( function() { console.log('+d'); e.gain.fade(e.gain.value, 1.0, 0.1); }, ", 2*wait_unit_ms - fudge, ");");
-
-  console.log("setTimeout( function() { console.log('+m0'); m0.gain.fade(m0.gain.value, 0.2, 0.5); }, ", 3*wait_unit_ms - fudge,  ");");
-  console.log("setTimeout( function() { console.log('-m0'); m0.gain.fade(m0.gain.value, 0.0, 0.25); }, ", 4*wait_unit_ms - fudge,  ");");
-
-  console.log("setTimeout( function() { console.log('+m1'); m1.gain.fade(m1.gain.value, 0.2, 0.5);  }, ", 4*wait_unit_ms - fudge, ");");
-  console.log("setTimeout( function() { console.log('-m1'); m1.gain.fade(m1.gain.value, 0.0, 0.251);  }, ", 5*wait_unit_ms - fudge, ");");
-
-  console.log("setTimeout( function() { console.log('+a^'); a_u.gain.fade(a_u.gain.value, 0.2, 2); }, ", 5*wait_unit_ms - fudge,  ");");
-
-  console.log("setTimeout( function() { console.log('+m0');  m0.gain.fade(m0.gain.value, 0.2, 1.1); }, ", 6*wait_unit_ms - fudge,  ");");
-  console.log("setTimeout( function() { console.log('+m0^'); m0_u.gain.fade(m0_u.gain.value, 0.2, 1.1); }, ", 6*wait_unit_ms + measure_ms - fudge,  ");");
-  console.log("setTimeout( function() { console.log('+m1');  m1.gain.fade(m1.gain.value, 0.2, 1.1);    }, ", 6*wait_unit_ms + 2*measure_ms - fudge, ");");
-  console.log("setTimeout( function() { console.log('+m1^'); m1_u.gain.fade(m1_u.gain.value, 0.2, 1.1);   }, ", 6*wait_unit_ms + 3*measure_ms - fudge, ");");
-
-  console.log("setTimeout( function() { console.log('-b'); bass.gain.fade(bass.gain.value, 0.0, 4);  }, ", 8*wait_unit_ms-fudge, ");");
-  console.log("setTimeout( function() { console.log('-m0-m0^'); m0.gain.fade(m0.gain.value, 0.0, 0.1); m0_u.gain.fade(m0_u.gain.value, 0.0, 0.25);  }, ", 8*wait_unit_ms + 1*measure_ms -fudge, ");");
-  console.log("setTimeout( function() { console.log('-m1-m1^'); m1.gain.fade(m1.gain.value, 0.0, 0.1); m1_u.gain.fade(m1_u.gain.value, 0.0, 0.25);  }, ", 8*wait_unit_ms + 2*measure_ms -fudge, ");");
-  console.log("setTimeout( function() { console.log('-a-a^'); a.gain.fade(a.gain.value, 0.0, 0.1); a_u.gain.fade(a_u.gain.value, 0.0, 0.25); }, ", 8*wait_unit_ms + 3*measure_ms - fudge, ");");
-  console.log("setTimeout( function() { console.log('-d'); e.gain.fade(e.gain.value, 0.0, 0.25); }, ", 8*wait_unit_ms  + 4*measure_ms - fudge, ");");
+  // simple drums for now
+  console.log("// simple drums");
+  console.log('e = EDrums().connect( sv, .1 );');
+  console.log('e.tidal("[ kd <cp kd cp kd> ]");');
+  console.log('e.kick.gain = 2.5;');
+  console.log('e.kick.decay = .995;');
+  console.log('e.kick.frequency = 60;');
 
 
-  */
+  console.log("// chord progression");
+  s = 'bass = ' + bass_instrument.type + '("' + bass_instrument.preset + '", {"decay":' + bass_instrument.decay.toString() + ', "maxVoices":4, "loudness":' + bass_instrument.loudness.toString() + '});\n';
+  s += 'bass.connect(sv, .35);\n';
+  s += "bass.chord.seq( [";
+  for (var ii=0; ii<chord_prog.length; ii++) {
+    if (ii > 0) { s+= ','; }
+    s += ' [';
+    for (var jj=0; jj<chord_prog[ii].chord.length; jj++) {
+      if ((jj)>0) { s += ","; }
+      if (use_str_note) {
+        s += ' "' + note_name[root_note_idx + chord_prog[ii].chord[jj]] + '"';
+      } else{
+        var _n = chord_prog[ii].chord[jj];
+        s += ' ' + _n.toString() + ' ';
+      }
+    }
+    s += ' ]';
+  }
+  s += "], 1);";
+  console.log(s);
+
+  // arp 0
+
+  console.log("// arp progression");
+  s = 'a = ' + arp_instrument.type + '("' + arp_instrument.preset + '", ' +
+      ' {"decay":' + arp_instrument.decay.toString() + ',"loudness":' + arp_instrument.loudness.toString() + '});\n';
+  s += 'a.connect(sv, 0.5);\n';
+  s += "a.note.seq( [";
+  for (var ii=0; ii<arp_prog.length; ii++) {
+    if (ii>0) { s += ","; }
+
+    if (use_str_note) {
+      s += ' "' + note_name[root_note_idx + arp_prog[ii]] + '"';
+    } else {
+      var _n = arp_prog[ii] ;
+      s += ' ' + _n.toString() + ' ';
+    }
+
+  }
+  s += "], [";
+  for (var ii=0; ii<arp_prog.length; ii++) {
+    if (ii>0) { s += ","; }
+    //s += ' 0.125';
+    s += ' ' + arp_dt;
+  }
+  s += "]);";
+  console.log(s);
+
+  // arp 0
+
+  console.log("// arp octave++ progression");
+  s = 'a_u = ' + arp_instrument.type + '("' + arp_instrument.preset + '", ' +
+      ' {"decay":' + arp_instrument.decay.toString() + ',"loudness":' + arp_instrument.loudness.toString() + '});\n';
+  s += 'a_u.connect(sv, 0.5);\n';
+  s += "a_u.note.seq( [";
+  for (var ii=0; ii<arp_prog.length; ii++) {
+    if (ii>0) { s += ","; }
+
+    if (use_str_note) {
+      s += ' "' + note_name[root_note_idx + arp_prog[ii] + 12] + '"';
+    } else {
+      //var _n = root_note_idx + arp_prog[ii] ;
+      var _n = arp_prog[ii] + 12;
+      s += ' ' + _n.toString() + ' ';
+    }
+
+  }
+  s += "], [";
+  for (var ii=0; ii<arp_prog.length; ii++) {
+    if (ii>0) { s += ","; }
+    //s += ' 0.125';
+    s += ' ' + arp_dt;
+  }
+  s += "]);";
+  console.log(s);
+
+  //---
+  // melody 0
+  //---
+
+  for (var _melody_idx = 0; _melody_idx < melody_count; _melody_idx++) {
+
+    var instrument_var = "m" + _melody_idx;
+
+    console.log("// melody", _melody_idx);
+
+    s = instrument_var + ' = ' + melody_instrument[_melody_idx].type +
+      '("' + melody_instrument[_melody_idx].preset + 
+          '", {"decay":' + melody_instrument[_melody_idx].decay.toString() + ',"loudness":' + melody_instrument[_melody_idx].loudness.toString() + '});\n';
+    s += instrument_var + '.connect(sv, 0.5);\n';
+    s += instrument_var + '.note.seq( [';
+    for (var ii=0; ii<melody_info[_melody_idx].length; ii++) {
+      if (ii>0) { s += ","; }
+
+      if (use_str_note) {
+        s += ' "' + note_name[root_note_idx + melody_info[_melody_idx][ii].note].toUpperCase() + '"';
+      } else {
+        //var _n = root_note_idx + melody_info[_melody_idx][ii].note;
+        var _n = melody_info[_melody_idx][ii].note;
+        s += ' ' + _n.toString() + ' ';
+      }
+
+    }
+    s += " ], [ ";
+    for (var ii=0; ii<melody_info[_melody_idx].length; ii++) {
+      if (ii>0) { s += ","; }
+      s += ' ' + melody_info[_melody_idx][ii].dur.toString();
+    }
+    s += "] );";
+    console.log(s);
+
+    s = instrument_var + '_u = ' +
+      melody_instrument[_melody_idx].type +
+      '("' + melody_instrument[_melody_idx].preset + '", {"decay":' + melody_instrument[_melody_idx].decay.toString() + ',"loudness":' + melody_instrument[_melody_idx].loudness.toString() + '});\n';
+    s += instrument_var + '_u.connect(sv, 0.5);\n';
+    s += instrument_var + '_u.note.seq( [';
+    for (var ii=0; ii<melody_info[_melody_idx].length; ii++) {
+      if (ii>0) { s += ","; }
+
+      if (use_str_note) {
+        s += ' "' + note_name[root_note_idx + melody_info[_melody_idx][ii].note + 12].toUpperCase() + '"';
+      } else {
+        //var _n = root_note_idx + melody_info[_melody_idx][ii].note;
+        var _n = melody_info[_melody_idx][ii].note + 12;
+        _n %= 24;
+        s += ' ' + _n.toString() + ' ';
+      }
+
+    }
+    s += " ], [ ";
+    for (var ii=0; ii<melody_info[_melody_idx].length; ii++) {
+      if (ii>0) { s += ","; }
+      s += ' ' + melody_info[_melody_idx][ii].dur.toString();
+    }
+    s += "] );";
+    console.log(s);
+
+  }
+
+
+  var gain_str = "";
+  for (var _melody_idx=0; _melody_idx < melody_count; _melody_idx++) {
+    var instrument_var = "m" + _melody_idx;
+    gain_str += " " + instrument_var + ".gain = 0;";
+    gain_str += " " + instrument_var + "_u.gain = 0;";
+  }
+  gain_str += " a.gain = 0;";
+  gain_str += " a_u.gain = 0;";
+  gain_str += " bass.gain = 0;";
+  gain_str += " e.gain = 0;";
+  console.log(gain_str);
+
+
+  var beat_ms = 60*1000 / bpm;
+  var measure_ms = 4*4*beat_ms;
+  var wait_unit_ms = 4*measure_ms;
+  var fudge = 50;
+
+  var _quarter = 1;
+  var _half = 2;
+  var _full = 4;
+  var _song_t = 0;
+
+  console.log(" ");
+  _song_t += _half;
+  console.log("future( _a => { _a.gain = 0.2; }, ", _song_t, ", {_a:a});");
+
+  _song_t += _half;
+  console.log("bass.gain.fade( 0.0, 0.2, 4, ", _song_t, ");");
+
+  _song_t += _quarter;
+  console.log("a_u.gain.fade ( 0.0, 0.1, 1, ", _song_t, ");");
+
+  _song_t += _half;
+  console.log("a_u.gain.fade ( 0.1, 0.0, 1, ", _song_t, ");");
+
+  _song_t += _quarter;
+  console.log("e.gain.fade   ( 0.0, 1.0, 1, ", _song_t, ");");
+
+  _song_t += _full;
+  console.log("future( _m0 => { _m0.gain = 0.2; } , ", _song_t, ", {_m0:m0});");
+
+  //_song_t += _half + _quarter;
+  _song_t += 3*_full;
+  console.log("future( _m0 => { _m0.gain = 0.0; } , ", _song_t, ", {_m0:m0});");
+  console.log("future( _m1 => { _m1.gain = 0.2; } , ", _song_t, ", {_m1:m1});");
+
+  //_song_t += _quarter;
+  _song_t += _full;
+  console.log("future( _m1 => { _m1.gain = 0.0; } , ", _song_t, ", {_m1:m1});");
+  console.log("future( _m2 => { _m2.gain = 0.2; } , ", _song_t, ", {_m2:m2});");
+
+  //_song_t += _half + _quarter;
+  _song_t += 3*_full;
+  console.log("future( _m2 => { _m2.gain = 0.0; } , ", _song_t, ", {_m2:m2});");
+  console.log("future( _m3 => { _m3.gain = 0.2; } , ", _song_t, ", {_m3:m3});");
+
+  //_song_t += _quarter;
+  _song_t += _full;
+  console.log("future( _m3 => { _m3.gain = 0.0; } , ", _song_t, ", {_m3:m3});");
+
+  console.log("a_u.gain.fade( 0.0, 0.2, 2, ", _song_t, ");");
+
+  //_song_t += _quarter;
+  _song_t += _full;
+  console.log("m0.gain.fade( 0.0, 0.2, 4, ", _song_t, ");");
+  console.log("m0_u.gain.fade( 0.0, 0.2, 4, ", _song_t, ");");
+
+  //_song_t += _quarter;
+  _song_t += _full;
+  console.log("m1.gain.fade( 0.0, 0.2, 4, ", _song_t, ");");
+  console.log("m1_u.gain.fade( 0.0, 0.2, 4, ", _song_t, ");");
+
+  //_song_t += _half;
+  _song_t += 2*_full;
+  console.log("bass.gain.fade(0.2, 0.0, 4, ", _song_t, ");");
+
+  //_song_t += _quarter;
+  _song_t += _full;
+  console.log("future( _m0   => { _m0.gain   = 0.0; } , ", _song_t, ", { _m0   : m0   });");
+  console.log("future( _m0_u => { _m0_u.gain = 0.0; } , ", _song_t, ", { _m0_u : m0_u });");
+
+  //_song_t += _quarter;
+  _song_t += _full;
+  console.log("future( _m1   => { _m1.gain   = 0.0; } , ", _song_t, ", { _m1   : m1   });");
+  console.log("future( _m1_u => { _m1_u.gain = 0.0; } , ", _song_t, ", { _m1_u : m1_u });");
+
+  _song_t += _quarter;
+  console.log("future( _a    => { _a.gain    = 0.0; } , ", _song_t, ", { _a    : a    });");
+  console.log("future( _a_u  => { _a_u.gain  = 0.0; } , ", _song_t, ", { _a_u  : a_u  });");
+
+  _song_t += _quarter;
+  //console.log("future( _e    => { _e.gain    = 0.0; } , ", _song_t, ", { _e    : e    });");
+  console.log("e.gain.fade( 1.0, 0.0, 0.24, ", _song_t, ");");
 
 }
 
@@ -4160,7 +4668,8 @@ function _sonic_pi_beat(x) {
 //_alg_v_1_0();
 //_alg_v_1_1();
 //_alg_v_1_2();
-_alg_v_1_3();
+//_alg_v_1_3();
+_alg_v_1_4();
 
 
 /// testing drum beat stuff
