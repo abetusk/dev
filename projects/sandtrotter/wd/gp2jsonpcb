@@ -1,0 +1,98 @@
+#!/usr/bin/python3
+#
+# License: CC0
+#
+# To the extent possible under law, the author(s) have dedicated all copyright
+# and related and neighboring rights to this software to the public domain worldwide.
+# This software is distributed without any warranty.
+#
+
+import sys, re, json
+import copy
+
+#wtf_px2mm = 0.26458/6
+LIBRARY_NAME = "sandtrotter_outline"
+LINE_WIDTH = 50
+data = {}
+
+def mm2decithou(x):
+  #return(wtf_px2mm * 10000.0 * float(x) / 25.4)
+  return(10000.0 * float(x) / 25.4)
+
+def _mm2decithou(x):
+  #return(round(wtf_px2mm * 10000.0 * float(x) / 25.4))
+  return(round(10000.0 * float(x) / 25.4))
+
+edge_template = {
+  "library_name": "...", "name": "...",
+  "layer": "15", "attribute1": "00000000",
+  "timestamp": "00000000", "units": "deci-mils",
+  "x": 0, "y": 0,
+  "angle": 0, "orientation": "0",
+  "timestamp_op": "00000000",
+  "attribute2": "~~",
+  "rotation_cost_90": "0",
+  "rotation_cost_180": "0",
+  "rotation_cost_misc": "0",
+  "text": [ { "sizex": 0.0, "layer": "21", "angle": 0.0, 
+      "text": "", "misc": "misc", "number": "0", "sizey": 0.0, "visible": False,
+      "flag": "N", "y": 0.0, "x": 0.0, "rotation": "0", "penwidth": 0.0
+    }, 
+    {
+      "sizex": 0.0, "layer": "21", "angle": 0.0, "text": "", 
+      "misc": "misc", "number": "0", "sizey": 0.0, "visible": False, 
+      "flag": "N", "y": 0.0, "x": 0.0, "rotation": "0", "penwidth": 0.0
+    }
+  ], 
+  "art": [ ],
+  "pad": []
+}
+
+edge_element_template = {
+  "shape": "segment",
+  "layer": "28",
+  "starty": -12106.299212598426,
+  "startx": -11023.622047244095,
+  "endx": -10334.645669291338,
+  "endy": -12795.275590551182,
+  "line_width": 50
+}
+
+fn = ""
+if len(sys.argv) > 1:
+  fn = sys.argv[1]
+ 
+
+if len(fn) == 0:
+  print("provide fn");
+  sys.exit(1)
+
+raw_data = []
+
+with open(fn) as fp:
+  for line in fp:
+    line = line.strip()
+    if len(line) == 0: continue
+    if line[0]=='#': continue
+    tok = line.split(" ")
+    if len(tok) < 2: continue
+    raw_data.append([ float(tok[0]), float(tok[1]) ])
+
+_part = copy.deepcopy(edge_template)
+_part["name"] = LIBRARY_NAME
+_part["library_name"] = LIBRARY_NAME
+
+for idx in range(1,len(raw_data)+1):
+  el = copy.deepcopy(edge_element_template)
+  el["startx"] = _mm2decithou(raw_data[idx-1][0])
+  el["starty"] = _mm2decithou(raw_data[idx-1][1])
+  el["endx"] = _mm2decithou(raw_data[(idx%len(raw_data))][0])
+  el["endy"] = _mm2decithou(raw_data[(idx%len(raw_data))][1])
+  el["line_width"] = LINE_WIDTH
+
+  _part["art"].append(el)
+
+
+print( json.dumps(_part, indent=2))
+
+

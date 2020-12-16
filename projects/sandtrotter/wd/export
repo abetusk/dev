@@ -1,0 +1,38 @@
+#!/bin/bash
+
+mkdir -p .wd
+
+pxpmm=` echo "984/260.35001" | bc -l`
+m=1000000
+#im=`echo "1.0/$m" | bc -l`
+im=`echo "1.0/($pxpmm*$m)" | bc -l`
+
+xmltojson < experiment_4.svg | \
+  jq -r '.svg.g[0].path.d' | \
+  svgpath2gp --combine --error 0.001 --segment 2 /dev/stdin > out.0.gp
+
+#clipcli -F -R 0.125 -x $m -X $im  -s out.0.gp > out.1.gp
+clipcli -F -R 0.125 -x $m -X $im  -s out.0.gp > out.1.gp
+
+weakpwh  -F 100000 out.1.gp > .wd/out.wpg
+
+rm -f out.0.gp
+rm -f out.1.gp
+
+####
+
+xmltojson < experiment_4.svg | \
+  jq -r '.svg.g[1].path.d' | \
+  svgpath2gp --combine --error 0.001 --segment 2 /dev/stdin > out_edge.1.gp
+
+clipcli -F -R 0.125 -x $m -X $im  -s out_edge.1.gp > .wd/out_edge.gp
+
+rm -f out_edge.1.gp
+
+###
+
+gp2json_mod_art.py .wd/out.wpg  > sandtrotter_soldermask.json
+./gp2jsonpcb .wd/out_edge.gp > sandtrotter_edge.json
+
+rm -f .wd/out.wpg
+rm -f .wd/out_edge.gp
