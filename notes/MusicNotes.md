@@ -8,7 +8,6 @@ and insight I've gained as I learn.
 The focus is on synths.
 
 
-
 Timbre
 ---
 
@@ -321,6 +320,56 @@ live_loop :strange do
   sleep 0.5
 end
 ```
+
+Composition
+---
+
+Higher than basic melody, drums and instrument timbre on the "Musical Maslow" hierarchy
+is composition.
+This is the higher level song structure of how different melodies are chained together
+to create a larger song.
+
+I've seen a few different variations, but two basic song structures are:
+
+```
+intro (4) | verse (8) | pre-chorus (8) | chorus (8) | verse (8) | pre-chorus (8) | chorus (8) | bridge (8) | chorus (16)
+```
+
+and
+
+```
+intro (4) | verse (16) | pre-chorus (4) | chorus (8) | verse (8) | pre-chorus (4) | chorus (8) | bridge (8) | chorus (8) | outro (8)
+```
+
+With verses, pre-choruses and choruses all having slight variations between them.
+
+Some thoughts and tips I've seen:
+
+* The intro need only 'fade in' to the first verse and can be timed layering of instruments to lead into the song
+* The outra can be the analogous 'fade out' mirror image of the intro (removing instruments, volume fading, etc.)
+* Each of the verse, chorus and bridge occupy a significant place in the song and should be considered
+  to have their own importance and weight (think of one as lesser to your detriment)
+* The pre-chorus is meant to be a short connector between the verse and the chorus
+  - the pre-chorus should be 'softer' than the chorus (either in volume, instrument number, etc.), to give the chorus more impact
+  - the pre-chorus should stay away from starting on the root chord as it would take away the impact of the chorus
+* The chorus should differentiate itself from the verse
+  - one possibility is to choose a complementary rhythm for the chorus and verse (short notes in verse -> longer notes in chorus)
+* Choruses should have more energy than verses
+  - one way to acheive this is to add instruments in the chorus or take out instruments in the verse
+  - singers can sing higher in chorus than in verse (could also be lead instrument or arp?)
+  - choruses should have simple phrases repeated (perhaps the song name for the earworm factor) whereas the verse can be more wordy
+
+One tactic that can be used to added varation to structure is to take 'motifs' and repeat with subtle alterations.
+
+Here are some posibilities (where the first array are the notes and the second are the note durations):
+
+| Base Sequence | Transformation | Notes |
+|---|---|---|
+| `[[a,b,c,d],[da,db,dc,dd]]` | `[[.,a,b,c,.],[du,da,db,dc,dv]]` | take a portion of the measure and shift it, cleaving off the notes at the front or end |
+| `[[a,b,c,d],[da,db,dc,dd]]` | `[[a,b,c,d(+|-))],[da,db,dc,dd]]` | increase or decrease the notes at the tail of the measure |
+
+
+
 
 Melody
 ---
