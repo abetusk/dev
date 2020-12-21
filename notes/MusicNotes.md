@@ -366,7 +366,7 @@ Here are some posibilities (where the first array are the notes and the second a
 | Base Sequence | Transformation | Notes |
 |---|---|---|
 | `[[a,b,c,d],[da,db,dc,dd]]` | `[[.,a,b,c,.],[du,da,db,dc,dv]]` | take a portion of the measure and shift it, cleaving off the notes at the front or end |
-| `[[a,b,c,d],[da,db,dc,dd]]` | `[[a,b,c,d(+|-))],[da,db,dc,dd]]` | increase or decrease the notes at the tail of the measure |
+| `[[a,b,c,d],[da,db,dc,dd]]` | `[[a,b,c,d(+,-))],[da,db,dc,dd]]` | increase or decrease the notes at the tail of the measure |
 
 
 
