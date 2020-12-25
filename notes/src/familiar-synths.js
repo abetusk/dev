@@ -134,12 +134,12 @@ function FamiliarSynths() {
     "locrian": [0,+1,+3,+5,+6,+8,+10],
     "ionian":  [0,+2,+4,+5,+7,+9,+11],
     "dorian":  [0,+2,+3,+5,+7,+9,+10],
-    "phyrgian": [0,+1,+3,+5,+7,+8,+10],
+    "phrygian": [0,+1,+3,+5,+7,+8,+10],
     "lydian":  [0,+2,+4,+6,+7,+9,+11] ,
     "mixolydian":  [0,+2,+4,+5,+7,+9,+10]
   };
 
-  this.musicalModeList = [ "aeolian", "locrian", "ionian", "dorian", "phyrgian", "lydian", "mixolydian" ];
+  this.musicalModeList = [ "aeolian", "locrian", "ionian", "dorian", "phrygian", "lydian", "mixolydian" ];
 
   // key is mode (from musicalMode)
   // val array of objects of  {"type":..., "chord":[...],"name":...}
@@ -5943,6 +5943,8 @@ function _alg_v_1_7() {
     [0, 0, 0, 1]
   ];
 
+  var mode_choice = [ "ionian", "dorian", "phrygian", "lydian", "mixolydian", "aeolian", "locrian" ];
+
   var arp_dt = 0.5 / rythm_rescale;
   var rythm_rescale = 8.0;
 
@@ -5980,7 +5982,7 @@ function _alg_v_1_7() {
   var song_option = {
     "structure" : [ "intro", "verse", "pre-chorus", "chorus", "verse", "pre-chorus", "chorus", "bridge", "chorus", "outro" ],
 
-    "bpm" : 90,
+    "bpm" : bpm_choice[ _irnd(bpm_choice.length) ],
 
     "root_note_idx": root_note_idx,
     "root_note" : fs.noteName[ root_note_idx ],
@@ -5998,7 +6000,8 @@ function _alg_v_1_7() {
 
     "verse" : {
 
-      "mode":"lydian",
+      //"mode":"lydian",
+      "mode": mode_choice[ _irnd(mode_choice.length) ],
 
       "length" : [8, 8],
 
@@ -6007,7 +6010,8 @@ function _alg_v_1_7() {
       "motif" : "none",
 
       "tempo" : {
-        "symmetry": [0,1,1,0],
+        //"symmetry": [0,1,1,0],
+        "symmetry": rythm_symmetry[ _irnd(rythm_symmetry.length) ],
         "pareto_m" : 0.25/4 - _eps,
         "pareto_alpha" : 1.25,
         "beat_quantize": 0.25/2,
@@ -6020,10 +6024,13 @@ function _alg_v_1_7() {
     },
 
     "chorus": {
-      "mode":"lydian",
+      //"mode":"lydian",
+      "mode": mode_choice[ _irnd(mode_choice.length) ],
+
       "length" : [8, 8, 16],
       "tempo" : {
-        "symmetry": [0,1,0,1],
+        //"symmetry": [0,1,0,1],
+        "symmetry": rythm_symmetry[ _irnd(rythm_symmetry.length) ],
         "pareto_m" : 0.25/2 - _eps,
         "pareto_alpha" : 1.75,
         "beat_quantize": 0.25/2,
@@ -6032,10 +6039,14 @@ function _alg_v_1_7() {
     },
 
     "bridge": {
-      "mode":"lydian",
+      //"mode":"lydian",
+      "mode": mode_choice[ _irnd(mode_choice.length) ],
+
       "length" : [8],
+
       "tempo" : {
-        "symmetry":[0,0,0,1],
+        //"symmetry":[0,0,0,1],
+        "symmetry": rythm_symmetry[ _irnd(rythm_symmetry.length) ],
         "pareto_m" : 0.25/2 - _eps,
         "pareto_alpha" : 1.35,
         "beat_quantize": 0.25/2,
@@ -6117,9 +6128,12 @@ function _alg_v_1_7() {
 
     var melody_count = 4;
 
-    var song_mode = "aeolian";
+    //var song_mode = "aeolian";
+    var song_mode = song_info.option[_part].mode;
     var mode_chord = fs.musicalModeChord[song_mode];
     var mode_chord4 = fs.musicalModeChord4[song_mode];
+
+    console.log("//", song_mode);
 
 
     song_info.part[_part].root_note_idx     = root_note_idx;
@@ -6270,7 +6284,7 @@ function _alg_v_1_7() {
     for (var ii=0; ii<rythm_pattern.length; ii++) {
       var bar_notes = _apick(chord_prog[ii].chord, 2);
 
-      console.log("melody, chord:", chord_prog[ii].chord, ", _apick:", bar_notes);
+      //console.log("melody, chord:", chord_prog[ii].chord, ", _apick:", bar_notes);
 
       for (var jj=0; jj<rythm_pattern[ii].length; jj++) {
         melody_info.push( { "note": bar_notes[_irnd(bar_notes.length)], "dur": rythm_pattern[ii][jj] } );
@@ -6313,7 +6327,7 @@ function _alg_v_1_7() {
     { "type":"PolyMono", "preset":"bass2", "loudness":_bass_loud, "decay":1, "cutoff":0.1},
     { "type":"PolyMono", "preset":"edgy", "loudness":_bass_loud, "decay":1, "cutoff":0.1},
     { "type":"PolyMono", "preset":"shinybass2", "loudness":_bass_loud, "decay":1, "cutoff":0.3},
-    { "type":"PolyMono", "preset":"shinybass", "loudness":_bass_loud, "decay":1, "cutoff":0.1},
+    //{ "type":"PolyMono", "preset":"shinybass", "loudness":_bass_loud, "decay":1, "cutoff":0.1},
     { "type":"PolyMono", "preset":"bass.muted", "loudness":_bass_loud, "decay":1, "cutoff":0.2},
     { "type":"PolyMono", "preset":"short", "loudness":_bass_loud, "decay":1, "cutoff":0.2},
     { "type":"PolySynth", "preset":"stringPad", "loudness":_bass_loud, "decay":1, "cutoff":0.2},
@@ -6328,7 +6342,8 @@ function _alg_v_1_7() {
   var bass_instrument = bass_choice[ _irnd(bass_choice.length) ];
 
   var arp_choice = [
-    {"type":"Monosynth", "preset":"bass2", "loudness":0.8, "decay":0.12},
+    //{"type":"Monosynth", "preset":"bass2", "loudness":0.8, "decay":0.12},
+    //{"type":"Monosynth", "preset":"shinybass2", "loudness":2, "decay":0.12}, // has troubles
     {"type":"Monosynth", "preset":"shinybass", "loudness":2, "decay":0.12},
     {"type":"Monosynth", "preset":"arpy", "loudness":0.8, "decay":0.12} 
   ];
@@ -6356,11 +6371,12 @@ function _alg_v_1_7() {
   //var melody0_instrument = {"type":"Monosynth", "preset":"shinybass2", "loudness":2, "decay":0.95}; // **
 
   var melody_choice = [
-    {"type":"Monosynth", "preset":"shinybass2", "loudness":2, "decay":0.95},
+    //{"type":"Monosynth", "preset":"shinybass2", "loudness":2, "decay":0.95},
+    //{"type":"Monosynth", "preset":"shinybass", "loudness":2, "decay":0.95},
     {"type":"Monosynth", "preset":"easy", "loudness":1, "decay":0.95},
     //{"type":"Monosynth", "preset":"bass", "loudness":2, "decay":0.95}, // having some troubles (b3 + 27)
     {"type":"Monosynth", "preset":"bass2", "loudness":2, "decay":0.95},
-    {"type":"Monosynth", "preset":"dark", "loudness":1, "decay":0.5},
+    //{"type":"Monosynth", "preset":"dark", "loudness":1, "decay":0.5},
     {"type":"Monosynth", "preset":"arpy", "loudness":2, "decay":0.95}
   ];
 
@@ -6420,10 +6436,17 @@ function _alg_v_1_7() {
 
   var parts = [ "verse", "chorus", "bridge" ];
 
+  var var_names = [ ];
+
   for (var _part_idx=0; _part_idx < parts.length; _part_idx++) {
     var _part = parts[_part_idx];
 
+
+    // bass/chord progression
+    //
+
     var var_name = "bass_" + _part;
+    var_names.push(var_name);
 
     var chord_prog = song_info.part[_part].chord_progression;
 
@@ -6452,13 +6475,11 @@ function _alg_v_1_7() {
     s += "], 1);";
     console.log(s);
 
-  //}
-
-  // arp 0
-  //for (var _part_idx=0; _part_idx < parts.length; _part_idx++) {
+    // arp 0
     var _part = parts[_part_idx];
 
     var var_name = "arp_" + _part;
+    var_names.push(var_name);
 
     var arp_prog = song_info.part[_part].arp_progression;
     var arp_dt = song_info.part[_part].arp_progression_dt;
@@ -6491,8 +6512,11 @@ function _alg_v_1_7() {
 
 
     // arp 1
+    // higher octave arp
+    //
 
     var_name += "_u";
+    var_names.push(var_name);
 
     //console.log("// arp octave++ progression");
     s = var_name + ' = ' + arp_instrument.type + '("' + arp_instrument.preset + '", ' +
@@ -6521,17 +6545,16 @@ function _alg_v_1_7() {
     }
     s += "]);";
     console.log(s);
-  //}
 
 
-  //---
-  // melody instruments and progressions
-  //---
+    //---
+    // melody instruments and progressions
+    //---
 
-  //for (var _part_idx=0; _part_idx < parts.length; _part_idx++) {
     var _part = parts[_part_idx];
 
     var var_name = "melody_" + _part;
+    var_names.push(var_name);
 
     var arp_prog = song_info.part[_part].melody_progression;
     var melody_info = song_info.part[_part].melody_info;
@@ -6561,7 +6584,12 @@ function _alg_v_1_7() {
     s += "] );";
     console.log(s);
 
+
+    // higher octave meldoy instrument
+    //
+
     var_name += "_u";
+    var_names.push(var_name);
 
     s = var_name + ' = ' +
       melody_instrument[_part].type +
@@ -6593,30 +6621,9 @@ function _alg_v_1_7() {
 
   }
 
-  return;
-
-  var gain_str = "";
-  for (var _melody_idx=0; _melody_idx < melody_count; _melody_idx++) {
-    var instrument_var = "m" + _melody_idx;
-    gain_str += " " + instrument_var + ".gain = 0;";
-    gain_str += " " + instrument_var + "_u.gain = 0;";
+  for (var ii=0; ii<var_names.length; ii++) {
+    console.log( var_names[ii] + ".gain = 0;");
   }
-  gain_str += " a.gain = 0;";
-  gain_str += " a_u.gain = 0;";
-  gain_str += " bass.gain = 0;";
-  gain_str += " e.gain = 0;";
-  console.log(gain_str);
-
-
-  var beat_ms = 60*1000 / bpm;
-  var measure_ms = 4*4*beat_ms;
-  var wait_unit_ms = 4*measure_ms;
-  var fudge = 50;
-
-  var _quarter = 1;
-  var _half = 2;
-  var _full = 4;
-  var _song_t = 0;
 
   // . |    - nop
   // [0-9]  - fade in over # measures
@@ -6624,223 +6631,165 @@ function _alg_v_1_7() {
   // ;      - fade out over 1 measure
   // :      - fade out over 2 measures
   //
-  /*
-  instrument_schedule = {
-    "a"   : "2... .... .... .... | .... .... .... .... | .... .... .... .... | .... .... .... .... | .... .... !... .... ",
-    "a_u" : ".2.: .... .... .... | .... .... .... .... | .... .... .... .... | 4... .... .... .... | .... .... !... .... ",
-    "bass": ".... 4... .... .... | .... .... .... .... | .... .... .... .... | .... .... .... .... | .... !... .... .... ",
+  var instrument_schedule = {};
 
-    "m0"  : ".... .... .... .... | 0... .... .... !... | .... .... .... .... | 1... .... .... !... | .... .... .... .... ",
-    "m0_u": ".... .... .... .... | .... .... .... .... | .... .... .... .... | .1.. .... .... !... | .... .... .... .... ",
+  var _quarter = 1;
+  var _half = 2;
+  var _full = 4;
+  var _song_t = 0;
 
-    "m1"  : ".... .... .... .... | .... .... .... 0... | !... .... .... .... | .... .... .... 0... | !... .... .... .... ",
-    "m1_u": ".... .... .... .... | .... .... .... .... | .... .... .... .... | .... .... .... 0... | !... .... .... .... ",
+  var _part_idx = {};
+  var instr_active = {};
+  for (var song_part_idx=0; song_part_idx < song_info.option.structure.length; song_part_idx++) {
+    var _part = song_info.option.structure[song_part_idx];
+    _part_idx[_part] = 0;
+  }
 
-    "m2"  : ".... .... .... .... | .... .... .... .... | 0... .... .... !... | 1... .... .... !... | .... .... .... .... ",
-    "m2_u": ".... .... .... .... | .... .... .... .... | .... .... .... .... | .1.. .... .... !... | .... .... .... .... ",
+  for (var ii=0; ii<var_names.length; ii++) {
+    instr_active[var_names[ii]] = false;
+    instrument_schedule[var_names[ii]] = "";
+  }
 
-    "m3"  : ".... .... .... .... | .... .... .... .... | .... .... .... 0... | !... .... .... 0... | !... .... .... .... ",
-    "m3_u": ".... .... .... .... | .... .... .... .... | .... .... .... .... | .... .... .... 0... | !... .... .... .... ",
+  for (var song_part_idx=0; song_part_idx < song_info.option.structure.length; song_part_idx++) {
+    var _part = song_info.option.structure[song_part_idx];
 
-    "e"   : ".... .... 0... .... | .... .... .... .... | .... .... .... .... | .... .... .... .... | .... .... ..!. .... "
-  };
-  */
-  instrument_schedule = {
-    "a"   : "2... .... .... .... | .... .... .... .... | .... .... .... .... | .... .... .... .... | .... .... .... .... | .... .... !... .... ",
-    "a_u" : ".2.: .... .... .... | .... .... .... .... | .... .... .... .... | .... .... 8... .... | .... .... .... .... | .... .... !... .... ",
-    "bass": ".... 4... .... .... | .... .... .... .... | .... .... .... .... | .... .... .... .... | .... .... .... .... | .... !... .... .... ",
+    var _n_measure = song_info.option[_part].length[ _part_idx[_part] ];
 
-    "m0"  : ".... .... .... .... | 0... .... .... !... | .... .... .... .... | 1... .... .... !... | .... .... .... .... | .... .... .... .... ",
-    "m0_u": ".... .... .... .... | .... .... .... .... | .... .... .... .... | .1.. .... .... !... | .... .... .... .... | .... .... .... .... ",
+    if (_part == "intro") {
 
-    "m1"  : ".... .... .... .... | .... .... .... 0... | !... .... .... .... | .... .... .... 0... | .... .... .... .... | !... .... .... .... ",
-    "m1_u": ".... .... .... .... | .... .... .... .... | .... .... .... .... | .... .... .... 0... | .... .... .... .... | !... .... .... .... ",
+      for (var ii=0; ii<var_names.length; ii++) {
+        var var_instr = var_names[ii];
 
-    "m2"  : ".... .... .... .... | .... .... .... .... | 0... .... .... !... | 1... .... .... !... | .... .... .... .... | .... .... .... .... ",
-    "m2_u": ".... .... .... .... | .... .... .... .... | .... .... .... .... | .1.. .... .... !... | .... .... .... .... | .... .... .... .... ",
-
-    "m3"  : ".... .... .... .... | .... .... .... .... | .... .... .... 0... | !... .... .... 0... | .... .... .... .... | !... .... .... .... ",
-    "m3_u": ".... .... .... .... | .... .... .... .... | .... .... .... .... | .... .... .... 0... | .... .... .... .... | !... .... .... .... ",
-
-    "e"   : ".... .... 0... .... | .... .... .... .... | .... .... .... .... | .... .... .... .... | .... .... .... .... | .... .... ..!. .... "
-  };
-
-
-  var melody_sched_sym = {
-    "m0:m1": rythm_symmetry[ _irnd( rythm_symmetry.length ) ],
-    "m2:m3": rythm_symmetry[ _irnd( rythm_symmetry.length ) ],
-  };
-
-  console.log("// melody_sched_sym");
-  console.log("// m0:m1", melody_sched_sym["m0:m1"]);
-  console.log("// m2:m3", melody_sched_sym["m2:m3"]);
-
-  var melody_sched = {
-    "m0": ".... .... .... .... |",
-    "m1": ".... .... .... .... |",
-    "m2": ".... .... .... .... | .... .... .... .... |",
-    "m3": ".... .... .... .... | .... .... .... .... |",
-
-    "m0_u": ".... .... .... .... | .... .... .... .... | .... .... .... .... | .... .... .... ....",
-    "m1_u": ".... .... .... .... | .... .... .... .... | .... .... .... .... | .... .... .... ....",
-    "m2_u": ".... .... .... .... | .... .... .... .... | .... .... .... .... | .... .... .... ....",
-    "m3_u": ".... .... .... .... | .... .... .... .... | .... .... .... .... | .... .... .... ...." 
-
-  };
-
-  for (var idx=0; idx<2; idx++) {
-
-    var instr_a = "m" + (2*idx),
-        instr_b = "m" + (2*idx + 1);
-    var symkey = instr_a + ":" + instr_b;
-
-    for (var ii=0; ii<4; ii++) {
-
-      if (ii==0) {
-        melody_sched[instr_a] += " 0...";
-        melody_sched[instr_b] += " ....";
-        continue;
+        if (var_instr.match(/arp_verse/)) {
+          instr_active[var_instr] = true;
+          instrument_schedule[var_instr] += " " + _n_measure + ".".repeat(_n_measure-1);
+        }
+        else {
+          instrument_schedule[var_instr] += " " + ".".repeat(_n_measure);
+        }
       }
 
-      var cur_idx = melody_sched_sym[symkey][ii];
-      cur_instr = "m" + (2*idx + cur_idx);
+    }
+    else if (_part == "verse") {
 
-      var prv_idx = melody_sched_sym[symkey][ii-1];
-      prv_instr = "m" + (2*idx + prv_idx);
+      for (var ii=0; ii<var_names.length; ii++) {
+        var var_instr = var_names[ii];
 
+        if ( var_instr.match( /_verse/) ) {
+          if (!instr_active[var_instr]) {
+            instrument_schedule[var_instr] += " 0" + ".".repeat(_n_measure-1);
+          }
+          else {
+            instrument_schedule[var_instr] += " " + ".".repeat(_n_measure);
+          }
+          instr_active[var_instr] = true;
 
-      if (cur_instr != prv_instr) {
-        melody_sched[prv_instr] += " !...";
-        melody_sched[cur_instr] += " 0...";
+        }
+        else {
+
+          if (instr_active[var_instr]) {
+            instrument_schedule[var_instr] += " !" + ".".repeat(_n_measure-1);
+          }
+          else {
+            instrument_schedule[var_instr] += " " + ".".repeat(_n_measure);
+          }
+          instr_active[var_instr] = false;
+
+        }
+
       }
-      else {
-        melody_sched[instr_a] += " ....";
-        melody_sched[instr_b] += " ....";
+
+    }
+    else if (_part == "chorus") {
+
+      for (var ii=0; ii<var_names.length; ii++) {
+        var var_instr = var_names[ii];
+
+        if ( var_instr.match( /_chorus/) ) {
+          if (!instr_active[var_instr]) {
+            instrument_schedule[var_instr] += " 0" + ".".repeat(_n_measure-1);
+          }
+          else {
+            instrument_schedule[var_instr] += " " + ".".repeat(_n_measure);
+          }
+          instr_active[var_instr] = true;
+        }
+        else {
+
+          if (instr_active[var_instr]) {
+            instrument_schedule[var_instr] += " !" + ".".repeat(_n_measure-1);
+          }
+          else {
+            instrument_schedule[var_instr] += " " + ".".repeat(_n_measure);
+          }
+          instr_active[var_instr] = false;
+
+        }
+
       }
 
-      //console.log(">>", cur_instr, prv_instr);
-      //console.log(melody_sched[instr_a]);
-      //console.log(melody_sched[instr_b]);
     }
+    else if (_part == "bridge") {
 
-    if (melody_sched_sym[symkey][3] == 0) {
-      melody_sched[instr_a] += " | !...";
-      melody_sched[instr_b] += " | ....";
-    }
-    else {
-      melody_sched[instr_a] += " | ....";
-      melody_sched[instr_b] += " | !...";
-    }
+      for (var ii=0; ii<var_names.length; ii++) {
+        var var_instr = var_names[ii];
 
-    for (var ii=0; ii<3; ii++) {
-      melody_sched[instr_a] += " ....";
-      melody_sched[instr_b] += " ....";
-    }
+        if ( var_instr.match( /_bridge/) ) {
+          if (!instr_active[var_instr]) {
+            instrument_schedule[var_instr] += " 0" + ".".repeat(_n_measure-1);
+          }
+          else {
+            instrument_schedule[var_instr] += " " + ".".repeat(_n_measure);
+          }
+          instr_active[var_instr] = true;
+        }
+        else {
 
-    if (idx==0) {
-      melody_sched[instr_a] += " |"; 
-      melody_sched[instr_b] += " |"; 
+          if (instr_active[var_instr]) {
+            instrument_schedule[var_instr] += " !" + ".".repeat(_n_measure-1);
+          }
+          else {
+            instrument_schedule[var_instr] += " " + ".".repeat(_n_measure);
+          }
+          instr_active[var_instr] = false;
 
-      for (var ii=0; ii<4; ii++) {
-        melody_sched[instr_a] += " ....";
-        melody_sched[instr_b] += " ....";
+        }
+
       }
+
     }
+    else if (_part == "outro") {
+
+      for (var ii=0; ii<var_names.length; ii++) {
+        var var_instr = var_names[ii];
+
+        if (instr_active[var_instr]) {
+          instrument_schedule[var_instr] += " !" + ".".repeat(_n_measure-1);
+        }
+        else {
+          instrument_schedule[var_instr] += " " + ".".repeat(_n_measure);
+        }
+
+      }
+
+    }
+
 
   }
 
-  for (var idx=0; idx<2; idx++) {
-
-    var instr_a  = "m" + (2*idx),
-        instr_au = "m" + (2*idx) + "_u";
-        instr_b  = "m" + (2*idx + 1),
-        instr_bu = "m" + (2*idx + 1) + "_u";
-    var symkey = instr_a + ":" + instr_b;
-
-    for (var ii=0; ii<4; ii++) {
-
-      if (ii==0) {
-        melody_sched[instr_a] += " | 0...";
-        melody_sched[instr_b] += " | ....";
-        melody_sched[instr_au] += " | 0...";
-        melody_sched[instr_bu] += " | ....";
-        continue;
-      }
-
-      var cur_idx = melody_sched_sym[symkey][ii];
-      cur_instr = "m" + (2*idx + cur_idx);
-
-      var prv_idx = melody_sched_sym[symkey][ii-1];
-      prv_instr = "m" + (2*idx + prv_idx);
 
 
-      if (cur_instr != prv_instr) {
-        melody_sched[prv_instr] += " !...";
-        melody_sched[cur_instr] += " 0...";
-        melody_sched[prv_instr + "_u"] += " !...";
-        melody_sched[cur_instr + "_u"] += " 0...";
-      }
-      else {
-        melody_sched[instr_a] += " ....";
-        melody_sched[instr_b] += " ....";
-        melody_sched[instr_au] += " ....";
-        melody_sched[instr_bu] += " ....";
-      }
-
-      //console.log(">>", cur_instr, prv_instr);
-      //console.log(melody_sched[instr_a]);
-      //console.log(melody_sched[instr_b]);
-    }
-
-    if (melody_sched_sym[symkey][3] == 0) {
-      melody_sched[instr_a] += " | !...";
-      melody_sched[instr_b] += " | ....";
-      melody_sched[instr_au] += " | !...";
-      melody_sched[instr_bu] += " | ....";
-    }
-    else {
-      melody_sched[instr_a] += " | ....";
-      melody_sched[instr_b] += " | !...";
-      melody_sched[instr_au] += " | ....";
-      melody_sched[instr_bu] += " | !...";
-    }
-
-    for (var ii=0; ii<3; ii++) {
-      melody_sched[instr_a] += " ....";
-      melody_sched[instr_b] += " ....";
-      melody_sched[instr_au] += " ....";
-      melody_sched[instr_bu] += " ....";
-    }
-
+  for (var key in instrument_schedule) {
+    console.log("//", key, " ".repeat(16-key.length), "|", instrument_schedule[key]);
   }
 
-  for (var _key in melody_sched) {
-    console.log(">>>", _key, melody_sched[_key]);
+  var instrument_gain = {};
+  for (var key in instrument_schedule) {
+    instrument_gain[key] = 0.2;
   }
 
-  var cpy_instr = [ "m0", "m0_u", "m1", "m1_u", "m2", "m2_u", "m3", "m3_u" ];
-  for (var ii=0;  ii< cpy_instr.length; ii++) {
-    instrument_schedule[ cpy_instr[ii] ] = melody_sched[cpy_instr[ii]];
-  }
-
-  var instr = [ "a", "a_u", "bass", "m0", "m0_u", "m1", "m1_u", "m2", "m2_u", "m3", "m3_u", "e" ];
-  for (var ii=0; ii<instr.length; ii++) {
-    console.log("//", instrument_schedule[instr[ii]], "[", instr[ii], "]");
-  }
-
-
-  var instrument_gain = {
-    "a"   : 0.2, "a_u" : 0.2,
-    "m0"  : 0.2, "m0_u": 0.2,
-    "m1"  : 0.2, "m1_u": 0.2,
-    "m2"  : 0.2, "m2_u": 0.2,
-    "m3"  : 0.2, "m3_u": 0.2,
-    "bass": 0.2,
-    "e"   : 1.0
-  }
-
-  console.log("a.cutoff.fade( 0.1, 0.5, 2, 2);");
-  console.log("future( _a => { _a.cutoff = 1.0; }, 4, {_a:a});");
+  //console.log("a.cutoff.fade( 0.1, 0.5, 2, 2);");
+  //console.log("future( _a => { _a.cutoff = 1.0; }, 4, {_a:a});");
 
   var _regex = /[ |]/g;
   for (var instr_var in instrument_schedule) {
@@ -6874,82 +6823,6 @@ function _alg_v_1_7() {
     }
 
   }
-
-  return;
-
-  _song_t = 0;
-
-  console.log(" ");
-  _song_t += _half;
-  console.log("future( _a => { _a.gain = 0.2; }, ", _song_t, ", {_a:a});");
-
-  _song_t += _half;
-  console.log("bass.gain.fade( 0.0, 0.2, 4, ", _song_t, ");");
-
-  _song_t += _quarter;
-  console.log("a_u.gain.fade ( 0.0, 0.1, 1, ", _song_t, ");");
-
-  _song_t += _half;
-  console.log("a_u.gain.fade ( 0.1, 0.0, 1, ", _song_t, ");");
-
-  _song_t += _quarter;
-  console.log("e.gain.fade   ( 0.0, 1.0, 1, ", _song_t, ");");
-
-  _song_t += _full;
-  console.log("future( _m0 => { _m0.gain = 0.2; } , ", _song_t, ", {_m0:m0});");
-
-  //_song_t += _half + _quarter;
-  _song_t += 3*_full;
-  console.log("future( _m0 => { _m0.gain = 0.0; } , ", _song_t, ", {_m0:m0});");
-  console.log("future( _m1 => { _m1.gain = 0.2; } , ", _song_t, ", {_m1:m1});");
-
-  //_song_t += _quarter;
-  _song_t += _full;
-  console.log("future( _m1 => { _m1.gain = 0.0; } , ", _song_t, ", {_m1:m1});");
-  console.log("future( _m2 => { _m2.gain = 0.2; } , ", _song_t, ", {_m2:m2});");
-
-  //_song_t += _half + _quarter;
-  _song_t += 3*_full;
-  console.log("future( _m2 => { _m2.gain = 0.0; } , ", _song_t, ", {_m2:m2});");
-  console.log("future( _m3 => { _m3.gain = 0.2; } , ", _song_t, ", {_m3:m3});");
-
-  //_song_t += _quarter;
-  _song_t += _full;
-  console.log("future( _m3 => { _m3.gain = 0.0; } , ", _song_t, ", {_m3:m3});");
-
-  console.log("a_u.gain.fade( 0.0, 0.2, 2, ", _song_t, ");");
-
-  //_song_t += _quarter;
-  _song_t += _full;
-  console.log("m0.gain.fade( 0.0, 0.2, 4, ", _song_t, ");");
-  console.log("m0_u.gain.fade( 0.0, 0.2, 4, ", _song_t, ");");
-
-  //_song_t += _quarter;
-  _song_t += _full;
-  console.log("m1.gain.fade( 0.0, 0.2, 4, ", _song_t, ");");
-  console.log("m1_u.gain.fade( 0.0, 0.2, 4, ", _song_t, ");");
-
-  //_song_t += _half;
-  _song_t += 2*_full;
-  console.log("bass.gain.fade(0.2, 0.0, 4, ", _song_t, ");");
-
-  //_song_t += _quarter;
-  _song_t += _full;
-  console.log("future( _m0   => { _m0.gain   = 0.0; } , ", _song_t, ", { _m0   : m0   });");
-  console.log("future( _m0_u => { _m0_u.gain = 0.0; } , ", _song_t, ", { _m0_u : m0_u });");
-
-  //_song_t += _quarter;
-  _song_t += _full;
-  console.log("future( _m1   => { _m1.gain   = 0.0; } , ", _song_t, ", { _m1   : m1   });");
-  console.log("future( _m1_u => { _m1_u.gain = 0.0; } , ", _song_t, ", { _m1_u : m1_u });");
-
-  _song_t += _quarter;
-  console.log("future( _a    => { _a.gain    = 0.0; } , ", _song_t, ", { _a    : a    });");
-  console.log("future( _a_u  => { _a_u.gain  = 0.0; } , ", _song_t, ", { _a_u  : a_u  });");
-
-  _song_t += _quarter;
-  //console.log("future( _e    => { _e.gain    = 0.0; } , ", _song_t, ", { _e    : e    });");
-  console.log("e.gain.fade( 1.0, 0.0, 0.24, ", _song_t, ");");
 
 }
 
