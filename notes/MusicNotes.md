@@ -355,13 +355,13 @@ Some thoughts and tips I've seen:
 * The chorus should differentiate itself from the verse
   - one possibility is to choose a complementary rhythm for the chorus and verse (short notes in verse -> longer notes in chorus)
 * Choruses should have more energy than verses
-  - one way to acheive this is to add instruments in the chorus or take out instruments in the verse
+  - one way to achieve this is to add instruments in the chorus or take out instruments in the verse
   - singers can sing higher in chorus than in verse (could also be lead instrument or arp?)
   - choruses should have simple phrases repeated (perhaps the song name for the earworm factor) whereas the verse can be more wordy
 
-One tactic that can be used to added varation to structure is to take 'motifs' and repeat with subtle alterations.
+One tactic that can be used to added variation to structure is to take 'motifs' and repeat with subtle alterations.
 
-Here are some posibilities (where the first array are the notes and the second are the note durations):
+Here are some possibilities (where the first array are the notes and the second are the note durations):
 
 | Base Sequence | Transformation | Notes |
 |---|---|---|
@@ -369,6 +369,29 @@ Here are some posibilities (where the first array are the notes and the second a
 | `[[a,b,c,d],[da,db,dc,dd]]` | `[[a,b,c,d(+,-))],[da,db,dc,dd]]` | increase or decrease the notes at the tail of the measure |
 
 
+### Modulation
+
+Modulation is changing the key or mode during the song.
+One simple effect is to go up half or a whole octave during the song.
+For example, halfway through, going up an octave might give it a 'brighter' or 'more energy' feeling.
+Going up somewhere during the song then going back down (a whole octave) might give the descent more power.
+
+Apparently to go above (or below?) a whole step becomes overly dramatic.
+
+---
+
+Do a key change modulation, one can switch keys during the different parts of a song (verse, chorus, etc.).
+From what I gather, the chorus is in a minor key whereas the verses are in a major key in The Beatles "While My Guitar
+Gently Weeps".
+
+One trick is to choose keys that are 'parallel' (share many of the same chords) and end one stanza with a
+chord that can transition smoothly into a chord in the other key.
+
+Another consideration is to try and switch to a parallel mode that shares the same root note to keep the 'tonal center'.
+
+---
+
+([src](https://youtu.be/Vxac3hHrxg8))
 
 
 Melody
@@ -777,5 +800,10 @@ Music Theory References
 * [Lightnote: How Music Works](https://www.lightnote.co/)
 * [Creating a Synthwave Score](https://modeaudio.com/magazine/the-joy-of-arps-creating-a-synthwave-score)
 * [An Introduction to Species Counterpoint](http://homepage.eircom.net/~gerfmcc/SpeciesOne.html)
+
+Composition Reference
+---
+
+* [YT: Signals Music Studio - Intro to Modulations and Key Changes](https://youtu.be/Vxac3hHrxg8)
 
 
