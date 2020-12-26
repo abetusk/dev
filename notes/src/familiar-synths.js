@@ -6009,11 +6009,14 @@ function _alg_v_1_7() {
       //
       "motif" : "none",
 
+      "range_ub":  12,
+      "range_lb": -12,
+
       "tempo" : {
         //"symmetry": [0,1,1,0],
         "symmetry": rythm_symmetry[ _irnd(rythm_symmetry.length) ],
         "pareto_m" : 0.25/4 - _eps,
-        "pareto_alpha" : 1.25,
+        "pareto_alpha" : 1.05,
         "beat_quantize": 0.25/2,
         "invert" : true
       }
@@ -6027,12 +6030,17 @@ function _alg_v_1_7() {
       //"mode":"lydian",
       "mode": mode_choice[ _irnd(mode_choice.length) ],
 
+      "range_ub":  12,
+      "range_lb": -12,
+
+
+
       "length" : [8, 8, 16],
       "tempo" : {
         //"symmetry": [0,1,0,1],
         "symmetry": rythm_symmetry[ _irnd(rythm_symmetry.length) ],
         "pareto_m" : 0.25/2 - _eps,
-        "pareto_alpha" : 1.75,
+        "pareto_alpha" : 0.75,
         "beat_quantize": 0.25/2,
         "invert" : false
       }
@@ -6044,11 +6052,15 @@ function _alg_v_1_7() {
 
       "length" : [8],
 
+      "range_ub":  12,
+      "range_lb": -12,
+
+
       "tempo" : {
         //"symmetry":[0,0,0,1],
         "symmetry": rythm_symmetry[ _irnd(rythm_symmetry.length) ],
         "pareto_m" : 0.25/2 - _eps,
-        "pareto_alpha" : 1.35,
+        "pareto_alpha" : 1.0,
         "beat_quantize": 0.25/2,
         "invert" : false
       }
@@ -6276,6 +6288,9 @@ function _alg_v_1_7() {
     song_info.part[_part]["arp_progression_dt"] = 0.0625;
 
 
+    var _melody_ub = song_info.option[_part].range_ub;
+    var _melody_lb = song_info.option[_part].range_lb;
+
     // create melody by choosing random two notes from
     // each bar of chord progression
     //
@@ -6287,7 +6302,10 @@ function _alg_v_1_7() {
       //console.log("melody, chord:", chord_prog[ii].chord, ", _apick:", bar_notes);
 
       for (var jj=0; jj<rythm_pattern[ii].length; jj++) {
-        melody_info.push( { "note": bar_notes[_irnd(bar_notes.length)], "dur": rythm_pattern[ii][jj] } );
+        var _note = bar_notes[_irnd(bar_notes.length)];
+        if (_note >= _melody_ub) { _note -= 12; }
+        if (_note <= _melody_lb) { _note += 12; }
+        melody_info.push( { "note": _note, "dur": rythm_pattern[ii][jj] } );
       }
     }
 
@@ -6317,7 +6335,7 @@ function _alg_v_1_7() {
   for (var ii=0; ii<12; ii++) { note_name.push( fs.noteName[ii] + "6" ); }
 
 
-  var _bass_loud = 0.8;
+  var _bass_loud = 0.95;
   var bass_choice = [
     { "type":"PolyMono", "preset":"dirty", "loudness":_bass_loud, "decay":1, "cutoff":0.1},
     { "type":"PolyMono", "preset":"pluckEcho", "loudness":_bass_loud, "decay":1, "cutoff":0.1},
@@ -6332,7 +6350,7 @@ function _alg_v_1_7() {
     { "type":"PolyMono", "preset":"short", "loudness":_bass_loud, "decay":1, "cutoff":0.2},
     { "type":"PolySynth", "preset":"stringPad", "loudness":_bass_loud, "decay":1, "cutoff":0.2},
     //{ "type":"PolySynth", "preset":"rhodes", "loudness":2, "decay":4},
-    { "type":"PolySynth", "preset":"cry", "loudness":_bass_loud, "decay":1, "cutoff":0.2},
+    //{ "type":"PolySynth", "preset":"cry", "loudness":_bass_loud, "decay":1, "cutoff":0.2},
     { "type":"PolySynth", "preset":"brass", "loudness":_bass_loud, "decay":1, "cutoff":0.2}
   ];
   //var bass_instrument = { "type":"PolySynth", "preset":"stringPad", "loudness":2, "decay":4};
