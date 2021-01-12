@@ -40,3 +40,4 @@ dev
 * [Common GCode Commands](GCode-Common.md)
 * [Misc. Math](Misc-Math.md)
 * [Socio-Economic Definitions](Socio-Economic-Definitions.md)
+* [Bitcoin Moon Math](Bitcoin-Moon-Math.md)

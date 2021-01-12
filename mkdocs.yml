@@ -40,6 +40,7 @@ pages:
   - "GCode-Common.md"
   - "Misc-Math.md"
   - "Socio-Economic-Definitions.md"
+  - "Bitcoin-Moon-Math.md"
 
 docs_dir: 'wiki'
 theme_dir: 'dev_theme'
