@@ -405,21 +405,21 @@ function v_0_1_8(famsynth) {
   //var _bass_loud = 0.95;
   var _bass_loud = 1.25;
   var bass_choice = [
-    { "type":"PolyMono", "preset":"dirty", "loudness":_bass_loud, "decay":1, "cutoff":0.1},
-    { "type":"PolyMono", "preset":"pluckEcho", "loudness":_bass_loud, "decay":1, "cutoff":0.1},
+    { "type":"PolyMono", "preset":"dirty", "loudness":1.65,  "decay":1, "cutoff":0.1},
+    { "type":"PolyMono", "preset":"pluckEcho", "loudness":2.35, "decay":1, "cutoff":0.1},
     { "type":"PolyMono", "preset":"bassPad", "loudness":_bass_loud, "decay":1, "cutoff":0.1},
     { "type":"PolyMono", "preset":"dark", "loudness":_bass_loud, "decay":1, "cutoff":0.1},
     { "type":"PolyMono", "preset":"bass", "loudness":_bass_loud, "decay":1, "cutoff":0.1},
     { "type":"PolyMono", "preset":"bass2", "loudness":_bass_loud, "decay":1, "cutoff":0.1},
     { "type":"PolyMono", "preset":"edgy", "loudness":_bass_loud, "decay":1, "cutoff":0.1},
     //{ "type":"PolyMono", "preset":"shinybass2", "loudness":_bass_loud, "decay":1, "cutoff":0.3},
-    { "type":"PolyMono", "preset":"shinybass", "loudness":_bass_loud, "decay":1, "cutoff":0.1},
+    { "type":"PolyMono", "preset":"shinybass", "loudness":2.5, "decay":1, "cutoff":1.0},
     { "type":"PolyMono", "preset":"bass.muted", "loudness":_bass_loud, "decay":1, "cutoff":0.2},
     { "type":"PolyMono", "preset":"short", "loudness":_bass_loud, "decay":1, "cutoff":0.2},
     { "type":"PolySynth", "preset":"stringPad", "loudness":_bass_loud, "decay":1, "cutoff":0.2},
     //{ "type":"PolySynth", "preset":"rhodes", "loudness":2, "decay":4},
     //{ "type":"PolySynth", "preset":"cry", "loudness":_bass_loud, "decay":1, "cutoff":0.2},
-    { "type":"PolySynth", "preset":"brass", "loudness":_bass_loud, "decay":1, "cutoff":0.2}
+    { "type":"PolySynth", "preset":"brass", "loudness": 1.15,  "decay":1, "cutoff":0.2}
   ];
   //var bass_instrument = { "type":"PolySynth", "preset":"stringPad", "loudness":2, "decay":4};
   //var bass_instrument = { "type":"PolySynth", "preset":"rhodes", "loudness":2, "decay":4};
@@ -472,9 +472,20 @@ function v_0_1_8(famsynth) {
     //{"type":"Monosynth", "preset":"shinybass", "loudness":2, "decay":0.95},
     {"type":"Monosynth", "preset":"easy", "loudness":1.25, "decay":0.95},
     //{"type":"Monosynth", "preset":"bass", "loudness":2, "decay":0.95}, // having some troubles (b3 + 27)
-    {"type":"Monosynth", "preset":"bass2", "loudness":1.25, "decay":0.95},
+    {"type":"Monosynth", "preset":"bass2", "loudness":1.75, "decay":0.95},
     //{"type":"Monosynth", "preset":"dark", "loudness":1, "decay":0.5},
     {"type":"Monosynth", "preset":"arpy", "loudness":1.25, "decay":0.95}
+
+  /*
+    { "type":"PolySynth", "preset":"brass", "loudness": 1.15,  "decay":1, "cutoff":0.9},
+    { "type":"PolyMono", "preset":"dirty", "loudness":1.65,  "decay":1, "cutoff":0.5},
+    { "type":"PolyMono", "preset":"pluckEcho", "loudness":2.35, "decay":1, "cutoff":0.5},
+    { "type":"PolyMono", "preset":"bassPad", "loudness":_bass_loud, "decay":1, "cutoff":0.5},
+    { "type":"PolyMono", "preset":"dark", "loudness":_bass_loud, "decay":1, "cutoff":0.5},
+    { "type":"PolyMono", "preset":"bass", "loudness":_bass_loud, "decay":1, "cutoff":0.5},
+    { "type":"PolyMono", "preset":"edgy", "loudness":_bass_loud, "decay":1, "cutoff":0.5}
+    */
+
   ];
 
   var melody_instrument = {
