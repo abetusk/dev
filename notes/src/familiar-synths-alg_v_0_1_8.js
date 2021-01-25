@@ -473,6 +473,7 @@ function v_0_1_8(famsynth) {
     {"type":"Monosynth", "preset":"easy", "loudness":1.25, "decay":0.95},
     //{"type":"Monosynth", "preset":"bass", "loudness":2, "decay":0.95}, // having some troubles (b3 + 27)
     {"type":"Monosynth", "preset":"bass2", "loudness":1.75, "decay":0.95},
+    {"type":"Monosynth", "preset":"dirty", "loudness":1.75, "decay":0.95},
     //{"type":"Monosynth", "preset":"dark", "loudness":1, "decay":0.5},
     {"type":"Monosynth", "preset":"arpy", "loudness":1.25, "decay":0.95}
 
