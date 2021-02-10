@@ -1,0 +1,464 @@
+{
+  "component_lib": {
+    "unknown": {
+      "art": [
+        {
+          "count": 5, 
+          "line_width": 0, 
+          "shape": "path", 
+          "path": [
+            [
+              250, 
+              250
+            ], 
+            [
+              -250, 
+              250
+            ], 
+            [
+              -250, 
+              -250
+            ], 
+            [
+              250, 
+              -250
+            ], 
+            [
+              250, 
+              250
+            ]
+          ], 
+          "de_morgan_alternate_shape": "1", 
+          "unit": "0", 
+          "fill": "N"
+        }
+      ], 
+      "name": "unknown", 
+      "reference": "Z", 
+      "mm": 1, 
+      "timestamp": "52566B9A", 
+      "transform": [
+        [
+          1, 
+          0
+        ], 
+        [
+          0, 
+          -1
+        ]
+      ], 
+      "unknown_text_field": {
+        "orientation": "H", 
+        "reference": "??", 
+        "hjustify": "C", 
+        "text": "??", 
+        "number": 0, 
+        "vjustify": "C", 
+        "transform": [
+          [
+            1, 
+            0
+          ], 
+          [
+            0, 
+            -1
+          ]
+        ], 
+        "visible": true, 
+        "bounding_box": [
+          [
+            -50, 
+            -50
+          ], 
+          [
+            50, 
+            50
+          ]
+        ], 
+        "flags": "0000 C CNN", 
+        "italic": true, 
+        "y": 0, 
+        "x": 0, 
+        "size": "100", 
+        "bold": false
+      }, 
+      "bounding_box": [
+        [
+          -250, 
+          -250
+        ], 
+        [
+          250, 
+          250
+        ]
+      ], 
+      "text": [
+        {
+          "orientation": "H", 
+          "reference": "ref**", 
+          "hjustify": "C", 
+          "text": "ref**", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              -430, 
+              230
+            ], 
+            [
+              -130, 
+              330
+            ]
+          ], 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": -280, 
+          "x": -280, 
+          "size": "60", 
+          "bold": false
+        }, 
+        {
+          "orientation": "H", 
+          "reference": "??", 
+          "hjustify": "C", 
+          "text": "val**", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              220, 
+              -330
+            ], 
+            [
+              340, 
+              -230
+            ]
+          ], 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": 280, 
+          "x": 280, 
+          "size": "60", 
+          "bold": false
+        }
+      ], 
+      "nn": 1, 
+      "type": "component", 
+      "coarse_bounding_box": [
+        [
+          -430, 
+          -250
+        ], 
+        [
+          340, 
+          250
+        ]
+      ]
+    }
+  }, 
+  "net_pin_id_map": {}, 
+  "element": [
+    {
+      "reference": "Z", 
+      "nn": "1", 
+      "mm": "1", 
+      "timestamp": "5213C820", 
+      "transform": [
+        [
+          1, 
+          0
+        ], 
+        [
+          0, 
+          1
+        ]
+      ], 
+      "text": [
+        {
+          "orientation": "H", 
+          "reference": ">NAME", 
+          "hjustify": "C", 
+          "text": ">NAME", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": true, 
+          "bounding_box": [
+            [
+              -430, 
+              230
+            ], 
+            [
+              -130, 
+              330
+            ]
+          ], 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": -280, 
+          "x": -280, 
+          "size": "60", 
+          "id": "5fb5343b-9a5c-0076-5a5a-8558c7477321,8d4d2815-9b4e-c3cc-a757-89c34bfe583c", 
+          "bold": false
+        }, 
+        {
+          "orientation": "H", 
+          "reference": "??", 
+          "hjustify": "C", 
+          "text": ">VALUE", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": true, 
+          "bounding_box": [
+            [
+              220, 
+              -330
+            ], 
+            [
+              340, 
+              -230
+            ]
+          ], 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": 280, 
+          "x": 280, 
+          "size": "60", 
+          "id": "5fb5343b-9a5c-0076-5a5a-8558c7477321,0ffb2783-cb5a-04c3-c27a-128590966f33", 
+          "bold": false
+        }
+      ], 
+      "y": 0, 
+      "x": 0, 
+      "type": "component", 
+      "id": "5fb5343b-9a5c-0076-5a5a-8558c7477321", 
+      "name": "unknown"
+    }, 
+    {
+      "reference": "Z", 
+      "nn": "1", 
+      "mm": "1", 
+      "timestamp": "5213C820", 
+      "transform": [
+        [
+          1, 
+          0
+        ], 
+        [
+          0, 
+          1
+        ]
+      ], 
+      "text": [
+        {
+          "orientation": "H", 
+          "reference": "SIL-10", 
+          "hjustify": "C", 
+          "text": "SIL-10", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": true, 
+          "bounding_box": [
+            [
+              -460, 
+              230
+            ], 
+            [
+              -100, 
+              330
+            ]
+          ], 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": -280, 
+          "x": -280, 
+          "size": "60", 
+          "id": "30036c39-b825-d1a0-56d3-4d470ff190d7,a7fcc779-c6c0-2425-56fe-d96f421e5a2d", 
+          "bold": false
+        }, 
+        {
+          "orientation": "H", 
+          "reference": "??", 
+          "hjustify": "C", 
+          "text": "Val**", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": true, 
+          "bounding_box": [
+            [
+              220, 
+              -330
+            ], 
+            [
+              340, 
+              -230
+            ]
+          ], 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": 280, 
+          "x": 280, 
+          "size": "60", 
+          "id": "30036c39-b825-d1a0-56d3-4d470ff190d7,6aa9e6f1-0e86-97d8-105d-dd847eaa9203", 
+          "bold": false
+        }
+      ], 
+      "y": 0, 
+      "x": 0, 
+      "type": "component", 
+      "id": "30036c39-b825-d1a0-56d3-4d470ff190d7", 
+      "name": "unknown"
+    }, 
+    {
+      "reference": "Z", 
+      "nn": "1", 
+      "mm": "1", 
+      "timestamp": "5213C820", 
+      "transform": [
+        [
+          1, 
+          0
+        ], 
+        [
+          0, 
+          1
+        ]
+      ], 
+      "text": [
+        {
+          "orientation": "H", 
+          "reference": "SIL-10", 
+          "hjustify": "C", 
+          "text": "SIL-10", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": true, 
+          "bounding_box": [
+            [
+              -460, 
+              230
+            ], 
+            [
+              -100, 
+              330
+            ]
+          ], 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": -280, 
+          "x": -280, 
+          "size": "60", 
+          "id": "68c97d1e-b21e-f0fb-e9b7-896cee5d941d,c1b4ff8f-eb57-b1ca-fd53-be3e5d827da3", 
+          "bold": false
+        }, 
+        {
+          "orientation": "H", 
+          "reference": "??", 
+          "hjustify": "C", 
+          "text": "Val**", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": true, 
+          "bounding_box": [
+            [
+              220, 
+              -330
+            ], 
+            [
+              340, 
+              -230
+            ]
+          ], 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": 280, 
+          "x": 280, 
+          "size": "60", 
+          "id": "68c97d1e-b21e-f0fb-e9b7-896cee5d941d,63e8de5d-ac72-d1b7-7463-27eb94504fbe", 
+          "bold": false
+        }
+      ], 
+      "y": 0, 
+      "x": 0, 
+      "type": "component", 
+      "id": "68c97d1e-b21e-f0fb-e9b7-896cee5d941d", 
+      "name": "unknown"
+    }, 
+    {
+      "reference": "Z", 
+      "nn": "1", 
+      "mm": "1", 
+      "timestamp": "5213C820", 
+      "transform": [
+        [
+          1, 
+          0
+        ], 
+        [
+          0, 
+          1
+        ]
+      ], 
+      "text": [
+        {
+          "orientation": "H", 
+          "reference": "ref**", 
+          "hjustify": "C", 
+          "text": "ref**", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              -430, 
+              230
+            ], 
+            [
+              -130, 
+              330
+            ]
+          ], 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": -280, 
+          "x": -280, 
+          "size": "60", 
+          "id": "8f66349f-9ee8-0640-3931-2eceb6426e5a,1160cb6e-65ed-f10e-0e71-792bdb647676", 
+          "bold": false
+        }, 
+        {
+          "orientation": "H", 
+          "reference": "??", 
+          "hjustify": "C", 
+          "text": "val**", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              220, 
+              -330
+            ], 
+            [
+              340, 
+              -230
+            ]
+          ], 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": 280, 
+          "x": 280, 
+          "size": "60", 
+          "id": "8f66349f-9ee8-0640-3931-2eceb6426e5a,eebc5624-c10d-970d-5ee5-76dd8f122c9d", 
+          "bold": false
+        }
+      ], 
+      "y": 0, 
+      "x": 0, 
+      "type": "component", 
+      "id": "8f66349f-9ee8-0640-3931-2eceb6426e5a", 
+      "name": "unknown"
+    }
+  ]
+}
