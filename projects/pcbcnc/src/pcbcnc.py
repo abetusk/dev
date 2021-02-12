@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# simple inverse distance interpolation
+# simple linear z interpolation
 #
 # pcbcnc
 # Copyright (C) 2020 abetusk
