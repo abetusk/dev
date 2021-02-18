@@ -122,7 +122,17 @@ The cutting and rewiring of segments makes wiring more complicated and need not 
 if a simpler pattern is desired, the layout can be simplified by doing a zig zag or other pattern.
 
 
+License
+---
 
+Everything in this directory, unless explicitly denoted otherwise, is licensed
+under a CC0 license.
+
+CC0
+
+[![CC0](img/cc0_88x31.png)](https://creativecommons.org/publicdomain/zero/1.0/)
+
+![cc0](img/oshw_facts.png)
 
 
 References
