@@ -207,5 +207,21 @@ This can be seen by a straight forward application of Markov's inequality.
 The parameter $t$ can be chosen to taste.
 
 
+---
+
+Generalized extreme value distribution (GEV) or Fisher Tippett Gnedenko theorem:
+
+$$
+X_0, X_1, \cdots, X_{n-1} & \ \ \ \text{  i.i.d. RVs}  \\\\
+\lim_{n \to \infty} P( \frac{max(X_0, X_1, \cdots, X_{n-1}) - b_n}{a_n}  \le x) & \ \ = G(x) \\\\
+G_{\gamma,a,b}(x) = \exp( -(1 + (\frac{x-b}{a})\gamma)^{-\frac{1}{\gamma}}), \ \ \ \  & 1 + (\frac{x-b}{a}) \gamma  > 0
+\end{align}
+$$
+
+Where $G_{\gamma,a,b}(x)$ above is the general form of the special cases of Gumbel, Frechet and the Weibull family of distributions.
+
+
+[wiki](https://en.wikipedia.org/wiki/Fisher%E2%80%93Tippett%E2%80%93Gnedenko_theorem)
+
 
 ###### 2018-08-04
