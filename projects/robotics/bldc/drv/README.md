@@ -3,11 +3,12 @@ GoPro Driver (L6234)
 
 | | |
 |---|---|
-| ![sch](img/drv_v0.1.2-sch.png) | ![brd](img/drv_v0.1.2-brd.png) | 
+| ![sch](img/drv_v0.3.0-sch.png) | ![brd](img/drv_v0.3.0-brd.png) | 
 
 BLDC driver based on the L6234 chip.
 
-**Completely untested**.
+**Mostly untested**.
+
 
 
 Notes
@@ -15,6 +16,9 @@ Notes
 
 * [l6234 datasheet](https://raw.githubusercontent.com/abetusk/manuals/master/datasheets/LD6234.pdf)
 * [NearZero](http://skysedge.us/robotics/nearzero/electrical/NearZeroSchematic.pdf)
+
+Tying `SENSE1` and `SENSE2` to ground (or perhaps to a 1 ohm resistor to ground) is necessary,
+as I found out.
 
 License
 ---
