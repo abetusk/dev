@@ -27,6 +27,14 @@ Note: "The Losers are not social losers (as in the opposite of “cool”), but 
 
 [Source](https://www.netlingo.com/word/gilders-law.php)
 
+### Koomey's Law
+
+> The number of computations per joule of energy dissipated doubled about every 1.57 years.
+
+Note: The scaling looks to have slowed to about 2.6 years as of 2000.
+
+[Wikipedia](https://en.wikipedia.org/wiki/Koomey%27s_law)
+
 ### Metcalfe's Law
 
 > The effect of a telecommunications network is proportional to the square of the number of connected users of the system.

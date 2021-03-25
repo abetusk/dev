@@ -131,24 +131,97 @@ Even at a large 2.5% annual increase in energy usage, it would take over 250 yea
 the sun's energy being deposited on earth.
 Beyond our earth, the stores of energy that are available are galactic.
 
+
 Cryptocurrencies
 ---
 
-If governments can create currency by fiat and we all agree to use it as a currency or
-if we agree that gold has a certain purchasing power, then we can also agree on a digital protocol
-for currency that doesn't involve governments or gold.
+If people can agree to a crypto-currency's value then it can
+be used as a currency.
+
+All money's value is fundamentally arbitrary.
+We give a currency it's value by agreeing on how of it to give for a good or service.
+If instead of using currency that is arbitrary given value by a government, or a currency
+that is arbitrarily given it's value from a physical material, like gold or silver,
+then we can use a currency that's given it's value arbitrarily by an agreed on protocol
+as is present with cryptocurrencies.
 
 I'm skeptical that anything other than proof-of-work can be made to be a viable decentralized cryptocurrency,
-so I'll focus on proof-of-work (PoW).
+so I'll focus on proof-of-work (PoW) that's used by Bitcoin.
 
-Cryptocurrencies that use proof-of-work (PoW) have the interesting feature that now the currency is not just
-a representation of energy but it's actually used energy to create it.
-The energy use is tied to computing power so energy wasted historically need not necessarily be the same amount
-of energy wasted to create new coin.
-In some steady state system, this effectively means whatever you pay to have a currency and to use that currency
-in transactions comes with an energy cost associated with it.
+The major elements of a currency are satisfied by a cryptocurrency:
 
-...
+* Fungibility - A piece of cryptocurrency is just as valid as any other
+* Durability - A piece of cryptocurrency can be traded and re-used ad infinitum
+* Divisibility - A piece of cryptocurrency can be sub-divided as need be
+* Portability - Cryptocurrency is inherently information and so is easily communicated and thus easily transportable 
+* Legibility - Cryptocurrency can be easily valued and compared as it's just a number
+* Scarcity - is achieved either by limiting the number of cryptocurrency to ever be produced or by inflating the
+  proof of work to match current computational resources
+
+A note on divisibility: Bitcoin has a smallest unit of a 'satoshi', just as a United States Dollar has a smallest
+unit of a cent (0.01 dollar).
+This divisibility seems like a kind of artifact of an older currency discussion and so I'm not sure how
+beneficial it is to dive into it.
+I will say that cryptocurrencies, specifically Bitcoin, are as divisible as all fiat currencies and,
+I suspect, have the possibility of a software upgrade to be able to further divide the 'satoshi' if need be.
+
+Scarcity also warrants a bit more discussion.
+Bitcoin's proof of work mechanism allows for an ever intensifying work mechanism to make sure
+that the mining of new Bitcoin and, eventually, steady-state economic transfer and transaction of Bitcoin,
+will dynamically scale to the available resources.
+The incentive structure ensures that if there is cheaper compute to gain an advantage, people will
+use it and there will be a race for who can use the cheapest compute to gain the reward in the cryptocurrency.
+
+So Bitcoin uses two scarcity mechanism, one that limits the amount of actual Bitcoin produced (around 21M BTC)
+and the other as a scaled proof of work mechanism.
+
+I'm unclear as to the advantages and disadvantages of a finite number of Bitcoin.
+One advantage of the finite number of Bitcoin is that it's easy to reason about, since the number itself is capped.
+
+As I see it, possible disadvantages include:
+
+* Note dealing with inflation well, as a satoshi might need to be further subdivided to account for large scale
+  inflation
+* Uncapping the amount of cryptocurrency might lead to a less volatile currency as fluctuations can be absorbed
+  by creating more cryptocurrency that wouldn't be possible with a fixed number of potential coins
+
+One could imagine a cryptocurrency that yields mined coins on a decreasing power law scale, potentially
+making the number of theoretical coins infinite while still giving fewer coins as the cryptocurrency
+matures.
+Anyway, I have to profess ignorance.
+
+
+
+### Addendum: A Note on the Wealthy
+
+
+One idea is that wealthy individuals are wardens of money rather than owners.
+The social contract is that people give an individual their money as payment for
+goods and services but also with the hope that they will use that money for other,
+potentially societally beneficial, endeavours.
+
+If an individual that is a warden of wealth does not use their surplus of money
+better than how the public trust can, then the wealth should be transferred from
+the individual to the public trust.
+
+There will always be a tension between what is good for society and what is good for
+the individual.
+Wealth is a form of power and disproportionate power can warp policy to create more difficulty
+in separating the wealth from the wealthy individual.
+There will always be a battle between individuals who want to accumulate wealth that is better served under the direction
+of the public trust and the public.
+
+Disproportionate wealth is not inherently bad just as system of completely flat, equal wealth is not inherently
+good.
+The question is what distribution of wealth should we see in a healthy economy or system of government.
+
+My opinion is that some wealth aggregation is functionally better for society than insisting a completely flat
+distribution.
+We see this with elected officials who wield a disproportionate amount of power.
+There are limits to terms of officials and limits to their power, but the reason they are allowed
+an aggregation of power is to enact the public will they've been elected for.
+
+So too can this be with wealth.
 
 
 References
