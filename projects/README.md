@@ -53,10 +53,17 @@ Jacket is assembled but the backing board needs to be paired down.
 
 If there's some way to make the backing easier, this would be ideal.
 
+* Put EVA foam used for floors as a backing plane for the LEDs
+* Put EVA foam in both front corners as backing
+  - left is for electronics, suitably shoved in there to try and shield it from
+    use and offer some strain relief
+  - right is for battery
+  - might need to elongate the wire from battery to electronics
+
 ### todo
 
-* either cut the backing board smaller or figure out another mounting method
-* create a case for the electronics etc (3d print it)
+* Need to fit to see if the positioning, EVA foam pruning and corner backing
+  is reasonable
 
 | | |
 |---|---|
@@ -69,12 +76,21 @@ BLDC Driver
 
 Boards are ordered but need to be soldered and tested
 
+* Tested boards
+* Big hangup was the 'sense' that needed to either be tied to ground or
+  go through a 1ohm resistor
+* Let the smoke out of one by connecting it to a large BLDC motor
+* Ordered more motors
+
 [src](https://meowcad.com/project?projectId=9ff614c5-18d6-4155-b22e-76b0fd457886)
 
 ### todo
 
-* solder boards
-* test on a motor
+* Test with encoder
+* Create two motor system with arms to create something interesting
+* rev version (?)
+  - on board atmega
+  - on board encoder (integrated)
 
 | | |
 |---|---|
@@ -111,9 +127,15 @@ The 3d printing solution I was pursuing is not going to work.
 I think a better method is to have cloth/Tyvek hinges sandwiched in between
 laser cut/3d printed/whatever thin strips which then go to a central shaft.
 
+Ordered some tiny stepper motors.
+Hopefully they can be driven direct from an Arduino or, in the worst case,
+driven by some small transistors.
+With luck, I can connect the shaft directly to the platform.
+
 ### todo
 
-* investigate shaft and joint mechanism
+* get tiny stepper to run (direct off an Arduino)
+* construct test rig as proof of concept
 
 | | |
 |---|---|
@@ -126,6 +148,13 @@ Frands
 
 Still don't know how to approach this.
 
+Some key points:
+
+* Each layer does not have lights in between them, it's completely
+  backlit by the back most panel, diffused from LEDs
+* The spacing can be done with foam
+* Put it in a frame
+
 ### todo
 
 * figure out what the scene should be an implement it
@@ -137,9 +166,11 @@ Still don't know how to approach this.
 BTC Node
 ---
 
+Create a full node with lightning support.
+
 ### Status
 
-
+None.
 
 ### todo
 
@@ -183,4 +214,19 @@ A modification to `sox` to allow for logarithm frequency spectrogram [here](http
 | | |
 |---|---|
 | priority | low |
+
+
+OK Continuity
+---
+
+### Status
+
+Initial investigation is good.
+DeepSpeech is faster than real-time.
+
+### todo
+
+* test with usb microphone
+* create interface (maybe with visual feedback)
+* add some external trigger mechanisms
 
