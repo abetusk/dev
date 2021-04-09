@@ -1,0 +1,37 @@
+#!/bin/bash
+
+
+function ngc_position {
+  ifn="$1"
+
+  offsetx=10
+  offsety=10
+
+  if [[ "$ifn" == "" ]] ; then
+    echo "provide file"
+    exit 1
+  fi
+
+  dos2unix $ifn
+  sed -i 's/;.*//' $ifn
+
+  mx=`ngc_bounds $ifn | grep min_x | cut -f2 -d' '`
+  my=`ngc_bounds $ifn | grep min_y | cut -f2 -d' '`
+
+  shiftx=` echo "-($mx) + $offsetx" | bc -l`
+  shifty=` echo "-($my) + $offsety" | bc -l`
+
+  tfn=`mktemp`
+
+  grecode -shift "$shiftx" "$shifty" $ifn | \
+    grep -v '^(' > $tfn
+  mv $tfn $ifn
+
+  rm -f $tfn
+}
+
+
+./svg2ngc "bloom.svg"
+
+ngc_position "bloom.ngc"
+
