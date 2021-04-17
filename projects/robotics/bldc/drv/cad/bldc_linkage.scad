@@ -20,6 +20,11 @@ module base_linkage(link_l) {
   _end_attach_d = 12;
   _attach_r = 2.5/2;
 
+  _attach_r1 = 3/2;
+  _end_attach_close_d = _end_inner_r*2 + 2*_attach_r1;
+  _eac_dx = _end_attach_close_d / (2*sqrt(2.0));
+  _eac_dy = _end_attach_close_d / (2*sqrt(2.0));
+
   difference() {
     union() {
       circle(_base_outer_d/2, $fn=FN);
@@ -42,6 +47,14 @@ module base_linkage(link_l) {
       translate([ 0,-_end_attach_d/2, 0]) circle(_attach_r, $fn=FN);
     }
 
+    translate([link_l,0,0])
+    union() {
+      translate([ _eac_dx, _eac_dy, 0]) circle(_attach_r1, $fn=FN);
+      translate([-_eac_dx, _eac_dy, 0]) circle(_attach_r1, $fn=FN);
+      translate([-_eac_dx,-_eac_dy, 0]) circle(_attach_r1, $fn=FN);
+      translate([ _eac_dx,-_eac_dy, 0]) circle(_attach_r1, $fn=FN);
+    }
+
   }
 }
 
@@ -52,6 +65,12 @@ module join_linkage(link_l) {
 
   _end_attach_d = 12;
   _attach_r = 2.5/2;
+
+  _attach_r1 = 3/2;
+  _end_attach_close_d = _end_inner_r*2 + 2*_attach_r1;
+  _eac_dx = _end_attach_close_d / (2*sqrt(2.0));
+  _eac_dy = _end_attach_close_d / (2*sqrt(2.0));
+
 
   difference() {
     union() {
@@ -75,6 +94,23 @@ module join_linkage(link_l) {
       translate([ 0,-_end_attach_d/2, 0]) circle(_attach_r, $fn=FN);
     }
 
+    union() {
+      translate([ _eac_dx, _eac_dy, 0]) circle(_attach_r1, $fn=FN);
+      translate([-_eac_dx, _eac_dy, 0]) circle(_attach_r1, $fn=FN);
+      translate([-_eac_dx,-_eac_dy, 0]) circle(_attach_r1, $fn=FN);
+      translate([ _eac_dx,-_eac_dy, 0]) circle(_attach_r1, $fn=FN);
+    }
+
+
+    translate([link_l,0,0])
+    union() {
+      translate([ _eac_dx, _eac_dy, 0]) circle(_attach_r1, $fn=FN);
+      translate([-_eac_dx, _eac_dy, 0]) circle(_attach_r1, $fn=FN);
+      translate([-_eac_dx,-_eac_dy, 0]) circle(_attach_r1, $fn=FN);
+      translate([ _eac_dx,-_eac_dy, 0]) circle(_attach_r1, $fn=FN);
+    }
+
+
   }
 }
 
@@ -85,6 +121,12 @@ module end_linkage(link_del, link_l) {
 
   _node_d = 18;
   _link_w =  10;
+
+  _attach_r1 = 3/2;
+  _node_attach_close_d = _node_inner_r*2 + 2*_attach_r1;  
+  _nac_dx = _node_attach_close_d / (2*sqrt(2.0));
+  _nac_dy = _node_attach_close_d / (2*sqrt(2.0));
+
   difference() {
     union() {
       circle(_node_d/2, $fn=FN);
@@ -118,6 +160,23 @@ module end_linkage(link_del, link_l) {
     }
 
 
+    union() {
+      translate([ _nac_dx, _nac_dy, 0]) circle(_attach_r1, $fn=FN);
+      translate([-_nac_dx, _nac_dy, 0]) circle(_attach_r1, $fn=FN);
+      translate([-_nac_dx,-_nac_dy, 0]) circle(_attach_r1, $fn=FN);
+      translate([ _nac_dx,-_nac_dy, 0]) circle(_attach_r1, $fn=FN);
+    }
+
+
+    translate([link_del,0,0])
+    union() {
+      translate([ _nac_dx, _nac_dy, 0]) circle(_attach_r1, $fn=FN);
+      translate([-_nac_dx, _nac_dy, 0]) circle(_attach_r1, $fn=FN);
+      translate([-_nac_dx,-_nac_dy, 0]) circle(_attach_r1, $fn=FN);
+      translate([ _nac_dx,-_nac_dy, 0]) circle(_attach_r1, $fn=FN);
+    }
+
+
   }
 }
 
@@ -140,29 +199,42 @@ module join_holder() {
 
 }
 
-LINK_D = 40;
+LINK_D = 25;
 LINK_H = 70;
 LINK_W = 100;
 
-base_linkage(LINK_D);
-translate([ 0, 30, 0]) base_linkage(LINK_H);
-translate([ 0,-28, 0]) join_linkage(LINK_H);
+// defunkt
+//
+module realization_v_0_1_0() {
+  base_linkage(LINK_D);
+  translate([ 0, 30, 0]) base_linkage(LINK_H);
 
-translate([0,-50,0]) join_holder();
-translate([20,-50, 0]) join_holder();
-translate([40,-50, 0]) join_holder();
-translate([60,-50, 0]) join_holder();
+  translate([50,-60,0]) rotate(90, [0,0,1])  join_linkage(LINK_H);
 
-translate([ 0,-70, 0]) join_holder();
-translate([20,-70, 0]) join_holder();
-translate([40,-70, 0]) join_holder();
-translate([60,-70, 0]) join_holder();
+  translate([0,-50,0]) join_holder();
+  translate([20,-50, 0]) join_holder();
+  translate([40,-50, 0]) join_holder();
+  translate([60,-50, 0]) join_holder();
 
-translate([LINK_D + 20,10,0]) join_holder();
-translate([LINK_D + 40,10,0]) join_holder();
-translate([LINK_D + 20,-10,0]) join_holder();
-translate([LINK_D + 40,-10,0]) join_holder();
+  translate([ 0,-70, 0]) join_holder();
+  translate([20,-70, 0]) join_holder();
+  translate([40,-70, 0]) join_holder();
+  translate([60,-70, 0]) join_holder();
 
+  translate([LINK_D + 20,10,0]) join_holder();
+  translate([LINK_D + 40,10,0]) join_holder();
+  translate([LINK_D + 20,-10,0]) join_holder();
+  translate([LINK_D + 40,-10,0]) join_holder();
 
+  translate([LINK_H + 20, 20,0]) rotate(-90, [0,0,1]) end_linkage(LINK_D, LINK_H);
+}
 
-translate([LINK_H + 30, 20,0]) rotate(-90, [0,0,1]) end_linkage(LINK_D, LINK_H);
+module realization_v_0_2_0() {
+  base_linkage(LINK_D);
+  translate([ 0, 30, 0]) base_linkage(LINK_H);
+  translate([60,10,0]) rotate(-140, [0,0,1])  join_linkage(LINK_H);
+  translate([LINK_H + 5, 0,0]) rotate(-130, [0,0,1]) end_linkage(LINK_D, LINK_H);
+}
+
+realization_v_0_2_0();
+

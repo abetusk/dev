@@ -41,6 +41,10 @@ Decoupling Capacitors
 SMD Sizes
 ---
 
+| |
+|---|
+| ![surface mount sizes](img/SMT_sizes,_based_on_original_by_Zureks.svg) |
+
 | SMD | mm | inch |
 |---|---|---|
 | 2920 | 7.4 x 5.1 | 0.29 x 0.20 |
@@ -68,6 +72,7 @@ SMD Sizes
 | VSOP | 0.4, 0.5, 0.65 |
 | LQFP | 1.4 |
 | PLCC | 1.27 | 
+
 
 
 ###### 2018-02-03

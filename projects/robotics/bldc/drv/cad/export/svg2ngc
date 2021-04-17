@@ -11,7 +11,7 @@ premul=`echo "1000000" | bc -l`
 invmul=`echo "( 1 / $premul ) * $sf" | bc -l`
 
 frapid="F8000"
-fslow="F600"
+fslow="F400"
 S="1.0"
 
 if [[ "$inpsvg" == "" ]] ; then
@@ -45,5 +45,7 @@ sfx_slow="$fslow S$S"
 sfx_rapid="$frapid S0"
 
 echo gp2ngc --preset laser -i ${bn}-ord.gp --rapid "$sfx_rapid" --slow "$sfx_slow" "|" ngc_scale -s "$invmul" "> ${bn}.ngc"
-gp2ngc --preset laser -i ${bn}-ord.gp --rapid "$sfx_rapid" --slow "$sfx_slow" | ngc_scale -s "$invmul" > ${bn}.ngc
+gp2ngc --preset laser -i ${bn}-ord.gp --rapid "$sfx_rapid" --slow "$sfx_slow" | \
+  ngc_scale -s "$invmul" | \
+  grecode -shift 15 15 > ${bn}.ngc
 
