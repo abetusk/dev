@@ -73,6 +73,27 @@ Note: The scaling looks to have slowed to about 2.6 years as of 2000.
 
 [Wikipedia](https://en.wikipedia.org/wiki/Planck%27s_principle)
 
+### Reed's Law
+
+> The utility of a group forming network of $n$ members scales as $O(2^n)$.
+
+There are $2^n$ subgroups of a set of $n$ members.
+
+Whereas Sarnoff's law is one to many, thus linear.
+Metcalf's law is many to many, but only on an individual connection basis, like a telephone network.
+Reed's law considers subgroup formation as an added factor to the utility
+and points out that Metcalf's law might undervalue network effects significantly.
+
+[Wikipedia](https://en.wikipedia.org/wiki/Reed%27s_law)
+
+### Sarnoff's Law
+
+> The value of a broadcast network is proportional to the number of viewers.
+
+That is, the value of a network, in this above case a broadcast network, scales as $O(n)$.
+
+[Wikipedia](https://en.wikipedia.org/wiki/David_Sarnoff)
+
 ### Spolsky's Observation
 
 > Smart companies try to commoditize their products' complements.
