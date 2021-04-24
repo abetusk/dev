@@ -41,3 +41,4 @@ dev
 * [Misc. Math](Misc-Math.md)
 * [Socio-Economic Definitions](Socio-Economic-Definitions.md)
 * [Bitcoin Moon Math](Bitcoin-Moon-Math.md)
+* [Solar Energy Discussion](Energy-Discussion.md)

@@ -1,0 +1,45 @@
+#!/bin/bash
+
+paste \
+  <( head -n1 gini.csv | csvtool col 5- - | tr ',' '\n' ) \
+  <( grep 'United States' gini.csv | csvtool col 5- - | tr ',' '\n' ) | \
+  tr '\t' ' ' | \
+  grep -v -P ' $' > us-gini.gp
+
+paste \
+  <( head -n1 gini.csv | csvtool col 5- - | tr ',' '\n' ) \
+  <( grep 'Canada' gini.csv | csvtool col 5- - | tr ',' '\n' ) | \
+  tr '\t' ' ' | \
+  grep -v -P ' $' > canada-gini.gp
+
+paste \
+  <( head -n1 gini.csv | csvtool col 5- - | tr ',' '\n' ) \
+  <( grep 'Germany' gini.csv | csvtool col 5- - | tr ',' '\n' ) | \
+  tr '\t' ' ' | \
+  grep -v -P ' $' > germany-gini.gp
+
+paste \
+  <( head -n1 gini.csv | csvtool col 5- - | tr ',' '\n' ) \
+  <( grep 'Ethiopia' gini.csv | csvtool col 5- - | tr ',' '\n' ) | \
+  tr '\t' ' ' | \
+  grep -v -P ' $' > ethiopia-gini.gp
+
+paste \
+  <( head -n1 gini.csv | csvtool col 5- - | tr ',' '\n' ) \
+  <( grep '"China"' gini.csv | csvtool col 5- - | tr ',' '\n' ) | \
+  tr '\t' ' ' | \
+  grep -v -P ' $' > china-gini.gp
+
+paste \
+  <( head -n1 gini.csv | csvtool col 5- - | tr ',' '\n' ) \
+  <( grep '"Uganda"' gini.csv | csvtool col 5- - | tr ',' '\n' ) | \
+  tr '\t' ' ' | \
+  grep -v -P ' $' > uganda-gini.gp
+
+cat <<EOF | gnuplot
+set title 'Gini Index'
+plot 'us-gini.gp' with l title 'USA', 'canada-gini.gp' with l title 'Canada', 'germany-gini.gp' with l title 'Germany', 'uganda-gini.gp' with l title 'Uganda', 'china-gini.gp' with l title 'China'
+set term png
+set output 'us-gini.png'
+replot
+EOF

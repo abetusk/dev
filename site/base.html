@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>dev blog</title>
 
-    <link rel="stylesheet" href="/dev/css/styles.css">
-    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
+    <link rel="stylesheet" href="{{config.extra.base}}css/styles.css">
+    <link rel="stylesheet" href="{{config.extra.base}}css/pygment_trac.css">
 
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({
@@ -15,8 +15,8 @@
         tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
       });
     </script>
-    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
-    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+    <script type="text/javascript" src="{{config.extra.base}}js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="{{config.extra.base}}js/MathJax.js?config=TeX-AMS_HTML""></script> -->
 
     <meta name="viewport" content="width=device-width">
   </head>
@@ -28,7 +28,7 @@
 
         <table>
           <body>
-            <tr><td><a href="/dev/">./dev</a></td></tr>
+            <tr><td><a href="{{config.extra.base}}">./dev</a></td></tr>
            <tr>
               <td>
                 <br /> <br /> <br />
@@ -39,7 +39,7 @@
                 Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
                 <br />
 
-                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="{{config.extra.base}}img/cc-by-sa-80x15.png" /></a>
                 </p>
               </td>
             </tr>
@@ -49,13 +49,7 @@
       </header>
       <section>
 
-        <h3 id="video-cropping">Video Cropping</h3>
-<p><code>-qscale</code> sets the compression level (?) (higher is more compression).
-<code>crop</code> is width, height, start x, start y.</p>
-<pre><code class="bash">ffmpeg -i inp.mp4 -qscale 10  -filter:v &quot;crop=in_w:in_h-63:0:63&quot; out.mp4
-</code></pre>
-
-<h6 id="2015-11-05">2015-11-05</h6>
+        {{content}}
 
       </section>
 
@@ -66,6 +60,6 @@
       -->
 
     </div>
-    <script src="/dev/js/scale.fix.js"></script>
+    <script src="{{config.extra.base}}js/scale.fix.js"></script>
   </body
 </html>
