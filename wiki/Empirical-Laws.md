@@ -148,5 +148,18 @@ Also note that economies of scale might be intertwined with with the experience 
 
 [Wikipedia](https://en.wikipedia.org/wiki/Experience_curve_effects)
 
+### Wu's Razor
+
+> For sufficiently powerful actors, Hanlon's Razor is invoked to give malice plausible deniability.
+
+The above is paraphrased from the original:
+
+> I've come to the conclusion Hanlon's Razor isn't particularly useful.
+> It's catchy, popular- but as a cognitive tool it's almost never applicable
+> and it's usually invoked not to aid the determination of truth, but as
+> rhetorical squid ink to give malice plausible deniability.
+
+([tweet](https://twitter.com/RealSexyCyborg/status/1324833812228919296), [archive](https://web.archive.org/web/20210301050710/https://twitter.com/RealSexyCyborg/status/1324833812228919296))
+
 
 ###### 2019-03-18

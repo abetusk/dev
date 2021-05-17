@@ -74,5 +74,8 @@ SMD Sizes
 | PLCC | 1.27 | 
 
 
+| |
+|---|
+| ![surface mount cheat sheet](img/smd_cheat_sheet.png) |
 
 ###### 2018-02-03

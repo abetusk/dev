@@ -86,6 +86,12 @@ As a side note, total global wealth as of 2019 is estimated to be $\$$360T
 ($ \$360 \cdot 10^{12} $) ([src](https://www.credit-suisse.com/about-us/en/reports-research/global-wealth-report.html)).
 If Bitcoin is capped at 21M coins and establishes itself by storing %20 of the $\$$360T, this gives $ \frac{ \$360T \cdot 0.2 }{ 21M BTC } \approx \$3.4M/BTC $.
 
+---
+
+*UPDATE*: If we estimate Bitcoin's growth at about 27% per year, this gives us about a 5-7 year time frame for when 1BTC will reach $1M.
+
+As of this writing, this gives us an estimate that BTC will start to become ubiquitous around 2026 to 2028.
+
 Energy Production
 ---
 
@@ -120,4 +126,11 @@ but when an installation gets within the cost of a single months electricity pay
 2040 is a conservative estimate and is made in consideration that I'm no doubt missing a large number of other factors that come into play from creating, deploying and installing energy stations,
 on the consumer or business side.
 
+---
 
+*UPDATE*: There is a current growth rate of 29% capacity, mostly supplied by China now ([w](https://en.wikipedia.org/wiki/Growth_of_photovoltaics#Current_status), [iea](https://iea-pvps.org/wp-content/uploads/2020/01/IEA-PVPS_-_A_Snapshot_of_Global_PV_-_1992-2017.pdf)).
+There is %2.1 energy usage being satisfied by solar currently, leading to about a 15 year adoption schedule.
+
+Assuming the growth rate holds relatively steady, this amounts to adoption by 2036 to 2040.
+
+###### 2021-04-27
