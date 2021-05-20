@@ -48,6 +48,12 @@ Note: The scaling looks to have slowed to about 2.6 years as of 2000.
 
 [Wikipedia](https://en.wikipedia.org/wiki/Moore's_law)
 
+### Norton's Law
+
+> All data, over time, approaches deleted, or public.
+
+([tweet](https://twitter.com/quinnnorton/status/619139410555047936), [archive](https://web.archive.org/web/20210407073009/https://twitter.com/quinnnorton/status/619139410555047936))
+
 ### Occam's Razor
 
 > Simpler solutions are more likely to be correct than complex ones.
