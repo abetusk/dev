@@ -18,6 +18,7 @@ Reference
 * [Heiko Blankenstein](http://www.heikoblankenstein.com/)
 * [Nobumichi Asai](https://www.nobumichiasai.com/)
 * [Want Zi Won](http://wangziwon.com/)
+* [Chang Yen Tzu](http://www.changyentzu.com/)
 
 Nobumichi Asai
 ---
@@ -149,6 +150,15 @@ Jennifer Townley
 
 
 [JenniferTownley.com](http://www.jennifertownley.com/bussola)
+
+Chang Yen Tzu
+---
+
+| | |
+|---|---|
+| ![self luminous](img/self-luminous-chang-yen-tzu.jpg ) | ![transplant](transplant-chang-yen-tzu.png)  |
+
+[Chang Yen Tzu](http://www.changyentzu.com/)
 
 Wang, Zi Won
 ---
