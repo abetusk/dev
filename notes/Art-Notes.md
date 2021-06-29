@@ -156,7 +156,7 @@ Chang Yen Tzu
 
 | | |
 |---|---|
-| ![self luminous](img/self-luminous-chang-yen-tzu.jpg ) | ![transplant](transplant-chang-yen-tzu.png)  |
+| ![self luminous](img/self-luminous-chang-yen-tzu.jpg ) | ![transplant](img/transplant-chang-yen-tzu.png)  |
 
 [Chang Yen Tzu](http://www.changyentzu.com/)
 
