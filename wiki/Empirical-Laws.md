@@ -92,6 +92,12 @@ and points out that Metcalf's law might undervalue network effects significantly
 
 [Wikipedia](https://en.wikipedia.org/wiki/Reed%27s_law)
 
+### Sinclair's Law
+
+> It is difficult to get a person to understand something, when their salary depends on not understanding it.
+
+[Wikipedia](https://en.wikiquote.org/wiki/Upton_Sinclair)
+
 ### Sarnoff's Law
 
 > The value of a broadcast network is proportional to the number of viewers.
