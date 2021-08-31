@@ -50,6 +50,14 @@ about $\$$1000 USD.
 The 2030 prediction is a bit aggressive and considering Moore's law might be slowing down, the timeline might be closer to 2040.
 Regardless, I am staying with my 2030 prediction.
 
+---
+
+* Bet: Strong AI by 2027 (1-2 year leeway)
+* Condition: strong AI - machines capable of carrying on normal human conversation on any topic -- not so much about physical robotics.
+  It should be able to convince you its' intelligent. It's not meant to 'trick' you.
+* Amount: $100
+
+
 Crypto Currency
 ---
 
@@ -92,6 +100,12 @@ If Bitcoin is capped at 21M coins and establishes itself by storing %20 of the $
 
 As of this writing, this gives us an estimate that BTC will start to become ubiquitous around 2026 to 2028.
 
+---
+
+* Bet: 1 BTC >= $1,000,000 USD by 2026
+* Condition: One (1) Bitcoin will be worth $1M USD by the year 2026
+* Amount: .002 BTC
+
 Energy Production
 ---
 
@@ -132,5 +146,12 @@ on the consumer or business side.
 There is %2.1 energy usage being satisfied by solar currently, leading to about a 15 year adoption schedule.
 
 Assuming the growth rate holds relatively steady, this amounts to adoption by 2036 to 2040.
+
+---
+
+* Bet: Most (50%+) of the worlds energy production will be solar by 2036
+* Condition: More than half of the worlds energy production will come from solar (only) by the year 2036
+* Amount: $100
+
 
 ###### 2021-04-27
