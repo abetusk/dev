@@ -5,7 +5,7 @@ Lambda Calculus
 > -- taneq ([HN comment](https://news.ycombinator.com/item?id=17956425))
 
 | Syntax | Name | Description | Example |
-|---|---|---|
+|---|---|---|---|
 | $(\lambda x . M)$ | function definition / lambda abstraction | Function $M$ taking $x$ as input | $(\lambda x . x^2)$ |
 | $(M x)$ | function evaluation / application | Function $M$ executed on input $x$ | $(x^2 3)$ |
 
