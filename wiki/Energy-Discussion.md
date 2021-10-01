@@ -107,7 +107,7 @@ $$
 \end{array}
 $$
 
-Which gives us a rough estimate of 270 years for us to reach a "Type I" civilization on the Kardeshev scale.
+Which gives us a rough estimate of 270 years for us to reach a "Type I" civilization on the Kardashev scale.
 
 References
 ---

@@ -42,3 +42,4 @@ dev
 * [Socio-Economic Definitions](Socio-Economic-Definitions.md)
 * [Bitcoin Moon Math](Bitcoin-Moon-Math.md)
 * [Solar Energy Discussion](Energy-Discussion.md)
+* [`awk` Cheatsheet](AWK-Cheatsheet.md)
