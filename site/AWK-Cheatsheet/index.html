@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>dev blog</title>
+
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js", "TeX/AMSsymbols.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <header>
+        <h1>Dev Blog</h1>
+
+        <table>
+          <body>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
+           <tr>
+              <td>
+                <br /> <br /> <br />
+                <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+
+                <br />
+                <p>
+                Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
+                <br />
+
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
+                </p>
+              </td>
+            </tr>
+          </body>
+        </table>
+
+      </header>
+      <section>
+
+        <h1 id="awk-cheatsheet"><code>awk</code> Cheatsheet</h1>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>echo -e "a b c\nd e f" | awk '{ print }'</code></td>
+<td>Print each row</td>
+</tr>
+<tr>
+<td><code>echo -e "a b c\nd e f" | awk '{ print $0 }'</code></td>
+<td>Print each row</td>
+</tr>
+<tr>
+<td><code>echo -e "a b c\nd e f" | awk '{ print $1, $2, $3 }'</code></td>
+<td>Print each element explicitly for each row</td>
+</tr>
+<tr>
+<td><code>echo -e "a\tb\tc\nd\te\tf" | awk -F '\t' '{ print $1, $2, $3 }'</code></td>
+<td>Print each element explicitly, using tab as a field separator</td>
+</tr>
+<tr>
+<td><code>echo -e "a b c\nd e f" | awk '{ print $(NF-2), $(NF-1), $NF }'</code></td>
+<td>Print the last three elements in the row</td>
+</tr>
+<tr>
+<td><code>echo -e "a b c\nd e f" | awk '{ print NR, NF, $0 }'</code></td>
+<td>Print row number, number of columns and the row</td>
+</tr>
+<tr>
+<td><code>echo -e "a b c\nd e f" | awk '/ e /{ print NR, $0  }'</code></td>
+<td>Match regex and then print the row number and the last three fields</td>
+</tr>
+<tr>
+<td><code>echo -e "a b c\nd e f" | awk '$2 == "e" { print NR, $0 }'</code></td>
+<td>Test to see if the second field is <code>b</code> and print the row number and row</td>
+</tr>
+<tr>
+<td><code>echo -e "a b c\nd e f" | awk '$2~/e/{ print $0 }'</code></td>
+<td>Test if the second field matches regex and print row</td>
+</tr>
+<tr>
+<td><code>echo -e "a b c\nd e f" | awk '{ printf "ok %s\n", $1 }'</code></td>
+<td>Use <code>printf</code> to do extra formatting</td>
+</tr>
+<tr>
+<td><code>echo -e "1 2 3\n4 5 6" | awk 'BEGIN { print "begin" } { tot = tot + $2 } END { print "end:", tot, tot/NR }'</code></td>
+<td>Calculate the running total and print out the sum and average of the second field</td>
+</tr>
+<tr>
+<td><code>ls -la | awk '{ print $1, $2, $3, $4 }'</code></td>
+<td>Print out first four columns of <code>ls -la</code> with duplicate separator tokens consolidated into one</td>
+</tr>
+<tr>
+<td><code>echo -e "a\tb\tc\nd\te\tf" | awk  'BEGIN { FS = "\t" } { print NF, $0 }'</code></td>
+<td>Change field separator (<code>FS</code>) to tab and print each row and their field count</td>
+</tr>
+<tr>
+<td><code>echo -e "a 1\nb 3\nc 7\na 3" | awk '{ print $1,$2; tot[$1]=tot[$1]+$2; count[$1]=count[$1]+1 } END { for (i in count) { print i, tot[i], count[i] } }'</code></td>
+<td>Arrays</td>
+</tr>
+<tr>
+<td><code>echo -e "a 1\nb 3\nc 7\na 3" | awk '{ print $1,$2; tot[$1]=tot[$1]+$2; count[$1]=count[$1]+1 } END { for (i in count) { if (count[i] &gt; 1) print "&gt;1", i, tot[i], count[i] ; else if (count[i] &lt; 2) print "&lt;2", i, tot[i], count[i] } }'</code></td>
+<td>Control flow</td>
+</tr>
+</tbody>
+</table>
+<h6 id="2021-10-01">2021-10-01</h6>
+
+      </section>
+
+      <!--
+      <footer>
+        <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+      </footer>
+      -->
+
+    </div>
+    <script src="/dev/js/scale.fix.js"></script>
+  </body
+</html>
