@@ -1,348 +1,218 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-    
     <url>
-     <loc>None/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/Textile-Cheat-Sheet/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/Image-Resize/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/Screenshots-Screencasts-Animated-Gifs/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/ffmpeg-notes/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/Unix-y-notes/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/lattice-reduction/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/GCode-Conversion/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/Git-Rename-Master/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/MkDocs-Quickstart/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/GPG-Notes/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/Git-Notes/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/Shannon-Entropy/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/Enabling-Server-HTTPS/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/BGZF-Example/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/Kelly-Criterion/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/C-Project-Template/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/Project-Organization/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/File-Naming-Conventions/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/Command-Line-Option-Loose-Standard/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/PCB-Notes/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/Coding-Style/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/Energy-Consumption-Stats/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/Simple-Sum/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/Fisher-Yates-Shuffle/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/Halting-Problem/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/Assorted-Small-Probability-Problems/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/Probability-Notes/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/Amdahls-Law/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/Is-It-Really-Open/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/Number-Theory-Notes/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/Arbitrary-Binary-Functions/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/Empirical-Laws/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/Food-CO2-Water/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/SSH-Recipes/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/Future-Predictions/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/Diophantine-Approximation/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/GCode-Common/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/Misc-Math/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/Socio-Economic-Definitions/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/Bitcoin-Moon-Math/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/Energy-Discussion/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>None/AWK-Cheatsheet/</loc>
-     <lastmod>2021-10-01</lastmod>
+     <loc>None</loc>
+     <lastmod>2021-10-26</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
 </urlset>

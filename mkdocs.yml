@@ -1,6 +1,7 @@
 site_name: dev
-pages:
-  - index.md
+#pages:
+nav:
+  - "index.md"
   - "Textile-Cheat-Sheet.md"
   - "Image-Resize.md"
   - "Screenshots-Screencasts-Animated-Gifs.md"
@@ -45,7 +46,11 @@ pages:
   - "AWK-Cheatsheet.md"
 
 docs_dir: 'wiki'
-theme_dir: 'dev_theme'
+use_directory_urls: false
+#theme_dir: 'dev_theme'
+theme:
+  name: mkdocs
+  custom_dir: dev_theme/
 extra:
   # for production
   #
