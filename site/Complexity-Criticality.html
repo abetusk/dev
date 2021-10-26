@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>dev blog</title>
+
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js", "TeX/AMSsymbols.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <header>
+        <h1>Dev Blog</h1>
+
+        <table>
+          <body>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
+           <tr>
+              <td>
+                <br /> <br /> <br />
+                <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+
+                <br />
+                <p>
+                Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
+                <br />
+
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
+                </p>
+              </td>
+            </tr>
+          </body>
+        </table>
+
+      </header>
+      <section>
+
+        <h1 id="complexity-and-criticality">Complexity and Criticality</h1>
+<p>Complexity and criticality, in the physics sense of the word,
+refer to complex behavior from the repeated application of simple
+rules and the study of systems at or near phase transitions.</p>
+<p>These notes follow Christensen and Moloney's book "Complexity and Criticality".
+The three major points will be:</p>
+<ul>
+<li>The Bethe lattice as a basis for talking about complexity and criticality</li>
+<li>The Ising model</li>
+<li>The rice pile model</li>
+</ul>
+<h2 id="bethe-lattice">Bethe Lattice</h2>
+<p>The Bethe lattice is an infinite rooted tree of degree $z$.
+Since the Bethe lattice is a tree, each leaf of the root node is independent,
+often times allowing for simple analysis.
+Any given node can be thought of as the root of the tree, giving the tree
+a symmetry that also helps in analysis.</p>
+<p>Consider coloring each node of the tree black or white with probability $p$.
+The following concepts are then considered:</p>
+<ul>
+<li>$p_c$ - critical probability when an infinite cluster appears</li>
+<li>$chi(p)$ - average cluster size</li>
+<li>$n(s,p)$ - density of cluster size $s$</li>
+<li>
+<p>$s_{\eps}$ - characteristic cluster size (explained below)</p>
+</li>
+<li>
+<p>$P_{\inf}(p)$ - probability root node is part of infinite cluster</p>
+</li>
+</ul>
+
+      </section>
+
+      <!--
+      <footer>
+        <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+      </footer>
+      -->
+
+    </div>
+    <script src="/dev/js/scale.fix.js"></script>
+  </body
+</html>

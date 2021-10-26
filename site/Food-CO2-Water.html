@@ -1,0 +1,357 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>dev blog</title>
+
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js", "TeX/AMSsymbols.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <header>
+        <h1>Dev Blog</h1>
+
+        <table>
+          <body>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
+           <tr>
+              <td>
+                <br /> <br /> <br />
+                <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+
+                <br />
+                <p>
+                Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
+                <br />
+
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
+                </p>
+              </td>
+            </tr>
+          </body>
+        </table>
+
+      </header>
+      <section>
+
+        <h1 id="co2-and-water-usage-of-food-consumed">CO2 and Water Usage of Food Consumed</h1>
+<table>
+<thead>
+<tr>
+<th>Diet</th>
+<th>Per Capita Yearly CO2 Emission $(\frac{kg}{(cap)(yr)})$</th>
+<th>Per Capita Yearly Water Consumption $(\frac{kg}{(cap)(yr)})$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>American Omnivore</td>
+<td>1422.96</td>
+<td>756.97</td>
+</tr>
+<tr>
+<td>American Vegetarian</td>
+<td>515.53</td>
+<td>275.21</td>
+</tr>
+<tr>
+<td>American Vegan (2 cup almond milk replacement)</td>
+<td>449.97</td>
+<td>491.80</td>
+</tr>
+<tr>
+<td>American Vegan (2% almond milk replacement)</td>
+<td>449.97</td>
+<td>231.60</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><em>American Omnivore</em> -  Meat and milk consumption taken from the National Chicken Council and the USDA</li>
+<li><em>American Vegetarian</em> -  Meat, pork and poultry replaced with soybean (by weight, assumed 158.49kg of soybean) for CO2 emission. Meat, pork and poultry replaced with rice (by weight, assumed 158.49kg of rice) for water consumption. Cow milk still used (67.59kg)</li>
+<li><em>American Vegan (2 cup almond milk replacement0)</em> - Meat, pork and poultry replaced with soybean (by weight, assumed 158.49kg of soybean) for CO2 emission. Meat, pork and poultry replaced with rice (by weight, assumed 158.49kg of rice) for water consumption. Almond milk used with 225g of almonds per litre of almond milk (assuming 67.59 L of almond milk consumed per capita per year)</li>
+<li><em>American Vegan (2% almond milk replacement)</em> -  Meat, pork and poultry replaced with soybean (by weight, assumed 158.49kg of soybean) for CO2 emission. Meat, pork and poultry replaced with rice (by weight, assumed 158.49kg of rice) for water consumption. Almond milk used with 20g of almonds per litre of almond milk (assuming 67.59 L of almond milk consumed per capita per year)</li>
+</ul>
+<h3 id="worked-calculations">Worked calculations</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Per Capita Yearly Consumption $(kg)$</th>
+<th>Per Capita Yearly CO2 Emission $(\frac{kg}{(cap)(yr)})$</th>
+<th>Per Capita Yearly Water Consumption $(\frac{kg}{(cap)(yr)})$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Meat (beef)</td>
+<td>25.85</td>
+<td>742.67</td>
+<td>324.68</td>
+</tr>
+<tr>
+<td>Meat (pork)</td>
+<td>23.04</td>
+<td>134.78</td>
+<td>102.76</td>
+</tr>
+<tr>
+<td>Meat (poultry)</td>
+<td>109.6</td>
+<td>451.55</td>
+<td>261.94</td>
+</tr>
+<tr>
+<td>Milk (cow)</td>
+<td>67.59</td>
+<td>93.95</td>
+<td>67.59</td>
+</tr>
+</tbody>
+</table>
+<pre><code>w = 25.85 + 23.04 + 109.6 = 158.49
+milk = 67.59
+
+omni_co2 = (25.85*28.73) + (23.04*5.85) + (109.6*4.12) + (milk*1.39)
+omni_h2o = (25.85*12.56) + (23.04*4.46) + (109.6*2.39) + (milk*1)
+
+veg_co2 = w*2.66 + milk*1.39
+veg_h2o = w*1.31 + milk*1
+
+vegan_co2_0 = w*2.66 + milk*0.42
+vegan_h2o_0 = w*1.31 + milk*(17.74*.237)
+
+vegan_co2_1 = w*2.66 + milk*0.42
+vegan_h2o_1 = w*1.31 + milk*(17.74*.02)
+
+</code></pre>
+
+<p>The following additional notes should be considered:</p>
+<ul>
+<li>I've found conflicting reports for the number of almonds in almond milk. If it's assumed that there are 225g of almonds per gallon of almond milk, this is <code>estimate 0</code> above (.237kg almonds per litre). If it's assumed the almond milk is 2% (by weight), then this is <code>estimate 1</code> above (.02kg almonds per litre).</li>
+<li>The <code>American Omnivore</code> diet estimates does not include rice, wheat, maize, vegetables or other non-animal products so can be considered a 'lower bound' on per capita CO2 and water consumption.</li>
+<li>The non <code>American Omnivore</code> entries use soybeans as a proxy for the meat (by weight) for CO2 emission and rice as a proxy for meat (by weight) for water consumption to give a conservative estimate of the CO2 emissions and water usage.</li>
+</ul>
+<h2 id="references">References</h2>
+<h3 id="per-capita-consumption-of-poultry-and-livestock-1965-to-estimated-2019-in-pounds"><a href="https://www.nationalchickencouncil.org/about-the-industry/statistics/per-capita-consumption-of-poultry-and-livestock-1965-to-estimated-2012-in-pounds/">"Per Capita Consumption of Poultry and Livestock, 1965 to Estimated 2019, in Pounds"</a></h3>
+<table>
+<thead>
+<tr>
+<th>Year</th>
+<th>Beef (lbs)</th>
+<th>Pork (lbs)</th>
+<th>Total Poultry (lbs)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>208</td>
+<td>57.0</td>
+<td>50.8</td>
+<td>109.6</td>
+</tr>
+</tbody>
+</table>
+<p>This implies <code>25.85kg</code> of beef, <code>23.04kg</code> of pork and <code>49.71kg</code> of poultry for the average American.</p>
+<h3 id="dairy-data"><a href="https://www.ers.usda.gov/data-products/dairy-data/">"Dairy Data"</a></h3>
+<p>The <a href="https://www.ers.usda.gov/webdocs/DataFiles/48685/pcconsp_1_.xlsx?v=2065.5">per capita consumption of dairy for Americans</a>:</p>
+<table>
+<thead>
+<tr>
+<th>Year</th>
+<th>Milk Consumption (lbs)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2017</td>
+<td>149</td>
+</tr>
+</tbody>
+</table>
+<p>149 pounds per person per year is about <code>67.59kg</code>per person per year.</p>
+<h3 id="food-consumption-patterns-and-their-effect-on-water-requirement-in-china-by-j-liu-and-h-h-g-savenije"><a href="https://www.hydrol-earth-syst-sci.net/12/887/2008/hess-12-887-2008.pdf">"Food consumption patterns and their effect on water requirement in China" by  J. Liu and H. H. G. Savenije</a></h3>
+<table>
+<thead>
+<tr>
+<th>Food</th>
+<th>Water footprint $(\frac{m^3}{kg})$</th>
+<th>Per capita annual food consumption (2003) $(\frac{kg}{(cap)(yr)})$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Rice</td>
+<td>1.31</td>
+<td>79</td>
+</tr>
+<tr>
+<td>Wheat</td>
+<td>0.98</td>
+<td>61</td>
+</tr>
+<tr>
+<td>Maize</td>
+<td>0.84</td>
+<td>15</td>
+</tr>
+<tr>
+<td>Soybeans</td>
+<td>3.20</td>
+<td>7</td>
+</tr>
+<tr>
+<td>Vegetables</td>
+<td>0.19</td>
+<td>270</td>
+</tr>
+<tr>
+<td>Fruits</td>
+<td>0.50</td>
+<td>50</td>
+</tr>
+<tr>
+<td>Beef</td>
+<td>12.56</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Pork</td>
+<td>4.46</td>
+<td>35</td>
+</tr>
+<tr>
+<td>Poultry</td>
+<td>2.39</td>
+<td>11</td>
+</tr>
+<tr>
+<td>Milk</td>
+<td>1.00</td>
+<td>17</td>
+</tr>
+</tbody>
+</table>
+<h3 id="systematic-review-of-greenhouse-gas-emissions-for-different-fresh-food-categories-by-stephen-clune-enda-crossin-karli-verghese"><a href="https://sci-hub.tw/https://doi.org/10.1016/j.jclepro.2016.04.082">"Systematic review of greenhouse gas emissions for different fresh food categories" by Stephen Clune, Enda Crossin, Karli Verghese</a></h3>
+<table>
+<thead>
+<tr>
+<th>Food</th>
+<th>Mean $\frac{(kg) (CO2\ eq)}{kg}$ (2015?)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Rice</td>
+<td>2.66</td>
+</tr>
+<tr>
+<td>Wheat</td>
+<td>0.51</td>
+</tr>
+<tr>
+<td>Maize</td>
+<td>0.63</td>
+</tr>
+<tr>
+<td>Soybeans</td>
+<td>0.58</td>
+</tr>
+<tr>
+<td>Vegetables</td>
+<td>0.47</td>
+</tr>
+<tr>
+<td>Fruits</td>
+<td>0.50</td>
+</tr>
+<tr>
+<td>Beef</td>
+<td>28.73</td>
+</tr>
+<tr>
+<td>Pork</td>
+<td>5.85</td>
+</tr>
+<tr>
+<td>Chicken</td>
+<td>4.12</td>
+</tr>
+<tr>
+<td>Milk</td>
+<td>1.39</td>
+</tr>
+<tr>
+<td>Almond/coconut milk</td>
+<td>0.42</td>
+</tr>
+</tbody>
+</table>
+<h3 id="the-green-blue-and-grey-water-footprint-of-crops-and-derived-crop-products-by-m-m-mekonnen-and-a-y-hoekstra"><a href="https://waterfootprint.org/media/downloads/Mekonnen-Hoekstra-2011-WaterFootprintCrops.pdf">"The green, blue and grey water footprint of crops and derived crop products" by M. M. Mekonnen and A. Y. Hoekstra</a></h3>
+<table>
+<thead>
+<tr>
+<th>Food</th>
+<th>Global average water footprint $(\frac{m^3}{ton})$ (1996-2005)</th>
+<th>Global average water footprint ($\frac{m^3}{kg}$ (1996-2005))</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Almonds</td>
+<td>16095</td>
+<td>17.74</td>
+</tr>
+</tbody>
+</table>
+<h3 id="how-many-ounces-of-almonds-go-into-making-each-half-gallon-of-almond-milk-example-silk-or-almond-breeze-brand"><a href="https://www.quora.com/How-many-ounces-of-almonds-go-into-making-each-half-gallon-of-almond-milk-example-Silk-or-Almond-Breeze-brand">How many ounces of almonds go into making each half-gallon of almond milk (example: Silk or Almond Breeze brand)?</a></h3>
+<p>As a conservative estimate of the almonds used in almond milk:</p>
+<ul>
+<li>Around 2 cups of almonds for a half gallon.</li>
+<li>Around <a href="http://www.veg-world.com/articles/cups.htm">225 g per cup of ground almonds</a>.</li>
+<li>2 cups almonds = 450 g almonds.</li>
+<li>1 gallon = 3.79 kg (water).</li>
+<li>1/2 gallon = 1.90 kg</li>
+<li>450 g almonds per 1.90 kg of almond milk</li>
+<li>.237 kg of almonds per 1 kg of almond milk</li>
+</ul>
+<p>As a potentially more realistic estimate of the number of almonds used in almond milk:</p>
+<ul>
+<li>If almond milk has 2% of almonds, by weight, then for every litre of almond milk, there are approximately 20g of almonds</li>
+<li>.02 kg of almonds per 1kg of almond milk</li>
+</ul>
+<h3 id="greenhouse-gas-emissions-from-a-typical-passenger-vehicle"><a href="https://www.epa.gov/greenvehicles/greenhouse-gas-emissions-typical-passenger-vehicle">Greenhouse Gas Emissions from a Typical Passenger Vehicle</a></h3>
+<p>$4600 \frac{kg}{yr}$ of CO2 emissions for the typical US passenger vehicle.</p>
+<h3 id="almond-milk-quite-good-for-you-very-bad-for-the-planet-by-emine-saner"><a href="https://www.theguardian.com/lifeandstyle/shortcuts/2015/oct/21/almond-milk-quite-good-for-you-very-bad-for-the-planet">"Almond milk: quite good for you – very bad for the planet" by Emine Saner</a></h3>
+<h3 id="your-almond-habit-is-sucking-california-dry-by-tom-philpott"><a href="https://www.motherjones.com/food/2014/07/your-almond-habit-sucking-califoirnia-dry/">"Your Almond Habit Is Sucking California Dry" by Tom Philpott</a></h3>
+<h3 id="lay-off-the-almond-milk-you-ignorant-hipsters-by-tom-philpott"><a href="https://www.motherjones.com/food/2014/07/lay-off-almond-milk-ignorant-hipsters/">"Lay Off the Almond Milk, You Ignorant Hipsters" by Tom Philpott</a></h3>
+<h3 id="almond-milk-is-taking-a-toll-on-the-environment"><a href="https://sustainability.ucsf.edu/1.713">"Almond Milk is Taking a Toll on the Environment"</a></h3>
+<h6 id="2019-04-02">2019-04-02</h6>
+
+      </section>
+
+      <!--
+      <footer>
+        <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+      </footer>
+      -->
+
+    </div>
+    <script src="/dev/js/scale.fix.js"></script>
+  </body
+</html>

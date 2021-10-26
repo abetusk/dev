@@ -1,0 +1,211 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>dev blog</title>
+
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js", "TeX/AMSsymbols.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <header>
+        <h1>Dev Blog</h1>
+
+        <table>
+          <body>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
+           <tr>
+              <td>
+                <br /> <br /> <br />
+                <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+
+                <br />
+                <p>
+                Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
+                <br />
+
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
+                </p>
+              </td>
+            </tr>
+          </body>
+        </table>
+
+      </header>
+      <section>
+
+        <h1 id="probability-notes">Probability Notes</h1>
+<p>By convention:</p>
+<p>$$
+E^n[X] \stackrel{def}{=} (E[X])^n
+$$</p>
+<h2 id="independence-of-expectation-finite">Independence of Expectation (finite)</h2>
+<p><strong>Claim</strong>:</p>
+<p>$$
+E[ \sum_{k=0}^{n-1} X_k ] = \sum_{k=0}^{n-1} E[X_k]
+$$</p>
+<p><em>Proof</em>:</p>
+<p>$$
+\begin{align}
+E[ X + Y ] &amp; = \int \int (s + t) \Pr\{ X = s \  \&amp; \ Y = t \} \ ds \ dt \\
+ &amp; = \int \int s \Pr \{ X = s \ \&amp; \  Y = t \} \ ds \ dt + \int \int t \Pr \{ X = s \ \&amp; \ Y = t \} \ ds \ dt \\
+ &amp; = \int \int s \Pr \{ X = s \ \&amp; \ Y = t \} \ dt \ ds + \int \int t \Pr \{ X = s \ \&amp; \ Y = t \} \ ds \ dt \\
+ &amp; = \int s \Pr \{ X = s \} \ ds + \int t \Pr \{ Y = t \} \ dt \\
+ &amp; = E[X] + E[Y]
+\end{align}
+$$</p>
+<p>Induction can be used to extend to the general case:</p>
+<p>$$
+E[ \sum_{k=0}^{n-1} X_k ] = \sum_{k=0}^{n-1} E[X_k]
+$$</p>
+<h2 id="bayes-theorem">Bayes' Theorem</h2>
+<p>$$
+\Pr\{ A | B \} = \frac{ \Pr\{ A \&amp; B \} }{ \Pr\{ B \} }
+$$</p>
+<p>$$
+\Pr\{ B | A \} = \frac{ \Pr\{ A \&amp; B \} }{ \Pr\{ A \} }
+$$</p>
+<p>$$
+\Pr\{ A | B \} = \frac{ \Pr\{ B | A \} \Pr\{ A \} }{ \Pr\{ B \} }
+$$</p>
+<h2 id="variance">Variance</h2>
+<p>$$ \mathrm{Var}[X] \stackrel{def}{=} E[(X - E[X])^2] = E[X^2] - (E[X])^2 $$</p>
+<h2 id="moment-generating-functions">Moment Generating Functions</h2>
+<p>$$
+M_X(t) \stackrel{def}{=} E[ e^{t X} ] = \sum_{k=0}^{\infty} \frac{t^k E[X^k]}{k!}
+$$</p>
+<hr />
+<p>If $X$ and $Y$ and independent random variables, then:</p>
+<p>$$
+M_{X + Y}(t) = E[ e^{t(X + Y)} ] = E[ e^{tX} e^{tY} ] = M_X(t) \cdot M_Y(t)
+$$</p>
+<hr />
+<p>$$
+\begin{align}
+\frac{d^n}{dt} M_X(t) &amp; = \frac{d^{(n)}}{dt} (  \sum_{k=0}^{\infty} \frac{t^n E[X^n]}{k!} ) \\
+ &amp; = \sum_{k=n} \frac{t^{k-n} E[X^k]}{(k-n)!} \\
+\to \frac{d^n}{dt} M_X(0) &amp; = E[X^n]
+\end{align}
+$$</p>
+<h2 id="jensens-inequality">Jensen's Inequality</h2>
+<p><strong>Claim</strong>:</p>
+<p>If $f(x)$ is a convex function, then:</p>
+<p>$$
+E[f(X)] \ge f(E[X])
+$$</p>
+<p><em>Proof</em>:</p>
+<p>Taylor's theorem gives us:</p>
+<p>$$
+\exists\ c : f(x) = f(\mu) + f'(\mu)(x - \mu) + \frac{f''(c)(x-\mu)^2}{2}
+$$</p>
+<p>Since $f(x)$ is concave, we know:</p>
+<p>$$
+f(\mu) + f'(\mu)(x - \mu) + \frac{f''(c)(x-\mu)^2}{2} \ge f(\mu) + f'(\mu)(x-\mu)
+$$</p>
+<p>This gives us:</p>
+<p>$$
+E[f(X)] \ge E[ f(\mu) + f'(\mu)(X - \mu) ]
+$$</p>
+<p>Choose $ \mu = E[X] $:</p>
+<p>$$
+\begin{align}
+E[ f(\mu) + f'(\mu)(X-\mu) ] &amp; = E[ f(E[X]) + f'(E[X])(X - E[X]) ] \\
+ &amp; = E[ f( E[X] ) ]  + f'(E[X])(E[X] - E[E[X]]) \\
+ &amp; = f(E[X]) + 0 \\
+\end{align}
+$$</p>
+<p>$$
+\to E[f(X)] \ge f(E[X])
+$$</p>
+<h2 id="markovs-inequality">Markov's Inequality</h2>
+<p><strong>Claim</strong>:</p>
+<p>$$
+X \ge 0, a &gt; 0
+$$</p>
+<p>$$
+\Pr \{ X \ge a \} \le \frac{E[X]}{a}
+$$</p>
+<p><em>Proof</em>:</p>
+<p>Since $X \ge 0$ and $a &gt; 0$:</p>
+<p>$$
+\begin{align}
+E[X] &amp; = \int_0^{\infty} t\ p_X(t) dt \\
+ &amp; = \int_0^{a} t\ p_X(t) dt + \int_a^{\infty} t\ p_X(t) dt \\
+ &amp; \ge \int_{a}^{\infty} t\ p_X(t) dt \\
+ &amp; \ge \int_{a}^{\infty} a\ p_X(t) dt \\
+ &amp; = a \int_{a}^{\infty} p_X(t) dt \\
+ &amp; = a \Pr\{ X \ge a \} \\
+\end{align}
+$$</p>
+<p>$a &gt; 0$, so we can divide:</p>
+<p>$$
+\to \Pr\{X \ge a \} \le \frac{E[X]}{a}
+$$</p>
+<h2 id="chebyshevs-inequality">Chebyshev's Inequality</h2>
+<p><strong>Claim</strong>:</p>
+<p>$$
+a &gt; 0
+$$</p>
+<p>$$
+\Pr\{|X - E[X]| \ge a \} \le \frac{ \mathrm{Var}[X] }{a^2}
+$$</p>
+<p><em>Proof</em>:</p>
+<p>$$
+\begin{align}
+\Pr\{ |X - E[X]| \ge a \} &amp; = \Pr\{ (X - E[X])^2 \ge a^2 \} \\
+ &amp; \le \frac{E[ (X-E[X])^2 ]}{a^2} \\
+ &amp; = \frac{\mathrm{Var}[X]}{a^2}
+\end{align}
+$$</p>
+<p>By Markov's and the definition of variance.</p>
+<h2 id="chernoff-bound">Chernoff Bound</h2>
+<p>$$
+X \ge 0, a &gt; 0
+$$</p>
+<p>$$
+\Pr\{ X \ge a \} = \Pr\{ e^{tX} \ge e^{ta} \} \le \frac{E[e^{tX}]}{e^{ta}}
+$$</p>
+<p>$$
+\Pr\{ X \ge a \} \le \min_{t&gt;0} \frac{E[e^{tX}]}{e^{ta}}
+$$</p>
+<p>This can be seen by a straight forward application of Markov's inequality.
+The parameter $t$ can be chosen to taste.</p>
+<hr />
+<p>Generalized extreme value distribution (GEV) or Fisher Tippett Gnedenko theorem:</p>
+<p>$$
+X_0, X_1, \cdots, X_{n-1} &amp; \ \ \ \text{  i.i.d. RVs}  \\
+\lim_{n \to \infty} P( \frac{max(X_0, X_1, \cdots, X_{n-1}) - b_n}{a_n}  \le x) &amp; \ \ = G(x) \\
+G_{\gamma,a,b}(x) = \exp( -(1 + (\frac{x-b}{a})\gamma)^{-\frac{1}{\gamma}}), \ \ \ \  &amp; 1 + (\frac{x-b}{a}) \gamma  &gt; 0
+\end{align}
+$$</p>
+<p>Where $G_{\gamma,a,b}(x)$ above is the general form of the special cases of Gumbel, Frechet and the Weibull family of distributions.</p>
+<p><a href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Tippett%E2%80%93Gnedenko_theorem">wiki</a></p>
+<h6 id="2018-08-04">2018-08-04</h6>
+
+      </section>
+
+      <!--
+      <footer>
+        <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+      </footer>
+      -->
+
+    </div>
+    <script src="/dev/js/scale.fix.js"></script>
+  </body
+</html>

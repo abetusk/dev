@@ -1,0 +1,174 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>dev blog</title>
+
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js", "TeX/AMSsymbols.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <header>
+        <h1>Dev Blog</h1>
+
+        <table>
+          <body>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
+           <tr>
+              <td>
+                <br /> <br /> <br />
+                <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+
+                <br />
+                <p>
+                Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
+                <br />
+
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
+                </p>
+              </td>
+            </tr>
+          </body>
+        </table>
+
+      </header>
+      <section>
+
+        <h3 id="install-dependencies">Install Dependencies</h3>
+<pre><code class="bash">sudo apt-get install gpa gnupg2
+</code></pre>
+
+<h3 id="generate-key-pair">Generate Key Pair</h3>
+<pre><code class="bash">gpg --gen-key
+</code></pre>
+
+<h4 id="suggestions">Suggestions</h4>
+<ul>
+<li>Use <code>RSA and RSA</code> (the default)</li>
+<li>Use <code>4096</code> bits for the keysize</li>
+<li>Choose no expiration for key (<code>0</code> option, default)</li>
+</ul>
+<p>Note: <code>Real name</code>, <code>Email address</code>, <code>Comment</code> and <code>passphrase</code> are needed.</p>
+<h3 id="list-keys">List Keys</h3>
+<pre><code>gpg --list-keys
+</code></pre>
+
+<h3 id="export-ascii-public-key">Export ASCII Public Key</h3>
+<pre><code>gpg --armor --export user@example.com
+</code></pre>
+
+<h3 id="export-binary-public-key">Export Binary Public Key</h3>
+<pre><code>gpg --output user.gpg --export user@example.com
+</code></pre>
+
+<h3 id="export-private-key-careful">Export Private Key (careful)</h3>
+<pre><code>gpg --export-secret-key -a user@example.net &gt; private.key
+</code></pre>
+
+<h3 id="add-binary-public-key">Add Binary Public Key</h3>
+<pre><code>gpg --import friend.gpg
+</code></pre>
+
+<h3 id="add-private-key">Add Private Key</h3>
+<pre><code>gpg --import private.key
+</code></pre>
+
+<h3 id="encrypt-message">Encrypt Message</h3>
+<pre><code>gpg -e -u &quot;Sender ID&quot; -r &quot;Recipient ID&quot; plaintext-message
+</code></pre>
+
+<p>'human readable' ASCII armor encrypted message:</p>
+<pre><code>gpg -a -e -u &quot;Sender ID&quot; -r &quot;Recipient ID&quot; plaintext-message
+</code></pre>
+
+<h3 id="decrypt-message">Decrypt Message</h3>
+<pre><code>gpg -d encrypted-message
+</code></pre>
+
+<h3 id="fin">Fin</h3>
+<pre><code>gpg --armor --export abetusk@mechaelephant.com
+</code></pre>
+
+<pre><code>-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: GnuPG v1
+
+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
+IPY2
+=tdhS
+-----END PGP PUBLIC KEY BLOCK-----
+</code></pre>
+
+<h6 id="2017-02-09">2017-02-09</h6>
+
+      </section>
+
+      <!--
+      <footer>
+        <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+      </footer>
+      -->
+
+    </div>
+    <script src="/dev/js/scale.fix.js"></script>
+  </body
+</html>

@@ -1,0 +1,227 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>dev blog</title>
+
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js", "TeX/AMSsymbols.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <header>
+        <h1>Dev Blog</h1>
+
+        <table>
+          <body>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
+           <tr>
+              <td>
+                <br /> <br /> <br />
+                <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+
+                <br />
+                <p>
+                Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
+                <br />
+
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
+                </p>
+              </td>
+            </tr>
+          </body>
+        </table>
+
+      </header>
+      <section>
+
+        <h1 id="javascript-cheat-sheet">JavaScript Cheat Sheet</h1>
+<h2 id="array"><code>array.</code></h2>
+<h3 id="indexof"><code>indexOf</code></h3>
+<pre><code>var a = ['a', 'x', 'z'];
+console.log( a.indexOf('x'), a.indexOf('.') );
+</code></pre>
+
+<pre><code>1 -1
+</code></pre>
+
+<h3 id="_1"></h3>
+<h3 id="foreach"><code>forEach</code></h3>
+<pre><code>['a','b','c'].forEach( function(ele,idx,arr) { console.log(ele,idx,arr); } );
+</code></pre>
+
+<pre><code>a 0 [ 'a', 'b', 'c' ]
+b 1 [ 'a', 'b', 'c' ]
+c 2 [ 'a', 'b', 'c' ]
+</code></pre>
+
+<h2 id="let-and-var"><code>let</code> and <code>var</code></h2>
+<table>
+<thead>
+<tr>
+<th><code>var</code></th>
+<th><code>let</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>scoped to immediate function body</td>
+<td>scoped to immediate enclosing block</td>
+</tr>
+<tr>
+<td>hoisted</td>
+<td>unhoisted</td>
+</tr>
+<tr>
+<td>global declaration attaches to global object</td>
+<td></td>
+</tr>
+<tr>
+<td>redeclaration allowed</td>
+<td>no redeclaration allowed</td>
+</tr>
+</tbody>
+</table>
+<h3 id="scope">scope</h3>
+<pre><code>function f() {
+  {
+    var v=&quot;v&quot;;
+    let l=&quot;l&quot;;
+  }
+  console.log(v);
+  console.log(l);
+} 
+f();
+</code></pre>
+
+<pre><code>v
+ReferenceError: l is not defined
+</code></pre>
+
+<h3 id="hoisting">hoisting</h3>
+<pre><code>function f() { console.log(u); }
+function g() {
+  console.log(v);
+  console.log(l);
+  var v = &quot;v&quot;;
+  let l = &quot;l&quot;;
+}
+f();
+g();
+</code></pre>
+
+<pre><code>ReferenceError: u is not defined
+undefined
+ReferenceError: l is not defined
+</code></pre>
+
+<h3 id="global-attachment">global attachment</h3>
+<pre><code>var v = &quot;v&quot;;
+let l = &quot;l&quot;;
+console.log(this.v, this.l);
+</code></pre>
+
+<pre><code>v undefined
+</code></pre>
+
+<h3 id="redeclaration">redeclaration</h3>
+<pre><code>function f() {
+  var v = &quot;v&quot;;
+  let l = &quot;l&quot;;
+  var v = &quot;a&quot;;
+  let l = &quot;e&quot;;
+}
+f();
+</code></pre>
+
+<pre><code>SyntaxError: Identifier 'l' has already been declared
+</code></pre>
+
+<h2 id="const"><code>const</code></h2>
+<pre><code>const c = &quot;c&quot;;
+</code></pre>
+
+<h2 id="vs"><code>==</code> vs <code>===</code></h2>
+<ul>
+<li><code>==</code> does implicit type conversion when comparing</li>
+<li><code>===</code> matches only when the values are equal as our their types</li>
+</ul>
+<pre><code>if      (0 == '')   { console.log(&quot;0 == ''&quot;);  }
+else if (0 != '')   { console.log(&quot;0 != ''&quot;);  }
+
+if      (0 === '')  { console.log(&quot;0 === ''&quot;); }
+else if (0 !== '')  { console.log(&quot;0 !== ''&quot;); }
+</code></pre>
+
+<pre><code>0 == ''
+0 !== ''
+</code></pre>
+
+<h2 id="_2"><code>??</code></h2>
+<pre><code>let a, b = &quot;b&quot;;
+let u = ( a ?? &quot;u&quot;),
+    v = ( b ?? &quot;v&quot;);
+console.log(a,b,u,v);
+
+</code></pre>
+
+<pre><code>undefined b u b
+</code></pre>
+
+<h2 id="gt"><code>=&gt;</code></h2>
+<pre><code>let f = () =&gt; console.log(&quot;f()&quot;),
+    g = (u) =&gt; console.log(&quot;g(&quot;, u, &quot;)&quot;),
+    h = ( (v,w) =&gt; { console.log(&quot;h&quot;); console.log(v,w); } );
+
+let _f = function() { console.log(&quot;_f()&quot;); },
+    _g = function(u) { console.log(&quot;_g(&quot;, u, &quot;)&quot;); },
+    _h = function(v,w) { console.log(&quot;h&quot;); console.log(v,w); };
+ f();  g('.');  h('.', '..');
+_f(); _g('.'); _h('.', '..');
+</code></pre>
+
+<pre><code>f()
+g( . )
+h
+. ..
+_f()
+_g( . )
+h
+. ..
+</code></pre>
+
+<h2 id="todo">todo</h2>
+<ul>
+<li><code>new</code></li>
+<li><code>function.(bind|call|apply)</code></li>
+<li>anonymous function callback pattern</li>
+<li><code>array.(map|slice|push|pop|fill|findIndex|indexOf)</code></li>
+</ul>
+<h6 id="2020-12-08">2020-12-08</h6>
+
+      </section>
+
+      <!--
+      <footer>
+        <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+      </footer>
+      -->
+
+    </div>
+    <script src="/dev/js/scale.fix.js"></script>
+  </body
+</html>

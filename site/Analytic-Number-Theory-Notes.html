@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>dev blog</title>
+
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js", "TeX/AMSsymbols.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <header>
+        <h1>Dev Blog</h1>
+
+        <table>
+          <body>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
+           <tr>
+              <td>
+                <br /> <br /> <br />
+                <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+
+                <br />
+                <p>
+                Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
+                <br />
+
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
+                </p>
+              </td>
+            </tr>
+          </body>
+        </table>
+
+      </header>
+      <section>
+
+        <h1 id="analytic-number-theory-notes">Analytic Number Theory Notes</h1>
+<p>$$</p>
+<p>\begin{equation} \label{eq1}
+\begin{split}
+P &amp;= { p_0, p_1, \dots, p_{m-1} } &amp;, \ p_k \in \text{Prime} \\
+N_p(x) &amp;= |{ n : n = \prod_{k=0}^{m-1} p_k^{\alpha_k} \le x, \alpha_k \in \mathbb{N}<em>0 }| \\
+&amp; \prod</em>{k=0}^{m-1} p^{\alpha_k} \le x \\
+\to &amp; \ \ \sum_{k=0}^{m-1} \alpha_k \ln(p_k) \le \ln(x) \\
+\to &amp; \ \  \alpha_k \ln(p_k) \le \ln(x) \\
+x \ge 2 \\
+\to &amp; \ \ \alpha_k \le \frac{\ln(x)}{\ln(p_k)} \le \frac{\ln(x)}{\ln(2)} \\
+\to &amp; \ \  \alpha_k \le \lfloor \frac{\ln(x) }{\ln(2)} \rfloor + 1 \le \frac{2 \ln(x)}{\ln(2)} \\</p>
+<p>N_p(x) &amp; \le | { [\alpha_0, \alpha_1, \dots, \alpha_{m-1}] : \alpha_k \le \frac{2\ln(x)}{\ln(2)}}| \\
+ &amp; \le \left( \frac{2 \ln(x)}{\ln(2)} \right)^m </p>
+<p>\end{split}
+\end{equation}</p>
+<p>$$</p>
+<hr />
+<p>$$</p>
+<p>\begin{equation} \label{eq2}
+\begin{split}</p>
+<p>e(n) &amp;=
+\begin{cases}
+1 &amp; n=1 \\
+0 &amp; \text{otherwise}
+\end{cases}</p>
+<p>\\</p>
+<p>id(n) &amp;= n \\</p>
+<p>s(n) &amp;= \begin{cases}
+1 &amp; n =m^2 \\
+0 &amp; \text{otherwise}
+\end{cases}</p>
+<p>\\</p>
+<p>\mu(n) &amp;= \begin{cases}
+1 &amp; n=1 \\
+(-1)^m &amp; n = \prod_{k=0}^{m-1} p_k \\
+0 &amp; \text{otherwise}
+\end{cases}</p>
+<p>\\</p>
+<p>\lambda(n) &amp; = \begin{cases}
+1 &amp; n=1 \\
+(-1)^s &amp; s = \sum_{k=0}^{m-1} \alpha_k, n = \prod_{k=0}^{m-1} p_k^{\alpha_k} \\
+0 &amp; \text{otherwise}
+\end{cases}</p>
+<p>\\</p>
+<p>\phi(n) &amp;= |{ m : 1 \le m \le n,  \gcd(m,n) }|</p>
+<p>\\</p>
+<p>d(n) &amp; = \sum_{d|n} d</p>
+<p>\\</p>
+<p>\omega(n) &amp;= \begin{cases}
+m &amp; n = \prod_{k=0}^{m-1} p_k^{\alpha_k}
+\end{cases}</p>
+<p>\\</p>
+<p>\Omega(n) &amp;= \begin{cases}
+\sum_{k=0}^{m-1} \alpha_k &amp; n=\prod_{k=0}^{m-1} p_k^{\alpha_k}
+\end{cases}</p>
+<p>\\</p>
+<p>\Lambda(n) &amp;= \begin{cases}
+\ln(p) &amp; n = p^m \\
+0 &amp; \text{otherwise}
+\end{cases}</p>
+<p>\end{split}
+\end{equation}</p>
+<p>$$</p>
+<hr />
+<p>$$
+\begin{equation} \label{eq3}
+\begin{split}</p>
+<p>\sum_{d|n} \mu(d) &amp;= \sum_{ &lt; p &gt; } \mu(\prod_{k=0}^{m-1} p_k^{\alpha_k} ) \\
+ &amp;= \sum_{ &lt; p &gt; } \mu(\prod_{k=0}^{m-1} p_k) \\
+ &amp; =\sum_{k=0}^{m-1} (-1)^k \binom{m}{k} \\
+ &amp; = (1-1)^m \\
+ &amp; = \begin{cases}
+1 &amp; n = 1 \\
+0 &amp; \text{otherwise}
+\end{cases}</p>
+<p>\end{split}
+\end{equation}
+$$</p>
+<hr />
+
+      </section>
+
+      <!--
+      <footer>
+        <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+      </footer>
+      -->
+
+    </div>
+    <script src="/dev/js/scale.fix.js"></script>
+  </body
+</html>

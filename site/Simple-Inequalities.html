@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>dev blog</title>
+
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js", "TeX/AMSsymbols.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <header>
+        <h1>Dev Blog</h1>
+
+        <table>
+          <body>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
+           <tr>
+              <td>
+                <br /> <br /> <br />
+                <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+
+                <br />
+                <p>
+                Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
+                <br />
+
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
+                </p>
+              </td>
+            </tr>
+          </body>
+        </table>
+
+      </header>
+      <section>
+
+        <h1 id="simple-inequalities">Simple Inequalities</h1>
+<p>For (real), bounded, continuous functions of one variable,
+explicit formulas for the error term of the remainder on the Taylor
+series can be used to get bounds on functions.</p>
+<p>Let $f: \mathbb{R} \to \mathbb{R}$ be $n+1$ differentiable over
+a closed interval between $x_0$ to $x$, then:</p>
+<p>$$
+\begin{array}{l}
+\exists x_<em>, &amp; x_0 \le x_</em> \le x, \
+f(x) &amp; = [ \sum_{k=0}^{n} \frac{f^{(k)}(x_0)}{k!} (x-x_0)^{k} ] + \frac{f^{(n+1)}(x_*)}{(n+1)!} (x-x_0)^{n+1} \
+\end{array}
+$$</p>
+<p>Where the last term is the Lagrange form of the mean value form of the remainder (<a href="https://en.wikipedia.org/wiki/Taylor%27s_theorem">src</a>).</p>
+<p>By restricting to an interval where you know the remainder term is of one sign, you can get explicit inequalities (<a href="https://math.stackexchange.com/questions/78261/using-taylor-series-expansion-as-a-bound">mo</a>).</p>
+<hr />
+<h3 id="1-ge-x-ge-0-1-x-ge-e-x">$ 1 \ge x \ge 0, 1-x \ge e^{-x} $</h3>
+<p>$$
+\begin{array}{llr}
+e^{-x} &amp; = 1 - x e^{x_<em>} \
+\forall x_</em>, &amp; 0 \ge x_<em> \ge 1, \
+ &amp;  0 \ge e^{-x_</em>} \le 1 \
+ \to &amp; -e^{-x_<em>} \le -1 \
+ \to &amp; -x e^{-x_</em>} \le -x  &amp; (x \ge 0) \
+ \to &amp; 1 - x e^{-x_*} \le 1 - x  \
+ \to &amp; e^{-x} \le 1 - x \
+ \to &amp; 1 - x \ge e^{-x} 
+\end{array}
+$$</p>
+<hr />
+<h3 id="fracpi2-ge-x-ge-0-x-ge-sinx">$ \frac{\pi}{2} \ge x \ge 0, x \ge sin(x) $</h3>
+<p>$$
+\begin{array}{llr}
+\sin(x) &amp; = x - \frac{x^3}{3!} \cos(x_<em>) \
+\forall x_</em>, &amp; 0 \le x_<em> \le \frac{\pi}{2}, \
+ &amp; 0 \le \cos(x_</em>) \le 1 \
+\to &amp; \frac{x^3}{3!} \cos(x_<em>) \ge 0 &amp; (\frac{\pi}{2} \ge x \ge 0) \
+\to &amp; -\frac{x^3}{3!} \cos(x_</em>) \le 0 \
+\to &amp; x-\frac{x^3}{3!} \cos(x_*) \le x \
+\to &amp; \sin(x)  \le x \
+\to &amp; x \ge \sin(x)  \
+\end{array}
+$$</p>
+<h6 id="2021-03-15">2021-03-15</h6>
+
+      </section>
+
+      <!--
+      <footer>
+        <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+      </footer>
+      -->
+
+    </div>
+    <script src="/dev/js/scale.fix.js"></script>
+  </body
+</html>

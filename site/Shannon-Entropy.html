@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>dev blog</title>
+
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js", "TeX/AMSsymbols.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <header>
+        <h1>Dev Blog</h1>
+
+        <table>
+          <body>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
+           <tr>
+              <td>
+                <br /> <br /> <br />
+                <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+
+                <br />
+                <p>
+                Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
+                <br />
+
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
+                </p>
+              </td>
+            </tr>
+          </body>
+        </table>
+
+      </header>
+      <section>
+
+        <h1 id="shannon-entropy">Shannon Entropy</h1>
+<p>Claude E. Shannon's book, "The Mathematical Theory of Communication", is
+very accessible.  The main points about how entropy is defined and derived
+along with the "Fundamental Theorem for a Discrete Channel With Noise" is
+digested below.</p>
+<h2 id="entropy">Entropy</h2>
+<p>Entropy can be defined as the number of bits it takes to describe a system.</p>
+<p>Given $n$ symbols, each occurring with probability $p_k$ for $k \in (0, 1, \dots, n-1)$,
+we ask how many configurations are there for a very long message, say of $T$
+transmitted symbols.</p>
+<p>For the sake of clarity, we assume $T$ large and $T \cdot p_k \cdot n$ is integral.</p>
+<p>The number of ways to arrange $T \cdot n$ elements comprised of $n$ symbols each
+occurring with $T \cdot p_k \cdot n$ frequency is the multinomial:</p>
+<p>$$ { T \cdot n \choose (T \cdot p_0 \cdot n), (T \cdot p_1 \cdot n), \dots, (T \cdot p_{n-1} \cdot n) } $$
+$$ = \frac{(T \cdot n)!}{\prod_{k=0}^{n-1} (T \cdot p_k \cdot n)!} $$</p>
+<p>If we concern ourselves with the bits it takes to represent the total number of
+configurations, we find (where $\lg(\cdot) = \log_2(\cdot)$):</p>
+<p>$$ \lg( \frac{(T \cdot n)!}{\prod_{k=0}^{n-1} (T \cdot p_k \cdot n)!} ) $$
+$$ = \lg( (T \cdot n)! ) - \sum_{k=0}^{n-1} \lg( (T \cdot p_k \cdot n)! ) $$</p>
+<p>$$ \approx (T \cdot n) lg( T \cdot n ) - (T \cdot n) - \sum_{k=0}^{n-1} [ (T \cdot p_k \cdot n) \lg(T \cdot p_k \cdot n) - (T \cdot p_k \cdot n) ] $$</p>
+<p>By definition, $\sum_{k=0}^{n-1} p_k = 1$, we can reduce to find:</p>
+<p>$$ = - T \sum_{k=0}^{n-1} p_k \lg(p_k) $$</p>
+<p>We define $H$ to be our entropy, the average number of bits needed to represent our system.
+Since the above is the total number of bits needed, we divide by $T$ to find the average:</p>
+<p>$$ H = - \sum_{k=0}^{n-1} p_k \lg(p_k) $$</p>
+<h2 id="transmission-over-a-noisy-channel">Transmission Over a Noisy Channel</h2>
+<p>If we transmit $H$ bits per symbol over a noisy line and assume each symbol's error
+over the line is independent, label the number of bits, whole or partial, that succumb
+to error as $r$.
+That is, of the $H$ bits per symbol, $r$ are 'eaten' by noise in the channel.</p>
+<p>Call the channel capacity $C = H - r$.
+This is the number of useful bits that remain after we take away the noise from
+the number of bits needed to encode symbols.</p>
+<p>As above, consider a long message of $T$ transmitted symbols.
+First allocate some bits for error correction and choose $S$ such that:</p>
+<p>$$ S &lt; C = H - r $$</p>
+<p>Further</p>
+<p>$$ S = C - \eta = H - r - \eta $$</p>
+<p>Where the number of error correcting bits is just shy of $T \cdot \eta$.
+Choose codewords in the source representation so that there are
+$2^{T \cdot S}$ codewords that sit in $2^{T \cdot H}$ total
+configurations.</p>
+<p>Sent messages will be from the restricted set of codewords and has
+probability:</p>
+<p>$$ \frac{2^{T \cdot S}}{2^{T \cdot H}} = 2^{T \cdot (S - H)} $$</p>
+<p>A received message of $T \cdot H$ bits long will have $T \cdot r$
+corrupted by error.
+The number of possible source configurations that could have sent
+the received message is:</p>
+<p>$$ 2^{T \cdot r} $$</p>
+<p>The probability that there is another codeword in the $2^{T \cdot r}$
+number of theoretical sent messages, aside from the source codeword,
+is the probability that none of the other codewords are hit:</p>
+<p>$$ [ 1 - 2^{ T \cdot (S - H) } ]^{ 2^{T \cdot r} } $$
+$$ = [ 1 - \frac{2^{ -T \cdot \eta}}{2^{T \cdot r}} ]^{2^{T \cdot r}} $$</p>
+<p>As $T$ becomes large:</p>
+<p>$$ \approx e^{ -2^{ -T \cdot \eta } } $$
+$$ = 1 - 2^{ -T \cdot \eta } + O( 2^{-2 \cdot T \cdot \eta} ) $$
+$$ \approx 1 - 2^{ -T \cdot \eta } $$</p>
+<p>Which approaches 0.</p>
+<p>So the chance of our transmitted encoded codeword being mistaken for
+another codeword is vanishingly small.
+As long as we choose $S$ to be less than the channel capacity $C$ and
+the message is long enough ($T$ is big enough) we have a low chance
+of a source codeword colliding after transmission with a channel error
+rate of $r$.</p>
+<h6 id="2017-06-12">2017-06-12</h6>
+
+      </section>
+
+      <!--
+      <footer>
+        <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+      </footer>
+      -->
+
+    </div>
+    <script src="/dev/js/scale.fix.js"></script>
+  </body
+</html>

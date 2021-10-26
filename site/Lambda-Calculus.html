@@ -1,0 +1,186 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>dev blog</title>
+
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js", "TeX/AMSsymbols.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <header>
+        <h1>Dev Blog</h1>
+
+        <table>
+          <body>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
+           <tr>
+              <td>
+                <br /> <br /> <br />
+                <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+
+                <br />
+                <p>
+                Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
+                <br />
+
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
+                </p>
+              </td>
+            </tr>
+          </body>
+        </table>
+
+      </header>
+      <section>
+
+        <h2 id="lambda-calculus">Lambda Calculus</h2>
+<blockquote>
+<p>Functional programming: Making you feel clever by allowing you to solve problems that nobody else even knew existed, in order to let you do what everyone else could do from the start.
+-- taneq (<a href="https://news.ycombinator.com/item?id=17956425">HN comment</a>)</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Syntax</th>
+<th>Name</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$(\lambda x . M)$</td>
+<td>function definition / lambda abstraction</td>
+<td>Function $M$ taking $x$ as input</td>
+<td>$(\lambda x . x^2)$</td>
+</tr>
+<tr>
+<td>$(M x)$</td>
+<td>function evaluation / application</td>
+<td>Function $M$ executed on input $x$</td>
+<td>$(x^2 3)$</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>$ \lambda x . y z = \lambda x . (y z) $</li>
+<li>$ x y z = (x y) z $</li>
+</ul>
+<h2 id="recursion">Recursion</h2>
+<p>From [6]:</p>
+<blockquote>
+<p>Lambda calculus, which is the core of functional languages, only supports function
+literals and function application. So the definition above is not a valid lambda term ...
+it involves a recursive binding: the definition ... refers to itself!</p>
+</blockquote>
+<pre><code>function fact_base(recur, x) {
+  return function() {
+    if (x==0) { return 1; }
+    return x * (recur(recur, x-1)());
+  };
+}
+
+fact = function(x) { return fact_base(fact_base, x)(); }
+</code></pre>
+
+<p>Now</p>
+<pre><code>&gt; fact(5)
+120
+</code></pre>
+
+<h2 id="currying">Currying</h2>
+<p><em>The technique of translating the evaluation of a function that takes multiple arguments into evaluating a sequence of functions, each with a single argument.</em></p>
+<p>From [6]:</p>
+<blockquote>
+<p>Functions with several parameters can be encoded in the lambda calculus via currying,
+whereby a function taking two parameters is turned into a function that takes the first
+parameter and returns a function that takes the second parameter.</p>
+</blockquote>
+<pre><code>var X = function(recurse, n) {
+  if (0==n) { return 1; }
+  return n * recurse(recurse, n-1);
+}
+
+var Y = function(builder, n) { 
+  return builder(builder, n);
+}
+
+var res = Y(X,6);
+console.log(res);
+
+//----
+
+var X1 = function (recurse) { return function(n) {
+  if (0==n) { return 1; }
+  return n * (recurse(recurse))(n-1);
+}};
+
+var Y1 = function(builder) { return function(n) {
+  return (builder(builder))(n);
+}};
+
+res = Y1(X1)(6);
+console.log(res);
+
+//---
+
+var res =
+  (function(builder) { return function(n) {
+      return (builder(builder))(n);
+  }})(function (recurse) { return function(n) {
+    if (0==n) { return 1; }
+    return n * (recurse(recurse))(n-1);
+  }})(6);
+
+console.log(res);
+</code></pre>
+
+<p>Produces:</p>
+<pre><code>720
+720
+720
+</code></pre>
+
+<h2 id="y-combinator">Y Combinator</h2>
+<p>$$
+Y = \lambda f . (\lambda x . f(x x)) (\lambda x . f(x x))
+$$</p>
+<h2 id="references">References</h2>
+<ol>
+<li><a href="https://www.mail-archive.com/boston-pm@mail.pm.org/msg02716.html">Re: Boston.pm perl6/pugs</a></li>
+<li><a href="https://stackoverflow.com/questions/93526/what-is-a-y-combinator/94056#94056">SO: What is a Y-combinator?</a></li>
+<li><a href="https://stackoverflow.com/questions/93526/what-is-a-y-combinator/94056#94056">SO: Clear intuitive derivation of the fixed-point combinator (Y combinator)</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Currying">Wikipedia: Currying</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Lambda_calculus">Wikipedia: Lambda Calculus</a></li>
+<li><a href="https://lptk.github.io/programming/2019/10/15/simple-essence-y-combinator.html">The Simple Essence of the Y Combinator (Explained in Python)</a></li>
+</ol>
+<h6 id="2018-09-10">2018-09-10</h6>
+
+      </section>
+
+      <!--
+      <footer>
+        <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+      </footer>
+      -->
+
+    </div>
+    <script src="/dev/js/scale.fix.js"></script>
+  </body
+</html>

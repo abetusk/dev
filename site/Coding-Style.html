@@ -1,0 +1,240 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>dev blog</title>
+
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js", "TeX/AMSsymbols.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <header>
+        <h1>Dev Blog</h1>
+
+        <table>
+          <body>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
+           <tr>
+              <td>
+                <br /> <br /> <br />
+                <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+
+                <br />
+                <p>
+                Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
+                <br />
+
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
+                </p>
+              </td>
+            </tr>
+          </body>
+        </table>
+
+      </header>
+      <section>
+
+        <h1 id="elements-of-coding-style">Elements of Coding Style</h1>
+<p>This is meant as a light style guide for coding.
+Rules here are guides and not meant to be used
+when common sense dictates otherwise.</p>
+<p>The following rules are mostly semantic and are
+done with a 'polyglot' point of view even though
+JavaScript is mostly used for coding examples.</p>
+<p>These are coding format rules that I mostly
+gravitate towards and is my attempt at formalizing
+them in some way.</p>
+<h2 id="prefer-two-space-indentation-to-tab-or-four-spaces">Prefer two space indentation to tab or four spaces</h2>
+<p>Two space indentation should be preferred to four spaces or tabs for indentation.
+Four spaces causes code to gravitate too far to the right.
+Tabs are inconsistently rendered, annoying to manipulate and camouflage themselves
+as spaces.</p>
+<pre><code>function f() {
+  console.log(&quot;hello&quot;);
+  if (true) {
+    console.log(&quot;hello, friend&quot;);
+  }
+}
+</code></pre>
+
+<h2 id="prefer-start-block-token-on-the-same-line-as-control-statements-and-function-headings">Prefer start block token on the same line as control statements and function headings</h2>
+<p>For languages that have a start block token, a <code>{</code> say,
+prefer to put them on the same line as the function heading.
+Putting start blocks only increases vertical length with no real
+benefit.
+If breaks in text are needed, add returns as needed.</p>
+<pre><code>function f() {
+
+  for (var i=0; i&lt;1; i++) {
+    console.log(&quot;hello&quot;);
+  }
+
+}
+</code></pre>
+
+<h2 id="encase-conditional-blocks-within-block-tokens-even-if-the-language-allows-otherwise">Encase conditional blocks within block tokens even if the language allows otherwise</h2>
+<p>Even if the language allows you to forgo block tokens to encase the control block
+of a conditional, encase them in the block tokens anyway.
+If statements are extended, it's an easy mistake to think the added code
+falls within the same conditional if not encased in the block tokens.</p>
+<pre><code>  if (true) {
+    console.log(&quot;hello&quot;);
+  }
+</code></pre>
+
+<h2 id="place-small-conditional-statements-on-a-single-line">Place small conditional statements on a single line</h2>
+<p>If the conditional expression and statement body is small enough, place it all on the same line.
+If the line is too long, this should be avoided but for small statements, terseness wins
+over beauty.</p>
+<pre><code>  if (true) { console.log(&quot;hello&quot;; }
+</code></pre>
+
+<h2 id="prefer-alternate-else-conditionals-on-their-own-line">Prefer alternate <code>else</code> conditionals on their own line</h2>
+<p>For ease of reading, put <code>else</code> and <code>else if</code> conditionals on their own line.
+Each alternate conditional is easier to read, align and comment if necessary
+if they're as independent as possible from the surrounding sibling conditionals.</p>
+<pre><code>  if (ok) {
+    console.log(&quot;hello&quot;);
+  }
+  else if (ko) {
+    console.log(&quot;goodbye&quot;);
+  }
+  else {
+    console.log(&quot;hello and goodbye&quot;);
+  }
+</code></pre>
+
+<h2 id="prefer-ternary-conditional-assignment-over-ifelse-assignment">Prefer ternary conditional assignment over <code>if/else</code> assignment</h2>
+<p>If the language allows for ternary expressions, use them for alternate assignments.
+Terseness wins out over beauty.</p>
+<pre><code>  var v = ( vv ? true : false );
+</code></pre>
+
+<h2 id="prefer-putting-comments-at-the-top-of-statement-blocks-and-put-a-blank-comment-line-after-the-comment-text">Prefer putting comments at the top of statement blocks and put a blank comment line after the comment text</h2>
+<p>Comments should appear on their own line, indented appropriately, above the logic
+it's commenting on, where appropriate.
+In the cases that comments need to go into a statement block instead of above
+it, they should appear at the top of the statement block.
+Inline comments should be avoided.</p>
+<p>Comments should describe what the high level concept of a piece of code is.
+The least it should do is to remind the author of the intent of the code were it to be
+revisited after a time.
+Comment blocks should have a trailing 'blank' comment line to ease of reading.</p>
+<pre><code>  // If everything is 'ok',
+  // provide a friendly greeting.
+  //
+  if (ok) {
+    console.log(&quot;hello&quot;);
+  }
+</code></pre>
+
+<h2 id="end-of-function-returns-should-have-no-blank-line-between-the-ending-block-token">End of function returns should have no blank line between the ending block token</h2>
+<p>Trailing newlines after the last return should be culled for conciseness.</p>
+<pre><code>function f() {
+
+  console.log(&quot;hello&quot;);
+
+  return true;
+}
+</code></pre>
+
+<h2 id="no-trailing-whitespace-at-end-of-lines">No trailing whitespace at end of lines</h2>
+<p>Trailing whitespace should be culled at the end of the line.
+Use whitespace highlighting in your editor to notice it.</p>
+<h2 id="when-doing-many-variable-assignments-align-them-for-readability">When doing many variable assignments, align them for readability</h2>
+<p>When assigning variables values, on initialization say, prefer
+to format them so they can easily be read by aligning the equals
+sign and putting multiple variables on a single line if need be.
+Small differences are more noticeable when aligned in this way.
+Structure and intent of why the variables are being assigned
+is sometimes more apparent when aligned properly.</p>
+<p>Add space between the end of the variable and the <code>=</code> if need be.
+Group in blocks to ease readability.</p>
+<pre><code>  var x00 = 0, x01 = 1,
+      x10 = 1, x11 = 0;
+
+  var mammal  = 'cat',
+      reptile = 'chameleon',
+      fish    = 'catfish',
+      insect  = 'ladybug',
+
+      dinosaur         = 'brontosaurus',
+      extinct_elephant = 'woolly mammoth';
+
+</code></pre>
+
+<h2 id="place-a-single-space-between-parent-expression-and-nested-sub-expressions-aligning-inner-expressions-with-proper-indentation-place-boolean-operations-at-end-of-line-where-appropriate">Place a single space between parent expression and nested sub expressions, aligning inner expressions with proper indentation.  Place Boolean operations at end of line, where appropriate.</h2>
+<p>For a parent control statement expression, put a space between the outer parenthesis and the inner expression.
+For the expressions within the control statement, align them for readability with proper indentation
+if the control is nested.</p>
+<p>Boolean tokens should be placed at the end of the line so the first relevant piece of information
+on the line is relevant logic.</p>
+<p>Nested multi-line conditionals are hard enough to read, try to ease the cognitive load on the reader
+as much as possible.</p>
+<pre><code>function f(v) {
+  var k=0;
+  while ( (v&gt;10) &amp;&amp;
+          (k&lt;v) &amp;&amp;
+          ( ((k+v) &gt; 100) || 
+            ((k-v) &lt; 50) ) ) {
+    console.log(&quot;hello&quot;);
+  }
+}
+</code></pre>
+
+<h2 id="use-parenthesis-for-explicit-order-of-operations">Use parenthesis for explicit order of operations</h2>
+<p>Use parenthesis to explicitly show what the order of
+operations should be for an expression or statement.
+It puts a lot of cognitive load on the reader to
+remember which order of operations takes precedence
+in the language that the code is written in.</p>
+<p>Sometimes order of operations aren't the same
+between languages.
+Sometimes a token is overloaded and mean different
+things in different contexts, often within the same
+line.</p>
+<p>Ease the readers burden by explicitly spelling it out
+for them.</p>
+<pre><code>  while ( ((*p) != 0) &amp;&amp;
+          ((5*(*p)) &gt; 100) ) {
+    p++;
+  }
+</code></pre>
+
+<h2 id="contents-of-commenting">Contents of commenting</h2>
+<p>Comments should be a high level description of what the code does.
+The code describes what the code does so a comments job is to
+enlighten what the code is doing and give motivation for why
+it's doing it, not repeat the logic verbatim.</p>
+<p>A good rule of thumb is to write a comment that you will be
+able to understand in 6 months time (or whatever unit of time
+causes forgetfulness) should you look at the code again.</p>
+<h6 id="2018-02-17">2018-02-17</h6>
+
+      </section>
+
+      <!--
+      <footer>
+        <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+      </footer>
+      -->
+
+    </div>
+    <script src="/dev/js/scale.fix.js"></script>
+  </body
+</html>

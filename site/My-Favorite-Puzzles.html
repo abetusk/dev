@@ -1,0 +1,302 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>dev blog</title>
+
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js", "TeX/AMSsymbols.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <header>
+        <h1>Dev Blog</h1>
+
+        <table>
+          <body>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
+           <tr>
+              <td>
+                <br /> <br /> <br />
+                <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+
+                <br />
+                <p>
+                Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
+                <br />
+
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
+                </p>
+              </td>
+            </tr>
+          </body>
+        </table>
+
+      </header>
+      <section>
+
+        <h1 id="my-favorite-logic-puzzles">My Favorite Logic Puzzles</h1>
+<p>Solutions at the bottom.</p>
+<h2 id="monty-hall">Monty Hall</h2>
+<p>A game is played in the following order:</p>
+<ul>
+<li>The game host shows 3 doors, one of which has a prize behind it while the others do not</li>
+<li>The host secretly places the prize at random behind 1 of the 3 doors</li>
+<li>You pick a door</li>
+<li>After you pick a door, the host opens one door other than the one you picked to show
+  no prize behind it</li>
+<li>The host then asks you whether you would like to switch or stay</li>
+</ul>
+<p>Note: The prize's location stays fixed initial placement.</p>
+<p><strong>Q: What is the tactic (to switch or stay) that maximized probability of winning the prize?</strong></p>
+<h3 id="alternate-version">Alternate version</h3>
+<ul>
+<li>With probability $\frac{1}{2}$, a red or green ball is secretly placed in a bag</li>
+<li>A red ball is then placed in the bag</li>
+<li>A ball is chosen at random from the two balls in the bag and is discovered to be red</li>
+</ul>
+<p><strong>Q: What is the probability that the other ball in the bag is red?</strong></p>
+<h2 id="truthsayers-and-liars">Truthsayers and Liars</h2>
+<p>You come to a fork in the road where one path leads to riches and
+the other to doom.</p>
+<p>A person stands at the crossroads who either always tells the truth or
+always lies.</p>
+<p><strong>Q: What is one question that can be asked to make sure you go on the path
+to the prize?</strong></p>
+<h2 id="prisoners-in-a-line">Prisoner's in a Line</h2>
+<ul>
+<li>$N$ prisoners are placed in a line, all facing front</li>
+<li>A red or green hat is placed on each prisoner's head</li>
+<li>Prisoner at position $p$ ($0 \le p &lt; N$) can see all prisoners
+  at positions $p+1$ to $N-1$ (that is, they can see all prisoners in front of them)</li>
+<li>Prisoner at position $p$ cannot see prisoners hat at positions $0$ to $p$
+  (that is, they cannot see their own hat or any prisoner's hat behind them)</li>
+<li>The warden starts at position $0$ and asks what the prisoner's hat is</li>
+<li>When asked about their hat color, prisoners can only respond "red" or "green"</li>
+<li>All prisoners in front can hear answers to the hat questions from prisoner's
+  behind them</li>
+<li>Prisoners who guess their hat color correctly are freed while an incorrect guess
+  leads to life imprisonment</li>
+</ul>
+<p>Note: prisoners are allowed to collude on a solution before the game starts but
+the warden is assumed to be listening in and can change the prisoner order or hat
+color placement depending on the prisoner's strategy.</p>
+<p><strong>Q: What tactic should be employed by the prisoners to save the maximum number of people?</strong></p>
+<h2 id="dominoes-on-a-mutilated-chessboard">Dominoes on a Mutilated Chessboard</h2>
+<p>A chessboard has 64 squares on it (8 rows by 8 columns).
+A domino takes up 2 squares on a chessboard.</p>
+<p>If two squares are removed from the chessboard, one from the upper left corner and the other from the lower right corner,
+Can 31 dominoes be put on a chessboard to completely cover it?</p>
+<h2 id="green-eyed-islanders-and-the-outsider">Green Eyed Islanders and the Outsider</h2>
+<ul>
+<li>$N$ people on an island</li>
+<li>$0 &lt; M \le N$ have green eyes (that is, at least one islander has green eyes) while all others have red eyes</li>
+<li>Initially, no islander knows their own eye color</li>
+<li>If an islander figures out their eye color anytime during the day, they leave the island that night</li>
+<li>One morning, an outsider comes in and announces "At least one of you has green eyes"</li>
+</ul>
+<p>Note: islanders consider it rude to tell each other their eye color and do not look in mirrors.</p>
+<p><strong>Q: How many islanders are left on the island after $N$ days?</strong></p>
+<h2 id="numbered-boxes">Numbered Boxes</h2>
+<ul>
+<li>$N$ people have a unique number from $0$ to $(N-1)$ assigned to them</li>
+<li>$N$ boxes are labeled uniquely from $0$ to $(N-1)$</li>
+<li>$N$ slips of paper have a unique number from $0$ to $(N-1)$ written on them
+  and placed in a box, one slip of paper per box, randomly</li>
+<li>Each of the $N$ people is brought in and allowed to look at $\lfloor N/2 \rfloor$ boxes</li>
+<li>Once the game starts, no communication is allowed between players</li>
+</ul>
+<p><strong>Q: What strategy maximizes each player finding their own number in a box?</strong></p>
+<h2 id="drunk-passengers-on-a-plane">Drunk Passengers on a Plane</h2>
+<ul>
+<li>There are $N$ seats on a plane</li>
+<li>There are $N$ passengers, each uniquely assigned one of the $N$ seats</li>
+<li>Each passenger will take their assigned seat if available, otherwise they will pick a seat at random</li>
+<li>Each passenger boards one by one</li>
+<li>The first passenger is drunk and sits in the incorrect seat</li>
+</ul>
+<p><strong>Q: What is the probability that the last passenger will sit in their assigned seat?</strong></p>
+<h2 id="duplicates-in-a-list">Duplicates in a List</h2>
+<ul>
+<li>An array of length $N+1$</li>
+<li>Elements are only drawn from $[1,N]$</li>
+</ul>
+<p>Note: there is at least one duplicate entry in the array.</p>
+<p><strong>Q: In $O(\lg N)$ space and $O(N)$ time, find any duplicated entry</strong></p>
+<h2 id="cat-in-a-box">Cat in a Box</h2>
+<ul>
+<li>$N$ adjacent rooms (that is, an array of rooms where all but the ends rooms have access to the left and right room next to them)</li>
+<li>A cat exists in a room, initially placed at random</li>
+<li>Each round, the cat moves to an adjacent room and does not stay in a room that it is currently in</li>
+<li>Each round, you are allowed to open the door to a room</li>
+</ul>
+<p><strong>Q: What is the strategy to maximize the chance of finding the cat?</strong></p>
+<h2 id="prisoners-and-the-coin">Prisoners and the Coin</h2>
+<ul>
+<li>$N$ prisoners are separated and not allowed to communicate</li>
+<li>At the warden's prerogative, a prisoner is brought in and fed</li>
+<li>While the prisoner is eating, the prisoner is allowed to observe and flip a coin,
+  if they so choose</li>
+<li>The coin is initially in a random state at the warden's whim</li>
+<li>No prisoner is allowed to starve</li>
+<li>At any point, any prisoner is allowed to say "We've all been here", at which
+  point they will all be let go if correct or sentenced to life without parole
+  if wrong</li>
+</ul>
+<p>Note: prisoners are allowed to collude on a solution before the game starts.</p>
+<p><strong>Q: What strategy can the prisoners employ to maximize the chances for their freedom?</strong></p>
+<h2 id="the-devil-and-coins-on-a-chessboard">The Devil and Coins on a Chessboard</h2>
+<ul>
+<li>An $8x8$ chessboard has $64$ coins placed in each square</li>
+<li>The Devil chooses the initial configuration of coins</li>
+<li>You are brought and the following chain of events take place:</li>
+<li>The Devil points to one position on the chessboard</li>
+<li>You must flip <strong>any</strong> one coin, in any position on the chessboard</li>
+<li>You are escorted out</li>
+<li>Your partner is escorted in to observe the chessboard</li>
+<li>Your partner guesses which position the Devil pointed to</li>
+</ul>
+<p>Note: you and your partner are allowed to collude beforehand but no communication
+is allowed while playing.
+The Devil is assumed to be listening in while you and your partner collude.</p>
+<p><strong>Q: What strategy can be employed to maximize the chances of your partner guessing the pointed to position correctly?</strong></p>
+<h1 id="solutions">Solutions</h1>
+<h2 id="monty-hall_1">Monty Hall</h2>
+<p>Switching gives a $\frac{2}{3}$ chance of winning whereas staying gives $\frac{1}{3}$.</p>
+<p>One way to see this is to play with $N$ doors.
+After the initial pick by the player, the game show host will reveal $(N-2)$ doors, in effect giving you
+$(N-1)$ door reveals if you switch but only $1$ if you stay.</p>
+<p>From personal experience, only when people experience the loss do they recant on their initial $\frac{1}{2}$ estimate.</p>
+<p>Here is a program to convince yourself should you be adamant about staying as a solution:</p>
+<pre><code>#!/usr/bin/python3
+
+import re,sys,random
+N = 100
+total_wins=0
+total_losses=0
+while True:
+
+  guess=-1
+  prize_door = int(float(N)*random.random())
+  closed_door = prize_door
+
+  print(&quot;\n---\nThere are&quot;, N, &quot;doors.&quot;)
+  sys.stdout.write(&quot;Door guess [0-&quot; + str(N-1) + &quot;] ('q' to quit): &quot;)
+  sys.stdout.flush()
+  line = sys.stdin.readline()
+
+  if re.match('\d+', line): guess = int(line.strip())
+  else: break
+
+  if (guess&lt;0) or (guess&gt;=N):
+    guess = int(float(N)*random.random())
+
+  if guess == prize_door:
+    closed_door = int(float(N)*random.random())
+    if closed_door &gt;= guess:
+      closed_door = (closed_door + 1) % N
+
+  open_door = []
+  for idx in range(N):
+    if (idx!=guess) and (idx!=closed_door): open_door.append(str(idx))
+
+  print(&quot;You picked&quot;, guess)
+  print(&quot;Doors&quot;, &quot;,&quot;.join(open_door), &quot;are opened.&quot;)
+  print(&quot;Doors&quot;, guess, closed_door, &quot;remain closed&quot;)
+  sys.stdout.write(&quot;Would you like to switch [y/n]? &quot;)
+  sys.stdout.flush()
+
+  line = sys.stdin.readline()
+  if (len(line) &gt; 0) and ((line[0] =='y') or line[0] == 'Y'):
+    guess = closed_door
+
+  print(&quot;Your door is now&quot;, guess)
+
+  if guess == prize_door:
+    total_wins+=1
+    print(&quot;Congratulations! You won!&quot;)
+  else:
+    total_losses+=1
+    print(&quot;Sorry, the prize was behind door&quot;, prize_door, &quot;(you guessed&quot;, guess,&quot;)&quot;)
+
+  print(&quot;\nYour total wins are now:&quot;, total_wins, &quot;and total losses are:&quot;, total_losses)
+</code></pre>
+
+<h2 id="truthsayers-and-liars_1">Truthsayers and Liars</h2>
+<blockquote>
+<p>If I were to ask you which path is the road to the prize, what would you say?</p>
+</blockquote>
+<h2 id="prisoners-in-a-line_1">Prisoner's in a Line</h2>
+<p>$(N-1)$ can be saved by having prisoner $0$ call out the parity of hat colors (suitably encoded as "red" or "green")
+of the $(N-1)$ prisoners in front of them.</p>
+<p>Each subsequent prisoner will have full information to guess their own hat color correctly.</p>
+<h2 id="dominoes-on-a-mutilated-chessboard_1">Dominoes on a Mutilated Chessboard</h2>
+<p>No, by a parity argument.</p>
+<p>The 62 squares now have 30 white squares and 32 black squares.
+Since a domino must cover both a white and black square, a domino must cover two black squares, which
+is an impossibility.</p>
+<h2 id="green-eyed-islanders-and-the-outsider_1">Green Eyed Islanders and the Outsider</h2>
+<p>A proof by induction will show that no islanders will be left.</p>
+<p>For $M$ green eyed islanders, from the perspective of a red eyed islander, they should all leave after $M$ nights. If the green eyed
+islanders leave after $M$ nights, that means $N-M$ red eyed islanders remain, forcing them to leave the subsequent night.</p>
+<p>For $M$ green eyed islanders, from the perspective of a green eyed islander, if they don't leave after $(M-1)$ nights, that means
+they must have green eyes, forcing them to leave on the $M$'th night, then causing the red eyed islander to leave on the $(M+1)$st night.</p>
+<h2 id="numbered-boxes_1">Numbered Boxes</h2>
+<p>Each participant opens the box with their own label.
+They then jump to the box of the number that is written on the piece of paper.</p>
+<p>This becomes the probability that the maximum cycle in a random permutation is less than $\frac{N}{2}$</p>
+<h2 id="drunk-passengers-on-a-plane_1">Drunk Passengers on a Plane</h2>
+<p>One "quick and dirty" way is to approximate by asking what the probability is of "drawing"
+a number from a dwindling pool of seats.</p>
+<p>$$
+\prod_{k=0}^{N-1} (1 - \frac{1}{n-k}) \approx 
+\prod_{k=0}^{N-1} (1 - \frac{1}{n}) = (1 - \frac{1}{n})^n \to \frac{1}{e}
+$$</p>
+<p>Giving $1-e^{-1}$.</p>
+<p>This assumes independence and a lot of hand waiving.</p>
+<p>The more rigorous analysis...</p>
+<h2 id="duplicates-in-a-list_1">Duplicates in a List</h2>
+<p>hmm...</p>
+<h2 id="cat-in-a-box_1">Cat in a Box</h2>
+<p>Start from the left most room, then increment to the right by one at each round.
+Wait an extra round at the right most door, then start going from right to left by an increment of 1 at each round.</p>
+<p>Starting from the left and then moving right forces the cat's position to the left of the current position into box positions
+of the same parity.
+Once the right has been reached, moving back towards the left with the cat's position forced into room positions of the
+same parity ensures the cat can't "skip" over the current position.</p>
+<h2 id="prisoners-and-the-coin_1">Prisoners and the Coin</h2>
+<p>A designated prisoner is chosen to flip the coin from tails to heads should they see it in a tails state and
+count the number of times they do so.</p>
+<p>All other prisoners will flip the coin from heads to tails a maximum of two times, doing so every chance they get.</p>
+<p>Once the designated prisoner sees the coin flip $(2N-3)$ times, they can announce that they've all been in the room.</p>
+<p>If the initial state of the coin is known, the count can be reduced to $(N-1)$.</p>
+<h2 id="the-devil-and-coins-on-a-chessboard_1">The Devil and Coins on a Chessboard</h2>
+<p>Unknown</p>
+<h6 id="2020-04-30">2020-04-30</h6>
+
+      </section>
+
+      <!--
+      <footer>
+        <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+      </footer>
+      -->
+
+    </div>
+    <script src="/dev/js/scale.fix.js"></script>
+  </body
+</html>

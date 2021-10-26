@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>dev blog</title>
+
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js", "TeX/AMSsymbols.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <header>
+        <h1>Dev Blog</h1>
+
+        <table>
+          <body>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
+           <tr>
+              <td>
+                <br /> <br /> <br />
+                <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+
+                <br />
+                <p>
+                Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
+                <br />
+
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
+                </p>
+              </td>
+            </tr>
+          </body>
+        </table>
+
+      </header>
+      <section>
+
+        <h1 id="local-first-software">Local First Software</h1>
+<ul>
+<li>Speed</li>
+<li>Synchronized</li>
+<li>Detachable</li>
+<li>Collaborative</li>
+<li>Access</li>
+<li>Secure</li>
+<li>Control</li>
+</ul>
+<p><a href="https://blog.acolyer.org/2019/11/20/local-first-software/">Blog post</a>
+and <a href="https://martin.kleppmann.com/papers/local-first.pdf">original paper</a>.</p>
+<h2 id="description">Description</h2>
+<h3 id="speed">Speed</h3>
+<p>Operations should be done on local data as much as possible.
+Synchronization to off-device storage should be done in the background.</p>
+<h3 id="synchronized">Synchronized</h3>
+<p>Data should be synchronized across applications that use it.</p>
+<h3 id="detachable">Detachable</h3>
+<p>The application should be available for use, as much as possible, even when
+the network isn't present.
+If local peers are available, data should be synchronizable between the local
+peers or local network.</p>
+<h3 id="collaborative">Collaborative</h3>
+<p>When possible, the application should be able to be used in collaboration with
+others.</p>
+<h3 id="access">Access</h3>
+<p>Data should always be accessible and exportable at all times.</p>
+<h3 id="secure">Secure</h3>
+<p>End-to-end encryption should be used.
+Central server storage should have data encrypted at rest.</p>
+<h3 id="control">Control</h3>
+<p>The end user is in control of their data and should have full writes over it
+without synthetic or unwanted restrictions.</p>
+<h2 id="implementation">Implementation</h2>
+<h4 id="distributed-data-structure">Distributed Data Structure</h4>
+<p>Conflict Free Replicated Data Types (<a href="https://en.wikipedia.org/wiki/Conflict-free_replicated_data_type">CRDT</a>) are an option
+for data synchronization.
+Operation-based (Commutative Replicated Data Types (CmRDT)) and state-based (Convergent Replicated Data Type (CvRDT))
+are two options:</p>
+<table>
+<thead>
+<tr>
+<th>Approach</th>
+<th>Advantages</th>
+<th>Disadvantages</th>
+<th>Constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CmRDT</td>
+<td>Delta updates</td>
+<td>Required Communication Guarantees</td>
+<td>Commutative</td>
+</tr>
+<tr>
+<td>CvRDT</td>
+<td>Simplicity</td>
+<td>Full State Update</td>
+<td>Commutative, Associative, Idempotent</td>
+</tr>
+</tbody>
+</table>
+<h4 id="access_1">Access</h4>
+<p>Text centric file formats should be preferred such as JSON or CSV.</p>
+<h4 id="secure_1">Secure</h4>
+<p>Here are some thoughts on providing secure access options to the application on a device:</p>
+<ul>
+<li>Last Use Timeout - provide password after a preset time of last use</li>
+<li>Periodic Timeout - provide password after preset time, regardless of last use</li>
+<li>Password on Session Start - enter password when entering into a new session or after a session sign off</li>
+</ul>
+<h4 id="control_1">Control</h4>
+<p>It's hard to talk about control without some sort of underlying free software assumption.</p>
+<h2 id="references">References</h2>
+<ul>
+<li>Local-First Software: You Own Your Data, in spite of the Cloud by Martin Kleppmann, Adam Wiggins, Peter van Hardenberg and Mark McGranaghan (<a href="https://martin.kleppmann.com/papers/local-first.pdf">link</a>).</li>
+</ul>
+<h6 id="2019-11-20">2019-11-20</h6>
+
+      </section>
+
+      <!--
+      <footer>
+        <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+      </footer>
+      -->
+
+    </div>
+    <script src="/dev/js/scale.fix.js"></script>
+  </body
+</html>

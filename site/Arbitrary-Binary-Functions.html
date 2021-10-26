@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>dev blog</title>
+
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js", "TeX/AMSsymbols.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <header>
+        <h1>Dev Blog</h1>
+
+        <table>
+          <body>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
+           <tr>
+              <td>
+                <br /> <br /> <br />
+                <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+
+                <br />
+                <p>
+                Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
+                <br />
+
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
+                </p>
+              </td>
+            </tr>
+          </body>
+        </table>
+
+      </header>
+      <section>
+
+        <h1 id="arbitrary-binary-functions">Arbitrary Binary Functions</h1>
+<p>Shannon's counting argument.</p>
+<p>$$
+x \in \mathbb{B}^n \\
+ \\
+f(X): \{0,1\}^n \mapsto \{0,1\}
+$$</p>
+<p>There are $2^{2^n}$ different binary functions.
+Can we approximate this with less than $\frac{2^n}{c n}$ boolean gates for some constant $c$?</p>
+<p>The strategy to show we can't is to overcount the number of boolean gates.</p>
+<p>$$
+\begin{align}
+ m &amp; &amp; \text{ boolean gates } (\frac{2^n}{c n}) \\
+ n &amp; &amp; \text{ inputs }
+\end{align}
+$$</p>
+<p>Label each of the $m$ gates as either one of the $n$ inputs or one of the set of ${ \wedge, \vee, \neg }$.
+Assume a maximum of 2 inputs but that outputs can be traced to as many other gates as needed.</p>
+<p>We have a total of $(n+3)$ labels for each gate and a maximum of $m^2$ input choices.</p>
+<p>Each of the $m$ gates has a choice of label and choice of inputs, giving:</p>
+<p>$$
+ ((n + 3) m^2)^m 
+$$</p>
+<p>$$
+\lg = \log_2
+$$</p>
+<p>For $n$ large enough:</p>
+<p>$$
+\begin{align}
+ \lg( ((n + 3) m^2)^m ) &amp; = \frac{2^n}{c n} [ \lg(n+3) + 2 n - 2 \lg(c n) ] \\
+ = \frac{2^n}{c} [ \frac{\lg(n+3)}{n} + 2 - \frac{2 \lg(c n)}{n} ] &amp; &lt; \frac{2^n}{c} [ \frac{2 \lg(n)}{n} + 2 - \frac{2 \lg(c n)}{n} ] \\
+ = \frac{2^n}{c} [ 2 + \frac{2}{n} ( \lg(n) - \lg(n) - \lg(c) ) ]  &amp; = \frac{2^n}{c} [ 2 - \frac{2}{n} \lg(c) ] \\
+ &lt; 2 \frac{ 2^n }{ c } &amp; = \frac{2^n}{ \frac{c}{2} }
+\end{align}
+$$</p>
+<p>For $c&gt;2$:</p>
+<p>$$
+ ((n + 3) m^2)^m &lt; 2^{2^n}
+$$</p>
+<p>Even when we overcount, we still can't the count large enough to represent all binary functions.</p>
+<p><a href="http://www.cs.utexas.edu/~panni/lec3.pdf">src</a></p>
+
+      </section>
+
+      <!--
+      <footer>
+        <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+      </footer>
+      -->
+
+    </div>
+    <script src="/dev/js/scale.fix.js"></script>
+  </body
+</html>

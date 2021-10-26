@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>dev blog</title>
+
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js", "TeX/AMSsymbols.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <header>
+        <h1>Dev Blog</h1>
+
+        <table>
+          <body>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
+           <tr>
+              <td>
+                <br /> <br /> <br />
+                <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+
+                <br />
+                <p>
+                Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
+                <br />
+
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
+                </p>
+              </td>
+            </tr>
+          </body>
+        </table>
+
+      </header>
+      <section>
+
+        <h2 id="renaming-master-branch-to-release">Renaming <code>master</code> branch to <code>release</code></h2>
+<p>From <a href="http://stackoverflow.com/questions/8762601/how-do-i-rename-my-git-master-branch-to-release">Adam Dymitruk on SO</a></p>
+<pre><code>git checkout -b release master    # create and switch to the release branch
+git push -u origin release        # push the release branch to the remote and track it
+git branch -d master              # delete local master
+</code></pre>
+
+<p>If you're using GitHub (as I am), issuing the next needed command (<code>git push --delete origin master</code>) will
+fail because GitHub won't let you delete the default branch, which is stil <code>master</code>.</p>
+<p>In order to successfully be able to delete the remote <code>master</code> branch, you have to set the default
+branch on GitHub to be the newly created branch (i.e. <code>release</code>).</p>
+<p><img alt="GitHub Edit Default Branches Admin Web Page" src="/img/gh-branches.png" /></p>
+<p>After the default branch has been changed to the newly created branch (<code>release</code> in this case), issuing
+the following commands will now work:</p>
+<pre><code>git push --delete origin master   # delete remote master
+git remote prune origin           # delete the remote tracking branch
+</code></pre>
+
+<h2 id="note">NOTE</h2>
+<p>Apparantly GitHub does not allow wikis to be anything other than the master branch.
+This is why I had to move to my own hosting service to continue this dev blog.</p>
+<h6 id="2016-09-21">2016-09-21</h6>
+
+      </section>
+
+      <!--
+      <footer>
+        <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+      </footer>
+      -->
+
+    </div>
+    <script src="/dev/js/scale.fix.js"></script>
+  </body
+</html>

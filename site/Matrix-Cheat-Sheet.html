@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>dev blog</title>
+
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js", "TeX/AMSsymbols.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <header>
+        <h1>Dev Blog</h1>
+
+        <table>
+          <body>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
+           <tr>
+              <td>
+                <br /> <br /> <br />
+                <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+
+                <br />
+                <p>
+                Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
+                <br />
+
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
+                </p>
+              </td>
+            </tr>
+          </body>
+        </table>
+
+      </header>
+      <section>
+
+        <h1 id="matrix-cheat-sheet">Matrix Cheat Sheet</h1>
+<h2 id="hermitian-matrix">Hermitian Matrix</h2>
+<p>$$
+\begin{array}{c}
+A \in \text{Hermitian} \
+n \in \mathbb{Z^+},  \ A = \mathbb{C}^{n,n} \
+A = \overline{ (A^T) } = A^H = A^* = A^{\dagger}
+\end{array}
+$$</p>
+<p>$ A, B \in \text{Hermitian} $:</p>
+<ul>
+<li>$ A^<em> A = A A^</em> $</li>
+<li>$ A_{j,j} \in \mathbb{R} $</li>
+<li>$ A = U^* D U $, with $U$ unitary, $D$ diagonal</li>
+<li>$A B = B A \to A B \in \mathbb{H}$</li>
+<li>$A B A \in \mathbb{H} $</li>
+<li>$ \det(A) \in \mathbb{R} $</li>
+</ul>
+<h2 id="hadamard-matrix">Hadamard Matrix</h2>
+<p>$$
+\begin{array}{c}
+A \in \text{Hadamard} \
+n \in \mathbb{Z^+}, \ A = {-1,1}^{n,n} \
+x = A_{i,\cdot}, y = A_{j,\cdot} (i \ne j) \
+x \cdot y^T = 0
+\end{array}
+$$</p>
+<p>$ A \in \text{Hadamard} $:</p>
+<ul>
+<li>$ A A^T = n I_n $</li>
+<li>$ \det(A) = \pm n^{\frac{n}{2}} $</li>
+<li>$ M \in \mathbb{C}^{n,n}, |M_{i,j}| \le 1 \to | \det(M) | \le n^{\frac{n}{2}} $</li>
+</ul>
+<h2 id="toeplitz-matrix">Toeplitz Matrix</h2>
+<p>$$
+\begin{array}{c}
+A \in \mathbb{C}^{n,n} \
+A_{ (i+1)%n, (j+1)%n } = A_{i,j} = a_{i-j}
+\end{array}
+$$</p>
+<h2 id="unitary-matrix">Unitary Matrix</h2>
+<p>$$
+\begin{array}{c}
+U \in \text{Unitary} \
+n \in \mathbb{Z^+}, \ U \in \mathbb{C}^{n,n} \
+U U^<em> = U^</em> U = I
+\end{array}
+$$</p>
+<p>$ U \in \text{Unitary}$:</p>
+<ul>
+<li>$ \det(U) = 1 $</li>
+<li>$ U = V D V^* $, where $V \in \text{Unitary}$ and $D$ is diagonal and unitary</li>
+<li>$ H \in text{Hermitian} \to U = e^{i H} $</li>
+<li>$ x,y \in \mathbb{C}^{n}, x y^T = (U x) \cdot (U y)^T  $</li>
+</ul>
+<p>That is, unitary matricies are complex multidimensional analogues of rotations.</p>
+
+      </section>
+
+      <!--
+      <footer>
+        <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+      </footer>
+      -->
+
+    </div>
+    <script src="/dev/js/scale.fix.js"></script>
+  </body
+</html>

@@ -1,0 +1,247 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>dev blog</title>
+
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js", "TeX/AMSsymbols.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <header>
+        <h1>Dev Blog</h1>
+
+        <table>
+          <body>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
+           <tr>
+              <td>
+                <br /> <br /> <br />
+                <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+
+                <br />
+                <p>
+                Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
+                <br />
+
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
+                </p>
+              </td>
+            </tr>
+          </body>
+        </table>
+
+      </header>
+      <section>
+
+        <h1 id="future-predictions">Future Predictions</h1>
+<p>These are a set of predictions about what's going to happen in the future.</p>
+<p>Each prediction will have conditions that need to be met in order for them to
+be considered true as well as conditions that indicate if the prediction was wrong.</p>
+<p>Each prediction is meant to be falsifiable to avoid making broad claims that could
+be considered having come to pass because of ambiguous assertions.</p>
+<h2 id="artificial-intelligence">Artificial Intelligence</h2>
+<blockquote>
+<p>Human level artificial intelligence will be a reality by the year 2030</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Conditions for acceptance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Text conversation that is indistinguishable from human text conversation (passing the Turing test)</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Conditions for failure</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Only independent aspects that have been solved without putting them together (image recognition, natural language process, etc. without a complete system that integrates all of them together)</td>
+</tr>
+<tr>
+<td>Easily fooled chatbots</td>
+</tr>
+</tbody>
+</table>
+<p>The fundamental assumptions for this prediction are:</p>
+<ul>
+<li>Human cognition is the result of simple algorithms working in parallel on massive data sets</li>
+<li>The human brain capacity is roughly 2.3 Pb of information</li>
+<li>Hard disk space is a good proxy for the feasibility of producing human level intelligence</li>
+<li>AI will be achieved when commodity hardware is available, in the form of roughly a $1000 option, that has the compute and storage of the human brain (3.2Pb)</li>
+</ul>
+<p>Using <a href="https://jcmit.net/diskprice.htm">jcmit.net/diskprice</a> as a source, depending on how you count, hard drive prices fall at a rate of 1/2 every 2-3 years.
+As of this writing, the prices is about $\$$150/8Tb (.00000000001705302565 $\$$US/byte).</p>
+<p>$$
+\begin{equation}
+\begin{split}
+\frac{\$ 1000}{2.3 \text{Pb} \cdot 2^{10} }   &amp; = 2^{-y \alpha}\frac{\$150}{8 \text{Tb}}  \\
+\to y  &amp;= \frac{ - \lg{\left( \frac{8000}{2.3 \cdot 150 \cdot 2^{10} }\right)} }{\alpha} \\
+\end{split}
+\end{equation}
+$$</p>
+<p>$y$ is the number of years and 
+$\alpha$ is the doubling factor.
+If $\alpha \in (\frac{1}{2}, \frac{1}{3})$, this gives a timeline of roughly 10 to 16 years before we'll see a hard drive that has the storage capacity of the human brain for
+about $\$$1000 USD.</p>
+<p>The 2030 prediction is a bit aggressive and considering Moore's law might be slowing down, the timeline might be closer to 2040.
+Regardless, I am staying with my 2030 prediction.</p>
+<hr />
+<ul>
+<li>Bet: Strong AI by 2027 (1-2 year leeway)</li>
+<li>Condition: strong AI - machines capable of carrying on normal human conversation on any topic -- not so much about physical robotics.
+  It should be able to convince you its' intelligent. It's not meant to 'trick' you.</li>
+<li>Amount: $100</li>
+</ul>
+<h2 id="crypto-currency">Crypto Currency</h2>
+<blockquote>
+<p>A crypto currency, most likely Bitcoin, will be a major global currency, storing at least %20 of the global wealth by 2030</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Conditions for acceptance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Used in day-to-day life for purchases and money transfers</td>
+</tr>
+<tr>
+<td>By some reasonable estimate, 20% of the worlds wealth is stored in a crypto currency</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Conditions for failure</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Not used for day-to-day purchases</td>
+</tr>
+<tr>
+<td>Only a select few have crypto currency wallets</td>
+</tr>
+<tr>
+<td>Crypto currency is treated a stock or bond rather than a currency</td>
+</tr>
+</tbody>
+</table>
+<p>I believe Bitcoin to be the most likely leader as there's so much work and buy in currently, but this could change.
+A good rule of thumb of crypto currency not taking over is that if the USD price per coin is not high <strong>or</strong> the
+price per coin is very high but is not in widespread usage, signaling that it's being used by the wealthy as a kind
+of modern stock market.</p>
+<p>The prediction of 2030 is done by using historic USD-BTC price (<a href="https://finance.yahoo.com/quote/BTC-USD/history/">src</a>) and roughly
+fitting an exponential curve (by "eye").
+Bitcoin is still in it's infancy so it's highly volatile, so this prediction might be significantly off.</p>
+<p>Part of this prediction is the fact that crypto currency solves a lot of problems and opens up new avenues for global trade:</p>
+<ul>
+<li>Online purchases have the potential to be much easier</li>
+<li>Money transfers have the potential to be much more seamless and cheap</li>
+<li>Currency exchanges (for purchases, etc.) are normalized to a de-factor standard (e.g. Bitcoin)</li>
+<li>Non provincial ownership allowing for de-centralized operation and direction</li>
+</ul>
+<p>As a side note, total global wealth as of 2019 is estimated to be $\$$360T
+($ \$360 \cdot 10^{12} $) (<a href="https://www.credit-suisse.com/about-us/en/reports-research/global-wealth-report.html">src</a>).
+If Bitcoin is capped at 21M coins and establishes itself by storing %20 of the $\$$360T, this gives $ \frac{ \$360T \cdot 0.2 }{ 21M BTC } \approx \$3.4M/BTC $.</p>
+<hr />
+<p><em>UPDATE</em>: If we estimate Bitcoin's growth at about 27% per year, this gives us about a 5-7 year time frame for when 1BTC will reach $1M.</p>
+<p>As of this writing, this gives us an estimate that BTC will start to become ubiquitous around 2026 to 2028.</p>
+<hr />
+<ul>
+<li>Bet: 1 BTC &gt;= $1,000,000 USD by 2026</li>
+<li>Condition: One (1) Bitcoin will be worth $1M USD by the year 2026</li>
+<li>Amount: .002 BTC</li>
+</ul>
+<h2 id="energy-production">Energy Production</h2>
+<blockquote>
+<p>Solar, wind and battery technology will account for the majority of the worlds energy production by 2040</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Conditions for acceptance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Over 50% of the world's energy usage will come from solar, wind and stored energy in the form of battery technology</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Conditions for failure</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fossil fuels (coal), nuclear or other energy sources still being the primary energy provider</td>
+</tr>
+</tbody>
+</table>
+<p>Swanson's law (<a href="https://en.wikipedia.org/wiki/Swanson%27s_law">w</a>) has photo voltaic cell prices falling at about 10% per year.
+This is roughly a price halving every 6-7 years.
+Current prices are about $\$$0.75 / W for low volume consumer panels and $\$$0.20 / W for higher volumes.</p>
+<p>I guess there's debate on whether batteries follow a Moore's law like price curve (<a href="https://longtailpipe.com/2013/04/06/there-is-moores-law-for-batteries-its/">src</a> <a href="https://longtailpipe.com/2013/04/06/there-is-moores-law-for-batteries-its/">src</a>) but prices are falling at about %20 per year (<a href="https://about.bnef.com/blog/behind-scenes-take-lithium-ion-battery-prices/">src</a>) perhaps due to Wright's law (<a href="https://en.wikipedia.org/wiki/Experience_curve_effects">w</a>).
+Regardless, as of this writing, lead acid batteries are at $\$$0.15/Wh and lithium batteries look to be somewhere in the range of $\$$0.15/Wh to $\$$0.05/Wh.</p>
+<p>The average US household consumes 30 kWh per day.
+Assuming a 12 hour sunlight window, that's $30 kWh / 12h = 2500 W$ needed.
+The average American pays $\$$0.1854/kWh leading to about $\$$1400/year in electricity costs (<a href="https://www.eia.gov/tools/faqs/faq.php?id=97&amp;t=3">src</a>).</p>
+<p>If we assume we want at least a 2.5KW solar panel array and storage for 30kWh, that's $\$$2000 to $\$$6500, which is 2-5 years before the installation pays for itself.
+In five years time that changes to about $\$$800 to $\$$2500, which is about 0.5 to 2 years before the installation pays for itself.</p>
+<p>Solar and battery technology might have a lot of hidden costs and other factors that might prohibit them from falling in price so drastically over the coming years
+but when an installation gets within the cost of a single months electricity payment, it's hard to see how this couldn't become widely adopted.</p>
+<p>2040 is a conservative estimate and is made in consideration that I'm no doubt missing a large number of other factors that come into play from creating, deploying and installing energy stations,
+on the consumer or business side.</p>
+<hr />
+<p><em>UPDATE</em>: There is a current growth rate of 29% capacity, mostly supplied by China now (<a href="https://en.wikipedia.org/wiki/Growth_of_photovoltaics#Current_status">w</a>, <a href="https://iea-pvps.org/wp-content/uploads/2020/01/IEA-PVPS_-_A_Snapshot_of_Global_PV_-_1992-2017.pdf">iea</a>).
+There is %2.1 energy usage being satisfied by solar currently, leading to about a 15 year adoption schedule.</p>
+<p>Assuming the growth rate holds relatively steady, this amounts to adoption by 2036 to 2040.</p>
+<hr />
+<ul>
+<li>Bet: Most (50%+) of the worlds energy production will be solar by 2036</li>
+<li>Condition: More than half of the worlds energy production will come from solar (only) by the year 2036</li>
+<li>Amount: $100</li>
+</ul>
+<h6 id="2021-04-27">2021-04-27</h6>
+
+      </section>
+
+      <!--
+      <footer>
+        <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+      </footer>
+      -->
+
+    </div>
+    <script src="/dev/js/scale.fix.js"></script>
+  </body
+</html>

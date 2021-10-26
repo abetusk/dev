@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>dev blog</title>
+
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js", "TeX/AMSsymbols.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <header>
+        <h1>Dev Blog</h1>
+
+        <table>
+          <body>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
+           <tr>
+              <td>
+                <br /> <br /> <br />
+                <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+
+                <br />
+                <p>
+                Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
+                <br />
+
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
+                </p>
+              </td>
+            </tr>
+          </body>
+        </table>
+
+      </header>
+      <section>
+
+        <h1 id="software-architecture-notes">Software Architecture Notes</h1>
+<h2 id="microservices">Microservices</h2>
+<p><a href="https://www.youtube.com/watch?v=I56HzTKvZKc">Microservervice Anti-Patterns</a></p>
+<p>The advice is as follows:</p>
+<ul>
+<li>Use boring technology</li>
+<li>Greedily create micro-service architecture instead of starting with one when not necessary</li>
+<li>Monolithic architecture is fine to start out</li>
+<li>Use proxy schemas</li>
+<li>Use a proxy server to a DB, say, to keep the API consistent</li>
+<li>Use queues</li>
+<li>Create a queue service which buffers messages to then be ferried to the destination</li>
+<li>Smooths out spikes</li>
+<li>Allows to work around shortcomings of end service (DB, say?)</li>
+<li>Use discovery tools</li>
+<li>Don't hard code addresses in code</li>
+<li>Use a service to discover the end point</li>
+<li>Use rate limitation</li>
+<li>Probably good to have both client side and server side detection to rate limit</li>
+<li>Use debugging tools early</li>
+<li>Monitoring of the architecture is necessary for smooth operation</li>
+<li>Issue becomes sifting through the data but better to have the data to sift through
+    in the first place than not at all</li>
+</ul>
+
+      </section>
+
+      <!--
+      <footer>
+        <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+      </footer>
+      -->
+
+    </div>
+    <script src="/dev/js/scale.fix.js"></script>
+  </body
+</html>

@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>dev blog</title>
+
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js", "TeX/AMSsymbols.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <header>
+        <h1>Dev Blog</h1>
+
+        <table>
+          <body>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
+           <tr>
+              <td>
+                <br /> <br /> <br />
+                <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+
+                <br />
+                <p>
+                Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
+                <br />
+
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
+                </p>
+              </td>
+            </tr>
+          </body>
+        </table>
+
+      </header>
+      <section>
+
+        <h1 id="sum-of-square-roots-notes">Sum of Square Roots Notes</h1>
+<p>The sum of square roots problem is:</p>
+<p>$$
+\begin{align}
+ n, m \in \mathbb{Z} \
+ a_j, b_k \in \mathbb{Z} \
+ \sum_j^{n-1} \sqrt a_j =? \sum_k^{m-1} \sqrt b_k
+\end{align}
+$$</p>
+<p>In other words, is checking the sum of square roots in NP?</p>
+<hr />
+<p>$$
+u \in \mathbb{Z}
+$$</p>
+<p>$$
+\begin{align}
+\frac{\int_{-\pi}^{\pi} e^{i u \theta} d\theta}{2 \pi} = 
+\begin{cases}
+1 &amp; u \ne 0 \
+0 &amp; u = 0
+\end{cases}
+\end{align}
+$$</p>
+<p>For $ a_k \in \mathbb{Z} $,</p>
+<p>$$
+\begin{align}
+\frac{1}{2 \pi} \int_{-\pi}^{\pi} \prod_k^{n-1} ( e^{-a_k i \theta}  + e^{a_k i \theta} ) d\theta = 
+\begin{cases}
+0 &amp; \text{no partition} \
+!0 &amp; \text{at least one partition}
+\end{cases}
+\end{align}
+$$</p>
+<hr />
+<p>The irrationality measure is defined to be</p>
+<p>$$
+$$</p>
+
+      </section>
+
+      <!--
+      <footer>
+        <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+      </footer>
+      -->
+
+    </div>
+    <script src="/dev/js/scale.fix.js"></script>
+  </body
+</html>

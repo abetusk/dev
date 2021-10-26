@@ -1,0 +1,150 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>dev blog</title>
+
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js", "TeX/AMSsymbols.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <header>
+        <h1>Dev Blog</h1>
+
+        <table>
+          <body>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
+           <tr>
+              <td>
+                <br /> <br /> <br />
+                <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+
+                <br />
+                <p>
+                Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
+                <br />
+
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
+                </p>
+              </td>
+            </tr>
+          </body>
+        </table>
+
+      </header>
+      <section>
+
+        <h1 id="calculus-notes">Calculus Notes</h1>
+<h2 id="chain-rule">Chain Rule</h2>
+<p>$$
+(f(g(x))' = g'(x)f'(g(x))
+$$</p>
+<p><em>Proof</em>:</p>
+<p>$$
+\begin{align}
+f'(x) &amp; = \frac{f(x+h) - f(x)}{h} \\
+(f(g(x))' &amp; = \frac{f(g(x+h)) - f(g(x))}{h} \\
+ &amp; = \frac{f(g(x) + h g'(x)) - f(g(x))}{h} \\
+ &amp; = \frac{f(g(x)) + h g'(x)f'(g(x)) - f(g(x))}{h} \\
+ &amp; = g'(x) f'(g(x))
+\end{align}
+$$</p>
+<h2 id="taylor-expansion">Taylor Expansion</h2>
+<p>$$
+f(x) = \sum_{k=0}^{\infty} \frac{ f^{(n)}(a)(x-a)^n }{n!}
+$$</p>
+<p><em>Proof</em>:</p>
+<p>w.l.o.g. $a=0$</p>
+<p>$$
+\begin{align}
+f(x) &amp; = \int_{0}^{x} f'(y) dy + f(0) \\
+ \to f(x) &amp; = f(0) + \int_{0}^{x} f'(y_0)dy_0 \\
+ &amp; = f(0) + \int_{0}^{x} \left( \left( \int_{0}^{y0}  f''(y_1)dy_1 dy_0 \right) + f'(0)dy_0 \right) \\
+ &amp; = f(0) + \int_{0}^{x}f'(0)dy_0 + \int_{0}^{x} \int_{0}^{y0} f''(y_1) dy_1 dy_0  \\
+ &amp; = f(0) + x f'(0) + \int \left( \int \left( \int f'''(y_2) dy_2 dy_1 dy_0 \right) + f''(0) dy_1 dy_0 \right) \\
+ &amp; = f(0) + x f'(0) + \int_0^x \int_0^{y_0} f''(0) dy_1 dy_0 + \int \int \int f'''(y_2) dy_2 dy_1 dy_0 \\
+ &amp; = f(0) + x f'(0) + \frac{1}{2} x^2 f''(0) + \cdots
+\end{align}
+$$</p>
+<p>$$
+\int_0^{x} \int_0^{y_0} \int_0^{y_1} \dots \int_0^{y_{n-1}} f^{(n+1)}(0) dy_n dy_{n-1} \dots dy_0  = \frac{ f^{(n+1)}(0) x^{n+1} }{(n+1)!}
+$$</p>
+<p>Use a instead of 0.</p>
+<hr />
+<p>$$
+| e^{i \theta} - 1| \le | \theta | , \ \ \theta \in \mathbb{R}
+$$</p>
+<p><em>Proof</em>:</p>
+<p>$$
+\begin{align}
+ i \int_0^{\theta} e^{i t} dt &amp; = i [ \frac{1}{i} e^{i t} |_0^{\theta} \\
+   &amp; = e^{ i \theta } - 1
+\end{align}
+$$</p>
+<p>$$
+\begin{align}
+| i \int_0^{\theta} e^{i t} |  &amp; = | \int_0^{\theta} e^{i t} dt | \\
+ &amp; \le \int_0^{\theta} |e^{i t} dt  \\
+ &amp; = 0
+\end{align}
+$$</p>
+<p>$$
+\to | e^{i \theta} - 1 | \le | \theta |
+$$</p>
+<hr />
+<p>$$
+| e^{i \theta} - 1 - i \theta | \le 2 | \theta |
+$$</p>
+<p><em>Proof</em>:</p>
+<p>$$
+| e^{i \theta} - 1 - i \theta |  \lte | e^{i \theta} - 1 | + | \theta| \le 2 \theta
+$$</p>
+<p>$$
+\to | e^i \theta} - 1 - i  \theta| \le \frac{\theta^2}{2}
+$$</p>
+<hr />
+<p>$$
+| e^{i \theta} - 1 - i \theta| \le \frac{\theta^2}{2}
+$$</p>
+<p><em>Proof</em>:</p>
+<p>$$
+\begin{align}
+i \int_0^{\theta} ( e^{i t} - 1 ) dt &amp; = i [ \frac{1}{i} e^{i t} - \frac{1}{i} - t |_0^{\theta} \\
+ &amp; = e^{i \theta} - 1 - i \theta
+\end{align}
+$$</p>
+<p>$$
+\begin{align}
+| i \int_0^{\theta} ( e^{i t} - 1) dt| &amp; = | \int_0^{\theta} ( e^{i t} -1) dt | \\
+  \le \int_0^{\theta} | e^{i t} - 1)dt &amp; \le \int_0^{\theta} |t| dt \\
+ &amp; = \frac{\theta^2}{2}
+\end{align}
+$$</p>
+
+      </section>
+
+      <!--
+      <footer>
+        <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+      </footer>
+      -->
+
+    </div>
+    <script src="/dev/js/scale.fix.js"></script>
+  </body
+</html>

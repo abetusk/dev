@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>dev blog</title>
+
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js", "TeX/AMSsymbols.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <header>
+        <h1>Dev Blog</h1>
+
+        <table>
+          <body>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
+           <tr>
+              <td>
+                <br /> <br /> <br />
+                <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+
+                <br />
+                <p>
+                Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
+                <br />
+
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
+                </p>
+              </td>
+            </tr>
+          </body>
+        </table>
+
+      </header>
+      <section>
+
+        <h1 id="networking-cheat-sheet">Networking Cheat Sheet</h1>
+<h2 id="dns">DNS</h2>
+<ul>
+<li><code>dig example.com</code></li>
+<li><code>dig -t NS example.com +short   # query nameserver, return short description</code></li>
+<li><code>dig -x 8.8.8.8                 # reverse lookup</code></li>
+</ul>
+<h2 id="interfaces">Interfaces</h2>
+<ul>
+<li><code>ip link show</code></li>
+<li><code>ip -s link show</code></li>
+<li><code>ip addr show</code></li>
+<li><code>ip route</code></li>
+</ul>
+<h2 id="scanning">Scanning</h2>
+<ul>
+<li><code>nmap -sP ...  # Ping Scan - Scan network and find out which devices are up and running</code></li>
+<li><code>nmap -sL ...  # List targets in network</code></li>
+<li><code>nmap -O ...  # OS detection</code></li>
+<li><code>nmap -p 22,21,80,8080 -sV ...  # Detect version of service running on port</code></li>
+<li><code>nmap -A ...  #  OS detection, version detection, script scanning, and traceroute</code></li>
+<li><code>nmap -p 192.168.0.1 #  Also '-p "*"' works for scanning all ports</code></li>
+</ul>
+<hr />
+<p>(<a href="https://martinheinz.dev/blog/38">src</a>)</p>
+
+      </section>
+
+      <!--
+      <footer>
+        <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+      </footer>
+      -->
+
+    </div>
+    <script src="/dev/js/scale.fix.js"></script>
+  </body
+</html>

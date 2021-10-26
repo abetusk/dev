@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>dev blog</title>
+
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js", "TeX/AMSsymbols.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <header>
+        <h1>Dev Blog</h1>
+
+        <table>
+          <body>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
+           <tr>
+              <td>
+                <br /> <br /> <br />
+                <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+
+                <br />
+                <p>
+                Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
+                <br />
+
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
+                </p>
+              </td>
+            </tr>
+          </body>
+        </table>
+
+      </header>
+      <section>
+
+        <h2 id="screencasts">Screencasts</h2>
+<p>I've found <code>kazam</code> to work very well.</p>
+<pre><code class="bash">$ sudo apt-get install kazam
+$ kazam
+</code></pre>
+
+<h2 id="screenshots">Screenshots</h2>
+<h3 id="gimp">Gimp</h3>
+<p><code>File-&gt;Create-&gt;Screenshot</code></p>
+<h3 id="imagemagick">ImageMagick</h3>
+<pre><code class="bash">$ import -window root screenshot.png
+</code></pre>
+
+<h2 id="animated-gifs">Animated Gifs</h2>
+<h3 id="imagemagick_1">ImageMagick</h3>
+<pre><code class="bash">$ convert -delay 1 -layers optimize inp*.png anim.gif
+</code></pre>
+
+<h2 id="quick-and-dirty-way-to-create-animated-gifs-from-a-window">Quick and dirty way to create animated Gifs from a window</h2>
+<pre><code class="bash">$ winid=`xwininfo | grep -o 'Window id: [^ ]* ' | cut -f3 -d' '` ; echo $winid
+</code></pre>
+
+<p>Click on the window in question and make sure the portion of the
+window you want to record is exposed.</p>
+<pre><code class="bash">$ for x in {1..10}
+do
+  import  -window $winid out$x.png
+  sleep 0.1
+done
+</code></pre>
+
+<p>Once the <code>out{1..10}.png</code> files are created, coalesce them into an animated Gif:</p>
+<pre><code class="bash">$ convert -delay 1 -layers optimize out*.png anim.gif
+</code></pre>
+
+<p>Using ImageMagick is sometimes slow.  Using <code>kazam</code> (and only capturing a window) will create an <code>mp4</code> file that can be exploded:</p>
+<pre><code class="bash">$ ffmpeg -i inp.mp4 pic%03d.jpg
+$ for x in `ls pic*.jpg`
+do
+  mogrify -crop 1000x700+0+70 $x
+done
+$ convert -layers optimize pic*.jpg out.gif
+</code></pre>
+
+<p>Where <code>mogrify</code> alters the image file in place and <code>-crop</code> crops the top pixels (to get rid of the tabs and URL if it's a web browser, say).</p>
+<p>Sometimes ImageMagick has a lot of issues when trying to create an animated Gif, especially if there are many frames.  Instead, you can use <code>ffmpeg</code> directly (see <a href="http://superuser.com/a/893031">SO</a>):</p>
+<pre><code class="bash">$ palette=&quot;/tmp/palette.png&quot;
+$ filters=&quot;fps=15,scale=320:-1:flags=lanczos&quot;
+$ ffmpeg -i input.mp4 -vf &quot;$filters,palettegen&quot; -y $palette
+$ ffmpeg -i input.mp4 -i $palette -lavfi &quot;$filters [x]; [x][1:v] paletteuse&quot; -y output.gif
+</code></pre>
+
+<p><code>ffmpeg</code> can apparently also directly create (large) animated Gifs:</p>
+<pre><code class="bash">$ ffmpeg -i input.mp4 large_output.gif
+</code></pre>
+
+<p>To reduce the <code>large_output.gif</code>, <code>gifsicle</code> can be used:</p>
+<pre><code class="bash">$ gifsicle -O1 --loop large_output.gif &gt; slim_output.gif
+</code></pre>
+
+<p>though <code>gifsicle</code> looks to have some problems compressing well.</p>
+<p>To take a sub range of pictures from <code>gifsicle</code>, you can do something like:</p>
+<pre><code class="bash">$ gifsicle -U inp.gif '#50-73' &gt; out50-73.gif
+</code></pre>
+
+<p>Where the <code>#</code> specifies the frame range and the <code>-U</code> (unoptimize) option is needed to get rid of artifacts that appear to happen when selecting from a mid range of frames.</p>
+<p><strong>recommended workflow</strong></p>
+<ul>
+<li>capture with <code>kazam</code></li>
+<li>use the above script to convert from <code>.mp4</code> to animated Gif with <code>ffmpeg</code></li>
+</ul>
+<h6 id="2015-11-01">2015-11-01</h6>
+
+      </section>
+
+      <!--
+      <footer>
+        <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+      </footer>
+      -->
+
+    </div>
+    <script src="/dev/js/scale.fix.js"></script>
+  </body
+</html>

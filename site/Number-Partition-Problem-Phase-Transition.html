@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>dev blog</title>
+
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js", "TeX/AMSsymbols.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <header>
+        <h1>Dev Blog</h1>
+
+        <table>
+          <body>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
+           <tr>
+              <td>
+                <br /> <br /> <br />
+                <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+
+                <br />
+                <p>
+                Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
+                <br />
+
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
+                </p>
+              </td>
+            </tr>
+          </body>
+        </table>
+
+      </header>
+      <section>
+
+        <h1 id="notes-on-phase-transitions-for-the-number-partition-problem">Notes on Phase Transitions for the Number Partition Problem</h1>
+<p>The Number Partition Problem (NPP) is, given $n$ integers, find a partition
+such that the sum of each is equal.</p>
+<p>Another way to formulate:</p>
+<p>$$
+\begin{align}
+ &amp; n, m, a_k \in \mathbb{Z}, \ M = 2^m \\
+ &amp; \exists \ \ \sigma_k \in { 0,1 }  \ s.t.\\
+ &amp; \sum_{k=0}^{n-1} \sigma_k a_k = 0
+\end{align}
+$$</p>
+<p>If we take an ensemble to be all instances for a given $n$ and $a_k$ chosen
+in the uniform interval from $[1, 2, \dots, M]$, then this is the "uniform
+random NPP" (UR-NPP) problem.</p>
+<p>Gent and Walsh observed that the probability of a number of $m$ bits long
+being all $0$ is $2^{-m}$ whereas the number of configurations is $2^n$.
+If we ignore carry, then we can get intuition about the expected number
+of solutions by observing $ \frac{2^m}{2^n} &gt; 0 $ when $ m &gt; n $.</p>
+<p>In other words, for a random instance of the uniform NPP, we would expect
+to see a transition when the number of bits exceeds the list length.</p>
+<p>If we want to get intuition about the probability of a solution existing,
+we can pretend each configuration has no carry and is independent to notice that
+$(1-2^{-m})^{2^n}$ is the probability that no instance will have a solution.</p>
+<p>If we take $ m = \kappa_n n $, then, with the above caveats and some questionable
+manipulation, the probability becomes:</p>
+<p>$$
+\begin{align}
+ &amp; 1 - (1 - \frac{1}{2^{m}})^{2^{n}} \\
+ = &amp; 1 - (1 - \frac{1}{2^{m}})^{2^{m + n - m}} \\
+\approx &amp; 1 - \exp( - 2^{n-m}) \\
+ = &amp; 1 - \exp( -2^{-\kappa_n (n-1)})
+\end{align}
+$$</p>
+<p>Borgs, Chayes, and Pittel (BCP) provide rigour to the uniform random NPP.
+They introduce a parameter, $\lamba_n$:</p>
+<p>$$
+\begin{align}
+ &amp; \lambda_n = m - n + \frac{lg(n)}{2n} \\
+ = &amp; \kappa_n n - n + \frac{lg(n)}{2n}
+\end{align}
+$$</p>
+<p>Where $m = \kappa_n n$ as above.</p>
+<p>In some vague sense, the extra $\frac{lg(n)}{2n}$ is a term accounting for
+the carry from the addition.</p>
+<p>BCP use an integral representation for the number of solutions, where $X_k$ are independent, identically distributed
+random variables chosen over the integral range of $1$ to $M = 2^m$:</p>
+<p>$$
+Z_{n} = \frac{1}{2 \pi} \int_{-\pi}^{\pi} \sum_{k=0}^{n-1} (e^{-X_k \theta} + e^{X_k \theta}) d\theta 
+$$</p>
+<p>For a perfect partition, the integral over the expanded summation will be non zero iff there is a perfect partition.</p>
+<p>Taking expectations, fiddling and noticing independence:</p>
+<p>$$
+\begin{align}
+E[Z_{n}] = &amp;
+E[ \frac{1}{2 \pi} \int_{-\pi}^{\pi} \sum_{k=0}^{n-1} (e^{- X_k i \theta} + e^{ X_k i \theta})d\theta ] \\
+= &amp; \frac{1}{2\pi} \int_{-\pi}^{\pi} (E[e^{- X i \theta} + e^{ X i \theta}])^nd\theta  \\
+= &amp; \frac{1}{2\pi} \int_{-\pi}^{\pi} ( \frac{2}{M}\sum_{k=0}^{M-1}  \cos( k \theta))^n d\theta \
+= &amp; \frac{2^{n(1-m)}}{2\pi} \int_{-\pi}^{\pi} ( \frac{\sin((M+\frac{1}{2})\theta)}{2\sin(\theta/2)} - \frac{1}{2} )^n d\theta \
+\end{align}
+$$</p>
+<h2 id="references">References</h2>
+<ul>
+<li>C. Borgs, J. Chayes, B. Pittel, Phase Transition and Finite-Size Scaling for the Integer Partitioning Problem, <a href="https://github.com/abetusk/papers/blob/release/ComputerScience/Phase-Transition-and-Finite-size-Scaling-for-the-Integer-Partitioning-Problem.pdf">p</a></li>
+<li>I.P. Gent, T. Walsh, Phase Transitions and Annealed Theories: Number Partitioning as a Case Study, <a href="https://github.com/abetusk/papers/blob/release/ComputerScience/Phase_transitions_and_annealed_theories.pdf">p</a></li>
+</ul>
+
+      </section>
+
+      <!--
+      <footer>
+        <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+      </footer>
+      -->
+
+    </div>
+    <script src="/dev/js/scale.fix.js"></script>
+  </body
+</html>

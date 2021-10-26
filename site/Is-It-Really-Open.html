@@ -1,0 +1,278 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>dev blog</title>
+
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js", "TeX/AMSsymbols.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <header>
+        <h1>Dev Blog</h1>
+
+        <table>
+          <body>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
+           <tr>
+              <td>
+                <br /> <br /> <br />
+                <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+
+                <br />
+                <p>
+                Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
+                <br />
+
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
+                </p>
+              </td>
+            </tr>
+          </body>
+        </table>
+
+      </header>
+      <section>
+
+        <h1 id="is-it-really-open">Is It Really Open</h1>
+<p>From the Wikipedia entry on the <a href="https://en.wikipedia.org/wiki/Open-source_model">Open Source Model</a>:</p>
+<blockquote>
+<p>Open source promotes universal access via an open-source 
+or free license to a product's design or blueprint, and 
+universal redistribution of that design or blueprint.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Project</th>
+<th>Open Source?</th>
+<th>Claim</th>
+<th>Individual/Organization</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://airqualityegg.com/home">Air Quality Egg</a></td>
+<td><strong>No</strong></td>
+<td>" ... a ... device that uses sensors to record changes in the levels of specified air contaminants."</td>
+<td><a href="https://github.com/WickedDevice/AQEV2FW_SO2O3">GitHub</a></td>
+<td>There are multiple references to it being "open-source hardware" on <a href="https://airqualityegg.com/egg">airquailityegg.com</a> but the source and design files available on GitHub have no license.</td>
+</tr>
+<tr>
+<td><a href="https://www.bcn3dtechnologies.com/en/bcn3d-moveo-the-future-of-learning/">BCN3D</a></td>
+<td>yes</td>
+<td>"A fully Open Source 3D printed robot arm"</td>
+<td><a href="https://github.com/BCN3D/BCN3DSigma-Firmware">source</a> (GPLv3), <a href="https://github.com/BCN3D/BCN3DSigma-Mechanics">hardware</a> (CERN OHL), <a href="https://github.com/BCN3D/BCN3DSigma-Electronics">electronics</a> (CERN OHL)</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="http://diylilcnc.org/">DIY LilCNC</a></td>
+<td>yes</td>
+<td>"... open-source set of plans for an inexpensive, fully functional 3-axis CNC ..."</td>
+<td><a href="http://diylilcnc.org/">DIYLilCNC</a></td>
+<td><a href="http://diylilcnc.org/downloads/">Downloads</a></td>
+</tr>
+<tr>
+<td><a href="http://dotilikestoweave.com/">Doti: Open Source Jacquard Loom</a></td>
+<td><strong>No</strong></td>
+<td>"open source"</td>
+<td><a href="http://dotilikestoweave.com/">Doti</a></td>
+<td>From the website: "Doti is an open source desktop jacquard loom ..."  yet no design files are available</td>
+</tr>
+<tr>
+<td><a href="https://openeit.github.io/docs/html/index.html">OpenEIT</a></td>
+<td><strong>No</strong></td>
+<td>"open"</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://farm.bot/">FarmBot</a></td>
+<td>yes</td>
+<td>"Open Source CNC Farming"</td>
+<td><a href="https://github.com/FarmBot/farmbot_os">source</a> (MIT), <a href="https://genesis.farm.bot/docs/cad">design files</a> (CC0)</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="http://inmoov.fr/">InMoov</a></td>
+<td><strong>No</strong></td>
+<td>"InMoov is the first Open Source 3D printed life-size robot."</td>
+<td>Design files are under a non commercial license.</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="http://www.lasersaur.com/">Lasersaur</a></td>
+<td>yes</td>
+<td>"open source laser cutter"</td>
+<td><a href="http://www.lasersaur.com/">Lasersaur</a></td>
+<td><a href="https://github.com/nortd/lasersaur/wiki/license">License</a></td>
+</tr>
+<tr>
+<td><a href="https://odriverobotics.com/">ODrive</a></td>
+<td>yes</td>
+<td>"... accurately driving brushless motors, for cheap."</td>
+<td><a href="https://github.com/madcowswe/ODrive">source</a> <a href="https://github.com/madcowswe/ODriveHardware">hardware</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://openbike.cc/">OpenBike</a></td>
+<td><strong>No</strong></td>
+<td>"... Open source designs for all ..."</td>
+<td><a href="https://openbike.cc/download/">source</a></td>
+<td>All files are available under a CC-BY-NC-SA license</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PetoiCamp/OpenCat">OpenCat</a></td>
+<td><em>mixed</em></td>
+<td>"A programmable and highly maneuverable robotic cat ..."</td>
+<td><a href="https://github.com/PetoiCamp/OpenCat">OpenCat</a></td>
+<td>Source files are under MIT license but design files for the robot are not available.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/XRobots/openDog">OpenDog</a></td>
+<td>yes</td>
+<td>"CAD and code for each episode of my open source dog series"</td>
+<td><a href="http://www.xrobots.tech/">XRobots</a></td>
+<td>GPLv3</td>
+</tr>
+<tr>
+<td><a href="https://www.opendesk.cc/">Open Desk</a></td>
+<td><em>mixed</em></td>
+<td>"open"</td>
+<td><a href="https://www.opendesk.cc/">OpenDesk.cc</a></td>
+<td>Though they don't claim anywhere that they're "open source", the name is misleading.  Many of their furniture designs are free/libre (CC0, CC-BY) but many are under a non-commercial license</td>
+</tr>
+<tr>
+<td><a href="https://openknit.org/">OpenKnit</a></td>
+<td><strong>No</strong></td>
+<td>"open source digital knitting"</td>
+<td><a href="http://openknit.org/">OpenKnit</a></td>
+<td>No license on <a href="https://github.com/g3rard/OpenKnit">source</a>, <a href="http://www.instructables.com/id/Building-the-Open-Knit-machine/">Instructables build</a> under a non commercial license (CC-BY-NC-SA)</td>
+</tr>
+<tr>
+<td><a href="https://openpressproject.com/">Open Press Project</a></td>
+<td><strong>No</strong></td>
+<td>"Open Press"</td>
+<td><a href="http://martinschneiderart.com/">Martin Schneider</a></td>
+<td>All <a href="https://www.thingiverse.com/thing:2841592">design files</a> are under a non commercial license (CC-BY-NC)</td>
+</tr>
+<tr>
+<td><a href="https://www.openrov.com/">OpenROV</a></td>
+<td><em>mixed</em></td>
+<td>"OpenROV is a DIY telerobotics community centered around underwater exploration &amp; adventure."</td>
+<td><a href="https://github.com/OpenROV/openrov-software">Source code</a> is under an MIT license but <a href="https://github.com/OpenROV/openrov-hardware">design files</a> are under a non commercial license (CC-BY-NC-SA).</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://www.openscan.eu/scanner?lang=en">OpenScanner</a></td>
+<td><strong>No</strong></td>
+<td><a href="https://www.openscan.eu/?lang=en#comp-ih5ynj4e">"Open Hardware"</a></td>
+<td><a href="https://OpenScan.eu">OpenScan.eu</a></td>
+<td>The project uses third party software to do the photogramatry, so the project consists of the <a href="https://www.openscan.eu/scanner?lang=en">PCB design files, Arduino code and 3D design</a> files all which have no license information or are under a <a href="https://www.thingiverse.com/thing:3050437">non-commercial license</a>.</td>
+</tr>
+<tr>
+<td><a href="https://os-fashion.com/">Open Source Fashion</a></td>
+<td>unknown</td>
+<td>"Open Source" in name</td>
+<td><a href="https://os-fashion.com/">Open Source Fashion</a></td>
+<td>I don't know what's "open source" about their site.  It looks to be just a blog.</td>
+</tr>
+<tr>
+<td><a href="https://freesewing.org/">Free Sewing</a></td>
+<td>yes</td>
+<td>"an open source platform for made-to-measure sewing patterns"</td>
+<td><a href="https://freesewing.org">Free Sewing</a></td>
+<td><a href="https://github.com/freesewing/core">Source</a> is free/libre and other content is under CC-BY</td>
+</tr>
+<tr>
+<td>Openwear</td>
+<td>yes <a href="">*</a> (<em>now defunct</em>)</td>
+<td>"Openwear is an open-source brand concept ..."</td>
+<td><a href="http://openwear.eu/">Openwear</a></td>
+<td>Pattern files look to be under free/libre licenses (CC-BY-SA etc.)</td>
+</tr>
+<tr>
+<td><a href="http://www.osloom.org/">OSLoom</a></td>
+<td><strong>No</strong></td>
+<td>"open source jacquard loom"</td>
+<td><a href="http://www.osloom.org/">OS Loom</a></td>
+<td>Though there are claims of the source being under GPL and the hardware being under OHL, I can't find any design files.  Other project design files, when available, are all under a non commercial license (CC-BY-NC-SA).</td>
+</tr>
+<tr>
+<td><a href="https://www.poppy-project.org/en/robots/poppy-humanoid">Poppy Humanoid</a></td>
+<td>yes</td>
+<td>"... an open-source and 3D printed humanoid robot."</td>
+<td><a href="https://github.com/poppy-project/poppy-humanoid">source</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://seamly.net/">Seamly2D / Valentina</a></td>
+<td>yes</td>
+<td>"Open source patternmaking software."</td>
+<td><a href="https://github.com/fashionfreedom/seamly2d">Seamly2D</a></td>
+<td>Pattern making software</td>
+</tr>
+<tr>
+<td><a href="http://embedblog.eu/?p=298">STM32 Open Source Multimeter</a></td>
+<td><strong>No</strong></td>
+<td>"Open source multimeter"."</td>
+<td><a href="http://embedblog.eu">EmbedBlog</a></td>
+<td>All <a href="https://github.com/MartinD-CZ/STM32F1-open-source-multimeter">source</a>, <a href="https://www.thingiverse.com/thing:3660755">case design files</a> and <a href="http://embedblog.eu/?p=298">documentation</a> are under a non-commercial license (CC-BY-NC-SA)</td>
+</tr>
+<tr>
+<td><a href="https://hackaday.io/project/12989-thor">Thor</a></td>
+<td>yes</td>
+<td>"DIY 3D Printable Robotic Arm"</td>
+<td><a href="https://github.com/AngelLM/Thor">source</a> (CC-BY-SA)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="comments">Comments</h2>
+<p>From the Wikipedia entry on <a href="https://en.wikipedia.org/wiki/Open-source_software">Open Source Software</a>:</p>
+<blockquote>
+<p>Open-source software (OSS) is computer software with its source code made available with a
+license in which the copyright holder provides the rights to study, change, and distribute
+the software to anyone and for any purpose.</p>
+</blockquote>
+<p>This is an attempt to create a list of projects to reconcile
+claims of openness with whether they actually are open.</p>
+<p>Often times companies claim that their projects are "open source",
+either computer source code, design files or other digital artifacts,
+but either fail to provide the source or fail to provide proper
+licensing.</p>
+<p>When talking about other digital assets, either art files, design files, documentation,
+etc., what constitutes the analog of "open source" can get confusing, but I will generally
+take it to mean that they provide the fundamental copyrightable material to help with or
+recreate the project under a license that respects the freedoms of being able to run or create,
+to study, to change and to distribute, including distribution for commercial purposes.</p>
+<h6 id="2019-01-10">2019-01-10</h6>
+
+      </section>
+
+      <!--
+      <footer>
+        <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+      </footer>
+      -->
+
+    </div>
+    <script src="/dev/js/scale.fix.js"></script>
+  </body
+</html>
