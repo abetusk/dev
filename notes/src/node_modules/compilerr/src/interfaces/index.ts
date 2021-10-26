@@ -1,0 +1,5 @@
+export * from './augmented-error';
+export * from './aws-error';
+export * from './error-template';
+export * from './param-object';
+export * from './variable';

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+bn="XY-Limit-Switch-Bracket-Holder_v0.2.0"
+
+cp ../$bn.svg .
+svg2ngc ./$bn.svg
+
+grecode -shift 15 15 ./$bn.ngc > xxx
+mv xxx ./$bn.ngc
+
+sed -i 's/F800/F400/g' ./$bn.ngc
+sed -i 's/G0\(.*\)/G0 \1 F5000/g' ./$bn.ngc

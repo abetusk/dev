@@ -1,0 +1,1 @@
+{"version":3,"file":"worker-result-message.d.ts","sourceRoot":"","sources":["../../../src/interfaces/worker-result-message.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,MAAM,EAAE,MAAM,UAAU,CAAC;AAElC,MAAM,WAAW,oBAAoB;IACjC,EAAE,EAAE,IAAI,GAAG,MAAM,CAAC;IAElB,MAAM,EAAE,MAAM,CAAC;CAClB"}

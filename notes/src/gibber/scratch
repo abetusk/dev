@@ -1,0 +1,17 @@
+Theory.mode = "chromatic";
+sv = Bus2("spaceverb")
+ 
+bass = PolySynth("bleep", {"decay":1, "maxVoices":4});
+bass.note.seq([ 0, 3, 15, 8, 10, 7, 12, 8 ], 1);
+
+
+
+//---
+// brute force chords:
+//
+b0 = Synth("bleep", {"decay":1, "maxVoices":3});
+b0.note.seq([ 0, 3, 15, 8, 10, 7, 12, 8 ], 1);
+b1 = Synth("bleep", {"decay":1, "maxVoices":3});
+b1.note.seq([ 4, 7, 19, 12, 14, 11, 16, 12 ], 1);
+b1 = Synth("bleep", {"decay":1, "maxVoices":3});
+b1.note.seq([ 7, 10, 22, 15, 17, 14, 19, 15 ], 1);

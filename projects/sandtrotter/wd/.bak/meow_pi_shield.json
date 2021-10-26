@@ -1,0 +1,63 @@
+{
+  "library_name": "...",
+  "name": "...",
+  "layer": "15",
+  "attribute1": "00000000",
+  "timestamp": "00000000",
+  "units": "deci-mils",
+  "x": 0,
+  "y": 0,
+  "angle": 0,
+  "orientation": "0",
+  "timestamp_op": "00000000",
+  "attribute2": "~~",
+  "rotation_cost_90": "0",
+  "rotation_cost_180": "0",
+  "rotation_cost_misc": "0",
+  "text": [
+    {
+      "sizex": 0.0, 
+      "layer": "21", 
+      "angle": 0.0, 
+      "text": "", 
+      "misc": "misc", 
+      "number": "0", 
+      "sizey": 0.0, 
+      "visible": false, 
+      "flag": "N", 
+      "y": 0.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 0.0
+    }, 
+    {
+      "sizex": 0.0, 
+      "layer": "21", 
+      "angle": 0.0, 
+      "text": "", 
+      "misc": "misc", 
+      "number": "0", 
+      "sizey": 0.0, 
+      "visible": false, 
+      "flag": "N", 
+      "y": 0.0, 
+      "x": 0.0, 
+      "rotation": "0", 
+      "penwidth": 0.0
+    }
+  ], 
+  "art": [
+  ],
+  "_art": [
+    {
+      "shape": "segment",
+      "layer": "28",
+      "starty": -12106.299212598426,
+      "startx": -11023.622047244095,
+      "endx": -10334.645669291338,
+      "endy": -12795.275590551182,
+      "line_width": 50
+    }
+  ],
+  "pad": []
+}

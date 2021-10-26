@@ -1,0 +1,1375 @@
+{
+  "rotation_cost_90": "0",
+  "timestamp_op": "00000000",
+  "attribute1": "00000000",
+  "x": 0,
+  "rotation_cost_180": "0",
+  "rotation_cost_misc": "0",
+  "units": "deci-mils",
+  "y": 0,
+  "timestamp": "00000000",
+  "pad": [],
+  "attribute2": "~~",
+  "angle": 0,
+  "layer": "15",
+  "text": [
+    {
+      "sizey": 0.0,
+      "penwidth": 0.0,
+      "misc": "misc",
+      "x": 0.0,
+      "angle": 0.0,
+      "number": "0",
+      "rotation": "0",
+      "y": 0.0,
+      "visible": false,
+      "text": "",
+      "flag": "N",
+      "layer": "21",
+      "sizex": 0.0
+    },
+    {
+      "sizey": 0.0,
+      "penwidth": 0.0,
+      "misc": "misc",
+      "x": 0.0,
+      "angle": 0.0,
+      "number": "0",
+      "rotation": "0",
+      "y": 0.0,
+      "visible": false,
+      "text": "",
+      "flag": "N",
+      "layer": "21",
+      "sizex": 0.0
+    }
+  ],
+  "art": [
+    {
+      "layer": "28",
+      "endy": -11485,
+      "endx": 1443,
+      "startx": 1271,
+      "starty": -12156,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -10824,
+      "endx": 1646,
+      "startx": 1443,
+      "starty": -11485,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -10824,
+      "endx": 1646,
+      "startx": 1646,
+      "starty": -10824,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -10119,
+      "endx": 2012,
+      "startx": 1646,
+      "starty": -10824,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -10119,
+      "endx": 2012,
+      "startx": 2012,
+      "starty": -10119,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -9561,
+      "endx": 2421,
+      "startx": 2012,
+      "starty": -10119,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -9561,
+      "endx": 2421,
+      "startx": 2421,
+      "starty": -9561,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -9109,
+      "endx": 2865,
+      "startx": 2421,
+      "starty": -9561,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -9109,
+      "endx": 2865,
+      "startx": 2865,
+      "starty": -9109,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -8680,
+      "endx": 3166,
+      "startx": 2865,
+      "starty": -9109,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -8238,
+      "endx": 3448,
+      "startx": 3166,
+      "starty": -8680,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -8238,
+      "endx": 3448,
+      "startx": 3448,
+      "starty": -8238,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -7863,
+      "endx": 3701,
+      "startx": 3448,
+      "starty": -8238,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -7863,
+      "endx": 3701,
+      "startx": 3701,
+      "starty": -7863,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -7671,
+      "endx": 3879,
+      "startx": 3701,
+      "starty": -7863,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -7671,
+      "endx": 3879,
+      "startx": 3879,
+      "starty": -7671,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -7132,
+      "endx": 3988,
+      "startx": 3879,
+      "starty": -7671,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -7132,
+      "endx": 3988,
+      "startx": 3988,
+      "starty": -7132,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -6583,
+      "endx": 4101,
+      "startx": 3988,
+      "starty": -7132,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -6583,
+      "endx": 4101,
+      "startx": 4101,
+      "starty": -6583,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -6125,
+      "endx": 4216,
+      "startx": 4101,
+      "starty": -6583,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -5669,
+      "endx": 4344,
+      "startx": 4216,
+      "starty": -6125,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -5225,
+      "endx": 4502,
+      "startx": 4344,
+      "starty": -5669,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -5225,
+      "endx": 4502,
+      "startx": 4502,
+      "starty": -5225,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -4759,
+      "endx": 4704,
+      "startx": 4502,
+      "starty": -5225,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -4303,
+      "endx": 4928,
+      "startx": 4704,
+      "starty": -4759,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -3861,
+      "endx": 5178,
+      "startx": 4928,
+      "starty": -4303,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -3440,
+      "endx": 5460,
+      "startx": 5178,
+      "starty": -3861,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -3440,
+      "endx": 5460,
+      "startx": 5460,
+      "starty": -3440,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -2966,
+      "endx": 5833,
+      "startx": 5460,
+      "starty": -3440,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -2519,
+      "endx": 6239,
+      "startx": 5833,
+      "starty": -2966,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -2099,
+      "endx": 6673,
+      "startx": 6239,
+      "starty": -2519,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -1707,
+      "endx": 7132,
+      "startx": 6673,
+      "starty": -2099,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -1707,
+      "endx": 7132,
+      "startx": 7132,
+      "starty": -1707,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -1405,
+      "endx": 7559,
+      "startx": 7132,
+      "starty": -1707,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -1158,
+      "endx": 8020,
+      "startx": 7559,
+      "starty": -1405,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -1158,
+      "endx": 8020,
+      "startx": 8020,
+      "starty": -1158,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -958,
+      "endx": 8638,
+      "startx": 8020,
+      "starty": -1158,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -958,
+      "endx": 8638,
+      "startx": 8638,
+      "starty": -958,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -1019,
+      "endx": 9091,
+      "startx": 8638,
+      "starty": -958,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -1019,
+      "endx": 9091,
+      "startx": 9091,
+      "starty": -1019,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -1341,
+      "endx": 9770,
+      "startx": 9091,
+      "starty": -1019,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -1341,
+      "endx": 9770,
+      "startx": 9770,
+      "starty": -1341,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -1649,
+      "endx": 10155,
+      "startx": 9770,
+      "starty": -1341,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -2003,
+      "endx": 10502,
+      "startx": 10155,
+      "starty": -1649,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -2003,
+      "endx": 10502,
+      "startx": 10502,
+      "starty": -2003,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -2362,
+      "endx": 10794,
+      "startx": 10502,
+      "starty": -2003,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -2743,
+      "endx": 11059,
+      "startx": 10794,
+      "starty": -2362,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -2743,
+      "endx": 11059,
+      "startx": 11059,
+      "starty": -2743,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -3268,
+      "endx": 11395,
+      "startx": 11059,
+      "starty": -2743,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -3814,
+      "endx": 11695,
+      "startx": 11395,
+      "starty": -3268,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -3814,
+      "endx": 11695,
+      "startx": 11695,
+      "starty": -3814,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -4476,
+      "endx": 11956,
+      "startx": 11695,
+      "starty": -3814,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -4476,
+      "endx": 11956,
+      "startx": 11956,
+      "starty": -4476,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -4943,
+      "endx": 12096,
+      "startx": 11956,
+      "starty": -4476,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -5416,
+      "endx": 12209,
+      "startx": 12096,
+      "starty": -4943,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -5416,
+      "endx": 12209,
+      "startx": 12209,
+      "starty": -5416,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -6191,
+      "endx": 12322,
+      "startx": 12209,
+      "starty": -5416,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -6191,
+      "endx": 12322,
+      "startx": 12322,
+      "starty": -6191,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -6670,
+      "endx": 12392,
+      "startx": 12322,
+      "starty": -6191,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -6670,
+      "endx": 12392,
+      "startx": 12392,
+      "starty": -6670,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -7167,
+      "endx": 12583,
+      "startx": 12392,
+      "starty": -6670,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -7167,
+      "endx": 12583,
+      "startx": 12583,
+      "starty": -7167,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -7628,
+      "endx": 12766,
+      "startx": 12583,
+      "starty": -7167,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -7628,
+      "endx": 12766,
+      "startx": 12766,
+      "starty": -7628,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -8081,
+      "endx": 12958,
+      "startx": 12766,
+      "starty": -7628,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -8081,
+      "endx": 12958,
+      "startx": 12958,
+      "starty": -8081,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -8386,
+      "endx": 13123,
+      "startx": 12958,
+      "starty": -8081,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -8386,
+      "endx": 13123,
+      "startx": 13123,
+      "starty": -8386,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -8708,
+      "endx": 13428,
+      "startx": 13123,
+      "starty": -8386,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -8708,
+      "endx": 13428,
+      "startx": 13428,
+      "starty": -8708,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -8969,
+      "endx": 13724,
+      "startx": 13428,
+      "starty": -8708,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -8969,
+      "endx": 13724,
+      "startx": 13724,
+      "starty": -8969,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -9379,
+      "endx": 14185,
+      "startx": 13724,
+      "starty": -8969,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -9379,
+      "endx": 14185,
+      "startx": 14185,
+      "starty": -9379,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -9788,
+      "endx": 14534,
+      "startx": 14185,
+      "starty": -9379,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -9788,
+      "endx": 14534,
+      "startx": 14534,
+      "starty": -9788,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -10241,
+      "endx": 14778,
+      "startx": 14534,
+      "starty": -9788,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -10241,
+      "endx": 14778,
+      "startx": 14778,
+      "starty": -10241,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -10789,
+      "endx": 15074,
+      "startx": 14778,
+      "starty": -10241,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -10789,
+      "endx": 15074,
+      "startx": 15074,
+      "starty": -10789,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -11390,
+      "endx": 15248,
+      "startx": 15074,
+      "starty": -10789,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -11390,
+      "endx": 15248,
+      "startx": 15248,
+      "starty": -11390,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -11826,
+      "endx": 15361,
+      "startx": 15248,
+      "starty": -11390,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -11826,
+      "endx": 15361,
+      "startx": 15361,
+      "starty": -11826,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -12321,
+      "endx": 15407,
+      "startx": 15361,
+      "starty": -11826,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -12818,
+      "endx": 15396,
+      "startx": 15407,
+      "starty": -12321,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -12818,
+      "endx": 15396,
+      "startx": 15396,
+      "starty": -12818,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -13506,
+      "endx": 15248,
+      "startx": 15396,
+      "starty": -12818,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -13506,
+      "endx": 15248,
+      "startx": 15248,
+      "starty": -13506,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -13976,
+      "endx": 14882,
+      "startx": 15248,
+      "starty": -13506,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -13976,
+      "endx": 14882,
+      "startx": 14882,
+      "starty": -13976,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -14490,
+      "endx": 14316,
+      "startx": 14882,
+      "starty": -13976,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -14490,
+      "endx": 14316,
+      "startx": 14316,
+      "starty": -14490,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -14689,
+      "endx": 13866,
+      "startx": 14316,
+      "starty": -14490,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -14838,
+      "endx": 13393,
+      "startx": 13866,
+      "starty": -14689,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -14838,
+      "endx": 13393,
+      "startx": 13393,
+      "starty": -14838,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -15033,
+      "endx": 12795,
+      "startx": 13393,
+      "starty": -14838,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -15204,
+      "endx": 12191,
+      "startx": 12795,
+      "starty": -15033,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -15204,
+      "endx": 12191,
+      "startx": 12191,
+      "starty": -15204,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -15324,
+      "endx": 11724,
+      "startx": 12191,
+      "starty": -15204,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -15405,
+      "endx": 11251,
+      "startx": 11724,
+      "starty": -15324,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -15405,
+      "endx": 11251,
+      "startx": 11251,
+      "starty": -15405,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -15378,
+      "endx": 10511,
+      "startx": 11251,
+      "starty": -15405,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -15378,
+      "endx": 10511,
+      "startx": 10511,
+      "starty": -15378,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -15274,
+      "endx": 9770,
+      "startx": 10511,
+      "starty": -15378,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -15274,
+      "endx": 9770,
+      "startx": 9770,
+      "starty": -15274,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -15187,
+      "endx": 9239,
+      "startx": 9770,
+      "starty": -15274,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -15187,
+      "endx": 9239,
+      "startx": 9239,
+      "starty": -15187,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -15126,
+      "endx": 8769,
+      "startx": 9239,
+      "starty": -15187,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -15126,
+      "endx": 8769,
+      "startx": 8769,
+      "starty": -15126,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -15213,
+      "endx": 8107,
+      "startx": 8769,
+      "starty": -15126,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -15213,
+      "endx": 8107,
+      "startx": 8107,
+      "starty": -15213,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -15344,
+      "endx": 7437,
+      "startx": 8107,
+      "starty": -15213,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -15344,
+      "endx": 7437,
+      "startx": 7437,
+      "starty": -15344,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -15465,
+      "endx": 6714,
+      "startx": 7437,
+      "starty": -15344,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -15465,
+      "endx": 6714,
+      "startx": 6714,
+      "starty": -15465,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -15709,
+      "endx": 6104,
+      "startx": 6714,
+      "starty": -15465,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -15709,
+      "endx": 6104,
+      "startx": 6104,
+      "starty": -15709,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -15831,
+      "endx": 5416,
+      "startx": 6104,
+      "starty": -15709,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -15831,
+      "endx": 5416,
+      "startx": 5416,
+      "starty": -15831,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -15859,
+      "endx": 4995,
+      "startx": 5416,
+      "starty": -15831,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -15857,
+      "endx": 4572,
+      "startx": 4995,
+      "starty": -15859,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -15857,
+      "endx": 4572,
+      "startx": 4572,
+      "starty": -15857,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -15825,
+      "endx": 4135,
+      "startx": 4572,
+      "starty": -15857,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -15770,
+      "endx": 3701,
+      "startx": 4135,
+      "starty": -15825,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -15770,
+      "endx": 3701,
+      "startx": 3701,
+      "starty": -15770,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -15666,
+      "endx": 3126,
+      "startx": 3701,
+      "starty": -15770,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -15666,
+      "endx": 3126,
+      "startx": 3126,
+      "starty": -15666,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -15457,
+      "endx": 2447,
+      "startx": 3126,
+      "starty": -15666,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -15457,
+      "endx": 2447,
+      "startx": 2447,
+      "starty": -15457,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -15082,
+      "endx": 1855,
+      "startx": 2447,
+      "starty": -15457,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -15082,
+      "endx": 1855,
+      "startx": 1855,
+      "starty": -15082,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -14769,
+      "endx": 1515,
+      "startx": 1855,
+      "starty": -15082,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -14769,
+      "endx": 1515,
+      "startx": 1515,
+      "starty": -14769,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -14203,
+      "endx": 1245,
+      "startx": 1515,
+      "starty": -14769,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -14203,
+      "endx": 1245,
+      "startx": 1245,
+      "starty": -14203,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -13611,
+      "endx": 1097,
+      "startx": 1245,
+      "starty": -14203,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -13611,
+      "endx": 1097,
+      "startx": 1097,
+      "starty": -13611,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -13079,
+      "endx": 1080,
+      "startx": 1097,
+      "starty": -13611,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -13079,
+      "endx": 1080,
+      "startx": 1080,
+      "starty": -13079,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -12452,
+      "endx": 1184,
+      "startx": 1080,
+      "starty": -13079,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -12452,
+      "endx": 1184,
+      "startx": 1184,
+      "starty": -12452,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -12156,
+      "endx": 1271,
+      "startx": 1184,
+      "starty": -12452,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -12156,
+      "endx": 1271,
+      "startx": 1271,
+      "starty": -12156,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -12156,
+      "endx": 1271,
+      "startx": 1271,
+      "starty": -12156,
+      "line_width": 50,
+      "shape": "segment"
+    },
+    {
+      "layer": "28",
+      "endy": -12156,
+      "endx": 1271,
+      "startx": 1271,
+      "starty": -12156,
+      "line_width": 50,
+      "shape": "segment"
+    }
+  ],
+  "library_name": "sandtrotter_outline",
+  "orientation": "0",
+  "name": "sandtrotter_outline"
+}

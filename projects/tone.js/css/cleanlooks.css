@@ -1,0 +1,246 @@
+/*
+ *
+ * Original Design by Adam Particka and Matt Hollis
+ * Used by permission
+ *
+ */
+body {
+	font-family:arial, verdana, helvetica, sans-serif;
+	font-size:12px;
+	cursor:default;
+	color:#AAAAAA;
+	background-color:#FFFFFF
+}
+
+* {
+	margin: 0px;
+	padding: 0px;
+	text-decoration: none;
+}
+
+html {
+	height:100%;
+	margin-bottom:1px;
+}
+
+#container {
+	/* width: 750px; */
+	width: 1000px; 
+	margin-right: auto;
+	/* margin-left: auto; */
+	margin-left: left;
+	text-align: left;
+	background-color: #FFFFFF;
+	color:#AAAAAA;
+}
+
+#header {
+	width:100%;
+	padding-top:15px;
+    padding-left:30px;
+}
+
+#header a {
+	/* color:#FFBA27; */
+	color:#a07070;
+    /*
+	text-decoration:none;
+	background-color:#FFFFFF;
+    */
+}
+
+
+.spacer {
+	width:100%;
+	height:15px;
+}
+
+hr {
+	border:0px;
+	color:#CCCCCC;
+	background-color:#CDCDCD;
+	height: 1px;
+	width: 100%;
+	text-align: left;
+}
+
+h1 {
+	font-size:28px;
+	/* color:#FFBA27; */
+	 color:#a07070; */
+	background-color:#FFFFFF;
+	font-family:Arial, Verdana, Helvetica, sans-serif;
+	font-weight:300;
+}
+
+h2 {
+	font-size:20px;
+	color:#CCCCCC;
+	font-family:Arial, Verdana, Helvetica, sans-serif;
+	font-weight:300;
+	background-color:#FFFFFF;
+}
+
+h3 {
+	/* color:#FFBA27; */
+	color:#a07070; */
+	font-size:15px;
+	background-color:#F9F9F9;
+	border-width:1px;
+	border-color:#AAAAAA;
+	border-style:solid;
+	text-align:left;
+	margin-left:20px;
+	margin-right:20px;
+	font-weight:300;
+	padding:5px;
+}
+
+.top_main_heading {
+	margin-top:15px;
+}
+
+#left {
+	float:left;
+	/* width:200px; */
+	width:150px; 
+	background-color:#FFFFFF;
+	color:#AAAAAA;
+    margin-top:20px;
+}
+
+#leftcontent p {
+	color:#AAAAAA;
+	background-color:#FFFFFF;
+	font-size: 12px;
+	text-align:left;
+	margin-left:20px;
+	margin-right:20px;
+}
+
+#leftcontent ul {
+	list-style:none;
+	padding-left:20px;
+	color:#AAAAAA;
+	background-color:#FFFFFF;
+}
+
+.indent {
+  padding-left: 10px;
+}
+
+#leftcontent a {
+	/* color:#FFBA27; */
+	color:#a07070;
+	text-decoration:none;
+	font-size:16px;
+	background-color:#FFFFFF;
+}
+
+.news {
+	color:#999999;
+	border-bottom:1px;
+	border-left:1px;
+	border-right:1px;
+	border-top:0px;
+	border-style:solid;
+	border-color:#AAAAAA;
+	background-color:#FFFFFF;
+	line-height:20px;
+	padding:5px;
+}
+
+#leftcontent a:hover {
+	/* color:#FFBA27; */
+	background-color:#FFFFFF;
+	text-decoration:underline;
+}
+
+#main {
+	float:left;
+	/* width:550px; */
+	width:750px; 
+	color:#999999;
+	background-color:#FFFFFF;
+	/* padding-bottom:20px; */
+	padding-bottom:10px; 
+	background:url(../img/background1000.png); 
+}
+
+#maincontent {
+	margin-left:20px;
+	margin-right:20px;
+	margin-bottom:15px;
+	/* line-height:20px; */
+	/* padding:20px; */
+	padding:10px;
+}
+
+#maincontent p {
+	color:#999999;
+	background-color:#FFFFFF;
+	border-bottom:1px;
+	border-left:1px;
+	border-right:1px;
+	border-top:0px;
+	border-style:solid;
+	border-color:#AAAAAA;
+	margin-left:20px;
+	margin-right:20px;
+	margin-bottom:15px;
+	line-height:20px;
+	padding:20px;
+}
+
+#maincontent a {
+	/* color:#FFBA27; */
+	color:#a07070;
+	/* background-color:#FFFFFF; */
+	background-color: transparent; 
+	text-decoration:none;
+}
+
+#maincontent a:hover {
+	/* color:#FFBA27; */
+	color:#a07070;
+	/* background-color:#FFFFFF; */
+	background-color:transparent; 
+	text-decoration:underline;
+}
+
+#footer {
+	clear:both;
+	/* width:750px; */
+	width:1000px; 
+	font-size:12px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+    padding-left:30px;
+}
+
+#footer a {
+	color:#AAAAAA;
+	background-color:#FFFFFF;
+	text-decoration:none;
+}
+
+#footer a:hover {
+	color:#AAAAAA;
+	background-color:#FFFFFF;
+	text-decoration:underline;
+}
+
+.right {
+	color:#AAAAAA;
+	background-color:#FFFFFF;
+	float:right;
+	font-size:100%;
+	margin-top:5px;
+}
+
+.left {
+	color:#AAAAAA;
+	background-color:#FFFFFF;
+	float:left;
+	font-size:100%;
+	margin-top:5px;
+}

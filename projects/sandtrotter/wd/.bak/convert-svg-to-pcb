@@ -1,0 +1,17 @@
+#!/bin/bash
+#
+# License: CC0
+#
+
+# this is not meant to be general use, just for this particular project
+#
+
+
+xmltojson < ./sandtrotter-outline.svg | \
+  jq -r '.svg.g.path[0].d' | \
+  svgpath2gp --segment 1 /dev/stdin  > edge.gp
+
+
+xmltojson < sandtrotter-outline.svg | \
+  jq -r '.svg.g.path[1:][].d'  | \
+  svgpath2gp --segment 1 /dev/stdin > inner.gp

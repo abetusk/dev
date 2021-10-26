@@ -1,0 +1,11 @@
+{
+  "extends": [
+    "standard"
+  ],
+  "env": {
+    "jest": true
+  },
+  "rules": {
+    "comma-dangle": ["error", "only-multiline"]
+  }
+}

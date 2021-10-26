@@ -1,0 +1,1 @@
+{"version":3,"file":"worker-error-message.d.ts","sourceRoot":"","sources":["../../../src/interfaces/worker-error-message.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,MAAM,EAAE,MAAM,SAAS,CAAC;AAEjC,MAAM,WAAW,mBAAmB;IAChC,KAAK,EAAE,MAAM,CAAC;IAEd,EAAE,EAAE,IAAI,GAAG,MAAM,CAAC;CACrB"}

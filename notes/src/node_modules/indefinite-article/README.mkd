@@ -1,0 +1,11 @@
+#Overview
+
+indefinite-article.js is a JavaScript function that returns the indefinite articles "a" or "an" based on a given word or phrase. The code is a port from the [Lingua::EN::Inflect] Perl module found on [this stackoverflow question]
+
+#Credit
+
+indefinite-article.js was developed by [@rigoneri]
+
+[Lingua::EN::Inflect]: http://search.cpan.org/dist/Lingua-EN-Inflect/lib/Lingua/EN/Inflect.pm#PROVIDING_INDEFINITE_ARTICLES
+[this stackoverflow question]: http://stackoverflow.com/questions/4558437
+[@rigoneri]: http://twitter.com/rigoneri

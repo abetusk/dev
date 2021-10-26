@@ -1,0 +1,2 @@
+creating seg16-digi_inset.ps
+gp2ngc --preset laser -i seg16-digi_inset-ord.gp --rapid  S0 --slow F800 S1.0 | ngc_scale -s .00000100000000000000 > seg16-digi_inset.ngc

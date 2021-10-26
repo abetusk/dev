@@ -1,0 +1,13 @@
+# Advice for Commercial Makers
+
+This is a product design downloaded from the Opendesk.cc website. Whilst it is
+widely distributed as a download, it is *not* licensed for commercial use.
+
+This means that you can't use it for commercial purposes, which include selling
+and / or being paid to fabricate it, without first obtaining a commercial license.
+
+For information on how to obtain a commercial license to (re)sell or fabricate
+the design, which ensures that the original designer will receive a royalty,
+visit https://www.opendesk.cc/open/join/maker
+
+For more information on the definition of Non-commercial, see http://wiki.creativecommons.org/Frequently_Asked_Questions#Does_my_use_violate_the_NonCommercial_clause_of_the_licenses.3F

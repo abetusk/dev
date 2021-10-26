@@ -1,0 +1,10 @@
+(module svg2mod (layer F.Cu) (tedit 5FCCF3EB)
+  (attr virtual)
+  (descr "Imported from sandy-inner-test.svg")
+  (tags svg2mod)
+  (fp_text reference svg2mod (at 0 13.678779475) (layer F.SilkS) hide
+    (effects (font (size 1.524 1.524) (thickness 0.3048)))
+  )
+  (fp_text value G*** (at 0 244.979414895833) (layer F.SilkS) hide
+    (effects (font (size 1.524 1.524) (thickness 0.3048)))
+  )

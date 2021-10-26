@@ -1,0 +1,6 @@
+#!/bin/bash
+
+xmltojson < sandy.1.outline.svg  | \
+  jq -r .svg.path.d | \
+  svgpath2gp --segment 0.03125 /dev/stdin > sandy-outline.gp
+

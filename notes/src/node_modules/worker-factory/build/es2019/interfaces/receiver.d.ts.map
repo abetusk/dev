@@ -1,0 +1,1 @@
+{"version":3,"file":"receiver.d.ts","sourceRoot":"","sources":["../../../src/interfaces/receiver.ts"],"names":[],"mappings":"AAAA,MAAM,WAAW,SAAS;IACtB,gBAAgB,EAAE,OAAO,gBAAgB,CAAC;IAE1C,WAAW,EAAE,OAAO,WAAW,CAAC;IAEhC,mBAAmB,EAAE,OAAO,mBAAmB,CAAC;CACnD"}

@@ -1,0 +1,19 @@
+{
+  "node":     true,
+  "maxlen":   80,
+  "strict":   false,
+  "devel":    true,
+  "newcap":   true,
+  "noempty":  true,
+  "nonew":    true,
+  "onevar":   false,
+  "plusplus": false,
+  "trailing": true,
+  "eqeqeq":   true,
+  "forin":    true,
+  "latedef":  true,
+  "undef":    true,
+  "evil":     false,
+  "unused":   true,
+  "laxcomma": true
+}

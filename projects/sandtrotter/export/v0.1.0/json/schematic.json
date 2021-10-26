@@ -1,0 +1,8083 @@
+{
+  "component_lib": {
+    "C": {
+      "art": [
+        {
+          "count": 2, 
+          "line_width": "20", 
+          "convert": "1", 
+          "shape": "path", 
+          "path": [
+            [
+              -80, 
+              -30
+            ], 
+            [
+              80, 
+              -30
+            ]
+          ], 
+          "de_morgan_alternate_shape": "1", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "20", 
+          "convert": "1", 
+          "shape": "path", 
+          "path": [
+            [
+              -80, 
+              30
+            ], 
+            [
+              80, 
+              30
+            ]
+          ], 
+          "de_morgan_alternate_shape": "1", 
+          "unit": "0", 
+          "fill": "N"
+        }
+      ], 
+      "name": "C", 
+      "reference": "C2", 
+      "text": [
+        {
+          "orientation": "H", 
+          "reference": "C2", 
+          "hjustify": "L", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": true, 
+          "bounding_box": [
+            [
+              0, 
+              -133.33333333333334
+            ], 
+            [
+              80, 
+              -66.66666666666666
+            ]
+          ], 
+          "italic": false, 
+          "y": "100", 
+          "x": "0", 
+          "size": "40", 
+          "bold": false
+        }, 
+        {
+          "orientation": "H", 
+          "reference": "C", 
+          "hjustify": "L", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": true, 
+          "bounding_box": [
+            [
+              6, 
+              51.666666666666664
+            ], 
+            [
+              46, 
+              118.33333333333334
+            ]
+          ], 
+          "italic": false, 
+          "y": "-85", 
+          "x": "6", 
+          "size": "40", 
+          "bold": false
+        }, 
+        {
+          "text": " \"~\" 38 -150 30 H V C CNN", 
+          "bounding_box": [
+            [
+              0, 
+              0
+            ], 
+            [
+              0, 
+              0
+            ]
+          ], 
+          "number": "2"
+        }, 
+        {
+          "text": " \"~\" 0 0 60 H V C CNN", 
+          "bounding_box": [
+            [
+              0, 
+              0
+            ], 
+            [
+              0, 
+              0
+            ]
+          ], 
+          "number": "3"
+        }
+      ], 
+      "pin": [
+        {
+          "direction": "D", 
+          "name": "~", 
+          "length": "170", 
+          "number": "1", 
+          "visible": true, 
+          "shape": null, 
+          "text_size_number": "40", 
+          "y": "200", 
+          "x": "0", 
+          "electrical_type": "P", 
+          "de_morgan_alternate_shape": "1", 
+          "text_size_name": "40", 
+          "unit": "1"
+        }, 
+        {
+          "direction": "U", 
+          "name": "~", 
+          "length": "170", 
+          "number": "2", 
+          "visible": true, 
+          "shape": null, 
+          "text_size_number": "40", 
+          "y": "-200", 
+          "x": "0", 
+          "electrical_type": "P", 
+          "de_morgan_alternate_shape": "1", 
+          "text_size_name": "40", 
+          "unit": "1"
+        }
+      ], 
+      "bounding_box": [
+        [
+          -80, 
+          -200
+        ], 
+        [
+          80, 
+          200
+        ]
+      ], 
+      "power_flag": "N", 
+      "text_offset": "10", 
+      "draw_pin_name": true, 
+      "units_locked": "F", 
+      "draw_pin_number": false, 
+      "unit_count": 1, 
+      "coarse_bounding_box": [
+        [
+          -80, 
+          -200
+        ], 
+        [
+          80, 
+          200
+        ]
+      ]
+    }, 
+    "NPN": {
+      "art": [
+        {
+          "line_width": "10", 
+          "shape": "circle", 
+          "r": 111, 
+          "y": 0, 
+          "x": 50, 
+          "de_morgan_alternate_shape": "1", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "0", 
+          "convert": "1", 
+          "shape": "path", 
+          "path": [
+            [
+              0, 
+              0
+            ], 
+            [
+              100, 
+              100
+            ]
+          ], 
+          "de_morgan_alternate_shape": "1", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 3, 
+          "line_width": "10", 
+          "convert": "1", 
+          "shape": "path", 
+          "path": [
+            [
+              0, 
+              75
+            ], 
+            [
+              0, 
+              -75
+            ], 
+            [
+              0, 
+              -75
+            ]
+          ], 
+          "de_morgan_alternate_shape": "1", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 3, 
+          "line_width": "0", 
+          "convert": "1", 
+          "shape": "path", 
+          "path": [
+            [
+              50, 
+              -50
+            ], 
+            [
+              0, 
+              0
+            ], 
+            [
+              0, 
+              0
+            ]
+          ], 
+          "de_morgan_alternate_shape": "1", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 3, 
+          "line_width": "0", 
+          "convert": "1", 
+          "shape": "path", 
+          "path": [
+            [
+              90, 
+              -90
+            ], 
+            [
+              100, 
+              -100
+            ], 
+            [
+              100, 
+              -100
+            ]
+          ], 
+          "de_morgan_alternate_shape": "1", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 5, 
+          "line_width": "0", 
+          "convert": "1", 
+          "shape": "path", 
+          "path": [
+            [
+              90, 
+              -90
+            ], 
+            [
+              70, 
+              -30
+            ], 
+            [
+              30, 
+              -70
+            ], 
+            [
+              90, 
+              -90
+            ], 
+            [
+              90, 
+              -90
+            ]
+          ], 
+          "de_morgan_alternate_shape": "1", 
+          "unit": "0", 
+          "fill": "F"
+        }
+      ], 
+      "name": "NPN", 
+      "reference": "Q1", 
+      "text": [
+        {
+          "orientation": "H", 
+          "reference": "SOT23", 
+          "hjustify": "R", 
+          "text": "SOT23", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": true, 
+          "bounding_box": [
+            [
+              -250, 
+              108.33333333333333
+            ], 
+            [
+              0, 
+              191.66666666666669
+            ]
+          ], 
+          "italic": false, 
+          "y": "-150", 
+          "x": "0", 
+          "size": "50", 
+          "bold": false
+        }, 
+        {
+          "orientation": "H", 
+          "reference": "NPN", 
+          "hjustify": "R", 
+          "text": "VAL", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": true, 
+          "bounding_box": [
+            [
+              -150, 
+              -191.66666666666669
+            ], 
+            [
+              0, 
+              -108.33333333333333
+            ]
+          ], 
+          "italic": false, 
+          "y": "150", 
+          "x": "0", 
+          "size": "50", 
+          "bold": false
+        }, 
+        {
+          "text": " \"~\" 0 0 60 H V C CNN", 
+          "bounding_box": [
+            [
+              0, 
+              0
+            ], 
+            [
+              0, 
+              0
+            ]
+          ], 
+          "number": "2"
+        }, 
+        {
+          "text": " \"~\" 0 0 60 H V C CNN", 
+          "bounding_box": [
+            [
+              0, 
+              0
+            ], 
+            [
+              0, 
+              0
+            ]
+          ], 
+          "number": "3"
+        }
+      ], 
+      "pin": [
+        {
+          "direction": "U", 
+          "name": "E", 
+          "length": "100", 
+          "number": "1", 
+          "visible": true, 
+          "shape": null, 
+          "text_size_number": "40", 
+          "y": "-200", 
+          "x": "100", 
+          "electrical_type": "P", 
+          "de_morgan_alternate_shape": "1", 
+          "text_size_name": "40", 
+          "unit": "1"
+        }, 
+        {
+          "direction": "R", 
+          "name": "B", 
+          "length": "200", 
+          "number": "2", 
+          "visible": true, 
+          "shape": null, 
+          "text_size_number": "40", 
+          "y": "0", 
+          "x": "-200", 
+          "electrical_type": "I", 
+          "de_morgan_alternate_shape": "1", 
+          "text_size_name": "40", 
+          "unit": "1"
+        }, 
+        {
+          "direction": "D", 
+          "name": "C", 
+          "length": "100", 
+          "number": "3", 
+          "visible": true, 
+          "shape": null, 
+          "text_size_number": "40", 
+          "y": "200", 
+          "x": "100", 
+          "electrical_type": "P", 
+          "de_morgan_alternate_shape": "1", 
+          "text_size_name": "40", 
+          "unit": "1"
+        }
+      ], 
+      "bounding_box": [
+        [
+          -200, 
+          -200
+        ], 
+        [
+          161, 
+          200
+        ]
+      ], 
+      "power_flag": "N", 
+      "text_offset": "0", 
+      "draw_pin_name": true, 
+      "units_locked": "F", 
+      "draw_pin_number": true, 
+      "unit_count": 1, 
+      "hideFlag": false, 
+      "coarse_bounding_box": [
+        [
+          -250, 
+          -200
+        ], 
+        [
+          161, 
+          200
+        ]
+      ]
+    }, 
+    "BATTERY_2032_BATT2032": {
+      "art": [
+        {
+          "count": 2, 
+          "line_width": "16", 
+          "convert": "0", 
+          "shape": "path", 
+          "path": [
+            [
+              -200, 
+              200
+            ], 
+            [
+              200, 
+              200
+            ]
+          ], 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "16", 
+          "convert": "0", 
+          "shape": "path", 
+          "path": [
+            [
+              200, 
+              200
+            ], 
+            [
+              200, 
+              -200
+            ]
+          ], 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "16", 
+          "convert": "0", 
+          "shape": "path", 
+          "path": [
+            [
+              200, 
+              -200
+            ], 
+            [
+              -200, 
+              -200
+            ]
+          ], 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "16", 
+          "convert": "0", 
+          "shape": "path", 
+          "path": [
+            [
+              -200, 
+              -200
+            ], 
+            [
+              -200, 
+              200
+            ]
+          ], 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "direction": "0", 
+          "text": ">NAME", 
+          "shape": "text", 
+          "type": "0", 
+          "y": 225, 
+          "x": -200, 
+          "direction_unit": "deci-degrees", 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "size": "70"
+        }, 
+        {
+          "direction": "0", 
+          "text": ">VALUE", 
+          "shape": "text", 
+          "type": "0", 
+          "y": -300, 
+          "x": -200, 
+          "direction_unit": "deci-degrees", 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "size": "70"
+        }
+      ], 
+      "name": "BATTERY_2032_BATT2032", 
+      "reference": "U11", 
+      "text": [
+        {
+          "orientation": "H", 
+          "reference": "bat", 
+          "hjustify": "C", 
+          "text": "bat", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": true, 
+          "bounding_box": [
+            [
+              0, 
+              0
+            ], 
+            [
+              0, 
+              0
+            ]
+          ], 
+          "italic": false, 
+          "y": "0", 
+          "x": "0", 
+          "size": "0", 
+          "bold": false
+        }, 
+        {
+          "orientation": "H", 
+          "reference": "BATTERY_2032_BATT2032", 
+          "hjustify": "C", 
+          "text": "cr2032", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": true, 
+          "bounding_box": [
+            [
+              0, 
+              0
+            ], 
+            [
+              0, 
+              0
+            ]
+          ], 
+          "italic": false, 
+          "y": "0", 
+          "x": "0", 
+          "size": "0", 
+          "bold": false
+        }
+      ], 
+      "pin": [
+        {
+          "pin_type": "CI", 
+          "direction": "R", 
+          "name": "V1", 
+          "number": "V1", 
+          "visible": true, 
+          "shape": " CI", 
+          "text_size_number": "0", 
+          "x": "-300", 
+          "y": "100", 
+          "length": "100", 
+          "electrical_type": "W", 
+          "de_morgan_alternate_shape": "0", 
+          "text_size_name": "60", 
+          "unit": "0"
+        }, 
+        {
+          "pin_type": "CI", 
+          "direction": "R", 
+          "name": "V2", 
+          "number": "V2", 
+          "visible": true, 
+          "shape": " CI", 
+          "text_size_number": "0", 
+          "x": "-300", 
+          "y": "-100", 
+          "length": "100", 
+          "electrical_type": "W", 
+          "de_morgan_alternate_shape": "0", 
+          "text_size_name": "60", 
+          "unit": "0"
+        }, 
+        {
+          "direction": "L", 
+          "name": "V-", 
+          "length": "100", 
+          "number": "V-", 
+          "visible": true, 
+          "shape": null, 
+          "text_size_number": "0", 
+          "y": "0", 
+          "x": "300", 
+          "electrical_type": "W", 
+          "de_morgan_alternate_shape": "0", 
+          "text_size_name": "60", 
+          "unit": "0"
+        }
+      ], 
+      "bounding_box": [
+        [
+          -300, 
+          -370
+        ], 
+        [
+          300, 
+          295
+        ]
+      ], 
+      "power_flag": "N", 
+      "text_offset": "100", 
+      "draw_pin_name": true, 
+      "units_locked": "0", 
+      "draw_pin_number": true, 
+      "units": "deci-mils", 
+      "unit_count": 2, 
+      "hideFlag": false, 
+      "coarse_bounding_box": [
+        [
+          -300, 
+          -370
+        ], 
+        [
+          300, 
+          295
+        ]
+      ]
+    }, 
+    "CONN_3": {
+      "art": [
+        {
+          "line_width": "0", 
+          "height": 300, 
+          "width": 200, 
+          "shape": "rectangle", 
+          "y": 150, 
+          "x": -100, 
+          "de_morgan_alternate_shape": "1", 
+          "unit": "0", 
+          "fill": "N"
+        }
+      ], 
+      "name": "CONN_3", 
+      "reference": "K1", 
+      "text": [
+        {
+          "orientation": "V", 
+          "reference": "ref**", 
+          "hjustify": "C", 
+          "text": "ref**", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              -91.66666666666667, 
+              -125
+            ], 
+            [
+              -8.333333333333329, 
+              125
+            ]
+          ], 
+          "italic": false, 
+          "y": "0", 
+          "x": "-50", 
+          "size": "50", 
+          "bold": false
+        }, 
+        {
+          "orientation": "V", 
+          "reference": "CONN_3", 
+          "hjustify": "C", 
+          "text": "val**", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              16.666666666666664, 
+              -120
+            ], 
+            [
+              83.33333333333334, 
+              120
+            ]
+          ], 
+          "italic": false, 
+          "y": "0", 
+          "x": "50", 
+          "size": "40", 
+          "bold": false
+        }
+      ], 
+      "pin": [
+        {
+          "pin_type": "I", 
+          "direction": "R", 
+          "name": "P1", 
+          "number": "1", 
+          "visible": true, 
+          "shape": " I", 
+          "text_size_number": "60", 
+          "x": "-350", 
+          "y": "100", 
+          "length": "250", 
+          "electrical_type": "P", 
+          "de_morgan_alternate_shape": "1", 
+          "text_size_name": "60", 
+          "unit": "1"
+        }, 
+        {
+          "pin_type": "I", 
+          "direction": "R", 
+          "name": "PM", 
+          "number": "2", 
+          "visible": true, 
+          "shape": " I", 
+          "text_size_number": "60", 
+          "x": "-350", 
+          "y": "0", 
+          "length": "250", 
+          "electrical_type": "P", 
+          "de_morgan_alternate_shape": "1", 
+          "text_size_name": "60", 
+          "unit": "1"
+        }, 
+        {
+          "pin_type": "I", 
+          "direction": "R", 
+          "name": "P3", 
+          "number": "3", 
+          "visible": true, 
+          "shape": " I", 
+          "text_size_number": "60", 
+          "x": "-350", 
+          "y": "-100", 
+          "length": "250", 
+          "electrical_type": "P", 
+          "de_morgan_alternate_shape": "1", 
+          "text_size_name": "60", 
+          "unit": "1"
+        }
+      ], 
+      "bounding_box": [
+        [
+          -350, 
+          -150
+        ], 
+        [
+          100, 
+          150
+        ]
+      ], 
+      "power_flag": "N", 
+      "text_offset": "40", 
+      "draw_pin_name": false, 
+      "units_locked": "F", 
+      "draw_pin_number": true, 
+      "unit_count": 1, 
+      "hideFlag": false, 
+      "coarse_bounding_box": [
+        [
+          -350, 
+          -150
+        ], 
+        [
+          100, 
+          150
+        ]
+      ]
+    }, 
+    "CONN_2": {
+      "art": [
+        {
+          "line_width": "0", 
+          "height": 300, 
+          "width": 200, 
+          "shape": "rectangle", 
+          "y": 150, 
+          "x": -100, 
+          "de_morgan_alternate_shape": "1", 
+          "unit": "0", 
+          "fill": "N"
+        }
+      ], 
+      "name": "CONN_2", 
+      "reference": "P1", 
+      "text": [
+        {
+          "orientation": "V", 
+          "reference": "bat", 
+          "hjustify": "C", 
+          "text": "bat", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": true, 
+          "bounding_box": [
+            [
+              -83.33333333333334, 
+              -60
+            ], 
+            [
+              -16.666666666666664, 
+              60
+            ]
+          ], 
+          "italic": false, 
+          "y": "0", 
+          "x": "-50", 
+          "size": "40", 
+          "bold": false
+        }, 
+        {
+          "orientation": "V", 
+          "reference": "CONN_2", 
+          "hjustify": "C", 
+          "text": "cr2032", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": true, 
+          "bounding_box": [
+            [
+              16.666666666666664, 
+              -120
+            ], 
+            [
+              83.33333333333334, 
+              120
+            ]
+          ], 
+          "italic": false, 
+          "y": "0", 
+          "x": "50", 
+          "size": "40", 
+          "bold": false
+        }
+      ], 
+      "pin": [
+        {
+          "pin_type": "I", 
+          "direction": "R", 
+          "name": "P1", 
+          "number": "1", 
+          "visible": true, 
+          "shape": " I", 
+          "text_size_number": "60", 
+          "x": "-350", 
+          "y": "100", 
+          "length": "250", 
+          "electrical_type": "P", 
+          "de_morgan_alternate_shape": "1", 
+          "text_size_name": "60", 
+          "unit": "1"
+        }, 
+        {
+          "pin_type": "I", 
+          "direction": "R", 
+          "name": "PM", 
+          "number": "2", 
+          "visible": true, 
+          "shape": " I", 
+          "text_size_number": "60", 
+          "x": "-350", 
+          "y": "-100", 
+          "length": "250", 
+          "electrical_type": "P", 
+          "de_morgan_alternate_shape": "1", 
+          "text_size_name": "60", 
+          "unit": "1"
+        }
+      ], 
+      "bounding_box": [
+        [
+          -350, 
+          -150
+        ], 
+        [
+          100, 
+          150
+        ]
+      ], 
+      "power_flag": "N", 
+      "text_offset": "40", 
+      "draw_pin_name": false, 
+      "units_locked": "F", 
+      "draw_pin_number": true, 
+      "unit_count": 1, 
+      "hideFlag": false, 
+      "coarse_bounding_box": [
+        [
+          -350, 
+          -150
+        ], 
+        [
+          100, 
+          150
+        ]
+      ]
+    }, 
+    "BATTERY": {
+      "art": [
+        {
+          "line_width": "6", 
+          "shape": "circle", 
+          "r": 150, 
+          "y": 0, 
+          "x": 0, 
+          "de_morgan_alternate_shape": "1", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "0", 
+          "convert": "1", 
+          "shape": "path", 
+          "path": [
+            [
+              -100, 
+              0
+            ], 
+            [
+              -150, 
+              0
+            ]
+          ], 
+          "de_morgan_alternate_shape": "1", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "6", 
+          "convert": "1", 
+          "shape": "path", 
+          "path": [
+            [
+              -100, 
+              90
+            ], 
+            [
+              -100, 
+              -89
+            ]
+          ], 
+          "de_morgan_alternate_shape": "1", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "6", 
+          "convert": "1", 
+          "shape": "path", 
+          "path": [
+            [
+              -31, 
+              50
+            ], 
+            [
+              -31, 
+              -50
+            ]
+          ], 
+          "de_morgan_alternate_shape": "1", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "6", 
+          "convert": "1", 
+          "shape": "path", 
+          "path": [
+            [
+              39, 
+              90
+            ], 
+            [
+              39, 
+              -89
+            ]
+          ], 
+          "de_morgan_alternate_shape": "1", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "0", 
+          "convert": "1", 
+          "shape": "path", 
+          "path": [
+            [
+              100, 
+              0
+            ], 
+            [
+              150, 
+              0
+            ]
+          ], 
+          "de_morgan_alternate_shape": "1", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "6", 
+          "convert": "1", 
+          "shape": "path", 
+          "path": [
+            [
+              100, 
+              50
+            ], 
+            [
+              100, 
+              -50
+            ]
+          ], 
+          "de_morgan_alternate_shape": "1", 
+          "unit": "0", 
+          "fill": "N"
+        }
+      ], 
+      "name": "BATTERY", 
+      "reference": "BT1", 
+      "text": [
+        {
+          "orientation": "H", 
+          "reference": "bat", 
+          "hjustify": "C", 
+          "text": "bat", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": true, 
+          "bounding_box": [
+            [
+              -75, 
+              -241.66666666666669
+            ], 
+            [
+              75, 
+              -158.33333333333331
+            ]
+          ], 
+          "italic": false, 
+          "y": "200", 
+          "x": "0", 
+          "size": "50", 
+          "bold": false
+        }, 
+        {
+          "orientation": "H", 
+          "reference": "BATTERY", 
+          "hjustify": "C", 
+          "text": "cr2032", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": true, 
+          "bounding_box": [
+            [
+              -175, 
+              148.33333333333331
+            ], 
+            [
+              175, 
+              231.66666666666669
+            ]
+          ], 
+          "italic": false, 
+          "y": "-190", 
+          "x": "0", 
+          "size": "50", 
+          "bold": false
+        }, 
+        {
+          "text": " \"~\" 0 0 60 H V C CNN", 
+          "bounding_box": [
+            [
+              0, 
+              0
+            ], 
+            [
+              0, 
+              0
+            ]
+          ], 
+          "number": "2"
+        }, 
+        {
+          "text": " \"~\" 0 0 60 H V C CNN", 
+          "bounding_box": [
+            [
+              0, 
+              0
+            ], 
+            [
+              0, 
+              0
+            ]
+          ], 
+          "number": "3"
+        }
+      ], 
+      "pin": [
+        {
+          "direction": "R", 
+          "name": "+", 
+          "length": "150", 
+          "number": "1", 
+          "visible": true, 
+          "shape": null, 
+          "text_size_number": "50", 
+          "y": "0", 
+          "x": "-300", 
+          "electrical_type": "P", 
+          "de_morgan_alternate_shape": "1", 
+          "text_size_name": "50", 
+          "unit": "1"
+        }, 
+        {
+          "direction": "L", 
+          "name": "-", 
+          "length": "150", 
+          "number": "2", 
+          "visible": true, 
+          "shape": null, 
+          "text_size_number": "50", 
+          "y": "0", 
+          "x": "300", 
+          "electrical_type": "P", 
+          "de_morgan_alternate_shape": "1", 
+          "text_size_name": "50", 
+          "unit": "1"
+        }
+      ], 
+      "bounding_box": [
+        [
+          -300, 
+          -150
+        ], 
+        [
+          300, 
+          150
+        ]
+      ], 
+      "power_flag": "N", 
+      "text_offset": "0", 
+      "draw_pin_name": true, 
+      "units_locked": "F", 
+      "draw_pin_number": true, 
+      "unit_count": 1, 
+      "hideFlag": false, 
+      "coarse_bounding_box": [
+        [
+          -300, 
+          -150
+        ], 
+        [
+          300, 
+          158.33333333333331
+        ]
+      ]
+    }, 
+    "unknown": {
+      "art": [
+        {
+          "count": 5, 
+          "line_width": 0, 
+          "shape": "path", 
+          "path": [
+            [
+              250, 
+              250
+            ], 
+            [
+              -250, 
+              250
+            ], 
+            [
+              -250, 
+              -250
+            ], 
+            [
+              250, 
+              -250
+            ], 
+            [
+              250, 
+              250
+            ]
+          ], 
+          "de_morgan_alternate_shape": "1", 
+          "unit": "0", 
+          "fill": "N"
+        }
+      ], 
+      "name": "unknown", 
+      "reference": "Z", 
+      "mm": 1, 
+      "timestamp": "52566B9A", 
+      "transform": [
+        [
+          1, 
+          0
+        ], 
+        [
+          0, 
+          -1
+        ]
+      ], 
+      "unknown_text_field": {
+        "orientation": "H", 
+        "reference": "??", 
+        "hjustify": "C", 
+        "text": "??", 
+        "number": 0, 
+        "vjustify": "C", 
+        "transform": [
+          [
+            1, 
+            0
+          ], 
+          [
+            0, 
+            -1
+          ]
+        ], 
+        "visible": true, 
+        "bounding_box": [
+          [
+            -50, 
+            -50
+          ], 
+          [
+            50, 
+            50
+          ]
+        ], 
+        "flags": "0000 C CNN", 
+        "italic": true, 
+        "y": 0, 
+        "x": 0, 
+        "size": "100", 
+        "bold": false
+      }, 
+      "bounding_box": [
+        [
+          -250, 
+          -250
+        ], 
+        [
+          250, 
+          250
+        ]
+      ], 
+      "text": [
+        {
+          "orientation": "H", 
+          "reference": "", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              0, 
+              0
+            ], 
+            [
+              0, 
+              0
+            ]
+          ], 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": -280, 
+          "x": -280, 
+          "size": "60", 
+          "bold": false
+        }, 
+        {
+          "orientation": "H", 
+          "reference": "??", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              220, 
+              -330
+            ], 
+            [
+              340, 
+              -230
+            ]
+          ], 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": 280, 
+          "x": 280, 
+          "size": "60", 
+          "bold": false
+        }
+      ], 
+      "nn": 1, 
+      "type": "component", 
+      "coarse_bounding_box": [
+        [
+          -250, 
+          -250
+        ], 
+        [
+          340, 
+          250
+        ]
+      ]
+    }, 
+    "~GND": {
+      "art": [
+        {
+          "count": 4, 
+          "line_width": "0", 
+          "convert": "1", 
+          "shape": "path", 
+          "path": [
+            [
+              -50, 
+              0
+            ], 
+            [
+              0, 
+              -50
+            ], 
+            [
+              50, 
+              0
+            ], 
+            [
+              -50, 
+              0
+            ]
+          ], 
+          "de_morgan_alternate_shape": "1", 
+          "unit": "0", 
+          "fill": "N"
+        }
+      ], 
+      "name": "~GND", 
+      "reference": "#PWR13", 
+      "text": [
+        {
+          "orientation": "H", 
+          "reference": "#PWR13", 
+          "hjustify": "C", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              -90, 
+              -25
+            ], 
+            [
+              90, 
+              25
+            ]
+          ], 
+          "italic": false, 
+          "y": "0", 
+          "x": "0", 
+          "size": "30", 
+          "bold": false
+        }, 
+        {
+          "orientation": "H", 
+          "reference": "GND", 
+          "hjustify": "C", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              -45, 
+              45
+            ], 
+            [
+              45, 
+              95
+            ]
+          ], 
+          "italic": false, 
+          "y": "-70", 
+          "x": "0", 
+          "size": "30", 
+          "bold": false
+        }
+      ], 
+      "pin": [
+        {
+          "pin_type": "N", 
+          "direction": "U", 
+          "name": "GND", 
+          "number": "1", 
+          "visible": false, 
+          "shape": " N", 
+          "text_size_number": "30", 
+          "x": "0", 
+          "y": "0", 
+          "length": "0", 
+          "electrical_type": "W", 
+          "de_morgan_alternate_shape": "1", 
+          "text_size_name": "30", 
+          "unit": "1"
+        }
+      ], 
+      "bounding_box": [
+        [
+          -50, 
+          -50
+        ], 
+        [
+          50, 
+          0
+        ]
+      ], 
+      "power_flag": "P", 
+      "text_offset": "0", 
+      "draw_pin_name": true, 
+      "units_locked": "F", 
+      "draw_pin_number": true, 
+      "unit_count": 1, 
+      "coarse_bounding_box": [
+        [
+          -90, 
+          -50
+        ], 
+        [
+          90, 
+          0
+        ]
+      ]
+    }, 
+    "DIODE": {
+      "art": [
+        {
+          "count": 2, 
+          "line_width": "6", 
+          "convert": "1", 
+          "shape": "path", 
+          "path": [
+            [
+              50, 
+              50
+            ], 
+            [
+              50, 
+              -50
+            ]
+          ], 
+          "de_morgan_alternate_shape": "1", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 3, 
+          "line_width": "0", 
+          "convert": "1", 
+          "shape": "path", 
+          "path": [
+            [
+              -50, 
+              50
+            ], 
+            [
+              50, 
+              0
+            ], 
+            [
+              -50, 
+              -50
+            ]
+          ], 
+          "de_morgan_alternate_shape": "1", 
+          "unit": "0", 
+          "fill": "F"
+        }
+      ], 
+      "name": "DIODE", 
+      "reference": "D2", 
+      "text": [
+        {
+          "orientation": "H", 
+          "reference": "SM1206", 
+          "hjustify": "C", 
+          "text": "SM1206", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": true, 
+          "bounding_box": [
+            [
+              -120, 
+              -133.33333333333334
+            ], 
+            [
+              120, 
+              -66.66666666666666
+            ]
+          ], 
+          "italic": false, 
+          "y": "100", 
+          "x": "0", 
+          "size": "40", 
+          "bold": false
+        }, 
+        {
+          "orientation": "H", 
+          "reference": "DIODE", 
+          "hjustify": "C", 
+          "text": "Val**", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              -100, 
+              66.66666666666666
+            ], 
+            [
+              100, 
+              133.33333333333334
+            ]
+          ], 
+          "italic": false, 
+          "y": "-100", 
+          "x": "0", 
+          "size": "40", 
+          "bold": false
+        }, 
+        {
+          "text": " \"~\" 0 0 60 H V C CNN", 
+          "bounding_box": [
+            [
+              0, 
+              0
+            ], 
+            [
+              0, 
+              0
+            ]
+          ], 
+          "number": "2"
+        }, 
+        {
+          "text": " \"~\" 0 0 60 H V C CNN", 
+          "bounding_box": [
+            [
+              0, 
+              0
+            ], 
+            [
+              0, 
+              0
+            ]
+          ], 
+          "number": "3"
+        }
+      ], 
+      "pin": [
+        {
+          "direction": "R", 
+          "name": "A", 
+          "length": "150", 
+          "number": "1", 
+          "visible": true, 
+          "shape": null, 
+          "text_size_number": "40", 
+          "y": "0", 
+          "x": "-200", 
+          "electrical_type": "P", 
+          "de_morgan_alternate_shape": "1", 
+          "text_size_name": "40", 
+          "unit": "1"
+        }, 
+        {
+          "direction": "L", 
+          "name": "K", 
+          "length": "150", 
+          "number": "2", 
+          "visible": true, 
+          "shape": null, 
+          "text_size_number": "40", 
+          "y": "0", 
+          "x": "200", 
+          "electrical_type": "P", 
+          "de_morgan_alternate_shape": "1", 
+          "text_size_name": "40", 
+          "unit": "1"
+        }
+      ], 
+      "bounding_box": [
+        [
+          -200, 
+          -50
+        ], 
+        [
+          200, 
+          50
+        ]
+      ], 
+      "power_flag": "N", 
+      "text_offset": "40", 
+      "draw_pin_name": false, 
+      "units_locked": "F", 
+      "draw_pin_number": false, 
+      "unit_count": 1, 
+      "hideFlag": false, 
+      "coarse_bounding_box": [
+        [
+          -200, 
+          -66.66666666666666
+        ], 
+        [
+          200, 
+          66.66666666666666
+        ]
+      ]
+    }, 
+    "CONN_7": {
+      "art": [
+        {
+          "line_width": "0", 
+          "height": 700, 
+          "width": 250, 
+          "shape": "rectangle", 
+          "y": 350, 
+          "x": -100, 
+          "de_morgan_alternate_shape": "1", 
+          "unit": "0", 
+          "fill": "N"
+        }
+      ], 
+      "name": "CONN_7", 
+      "reference": "P3", 
+      "text": [
+        {
+          "orientation": "V", 
+          "reference": "ref**", 
+          "hjustify": "C", 
+          "text": "ref**", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              -80, 
+              -150
+            ], 
+            [
+              20, 
+              150
+            ]
+          ], 
+          "italic": false, 
+          "y": "0", 
+          "x": "-30", 
+          "size": "60", 
+          "bold": false
+        }, 
+        {
+          "orientation": "V", 
+          "reference": "CONN_7", 
+          "hjustify": "C", 
+          "text": "val**", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              20, 
+              -180
+            ], 
+            [
+              120, 
+              180
+            ]
+          ], 
+          "italic": false, 
+          "y": "0", 
+          "x": "70", 
+          "size": "60", 
+          "bold": false
+        }
+      ], 
+      "pin": [
+        {
+          "pin_type": "I", 
+          "direction": "R", 
+          "name": "P1", 
+          "number": "1", 
+          "visible": true, 
+          "shape": " I", 
+          "text_size_number": "50", 
+          "x": "-350", 
+          "y": "300", 
+          "length": "250", 
+          "electrical_type": "P", 
+          "de_morgan_alternate_shape": "1", 
+          "text_size_name": "50", 
+          "unit": "1"
+        }, 
+        {
+          "pin_type": "I", 
+          "direction": "R", 
+          "name": "P2", 
+          "number": "2", 
+          "visible": true, 
+          "shape": " I", 
+          "text_size_number": "50", 
+          "x": "-350", 
+          "y": "200", 
+          "length": "250", 
+          "electrical_type": "P", 
+          "de_morgan_alternate_shape": "1", 
+          "text_size_name": "50", 
+          "unit": "1"
+        }, 
+        {
+          "pin_type": "I", 
+          "direction": "R", 
+          "name": "P3", 
+          "number": "3", 
+          "visible": true, 
+          "shape": " I", 
+          "text_size_number": "50", 
+          "x": "-350", 
+          "y": "100", 
+          "length": "250", 
+          "electrical_type": "P", 
+          "de_morgan_alternate_shape": "1", 
+          "text_size_name": "50", 
+          "unit": "1"
+        }, 
+        {
+          "pin_type": "I", 
+          "direction": "R", 
+          "name": "P4", 
+          "number": "4", 
+          "visible": true, 
+          "shape": " I", 
+          "text_size_number": "50", 
+          "x": "-350", 
+          "y": "0", 
+          "length": "250", 
+          "electrical_type": "P", 
+          "de_morgan_alternate_shape": "1", 
+          "text_size_name": "50", 
+          "unit": "1"
+        }, 
+        {
+          "pin_type": "I", 
+          "direction": "R", 
+          "name": "P5", 
+          "number": "5", 
+          "visible": true, 
+          "shape": " I", 
+          "text_size_number": "50", 
+          "x": "-350", 
+          "y": "-100", 
+          "length": "250", 
+          "electrical_type": "P", 
+          "de_morgan_alternate_shape": "1", 
+          "text_size_name": "50", 
+          "unit": "1"
+        }, 
+        {
+          "pin_type": "I", 
+          "direction": "R", 
+          "name": "P6", 
+          "number": "6", 
+          "visible": true, 
+          "shape": " I", 
+          "text_size_number": "50", 
+          "x": "-350", 
+          "y": "-200", 
+          "length": "250", 
+          "electrical_type": "P", 
+          "de_morgan_alternate_shape": "1", 
+          "text_size_name": "50", 
+          "unit": "1"
+        }, 
+        {
+          "pin_type": "I", 
+          "direction": "R", 
+          "name": "P7", 
+          "number": "7", 
+          "visible": true, 
+          "shape": " I", 
+          "text_size_number": "50", 
+          "x": "-350", 
+          "y": "-300", 
+          "length": "250", 
+          "electrical_type": "P", 
+          "de_morgan_alternate_shape": "1", 
+          "text_size_name": "50", 
+          "unit": "1"
+        }
+      ], 
+      "bounding_box": [
+        [
+          -350, 
+          -350
+        ], 
+        [
+          150, 
+          350
+        ]
+      ], 
+      "power_flag": "N", 
+      "text_offset": "40", 
+      "draw_pin_name": false, 
+      "units_locked": "F", 
+      "draw_pin_number": true, 
+      "unit_count": 1, 
+      "hideFlag": false, 
+      "coarse_bounding_box": [
+        [
+          -350, 
+          -350
+        ], 
+        [
+          150, 
+          350
+        ]
+      ]
+    }, 
+    "CON_JST_2PIN-PTH_CON_JST_2PIN": {
+      "art": [
+        {
+          "count": 2, 
+          "line_width": "16", 
+          "convert": "0", 
+          "shape": "path", 
+          "path": [
+            [
+              -50, 
+              100
+            ], 
+            [
+              150, 
+              100
+            ]
+          ], 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "16", 
+          "convert": "0", 
+          "shape": "path", 
+          "path": [
+            [
+              150, 
+              100
+            ], 
+            [
+              150, 
+              -200
+            ]
+          ], 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "16", 
+          "convert": "0", 
+          "shape": "path", 
+          "path": [
+            [
+              150, 
+              -200
+            ], 
+            [
+              -50, 
+              -200
+            ]
+          ], 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "16", 
+          "convert": "0", 
+          "shape": "path", 
+          "path": [
+            [
+              -50, 
+              -200
+            ], 
+            [
+              -50, 
+              100
+            ]
+          ], 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "direction": "0", 
+          "text": ">NAME", 
+          "shape": "text", 
+          "type": "0", 
+          "y": 150, 
+          "x": -50, 
+          "direction_unit": "deci-degrees", 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "size": "70"
+        }
+      ], 
+      "name": "CON_JST_2PIN-PTH_CON_JST_2PIN", 
+      "reference": "U7", 
+      "text": [
+        {
+          "orientation": "H", 
+          "reference": "ref**", 
+          "hjustify": "C", 
+          "text": "ref**", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              0, 
+              0
+            ], 
+            [
+              0, 
+              0
+            ]
+          ], 
+          "italic": false, 
+          "y": "0", 
+          "x": "0", 
+          "size": "0", 
+          "bold": false
+        }, 
+        {
+          "orientation": "H", 
+          "reference": "CON_JST_2PIN-PTH_CON_JST_2PIN", 
+          "hjustify": "C", 
+          "text": "val**", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              0, 
+              0
+            ], 
+            [
+              0, 
+              0
+            ]
+          ], 
+          "italic": false, 
+          "y": "0", 
+          "x": "0", 
+          "size": "0", 
+          "bold": false
+        }
+      ], 
+      "pin": [
+        {
+          "pin_type": "I", 
+          "direction": "R", 
+          "name": "1", 
+          "number": "1", 
+          "visible": true, 
+          "shape": " I", 
+          "text_size_number": "0", 
+          "x": "0", 
+          "y": "0", 
+          "length": "100", 
+          "electrical_type": "P", 
+          "de_morgan_alternate_shape": "0", 
+          "text_size_name": "0", 
+          "unit": "0"
+        }, 
+        {
+          "pin_type": "I", 
+          "direction": "R", 
+          "name": "2", 
+          "number": "2", 
+          "visible": true, 
+          "shape": " I", 
+          "text_size_number": "0", 
+          "x": "0", 
+          "y": "-100", 
+          "length": "100", 
+          "electrical_type": "P", 
+          "de_morgan_alternate_shape": "0", 
+          "text_size_name": "0", 
+          "unit": "0"
+        }
+      ], 
+      "bounding_box": [
+        [
+          -120, 
+          -200
+        ], 
+        [
+          150, 
+          220
+        ]
+      ], 
+      "power_flag": "N", 
+      "text_offset": "100", 
+      "draw_pin_name": true, 
+      "units_locked": "0", 
+      "draw_pin_number": true, 
+      "unit_count": 2, 
+      "hideFlag": false, 
+      "coarse_bounding_box": [
+        [
+          -120, 
+          -200
+        ], 
+        [
+          150, 
+          220
+        ]
+      ]
+    }, 
+    "FRAME-LEDGER_CREATIVE_COMMONS": {
+      "art": [
+        {
+          "count": 2, 
+          "line_width": "16", 
+          "convert": "0", 
+          "shape": "path", 
+          "path": [
+            [
+              0, 
+              0
+            ], 
+            [
+              0, 
+              11000
+            ]
+          ], 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "16", 
+          "convert": "0", 
+          "shape": "path", 
+          "path": [
+            [
+              0, 
+              11000
+            ], 
+            [
+              17000, 
+              11000
+            ]
+          ], 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "16", 
+          "convert": "0", 
+          "shape": "path", 
+          "path": [
+            [
+              17000, 
+              11000
+            ], 
+            [
+              17000, 
+              0
+            ]
+          ], 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "16", 
+          "convert": "0", 
+          "shape": "path", 
+          "path": [
+            [
+              17000, 
+              0
+            ], 
+            [
+              0, 
+              0
+            ]
+          ], 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "10", 
+          "convert": "0", 
+          "shape": "path", 
+          "path": [
+            [
+              13000, 
+              0
+            ], 
+            [
+              15800, 
+              0
+            ]
+          ], 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "10", 
+          "convert": "0", 
+          "shape": "path", 
+          "path": [
+            [
+              17000, 
+              600
+            ], 
+            [
+              16450, 
+              600
+            ]
+          ], 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "10", 
+          "convert": "0", 
+          "shape": "path", 
+          "path": [
+            [
+              13000, 
+              0
+            ], 
+            [
+              13000, 
+              200
+            ]
+          ], 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "10", 
+          "convert": "0", 
+          "shape": "path", 
+          "path": [
+            [
+              13000, 
+              200
+            ], 
+            [
+              15800, 
+              200
+            ]
+          ], 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "10", 
+          "convert": "0", 
+          "shape": "path", 
+          "path": [
+            [
+              13000, 
+              200
+            ], 
+            [
+              13000, 
+              600
+            ]
+          ], 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "10", 
+          "convert": "0", 
+          "shape": "path", 
+          "path": [
+            [
+              17000, 
+              600
+            ], 
+            [
+              17000, 
+              200
+            ]
+          ], 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "10", 
+          "convert": "0", 
+          "shape": "path", 
+          "path": [
+            [
+              15800, 
+              200
+            ], 
+            [
+              15800, 
+              0
+            ]
+          ], 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "10", 
+          "convert": "0", 
+          "shape": "path", 
+          "path": [
+            [
+              15800, 
+              200
+            ], 
+            [
+              16450, 
+              200
+            ]
+          ], 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "10", 
+          "convert": "0", 
+          "shape": "path", 
+          "path": [
+            [
+              15800, 
+              0
+            ], 
+            [
+              17000, 
+              0
+            ]
+          ], 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "10", 
+          "convert": "0", 
+          "shape": "path", 
+          "path": [
+            [
+              16450, 
+              600
+            ], 
+            [
+              16450, 
+              200
+            ]
+          ], 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "10", 
+          "convert": "0", 
+          "shape": "path", 
+          "path": [
+            [
+              16450, 
+              600
+            ], 
+            [
+              13000, 
+              600
+            ]
+          ], 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "10", 
+          "convert": "0", 
+          "shape": "path", 
+          "path": [
+            [
+              16450, 
+              200
+            ], 
+            [
+              17000, 
+              200
+            ]
+          ], 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "10", 
+          "convert": "0", 
+          "shape": "path", 
+          "path": [
+            [
+              17000, 
+              200
+            ], 
+            [
+              17000, 
+              0
+            ]
+          ], 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "10", 
+          "convert": "0", 
+          "shape": "path", 
+          "path": [
+            [
+              13000, 
+              600
+            ], 
+            [
+              13000, 
+              900
+            ]
+          ], 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "10", 
+          "convert": "0", 
+          "shape": "path", 
+          "path": [
+            [
+              17000, 
+              1400
+            ], 
+            [
+              13000, 
+              1400
+            ]
+          ], 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "10", 
+          "convert": "0", 
+          "shape": "path", 
+          "path": [
+            [
+              17000, 
+              1400
+            ], 
+            [
+              17000, 
+              900
+            ]
+          ], 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "10", 
+          "convert": "0", 
+          "shape": "path", 
+          "path": [
+            [
+              13000, 
+              900
+            ], 
+            [
+              17000, 
+              900
+            ]
+          ], 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "10", 
+          "convert": "0", 
+          "shape": "path", 
+          "path": [
+            [
+              13000, 
+              900
+            ], 
+            [
+              13000, 
+              1400
+            ]
+          ], 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "10", 
+          "convert": "0", 
+          "shape": "path", 
+          "path": [
+            [
+              17000, 
+              900
+            ], 
+            [
+              17000, 
+              600
+            ]
+          ], 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "direction": "0", 
+          "text": "Date:", 
+          "shape": "text", 
+          "type": "0", 
+          "y": 50, 
+          "x": 13050, 
+          "direction_unit": "deci-degrees", 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "size": "100"
+        }, 
+        {
+          "direction": "0", 
+          "text": ">LAST_DATE_TIME", 
+          "shape": "text", 
+          "type": "0", 
+          "y": 50, 
+          "x": 13500, 
+          "direction_unit": "deci-degrees", 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "size": "100"
+        }, 
+        {
+          "direction": "0", 
+          "text": "Sheet:", 
+          "shape": "text", 
+          "type": "0", 
+          "y": 50, 
+          "x": 15850, 
+          "direction_unit": "deci-degrees", 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "size": "100"
+        }, 
+        {
+          "direction": "0", 
+          "text": ">SHEET", 
+          "shape": "text", 
+          "type": "0", 
+          "y": 50, 
+          "x": 16400, 
+          "direction_unit": "deci-degrees", 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "size": "100"
+        }, 
+        {
+          "direction": "0", 
+          "text": "REV:", 
+          "shape": "text", 
+          "type": "0", 
+          "y": 450, 
+          "x": 16500, 
+          "direction_unit": "deci-degrees", 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "size": "100"
+        }, 
+        {
+          "direction": "0", 
+          "text": "TITLE:", 
+          "shape": "text", 
+          "type": "0", 
+          "y": 700, 
+          "x": 13060, 
+          "direction_unit": "deci-degrees", 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "size": "100"
+        }, 
+        {
+          "direction": "0", 
+          "text": ">DRAWING_NAME", 
+          "shape": "text", 
+          "type": "0", 
+          "y": 700, 
+          "x": 13610, 
+          "direction_unit": "deci-degrees", 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "size": "108"
+        }, 
+        {
+          "direction": "0", 
+          "text": "Released", 
+          "shape": "text", 
+          "type": "0", 
+          "y": 1250, 
+          "x": 13100, 
+          "direction_unit": "deci-degrees", 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "size": "76"
+        }, 
+        {
+          "direction": "0", 
+          "text": "Attribution", 
+          "shape": "text", 
+          "type": "0", 
+          "y": 1100, 
+          "x": 13100, 
+          "direction_unit": "deci-degrees", 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "size": "76"
+        }, 
+        {
+          "direction": "0", 
+          "text": "https://creativecommons.org/licenses/by-sa/4.0/", 
+          "shape": "text", 
+          "type": "0", 
+          "y": 950, 
+          "x": 13100, 
+          "direction_unit": "deci-degrees", 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "size": "76"
+        }, 
+        {
+          "direction": "0", 
+          "text": "Design", 
+          "shape": "text", 
+          "type": "0", 
+          "y": 450, 
+          "x": 13050, 
+          "direction_unit": "deci-degrees", 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "size": "100"
+        }, 
+        {
+          "direction": "0", 
+          "text": ">DESIGNER", 
+          "shape": "text", 
+          "type": "0", 
+          "y": 460, 
+          "x": 13900, 
+          "direction_unit": "deci-degrees", 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "size": "100"
+        }, 
+        {
+          "direction": "0", 
+          "text": ">VERSION", 
+          "shape": "text", 
+          "type": "0", 
+          "y": 260, 
+          "x": 16500, 
+          "direction_unit": "deci-degrees", 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "size": "100"
+        }
+      ], 
+      "name": "FRAME-LEDGER_CREATIVE_COMMONS", 
+      "reference": "U8", 
+      "text": [
+        {
+          "orientation": "H", 
+          "reference": "U8", 
+          "hjustify": "C", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              0, 
+              0
+            ], 
+            [
+              0, 
+              0
+            ]
+          ], 
+          "italic": false, 
+          "y": "0", 
+          "x": "0", 
+          "size": "0", 
+          "bold": false
+        }, 
+        {
+          "orientation": "H", 
+          "reference": "FRAME-LEDGER_CREATIVE_COMMONS", 
+          "hjustify": "C", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              0, 
+              0
+            ], 
+            [
+              0, 
+              0
+            ]
+          ], 
+          "italic": false, 
+          "y": "0", 
+          "x": "0", 
+          "size": "0", 
+          "bold": false
+        }
+      ], 
+      "pin": [], 
+      "bounding_box": [
+        [
+          0, 
+          -50
+        ], 
+        [
+          17000, 
+          11000
+        ]
+      ], 
+      "power_flag": "N", 
+      "text_offset": "100", 
+      "draw_pin_name": true, 
+      "units_locked": "0", 
+      "draw_pin_number": true, 
+      "unit_count": 3, 
+      "coarse_bounding_box": [
+        [
+          0, 
+          -50
+        ], 
+        [
+          17000, 
+          11000
+        ]
+      ]
+    }, 
+    "VCC": {
+      "art": [
+        {
+          "line_width": "0", 
+          "shape": "circle", 
+          "r": 20, 
+          "y": 50, 
+          "x": 0, 
+          "de_morgan_alternate_shape": "1", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 3, 
+          "line_width": "0", 
+          "convert": "1", 
+          "shape": "path", 
+          "path": [
+            [
+              0, 
+              0
+            ], 
+            [
+              0, 
+              30
+            ], 
+            [
+              0, 
+              30
+            ]
+          ], 
+          "de_morgan_alternate_shape": "1", 
+          "unit": "0", 
+          "fill": "N"
+        }
+      ], 
+      "name": "VCC", 
+      "reference": "#PWR12", 
+      "text": [
+        {
+          "orientation": "H", 
+          "reference": "#PWR12", 
+          "hjustify": "C", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              -90, 
+              -125
+            ], 
+            [
+              90, 
+              -75
+            ]
+          ], 
+          "italic": false, 
+          "y": "100", 
+          "x": "0", 
+          "size": "30", 
+          "bold": false
+        }, 
+        {
+          "orientation": "H", 
+          "reference": "VCC", 
+          "hjustify": "C", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": true, 
+          "bounding_box": [
+            [
+              -45, 
+              -125
+            ], 
+            [
+              45, 
+              -75
+            ]
+          ], 
+          "italic": false, 
+          "y": "100", 
+          "x": "0", 
+          "size": "30", 
+          "bold": false
+        }
+      ], 
+      "pin": [
+        {
+          "pin_type": "N", 
+          "direction": "U", 
+          "name": "VCC", 
+          "number": "1", 
+          "visible": false, 
+          "shape": " N", 
+          "text_size_number": "20", 
+          "x": "0", 
+          "y": "0", 
+          "length": "0", 
+          "electrical_type": "W", 
+          "de_morgan_alternate_shape": "0", 
+          "text_size_name": "20", 
+          "unit": "0"
+        }
+      ], 
+      "bounding_box": [
+        [
+          -20, 
+          0
+        ], 
+        [
+          20, 
+          70
+        ]
+      ], 
+      "power_flag": "P", 
+      "text_offset": "0", 
+      "draw_pin_name": true, 
+      "units_locked": "F", 
+      "draw_pin_number": true, 
+      "unit_count": 1, 
+      "coarse_bounding_box": [
+        [
+          -90, 
+          0
+        ], 
+        [
+          90, 
+          75
+        ]
+      ]
+    }, 
+    "ATTINY13-P": {
+      "art": [
+        {
+          "line_width": "10", 
+          "height": 700, 
+          "width": 1600, 
+          "shape": "rectangle", 
+          "y": 0, 
+          "x": 0, 
+          "de_morgan_alternate_shape": "1", 
+          "unit": "0", 
+          "fill": "f"
+        }
+      ], 
+      "name": "ATTINY13-P", 
+      "reference": "IC1", 
+      "text": [
+        {
+          "orientation": "H", 
+          "reference": "SO8E", 
+          "hjustify": "C", 
+          "text": "SO8E", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": true, 
+          "bounding_box": [
+            [
+              -20, 
+              -100
+            ], 
+            [
+              220, 
+              0
+            ]
+          ], 
+          "italic": false, 
+          "y": "50", 
+          "x": "100", 
+          "size": "60", 
+          "bold": false
+        }, 
+        {
+          "orientation": "H", 
+          "reference": "ATTINY13-P", 
+          "hjustify": "C", 
+          "text": "VAL**", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": true, 
+          "bounding_box": [
+            [
+              1000, 
+              700
+            ], 
+            [
+              1600, 
+              800
+            ]
+          ], 
+          "italic": false, 
+          "y": "-750", 
+          "x": "1300", 
+          "size": "60", 
+          "bold": false
+        }, 
+        {
+          "text": " \"DIP8\" 100 -750 60 H I C CNN", 
+          "bounding_box": [
+            [
+              0, 
+              0
+            ], 
+            [
+              0, 
+              0
+            ]
+          ], 
+          "number": "2"
+        }
+      ], 
+      "pin": [
+        {
+          "direction": "R", 
+          "name": "PB5(~RESET~/ADC0/PCINT5/dW)", 
+          "length": "200", 
+          "number": "1", 
+          "visible": true, 
+          "shape": null, 
+          "text_size_number": "50", 
+          "y": "-600", 
+          "x": "-200", 
+          "electrical_type": "B", 
+          "de_morgan_alternate_shape": "1", 
+          "text_size_name": "50", 
+          "unit": "1"
+        }, 
+        {
+          "direction": "R", 
+          "name": "PB3(CLKI/ADC3/PCINT3)", 
+          "length": "200", 
+          "number": "2", 
+          "visible": true, 
+          "shape": null, 
+          "text_size_number": "50", 
+          "y": "-400", 
+          "x": "-200", 
+          "electrical_type": "B", 
+          "de_morgan_alternate_shape": "1", 
+          "text_size_name": "50", 
+          "unit": "1"
+        }, 
+        {
+          "direction": "R", 
+          "name": "PB4(ADC2/PCINT4)", 
+          "length": "200", 
+          "number": "3", 
+          "visible": true, 
+          "shape": null, 
+          "text_size_number": "50", 
+          "y": "-500", 
+          "x": "-200", 
+          "electrical_type": "B", 
+          "de_morgan_alternate_shape": "1", 
+          "text_size_name": "50", 
+          "unit": "1"
+        }, 
+        {
+          "direction": "L", 
+          "name": "GND", 
+          "length": "200", 
+          "number": "4", 
+          "visible": true, 
+          "shape": null, 
+          "text_size_number": "50", 
+          "y": "-600", 
+          "x": "1800", 
+          "electrical_type": "W", 
+          "de_morgan_alternate_shape": "1", 
+          "text_size_name": "50", 
+          "unit": "1"
+        }, 
+        {
+          "direction": "R", 
+          "name": "PB0(MOSI/AIN0/OC0A/PCINT0)", 
+          "length": "200", 
+          "number": "5", 
+          "visible": true, 
+          "shape": null, 
+          "text_size_number": "50", 
+          "y": "-100", 
+          "x": "-200", 
+          "electrical_type": "B", 
+          "de_morgan_alternate_shape": "1", 
+          "text_size_name": "50", 
+          "unit": "1"
+        }, 
+        {
+          "direction": "R", 
+          "name": "PB1(MISO/AIN1/OC0B/INT0/PCINT1)", 
+          "length": "200", 
+          "number": "6", 
+          "visible": true, 
+          "shape": null, 
+          "text_size_number": "50", 
+          "y": "-200", 
+          "x": "-200", 
+          "electrical_type": "B", 
+          "de_morgan_alternate_shape": "1", 
+          "text_size_name": "50", 
+          "unit": "1"
+        }, 
+        {
+          "direction": "R", 
+          "name": "PB2(SCK/ADC1/T0/PCINT2)", 
+          "length": "200", 
+          "number": "7", 
+          "visible": true, 
+          "shape": null, 
+          "text_size_number": "50", 
+          "y": "-300", 
+          "x": "-200", 
+          "electrical_type": "B", 
+          "de_morgan_alternate_shape": "1", 
+          "text_size_name": "50", 
+          "unit": "1"
+        }, 
+        {
+          "direction": "L", 
+          "name": "VCC", 
+          "length": "200", 
+          "number": "8", 
+          "visible": true, 
+          "shape": null, 
+          "text_size_number": "50", 
+          "y": "-100", 
+          "x": "1800", 
+          "electrical_type": "W", 
+          "de_morgan_alternate_shape": "1", 
+          "text_size_name": "50", 
+          "unit": "1"
+        }
+      ], 
+      "bounding_box": [
+        [
+          -200, 
+          -700
+        ], 
+        [
+          1800, 
+          0
+        ]
+      ], 
+      "power_flag": "N", 
+      "text_offset": "40", 
+      "draw_pin_name": true, 
+      "units_locked": "F", 
+      "draw_pin_number": true, 
+      "unit_count": 1, 
+      "hideFlag": false, 
+      "coarse_bounding_box": [
+        [
+          -200, 
+          -700
+        ], 
+        [
+          1800, 
+          0
+        ]
+      ]
+    }, 
+    "FIDUCIALTAB_FIDUCIALTAB": {
+      "art": [
+        {
+          "line_width": "10", 
+          "shape": "circle", 
+          "r": 31, 
+          "y": 0, 
+          "x": 0, 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "fill": "N"
+        }
+      ], 
+      "name": "FIDUCIALTAB_FIDUCIALTAB", 
+      "reference": "U10", 
+      "text": [
+        {
+          "orientation": "H", 
+          "reference": "", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              0, 
+              0
+            ], 
+            [
+              0, 
+              0
+            ]
+          ], 
+          "italic": false, 
+          "y": "0", 
+          "x": "0", 
+          "size": "0", 
+          "bold": false
+        }, 
+        {
+          "orientation": "H", 
+          "reference": "FIDUCIALTAB_FIDUCIALTAB", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              0, 
+              0
+            ], 
+            [
+              0, 
+              0
+            ]
+          ], 
+          "italic": false, 
+          "y": "0", 
+          "x": "0", 
+          "size": "0", 
+          "bold": false
+        }
+      ], 
+      "pin": [], 
+      "bounding_box": [
+        [
+          -31, 
+          -31
+        ], 
+        [
+          31, 
+          31
+        ]
+      ], 
+      "power_flag": "N", 
+      "text_offset": "100", 
+      "draw_pin_name": true, 
+      "units_locked": "0", 
+      "draw_pin_number": true, 
+      "unit_count": 2, 
+      "hideFlag": false, 
+      "coarse_bounding_box": [
+        [
+          -31, 
+          -31
+        ], 
+        [
+          31, 
+          31
+        ]
+      ]
+    }, 
+    "CR2032SMT_CR2032-SMD": {
+      "art": [
+        {
+          "count": 2, 
+          "line_width": "16", 
+          "convert": "0", 
+          "shape": "path", 
+          "path": [
+            [
+              -25, 
+              25
+            ], 
+            [
+              -25, 
+              0
+            ]
+          ], 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "6", 
+          "convert": "0", 
+          "shape": "path", 
+          "path": [
+            [
+              -100, 
+              0
+            ], 
+            [
+              -25, 
+              0
+            ]
+          ], 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "16", 
+          "convert": "0", 
+          "shape": "path", 
+          "path": [
+            [
+              -25, 
+              0
+            ], 
+            [
+              -25, 
+              -25
+            ]
+          ], 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "6", 
+          "convert": "0", 
+          "shape": "path", 
+          "path": [
+            [
+              25, 
+              100
+            ], 
+            [
+              100, 
+              100
+            ]
+          ], 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "16", 
+          "convert": "0", 
+          "shape": "path", 
+          "path": [
+            [
+              25, 
+              100
+            ], 
+            [
+              25, 
+              -100
+            ]
+          ], 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "count": 2, 
+          "line_width": "6", 
+          "convert": "0", 
+          "shape": "path", 
+          "path": [
+            [
+              25, 
+              -100
+            ], 
+            [
+              100, 
+              -100
+            ]
+          ], 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "direction": "0", 
+          "text": ">NAME", 
+          "shape": "text", 
+          "type": "0", 
+          "y": 125, 
+          "x": -50, 
+          "direction_unit": "deci-degrees", 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "size": "70"
+        }, 
+        {
+          "direction": "0", 
+          "text": ">VALUE", 
+          "shape": "text", 
+          "type": "0", 
+          "y": -200, 
+          "x": -50, 
+          "direction_unit": "deci-degrees", 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "size": "70"
+        }
+      ], 
+      "name": "CR2032SMT_CR2032-SMD", 
+      "reference": "U3", 
+      "text": [
+        {
+          "orientation": "H", 
+          "reference": "bat", 
+          "hjustify": "C", 
+          "text": "bat", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": true, 
+          "bounding_box": [
+            [
+              0, 
+              0
+            ], 
+            [
+              0, 
+              0
+            ]
+          ], 
+          "italic": false, 
+          "y": "0", 
+          "x": "0", 
+          "size": "0", 
+          "bold": false
+        }, 
+        {
+          "orientation": "H", 
+          "reference": "CR2032SMT_CR2032-SMD", 
+          "hjustify": "C", 
+          "text": "cr2032", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": true, 
+          "bounding_box": [
+            [
+              0, 
+              0
+            ], 
+            [
+              0, 
+              0
+            ]
+          ], 
+          "italic": false, 
+          "y": "0", 
+          "x": "0", 
+          "size": "0", 
+          "bold": false
+        }
+      ], 
+      "pin": [
+        {
+          "direction": "L", 
+          "name": "+", 
+          "length": "100", 
+          "number": "+$1", 
+          "visible": true, 
+          "shape": null, 
+          "text_size_number": "0", 
+          "y": "100", 
+          "x": "200", 
+          "electrical_type": "P", 
+          "de_morgan_alternate_shape": "0", 
+          "text_size_name": "0", 
+          "unit": "0"
+        }, 
+        {
+          "direction": "R", 
+          "name": "-", 
+          "length": "100", 
+          "number": "-", 
+          "visible": true, 
+          "shape": null, 
+          "text_size_number": "0", 
+          "y": "0", 
+          "x": "-200", 
+          "electrical_type": "P", 
+          "de_morgan_alternate_shape": "0", 
+          "text_size_name": "0", 
+          "unit": "0"
+        }, 
+        {
+          "direction": "L", 
+          "name": "+1", 
+          "length": "100", 
+          "number": "+$2", 
+          "visible": true, 
+          "shape": null, 
+          "text_size_number": "0", 
+          "y": "-100", 
+          "x": "200", 
+          "electrical_type": "P", 
+          "de_morgan_alternate_shape": "0", 
+          "text_size_name": "0", 
+          "unit": "0"
+        }
+      ], 
+      "bounding_box": [
+        [
+          -200, 
+          -270
+        ], 
+        [
+          200, 
+          195
+        ]
+      ], 
+      "power_flag": "N", 
+      "text_offset": "100", 
+      "draw_pin_name": true, 
+      "units_locked": "0", 
+      "draw_pin_number": true, 
+      "unit_count": 2, 
+      "hideFlag": false, 
+      "coarse_bounding_box": [
+        [
+          -200, 
+          -270
+        ], 
+        [
+          200, 
+          195
+        ]
+      ]
+    }, 
+    "OPEN_HARDWARE_1": {
+      "art": [
+        {
+          "count": 277, 
+          "line_width": "0", 
+          "convert": "1", 
+          "shape": "path", 
+          "path": [
+            [
+              132, 
+              -171
+            ], 
+            [
+              130, 
+              -170
+            ], 
+            [
+              125, 
+              -167
+            ], 
+            [
+              118, 
+              -162
+            ], 
+            [
+              109, 
+              -156
+            ], 
+            [
+              100, 
+              -150
+            ], 
+            [
+              93, 
+              -146
+            ], 
+            [
+              88, 
+              -142
+            ], 
+            [
+              86, 
+              -141
+            ], 
+            [
+              85, 
+              -142
+            ], 
+            [
+              81, 
+              -144
+            ], 
+            [
+              75, 
+              -147
+            ], 
+            [
+              71, 
+              -149
+            ], 
+            [
+              66, 
+              -151
+            ], 
+            [
+              63, 
+              -151
+            ], 
+            [
+              63, 
+              -151
+            ], 
+            [
+              61, 
+              -147
+            ], 
+            [
+              58, 
+              -139
+            ], 
+            [
+              53, 
+              -130
+            ], 
+            [
+              49, 
+              -119
+            ], 
+            [
+              44, 
+              -107
+            ], 
+            [
+              38, 
+              -95
+            ], 
+            [
+              34, 
+              -83
+            ], 
+            [
+              29, 
+              -72
+            ], 
+            [
+              26, 
+              -64
+            ], 
+            [
+              24, 
+              -58
+            ], 
+            [
+              23, 
+              -55
+            ], 
+            [
+              23, 
+              -55
+            ], 
+            [
+              26, 
+              -52
+            ], 
+            [
+              31, 
+              -49
+            ], 
+            [
+              41, 
+              -40
+            ], 
+            [
+              51, 
+              -27
+            ], 
+            [
+              57, 
+              -13
+            ], 
+            [
+              60, 
+              3
+            ], 
+            [
+              58, 
+              18
+            ], 
+            [
+              52, 
+              32
+            ], 
+            [
+              42, 
+              45
+            ], 
+            [
+              30, 
+              54
+            ], 
+            [
+              16, 
+              60
+            ], 
+            [
+              0, 
+              62
+            ], 
+            [
+              -15, 
+              61
+            ], 
+            [
+              -29, 
+              55
+            ], 
+            [
+              -42, 
+              45
+            ], 
+            [
+              -48, 
+              39
+            ], 
+            [
+              -55, 
+              26
+            ], 
+            [
+              -60, 
+              12
+            ], 
+            [
+              -60, 
+              9
+            ], 
+            [
+              -59, 
+              -7
+            ], 
+            [
+              -55, 
+              -21
+            ], 
+            [
+              -47, 
+              -34
+            ], 
+            [
+              -36, 
+              -45
+            ], 
+            [
+              -34, 
+              -46
+            ], 
+            [
+              -29, 
+              -50
+            ], 
+            [
+              -25, 
+              -53
+            ], 
+            [
+              -23, 
+              -55
+            ], 
+            [
+              -42, 
+              -102
+            ], 
+            [
+              -45, 
+              -110
+            ], 
+            [
+              -51, 
+              -123
+            ], 
+            [
+              -55, 
+              -134
+            ], 
+            [
+              -59, 
+              -143
+            ], 
+            [
+              -62, 
+              -149
+            ], 
+            [
+              -63, 
+              -151
+            ], 
+            [
+              -63, 
+              -151
+            ], 
+            [
+              -65, 
+              -151
+            ], 
+            [
+              -68, 
+              -150
+            ], 
+            [
+              -75, 
+              -147
+            ], 
+            [
+              -79, 
+              -145
+            ], 
+            [
+              -84, 
+              -142
+            ], 
+            [
+              -87, 
+              -141
+            ], 
+            [
+              -89, 
+              -142
+            ], 
+            [
+              -93, 
+              -145
+            ], 
+            [
+              -100, 
+              -150
+            ], 
+            [
+              -109, 
+              -156
+            ], 
+            [
+              -117, 
+              -161
+            ], 
+            [
+              -124, 
+              -166
+            ], 
+            [
+              -130, 
+              -170
+            ], 
+            [
+              -132, 
+              -171
+            ], 
+            [
+              -133, 
+              -171
+            ], 
+            [
+              -135, 
+              -170
+            ], 
+            [
+              -139, 
+              -166
+            ], 
+            [
+              -146, 
+              -160
+            ], 
+            [
+              -155, 
+              -151
+            ], 
+            [
+              -156, 
+              -150
+            ], 
+            [
+              -164, 
+              -142
+            ], 
+            [
+              -170, 
+              -136
+            ], 
+            [
+              -174, 
+              -131
+            ], 
+            [
+              -175, 
+              -129
+            ], 
+            [
+              -175, 
+              -129
+            ], 
+            [
+              -174, 
+              -127
+            ], 
+            [
+              -170, 
+              -121
+            ], 
+            [
+              -166, 
+              -114
+            ], 
+            [
+              -160, 
+              -105
+            ], 
+            [
+              -144, 
+              -82
+            ], 
+            [
+              -153, 
+              -61
+            ], 
+            [
+              -155, 
+              -54
+            ], 
+            [
+              -159, 
+              -46
+            ], 
+            [
+              -161, 
+              -41
+            ], 
+            [
+              -162, 
+              -38
+            ], 
+            [
+              -165, 
+              -37
+            ], 
+            [
+              -170, 
+              -36
+            ], 
+            [
+              -179, 
+              -34
+            ], 
+            [
+              -189, 
+              -32
+            ], 
+            [
+              -199, 
+              -31
+            ], 
+            [
+              -207, 
+              -29
+            ], 
+            [
+              -214, 
+              -28
+            ], 
+            [
+              -217, 
+              -27
+            ], 
+            [
+              -217, 
+              -27
+            ], 
+            [
+              -218, 
+              -25
+            ], 
+            [
+              -218, 
+              -22
+            ], 
+            [
+              -218, 
+              -17
+            ], 
+            [
+              -219, 
+              -9
+            ], 
+            [
+              -219, 
+              3
+            ], 
+            [
+              -219, 
+              5
+            ], 
+            [
+              -218, 
+              16
+            ], 
+            [
+              -218, 
+              25
+            ], 
+            [
+              -218, 
+              30
+            ], 
+            [
+              -218, 
+              33
+            ], 
+            [
+              -218, 
+              33
+            ], 
+            [
+              -215, 
+              33
+            ], 
+            [
+              -209, 
+              35
+            ], 
+            [
+              -200, 
+              36
+            ], 
+            [
+              -190, 
+              38
+            ], 
+            [
+              -189, 
+              39
+            ], 
+            [
+              -179, 
+              41
+            ], 
+            [
+              -170, 
+              42
+            ], 
+            [
+              -164, 
+              44
+            ], 
+            [
+              -161, 
+              45
+            ], 
+            [
+              -161, 
+              45
+            ], 
+            [
+              -159, 
+              49
+            ], 
+            [
+              -156, 
+              56
+            ], 
+            [
+              -152, 
+              64
+            ], 
+            [
+              -149, 
+              72
+            ], 
+            [
+              -146, 
+              79
+            ], 
+            [
+              -144, 
+              85
+            ], 
+            [
+              -143, 
+              87
+            ], 
+            [
+              -143, 
+              87
+            ], 
+            [
+              -145, 
+              90
+            ], 
+            [
+              -148, 
+              95
+            ], 
+            [
+              -153, 
+              102
+            ], 
+            [
+              -160, 
+              111
+            ], 
+            [
+              -160, 
+              112
+            ], 
+            [
+              -166, 
+              121
+            ], 
+            [
+              -171, 
+              128
+            ], 
+            [
+              -174, 
+              133
+            ], 
+            [
+              -175, 
+              136
+            ], 
+            [
+              -175, 
+              136
+            ], 
+            [
+              -173, 
+              138
+            ], 
+            [
+              -169, 
+              143
+            ], 
+            [
+              -162, 
+              150
+            ], 
+            [
+              -155, 
+              158
+            ], 
+            [
+              -152, 
+              160
+            ], 
+            [
+              -144, 
+              169
+            ], 
+            [
+              -138, 
+              174
+            ], 
+            [
+              -134, 
+              177
+            ], 
+            [
+              -132, 
+              178
+            ], 
+            [
+              -132, 
+              178
+            ], 
+            [
+              -130, 
+              176
+            ], 
+            [
+              -124, 
+              172
+            ], 
+            [
+              -117, 
+              167
+            ], 
+            [
+              -108, 
+              161
+            ], 
+            [
+              -107, 
+              161
+            ], 
+            [
+              -98, 
+              155
+            ], 
+            [
+              -91, 
+              150
+            ], 
+            [
+              -86, 
+              146
+            ], 
+            [
+              -84, 
+              145
+            ], 
+            [
+              -83, 
+              145
+            ], 
+            [
+              -80, 
+              146
+            ], 
+            [
+              -73, 
+              148
+            ], 
+            [
+              -66, 
+              151
+            ], 
+            [
+              -58, 
+              155
+            ], 
+            [
+              -50, 
+              158
+            ], 
+            [
+              -45, 
+              160
+            ], 
+            [
+              -42, 
+              162
+            ], 
+            [
+              -42, 
+              162
+            ], 
+            [
+              -41, 
+              165
+            ], 
+            [
+              -40, 
+              171
+            ], 
+            [
+              -38, 
+              180
+            ], 
+            [
+              -36, 
+              191
+            ], 
+            [
+              -35, 
+              193
+            ], 
+            [
+              -33, 
+              203
+            ], 
+            [
+              -32, 
+              212
+            ], 
+            [
+              -31, 
+              218
+            ], 
+            [
+              -30, 
+              220
+            ], 
+            [
+              -28, 
+              221
+            ], 
+            [
+              -23, 
+              221
+            ], 
+            [
+              -16, 
+              221
+            ], 
+            [
+              -6, 
+              221
+            ], 
+            [
+              3, 
+              221
+            ], 
+            [
+              13, 
+              221
+            ], 
+            [
+              21, 
+              221
+            ], 
+            [
+              27, 
+              220
+            ], 
+            [
+              29, 
+              220
+            ], 
+            [
+              29, 
+              220
+            ], 
+            [
+              30, 
+              217
+            ], 
+            [
+              32, 
+              210
+            ], 
+            [
+              33, 
+              201
+            ], 
+            [
+              36, 
+              190
+            ], 
+            [
+              36, 
+              188
+            ], 
+            [
+              38, 
+              178
+            ], 
+            [
+              40, 
+              169
+            ], 
+            [
+              41, 
+              163
+            ], 
+            [
+              42, 
+              161
+            ], 
+            [
+              42, 
+              161
+            ], 
+            [
+              47, 
+              159
+            ], 
+            [
+              54, 
+              156
+            ], 
+            [
+              62, 
+              152
+            ], 
+            [
+              82, 
+              144
+            ], 
+            [
+              107, 
+              161
+            ], 
+            [
+              109, 
+              163
+            ], 
+            [
+              118, 
+              169
+            ], 
+            [
+              125, 
+              174
+            ], 
+            [
+              130, 
+              177
+            ], 
+            [
+              133, 
+              178
+            ], 
+            [
+              133, 
+              178
+            ], 
+            [
+              135, 
+              176
+            ], 
+            [
+              140, 
+              171
+            ], 
+            [
+              147, 
+              165
+            ], 
+            [
+              154, 
+              157
+            ], 
+            [
+              160, 
+              151
+            ], 
+            [
+              167, 
+              144
+            ], 
+            [
+              171, 
+              140
+            ], 
+            [
+              174, 
+              137
+            ], 
+            [
+              174, 
+              135
+            ], 
+            [
+              174, 
+              134
+            ], 
+            [
+              173, 
+              131
+            ], 
+            [
+              169, 
+              126
+            ], 
+            [
+              164, 
+              118
+            ], 
+            [
+              158, 
+              110
+            ], 
+            [
+              153, 
+              102
+            ], 
+            [
+              148, 
+              94
+            ], 
+            [
+              144, 
+              88
+            ], 
+            [
+              143, 
+              85
+            ], 
+            [
+              143, 
+              84
+            ], 
+            [
+              145, 
+              79
+            ], 
+            [
+              148, 
+              72
+            ], 
+            [
+              152, 
+              63
+            ], 
+            [
+              160, 
+              44
+            ], 
+            [
+              173, 
+              41
+            ], 
+            [
+              181, 
+              40
+            ], 
+            [
+              192, 
+              38
+            ], 
+            [
+              202, 
+              36
+            ], 
+            [
+              218, 
+              33
+            ], 
+            [
+              219, 
+              -26
+            ], 
+            [
+              216, 
+              -27
+            ], 
+            [
+              214, 
+              -27
+            ], 
+            [
+              208, 
+              -29
+            ], 
+            [
+              199, 
+              -30
+            ], 
+            [
+              189, 
+              -32
+            ], 
+            [
+              181, 
+              -34
+            ], 
+            [
+              172, 
+              -36
+            ], 
+            [
+              166, 
+              -37
+            ], 
+            [
+              163, 
+              -37
+            ], 
+            [
+              162, 
+              -38
+            ], 
+            [
+              160, 
+              -42
+            ], 
+            [
+              157, 
+              -49
+            ], 
+            [
+              154, 
+              -57
+            ], 
+            [
+              150, 
+              -65
+            ], 
+            [
+              147, 
+              -73
+            ], 
+            [
+              145, 
+              -79
+            ], 
+            [
+              144, 
+              -82
+            ], 
+            [
+              145, 
+              -84
+            ], 
+            [
+              149, 
+              -89
+            ], 
+            [
+              153, 
+              -97
+            ], 
+            [
+              159, 
+              -105
+            ], 
+            [
+              165, 
+              -114
+            ], 
+            [
+              170, 
+              -121
+            ], 
+            [
+              173, 
+              -126
+            ], 
+            [
+              175, 
+              -129
+            ], 
+            [
+              174, 
+              -131
+            ], 
+            [
+              171, 
+              -135
+            ], 
+            [
+              164, 
+              -141
+            ], 
+            [
+              155, 
+              -151
+            ], 
+            [
+              153, 
+              -152
+            ], 
+            [
+              145, 
+              -160
+            ], 
+            [
+              139, 
+              -166
+            ], 
+            [
+              134, 
+              -170
+            ], 
+            [
+              132, 
+              -171
+            ]
+          ], 
+          "de_morgan_alternate_shape": "1", 
+          "unit": "0", 
+          "fill": "F"
+        }
+      ], 
+      "name": "OPEN_HARDWARE_1", 
+      "reference": "LOGO2", 
+      "text": [
+        {
+          "orientation": "H", 
+          "reference": "", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              0, 
+              0
+            ], 
+            [
+              0, 
+              0
+            ]
+          ], 
+          "italic": false, 
+          "y": "275", 
+          "x": "0", 
+          "size": "60", 
+          "bold": false
+        }, 
+        {
+          "orientation": "H", 
+          "reference": "OPEN_HARDWARE_1", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              -450, 
+              175
+            ], 
+            [
+              450, 
+              275
+            ]
+          ], 
+          "italic": false, 
+          "y": "-225", 
+          "x": "0", 
+          "size": "60", 
+          "bold": false
+        }
+      ], 
+      "pin": [], 
+      "bounding_box": [
+        [
+          -219, 
+          -171
+        ], 
+        [
+          219, 
+          221
+        ]
+      ], 
+      "power_flag": "N", 
+      "text_offset": "40", 
+      "draw_pin_name": true, 
+      "units_locked": "F", 
+      "draw_pin_number": true, 
+      "units": "deci-mils", 
+      "unit_count": 1, 
+      "hideFlag": false, 
+      "coarse_bounding_box": [
+        [
+          -450, 
+          -175
+        ], 
+        [
+          450, 
+          221
+        ]
+      ]
+    }, 
+    "SW_SLIDE_SLIDE_SWITCH_SMD": {
+      "art": [
+        {
+          "count": 2, 
+          "line_width": "6", 
+          "convert": "0", 
+          "shape": "path", 
+          "path": [
+            [
+              -200, 
+              0
+            ], 
+            [
+              0, 
+              100
+            ]
+          ], 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "fill": "N"
+        }, 
+        {
+          "direction": "0", 
+          "text": ">NAME", 
+          "shape": "text", 
+          "type": "0", 
+          "y": 200, 
+          "x": -300, 
+          "direction_unit": "deci-degrees", 
+          "de_morgan_alternate_shape": "0", 
+          "unit": "0", 
+          "size": "70"
+        }
+      ], 
+      "name": "SW_SLIDE_SLIDE_SWITCH_SMD", 
+      "reference": "U5", 
+      "text": [
+        {
+          "orientation": "H", 
+          "reference": "ref**", 
+          "hjustify": "C", 
+          "text": "ref**", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              0, 
+              0
+            ], 
+            [
+              0, 
+              0
+            ]
+          ], 
+          "italic": false, 
+          "y": "0", 
+          "x": "0", 
+          "size": "0", 
+          "bold": false
+        }, 
+        {
+          "orientation": "H", 
+          "reference": "SW_SLIDE_SLIDE_SWITCH_SMD", 
+          "hjustify": "C", 
+          "text": "val**", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              0, 
+              0
+            ], 
+            [
+              0, 
+              0
+            ]
+          ], 
+          "italic": false, 
+          "y": "0", 
+          "x": "0", 
+          "size": "0", 
+          "bold": false
+        }
+      ], 
+      "pin": [
+        {
+          "direction": "R", 
+          "name": "COM", 
+          "length": "100", 
+          "number": "COM", 
+          "visible": true, 
+          "shape": null, 
+          "text_size_number": "0", 
+          "y": "0", 
+          "x": "-300", 
+          "electrical_type": "P", 
+          "de_morgan_alternate_shape": "0", 
+          "text_size_name": "60", 
+          "unit": "0"
+        }, 
+        {
+          "pin_type": "I", 
+          "direction": "L", 
+          "name": "NC", 
+          "number": "NC", 
+          "visible": true, 
+          "shape": " I", 
+          "text_size_number": "0", 
+          "x": "100", 
+          "y": "100", 
+          "length": "100", 
+          "electrical_type": "P", 
+          "de_morgan_alternate_shape": "0", 
+          "text_size_name": "60", 
+          "unit": "0"
+        }, 
+        {
+          "pin_type": "I", 
+          "direction": "L", 
+          "name": "NO", 
+          "number": "NO", 
+          "visible": true, 
+          "shape": " I", 
+          "text_size_number": "0", 
+          "x": "100", 
+          "y": "-100", 
+          "length": "100", 
+          "electrical_type": "P", 
+          "de_morgan_alternate_shape": "0", 
+          "text_size_name": "60", 
+          "unit": "0"
+        }
+      ], 
+      "bounding_box": [
+        [
+          -370, 
+          -100
+        ], 
+        [
+          100, 
+          270
+        ]
+      ], 
+      "power_flag": "N", 
+      "text_offset": "100", 
+      "draw_pin_name": true, 
+      "units_locked": "0", 
+      "draw_pin_number": true, 
+      "unit_count": 2, 
+      "hideFlag": false, 
+      "coarse_bounding_box": [
+        [
+          -370, 
+          -100
+        ], 
+        [
+          100, 
+          270
+        ]
+      ]
+    }
+  }, 
+  "net_pin_id_map": {
+    "d0bd9c7d-024c-c05c-c359-b6f74a035a51:2": {
+      "netcode": 1, 
+      "id": "d0bd9c7d-024c-c05c-c359-b6f74a035a51", 
+      "pin": "2"
+    }, 
+    "a70417f8-20f7-c9fb-155e-f74971be926f:8": {
+      "netcode": 7, 
+      "id": "a70417f8-20f7-c9fb-155e-f74971be926f", 
+      "pin": "8"
+    }, 
+    "85eb1f36-b0e6-981c-f7e1-45665801926b:1": {
+      "netcode": 7, 
+      "id": "85eb1f36-b0e6-981c-f7e1-45665801926b", 
+      "pin": "1"
+    }, 
+    "d0bd9c7d-024c-c05c-c359-b6f74a035a51:1": {
+      "netcode": 7, 
+      "id": "d0bd9c7d-024c-c05c-c359-b6f74a035a51", 
+      "pin": "1"
+    }, 
+    "a70417f8-20f7-c9fb-155e-f74971be926f:5": {
+      "netcode": 32, 
+      "id": "a70417f8-20f7-c9fb-155e-f74971be926f", 
+      "pin": "5"
+    }, 
+    "a70417f8-20f7-c9fb-155e-f74971be926f:4": {
+      "netcode": 1, 
+      "id": "a70417f8-20f7-c9fb-155e-f74971be926f", 
+      "pin": "4"
+    }, 
+    "a70417f8-20f7-c9fb-155e-f74971be926f:7": {
+      "netcode": 88, 
+      "id": "a70417f8-20f7-c9fb-155e-f74971be926f", 
+      "pin": "7"
+    }, 
+    "a70417f8-20f7-c9fb-155e-f74971be926f:6": {
+      "netcode": 87, 
+      "id": "a70417f8-20f7-c9fb-155e-f74971be926f", 
+      "pin": "6"
+    }, 
+    "a70417f8-20f7-c9fb-155e-f74971be926f:1": {
+      "netcode": 84, 
+      "id": "a70417f8-20f7-c9fb-155e-f74971be926f", 
+      "pin": "1"
+    }, 
+    "a70417f8-20f7-c9fb-155e-f74971be926f:3": {
+      "netcode": 86, 
+      "id": "a70417f8-20f7-c9fb-155e-f74971be926f", 
+      "pin": "3"
+    }, 
+    "a70417f8-20f7-c9fb-155e-f74971be926f:2": {
+      "netcode": 85, 
+      "id": "a70417f8-20f7-c9fb-155e-f74971be926f", 
+      "pin": "2"
+    }, 
+    "f5bcf0ba-a4b0-a0e2-a8c7-5916d3e68beb:2": {
+      "netcode": 3, 
+      "id": "f5bcf0ba-a4b0-a0e2-a8c7-5916d3e68beb", 
+      "pin": "2"
+    }, 
+    "f5bcf0ba-a4b0-a0e2-a8c7-5916d3e68beb:1": {
+      "netcode": 7, 
+      "id": "f5bcf0ba-a4b0-a0e2-a8c7-5916d3e68beb", 
+      "pin": "1"
+    }, 
+    "85eb1f36-b0e6-981c-f7e1-45665801926b:2": {
+      "netcode": 3, 
+      "id": "85eb1f36-b0e6-981c-f7e1-45665801926b", 
+      "pin": "2"
+    }, 
+    "c5355267-2c03-54bf-6889-8a2994688e0a:3": {
+      "netcode": 3, 
+      "id": "c5355267-2c03-54bf-6889-8a2994688e0a", 
+      "pin": "3"
+    }, 
+    "c5355267-2c03-54bf-6889-8a2994688e0a:2": {
+      "netcode": 32, 
+      "id": "c5355267-2c03-54bf-6889-8a2994688e0a", 
+      "pin": "2"
+    }, 
+    "c5355267-2c03-54bf-6889-8a2994688e0a:1": {
+      "netcode": 1, 
+      "id": "c5355267-2c03-54bf-6889-8a2994688e0a", 
+      "pin": "1"
+    }, 
+    "c27633b5-b7d2-2cbb-ac6e-b5b3108357d8:COM": {
+      "netcode": 5, 
+      "id": "c27633b5-b7d2-2cbb-ac6e-b5b3108357d8", 
+      "pin": "COM"
+    }, 
+    "c27633b5-b7d2-2cbb-ac6e-b5b3108357d8:NC": {
+      "netcode": 7, 
+      "id": "c27633b5-b7d2-2cbb-ac6e-b5b3108357d8", 
+      "pin": "NC"
+    }, 
+    "c27633b5-b7d2-2cbb-ac6e-b5b3108357d8:NO": {
+      "netcode": 89, 
+      "id": "c27633b5-b7d2-2cbb-ac6e-b5b3108357d8", 
+      "pin": "NO"
+    }, 
+    "1e4864e5-c3f0-bf05-5793-df7269c86963:V-": {
+      "netcode": 1, 
+      "id": "1e4864e5-c3f0-bf05-5793-df7269c86963", 
+      "pin": "V-"
+    }, 
+    "1e4864e5-c3f0-bf05-5793-df7269c86963:V1": {
+      "netcode": 5, 
+      "id": "1e4864e5-c3f0-bf05-5793-df7269c86963", 
+      "pin": "V1"
+    }, 
+    "1e4864e5-c3f0-bf05-5793-df7269c86963:V2": {
+      "netcode": 5, 
+      "id": "1e4864e5-c3f0-bf05-5793-df7269c86963", 
+      "pin": "V2"
+    }, 
+    "14b5fd66-a7db-abbf-19b3-ad1ca70cf541:2": {
+      "netcode": 7, 
+      "id": "14b5fd66-a7db-abbf-19b3-ad1ca70cf541", 
+      "pin": "2"
+    }, 
+    "14b5fd66-a7db-abbf-19b3-ad1ca70cf541:1": {
+      "netcode": 3, 
+      "id": "14b5fd66-a7db-abbf-19b3-ad1ca70cf541", 
+      "pin": "1"
+    }, 
+    "a910be8a-d049-afd2-fa14-73a6be761867:2": {
+      "netcode": 1, 
+      "id": "a910be8a-d049-afd2-fa14-73a6be761867", 
+      "pin": "2"
+    }, 
+    "a910be8a-d049-afd2-fa14-73a6be761867:1": {
+      "netcode": 5, 
+      "id": "a910be8a-d049-afd2-fa14-73a6be761867", 
+      "pin": "1"
+    }
+  }, 
+  "element": [
+    {
+      "reference": "IC1", 
+      "nn": "1", 
+      "mm": "1", 
+      "timestamp": "5213C820", 
+      "transform": [
+        [
+          1, 
+          0
+        ], 
+        [
+          0, 
+          -1
+        ]
+      ], 
+      "bounding_box": [
+        [
+          -2150, 
+          350
+        ], 
+        [
+          -150, 
+          1050
+        ]
+      ], 
+      "text": [
+        {
+          "orientation": "H", 
+          "reference": "SO8E", 
+          "hjustify": "C", 
+          "text": "attiny13", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": true, 
+          "bounding_box": [
+            [
+              -2090, 
+              250
+            ], 
+            [
+              -1610, 
+              350
+            ]
+          ], 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": 400, 
+          "x": -1850, 
+          "size": "60", 
+          "id": "a70417f8-20f7-c9fb-155e-f74971be926f,ef4df7c7-79e4-9f41-2f2b-c0b508e09625", 
+          "bold": false
+        }, 
+        {
+          "orientation": "H", 
+          "reference": "ATTINY13-P", 
+          "hjustify": "C", 
+          "text": "VAL**", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": true, 
+          "bounding_box": [
+            [
+              -800, 
+              1050
+            ], 
+            [
+              -500, 
+              1150
+            ]
+          ], 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": -400, 
+          "x": -650, 
+          "size": "60", 
+          "id": "a70417f8-20f7-c9fb-155e-f74971be926f,59cfe42d-bf5f-516e-fc7b-9d89bbe8bfef", 
+          "bold": false
+        }
+      ], 
+      "y": 350, 
+      "x": -1950, 
+      "pinData": {
+        "1": {
+          "y": 950, 
+          "x": -2150, 
+          "netcode": 84, 
+          "type": "box", 
+          "size": 50
+        }, 
+        "3": {
+          "y": 850, 
+          "x": -2150, 
+          "netcode": 86, 
+          "type": "box", 
+          "size": 50
+        }, 
+        "2": {
+          "y": 750, 
+          "x": -2150, 
+          "netcode": 85, 
+          "type": "box", 
+          "size": 50
+        }, 
+        "5": {
+          "y": 450, 
+          "x": -2150, 
+          "netcode": 32, 
+          "type": "box", 
+          "size": 50
+        }, 
+        "4": {
+          "y": 950, 
+          "x": -150, 
+          "netcode": 1, 
+          "type": "box", 
+          "size": 50
+        }, 
+        "7": {
+          "y": 650, 
+          "x": -2150, 
+          "netcode": 88, 
+          "type": "box", 
+          "size": 50
+        }, 
+        "6": {
+          "y": 550, 
+          "x": -2150, 
+          "netcode": 87, 
+          "type": "box", 
+          "size": 50
+        }, 
+        "8": {
+          "y": 450, 
+          "x": -150, 
+          "netcode": 7, 
+          "type": "box", 
+          "size": 50
+        }
+      }, 
+      "type": "component", 
+      "id": "a70417f8-20f7-c9fb-155e-f74971be926f", 
+      "hideFlag": false, 
+      "name": "ATTINY13-P"
+    }, 
+    {
+      "reference": "Q1", 
+      "nn": "1", 
+      "mm": "1", 
+      "timestamp": "5213C820", 
+      "transform": [
+        [
+          1, 
+          0
+        ], 
+        [
+          0, 
+          -1
+        ]
+      ], 
+      "text": [
+        {
+          "orientation": "H", 
+          "reference": "SOT23", 
+          "hjustify": "R", 
+          "text": "SOT23", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": true, 
+          "bounding_box": [
+            [
+              -250, 
+              108.33333333333333
+            ], 
+            [
+              0, 
+              191.66666666666669
+            ]
+          ], 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": -550, 
+          "x": -1100, 
+          "size": "50", 
+          "id": "c5355267-2c03-54bf-6889-8a2994688e0a,efeef351-6990-a86e-4789-565acd316934", 
+          "bold": false
+        }, 
+        {
+          "orientation": "H", 
+          "reference": "NPN", 
+          "hjustify": "R", 
+          "text": "VAL", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": true, 
+          "bounding_box": [
+            [
+              -150, 
+              -191.66666666666669
+            ], 
+            [
+              0, 
+              -108.33333333333333
+            ]
+          ], 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": -250, 
+          "x": -1100, 
+          "size": "50", 
+          "id": "c5355267-2c03-54bf-6889-8a2994688e0a,eda574bf-64cd-188c-52e5-fecaf7a99206", 
+          "bold": false
+        }
+      ], 
+      "y": -400, 
+      "x": -1100, 
+      "pinData": {
+        "1": {
+          "y": -200, 
+          "x": -1000, 
+          "netcode": 1, 
+          "type": "box", 
+          "size": 50
+        }, 
+        "3": {
+          "y": -600, 
+          "x": -1000, 
+          "netcode": 3, 
+          "type": "box", 
+          "size": 50
+        }, 
+        "2": {
+          "y": -400, 
+          "x": -1300, 
+          "netcode": 32, 
+          "type": "box", 
+          "size": 50
+        }
+      }, 
+      "type": "component", 
+      "id": "c5355267-2c03-54bf-6889-8a2994688e0a", 
+      "hideFlag": false, 
+      "name": "NPN"
+    }, 
+    {
+      "reference": "U11", 
+      "nn": "1", 
+      "mm": "1", 
+      "timestamp": "5213C820", 
+      "transform": [
+        [
+          1, 
+          0
+        ], 
+        [
+          0, 
+          -1
+        ]
+      ], 
+      "bounding_box": [
+        [
+          -2300, 
+          200
+        ], 
+        [
+          -1800, 
+          700
+        ]
+      ], 
+      "text": [
+        {
+          "orientation": "H", 
+          "reference": "bat", 
+          "hjustify": "C", 
+          "text": "bat", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": true, 
+          "bounding_box": [
+            [
+              0, 
+              0
+            ], 
+            [
+              0, 
+              0
+            ]
+          ], 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": -1300, 
+          "x": -2200, 
+          "size": "0", 
+          "id": "1e4864e5-c3f0-bf05-5793-df7269c86963,5176e970-e4be-1457-e91e-9986fc647288", 
+          "bold": false
+        }, 
+        {
+          "orientation": "H", 
+          "reference": "BATTERY_2032_BATT2032", 
+          "hjustify": "C", 
+          "text": "cr2032", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": true, 
+          "bounding_box": [
+            [
+              0, 
+              0
+            ], 
+            [
+              0, 
+              0
+            ]
+          ], 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": -1300, 
+          "x": -2200, 
+          "size": "0", 
+          "id": "1e4864e5-c3f0-bf05-5793-df7269c86963,0833728a-f107-05b4-8a69-cbc8fac20221", 
+          "bold": false
+        }
+      ], 
+      "y": -1300, 
+      "x": -2200, 
+      "pinData": {
+        "-": {
+          "y": -800, 
+          "x": -3400, 
+          "netcode": 19, 
+          "type": "box", 
+          "size": 50
+        }, 
+        "V-": {
+          "y": -1300, 
+          "x": -1900, 
+          "netcode": 1, 
+          "type": "box", 
+          "size": 50
+        }, 
+        "1": {
+          "y": -800, 
+          "x": -3500, 
+          "netcode": 18, 
+          "type": "box", 
+          "size": 50
+        }, 
+        "V1": {
+          "y": -1400, 
+          "x": -2500, 
+          "netcode": 5, 
+          "type": "box", 
+          "size": 50
+        }, 
+        "V2": {
+          "y": -1200, 
+          "x": -2500, 
+          "netcode": 5, 
+          "type": "box", 
+          "size": 50
+        }, 
+        "2": {
+          "y": -800, 
+          "x": -2900, 
+          "netcode": 19, 
+          "type": "box", 
+          "size": 50
+        }, 
+        "+$1": {
+          "y": -900, 
+          "x": -3000, 
+          "netcode": 18, 
+          "type": "box", 
+          "size": 50
+        }, 
+        "+$2": {
+          "y": -700, 
+          "x": -3000, 
+          "netcode": 20, 
+          "type": "box", 
+          "size": 50
+        }
+      }, 
+      "type": "component", 
+      "id": "1e4864e5-c3f0-bf05-5793-df7269c86963", 
+      "hideFlag": false, 
+      "name": "BATTERY_2032_BATT2032"
+    }, 
+    {
+      "reference": "C1", 
+      "nn": "1", 
+      "mm": "1", 
+      "timestamp": "5213C820", 
+      "transform": [
+        [
+          1, 
+          0
+        ], 
+        [
+          0, 
+          -1
+        ]
+      ], 
+      "bounding_box": [
+        [
+          -80, 
+          -200
+        ], 
+        [
+          80, 
+          200
+        ]
+      ], 
+      "text": [
+        {
+          "orientation": "H", 
+          "reference": "SM1206", 
+          "hjustify": "L", 
+          "text": ".1mF", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": true, 
+          "bounding_box": [
+            [
+              0, 
+              -133.33333333333334
+            ], 
+            [
+              160, 
+              -66.66666666666666
+            ]
+          ], 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": -800, 
+          "x": 550, 
+          "size": "40", 
+          "id": "f5bcf0ba-a4b0-a0e2-a8c7-5916d3e68beb,9dd42a90-0b2b-2ad2-cd22-8cd0960dbcd7", 
+          "bold": false
+        }, 
+        {
+          "orientation": "H", 
+          "reference": "C", 
+          "hjustify": "L", 
+          "text": "Val**", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              6, 
+              51.666666666666664
+            ], 
+            [
+              206, 
+              118.33333333333334
+            ]
+          ], 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": -985, 
+          "x": 556, 
+          "size": "40", 
+          "id": "f5bcf0ba-a4b0-a0e2-a8c7-5916d3e68beb,e745bd25-77d6-c1b8-4bc8-453bfbf6caba", 
+          "bold": false
+        }
+      ], 
+      "y": -900, 
+      "x": 550, 
+      "pinData": {
+        "1": {
+          "y": -1100, 
+          "x": 550, 
+          "netcode": 7, 
+          "type": "box", 
+          "size": 50
+        }, 
+        "2": {
+          "y": -700, 
+          "x": 550, 
+          "netcode": 3, 
+          "type": "box", 
+          "size": 50
+        }
+      }, 
+      "type": "component", 
+      "id": "f5bcf0ba-a4b0-a0e2-a8c7-5916d3e68beb", 
+      "hideFlag": false, 
+      "name": "C"
+    }, 
+    {
+      "reference": "D2", 
+      "nn": "1", 
+      "mm": "1", 
+      "timestamp": "5213C820", 
+      "transform": [
+        [
+          0, 
+          -1
+        ], 
+        [
+          -1, 
+          0
+        ]
+      ], 
+      "bounding_box": [
+        [
+          -200, 
+          -50
+        ], 
+        [
+          200, 
+          50
+        ]
+      ], 
+      "text": [
+        {
+          "orientation": "H", 
+          "reference": "SM1206", 
+          "hjustify": "C", 
+          "text": "1n4148", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": true, 
+          "bounding_box": [
+            [
+              -120, 
+              -133.33333333333334
+            ], 
+            [
+              120, 
+              -66.66666666666666
+            ]
+          ], 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": -800, 
+          "x": 200, 
+          "size": "40", 
+          "id": "14b5fd66-a7db-abbf-19b3-ad1ca70cf541,48a26e54-ec10-0e2d-dadf-925071344709", 
+          "bold": false
+        }, 
+        {
+          "orientation": "H", 
+          "reference": "DIODE", 
+          "hjustify": "C", 
+          "text": "Val**", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              -100, 
+              66.66666666666666
+            ], 
+            [
+              100, 
+              133.33333333333334
+            ]
+          ], 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": -1000, 
+          "x": 200, 
+          "size": "40", 
+          "id": "14b5fd66-a7db-abbf-19b3-ad1ca70cf541,95bd61ba-6199-57ad-6741-b3d7eda7b8e3", 
+          "bold": false
+        }
+      ], 
+      "y": -900, 
+      "x": 200, 
+      "pinData": {
+        "1": {
+          "y": -700, 
+          "x": 200, 
+          "netcode": 3, 
+          "type": "box", 
+          "size": 50
+        }, 
+        "2": {
+          "y": -1100, 
+          "x": 200, 
+          "netcode": 7, 
+          "type": "box", 
+          "size": 50
+        }
+      }, 
+      "type": "component", 
+      "id": "14b5fd66-a7db-abbf-19b3-ad1ca70cf541", 
+      "hideFlag": false, 
+      "name": "DIODE"
+    }, 
+    {
+      "reference": "U6", 
+      "nn": "1", 
+      "mm": "1", 
+      "timestamp": "5213C820", 
+      "transform": [
+        [
+          1, 
+          0
+        ], 
+        [
+          0, 
+          -1
+        ]
+      ], 
+      "text": [
+        {
+          "orientation": "H", 
+          "reference": "ref**", 
+          "hjustify": "C", 
+          "text": "ref**", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              0, 
+              0
+            ], 
+            [
+              0, 
+              0
+            ]
+          ], 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": -100, 
+          "x": -2800, 
+          "size": "0", 
+          "id": "a910be8a-d049-afd2-fa14-73a6be761867,2fdf4187-9657-0598-512b-8aef9a758834", 
+          "bold": false
+        }, 
+        {
+          "orientation": "H", 
+          "reference": "CON_JST_2PIN-PTH_CON_JST_2PIN", 
+          "hjustify": "C", 
+          "text": "val**", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              0, 
+              0
+            ], 
+            [
+              0, 
+              0
+            ]
+          ], 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": -100, 
+          "x": -2800, 
+          "size": "0", 
+          "id": "a910be8a-d049-afd2-fa14-73a6be761867,8a5a1037-12b0-9215-0f8e-f22776cef7be", 
+          "bold": false
+        }
+      ], 
+      "y": -100, 
+      "x": -2800, 
+      "pinData": {
+        "1": {
+          "y": -100, 
+          "x": -2800, 
+          "netcode": 5, 
+          "type": "box", 
+          "size": 50
+        }, 
+        "2": {
+          "y": 0, 
+          "x": -2800, 
+          "netcode": 1, 
+          "type": "box", 
+          "size": 50
+        }
+      }, 
+      "type": "component", 
+      "id": "a910be8a-d049-afd2-fa14-73a6be761867", 
+      "hideFlag": false, 
+      "name": "CON_JST_2PIN-PTH_CON_JST_2PIN"
+    }, 
+    {
+      "reference": "U5", 
+      "nn": "1", 
+      "mm": "1", 
+      "timestamp": "5213C820", 
+      "transform": [
+        [
+          1, 
+          0
+        ], 
+        [
+          0, 
+          -1
+        ]
+      ], 
+      "text": [
+        {
+          "orientation": "H", 
+          "reference": "ref**", 
+          "hjustify": "C", 
+          "text": "ref**", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              0, 
+              0
+            ], 
+            [
+              0, 
+              0
+            ]
+          ], 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": -500, 
+          "x": -2400, 
+          "size": "0", 
+          "id": "c27633b5-b7d2-2cbb-ac6e-b5b3108357d8,24231766-d260-8cd9-6322-3a32d50641ad", 
+          "bold": false
+        }, 
+        {
+          "orientation": "H", 
+          "reference": "SW_SLIDE_SLIDE_SWITCH_SMD", 
+          "hjustify": "C", 
+          "text": "val**", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              0, 
+              0
+            ], 
+            [
+              0, 
+              0
+            ]
+          ], 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": -500, 
+          "x": -2400, 
+          "size": "0", 
+          "id": "c27633b5-b7d2-2cbb-ac6e-b5b3108357d8,c55413f8-01c7-ba39-2797-d87a30b230a4", 
+          "bold": false
+        }
+      ], 
+      "y": -500, 
+      "x": -2400, 
+      "pinData": {
+        "NO": {
+          "y": -400, 
+          "x": -2300, 
+          "netcode": 89, 
+          "type": "box", 
+          "size": 50
+        }, 
+        "NC": {
+          "y": -600, 
+          "x": -2300, 
+          "netcode": 7, 
+          "type": "box", 
+          "size": 50
+        }, 
+        "1": {
+          "y": 200, 
+          "x": 2550, 
+          "netcode": 34, 
+          "type": "box", 
+          "size": 50
+        }, 
+        "3": {
+          "y": 400, 
+          "x": 2550, 
+          "netcode": 36, 
+          "type": "box", 
+          "size": 50
+        }, 
+        "2": {
+          "y": 300, 
+          "x": 2550, 
+          "netcode": 35, 
+          "type": "box", 
+          "size": 50
+        }, 
+        "5": {
+          "y": 600, 
+          "x": 2550, 
+          "netcode": 38, 
+          "type": "box", 
+          "size": 50
+        }, 
+        "4": {
+          "y": 500, 
+          "x": 2550, 
+          "netcode": 37, 
+          "type": "box", 
+          "size": 50
+        }, 
+        "7": {
+          "y": 800, 
+          "x": 2550, 
+          "netcode": 40, 
+          "type": "box", 
+          "size": 50
+        }, 
+        "6": {
+          "y": 700, 
+          "x": 2550, 
+          "netcode": 39, 
+          "type": "box", 
+          "size": 50
+        }, 
+        "COM": {
+          "y": -500, 
+          "x": -2700, 
+          "netcode": 5, 
+          "type": "box", 
+          "size": 50
+        }
+      }, 
+      "type": "component", 
+      "id": "c27633b5-b7d2-2cbb-ac6e-b5b3108357d8", 
+      "hideFlag": false, 
+      "name": "SW_SLIDE_SLIDE_SWITCH_SMD"
+    }, 
+    {
+      "y": 950, 
+      "x": -2150, 
+      "type": "noconn", 
+      "id": "0e533529-005c-eb50-2153-f8037986444d", 
+      "hideFlag": false
+    }, 
+    {
+      "startx": -3000, 
+      "starty": 0, 
+      "endy": 150, 
+      "endx": -3000, 
+      "data": {
+        "netcode": 1, 
+        "y1": 150, 
+        "y0": 0, 
+        "x0": -3000, 
+        "x1": -3000, 
+        "type": "rect", 
+        "size": 50
+      }, 
+      "bounding_box": [
+        [
+          -3050, 
+          0
+        ], 
+        [
+          -2950, 
+          150
+        ]
+      ], 
+      "type": "wireline", 
+      "id": "08864b42-d87d-c748-b174-a87d83f85aae"
+    }, 
+    {
+      "reference": "#PWR13", 
+      "nn": "1", 
+      "mm": "1", 
+      "timestamp": "5213C820", 
+      "powerPinData": {
+        "1": {
+          "y": 150, 
+          "x": -3000, 
+          "netcode": 1, 
+          "type": "box", 
+          "size": 50
+        }
+      }, 
+      "transform": [
+        [
+          1, 
+          0
+        ], 
+        [
+          0, 
+          -1
+        ]
+      ], 
+      "text": [
+        {
+          "orientation": "H", 
+          "reference": "#PWR13", 
+          "hjustify": "C", 
+          "text": "#PWR13", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              -90, 
+              -25
+            ], 
+            [
+              90, 
+              25
+            ]
+          ], 
+          "italic": false, 
+          "y": 150, 
+          "x": -3000, 
+          "size": "30", 
+          "id": "bba34fcb-ee38-841c-66f2-d26d5f5458b2,7f9a1d59-b1f6-ba19-d817-35ff6dfbbd6b", 
+          "bold": false
+        }, 
+        {
+          "orientation": "H", 
+          "reference": "GND", 
+          "hjustify": "C", 
+          "text": "~GND", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              -45, 
+              45
+            ], 
+            [
+              45, 
+              95
+            ]
+          ], 
+          "italic": false, 
+          "y": 80, 
+          "x": -3000, 
+          "size": "30", 
+          "id": "bba34fcb-ee38-841c-66f2-d26d5f5458b2,0c52754e-a71c-88a5-f25a-6981e984d132", 
+          "bold": false
+        }
+      ], 
+      "y": 150, 
+      "x": -3000, 
+      "type": "component", 
+      "id": "bba34fcb-ee38-841c-66f2-d26d5f5458b2", 
+      "name": "~GND"
+    }, 
+    {
+      "startx": 300, 
+      "starty": 450, 
+      "endy": 500, 
+      "endx": 300, 
+      "data": {
+        "netcode": 7, 
+        "y1": 500, 
+        "y0": 450, 
+        "x0": 300, 
+        "x1": 300, 
+        "type": "rect", 
+        "size": 50
+      }, 
+      "bounding_box": [
+        [
+          250, 
+          450
+        ], 
+        [
+          350, 
+          500
+        ]
+      ], 
+      "type": "wireline", 
+      "id": "92ac324e-287b-b612-b95d-d060f1809098"
+    }, 
+    {
+      "startx": 300, 
+      "starty": 950, 
+      "endy": 950, 
+      "endx": 0, 
+      "data": {
+        "netcode": 1, 
+        "y1": 950, 
+        "y0": 950, 
+        "x0": 300, 
+        "x1": 0, 
+        "type": "rect", 
+        "size": 50
+      }, 
+      "bounding_box": [
+        [
+          0, 
+          900
+        ], 
+        [
+          300, 
+          1000
+        ]
+      ], 
+      "type": "wireline", 
+      "id": "6ad6cfaa-d971-465d-30cf-6bf8d0fcc546"
+    }, 
+    {
+      "reference": "#PWR4", 
+      "nn": "1", 
+      "mm": "1", 
+      "timestamp": "5213C820", 
+      "powerPinData": {
+        "1": {
+          "y": -1100, 
+          "x": -1750, 
+          "netcode": 1, 
+          "type": "box", 
+          "size": 50
+        }
+      }, 
+      "transform": [
+        [
+          1, 
+          0
+        ], 
+        [
+          0, 
+          -1
+        ]
+      ], 
+      "text": [
+        {
+          "orientation": "H", 
+          "reference": "#PWR4", 
+          "hjustify": "C", 
+          "text": "#PWR4", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              -75, 
+              -25
+            ], 
+            [
+              75, 
+              25
+            ]
+          ], 
+          "italic": false, 
+          "y": -1100, 
+          "x": -1750, 
+          "size": "30", 
+          "id": "fa423b59-2e52-ba25-dba6-1c244fa1c55e,d81da9c1-ff9f-a0e4-3678-b8ed1a90d360", 
+          "bold": false
+        }, 
+        {
+          "orientation": "H", 
+          "reference": "GND", 
+          "hjustify": "C", 
+          "text": "~GND", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              -45, 
+              45
+            ], 
+            [
+              45, 
+              95
+            ]
+          ], 
+          "italic": false, 
+          "y": -1170, 
+          "x": -1750, 
+          "size": "30", 
+          "id": "fa423b59-2e52-ba25-dba6-1c244fa1c55e,e75edd2a-e4e1-bf43-fd5c-99583b8d3783", 
+          "bold": false
+        }
+      ], 
+      "y": -1100, 
+      "x": -1750, 
+      "type": "component", 
+      "id": "fa423b59-2e52-ba25-dba6-1c244fa1c55e", 
+      "hideFlag": false, 
+      "name": "~GND"
+    }, 
+    {
+      "reference": "LOGO1", 
+      "nn": "1", 
+      "mm": "1", 
+      "timestamp": "5213C820", 
+      "transform": [
+        [
+          1, 
+          0
+        ], 
+        [
+          0, 
+          -1
+        ]
+      ], 
+      "text": [
+        {
+          "orientation": "H", 
+          "reference": "ref**", 
+          "hjustify": "C", 
+          "text": "ref**", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              -150, 
+              -325
+            ], 
+            [
+              150, 
+              -225
+            ]
+          ], 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": 1125, 
+          "x": 950, 
+          "size": "60", 
+          "id": "0613aa7f-d534-c082-27eb-af286f0fd328,4f4a7f4d-a284-79da-ac8f-5fb381abd540", 
+          "bold": false
+        }, 
+        {
+          "orientation": "H", 
+          "reference": "OPEN_HARDWARE_1", 
+          "hjustify": "C", 
+          "text": "val**", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              -450, 
+              175
+            ], 
+            [
+              450, 
+              275
+            ]
+          ], 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": 625, 
+          "x": 950, 
+          "size": "60", 
+          "id": "0613aa7f-d534-c082-27eb-af286f0fd328,c12b29b9-2b03-c765-a922-8e56d55ad543", 
+          "bold": false
+        }
+      ], 
+      "y": 850, 
+      "x": 950, 
+      "type": "component", 
+      "id": "0613aa7f-d534-c082-27eb-af286f0fd328", 
+      "hideFlag": false, 
+      "name": "OPEN_HARDWARE_1"
+    }, 
+    {
+      "reference": "U9", 
+      "nn": "1", 
+      "mm": "1", 
+      "timestamp": "5213C820", 
+      "transform": [
+        [
+          1, 
+          0
+        ], 
+        [
+          0, 
+          -1
+        ]
+      ], 
+      "text": [
+        {
+          "orientation": "H", 
+          "reference": "ref", 
+          "hjustify": "C", 
+          "text": "ref", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": true, 
+          "bounding_box": [
+            [
+              0, 
+              0
+            ], 
+            [
+              0, 
+              0
+            ]
+          ], 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": 900, 
+          "x": -3300, 
+          "size": "0", 
+          "id": "cdc8bd9a-9586-f99d-c5c2-cafe238c6d93,fd893cb3-c81d-94e2-6682-4f12ecc1cd80", 
+          "bold": false
+        }, 
+        {
+          "orientation": "H", 
+          "reference": "FIDUCIALTAB_FIDUCIALTAB", 
+          "hjustify": "C", 
+          "text": "val", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": true, 
+          "bounding_box": [
+            [
+              0, 
+              0
+            ], 
+            [
+              0, 
+              0
+            ]
+          ], 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": 900, 
+          "x": -3300, 
+          "size": "0", 
+          "id": "cdc8bd9a-9586-f99d-c5c2-cafe238c6d93,68534cd5-2d99-e6ed-b9a6-685535cbca00", 
+          "bold": false
+        }
+      ], 
+      "y": 900, 
+      "x": -3300, 
+      "type": "component", 
+      "id": "cdc8bd9a-9586-f99d-c5c2-cafe238c6d93", 
+      "name": "FIDUCIALTAB_FIDUCIALTAB"
+    }, 
+    {
+      "startx": 550, 
+      "starty": -600, 
+      "endy": -600, 
+      "endx": 200, 
+      "data": {
+        "netcode": 3, 
+        "y1": -600, 
+        "y0": -600, 
+        "x0": 550, 
+        "x1": 200, 
+        "type": "rect", 
+        "size": 50
+      }, 
+      "bounding_box": [
+        [
+          500, 
+          -1050
+        ], 
+        [
+          850, 
+          -950
+        ]
+      ], 
+      "type": "wireline", 
+      "id": "903693bb-2d50-36e7-501e-43fc57f13ceb", 
+      "hideFlag": false
+    }, 
+    {
+      "orientation": 0, 
+      "text": "pwr", 
+      "id": "254cc521-73e6-4659-b87e-17f3cb98b66c", 
+      "y": -700, 
+      "x": -3000, 
+      "type": "label", 
+      "dimension": 40
+    }, 
+    {
+      "startx": -2800, 
+      "starty": 0, 
+      "endy": 0, 
+      "endx": -3000, 
+      "data": {
+        "netcode": 1, 
+        "y1": 0, 
+        "y0": 0, 
+        "x0": -2800, 
+        "x1": -3000, 
+        "type": "rect", 
+        "size": 50
+      }, 
+      "bounding_box": [
+        [
+          -3000, 
+          -50
+        ], 
+        [
+          -2800, 
+          50
+        ]
+      ], 
+      "type": "wireline", 
+      "id": "248ca214-0d62-d29f-baa1-28bb8f889355"
+    }, 
+    {
+      "y": -500, 
+      "x": -3000, 
+      "type": "connection", 
+      "id": "2fb132d6-ca11-6ce1-5dc4-7a6824a4d023"
+    }, 
+    {
+      "startx": -2800, 
+      "starty": -100, 
+      "endy": -100, 
+      "endx": -3000, 
+      "data": {
+        "netcode": 5, 
+        "y1": -100, 
+        "y0": -100, 
+        "x0": -2800, 
+        "x1": -3000, 
+        "type": "rect", 
+        "size": 50
+      }, 
+      "bounding_box": [
+        [
+          -3000, 
+          -150
+        ], 
+        [
+          -2800, 
+          -50
+        ]
+      ], 
+      "type": "wireline", 
+      "id": "2ebc99b2-ea9b-e89b-196d-0e2159821747"
+    }, 
+    {
+      "startx": -3000, 
+      "starty": -100, 
+      "endy": -500, 
+      "endx": -3000, 
+      "data": {
+        "netcode": 5, 
+        "y1": -500, 
+        "y0": -100, 
+        "x0": -3000, 
+        "x1": -3000, 
+        "type": "rect", 
+        "size": 50
+      }, 
+      "bounding_box": [
+        [
+          -3050, 
+          -500
+        ], 
+        [
+          -2950, 
+          -100
+        ]
+      ], 
+      "type": "wireline", 
+      "id": "d437c498-8e34-8cf1-7591-3e8bf42e52d3"
+    }, 
+    {
+      "startx": -2150, 
+      "starty": 450, 
+      "endy": 450, 
+      "endx": -2450, 
+      "data": {
+        "netcode": 32, 
+        "y1": 450, 
+        "y0": 450, 
+        "x0": -2150, 
+        "x1": -2450, 
+        "type": "rect", 
+        "size": 50
+      }, 
+      "bounding_box": [
+        [
+          -2450, 
+          400
+        ], 
+        [
+          -2150, 
+          500
+        ]
+      ], 
+      "type": "wireline", 
+      "id": "6cfd0b42-fdbf-7604-6157-47c91082b318", 
+      "hideFlag": false
+    }, 
+    {
+      "y": 850, 
+      "x": -2150, 
+      "type": "noconn", 
+      "id": "5e0da135-6779-05b6-0bc5-40c9e1567c79", 
+      "hideFlag": false
+    }, 
+    {
+      "orientation": 0, 
+      "text": "art", 
+      "id": "8e3f9a96-e713-468a-d75b-7729f2bdf805", 
+      "y": 800, 
+      "x": -3300, 
+      "type": "label", 
+      "dimension": 40
+    }, 
+    {
+      "reference": "U10", 
+      "nn": "1", 
+      "mm": "1", 
+      "timestamp": "5213C820", 
+      "transform": [
+        [
+          1, 
+          0
+        ], 
+        [
+          0, 
+          -1
+        ]
+      ], 
+      "text": [
+        {
+          "orientation": "H", 
+          "reference": "", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              0, 
+              0
+            ], 
+            [
+              0, 
+              0
+            ]
+          ], 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": 900, 
+          "x": -2750, 
+          "size": "0", 
+          "id": "7c751b47-6fdb-7b1f-2337-fc29b15d1400,5a36de93-9241-fb8e-900c-c1c4a734f92b", 
+          "bold": false
+        }, 
+        {
+          "orientation": "H", 
+          "reference": "FIDUCIALTAB_FIDUCIALTAB", 
+          "hjustify": "C", 
+          "text": "", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              0, 
+              0
+            ], 
+            [
+              0, 
+              0
+            ]
+          ], 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": 900, 
+          "x": -2750, 
+          "size": "0", 
+          "id": "7c751b47-6fdb-7b1f-2337-fc29b15d1400,30f4b888-c18f-7498-2aca-9f9f6932f8f4", 
+          "bold": false
+        }
+      ], 
+      "y": 900, 
+      "x": -2750, 
+      "type": "component", 
+      "id": "7c751b47-6fdb-7b1f-2337-fc29b15d1400", 
+      "name": "FIDUCIALTAB_FIDUCIALTAB"
+    }, 
+    {
+      "orientation": 0, 
+      "text": "edge", 
+      "id": "4c684781-75b8-e35e-47d4-a45ca3ba54e0", 
+      "y": 800, 
+      "x": -2750, 
+      "type": "label", 
+      "dimension": 40, 
+      "hideFlag": false
+    }, 
+    {
+      "orientation": 0, 
+      "text": "mtr_sig", 
+      "id": "b502ab6c-89e2-491b-b507-d88c74554440", 
+      "y": 450, 
+      "x": -2450, 
+      "type": "label", 
+      "dimension": 40, 
+      "hideFlag": false
+    }, 
+    {
+      "reference": "U7", 
+      "nn": "1", 
+      "mm": "1", 
+      "timestamp": "5213C820", 
+      "transform": [
+        [
+          1, 
+          0
+        ], 
+        [
+          0, 
+          -1
+        ]
+      ], 
+      "text": [
+        {
+          "orientation": "H", 
+          "reference": "ref**", 
+          "hjustify": "C", 
+          "text": "ref**", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              0, 
+              0
+            ], 
+            [
+              0, 
+              0
+            ]
+          ], 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": -950, 
+          "x": -350, 
+          "size": "0", 
+          "id": "85eb1f36-b0e6-981c-f7e1-45665801926b,57ea3c9a-ba64-0824-0a0a-e73a94070f0a", 
+          "bold": false
+        }, 
+        {
+          "orientation": "H", 
+          "reference": "CON_JST_2PIN-PTH_CON_JST_2PIN", 
+          "hjustify": "C", 
+          "text": "val**", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              0, 
+              0
+            ], 
+            [
+              0, 
+              0
+            ]
+          ], 
+          "flags": "0000 C CNN", 
+          "italic": false, 
+          "y": -950, 
+          "x": -350, 
+          "size": "0", 
+          "id": "85eb1f36-b0e6-981c-f7e1-45665801926b,95edf424-0533-95e8-8957-8494cee95a56", 
+          "bold": false
+        }
+      ], 
+      "y": -950, 
+      "x": -350, 
+      "pinData": {
+        "1": {
+          "y": -950, 
+          "x": -350, 
+          "netcode": 7, 
+          "type": "box", 
+          "size": 50
+        }, 
+        "2": {
+          "y": -850, 
+          "x": -350, 
+          "netcode": 3, 
+          "type": "box", 
+          "size": 50
+        }
+      }, 
+      "type": "component", 
+      "id": "85eb1f36-b0e6-981c-f7e1-45665801926b", 
+      "hideFlag": false, 
+      "name": "CON_JST_2PIN-PTH_CON_JST_2PIN"
+    }, 
+    {
+      "reference": "#PWR8", 
+      "nn": "1", 
+      "mm": "1", 
+      "timestamp": "5213C820", 
+      "powerPinData": {
+        "1": {
+          "y": -1250, 
+          "x": -700, 
+          "netcode": 7, 
+          "type": "box", 
+          "size": 50
+        }
+      }, 
+      "transform": [
+        [
+          1, 
+          0
+        ], 
+        [
+          0, 
+          -1
+        ]
+      ], 
+      "text": [
+        {
+          "orientation": "H", 
+          "reference": "#PWR8", 
+          "hjustify": "C", 
+          "text": "#PWR8", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              -75, 
+              -125
+            ], 
+            [
+              75, 
+              -75
+            ]
+          ], 
+          "italic": false, 
+          "y": -1150, 
+          "x": -700, 
+          "size": "30", 
+          "id": "f0b91486-685a-4d78-2b9e-af7133c5ca75,67a78d73-0ee2-84db-37fa-04ca8c0b6588", 
+          "bold": false
+        }, 
+        {
+          "orientation": "H", 
+          "reference": "VCC", 
+          "hjustify": "C", 
+          "text": "VCC", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": true, 
+          "bounding_box": [
+            [
+              -45, 
+              -125
+            ], 
+            [
+              45, 
+              -75
+            ]
+          ], 
+          "italic": false, 
+          "y": -1150, 
+          "x": -700, 
+          "size": "30", 
+          "id": "f0b91486-685a-4d78-2b9e-af7133c5ca75,d8611322-6df8-7967-5d29-cdfee26ad866", 
+          "bold": false
+        }
+      ], 
+      "y": -1250, 
+      "x": -700, 
+      "type": "component", 
+      "id": "f0b91486-685a-4d78-2b9e-af7133c5ca75", 
+      "hideFlag": false, 
+      "name": "VCC"
+    }, 
+    {
+      "startx": -700, 
+      "starty": -1250, 
+      "endy": -950, 
+      "endx": -700, 
+      "data": {
+        "netcode": 7, 
+        "y1": -950, 
+        "y0": -1250, 
+        "x0": -700, 
+        "x1": -700, 
+        "type": "rect", 
+        "size": 50
+      }, 
+      "bounding_box": [
+        [
+          -450, 
+          -1650
+        ], 
+        [
+          -350, 
+          -1350
+        ]
+      ], 
+      "type": "wireline", 
+      "id": "b35951ff-76db-dd48-c3cf-e011861fdbb2", 
+      "hideFlag": false
+    }, 
+    {
+      "startx": -700, 
+      "starty": -950, 
+      "endy": -950, 
+      "endx": -350, 
+      "data": {
+        "netcode": 7, 
+        "y1": -950, 
+        "y0": -950, 
+        "x0": -700, 
+        "x1": -350, 
+        "type": "rect", 
+        "size": 50
+      }, 
+      "bounding_box": [
+        [
+          -400, 
+          -1400
+        ], 
+        [
+          -50, 
+          -1300
+        ]
+      ], 
+      "type": "wireline", 
+      "id": "9cd78a45-ccdc-45e2-ec17-4a2fadb2f7dd", 
+      "hideFlag": false
+    }, 
+    {
+      "startx": -350, 
+      "starty": -850, 
+      "endy": -850, 
+      "endx": -1000, 
+      "data": {
+        "netcode": 3, 
+        "y1": -850, 
+        "y0": -850, 
+        "x0": -350, 
+        "x1": -1000, 
+        "type": "rect", 
+        "size": 50
+      }, 
+      "bounding_box": [
+        [
+          -700, 
+          -1300
+        ], 
+        [
+          -50, 
+          -1200
+        ]
+      ], 
+      "type": "wireline", 
+      "id": "ce27a80e-e572-50f6-c4c7-2da346b488af", 
+      "hideFlag": false
+    }, 
+    {
+      "startx": -1000, 
+      "starty": -850, 
+      "endy": -600, 
+      "endx": -1000, 
+      "data": {
+        "netcode": 3, 
+        "y1": -600, 
+        "y0": -850, 
+        "x0": -1000, 
+        "x1": -1000, 
+        "type": "rect", 
+        "size": 50
+      }, 
+      "bounding_box": [
+        [
+          -750, 
+          -1250
+        ], 
+        [
+          -650, 
+          -1000
+        ]
+      ], 
+      "type": "wireline", 
+      "id": "be242c83-e780-dd19-5c3d-9d82975e802d", 
+      "hideFlag": false
+    }, 
+    {
+      "y": -950, 
+      "x": -600, 
+      "type": "connection", 
+      "id": "46616559-b889-a2e4-476c-bfad1e2dd77d", 
+      "hideFlag": false
+    }, 
+    {
+      "startx": -600, 
+      "starty": -950, 
+      "endy": -1250, 
+      "endx": -600, 
+      "data": {
+        "netcode": 7, 
+        "y1": -1250, 
+        "y0": -950, 
+        "x0": -600, 
+        "x1": -600, 
+        "type": "rect", 
+        "size": 50
+      }, 
+      "bounding_box": [
+        [
+          -350, 
+          -1650
+        ], 
+        [
+          -250, 
+          -1350
+        ]
+      ], 
+      "type": "wireline", 
+      "id": "0fbe7e5f-5bfe-f887-e9ea-81bafec3248a", 
+      "hideFlag": false
+    }, 
+    {
+      "startx": -600, 
+      "starty": -1250, 
+      "endy": -1250, 
+      "endx": 200, 
+      "data": {
+        "netcode": 7, 
+        "y1": -1250, 
+        "y0": -1250, 
+        "x0": -600, 
+        "x1": 200, 
+        "type": "rect", 
+        "size": 50
+      }, 
+      "bounding_box": [
+        [
+          -300, 
+          -1700
+        ], 
+        [
+          500, 
+          -1600
+        ]
+      ], 
+      "type": "wireline", 
+      "id": "1f0a2b9f-e160-abf7-1298-21f8d5bacf52", 
+      "hideFlag": false
+    }, 
+    {
+      "startx": 200, 
+      "starty": -1250, 
+      "endy": -1100, 
+      "endx": 200, 
+      "data": {
+        "netcode": 7, 
+        "y1": -1100, 
+        "y0": -1250, 
+        "x0": 200, 
+        "x1": 200, 
+        "type": "rect", 
+        "size": 50
+      }, 
+      "bounding_box": [
+        [
+          450, 
+          -1650
+        ], 
+        [
+          550, 
+          -1500
+        ]
+      ], 
+      "type": "wireline", 
+      "id": "fcd1a514-f20c-04ca-23cb-0d3e6dba4050", 
+      "hideFlag": false
+    }, 
+    {
+      "y": -1250, 
+      "x": 200, 
+      "type": "connection", 
+      "id": "29a84a0e-6049-da7b-46fe-6a5109e21bdb", 
+      "hideFlag": false
+    }, 
+    {
+      "startx": 550, 
+      "starty": -1100, 
+      "endy": -1250, 
+      "endx": 550, 
+      "data": {
+        "netcode": 7, 
+        "y1": -1250, 
+        "y0": -1100, 
+        "x0": 550, 
+        "x1": 550, 
+        "type": "rect", 
+        "size": 50
+      }, 
+      "bounding_box": [
+        [
+          800, 
+          -1650
+        ], 
+        [
+          900, 
+          -1500
+        ]
+      ], 
+      "type": "wireline", 
+      "id": "1c5d4a61-4fbc-194d-b9c2-2f7db1bc361f", 
+      "hideFlag": false
+    }, 
+    {
+      "startx": 550, 
+      "starty": -1250, 
+      "endy": -1250, 
+      "endx": 200, 
+      "data": {
+        "netcode": 7, 
+        "y1": -1250, 
+        "y0": -1250, 
+        "x0": 550, 
+        "x1": 200, 
+        "type": "rect", 
+        "size": 50
+      }, 
+      "bounding_box": [
+        [
+          500, 
+          -1700
+        ], 
+        [
+          850, 
+          -1600
+        ]
+      ], 
+      "type": "wireline", 
+      "id": "f53069ea-9835-f223-3a5d-b125a469f676", 
+      "hideFlag": false
+    }, 
+    {
+      "y": -850, 
+      "x": -600, 
+      "type": "connection", 
+      "id": "a2d98ba9-9865-b184-9c95-11709b9835c9", 
+      "hideFlag": false
+    }, 
+    {
+      "startx": -600, 
+      "starty": -850, 
+      "endy": -600, 
+      "endx": -600, 
+      "data": {
+        "netcode": 3, 
+        "y1": -600, 
+        "y0": -850, 
+        "x0": -600, 
+        "x1": -600, 
+        "type": "rect", 
+        "size": 50
+      }, 
+      "bounding_box": [
+        [
+          -350, 
+          -1250
+        ], 
+        [
+          -250, 
+          -1000
+        ]
+      ], 
+      "type": "wireline", 
+      "id": "cfc2dd29-1c66-583f-e665-9b2e3f8b4f36", 
+      "hideFlag": false
+    }, 
+    {
+      "startx": -600, 
+      "starty": -600, 
+      "endy": -600, 
+      "endx": 200, 
+      "data": {
+        "netcode": 3, 
+        "y1": -600, 
+        "y0": -600, 
+        "x0": -600, 
+        "x1": 200, 
+        "type": "rect", 
+        "size": 50
+      }, 
+      "bounding_box": [
+        [
+          -300, 
+          -1050
+        ], 
+        [
+          500, 
+          -950
+        ]
+      ], 
+      "type": "wireline", 
+      "id": "acb67d34-bb06-c7c7-b4f4-e6aa07e1b17d", 
+      "hideFlag": false
+    }, 
+    {
+      "startx": 200, 
+      "starty": -600, 
+      "endy": -700, 
+      "endx": 200, 
+      "data": {
+        "netcode": 3, 
+        "y1": -700, 
+        "y0": -600, 
+        "x0": 200, 
+        "x1": 200, 
+        "type": "rect", 
+        "size": 50
+      }, 
+      "bounding_box": [
+        [
+          450, 
+          -1100
+        ], 
+        [
+          550, 
+          -1000
+        ]
+      ], 
+      "type": "wireline", 
+      "id": "86599611-157c-f613-8442-e4335e47b179", 
+      "hideFlag": false
+    }, 
+    {
+      "y": -600, 
+      "x": 200, 
+      "type": "connection", 
+      "id": "20a722cd-77e4-f46a-dd1e-7371f54baeee", 
+      "hideFlag": false
+    }, 
+    {
+      "startx": 550, 
+      "starty": -700, 
+      "endy": -600, 
+      "endx": 550, 
+      "data": {
+        "netcode": 3, 
+        "y1": -600, 
+        "y0": -700, 
+        "x0": 550, 
+        "x1": 550, 
+        "type": "rect", 
+        "size": 50
+      }, 
+      "bounding_box": [
+        [
+          800, 
+          -1100
+        ], 
+        [
+          900, 
+          -1000
+        ]
+      ], 
+      "type": "wireline", 
+      "id": "49ce81c4-7192-61bb-3d31-ac83a94d455e", 
+      "hideFlag": false
+    }, 
+    {
+      "orientation": 0, 
+      "text": "pwr", 
+      "id": "f9454ed7-3399-9c0f-59a9-4ccde9385550", 
+      "y": -1750, 
+      "x": -2700, 
+      "type": "label", 
+      "dimension": 40, 
+      "hideFlag": false
+    }, 
+    {
+      "y": 550, 
+      "x": -2150, 
+      "type": "noconn", 
+      "id": "8d8a0fce-340f-5ed1-4d92-881001fa18d6", 
+      "hideFlag": false
+    }, 
+    {
+      "y": 650, 
+      "x": -2150, 
+      "type": "noconn", 
+      "id": "9dd35cee-fc73-cf3b-1057-7f69099b7548", 
+      "hideFlag": false
+    }, 
+    {
+      "y": 750, 
+      "x": -2150, 
+      "type": "noconn", 
+      "id": "f1222699-60ac-36c3-989f-c5d80f3d1049", 
+      "hideFlag": false
+    }, 
+    {
+      "orientation": 0, 
+      "text": "pwr_conn", 
+      "id": "b82f1c7d-3a55-75ab-c6c4-19604a07bfab", 
+      "y": 50, 
+      "x": -2450, 
+      "type": "label", 
+      "dimension": 40, 
+      "hideFlag": false
+    }, 
+    {
+      "orientation": 0, 
+      "text": "motor", 
+      "id": "9bb62f58-f968-d505-fff4-dbd65e375df8", 
+      "y": -1400, 
+      "x": -200, 
+      "type": "label", 
+      "dimension": 40, 
+      "hideFlag": false
+    }, 
+    {
+      "reference": "#PWR9", 
+      "nn": "1", 
+      "mm": "1", 
+      "timestamp": "5213C820", 
+      "powerPinData": {
+        "1": {
+          "y": -50, 
+          "x": -1000, 
+          "netcode": 1, 
+          "type": "box", 
+          "size": 50
+        }
+      }, 
+      "transform": [
+        [
+          1, 
+          0
+        ], 
+        [
+          0, 
+          -1
+        ]
+      ], 
+      "text": [
+        {
+          "orientation": "H", 
+          "reference": "#PWR9", 
+          "hjustify": "C", 
+          "text": "#PWR9", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              -75, 
+              -25
+            ], 
+            [
+              75, 
+              25
+            ]
+          ], 
+          "italic": false, 
+          "y": -50, 
+          "x": -1000, 
+          "size": "30", 
+          "id": "01f2f95f-8890-18b6-0586-bf8c6acd6647,bc394e70-c639-4455-5b4c-b06fd740cc82", 
+          "bold": false
+        }, 
+        {
+          "orientation": "H", 
+          "reference": "GND", 
+          "hjustify": "C", 
+          "text": "~GND", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              -45, 
+              45
+            ], 
+            [
+              45, 
+              95
+            ]
+          ], 
+          "italic": false, 
+          "y": -120, 
+          "x": -1000, 
+          "size": "30", 
+          "id": "01f2f95f-8890-18b6-0586-bf8c6acd6647,107be791-b1da-f60b-c44f-2c0213def368", 
+          "bold": false
+        }
+      ], 
+      "y": -50, 
+      "x": -1000, 
+      "type": "component", 
+      "id": "01f2f95f-8890-18b6-0586-bf8c6acd6647", 
+      "hideFlag": false, 
+      "name": "~GND"
+    }, 
+    {
+      "startx": -1000, 
+      "starty": -200, 
+      "endy": -50, 
+      "endx": -1000, 
+      "data": {
+        "netcode": 1, 
+        "y1": -50, 
+        "y0": -200, 
+        "x0": -1000, 
+        "x1": -1000, 
+        "type": "rect", 
+        "size": 50
+      }, 
+      "bounding_box": [
+        [
+          -750, 
+          -600
+        ], 
+        [
+          -650, 
+          -450
+        ]
+      ], 
+      "type": "wireline", 
+      "id": "2148992c-fc6f-3185-68ba-adc76e872b28", 
+      "hideFlag": false
+    }, 
+    {
+      "startx": -1300, 
+      "starty": -400, 
+      "endy": -400, 
+      "endx": -1700, 
+      "data": {
+        "netcode": 32, 
+        "y1": -400, 
+        "y0": -400, 
+        "x0": -1300, 
+        "x1": -1700, 
+        "type": "rect", 
+        "size": 50
+      }, 
+      "bounding_box": [
+        [
+          -1400, 
+          -850
+        ], 
+        [
+          -1000, 
+          -750
+        ]
+      ], 
+      "type": "wireline", 
+      "id": "a62db3ec-b702-1a82-7491-0d613ce3c712", 
+      "hideFlag": false
+    }, 
+    {
+      "orientation": 0, 
+      "text": "mtr_sig", 
+      "id": "3211202b-f253-feb4-d81c-32508d40a0e9", 
+      "y": -400, 
+      "x": -1700, 
+      "type": "label", 
+      "dimension": 40, 
+      "hideFlag": false
+    }, 
+    {
+      "reference": "#PWR10", 
+      "nn": "1", 
+      "mm": "1", 
+      "timestamp": "5213C820", 
+      "powerPinData": {
+        "1": {
+          "y": 250, 
+          "x": 0, 
+          "netcode": 7, 
+          "type": "box", 
+          "size": 50
+        }
+      }, 
+      "transform": [
+        [
+          1, 
+          0
+        ], 
+        [
+          0, 
+          -1
+        ]
+      ], 
+      "text": [
+        {
+          "orientation": "H", 
+          "reference": "#PWR10", 
+          "hjustify": "C", 
+          "text": "#PWR10", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              -90, 
+              -125
+            ], 
+            [
+              90, 
+              -75
+            ]
+          ], 
+          "italic": false, 
+          "y": 350, 
+          "x": 0, 
+          "size": "30", 
+          "id": "40591da3-a968-819f-9bd5-4a86e2688e83,39328e33-9590-e8b3-a1f9-02c1a6267631", 
+          "bold": false
+        }, 
+        {
+          "orientation": "H", 
+          "reference": "VCC", 
+          "hjustify": "C", 
+          "text": "VCC", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": true, 
+          "bounding_box": [
+            [
+              -45, 
+              -125
+            ], 
+            [
+              45, 
+              -75
+            ]
+          ], 
+          "italic": false, 
+          "y": 350, 
+          "x": 0, 
+          "size": "30", 
+          "id": "40591da3-a968-819f-9bd5-4a86e2688e83,8fbfd88f-45e2-d596-94c4-24a662ecb8ae", 
+          "bold": false
+        }
+      ], 
+      "y": 250, 
+      "x": 0, 
+      "type": "component", 
+      "id": "40591da3-a968-819f-9bd5-4a86e2688e83", 
+      "hideFlag": false, 
+      "name": "VCC"
+    }, 
+    {
+      "startx": -150, 
+      "starty": 450, 
+      "endy": 450, 
+      "endx": 0, 
+      "data": {
+        "netcode": 7, 
+        "y1": 450, 
+        "y0": 450, 
+        "x0": -150, 
+        "x1": 0, 
+        "type": "rect", 
+        "size": 50
+      }, 
+      "bounding_box": [
+        [
+          -150, 
+          400
+        ], 
+        [
+          0, 
+          500
+        ]
+      ], 
+      "type": "wireline", 
+      "id": "4ebcdc22-6938-100f-4692-5d2ede909f13", 
+      "hideFlag": false
+    }, 
+    {
+      "startx": 0, 
+      "starty": 450, 
+      "endy": 250, 
+      "endx": 0, 
+      "data": {
+        "netcode": 7, 
+        "y1": 250, 
+        "y0": 450, 
+        "x0": 0, 
+        "x1": 0, 
+        "type": "rect", 
+        "size": 50
+      }, 
+      "bounding_box": [
+        [
+          -50, 
+          250
+        ], 
+        [
+          50, 
+          450
+        ]
+      ], 
+      "type": "wireline", 
+      "id": "197ecc05-0277-a2d8-970c-c2854a08b93a", 
+      "hideFlag": false
+    }, 
+    {
+      "reference": "#PWR11", 
+      "nn": "1", 
+      "mm": "1", 
+      "timestamp": "5213C820", 
+      "powerPinData": {
+        "1": {
+          "y": 1100, 
+          "x": 0, 
+          "netcode": 1, 
+          "type": "box", 
+          "size": 50
+        }
+      }, 
+      "transform": [
+        [
+          1, 
+          0
+        ], 
+        [
+          0, 
+          -1
+        ]
+      ], 
+      "text": [
+        {
+          "orientation": "H", 
+          "reference": "#PWR11", 
+          "hjustify": "C", 
+          "text": "#PWR11", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              -90, 
+              -25
+            ], 
+            [
+              90, 
+              25
+            ]
+          ], 
+          "italic": false, 
+          "y": 1100, 
+          "x": 0, 
+          "size": "30", 
+          "id": "a458dcff-062c-00dd-540f-2159e64d326c,a78cf17d-679b-26a8-8058-07efdcea7539", 
+          "bold": false
+        }, 
+        {
+          "orientation": "H", 
+          "reference": "GND", 
+          "hjustify": "C", 
+          "text": "~GND", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              -45, 
+              45
+            ], 
+            [
+              45, 
+              95
+            ]
+          ], 
+          "italic": false, 
+          "y": 1030, 
+          "x": 0, 
+          "size": "30", 
+          "id": "a458dcff-062c-00dd-540f-2159e64d326c,a868e2b7-ffbd-1605-822e-cf2acc63a739", 
+          "bold": false
+        }
+      ], 
+      "y": 1100, 
+      "x": 0, 
+      "type": "component", 
+      "id": "a458dcff-062c-00dd-540f-2159e64d326c", 
+      "hideFlag": false, 
+      "name": "~GND"
+    }, 
+    {
+      "startx": -150, 
+      "starty": 950, 
+      "endy": 950, 
+      "endx": 0, 
+      "data": {
+        "netcode": 1, 
+        "y1": 950, 
+        "y0": 950, 
+        "x0": -150, 
+        "x1": 0, 
+        "type": "rect", 
+        "size": 50
+      }, 
+      "bounding_box": [
+        [
+          -150, 
+          900
+        ], 
+        [
+          0, 
+          1000
+        ]
+      ], 
+      "type": "wireline", 
+      "id": "cdcc1cab-b71c-afcd-14f7-d604df6b3ba0", 
+      "hideFlag": false
+    }, 
+    {
+      "startx": 0, 
+      "starty": 950, 
+      "endy": 1100, 
+      "endx": 0, 
+      "data": {
+        "netcode": 1, 
+        "y1": 1100, 
+        "y0": 950, 
+        "x0": 0, 
+        "x1": 0, 
+        "type": "rect", 
+        "size": 50
+      }, 
+      "bounding_box": [
+        [
+          -50, 
+          950
+        ], 
+        [
+          50, 
+          1100
+        ]
+      ], 
+      "type": "wireline", 
+      "id": "f5aa91ed-276e-eeca-ea5e-7b9823fbcaf0", 
+      "hideFlag": false
+    }, 
+    {
+      "reference": "C2", 
+      "nn": "1", 
+      "mm": "1", 
+      "timestamp": "5213C820", 
+      "transform": [
+        [
+          1, 
+          0
+        ], 
+        [
+          0, 
+          -1
+        ]
+      ], 
+      "text": [
+        {
+          "orientation": "H", 
+          "reference": "C2", 
+          "hjustify": "L", 
+          "text": "C2", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": true, 
+          "bounding_box": [
+            [
+              0, 
+              -133.33333333333334
+            ], 
+            [
+              80, 
+              -66.66666666666666
+            ]
+          ], 
+          "italic": false, 
+          "y": 800, 
+          "x": 300, 
+          "size": "40", 
+          "id": "d0bd9c7d-024c-c05c-c359-b6f74a035a51,6bffea9b-2570-c78b-5329-f67d4d1c0e42", 
+          "bold": false
+        }, 
+        {
+          "orientation": "H", 
+          "reference": "C", 
+          "hjustify": "L", 
+          "text": "C", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": true, 
+          "bounding_box": [
+            [
+              6, 
+              51.666666666666664
+            ], 
+            [
+              46, 
+              118.33333333333334
+            ]
+          ], 
+          "italic": false, 
+          "y": 615, 
+          "x": 306, 
+          "size": "40", 
+          "id": "d0bd9c7d-024c-c05c-c359-b6f74a035a51,886cd2bd-d18a-f616-9313-aa215fa911e5", 
+          "bold": false
+        }
+      ], 
+      "y": 700, 
+      "x": 300, 
+      "pinData": {
+        "1": {
+          "y": 500, 
+          "x": 300, 
+          "netcode": 7, 
+          "type": "box", 
+          "size": 50
+        }, 
+        "2": {
+          "y": 900, 
+          "x": 300, 
+          "netcode": 1, 
+          "type": "box", 
+          "size": 50
+        }
+      }, 
+      "type": "component", 
+      "id": "d0bd9c7d-024c-c05c-c359-b6f74a035a51", 
+      "hideFlag": false, 
+      "name": "C"
+    }, 
+    {
+      "y": 450, 
+      "x": 0, 
+      "type": "connection", 
+      "id": "bc4c71ba-5c60-ade7-823b-75a87c13aca7", 
+      "hideFlag": false
+    }, 
+    {
+      "startx": -2700, 
+      "starty": -500, 
+      "endy": -500, 
+      "endx": -3000, 
+      "data": {
+        "netcode": 5, 
+        "y1": -500, 
+        "y0": -500, 
+        "x0": -2700, 
+        "x1": -3000, 
+        "type": "rect", 
+        "size": 50
+      }, 
+      "bounding_box": [
+        [
+          -3000, 
+          -550
+        ], 
+        [
+          -2700, 
+          -450
+        ]
+      ], 
+      "type": "wireline", 
+      "id": "c75ebc03-a6cc-94a9-070e-437d9a6de15d"
+    }, 
+    {
+      "startx": -3000, 
+      "starty": -500, 
+      "endy": -700, 
+      "endx": -3000, 
+      "data": {
+        "netcode": 5, 
+        "y1": -700, 
+        "y0": -500, 
+        "x0": -3000, 
+        "x1": -3000, 
+        "type": "rect", 
+        "size": 50
+      }, 
+      "bounding_box": [
+        [
+          -3050, 
+          -700
+        ], 
+        [
+          -2950, 
+          -500
+        ]
+      ], 
+      "type": "wireline", 
+      "id": "9d12cb7c-70d8-d9c7-8047-e2f28903245f"
+    }, 
+    {
+      "y": 950, 
+      "x": 0, 
+      "type": "connection", 
+      "id": "6d89b8f0-80da-c3b1-af8e-cea84cbe91a1", 
+      "hideFlag": false
+    }, 
+    {
+      "reference": "#PWR12", 
+      "nn": "1", 
+      "mm": "1", 
+      "timestamp": "5213C820", 
+      "powerPinData": {
+        "1": {
+          "y": -800, 
+          "x": -2200, 
+          "netcode": 7, 
+          "type": "box", 
+          "size": 50
+        }
+      }, 
+      "transform": [
+        [
+          1, 
+          0
+        ], 
+        [
+          0, 
+          -1
+        ]
+      ], 
+      "text": [
+        {
+          "orientation": "H", 
+          "reference": "#PWR12", 
+          "hjustify": "C", 
+          "text": "#PWR12", 
+          "number": 0, 
+          "vjustify": "C", 
+          "visible": false, 
+          "bounding_box": [
+            [
+              -90, 
+              -125
+            ], 
+            [
+              90, 
+              -75
+            ]
+          ], 
+          "italic": false, 
+          "y": -700, 
+          "x": -2200, 
+          "size": "30", 
+          "id": "2b24bf2b-21cf-8b91-cd1b-26b7478d5e25,1edc9099-e448-f4d1-a5f0-c29228b771e2", 
+          "bold": false
+        }, 
+        {
+          "orientation": "H", 
+          "reference": "VCC", 
+          "hjustify": "C", 
+          "text": "VCC", 
+          "number": 1, 
+          "vjustify": "C", 
+          "visible": true, 
+          "bounding_box": [
+            [
+              -45, 
+              -125
+            ], 
+            [
+              45, 
+              -75
+            ]
+          ], 
+          "italic": false, 
+          "y": -700, 
+          "x": -2200, 
+          "size": "30", 
+          "id": "2b24bf2b-21cf-8b91-cd1b-26b7478d5e25,5210572d-2427-57f7-6e62-0faca6259ac6", 
+          "bold": false
+        }
+      ], 
+      "y": -800, 
+      "x": -2200, 
+      "type": "component", 
+      "id": "2b24bf2b-21cf-8b91-cd1b-26b7478d5e25", 
+      "name": "VCC"
+    }, 
+    {
+      "startx": 300, 
+      "starty": 900, 
+      "endy": 950, 
+      "endx": 300, 
+      "data": {
+        "netcode": 1, 
+        "y1": 950, 
+        "y0": 900, 
+        "x0": 300, 
+        "x1": 300, 
+        "type": "rect", 
+        "size": 50
+      }, 
+      "bounding_box": [
+        [
+          250, 
+          900
+        ], 
+        [
+          350, 
+          950
+        ]
+      ], 
+      "type": "wireline", 
+      "id": "3fe3d261-51f4-2930-c841-d4d754ab1b1b"
+    }, 
+    {
+      "startx": 0, 
+      "starty": 450, 
+      "endy": 450, 
+      "endx": 300, 
+      "data": {
+        "netcode": 7, 
+        "y1": 450, 
+        "y0": 450, 
+        "x0": 0, 
+        "x1": 300, 
+        "type": "rect", 
+        "size": 50
+      }, 
+      "bounding_box": [
+        [
+          0, 
+          400
+        ], 
+        [
+          300, 
+          500
+        ]
+      ], 
+      "type": "wireline", 
+      "id": "4f44a5c5-8ad3-79ed-aa78-f8df48948bde"
+    }, 
+    {
+      "startx": -1900, 
+      "starty": -1300, 
+      "endy": -1300, 
+      "endx": -1750, 
+      "data": {
+        "netcode": 1, 
+        "y1": -1300, 
+        "y0": -1300, 
+        "x0": -1900, 
+        "x1": -1750, 
+        "type": "rect", 
+        "size": 50
+      }, 
+      "bounding_box": [
+        [
+          -1900, 
+          -1350
+        ], 
+        [
+          -1750, 
+          -1250
+        ]
+      ], 
+      "type": "wireline", 
+      "id": "d4086526-00d9-88bb-bece-dba56f27efea"
+    }, 
+    {
+      "startx": -1750, 
+      "starty": -1300, 
+      "endy": -1100, 
+      "endx": -1750, 
+      "data": {
+        "netcode": 1, 
+        "y1": -1100, 
+        "y0": -1300, 
+        "x0": -1750, 
+        "x1": -1750, 
+        "type": "rect", 
+        "size": 50
+      }, 
+      "bounding_box": [
+        [
+          -1800, 
+          -1300
+        ], 
+        [
+          -1700, 
+          -1100
+        ]
+      ], 
+      "type": "wireline", 
+      "id": "0271836a-3741-95f0-796c-8d34d2d46a1a"
+    }, 
+    {
+      "startx": -2500, 
+      "starty": -1400, 
+      "endy": -1400, 
+      "endx": -2700, 
+      "data": {
+        "netcode": 5, 
+        "y1": -1400, 
+        "y0": -1400, 
+        "x0": -2500, 
+        "x1": -2700, 
+        "type": "rect", 
+        "size": 50
+      }, 
+      "bounding_box": [
+        [
+          -2700, 
+          -1450
+        ], 
+        [
+          -2500, 
+          -1350
+        ]
+      ], 
+      "type": "wireline", 
+      "id": "7afd27fa-24b4-0df2-b845-7c2723fdd30b"
+    }, 
+    {
+      "startx": -2700, 
+      "starty": -1400, 
+      "endy": -1750, 
+      "endx": -2700, 
+      "data": {
+        "netcode": 5, 
+        "y1": -1750, 
+        "y0": -1400, 
+        "x0": -2700, 
+        "x1": -2700, 
+        "type": "rect", 
+        "size": 50
+      }, 
+      "bounding_box": [
+        [
+          -2750, 
+          -1750
+        ], 
+        [
+          -2650, 
+          -1400
+        ]
+      ], 
+      "type": "wireline", 
+      "id": "e636a2d7-3698-362b-c8d0-1eff34ebbe3e"
+    }, 
+    {
+      "y": -1400, 
+      "x": -2700, 
+      "type": "connection", 
+      "id": "fa28a701-0546-396a-d401-820d7187b0df"
+    }, 
+    {
+      "startx": -2500, 
+      "starty": -1200, 
+      "endy": -1200, 
+      "endx": -2700, 
+      "data": {
+        "netcode": 5, 
+        "y1": -1200, 
+        "y0": -1200, 
+        "x0": -2500, 
+        "x1": -2700, 
+        "type": "rect", 
+        "size": 50
+      }, 
+      "bounding_box": [
+        [
+          -2700, 
+          -1250
+        ], 
+        [
+          -2500, 
+          -1150
+        ]
+      ], 
+      "type": "wireline", 
+      "id": "4d7ffda3-263d-7c56-9cd6-9b14be1ad5b6"
+    }, 
+    {
+      "startx": -2700, 
+      "starty": -1200, 
+      "endy": -1400, 
+      "endx": -2700, 
+      "data": {
+        "netcode": 5, 
+        "y1": -1400, 
+        "y0": -1200, 
+        "x0": -2700, 
+        "x1": -2700, 
+        "type": "rect", 
+        "size": 50
+      }, 
+      "bounding_box": [
+        [
+          -2750, 
+          -1400
+        ], 
+        [
+          -2650, 
+          -1200
+        ]
+      ], 
+      "type": "wireline", 
+      "id": "72ecd6ed-d1f9-6d54-2c6b-6d74e6f0a29e"
+    }, 
+    {
+      "startx": -2300, 
+      "starty": -600, 
+      "endy": -600, 
+      "endx": -2200, 
+      "data": {
+        "netcode": 7, 
+        "y1": -600, 
+        "y0": -600, 
+        "x0": -2300, 
+        "x1": -2200, 
+        "type": "rect", 
+        "size": 50
+      }, 
+      "bounding_box": [
+        [
+          -2300, 
+          -650
+        ], 
+        [
+          -2200, 
+          -550
+        ]
+      ], 
+      "type": "wireline", 
+      "id": "15412ac4-e011-8881-6259-9f952b7feffa"
+    }, 
+    {
+      "startx": -2200, 
+      "starty": -600, 
+      "endy": -800, 
+      "endx": -2200, 
+      "data": {
+        "netcode": 7, 
+        "y1": -800, 
+        "y0": -600, 
+        "x0": -2200, 
+        "x1": -2200, 
+        "type": "rect", 
+        "size": 50
+      }, 
+      "bounding_box": [
+        [
+          -2250, 
+          -800
+        ], 
+        [
+          -2150, 
+          -600
+        ]
+      ], 
+      "type": "wireline", 
+      "id": "62761024-f927-59b2-b44e-1cc940bcf05d"
+    }
+  ]
+}
