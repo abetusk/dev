@@ -15,6 +15,7 @@ From the Wikipedia entry on the [Open Source Model](https://en.wikipedia.org/wik
 | [Doti: Open Source Jacquard Loom](http://dotilikestoweave.com/) | **No** | "open source" | [Doti](http://dotilikestoweave.com/) | From the website: "Doti is an open source desktop jacquard loom ..."  yet no design files are available |
 | [OpenEIT](https://openeit.github.io/docs/html/index.html) | **No** | "open" | | | PCB design files and firmware are under a [non-commercial license](https://openeit.github.io/docs/html/license.html). |
 | [FarmBot](https://farm.bot/) | yes | "Open Source CNC Farming" | [source](https://github.com/FarmBot/farmbot_os) (MIT), [design files](https://genesis.farm.bot/docs/cad) (CC0) |
+| [Index PnP](https://github.com/index-machines/index) | yes | "Open Source pick and place machine" | [source](https://github.com/index-machines/index) | [GPLv3](https://github.com/index-machines/index/blob/master/LICENSE) |
 | [InMoov](http://inmoov.fr/) | **No** | "InMoov is the first Open Source 3D printed life-size robot." | Design files are under a non commercial license. |
 | [Lasersaur](http://www.lasersaur.com/) | yes | "open source laser cutter" | [Lasersaur](http://www.lasersaur.com/) | [License](https://github.com/nortd/lasersaur/wiki/license) |
 | [ODrive](https://odriverobotics.com/) | yes | "... accurately driving brushless motors, for cheap."  | [source](https://github.com/madcowswe/ODrive) [hardware](https://github.com/madcowswe/ODriveHardware) |
