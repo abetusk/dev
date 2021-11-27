@@ -19,13 +19,13 @@ Empirical Laws
 
 Note: "The Losers are not social losers (as in the opposite of “cool”), but people who have struck bad bargains economically – giving up capitalist striving for steady paychecks."
 
-[Source](https://www.ribbonfarm.com/2009/10/07/the-gervais-principle-or-the-office-according-to-the-office/)
+([source](https://www.ribbonfarm.com/2009/10/07/the-gervais-principle-or-the-office-according-to-the-office/), [archive](https://web.archive.org/web/20211106013605/https://www.ribbonfarm.com/2009/10/07/the-gervais-principle-or-the-office-according-to-the-office/))
 
 ### Gilder's Law
 
 > Bandwidth grows at least three times faster than computer power
 
-[Source](https://www.netlingo.com/word/gilders-law.php)
+([source](https://www.netlingo.com/word/gilders-law.php), [archive](https://web.archive.org/web/20211011053307/https://www.netlingo.com/word/gilders-law.php))
 
 ### Koomey's Law
 
@@ -114,13 +114,13 @@ Note: In this context, there are 'substitutes' and 'compliments', where
 a substitute is a product you buy that replaces the core product and a compliment
 is a product you buy with the core product.
 
-[Source](https://www.gwern.net/Complement)
+([source](https://www.gwern.net/Complement), [archive](https://web.archive.org/web/20211125143022/https://www.gwern.net/Complement))
 
 #### Ucaetano's Addendum to Spolsky's Observation
 
 > Create a desert of profitability around you.
 
-[Source](https://news.ycombinator.com/item?id=17048329)
+([source](https://news.ycombinator.com/item?id=17048329), [archive](https://web.archive.org/web/20210204033820/https://news.ycombinator.com/item?id=17048329))
 
 ### Swanson's Law
 
