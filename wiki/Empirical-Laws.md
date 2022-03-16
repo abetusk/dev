@@ -1,6 +1,19 @@
 Empirical Laws
 ===
 
+### Conway's Law
+
+> Any organization that designs a system (defined broadly) will produce a design whose structure is a copy of the organization's communication structure.
+
+A not so clear implication is that dividing work into subgroups allows for specialization and parallelism
+at the cost of restricting the possibility space by imposing a communication interface between different
+modules of the organization chart.
+
+Future organization charts inherit past organization chart structures and the resulting code
+ends up being a merge of the two.
+
+[Wikipedia](https://en.wikipedia.org/wiki/Conway%27s_law)
+
 ### Gall's Law
 
 > A complex system that works is invariably found to have evolved from a simple system that worked. A complex system designed from scratch never works and cannot be patched up to make it work. You have to start over with a working simple system.
