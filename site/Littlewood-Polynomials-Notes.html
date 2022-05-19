@@ -1,0 +1,190 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>dev blog</title>
+
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js", "TeX/AMSsymbols.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <header>
+        <h1>Dev Blog</h1>
+
+        <table>
+          <body>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
+           <tr>
+              <td>
+                <br /> <br /> <br />
+                <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+
+                <br />
+                <p>
+                Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
+                <br />
+
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
+                </p>
+              </td>
+            </tr>
+          </body>
+        </table>
+
+      </header>
+      <section>
+
+        <h1 id="littlewood-polynomial-notes">Littlewood Polynomial Notes</h1>
+<p>Littlewood polynomials are polynomials whose coeffients are drawn from
+a finite set of ${-1,1}$.</p>
+<p>Plotting the roots of augmented Littlewood polynomials (allowing for 0 as a coefficient)
+for a restricted degree $n$ yields pretty pictures.</p>
+<p><img alt="littlewood polynomial degree 11" src="img/littlewood_d11.png" /></p>
+<hr />
+<p><strong>Claim</strong>:</p>
+<p>$$
+\begin{align}
+&amp; c_k \in {-1, 0, 1} \\
+p(z) &amp; = \sum c_k z^k  \\
+p(z_0) &amp; = 0 &amp; \\
+\to |z_{0}| &amp; \ge \frac{1}{2} \text{ or } z_{0} = 0 \\
+\end{align}
+$$</p>
+<p>Proof (by contradiction):</p>
+<p>$$
+\begin{align}
+&amp; c_0 \ne 0  \\
+ \to p(z_0) &amp; = c_0 + \sum_{k=1}^{n} c_k z_{0}^k \\
+ \to 1 &amp; = | \sum_{k=1}^{n} c_k z_{0}^k | \\
+ \to 1 &amp; &lt; \sum_{k=1}^{n} | \frac{1}{2} |^k &lt; 1 \\
+\end{align}
+$$</p>
+<p><a href="https://golem.ph.utexas.edu/category/2009/12/this_weeks_finds_in_mathematic_46.html#c030053">source</a></p>
+<p>This is sloppy and doesn't take into account degree, $n$, of the polynomial.</p>
+<p>"In the limit", this is true, but this is violated for smaller degree polynomials.</p>
+<hr />
+<p>In general, we can ask what are the symmetries of transformations on $z$ that will
+still admit Littlewood polynomials.</p>
+<p>Some candidates for $p(z)$ are:</p>
+<ul>
+<li>$p(z^{-1})$</li>
+<li>$p(z^*)$</li>
+<li>$p(-z)$</li>
+</ul>
+<p>The complex conjugate gives the mirror symmetry about the x-axis.
+The negation and complex conjugation gives the symmetry about the y-axis ($p(\alpha + i \beta) = 0 \to q(-\alpha + i \beta)=0$).
+The inversion gives a kind of projection onto the Riemann sphere and/or Mobius transformation like
+symmetry, giving a projection symmetry about the circle/sphere at radius 1.</p>
+<hr />
+<p>$$
+\begin{align}
+&amp; c_k \in {-1, 0, 1} \\
+p(z) &amp; = \sum c_k z^k \\
+\end{align}
+$$</p>
+<p>y-axis symmetry ($x \to -x$):</p>
+<p>$$
+\begin{align}
+p_{-}(z) &amp; = \sum_{k=0}^n (-1)^k c_{k} z^k \\
+p(z) &amp; = p_{-}(-z) \\
+\to p(z_0) &amp; = p_{-}(-z_0) = 0
+\end{align}
+$$</p>
+<p>x-axis symmetry ($x \to x^{*}$):</p>
+<p>$$
+\begin{align}
+p_{\dagger}(z) &amp; = \sum_{k=0}^n c_{k} ( z^{<em>})^k \\
+p(z) &amp; = p_{ \dagger }( z^{</em>} ) \\
+\to p(z_0) &amp; = p_{ \dagger }( z_0^{*} ) = 0 \\
+\end{align}
+$$</p>
+<p>Since the coefficients are real, $p_{\dagger}(z)$ has the same roots.</p>
+<p>Inversion symmetry ($x \to \frac{1}{x}$):</p>
+<p>$$
+\begin{align}
+p_{-1}(z) &amp; = \sum_{k=0}^n c_{n-k} z^k \\
+p(z) &amp; = z^n p_{-1}(z^{-1}) \\
+\to p(z_<em>) &amp; = z_</em>^n p_{-1}(z_*^{-1}) = 0 \\
+\end{align}
+$$</p>
+<p>Noting that $z^n p_{-1}(\frac{1}{z})$ is also a Littlewood polynomial.</p>
+<p>All of the above create a situation that for every $p(z)=0$, there's a corresponding
+$p_{-}(-z)=0$, $p_{\dagger}(z^{*})=0$ and $p_{-1}(z^{-1})=0, (z \ne 0)$, establishing
+the gross level symmetry.</p>
+<hr />
+<p>An explanation of how Dragon curves show up:</p>
+<p>The idea is that the dragon curve can be created through in iterated
+function system (IFS) by choosing randomly between $f_{-,z}(x)=1-zx$ and $f_{+,z}(x)=1+zx$
+for some complex z and initial $x=0$.</p>
+<p>The iteration of ${f_{-,z}, f_{+,z}}$ trace out all Littlewood polynomials for
+initial values of $f_{-,z}(0)$ and $f_{+,z}(0)$.</p>
+<p>Here's what I think the argument is in the category cafe thread:</p>
+<p>$p(z_0)=0$ is the result of a finite cutoff IFS from above.
+If the IFS is a nice fractal, that means other polynomials from the IFS evaluated
+at the source point $z_0$ will trace out a fractal (dragon-like curve) around the image point 0.
+Since we're dealing with a small neighborhood, we can heuristically use linearity
+to shift the image points not landing on 0 to 0, moving their source points along with them.
+The source points will then create a dragon-like fractal curve in the source map,
+giving us the dragon curves that we see in zoomed in snapshots of the root map.</p>
+<p>Also note that the 'twist' in the dragon-like curves might be explained with another
+heuristic argument that goes as follows:</p>
+<p>Take $p(z_0)=0$ and a 'similar' polynomial Littlewood $q(z_0 + \delta) = 0$.
+$p'(z_0) \sim  q'(z_0)$ (and perhaps even more so than $p \sim q$?), and
+$q(z_0 + \delta) \sim  q(z_0) + \delta q'(z_0)$, we can try solving for
+$q(z_0) + \delta q'(z_0) = 0 \to \delta = -\frac{q(z_0)}{q'(z_0)} \sim -\frac{q(z_0)}{p'(z_0)}$.</p>
+<p>So the 'correction' source change for $q(z)$ has the factor of $p'(z_0)$ which might induce a
+sort of 'twist' to the curve.</p>
+<hr />
+<p>Attempts at explaining the holes around the unit circle:</p>
+<p>The holes on the unit disc look to have bigger gaps in a Farey like sequence.</p>
+<p>Take the upper quadrent of the roots ($z = a+ib, a&gt;0, b&gt;0$) to remove as much
+symmetry as possible and then take the complex logarithm.
+The points below the unit disc could also be discarded but the gaps are easier
+to see when they're left in, which introduces a mirror symmetry in the complex
+logarithm plot.</p>
+<p><img alt="complex logarithm littlewood polynomial" src="img/ln_littlewood_d11.png" /></p>
+<p>The lines correspond to the first few Farey sequence numbers with a factor of $\pi$.</p>
+<p>If we have $p(z)=0$ and $z = u^m$, then we also have $p(u^m)=0$, creating another
+polynomial $q(\cdot)$ of $\deg(p) \cdot m$.
+That is $q(u)=p(u^m)=p(z)=q(z^{\frac{1}{m}})$.</p>
+<p>This provides another form of symmetry, even if it's only "probabilistic" in nature.</p>
+<p>I suspect this is the reason for the holes around the $|z|=1$ line but I'm having
+a hard time coming up with a good reason.</p>
+<hr />
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://math.ucr.edu/home/baez/roots/">Baez: The Beauty of Roots</a></li>
+<li><a href="https://golem.ph.utexas.edu/category/2009/12/this_weeks_finds_in_mathematic_46.html">n-Category Cafe</a></li>
+<li><a href="http://www.bohemianmatrices.com/">Bohemian Matrices</a> (<a href="https://en.wikipedia.org/wiki/Bohemian_matrices">wiki</a>)</li>
+<li><a href="https://en.wikipedia.org/wiki/Iterated_function_system#Definition">Iterated Function System</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Dragon_curve#Heighway_dragon">Heighway dragon</a></li>
+<li><a href="https://github.com/robol/MPSolve">mpsolve</a></li>
+</ul>
+
+      </section>
+
+      <!--
+      <footer>
+        <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+      </footer>
+      -->
+
+    </div>
+    <script src="/dev/js/scale.fix.js"></script>
+  </body
+</html>
