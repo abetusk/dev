@@ -47,7 +47,7 @@ still admit Littlewood polynomials.
 Some candidates for $p(z)$ are:
 
 * $p(z^{-1})$
-* $p(z^*)$
+* $p(z^{\dagger})$
 * $p(-z)$
 
 The complex conjugate gives the mirror symmetry about the x-axis.
@@ -74,13 +74,13 @@ p(z) & = p_{-}(-z) \\\\
 \end{align}
 $$
 
-x-axis symmetry ($x \to x^{*}$):
+x-axis symmetry ($x \to x^{ \dagger }$):
 
 $$
 \begin{align}
-p_{\dagger}(z) & = \sum_{k=0}^n c_{k} ( z^{*})^k \\\\
-p(z) & = p_{ \dagger }( z^{*} ) \\\\
-\to p(z_0) & = p_{ \dagger }( z_0^{*} ) = 0 \\\\
+p_{\dagger}(z) & = \sum_{k=0}^n c_{k} ( z^{ \dagger })^k \\\\
+p(z) & = p_{ \dagger }( z^{ \dagger } ) \\\\
+\to p(z_0) & = p_{ \dagger }( z_0^{ \dagger } ) = 0 \\\\
 \end{align}
 $$
 
@@ -92,14 +92,14 @@ $$
 \begin{align}
 p_{-1}(z) & = \sum_{k=0}^n c_{n-k} z^k \\\\
 p(z) & = z^n p_{-1}(z^{-1}) \\\\
-\to p(z_*) & = z_*^n p_{-1}(z_*^{-1}) = 0 \\\\
+\to p(z_{\dagger}) & = z_{\dagger}^n p_{-1}(z_{\dagger}^{-1}) = 0 \\\\
 \end{align}
 $$
 
 Noting that $z^n p_{-1}(\frac{1}{z})$ is also a Littlewood polynomial.
 
 All of the above create a situation that for every $p(z)=0$, there's a corresponding
-$p_{-}(-z)=0$, $p_{\dagger}(z^{*})=0$ and $p_{-1}(z^{-1})=0, (z \ne 0)$, establishing
+$p_{-}(-z)=0$, $p_{\dagger}(z^{\dagger})=0$ and $p_{-1}(z^{-1})=0, (z \ne 0)$, establishing
 the gross level symmetry.
 
 ---
