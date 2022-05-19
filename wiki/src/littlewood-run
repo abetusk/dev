@@ -1,0 +1,17 @@
+#!/bin/bash
+#
+# License: CC0
+#
+# To the extent possible under law, the person who associated CC0 with
+# this project has waived all copyright and related or neighboring rights
+# to this project.
+# 
+# You should have received a copy of the CC0 legalcode along with this
+# work.  If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
+#
+
+export D=11
+
+gcc littlewoodp.c -o littlewoodp
+./littlewoodp $D | xargs -n1 -I{} mpsolve -p '{}' | tr -d '(),' | sort -u > lwp-d$D.gp
+cat lwp-d$D.gp | ./clog.py > ln_lwp-d$D.gp
