@@ -44,6 +44,7 @@ nav:
   - "Bitcoin-Moon-Math.md"
   - "Energy-Discussion.md"
   - "AWK-Cheatsheet.md"
+  - "Littlewood-Polynomials-Notes.md"
 
 docs_dir: 'wiki'
 use_directory_urls: false
