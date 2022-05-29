@@ -1,0 +1,4 @@
+* * * * * $HOME/bin/ina219_poll 64 >> $HOME/data/ina219_a64.json
+* * * * * $HOME/bin/ina219_poll 65 >> $HOME/data/ina219_a65.json
+* * * * * $HOME/bin/ina219_poll 68 >> $HOME/data/ina219_a68.json
+
