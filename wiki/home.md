@@ -44,3 +44,4 @@ dev
 * [Solar Energy Discussion](Energy-Discussion.md)
 * [`awk` Cheatsheet](AWK-Cheatsheet.md)
 * [Littlewood Polynomial Notes](Littlewood-Polynomials-Notes.md)
+* [Useful Tables](Useful-Tables.md)

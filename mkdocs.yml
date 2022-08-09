@@ -45,6 +45,7 @@ nav:
   - "Energy-Discussion.md"
   - "AWK-Cheatsheet.md"
   - "Littlewood-Polynomials-Notes.md"
+  - "Useful-Tables.md"
 
 docs_dir: 'wiki'
 use_directory_urls: false
