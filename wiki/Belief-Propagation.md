@@ -31,12 +31,17 @@ vertex $i$ and $j$ could have values $x_i$ and $x_j$.
 
 ### Belief Propagation on a (discrete) Markov Random Field
 
+<!--
+#mermaid
+graph LR
+  u((u)) & v((v)) --> i((i)) -.-> j((j)))
+-->
+
 ![Belief Propagation on Markov Random Field example](img/mrfbp_example.png)
 
 $$
 \mu_{i,j}^{t+1}(x_j) = \sum_{x_i} f_{i,j}(x_i,x_j) \cdot g_i(x_i) \cdot \prod_{k \in N(i) \\ j} \mu_{k,j}^{t}(x_i)
 $$
-
 
 
 
