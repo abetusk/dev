@@ -39,16 +39,20 @@ graph LR
 
 ![Belief Propagation on Markov Random Field example](img/mrfbp_example.png)
 
+Each vertex, $i$, can be associated with a random variable, $X_i$, taking
+on (discrete) values chosen from some domain $D = \{ d_0, d_1, \cdots, d_{m-1} \}$ with
+a probability distribution function $g_i(\cdot)$.
+
 $$
-\mu_{i,j}^{t+1}(x_j) = \sum_{x_i} f_{i,j}(x_i,x_j) \cdot g_i(x_i) \cdot \prod_{k \in N(i) \\ j} \mu_{k,j}^{t}(x_i)
+\mu_{i,j}^{t+1}(b) = \sum_{a \in D} f_{i,j}(a,b) \cdot g_i(a) \cdot \prod_{k \in N(i) \text{\\} j} \mu_{k,j}^{t}(a)
 $$
 
 $$
-\sum_{x_j} \mu_{i,j}(x_j) = 1
+P(X_i = a) \approx b^t_i(a) \propto g_i(a) \cdot \prod_{k \in N(i)} \mu^t_{k,i}(a)
 $$
 
 $$
-b_i(x_i) \propto g_i(x_i) \cdot \prod_{k \in N(i)} \mu_{k,i}(x_i)
+\sum^t_{b \in D} \mu_{i,j}^{t}(b) = 1,  \ \ \ \ \sum_{a \in D} b^t_i(a) = 1
 $$
 
 
