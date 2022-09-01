@@ -48,10 +48,6 @@ $$
 $$
 
 $$
-\mu_{i,j}^{t+1}(b) = \sum_{a \in D} f_{i,j}(a,b) \cdot g_i(a) \cdot \prod_{k \in N(i) \text{ \\ } j} \mu_{k,j}^{t}(a)
-$$
-
-$$
 P(X_i = a) \approx b^t_i(a) \propto g_i(a) \cdot \prod_{k \in N(i)} \mu^t_{k,i}(a)
 $$
 
