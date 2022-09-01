@@ -44,7 +44,11 @@ on (discrete) values chosen from some domain $D = \{ d_0, d_1, \cdots, d_{m-1} \
 a probability distribution function $g_i(\cdot)$.
 
 $$
-\mu_{i,j}^{t+1}(b) = \sum_{a \in D} f_{i,j}(a,b) \cdot g_i(a) \cdot \prod_{k \in N(i) \text{\\} j} \mu_{k,j}^{t}(a)
+\mu_{i,j}^{t+1}(b) = \sum_{a \in D} f_{i,j}(a,b) \cdot g_i(a) \cdot \prod_{k \in N(i) \text{ \\\\ } j} \mu_{k,j}^{t}(a)
+$$
+
+$$
+\mu_{i,j}^{t+1}(b) = \sum_{a \in D} f_{i,j}(a,b) \cdot g_i(a) \cdot \prod_{k \in N(i) \text{ \\ } j} \mu_{k,j}^{t}(a)
 $$
 
 $$
