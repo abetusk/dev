@@ -43,6 +43,13 @@ $$
 \mu_{i,j}^{t+1}(x_j) = \sum_{x_i} f_{i,j}(x_i,x_j) \cdot g_i(x_i) \cdot \prod_{k \in N(i) \\ j} \mu_{k,j}^{t}(x_i)
 $$
 
+$$
+\sum_{x_j} \mu_{i,j}(x_j) = 1
+$$
+
+$$
+b_i(x_i) \propto g_i(x_i) \cdot \prod_{k \in N(i)} \mu_{k,i}(x_i)
+$$
 
 
 #### Sum-Product Belief Propagation
