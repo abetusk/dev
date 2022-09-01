@@ -22,8 +22,8 @@ $$
 $$
 
 * $x_i$ represents the value of vertex $i$.
-* $ g_i(x_i) $ is the mapping of vertex $i$ with value $x_i$
-* $ f_{i,j}(x_i,x_j)$ is the mapping of the connected vertex $i$ and $j$
+* $g_i(x_i)$ is the mapping of vertex $i$ with value $x_i$
+* $f_{i,j}(x_i,x_j)$ is the mapping of the connected vertex $i$ and $j$
   with values $x_i$ and $x_j$, respectively
 
 For example, $f_{i,j}(x_i,x_j)$ could be an indicator function that
@@ -32,7 +32,7 @@ vertex $i$ and $j$ could have values $x_i$ and $x_j$.
 ### Belief Propagation on a (discrete) Markov Random Field
 
 <!--
-#mermaid
+::mermaid
 graph LR
   u((u)) & v((v)) --> i((i)) -.-> j((j)))
 -->
