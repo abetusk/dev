@@ -62,7 +62,7 @@ h_i(a) = g_i(a) \cdot \prod_{k \in N(i)} \mu^t_{k,j}(a)
 $$
 
 $$
-\mu_{i,j}^{t+1}(b) = \sum_{a \in D} f_{i,j}(a,b) \cdot \frac{ h_i(a)  }{ \mu^t_{j,i}(a) }
+\mu_{i,j}^{t+1}(b) = \sum_{a \in D} f_{i,j}(a,b) \cdot \frac{ h^t_i(a)  }{ \mu^t_{j,i}(a) }
 $$
 
 
