@@ -58,7 +58,7 @@ $$
 ---
 
 $$
-h_i(a) = g_i(a) \cdot \prod_{k \in N(i)} \mu^t_{k,j}(a)
+h_i(a) = g_i(a) \cdot \prod_{k \in N(i)} \mu^t_{k,i}(a)
 $$
 
 $$
