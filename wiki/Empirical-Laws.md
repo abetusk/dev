@@ -92,6 +92,12 @@ Note: The scaling looks to have slowed to about 2.6 years as of 2000.
 
 [Wikipedia](https://en.wikipedia.org/wiki/Planck%27s_principle)
 
+### Proebsting's Law
+
+> Compiler Advances Double Computing Power Every 18 Years
+
+([source](https://proebsting.cs.arizona.edu/law.html), [archive](https://web.archive.org/web/20220818232922/https://proebsting.cs.arizona.edu/law.html))
+
 ### Reed's Law
 
 > The utility of a group forming network of $n$ members scales as $O(2^n)$.
