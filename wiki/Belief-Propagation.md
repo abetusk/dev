@@ -31,13 +31,15 @@ vertex $i$ and $j$ could have values $x_i$ and $x_j$.
 
 ### Belief Propagation on a (discrete) Markov Random Field
 
-<!--
+```
 ::mermaid
 graph LR
   u((u)) & v((v)) --> i((i)) -.-> j((j)))
--->
+```
 
-![Belief Propagation on Markov Random Field example](img/mrfbp_example.png)
+| |
+|---|
+| ![Belief Propagation on Markov Random Field example](img/mrfbp_example.png) |
 
 Each vertex, $i$, can be associated with a random variable, $X_i$, taking
 on (discrete) values chosen from some domain $D = \{ d_0, d_1, \cdots, d_{m-1} \}$ with
@@ -58,11 +60,38 @@ $$
 ---
 
 $$
-h_i(a) = g_i(a) \cdot \prod_{k \in N(i)} \mu^t_{k,i}(a)
+h^t_{i,j}(a) = g_i(a) \cdot \prod_{k \in N(i) \text{\\\\} j } \mu^t_{k,i}(a)
 $$
 
 $$
-\mu_{i,j}^{t+1}(b) = \sum_{a \in D} f_{i,j}(a,b) \cdot \frac{ h^t_i(a)  }{ \mu^t_{j,i}(a) }
+\mu_{i,j}^{t+1}(b) = \sum_{a \in D} f_{i,j}(a,b) \cdot h^t_{i,j}(a)
+$$
+
+One can recast this as a matrix multiplication:
+
+$$
+\begin{bmatrix}
+f_{i,j}(d_0,d_0) & f_{i,j}(d_1,d_0) &  \cdots & f_{i,j}(d_{m-1},d_0) \\
+f_{i,j}(d_0,d_1) & f_{i,j}(d_1,d_1) &  \cdots & f_{i,j}(d_{m-1},d_1) \\
+ \vdots  & \vdots & \ddots & \vdots & \\
+f_{i,j}(d_0,d_{m-1}) & f_{i,j}(d_1,d_{m-1}) &  \cdots & f_{i,j}(d_{m-1},d_{m-1}) 
+\end{bmatrix}
+
+\begin{bmatrix}
+h^t_{i,j}(d_0) \\
+h^t_{i,j}(d_1) \\
+\vdots \\
+h^t_{i,j}(d_{m-1})
+\end{bmatrix}
+
+=
+
+\begin{bmatrix}
+\mu^{t+1}_{i,j}(d_0) \\
+\mu^{t+1}_{i,j}(d_1) \\
+\vdots \\
+\mu^{t+1}_{i,j}(d_{m-1})
+\end{bmatrix}
 $$
 
 
