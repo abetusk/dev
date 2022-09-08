@@ -45,3 +45,4 @@ dev
 * [`awk` Cheatsheet](AWK-Cheatsheet.md)
 * [Littlewood Polynomial Notes](Littlewood-Polynomials-Notes.md)
 * [Useful Tables](Useful-Tables.md)
+* [Belief Propagation](Belief-Propagation.md)

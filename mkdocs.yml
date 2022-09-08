@@ -46,6 +46,7 @@ nav:
   - "AWK-Cheatsheet.md"
   - "Littlewood-Polynomials-Notes.md"
   - "Useful-Tables.md"
+  - "Belief-Propagation.md"
 
 docs_dir: 'wiki'
 use_directory_urls: false
@@ -56,8 +57,8 @@ theme:
 extra:
   # for production
   #
-  base : "/dev/"
+  #base : "/dev/"
 
   # to test
   #
-  #base : "/"
+  base : "/"
