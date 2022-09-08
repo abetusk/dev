@@ -73,6 +73,13 @@ $$ \begin{bmatrix} f_{i,j}(d_0,d_0) & f_{i,j}(d_1,d_0) &  \cdots & f_{i,j}(d_{m-
 $$
 
 
+Since $h^t_{i,j}(\cdot)$ has no dependence on $b$, this speeds up a naive calculation re-using results.
+
+If the $f_{i,j}(\cdot,\cdot)$ function has low rank it can be factored into a singular value decomposition (SVD) for further savings:
+
+$$ U \cdot S \cdot V = \begin{bmatrix} \vec{u_0}^\dagger & \vec{u_1}^\dagger & \cdots & \vec{u_{r-1}}^\dagger \end{bmatrix} \begin{bmatrix} s_0 & 0 &  \cdots & 0 \\\\ 0 & s_1 & \cdots & 0 \\\\ \vdots & \vdots  & \ddots \\\\ 0 & 0 &  \cdots & s_{r-1} \end{bmatrix} \begin{bmatrix} \vec{v_0} \\\\ \vec{v_1} \\\\ \vdots \\ \vec{v_{r-1}} \end{bmatrix}
+$$
+
 
 ---
 
