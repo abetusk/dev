@@ -69,11 +69,7 @@ $$
 
 One can recast this as a matrix multiplication:
 
-$$
-\begin{bmatrix} f_{i,j}(d_0,d_0) & f_{i,j}(d_1,d_0) &  \cdots & f_{i,j}(d_{m-1},d_0) \\\\ f_{i,j}(d_0,d_1) & f_{i,j}(d_1,d_1) &  \cdots & f_{i,j}(d_{m-1},d_1) \\\\ \vdots  & \vdots & \ddots & \vdots & \\\\ f_{i,j}(d_0,d_{m-1}) & f_{i,j}(d_1,d_{m-1}) &  \cdots & f_{i,j}(d_{m-1},d_{m-1}) \end{bmatrix}
-\begin{bmatrix} h^{t}_{i,j}(d_0) \\\\ h^{t}_{i,j}(d_1) \\\\ \vdots \\\\ h^{t}_{i,j}(d_{m-1}) \end{bmatrix}
-=
-\begin{bmatrix} \mu^{t+1}_{i,j}(d_0) \\\\ \mu^{t+1}_{i,j}(d_1) \\\\ \vdots \\\\ \mu^{t+1}_{i,j}(d_{m-1}) \end{bmatrix}
+$$ \begin{bmatrix} f_{i,j}(d_0,d_0) & f_{i,j}(d_1,d_0) &  \cdots & f_{i,j}(d_{m-1},d_0) \\\\ f_{i,j}(d_0,d_1) & f_{i,j}(d_1,d_1) &  \cdots & f_{i,j}(d_{m-1},d_1) \\\\ \vdots  & \vdots & \ddots & \vdots & \\\\ f_{i,j}(d_0,d_{m-1}) & f_{i,j}(d_1,d_{m-1}) &  \cdots & f_{i,j}(d_{m-1},d_{m-1}) \end{bmatrix} \begin{bmatrix} h^{t}_{i,j}(d_0) \\\\ h^{t}_{i,j}(d_1) \\\\ \vdots \\\\ h^{t}_{i,j}(d_{m-1}) \end{bmatrix} = \begin{bmatrix} \mu^{t+1}_{i,j}(d_0) \\\\ \mu^{t+1}_{i,j}(d_1) \\\\ \vdots \\\\ \mu^{t+1}_{i,j}(d_{m-1}) \end{bmatrix}
 $$
 
 
