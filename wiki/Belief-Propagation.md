@@ -72,14 +72,21 @@ One can recast this as a matrix multiplication:
 $$ \begin{bmatrix} f_{i,j}(d_0,d_0) & f_{i,j}(d_1,d_0) &  \cdots & f_{i,j}(d_{m-1},d_0) \\\\ f_{i,j}(d_0,d_1) & f_{i,j}(d_1,d_1) &  \cdots & f_{i,j}(d_{m-1},d_1) \\\\ \vdots  & \vdots & \ddots & \vdots & \\\\ f_{i,j}(d_0,d_{m-1}) & f_{i,j}(d_1,d_{m-1}) &  \cdots & f_{i,j}(d_{m-1},d_{m-1}) \end{bmatrix} \begin{bmatrix} h_{i,j}^{t}(d_0) \\\\ h_{i,j}^{t}(d_1) \\\\ \vdots \\\\ h_{i,j}^{t}(d_{m-1}) \end{bmatrix} = \begin{bmatrix} \mu_{i,j}^{t+1}(d_0) \\\\ \mu_{i,j}^{t+1}(d_1) \\\\ \vdots \\\\ \mu_{i,j}^{t+1}(d_{m-1}) \end{bmatrix}
 $$
 
+$$
+\to F_{i,j} \cdot \vec{h}_{i,j}^t = \vec{\mu}_{i,j}^{t+1}
+$$
+
 
 Since $h^t_{i,j}(\cdot)$ has no dependence on $b$, this speeds up a naive calculation re-using results.
 
-If the $f_{i,j}(\cdot,\cdot)$ function has low rank it can be factored into a singular value decomposition (SVD) for further savings:
+If the $f_{i,j}(\cdot,\cdot)$ function has low rank, $r < m$, it can be factored into a singular value decomposition (SVD) for performance:
 
-$$ U \cdot S \cdot V = \begin{bmatrix} \vec{u_0}^\dagger & \vec{u_1}^\dagger & \cdots & \vec{u_{r-1}}^\dagger \end{bmatrix} \begin{bmatrix} s_0 & 0 &  \cdots & 0 \\\\ 0 & s_1 & \cdots & 0 \\\\ \vdots & \vdots  & \ddots \\\\ 0 & 0 &  \cdots & s_{r-1} \end{bmatrix} \begin{bmatrix} \vec{v_0} \\\\ \vec{v_1} \\\\ \vdots \\ \vec{v_{r-1}} \end{bmatrix}
+$$ U \cdot S \cdot V = \begin{bmatrix} \vec{u}_0 & \vec{u}_1 & \cdots & \vec{u}_{r-1} \end{bmatrix} \begin{bmatrix} s_0 & 0 &  \cdots & 0 \\\\ 0 & s_1 & \cdots & 0 \\\\ \vdots & \vdots  & \ddots \\\\ 0 & 0 &  \cdots & s_{r-1} \end{bmatrix} \begin{bmatrix} \vec{v}_0^\dagger \\\\ \vec{v}_1^\dagger  \\\\ \vdots \\ \vec{v}_{r-1}^\dagger  \end{bmatrix}
 $$
 
+Where $ F = U \cdot S \cdot V$.
+
+The matrix multiplication that was $O(m^2)$ now becomes two matrix multiplications of order $O(r \cdot m)$ for a potential speedup of $ \sim \frac{m}{r}$.
 
 ---
 
