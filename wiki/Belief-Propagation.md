@@ -73,15 +73,15 @@ $$ \begin{bmatrix} f_{i,j}(d_0,d_0) & f_{i,j}(d_1,d_0) &  \cdots & f_{i,j}(d_{m-
 $$
 
 $$
-\to F_{i,j} \cdot \vec{h}_{i,j}^t = \vec{\mu}_{i,j}^{t+1}
+\to F_{i,j} \cdot \vec{h}^t_{i,j} = \vec{\mu}^{t+1}_{i,j}
 $$
 
 
 Since $h^t_{i,j}(\cdot)$ has no dependence on $b$, this speeds up a naive calculation re-using results.
 
-If the $f_{i,j}(\cdot,\cdot)$ function has low rank, $r < m$, it can be factored into a singular value decomposition (SVD) for performance:
+If the $F_{i,j}$ matrix has low rank, $r < m$, it can be factored into a singular value decomposition (SVD) for performance:
 
-$$ U \cdot S \cdot V = \begin{bmatrix} \vec{u}_{0} & \vec{u}_{1} & \cdots & \vec{u}_{r-1} \end{bmatrix} \begin{bmatrix} s_0 & 0 &  \cdots & 0 \\\\ 0 & s_1 & \cdots & 0 \\\\ \vdots & \vdots  & \ddots \\\\ 0 & 0 &  \cdots & s_{r-1} \end{bmatrix} \begin{bmatrix} \vec{v}^\dagger_0 \\\\ \vec{v}^\dagger_1 \\\\ \vdots \\ \vec{v}_{r-1}^\dagger  \end{bmatrix}
+$$U \cdot S \cdot V = \begin{bmatrix} \vec u_0 & \vec u_1 & \cdots & \vec u_{r-1} \end{bmatrix} \begin{bmatrix} s_0 & 0 &  \cdots & 0 \\\\ 0 & s_1 & \cdots & 0 \\\\ \vdots & \vdots  & \ddots \\\\ 0 & 0 &  \cdots & s_{r-1} \end{bmatrix} \begin{bmatrix} \vec{v}^\dagger_0 \\\\ \vec{v}^\dagger_1 \\\\ \vdots \\ \vec{v}_{r-1}^\dagger  \end{bmatrix}
 $$
 
 Where $F = U \cdot S \cdot V$.
