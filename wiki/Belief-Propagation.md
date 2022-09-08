@@ -81,7 +81,7 @@ Since $h^t_{i,j}(\cdot)$ has no dependence on $b$, this speeds up a naive calcul
 
 If the $f_{i,j}(\cdot,\cdot)$ function has low rank, $r < m$, it can be factored into a singular value decomposition (SVD) for performance:
 
-$$ U \cdot S \cdot V = \begin{bmatrix} \vec{u}_0 & \vec{u}_1 & \cdots & \vec{u}_{r-1} \end{bmatrix} \begin{bmatrix} s_0 & 0 &  \cdots & 0 \\\\ 0 & s_1 & \cdots & 0 \\\\ \vdots & \vdots  & \ddots \\\\ 0 & 0 &  \cdots & s_{r-1} \end{bmatrix} \begin{bmatrix} \vec{v}_0^\dagger \\\\ \vec{v}_1^\dagger  \\\\ \vdots \\ \vec{v}_{r-1}^\dagger  \end{bmatrix}
+$$ U \cdot S \cdot V = \begin{bmatrix} \vec{u}_{0} & \vec{u}_{1} & \cdots & \vec{u}_{r-1} \end{bmatrix} \begin{bmatrix} s_0 & 0 &  \cdots & 0 \\\\ 0 & s_1 & \cdots & 0 \\\\ \vdots & \vdots  & \ddots \\\\ 0 & 0 &  \cdots & s_{r-1} \end{bmatrix} \begin{bmatrix} \vec{v}^\dagger_0 \\\\ \vec{v}^\dagger_1 \\\\ \vdots \\ \vec{v}_{r-1}^\dagger  \end{bmatrix}
 $$
 
 Where $F = U \cdot S \cdot V$.
