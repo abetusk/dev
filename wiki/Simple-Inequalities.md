@@ -55,6 +55,19 @@ $$
 $$
 
 
+---
+
+$$
+\begin{array}{llr}
+n \ge k & \to & -n \le -k \\
+ & \to & nk - n \le nk - k \\
+ & \to & n(k - 1) \le k(n - 1) \\
+ & \to & \frac{n}{k} \le \frac{n - 1}{k-1} \\
+ & \to & \frac{n}{k} \le \frac{n - 1}{k-1} \\
+ & \to & (\frac{n}{k})^k \le \prod_{j=0}^{k-1} \frac{n-j}{k-j} \\
+ & \to &  (\frac{n}{k})^k \le { n \choose k } \\
+\end{array}
+$$
 
 
 
