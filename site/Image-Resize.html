@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>dev blog</title>
 
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="/css/pygment_trac.css">
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
 
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({
@@ -15,8 +15,8 @@
         tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
       });
     </script>
-    <script type="text/javascript" src="/js/MathJax.js"></script>
-    <!-- <script type="text/javascript" src="/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
 
     <meta name="viewport" content="width=device-width">
   </head>
@@ -28,7 +28,7 @@
 
         <table>
           <body>
-            <tr><td><a href="/">./dev</a></td></tr>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
            <tr>
               <td>
                 <br /> <br /> <br />
@@ -39,7 +39,7 @@
                 Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
                 <br />
 
-                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/img/cc-by-sa-80x15.png" /></a>
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
                 </p>
               </td>
             </tr>
@@ -55,15 +55,13 @@ does interpolation so the resulting image can look pretty bad.</p>
 <p>For example, using the input (animated) gif:</p>
 <p><img alt="Input (small) animated gif" src="img/2015-10-27/tree_anim_inp.gif" /></p>
 <p>And issuing the command to resize it by a factor of 4:</p>
-<pre><code class="bash">$ convert tree_anim_inp.gif -resize 400% tree_anim_ugly.gif
+<pre><code class="language-bash">$ convert tree_anim_inp.gif -resize 400% tree_anim_ugly.gif
 </code></pre>
-
 <p>produces the interpolated (and ugly) picture:</p>
 <p><img alt="Ugly interpolated animated gif" src="img/2015-10-27/tree_anim_ugly.gif" /></p>
 <p>Instead, use the <code>scale</code> command:</p>
-<pre><code class="bash">$ convert tree_anim_inp.gif -scale 400% tree_anim_out.gif
+<pre><code class="language-bash">$ convert tree_anim_inp.gif -scale 400% tree_anim_out.gif
 </code></pre>
-
 <p><img alt="Clean scaled up animated gif" src="img/2015-10-27/tree_anim_out.gif" /></p>
 <h3 id="reference">Reference</h3>
 <ul>
@@ -85,6 +83,6 @@ does interpolation so the resulting image can look pretty bad.</p>
       -->
 
     </div>
-    <script src="/js/scale.fix.js"></script>
+    <script src="/dev/js/scale.fix.js"></script>
   </body
 </html>

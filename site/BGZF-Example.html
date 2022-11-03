@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>dev blog</title>
 
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="/css/pygment_trac.css">
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
 
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({
@@ -15,8 +15,8 @@
         tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
       });
     </script>
-    <script type="text/javascript" src="/js/MathJax.js"></script>
-    <!-- <script type="text/javascript" src="/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
 
     <meta name="viewport" content="width=device-width">
   </head>
@@ -28,7 +28,7 @@
 
         <table>
           <body>
-            <tr><td><a href="/">./dev</a></td></tr>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
            <tr>
               <td>
                 <br /> <br /> <br />
@@ -39,7 +39,7 @@
                 Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
                 <br />
 
-                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/img/cc-by-sa-80x15.png" /></a>
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
                 </p>
               </td>
             </tr>
@@ -85,7 +85,6 @@ real    0m0.009s
 user    0m0.004s
 sys     0m0.004s
 </code></pre>
-
 <h2 id="c-example">C Example</h2>
 <p>Here's a <code>C</code> example:</p>
 <pre><code>#include &lt;stdio.h&gt;
@@ -140,15 +139,12 @@ int main(int argc, char **argv) {
 
 }
 </code></pre>
-
 <p>To compile:</p>
 <pre><code>g++ -I $HTSDIR/htslib-1.4.1/htslib -lhts bgzf-example.cpp -o bgzf-example -L $HTSLIB/htslib-1.4.1 -lhts
 </code></pre>
-
 <p>To run:</p>
 <pre><code>LD_LIBRARY_PATH=$HOME/htslib-1.4.1 ./bgzf-example hu826751.gff.gz
 </code></pre>
-
 <p>Which assumes the <code>hu826751.gff.gz.gzi</code> file is in the same directory as the <code>hu826751.gff.gz</code> file.</p>
 <p>This assumes <code>htslib</code> is installed under the directory pointed to by the <code>HTSLIB</code> environment variable.</p>
 <p>See the <a href="https://github.com/samtools/htslib">htslib</a> repo for details on how to download and install.</p>
@@ -163,6 +159,6 @@ int main(int argc, char **argv) {
       -->
 
     </div>
-    <script src="/js/scale.fix.js"></script>
+    <script src="/dev/js/scale.fix.js"></script>
   </body
 </html>

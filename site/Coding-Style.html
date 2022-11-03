@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>dev blog</title>
 
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="/css/pygment_trac.css">
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
 
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({
@@ -15,8 +15,8 @@
         tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
       });
     </script>
-    <script type="text/javascript" src="/js/MathJax.js"></script>
-    <!-- <script type="text/javascript" src="/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
 
     <meta name="viewport" content="width=device-width">
   </head>
@@ -28,7 +28,7 @@
 
         <table>
           <body>
-            <tr><td><a href="/">./dev</a></td></tr>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
            <tr>
               <td>
                 <br /> <br /> <br />
@@ -39,7 +39,7 @@
                 Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
                 <br />
 
-                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/img/cc-by-sa-80x15.png" /></a>
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
                 </p>
               </td>
             </tr>
@@ -71,7 +71,6 @@ as spaces.</p>
   }
 }
 </code></pre>
-
 <h2 id="prefer-start-block-token-on-the-same-line-as-control-statements-and-function-headings">Prefer start block token on the same line as control statements and function headings</h2>
 <p>For languages that have a start block token, a <code>{</code> say,
 prefer to put them on the same line as the function heading.
@@ -86,7 +85,6 @@ If breaks in text are needed, add returns as needed.</p>
 
 }
 </code></pre>
-
 <h2 id="encase-conditional-blocks-within-block-tokens-even-if-the-language-allows-otherwise">Encase conditional blocks within block tokens even if the language allows otherwise</h2>
 <p>Even if the language allows you to forgo block tokens to encase the control block
 of a conditional, encase them in the block tokens anyway.
@@ -96,35 +94,42 @@ falls within the same conditional if not encased in the block tokens.</p>
     console.log(&quot;hello&quot;);
   }
 </code></pre>
-
-<h2 id="place-small-conditional-statements-on-a-single-line">Place small conditional statements on a single line</h2>
+<h2 id="place-small-conditional-statements-on-a-single-line-formatting-as-necessary">Place small conditional statements on a single line, formatting as necessary</h2>
 <p>If the conditional expression and statement body is small enough, place it all on the same line.
 If the line is too long, this should be avoided but for small statements, terseness wins
 over beauty.</p>
-<pre><code>  if (true) { console.log(&quot;hello&quot;; }
+<p><code>else if</code> and <code>else</code> statements following the initial <code>if</code> can also be placed inline if the
+test expression and statement block are small enough.
+To help with readability, aligning test expression and statement blocks should be preferred.</p>
+<pre><code>  if (true) { console.log(&quot;hello&quot;); }
 </code></pre>
-
-<h2 id="prefer-alternate-else-conditionals-on-their-own-line">Prefer alternate <code>else</code> conditionals on their own line</h2>
-<p>For ease of reading, put <code>else</code> and <code>else if</code> conditionals on their own line.
+<pre><code>  if      (ok)  { console.log(&quot;ok&quot;; }
+  else if (ko)  { console.log(&quot;ko&quot;); }
+  else          { console.log(&quot;..&quot;); }
+</code></pre>
+<h2 id="prefer-alternate-else-conditionals-on-their-own-line-for-longer-statement-blocks">Prefer alternate <code>else</code> conditionals on their own line for longer statement blocks</h2>
+<p>For ease of reading, put <code>else</code> and <code>else if</code> conditionals on their own line
+if the statement blocks are too large to warrant putting them all on their own line.
 Each alternate conditional is easier to read, align and comment if necessary
 if they're as independent as possible from the surrounding sibling conditionals.</p>
 <pre><code>  if (ok) {
-    console.log(&quot;hello&quot;);
+    console.log(&quot;The hand that mocked them&quot;);
+    console.log(&quot;and the heart that fed&quot;);
   }
   else if (ko) {
-    console.log(&quot;goodbye&quot;);
+    console.log(&quot;Of that colossal wreck,&quot;);
+    console.log(&quot;boundless and bare&quot;);
   }
   else {
-    console.log(&quot;hello and goodbye&quot;);
+    console.log(&quot;A shattered visage lies,&quot;);
+    console.log(&quot;whose frown&quot;);
   }
 </code></pre>
-
 <h2 id="prefer-ternary-conditional-assignment-over-ifelse-assignment">Prefer ternary conditional assignment over <code>if/else</code> assignment</h2>
 <p>If the language allows for ternary expressions, use them for alternate assignments.
 Terseness wins out over beauty.</p>
 <pre><code>  var v = ( vv ? true : false );
 </code></pre>
-
 <h2 id="prefer-putting-comments-at-the-top-of-statement-blocks-and-put-a-blank-comment-line-after-the-comment-text">Prefer putting comments at the top of statement blocks and put a blank comment line after the comment text</h2>
 <p>Comments should appear on their own line, indented appropriately, above the logic
 it's commenting on, where appropriate.
@@ -142,7 +147,6 @@ Comment blocks should have a trailing 'blank' comment line to ease of reading.</
     console.log(&quot;hello&quot;);
   }
 </code></pre>
-
 <h2 id="end-of-function-returns-should-have-no-blank-line-between-the-ending-block-token">End of function returns should have no blank line between the ending block token</h2>
 <p>Trailing newlines after the last return should be culled for conciseness.</p>
 <pre><code>function f() {
@@ -152,7 +156,6 @@ Comment blocks should have a trailing 'blank' comment line to ease of reading.</
   return true;
 }
 </code></pre>
-
 <h2 id="no-trailing-whitespace-at-end-of-lines">No trailing whitespace at end of lines</h2>
 <p>Trailing whitespace should be culled at the end of the line.
 Use whitespace highlighting in your editor to notice it.</p>
@@ -177,7 +180,6 @@ Group in blocks to ease readability.</p>
       extinct_elephant = 'woolly mammoth';
 
 </code></pre>
-
 <h2 id="place-a-single-space-between-parent-expression-and-nested-sub-expressions-aligning-inner-expressions-with-proper-indentation-place-boolean-operations-at-end-of-line-where-appropriate">Place a single space between parent expression and nested sub expressions, aligning inner expressions with proper indentation.  Place Boolean operations at end of line, where appropriate.</h2>
 <p>For a parent control statement expression, put a space between the outer parenthesis and the inner expression.
 For the expressions within the control statement, align them for readability with proper indentation
@@ -196,7 +198,6 @@ as much as possible.</p>
   }
 }
 </code></pre>
-
 <h2 id="use-parenthesis-for-explicit-order-of-operations">Use parenthesis for explicit order of operations</h2>
 <p>Use parenthesis to explicitly show what the order of
 operations should be for an expression or statement.
@@ -215,7 +216,6 @@ for them.</p>
     p++;
   }
 </code></pre>
-
 <h2 id="contents-of-commenting">Contents of commenting</h2>
 <p>Comments should be a high level description of what the code does.
 The code describes what the code does so a comments job is to
@@ -235,6 +235,6 @@ causes forgetfulness) should you look at the code again.</p>
       -->
 
     </div>
-    <script src="/js/scale.fix.js"></script>
+    <script src="/dev/js/scale.fix.js"></script>
   </body
 </html>

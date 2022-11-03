@@ -66,33 +66,47 @@ falls within the same conditional if not encased in the block tokens.
   }
 ```
 
-Place small conditional statements on a single line
+Place small conditional statements on a single line, formatting as necessary
 ---
 
 If the conditional expression and statement body is small enough, place it all on the same line.
 If the line is too long, this should be avoided but for small statements, terseness wins
 over beauty.
 
+`else if` and `else` statements following the initial `if` can also be placed inline if the
+test expression and statement block are small enough.
+To help with readability, aligning test expression and statement blocks should be preferred.
+
 ```
-  if (true) { console.log("hello"; }
+  if (true) { console.log("hello"); }
 ```
 
-Prefer alternate `else` conditionals on their own line
+```
+  if      (ok)  { console.log("ok"; }
+  else if (ko)  { console.log("ko"); }
+  else          { console.log(".."); }
+```
+
+Prefer alternate `else` conditionals on their own line for longer statement blocks
 ---
 
-For ease of reading, put `else` and `else if` conditionals on their own line.
+For ease of reading, put `else` and `else if` conditionals on their own line
+if the statement blocks are too large to warrant putting them all on their own line.
 Each alternate conditional is easier to read, align and comment if necessary
 if they're as independent as possible from the surrounding sibling conditionals.
 
 ```
   if (ok) {
-    console.log("hello");
+    console.log("The hand that mocked them");
+    console.log("and the heart that fed");
   }
   else if (ko) {
-    console.log("goodbye");
+    console.log("Of that colossal wreck,");
+    console.log("boundless and bare");
   }
   else {
-    console.log("hello and goodbye");
+    console.log("A shattered visage lies,");
+    console.log("whose frown");
   }
 ```
 

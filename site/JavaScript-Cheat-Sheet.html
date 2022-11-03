@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>dev blog</title>
 
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="/css/pygment_trac.css">
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
 
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({
@@ -15,8 +15,8 @@
         tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
       });
     </script>
-    <script type="text/javascript" src="/js/MathJax.js"></script>
-    <!-- <script type="text/javascript" src="/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
 
     <meta name="viewport" content="width=device-width">
   </head>
@@ -28,7 +28,7 @@
 
         <table>
           <body>
-            <tr><td><a href="/">./dev</a></td></tr>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
            <tr>
               <td>
                 <br /> <br /> <br />
@@ -39,7 +39,7 @@
                 Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
                 <br />
 
-                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/img/cc-by-sa-80x15.png" /></a>
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
                 </p>
               </td>
             </tr>
@@ -55,20 +55,16 @@
 <pre><code>var a = ['a', 'x', 'z'];
 console.log( a.indexOf('x'), a.indexOf('.') );
 </code></pre>
-
 <pre><code>1 -1
 </code></pre>
-
 <h3 id="_1"></h3>
 <h3 id="foreach"><code>forEach</code></h3>
 <pre><code>['a','b','c'].forEach( function(ele,idx,arr) { console.log(ele,idx,arr); } );
 </code></pre>
-
 <pre><code>a 0 [ 'a', 'b', 'c' ]
 b 1 [ 'a', 'b', 'c' ]
 c 2 [ 'a', 'b', 'c' ]
 </code></pre>
-
 <h2 id="let-and-var"><code>let</code> and <code>var</code></h2>
 <table>
 <thead>
@@ -107,11 +103,9 @@ c 2 [ 'a', 'b', 'c' ]
 } 
 f();
 </code></pre>
-
 <pre><code>v
 ReferenceError: l is not defined
 </code></pre>
-
 <h3 id="hoisting">hoisting</h3>
 <pre><code>function f() { console.log(u); }
 function g() {
@@ -123,21 +117,17 @@ function g() {
 f();
 g();
 </code></pre>
-
 <pre><code>ReferenceError: u is not defined
 undefined
 ReferenceError: l is not defined
 </code></pre>
-
 <h3 id="global-attachment">global attachment</h3>
 <pre><code>var v = &quot;v&quot;;
 let l = &quot;l&quot;;
 console.log(this.v, this.l);
 </code></pre>
-
 <pre><code>v undefined
 </code></pre>
-
 <h3 id="redeclaration">redeclaration</h3>
 <pre><code>function f() {
   var v = &quot;v&quot;;
@@ -147,14 +137,11 @@ console.log(this.v, this.l);
 }
 f();
 </code></pre>
-
 <pre><code>SyntaxError: Identifier 'l' has already been declared
 </code></pre>
-
 <h2 id="const"><code>const</code></h2>
 <pre><code>const c = &quot;c&quot;;
 </code></pre>
-
 <h2 id="vs"><code>==</code> vs <code>===</code></h2>
 <ul>
 <li><code>==</code> does implicit type conversion when comparing</li>
@@ -166,11 +153,9 @@ else if (0 != '')   { console.log(&quot;0 != ''&quot;);  }
 if      (0 === '')  { console.log(&quot;0 === ''&quot;); }
 else if (0 !== '')  { console.log(&quot;0 !== ''&quot;); }
 </code></pre>
-
 <pre><code>0 == ''
 0 !== ''
 </code></pre>
-
 <h2 id="_2"><code>??</code></h2>
 <pre><code>let a, b = &quot;b&quot;;
 let u = ( a ?? &quot;u&quot;),
@@ -178,11 +163,9 @@ let u = ( a ?? &quot;u&quot;),
 console.log(a,b,u,v);
 
 </code></pre>
-
 <pre><code>undefined b u b
 </code></pre>
-
-<h2 id="gt"><code>=&gt;</code></h2>
+<h2 id="_3"><code>=&gt;</code></h2>
 <pre><code>let f = () =&gt; console.log(&quot;f()&quot;),
     g = (u) =&gt; console.log(&quot;g(&quot;, u, &quot;)&quot;),
     h = ( (v,w) =&gt; { console.log(&quot;h&quot;); console.log(v,w); } );
@@ -193,7 +176,6 @@ let _f = function() { console.log(&quot;_f()&quot;); },
  f();  g('.');  h('.', '..');
 _f(); _g('.'); _h('.', '..');
 </code></pre>
-
 <pre><code>f()
 g( . )
 h
@@ -203,7 +185,6 @@ _g( . )
 h
 . ..
 </code></pre>
-
 <h2 id="todo">todo</h2>
 <ul>
 <li><code>new</code></li>
@@ -222,6 +203,6 @@ h
       -->
 
     </div>
-    <script src="/js/scale.fix.js"></script>
+    <script src="/dev/js/scale.fix.js"></script>
   </body
 </html>

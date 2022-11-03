@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>dev blog</title>
 
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="/css/pygment_trac.css">
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
 
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({
@@ -15,8 +15,8 @@
         tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
       });
     </script>
-    <script type="text/javascript" src="/js/MathJax.js"></script>
-    <!-- <script type="text/javascript" src="/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
 
     <meta name="viewport" content="width=device-width">
   </head>
@@ -28,7 +28,7 @@
 
         <table>
           <body>
-            <tr><td><a href="/">./dev</a></td></tr>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
            <tr>
               <td>
                 <br /> <br /> <br />
@@ -39,7 +39,7 @@
                 Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
                 <br />
 
-                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/img/cc-by-sa-80x15.png" /></a>
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
                 </p>
               </td>
             </tr>
@@ -73,7 +73,6 @@ to "GNUPlot format" then converts to GCocde.</p>
 <p>Under Ubuntu, some of the tools can be installed via:</p>
 <pre><code>sudo apt-get install pstoedit librsvg2-bin
 </code></pre>
-
 <h2 id="conversion">Conversion</h2>
 <p>Though this is pretty hodge-podge, there are a few things to consider:</p>
 <ul>
@@ -82,7 +81,7 @@ to "GNUPlot format" then converts to GCocde.</p>
 <li>I'll be using some of the tools that I've created below to rescale/etc. but in theory anything could be used, including (maybe the more standard and robust?) <code>grecode</code> as linked above.</li>
 </ul>
 <p>The following is an example script to convert an input SVG file into GCode:</p>
-<pre><code class="bash">inpsvg=&quot;$1&quot;
+<pre><code class="language-bash">inpsvg=&quot;$1&quot;
 sf=`echo '72/25.4' | bc -l`
 premul=`echo 1000000 | bc -l`
 invmul=`echo &quot;1/$premul&quot; | bc -l`
@@ -121,11 +120,10 @@ sfx_rapid=&quot;$fslow S0&quot;
 echo gp2ngc -i ${bn}-ord.gp -s &quot;$invmul&quot; --sfx-rapid &quot;$sfx_rapid&quot; --sfx-slow &quot;$sfx_slow&quot; -o ${bn}.ngc
 gp2ngc -i ${bn}-ord.gp --sfx-rapid &quot;$sfx_rapid&quot; --sfx-slow &quot;$sfx_slow&quot; | ngc_scale -s &quot;$invmul&quot; &gt; ${bn}.ngc
 </code></pre>
-
 <h2 id="misc">Misc.</h2>
 <p>In theory, <code>pstoedit</code> can be used to create GCode but <code>pstoedit</code> converts to the <code>RS274</code> standard.  Among other things, the <code>RS274</code> includes variables so a substitution step needs to be involved in order to "normalize" to something that other GCode interpreters can understand (for example, the smoothieboard or grbl).</p>
 <p>There's still the problem of polygon ordering but assuming that's not an issue, the following is a "hacky" script does the substitution  (no nested expressions, no non-trivial functions, run at your own risk):</p>
-<pre><code class="python">#!/usr/bin/python
+<pre><code class="language-python">#!/usr/bin/python
 #
 # regexp substitution of variables.
 # Uses Python's &quot;eval&quot; to evaluate interior
@@ -198,7 +196,6 @@ for line in sys.stdin:
 
   print cur_line +  comments
 </code></pre>
-
 <h6 id="2016-09-19">2016-09-19</h6>
 
       </section>
@@ -210,6 +207,6 @@ for line in sys.stdin:
       -->
 
     </div>
-    <script src="/js/scale.fix.js"></script>
+    <script src="/dev/js/scale.fix.js"></script>
   </body
 </html>

@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>dev blog</title>
 
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="/css/pygment_trac.css">
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
 
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({
@@ -15,8 +15,8 @@
         tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
       });
     </script>
-    <script type="text/javascript" src="/js/MathJax.js"></script>
-    <!-- <script type="text/javascript" src="/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
 
     <meta name="viewport" content="width=device-width">
   </head>
@@ -28,7 +28,7 @@
 
         <table>
           <body>
-            <tr><td><a href="/">./dev</a></td></tr>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
            <tr>
               <td>
                 <br /> <br /> <br />
@@ -39,7 +39,7 @@
                 Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
                 <br />
 
-                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/img/cc-by-sa-80x15.png" /></a>
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
                 </p>
               </td>
             </tr>
@@ -56,75 +56,66 @@
 <p><code>nG</code> - Jump to line <code>n</code> relative to bottom of file</p>
 <h3 id="gzip-without-timestamps">Gzip without timestamps</h3>
 <p>By default, gzip keeps timestamp information for the file you're compressing.  This is problematic when you want reproducibility.</p>
-<pre><code class="bash">$ gzip -n inp.txt
+<pre><code class="language-bash">$ gzip -n inp.txt
 </code></pre>
-
 <p>This will create a file <code>inp.txt.gz</code> that, when uncompressed, will create a file with the current system timestamp.</p>
 <p>As far as I know, <code>bgzip</code> does not keep file timestamp information.</p>
 <h3 id="read-lines-in-a-bash-script">Read lines in a bash script</h3>
 <p>http://stackoverflow.com/questions/10929453/bash-scripting-read-file-line-by-line</p>
-<pre><code class="bash">#!/bin/bash
+<pre><code class="language-bash">#!/bin/bash
 while IFS='' read -r line || [[ -n &quot;$line&quot; ]]; do
     echo $line
 done &lt; &lt;( echo -e &quot;this small script\nreads multiple\n lines&quot; )
 </code></pre>
-
 <blockquote>
 <p>IFS='' (or IFS=) prevents leading/trailing whitespace from being trimmed.
 -r prevents backslash escapes from being interpreted.
 || [[ -n $line ]] prevents the last line from being ignored if it doesn't end with a \n (since read returns a non-zero exit code when it encounters EOF).</p>
 </blockquote>
 <p>sometimes you can just get away with this:</p>
-<pre><code class="bash">#!/bin/bash
+<pre><code class="language-bash">#!/bin/bash
 while read line ; do
   echo $line
 done &lt; &lt;( echo -e &quot;this small script\nreads multiple\n lines&quot; )
 </code></pre>
-
 <h3 id="diff-two-streams">Diff two streams</h3>
-<pre><code class="bash">$ diff &lt;( echo -e &quot;stream\na&quot; ) &lt;( echo -e &quot;stream\nb&quot; )
+<pre><code class="language-bash">$ diff &lt;( echo -e &quot;stream\na&quot; ) &lt;( echo -e &quot;stream\nb&quot; )
 2c2
 &lt; a
 ---
 &gt; b
 </code></pre>
-
 <h3 id="find-all-files-ending-in-md-and-do-an-ls-l">Find all files ending in <code>.md</code> and do an <code>ls -l</code></h3>
-<pre><code class="bash">$ find . -type f -name '*.md' -exec ls -l {} \;
+<pre><code class="language-bash">$ find . -type f -name '*.md' -exec ls -l {} \;
 </code></pre>
-
 <h3 id="put-pairs-of-lines-on-their-own-line">Put pairs of lines on their own line</h3>
-<pre><code class="bash">$ echo -e 'a\nb\nc\nd\ne\nf' | paste - - | tr '\t' ' '
+<pre><code class="language-bash">$ echo -e 'a\nb\nc\nd\ne\nf' | paste - - | tr '\t' ' '
 a b
 c d
 e f
 </code></pre>
-
 <h3 id="differences-overlaps-in-two-files">Differences, overlaps in two files</h3>
-<pre><code class="bash">$ comm &lt;( echo -e 'c\na\nb\nd' | sort ) &lt;( echo -e 'e\nb\nd' | sort )
+<pre><code class="language-bash">$ comm &lt;( echo -e 'c\na\nb\nd' | sort ) &lt;( echo -e 'e\nb\nd' | sort )
 a
                 b
 c
                 d
         e
 </code></pre>
-
 <h3 id="print-formatted-columns">Print formatted columns</h3>
-<pre><code class="bash">$ echo -e &quot;column_0\tcol1\na\tbbbb\n&quot;
+<pre><code class="language-bash">$ echo -e &quot;column_0\tcol1\na\tbbbb\n&quot;
 column_0        col1
 a       bbbb
 $ echo -e &quot;column_0\tcol1\na\tbbbb\n&quot; | column -t
 column_0  col1
 a         bbbb
 </code></pre>
-
 <h3 id="bgzip">bgzip</h3>
-<pre><code class="bash">$ bgzip -i inp.txt
+<pre><code class="language-bash">$ bgzip -i inp.txt
 $ bgzip --stdout --offset 100 --size 32 inp.txt.gz
 </code></pre>
-
 <h3 id="parallel">parallel</h3>
-<pre><code class="bash">#!/bin/bash
+<pre><code class="language-bash">#!/bin/bash
 function process {
   z=$1
   time ( echo sleeping $z &amp;&amp; sleep $z &amp;&amp; echo waking up &quot;($z)&quot; )
@@ -133,7 +124,6 @@ export -f process
 
 time echo -e '1\n3\n4' | parallel --max-procs 2 process {}
 </code></pre>
-
 <pre><code>sleeping 1
 waking up (1)
 
@@ -157,9 +147,8 @@ real    0m5.603s
 user    0m0.140s
 sys 0m0.072s
 </code></pre>
-
 <h3 id="xargs-parallel">xargs (parallel)</h3>
-<pre><code class="bash">#!/bin/bash
+<pre><code class="language-bash">#!/bin/bash
 function process {
   z=$1
   time ( echo sleeping $z &amp;&amp; sleep $z &amp;&amp; echo waking up &quot;($z)&quot; )
@@ -168,7 +157,6 @@ export -f process
 
 time echo -e '1\n3\n4' | xargs -n 1 -P 2 -I{} bash -c 'process {}'
 </code></pre>
-
 <pre><code>sleeping 1
 sleeping 3
 waking up (1)
@@ -192,9 +180,8 @@ real    0m5.019s
 user    0m0.000s
 sys 0m0.000s
 </code></pre>
-
 <h3 id="sort-on-multiple-fields">sort on multiple fields</h3>
-<pre><code class="bash">$ echo -e &quot;5,cats,meow\n7,cute,mew\n2,cats,mewmew\n10,cats,meowmeowmeow\n2,cute,4you\n8,cute,4ever&quot;
+<pre><code class="language-bash">$ echo -e &quot;5,cats,meow\n7,cute,mew\n2,cats,mewmew\n10,cats,meowmeowmeow\n2,cute,4you\n8,cute,4ever&quot;
 5,cats,meow
 7,cute,mew
 2,cats,mewmew
@@ -210,7 +197,6 @@ $ echo -e &quot;5,cats,meow\n7,cute,mew\n2,cats,mewmew\n10,cats,meowmeowmeow\n2,
 7,cute,mew
 2,cute,4you
 </code></pre>
-
 <ul>
 <li><code>-t</code> field</li>
 <li><code>-k&lt;start&gt;,&lt;stop&gt;&lt;opt&gt;</code> key start and stop position along with opt (in the above <code>n</code> for numeric, <code>r</code> for reverse)</li>
@@ -226,6 +212,6 @@ $ echo -e &quot;5,cats,meow\n7,cute,mew\n2,cats,mewmew\n10,cats,meowmeowmeow\n2,
       -->
 
     </div>
-    <script src="/js/scale.fix.js"></script>
+    <script src="/dev/js/scale.fix.js"></script>
   </body
 </html>

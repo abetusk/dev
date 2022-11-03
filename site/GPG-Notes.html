@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>dev blog</title>
 
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="/css/pygment_trac.css">
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
 
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({
@@ -15,8 +15,8 @@
         tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
       });
     </script>
-    <script type="text/javascript" src="/js/MathJax.js"></script>
-    <!-- <script type="text/javascript" src="/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
 
     <meta name="viewport" content="width=device-width">
   </head>
@@ -28,7 +28,7 @@
 
         <table>
           <body>
-            <tr><td><a href="/">./dev</a></td></tr>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
            <tr>
               <td>
                 <br /> <br /> <br />
@@ -39,7 +39,7 @@
                 Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
                 <br />
 
-                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/img/cc-by-sa-80x15.png" /></a>
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
                 </p>
               </td>
             </tr>
@@ -50,13 +50,11 @@
       <section>
 
         <h3 id="install-dependencies">Install Dependencies</h3>
-<pre><code class="bash">sudo apt-get install gpa gnupg2
+<pre><code class="language-bash">sudo apt-get install gpa gnupg2
 </code></pre>
-
 <h3 id="generate-key-pair">Generate Key Pair</h3>
-<pre><code class="bash">gpg --gen-key
+<pre><code class="language-bash">gpg --gen-key
 </code></pre>
-
 <h4 id="suggestions">Suggestions</h4>
 <ul>
 <li>Use <code>RSA and RSA</code> (the default)</li>
@@ -67,43 +65,33 @@
 <h3 id="list-keys">List Keys</h3>
 <pre><code>gpg --list-keys
 </code></pre>
-
 <h3 id="export-ascii-public-key">Export ASCII Public Key</h3>
 <pre><code>gpg --armor --export user@example.com
 </code></pre>
-
 <h3 id="export-binary-public-key">Export Binary Public Key</h3>
 <pre><code>gpg --output user.gpg --export user@example.com
 </code></pre>
-
 <h3 id="export-private-key-careful">Export Private Key (careful)</h3>
 <pre><code>gpg --export-secret-key -a user@example.net &gt; private.key
 </code></pre>
-
 <h3 id="add-binary-public-key">Add Binary Public Key</h3>
 <pre><code>gpg --import friend.gpg
 </code></pre>
-
 <h3 id="add-private-key">Add Private Key</h3>
 <pre><code>gpg --import private.key
 </code></pre>
-
 <h3 id="encrypt-message">Encrypt Message</h3>
 <pre><code>gpg -e -u &quot;Sender ID&quot; -r &quot;Recipient ID&quot; plaintext-message
 </code></pre>
-
 <p>'human readable' ASCII armor encrypted message:</p>
 <pre><code>gpg -a -e -u &quot;Sender ID&quot; -r &quot;Recipient ID&quot; plaintext-message
 </code></pre>
-
 <h3 id="decrypt-message">Decrypt Message</h3>
 <pre><code>gpg -d encrypted-message
 </code></pre>
-
 <h3 id="fin">Fin</h3>
 <pre><code>gpg --armor --export abetusk@mechaelephant.com
 </code></pre>
-
 <pre><code>-----BEGIN PGP PUBLIC KEY BLOCK-----
 Version: GnuPG v1
 
@@ -157,7 +145,6 @@ IPY2
 =tdhS
 -----END PGP PUBLIC KEY BLOCK-----
 </code></pre>
-
 <h6 id="2017-02-09">2017-02-09</h6>
 
       </section>
@@ -169,6 +156,6 @@ IPY2
       -->
 
     </div>
-    <script src="/js/scale.fix.js"></script>
+    <script src="/dev/js/scale.fix.js"></script>
   </body
 </html>
