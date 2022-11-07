@@ -57,7 +57,7 @@ We can use the method of Lagrange multipliers by using the two equations above a
 
 $$
 \begin{align}
-\vec{p} = & ( p_0, p_i, \cdots, p_{N-1} ) \\
+\vec{p} & = ( p_0, p_i, \cdots, p_{N-1} ) \\
 L( \vec{p}, \alpha, \beta ) & = S_{*} - \alpha [ (\sum_{i} p_i) - 1 ] - \beta [ (\sum_{i} p_i E_i) - E ] \\
  & = - \sum_{i} p_i \ln(p_i) - \alpha [ (\sum_{i} p_i) - 1 ] - \beta [ (\sum_{i} p_i E_i) - E ] \\
 \frac{\partial}{\partial p_i} L = & -ln(p_i) - 1 - \alpha - \beta E_i = 0 \\
