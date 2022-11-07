@@ -121,5 +121,74 @@ A - B - C
     D - E
 ```
 
+Literature Notes
+---
+
+This is a bit outside the scope of this document but I should take some notes on the various "state of the art" techniques
+from about a decade or more ago.
+
+#### Fast Belief Propagation for Early Vision
+
+* [paper](https://www.cs.cornell.edu/~dph/papers/bp-cvpr.pdf)
+* [talk](https://www.youtube.com/watch?v=nZ2uo-7TDDc)
+
+The basic idea is that for problems with structure, many speedups can be had exploiting the
+symmetry or simplicity of the label-to-label cost function, locality of labels or other factors.
+
+The paper and talk focus on using loopy belief propagation (LBP) for stereo problems.
+
+* Using linear or quadratic (truncated) label cost functions, you can go from $O(B^2)$ to $O(B)$ by
+  various tricks
+* Using a virtual hierarchy of nodes, you can compute initial messages and beliefs and then propagate
+  those out to the nodes underneath (wholesale) to get faster convergence
+
+A point that doesn't really seem to be addressed is that this assumes the labels have locality or "cohesion" in
+that if you find one label somewhere, the chance of finding a similar label nearby is higher.
+This assumption is obvious if you're doing stereo matching or motion estimation but for general problems
+this is not the case and it's not clear that this method will do better (and might even perform worse?).
+
+Some other random notes:
+
+* Can do 'checkerboard' updates to get half the memory and twice the speed with similar or the same
+  convergence (guaranteed? empirical?)
+* Other methods that try to make 'superblocks' change the graph and potentially reduce the node and edge
+  count but at the cost of exploding the label state space, which becomes a Cartesian product. Huttenlocher
+  talks about how the superblocks (generalized belief propagation (GBP)?) idea wasn't meant to make it
+  more efficient but was done for other, theoretical, reasons
+
+#### Scalable detection of statistically significantcommunities and hierarchies, using messagepassing for modularity
+
+* [talk](https://www.youtube.com/watch?v=jzN37cqkB0c&list=LL)
+* [paper](https://www.pnas.org/doi/epdf/10.1073/pnas.1409770111))
+
+#### Focused Belief Propagation for Query-Specific Inference
+
+* [paper](http://proceedings.mlr.press/v9/chechetka10a/chechetka10a.pdf)
+
+This builds on an idea of residual belief propagation (RBP) by Elidan et all that updates only one message per
+time step based on the difference of the messages, called the "residual".
+The idea is that one can weight message updates by a better heuristic than the residual, namely
+a "path sensitivity".
+
+The path sensitivity attempts to measure the effect of changing/updating one message on another and then
+picking a message to update that has maximal path sensitivity.
+Doing this wholesale and in general is as bad or worse then just running LBP but various heuristics
+can be used to estimate the path sensitivity which are more efficient than a wholesale recalculation.
+
+Other tricks need to be employed in order to make the algorithm "anytime", where an "anytime" algorithm
+can be stopped at anytime and still get a good estimate of the answer (maximum a posteriori (MAP) or distribution
+on end state).
+
+
+
+---
+
+References
+---
+
+* [Island algorithm](https://en.wikipedia.org/wiki/Island_algorithm)
+* [Tree decomposition / junction tree / clique tree / join tree](https://en.wikipedia.org/wiki/Tree_decomposition)
+
 
 ###### 2022-08-16
+
