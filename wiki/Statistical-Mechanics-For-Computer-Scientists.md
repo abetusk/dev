@@ -185,5 +185,7 @@ References
 
 
 * [susskind](https://www.youtube.com/watch?v=rhFkYjaM5kE&list=PL_IkS0viawhr3HcKH607rXbVqy28W_gB7&index=4)
+* [Gibbs free energy](https://en.wikipedia.org/wiki/Gibbs_free_energy)
+* [Kullback-Leibler Divergence](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence)
 
 ###### 2022-11-05
