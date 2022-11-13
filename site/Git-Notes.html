@@ -88,6 +88,11 @@ git commit
 git checkout fin-branch
 git merge --no-ff alt-branch
 </code></pre>
+<h3 id="mergingsyncing-forked-repository">Merging/Syncing Forked Repository</h3>
+<pre><code class="language-bash">git fetch upstream
+git checkout main
+git merge upstream/main
+</code></pre>
 <h3 id="creating-and-deleting-branches">Creating and Deleting Branches</h3>
 <pre><code class="language-bash">git checkout -b x-branch
 ...
