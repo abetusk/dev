@@ -49,6 +49,14 @@ git checkout fin-branch
 git merge --no-ff alt-branch
 ```
 
+### Merging/Syncing Forked Repository
+
+```bash
+git fetch upstream
+git checkout main
+git merge upstream/main
+```
+
 ### Creating and Deleting Branches
 
 ```bash
