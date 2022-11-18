@@ -219,11 +219,12 @@ and if $T$ large, then $T \cdot p_k \cdot n$ is approximately integral and we ca
 the number of ways of arranging $T$ symbols as:
 
 $$ { T \cdot n \choose (T \cdot p_0 \cdot n), (T \cdot p_1 \cdot n), \dots, (T \cdot p_{n-1} \cdot n) } $$
-$$ = \frac{(T \cdot n)!}{\prod_{k=0}^{n-1} (T \cdot p_k \cdot n)!} $$
 
-The number of bits to describe the number of configurations is (with $\lg(\cdot) = \log_2(\cdot)$):
+$$ = \frac{(T \cdot n)!}{ {\prod}_ { k=0 } ^ { n-1 } (T \cdot p_{k} \cdot n)!} $$
 
-$$ \lg( \frac{(T \cdot n)!}{\prod_{k=0}^{n-1} (T \cdot p_k \cdot n)!} ) $$
+The number of bits to describe the number of configurations is (with $\lg(\cdot) = \log_2(\cdot)$ ):
+
+$$ \lg( \frac{(T \cdot n)!}{ {\prod}_ {k=0}^{n-1} (T \cdot p_{k} \cdot n)!} ) $$
 
 Which, after some algebra, reduces to:
 
