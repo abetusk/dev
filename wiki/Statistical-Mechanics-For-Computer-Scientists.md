@@ -202,7 +202,7 @@ $$
 \text{ subject to: } & g(x)=0 \\
 \to \ \  &  x^* \text{ optimal} \\
 & \exists \lambda^* \in \mathbb{R}^m \\
-\text{s.t. } \  & D f(x^*) = \lambda^{* T} D g(x^*)
+\text{s.t. } \  & D f(x^{\*}) = {\lambda^{\*}}^{\intercal} D g(x^{\*})
 \end{align}
 $$
 
