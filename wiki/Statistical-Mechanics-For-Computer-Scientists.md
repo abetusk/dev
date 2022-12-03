@@ -159,7 +159,7 @@ Helmholtz free energy is defined as the average energy minus the entropy:
 
 $$
 \begin{align}
-F & = U - TS \\
+F_H & = U - TS \\
  & = \sum_{i} p_i E_i + T \sum_{i} p_i \ln(p_i)
 \end{align}
 $$
@@ -178,9 +178,9 @@ Shuffling around, we find:
 $$
 \begin{align}
 F_H & = U - TS \\
-  & = \sum_{i} p_i E_i + T \sum_{i] p_i \ln(p_i) \\
-  & = - T \sum_{i} p_i \ln(p_i) - T \ln(Z) \sum_{i} p_i + T \sum_{i} p_i \ln(p_i) \\
-  & = - T \ln(Z)
+ & = \sum_{i} p_i E_i + T \sum_{i} p_i \ln(p_i) \\
+ & = - T \sum_{i} p_i \ln(p_i) - T \ln(Z) \sum_{i} p_i + T \sum_{i} p_i \ln(p_i) \\
+ & = - T \ln(Z)
 \end{align}
 $$
 
@@ -193,7 +193,6 @@ $$
 \begin{align}
 F_H & = U - TS \\
 F_H & = -T \ln(Z) \\
-U - TS & = -T \ln(Z) 
 \end{align}
 $$
 
@@ -216,10 +215,13 @@ Rearranging:
 $$
 \begin{align}
  F_G & = \sum_{i} q_i E_i + T \sum_{i} q_i \ln(q_i) \\
- & = -T \sum_{i} q_i \ln(p_i) - T \ln(Z) - T \sum_{i} q_i \ln(q_i) \\
+ & = -T \sum_{i} q_i \ln(p_i) - T \ln(Z) + T \sum_{i} q_i \ln(q_i) \\
  & = T \sum_{i} q_i \ln( \frac{q_i}{p_i} ) - T \ln(Z) \\
- & = D_{KL}( q || p ) + F_H
 \end{align}
+$$
+
+$$
+ F_G = T D_{KL}( q || p ) + F_H
 $$
 
 Relating Gibbs free energy to Helmholtz free energy by a factor of
