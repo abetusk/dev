@@ -160,22 +160,70 @@ Helmholtz free energy is defined as the average energy minus the entropy:
 $$
 \begin{align}
 F & = U - TS \\
- & = \sum_{i} p_i E_i - T \sum_{i} p_i \ln(p_i)
+ & = \sum_{i} p_i E_i + T \sum_{i} p_i \ln(p_i)
 \end{align}
 $$
 
-Under equilibrium (?) recall $E_i = -T \ln(p_i)$.
-If, instead (under non-equilibrium?) $E_i = -T \ln(q_i)$, then:
+Under equilibrium (?) recall
 
 $$
-F = T \sum_{i} p_i \ln( \frac{q_i}{p_i} )
+\begin{align}
+\ \ & p_i  = \frac{e^{ -\frac{E_i}{T} } }{Z}\\
+\to \ \ & E_i  = -T \ln(p_i) - T \ln(Z)\\
+\end{align}
 $$
 
-or
+Shuffling around, we find:
 
 $$
-D_{KL}(p || q) = \frac{F}{T}
+\begin{align}
+F_H & = U - TS \\
+  & = \sum_{i} p_i E_i + T \sum_{i] p_i \ln(p_i) \\
+  & = - T \sum_{i} p_i \ln(p_i) - T \ln(Z) \sum_{i} p_i + T \sum_{i} p_i \ln(p_i) \\
+  & = - T \ln(Z)
+\end{align}
 $$
+
+Relating the log of the partition function (number of bits to describe the number of states),
+modified by temperature, to the average energy minus the entropy.
+
+For the sake of clarity:
+
+$$
+\begin{align}
+F_H & = U - TS \\
+F_H & = -T \ln(Z) \\
+U - TS & = -T \ln(Z) 
+\end{align}
+$$
+
+---
+
+### Gibbs Free Energy
+
+If, instead we have a "trial" probability distribution $q_i$ but keep the energies of the microstates, $E_i$,
+untouched, we get the Gibbs free energy:
+
+$$
+\begin{align}
+F_G & = \sum_{i} q_i E_i - T S_q \\
+ & = \sum_{i} q_i E_i + T \sum_{i} q_i \ln(q_i)
+\end{align}
+$$
+
+Rearranging:
+
+$$
+\begin{align}
+ F_G & = \sum_{i} q_i E_i + T \sum_{i} q_i \ln(q_i) \\
+ & = -T \sum_{i} q_i \ln(p_i) - T \ln(Z) - T \sum_{i} q_i \ln(q_i) \\
+ & = T \sum_{i} q_i \ln( \frac{q_i}{p_i} ) - T \ln(Z) \\
+ & = D_{KL}( q || p ) + F_H
+\end{align}
+$$
+
+Relating Gibbs free energy to Helmholtz free energy by a factor of
+the "divergence" of the probability distributions.
 
 ---
 
