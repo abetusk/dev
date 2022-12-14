@@ -1,6 +1,59 @@
 Belief Propagation
 ===
 
+Introduction
+---
+
+For a set of random variables, $ { \bf x } = (x_0, x_1, x_2, \cdots, x_{n-1} $,
+and a given probability distribution over those random variables, $p( { \bf x } $,
+we might like to know what the most likely configuration is.
+Another name for the most likely configuration is the maximum a posteriori (MAP)
+assignment of the variables over their domain.
+
+Sometimes there is additional structure on the random variables so that the probability function
+can be decomposed into a product of distributions over the subsets of variables.
+If the additional structure is encapsulated in a graphical model, connecting variables
+with an edge and corresponding distribution function, this this can be represented as
+a Markov Random Field (MRF),
+with a set of cliques, represented in a graph structure, whose probability distribution
+function can be written as:
+
+$$
+\begin{align}
+p( { \bf x } ) & = \frac{1}{Z} \prod_{c \in \text{clique(} G \text{)} } \phi_c ( { \bf x }_c )
+\end{align}
+$$
+
+A marginal distribution is the probability of fixing a subset of the random variables over
+all possible values of the remaining variables.
+That is:
+
+$$
+p( { \bf x }_s  = { \bf b }_s ) = \sum_{ { \bf x } / x_s } \ \   \prod_{c \in \text{clique(} G \text{)} } \phi_c ( { \bf x }_c )
+$$
+
+Where the term on the right fixes the values of ${ \bf x }_s$ where appropriate.
+
+This problem is NP-Complete in general.
+If the form of the graphical model is a tree, then the marginals can be computed efficiently with a dynamic programming
+like algorithm.
+
+A dynamic programming like algorithm can be adapted to be used on non-tree like graphs and can be expected to
+work for graphs that have certain restrictions on their topology or structure.
+Since the graph now has loops, the independence property that was needed to make the algorithm efficient is violated.
+
+The dynamic programming like algorithm is called Belief Propagation (BP), sometimes called Loopy Belief Propagation (LBP)
+for non-tree like graphs.
+For non-tree graphs, the term "probability" is substituted with "messages", as calculations are no longer probability distributions
+any more, with the underlying algorithm for BP described as a "message passing" algorithm.
+
+The type of structure on the graphs that lead to proper marginal discovery is not well understood in general
+and certainly not understood by me.
+Some clue as to what the structure is comes from the degree of independence of the variables and a somewhat hand-waivy
+heuristic is that if graphs look locally "tree-like" then BP (or LBP) has some expectation of converging to a correct solution.
+
+---
+
 There are three main graph models that belief propagation looks to be run on:
 
 * Bayesian Network
@@ -183,11 +236,46 @@ on end state).
 
 ---
 
+Appendix
+---
+
+Mutual information:
+
+$$
+\begin{align}
+I(X;Y) & = D_{KL}(p_{X,Y} || p_X \cdot p_Y ) \\
+ & = \sum_{x \in X} \sum_{y \in Y} P_{X,Y}(x,y) \ln( \frac{P_{X,Y}(x,y)}{P_X(x) P_Y(y)} )
+\end{align}
+$$
+
+For $p_X$ and $p_y$ independent, this reduces to:
+
+$$
+\sum_{x \in X} \sum_{y \in Y} P_{X,Y}(x,y) \ln( \frac{P_X(x) P_Y(y)}{P_X(x) P_Y(y)} ) = 0
+$$
+
+For $X = Y$, this reduces to:
+
+$$
+\begin{align}
+&  \sum_{x \in X} \sum_{y \in X} P_{X,X}(x,y) \ln( \frac{P_{X,X}(x,y) }{P_X(x) P_X(y)} ) \\
+= & \sum_{x \in X} P_X(x) \ln( \frac{P_X(x) }{P_X(x) P_X(x)} ) \\
+= & - \sum_{x \in X} P_X(x) \ln( P_X(x) ) \\
+\end{align}
+$$
+
+which is just the entropy of $X$.
+
+
+
 References
 ---
 
 * [Island algorithm](https://en.wikipedia.org/wiki/Island_algorithm)
 * [Tree decomposition / junction tree / clique tree / join tree](https://en.wikipedia.org/wiki/Tree_decomposition)
+* [Belief Propagation](youtube.com/watch?v=meBWAboEWQk)
+* [Splash Belief Propagation](https://www.youtube.com/watch?v=m8QXn5DWu3M)
+* [Relax, Compensate, Recover BP](youtube.com/watch?v=dMUFfLKIylQ)
 
 
 ###### 2022-08-16
