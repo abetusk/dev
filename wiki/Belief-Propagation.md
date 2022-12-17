@@ -4,8 +4,8 @@ Belief Propagation
 Introduction
 ---
 
-For a set of random variables, $ { \bf x } = (x_0, x_1, x_2, \cdots, x_{n-1} $,
-and a given probability distribution over those random variables, $p( { \bf x } $,
+For a set of random variables, ${ \\bf x } = ( x_0, x_1, x_2, \cdots, x_{ n-1 } )$,
+and a given probability distribution over those random variables, $p( { \bf x } )$,
 we might like to know what the most likely configuration is.
 Another name for the most likely configuration is the maximum a posteriori (MAP)
 assignment of the variables over their domain.
@@ -90,9 +90,9 @@ graph LR
   u((u)) & v((v)) --> i((i)) -.-> j((j)))
 ```
 
-| |
-|---|
-| ![Belief Propagation on Markov Random Field example](img/mrfbp_example.png) |
+| | |
+|---|---|
+| $\mu_{i,j}(b) = \sum_{a \in D} f_{u,i}(a) \cdot f_{v,i}(a) \dots $ | ![Belief Propagation on Markov Random Field example](img/mrfbp_example.png) |
 
 Each vertex, $i$, can be associated with a random variable, $X_i$, taking
 on (discrete) values chosen from some domain $D = \{ d_0, d_1, \cdots, d_{m-1} \}$ with
