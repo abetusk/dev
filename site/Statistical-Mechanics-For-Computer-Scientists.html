@@ -1,0 +1,278 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>dev blog</title>
+
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js", "TeX/AMSsymbols.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <header>
+        <h1>Dev Blog</h1>
+
+        <table>
+          <body>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
+           <tr>
+              <td>
+                <br /> <br /> <br />
+                <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+
+                <br />
+                <p>
+                Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
+                <br />
+
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
+                </p>
+              </td>
+            </tr>
+          </body>
+        </table>
+
+      </header>
+      <section>
+
+        <h1 id="statistical-mechanics-for-computer-scientists">Statistical Mechanics for Computer Scientists</h1>
+<p>These are notes on statistical mechanics concepts with a focus
+on interpreting them from the perspective of a computer scientist.
+These should be considered personal opinions and, therefore, might
+be completely misleading or outright wrong.</p>
+<hr />
+<h3 id="entropy">Entropy</h3>
+<p>Entropy can be considered "the number of bits that it takes to describe a system".</p>
+<p>That is if a system has $N$ possible states, each occurring with probability $p_i$, then
+the number of bits to describe the system is:</p>
+<p>$$
+S = - \sum_{i=0}^{N-1} p_i \cdot \lg( p_i )
+$$</p>
+<p>With $\lg(\cdot) = \frac{ \ln(\cdot) }{ \ln(2) }$.</p>
+<hr />
+<h3 id="boltzmann-distribution">Boltzmann Distribution</h3>
+<p>The state $i$ is often called a "microstate".
+If we have a set of microstates and start out with assigning each
+of them energies, rather than probabilities, under suitable conditions,
+we can derive a probability for each microstate.</p>
+<p>If we assume each microstate has an energy, $E_i$, attached to it, we can
+write down some equations:</p>
+<p>$$
+\begin{array}{ll}
+1 = &amp; \sum_{i} p_i \
+E = &amp; \sum_{i} p_i E_i \
+S_{*} = &amp; - \sum_{i} p_i \ln(p_i)
+\end{array}
+$$</p>
+<p>Where we use $S_{*}$ to differentiate between the entropy defined with $\lg(\cdot)$ instead of $\ln(\cdot)$</p>
+<p>In the above, we make a few assumptions:</p>
+<ul>
+<li>Each of the microstate energies, $E_i$, is fixed and unchanging</li>
+<li>We impose the constraint that the average energy, $E$, is fixed</li>
+<li>The $p_i$ form a probability distribution</li>
+</ul>
+<p>In other words find the maximum entropy, $S_{*}$, subject to the constraints
+of $E_i$ chosen/fixed and an average fixed energy, $E$.</p>
+<p>So, we want to maximize $S_{*}$ by varying each of the individual $p_i$'s.
+We can use the method of Lagrange multipliers by using the two equations above as the constraints:</p>
+<p>$$
+\begin{align}
+\vec{p} &amp; = ( p_0, p_i, \cdots, p_{N-1} ) \
+L( \vec{p}, \alpha, \beta ) &amp; = S_{*} - \alpha [ (\sum_{i} p_i) - 1 ] - \beta [ (\sum_{i} p_i E_i) - E ] \
+ &amp; = - \sum_{i} p_i \ln(p_i) - \alpha [ (\sum_{i} p_i) - 1 ] - \beta [ (\sum_{i} p_i E_i) - E ] \
+\frac{\partial}{\partial p_i} L = &amp; -ln(p_i) - 1 - \alpha - \beta E_i = 0 \
+\to \ \ &amp; p_i = e^{-(1+\alpha)} e^{-\beta E_i}
+\end{align}
+$$</p>
+<p>We can now define temperature:</p>
+<p>$$
+T = \frac{1}{\beta}
+$$</p>
+<p>And using one of the constraints, we can rewrite equations to get rid of the $\alpha$ term:</p>
+<p>$$
+\begin{align}
+\sum_{i} p_i &amp; = 1  \
+\to \ \ &amp; \sum_{i} e^{ -\beta E_i } = e^{1 + \alpha} \
+\to \ \ &amp; \sum_{i} e^{ \frac{E_i}{T} } = Z(T) \
+\to \ \ &amp; Z(T) = e^{1 + \alpha}
+\end{align}
+$$</p>
+<p>Which gives us:</p>
+<p>$$
+p_i = \frac{1}{Z(T)} e^{ -\frac{E_i}{T} }
+$$</p>
+<p>Adding a term,  $\kappa$, to $T$ and rewriting the probability as:</p>
+<p>$$
+p_i \propto e^{ -\frac{E_i}{\kappa T} }
+$$</p>
+<p>Is called a Boltzmann distribution.
+Another name is Gibbs distribution.</p>
+<hr />
+<h3 id="kullback-leibler-divergence">Kullback-Leibler Divergence</h3>
+<p>We want to talk about "free energy" but we will need the idea of
+the Kullback-Leibler divergence first before providing intuition about the "free energy"
+definition.</p>
+<p>Consider an optimal encoding of sending $n$ symbols over a channel with the $i$'th symbol
+occurring with probability $p_i$.
+We can write the entropy of the distribution $p(\cdot)$ as:</p>
+<p>$$
+S_p = - \sum_{i}^{n-1} p_i \ln(p_i)
+$$</p>
+<p>Let's say we introduce another distribution $q(\cdot)$ that we will use to find an encoding/decoding
+method on the symbols.
+If the symbols are transmitted at the rate of $p_i$ still but we're using $q_i$ to encode/decode them,
+we end up with (proportionally) $\lg(q_i)$ bits per symbols instead of (proportionally) $\ln(p_i)$
+bits per symbol.</p>
+<p>We can write down the entropy of receiving these symbols with probability distribution $p_i$ but
+using $q_i$ to encode them as:</p>
+<p>$$
+S_q = - \sum_{i}^{n-1} p_i \ln(q_i)
+$$</p>
+<p>The difference, $S_q - S_p$ is
+how "bad" the $q_i$ encoding is in terms of how many extra bits we waste using the $q_i$ encoding.
+If we introduce more notation:</p>
+<p>$$
+D_{KL}(p || q) = \sum_{i} p_i \ln( \frac{p_i}{q_i} )
+$$</p>
+<p>Which is called the Kullback-Leibler Divergence.</p>
+<p>Another way to write this is:</p>
+<p>$$
+D_{KL}(p || q) = H(p,q) - H(p)
+$$</p>
+<p>Where $H(p,q)$ is called the "cross entropy":</p>
+<p>$$
+\begin{align}
+H(p) &amp; = - \sum_{i} p_i \ln(p_i) \
+H(p,q) &amp; = - \sum_{i} p_i \ln(q_i)
+\end{align}
+$$</p>
+<hr />
+<h3 id="helmholtz-free-energy">Helmholtz Free Energy</h3>
+<p>Helmholtz free energy is defined as the average energy minus the entropy:</p>
+<p>$$
+\begin{align}
+F_H &amp; = U - TS \
+ &amp; = \sum_{i} p_i E_i + T \sum_{i} p_i \ln(p_i)
+\end{align}
+$$</p>
+<p>Under equilibrium (?) recall</p>
+<p>$$
+\begin{align}
+\ \ &amp; p_i  = \frac{e^{ -\frac{E_i}{T} } }{Z}\
+\to \ \ &amp; E_i  = -T \ln(p_i) - T \ln(Z)\
+\end{align}
+$$</p>
+<p>Shuffling around, we find:</p>
+<p>$$
+\begin{align}
+F_H &amp; = U - TS \
+ &amp; = \sum_{i} p_i E_i + T \sum_{i} p_i \ln(p_i) \
+ &amp; = - T \sum_{i} p_i \ln(p_i) - T \ln(Z) \sum_{i} p_i + T \sum_{i} p_i \ln(p_i) \
+ &amp; = - T \ln(Z)
+\end{align}
+$$</p>
+<p>Relating the log of the partition function (number of bits to describe the number of states),
+modified by temperature, to the average energy minus the entropy.</p>
+<p>For the sake of clarity:</p>
+<p>$$
+\begin{align}
+F_H &amp; = U - TS \
+F_H &amp; = -T \ln(Z) \
+\end{align}
+$$</p>
+<hr />
+<h3 id="gibbs-free-energy">Gibbs Free Energy</h3>
+<p>If, instead we have a "trial" probability distribution $q_i$ but keep the energies of the microstates, $E_i$,
+untouched, we get the Gibbs free energy:</p>
+<p>$$
+\begin{align}
+F_G &amp; = \sum_{i} q_i E_i - T S_q \
+ &amp; = \sum_{i} q_i E_i + T \sum_{i} q_i \ln(q_i)
+\end{align}
+$$</p>
+<p>Rearranging:</p>
+<p>$$
+\begin{align}
+ F_G &amp; = \sum_{i} q_i E_i + T \sum_{i} q_i \ln(q_i) \
+ &amp; = -T \sum_{i} q_i \ln(p_i) - T \ln(Z) + T \sum_{i} q_i \ln(q_i) \
+ &amp; = T \sum_{i} q_i \ln( \frac{q_i}{p_i} ) - T \ln(Z) \
+\end{align}
+$$</p>
+<p>$$
+ F_G = T D_{KL}( q || p ) + F_H
+$$</p>
+<p>Relating Gibbs free energy to Helmholtz free energy by a factor of
+the "divergence" of the probability distributions.</p>
+<hr />
+<h2 id="appendix">Appendix</h2>
+<h3 id="lagrange-multipliers">Lagrange Multipliers</h3>
+<p>Statement without proof.</p>
+<p>$$
+\begin{align}
+&amp; f,g \in C^1 &amp; \
+&amp; f:  \mathbb{R}^n   \mapsto \mathbb{R} &amp; \
+&amp; g: \mathbb{R}^n  \mapsto \mathbb{R}^m &amp; \ \ \ (m &lt; n) \ 
+&amp;D h(x) = [ \frac{\partial h_j}{\partial x_k} ] &amp;
+\end{align}
+$$</p>
+<p>$$
+\begin{align}
+\text{maximize: } &amp; f(x) \
+\text{ subject to: } &amp; g(x)=0 \
+\to \ \  &amp;  x^<em> \text{ optimal} \
+&amp; \exists \lambda^</em> \in \mathbb{R}^m \
+\text{s.t. } \  &amp; D f(x^{*}) = {\lambda^{*}}^{\intercal} D g(x^{*})
+\end{align}
+$$</p>
+<p>In other words, subject to the constrained surface $g$, the maximum point on $f$ is achieved when when
+the gradient of $f$ is equal and opposite to the constraint surface, $g$.</p>
+<h3 id="derivation-of-entropy">Derivation of Entropy</h3>
+<p>See <a href="./Shannon-Entropy.html">Shannon Entropy</a> but briefly recreated here for completeness.</p>
+<p>Consider $n$ symbols, each occurring with probability $p_k$ for $k \in (0,1,, \dots , n-1)$.
+If a system is comprised of $T$ symbols, where each is assumed to be independent of each other,
+and if $T$ large, then $T \cdot p_k \cdot n$ is approximately integral and we can express
+the number of ways of arranging $T$ symbols as:</p>
+<p>$$ { T \cdot n \choose (T \cdot p_0 \cdot n), (T \cdot p_1 \cdot n), \dots, (T \cdot p_{n-1} \cdot n) } $$</p>
+<p>$$ = \frac{(T \cdot n)!}{ {\prod}<em> { k=0 } ^ { n-1 } (T \cdot p</em>{k} \cdot n)!} $$</p>
+<p>The number of bits to describe the number of configurations is (with $\lg(\cdot) = \log_2(\cdot)$ ):</p>
+<p>$$ \lg( \frac{(T \cdot n)!}{ {\prod}<em> {k=0}^{n-1} (T \cdot p</em>{k} \cdot n)!} ) $$</p>
+<p>Which, after some algebra, reduces to:</p>
+<p>$$ = - T \sum_{k=0}^{n-1} p_k \lg(p_k) $$</p>
+<p>Define the entropy, $S$, to be the average number of bits needed to represent our system at a particular
+point in time (that is, the average number of bits per symbol), we find:</p>
+<p>$$ S = - \sum_{k=0}^{n-1} p_k \lg(p_k) $$</p>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=rhFkYjaM5kE&amp;list=PL_IkS0viawhr3HcKH607rXbVqy28W_gB7&amp;index=4">susskind</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Gibbs_free_energy">Gibbs free energy</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence">Kullback-Leibler Divergence</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Lagrange_multiplier">Lagrange Multipliers</a></li>
+</ul>
+<h6 id="2022-11-05">2022-11-05</h6>
+
+      </section>
+
+      <!--
+      <footer>
+        <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+      </footer>
+      -->
+
+    </div>
+    <script src="/dev/js/scale.fix.js"></script>
+  </body
+</html>
