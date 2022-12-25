@@ -102,6 +102,16 @@ $$</p>
 \to \frac{d^n}{dt} M_X(0) &amp; = E[X^n]
 \end{align}
 $$</p>
+<h2 id="characteristic-function">Characteristic Function</h2>
+<p>$$
+\varphi_X(t) = E[ e^{itX} ]
+$$</p>
+<hr />
+<p>Not all r.v.s have moment generating functions but all r.v.s have a characteristic function.</p>
+<p>If the moment generating function exists, then:</p>
+<p>$$
+\varphi_X(-it) = M_X(t)
+$$</p>
 <h2 id="jensens-inequality">Jensen's Inequality</h2>
 <p><strong>Claim</strong>:</p>
 <p>If $f(x)$ is a convex function, then:</p>
@@ -188,6 +198,7 @@ The parameter $t$ can be chosen to taste.</p>
 <hr />
 <p>Generalized extreme value distribution (GEV) or Fisher Tippett Gnedenko theorem:</p>
 <p>$$
+\begin{align}
 X_0, X_1, \cdots, X_{n-1} &amp; \ \ \ \text{  i.i.d. RVs}  \\
 \lim_{n \to \infty} P( \frac{max(X_0, X_1, \cdots, X_{n-1}) - b_n}{a_n}  \le x) &amp; \ \ = G(x) \\
 G_{\gamma,a,b}(x) = \exp( -(1 + (\frac{x-b}{a})\gamma)^{-\frac{1}{\gamma}}), \ \ \ \  &amp; 1 + (\frac{x-b}{a}) \gamma  &gt; 0

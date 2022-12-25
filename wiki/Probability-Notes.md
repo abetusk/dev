@@ -82,6 +82,24 @@ $$
 \end{align}
 $$
 
+Characteristic Function
+---
+
+$$
+\varphi_X(t) = E[ e^{itX} ]
+$$
+
+---
+
+Not all r.v.s have moment generating functions but all r.v.s have a characteristic function.
+
+If the moment generating function exists, then:
+
+$$
+\varphi_X(-it) = M_X(t)
+$$
+
+
 
 Jensen's Inequality
 ---
@@ -212,6 +230,7 @@ The parameter $t$ can be chosen to taste.
 Generalized extreme value distribution (GEV) or Fisher Tippett Gnedenko theorem:
 
 $$
+\begin{align}
 X_0, X_1, \cdots, X_{n-1} & \ \ \ \text{  i.i.d. RVs}  \\\\
 \lim_{n \to \infty} P( \frac{max(X_0, X_1, \cdots, X_{n-1}) - b_n}{a_n}  \le x) & \ \ = G(x) \\\\
 G_{\gamma,a,b}(x) = \exp( -(1 + (\frac{x-b}{a})\gamma)^{-\frac{1}{\gamma}}), \ \ \ \  & 1 + (\frac{x-b}{a}) \gamma  > 0

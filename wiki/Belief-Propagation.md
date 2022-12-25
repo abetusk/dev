@@ -29,7 +29,7 @@ all possible values of the remaining variables.
 That is:
 
 $$
-p( { \bf x }_s  = { \bf b }_s ) = \sum_{ { \bf x } / x_s } \ \   \prod_{c \in \text{clique(} G \text{)} } \phi_c ( { \bf x }_c )
+p( { \bf x } _ s  = { \bf b } _ s ) = \sum_{ { \bf x } /  x_s } \text{    } \prod_{ c \in \text{ clique( } G \text{ ) } } \phi_c ( { \bf x } _ c )
 $$
 
 Where the term on the right fixes the values of ${ \bf x }_s$ where appropriate.
@@ -212,7 +212,7 @@ Some other random notes:
 #### Scalable detection of statistically significantcommunities and hierarchies, using messagepassing for modularity
 
 * [talk](https://www.youtube.com/watch?v=jzN37cqkB0c&list=LL)
-* [paper](https://www.pnas.org/doi/epdf/10.1073/pnas.1409770111))
+* [paper](https://www.pnas.org/doi/epdf/10.1073/pnas.1409770111)
 
 #### Focused Belief Propagation for Query-Specific Inference
 
@@ -232,6 +232,263 @@ Other tricks need to be employed in order to make the algorithm "anytime", where
 can be stopped at anytime and still get a good estimate of the answer (maximum a posteriori (MAP) or distribution
 on end state).
 
+#### Parallel Splash Belief Propagation
+
+* [paper](https://www.ml.cmu.edu/research/dap-papers/dap-gonzalez.pdf)
+* [talk](youtube.com/watch?v=m8QXn5DWu3M)
+
+The idea is to create a minimum spanning tree (MST) to schedule the BP messages.
+
+
+#### Speculation
+
+Some thoughts on how to add heuristics or optimizations.
+These are completely speculative and untested so should be thought of as
+rough notes or thoughts.
+
+Consider a tileset consisting of three groups, which will be called 'red', 'green' and 'blue'.
+Each group has the same type of tiles (endpoint, road, bend) but can only attach to other tiles
+of its same color.
+A constrained grid is created by putting two endpoints of each color on either side of the grid
+and removing all endpoints from the rest of the grid, forcing a condition where only a single
+road from one endpoint color to its corresponding endpoint colored tile is a feasible solution.
+
+In other words, try to find a solution of three self avoiding walks with giving endpoints.
+BP has no concept of "self avoiding walk" (SAW) and the fact that these are SAWs is a layer
+of interpretation we impose after the fact.
+The SAWs are embedded in the tiles present in the grid and the admissible tile pairs from the
+$f(\cdot)$ function.
+For convenience, we might talk about the SAW as a convenience with the understanding that the
+SAW itself is not present as a concept in BP.
+
+One observation is that if the endpoints are too far apart, the SAW meanders from one of it's initial
+position.
+There looks to be a weak "pull" in the direction of the endpoint, which gets stronger as the grid
+gets filled out with choice, but the meandering can also lead to the SAW backing itself into a dead-end
+and failing to find a realization.
+In tests, setting the error to be extremely low (thus increasing the simulation steps) the realization
+is more consistently found (in the test case of `11x11x3`).
+Were the grid larger, no doubt the meandering would not be as bad as, by chance, the SAWs might have
+a reasonable chance of connecting or, when they get close to each other, might be close enough to have
+BP kick in and nudge them towards each other.
+
+Though I lack the language or understanding to quantify what's going on well, it looks like there's a kind
+of "mean field" quality to BP, where it's good at understanding what the constraints should be in a kind
+of "average" sense (for some definition of "average) with it potentially understanding and overcoming
+some local constraints, but it loosing its context on constraints or correlations that happen over
+larger distances.
+
+To overcome this effect, one can try and come up with heuristics that allow for those longer length
+constraints to be more apparent, especially when they're so strong as to lead to contradictions
+if they're not met.
+
+One idea is to chop up sections grid (in `3x3x3` sections, say) with outside boundary conditions
+on all but one edge, join them to another chopped section and see if a solution can
+be found (by running BP, sampling with MCMC or some other method).
+If a solution is always/almost always found and not found either when attached to other segments
+or in isolation, then use that information to try and correlate "key" tiles inside.
+This correlation can be used to modify the single tile probability function ($g(\cdot)$)
+do heuristically prefer these tiles when running BP proper.
+
+As an example, consider this ASCII map:
+
+```
+,    ,    ,    ,    ,    .    ,    ,    ,    ,    ,
+,    S    ,    ,    ,    .    ,    ,    ,    E    ,
+,    ,    ,    ,    ,    .    ,    ,    ,    ,    ,
+,    ,    ,    ,    ,    .    ,    ,    ,    ,    ,
+,    ,    ,    ,    ,    .    ,    ,    ,    ,    ,
+,    ,    ,    ,    ,    .    ,    ,    ,    ,    ,
+,    ,    ,    ,    ,    .    ,    ,    ,    ,    ,
+,    ,    ,    ,    ,    .    ,    ,    ,    ,    ,
+,    ,    ,    ,    ,    .    ,    ,    ,    ,    ,
+,    ,    ,    ,    ,    [.-] ,    ,    ,    ,    ,
+,    ,    ,    ,    ,    .    ,    ,    ,    ,    ,
+```
+
+Where `.` is the empty tile, `,` has choices of the empty, bend or road tiles, `S`, `E` are the start/end tiles (suitably
+rotated) and `[.-]` have only two choices, either the road or empty tile.
+
+So the only solution is a SAW from `S` to `E` through `[.-]`, with the choice of `-` needed to not end up in a contradiction.
+
+So as a guess, let's try using a `3x3` grid around the `S` tile and pairing it with some of the other chopped sections:
+
+
+Configuration `SE`:
+```
+.    .    .    .    .    .    .    .
+.    ,    ,    ,    ,    ,    ,    .
+.    ,    S    ,    ,    E    ,    .
+.    ,    ,    ,    ,    ,    ,    .
+.    .    .    .    .    .    .    .
+```
+
+Configuration `SB`:
+```
+.    .    .    .    .    .    .    .
+.    ,    ,    ,    ,    ,    ,    .
+.    ,    S    ,    ,    ,    ,    .
+.    ,    ,    ,    ,    ,    ,    .
+.    .    .    .    .    .    .    .
+```
+
+Configuration `SB+`:
+```
+.    .    .    .    .    .    .    .
+.    ,    ,    ,    ,    ,    ,    ,
+.    ,    S    ,    ,    ,    ,    ,
+.    ,    ,    ,    ,    ,    ,    ,
+.    .    .    .    .    .    .    .
+```
+
+Configuration `SM`:
+```
+.    .    .    .    .    .    .    .
+.    ,    ,    ,    ,    ,    ,    .
+.    ,    S    ,    ,    [.-] ,    .
+.    ,    ,    ,    ,    ,    ,    .
+.    .    .    .    .    .    .    .
+```
+
+Configuration `SM+`:
+```
+.    .    .    .    .    .    .    .
+.    ,    ,    ,    ,    ,    ,    ,
+.    ,    S    ,    ,    [.-] ,    ,
+.    ,    ,    ,    ,    ,    ,    ,
+.    .    .    .    .    .    .    .
+```
+
+Configuration `SW+`:
+```
+.    .    .    .    .    .    .    .
+.    ,    ,    ,    ,    .    ,    ,
+.    ,    S    ,    ,    .    ,    ,
+.    ,    ,    ,    ,    .    ,    ,
+.    .    .    .    .    .    .    .
+```
+
+
+So now we observe that `SE` has a valid realization
+whereas `SB` doesn't.
+`SB+` has a valid realization that falls off the right end.
+`SM` fails whereas `SM+` succeeds as in the `SB+` case, with the
+path continuing over the right edge.
+`SW+` also can't find a realization, even though the right hand
+side of the `W` tile is open.
+
+If we're able to do this 'blocking' and do some cataloging of
+which blocks can be joined together, with various boundary
+conditions set, we might be able to deduce some tiles are
+heavily dependent on others.
+
+There are many assumptions underneath this, some apparent and
+some potentially less so.
+One is that there's a kind symmetry, either translational or
+scale, that underlies some of these assumptions.
+Another is that some simple path heuristic will help, or
+that the 'meandering' nature of the search is something to mitigate against.
+
+One thought is to extend a minimum spanning tree from a particular point
+(say `S`) through the whole grid, not allowing it to pass through cells that
+are fixed or have tiles that aren't from some set of admissible values (determined
+somehow by the correlation 'chopping' above?).
+One can then run BP on this implied tree directly and/or somehow use the MST to
+modulate the probabilities of the admissible set.
+
+Min-cut of the graph also gives some indication of the importance of
+certain cells.
+
+---
+
+Some more off-the-cuff remarks.
+
+We might care about "topological" ordering of critical tiles or regions.
+We can potentially get away with looking at "critical" tiles or regions
+because of some underlying symmetry that allows us to compress the
+spatial region between these areas of interest.
+
+For example, in the above, we might care about an ordering that
+puts `S - [.-] - E`, potentially even `S > [.-] > E` or `S < [.-] < E`
+if we're clever.
+We might notice that the `S`, `[.-]` and `E` tiles/cells are the "critical"
+ones (that is, they're highly correlated and/or dependent on one another
+for a successful realization) and that the regions between the `S`, `[.-]`
+pair and the `[.-]`, `E` pair have a kind of translational symmetry in that
+all tiles between them are homogeneous and so can be represented by an
+exemplar tile/cell.
+
+With this reduction, we might be able to solve a smaller problem, something
+like `S , [.-] , E`, deducing the `[.-]` should be `-` and then backing out
+and filling in the larger grid.
+
+Some examples to consider:
+
+
+
+```
+,    ,    ,    ,    ,    .    ,    ,    ,    ,    ,
+,    S0   ,    ,    ,   [.-_] ,    ,    ,    E1   ,
+,    ,    ,    ,    ,    .    ,    ,    ,    ,    ,
+,    ,    ,    ,    ,    .    ,    ,    ,    ,    ,
+,    ,    ,    ,    ,    .    ,    ,    ,    ,    ,
+,    ,    ,    ,    ,    .    ,    ,    ,    ,    ,
+,    ,    ,    ,    ,    .    ,    ,    ,    ,    ,
+,    ,    ,    ,    ,    .    ,    ,    ,    ,    ,
+,    ,    ,    ,    ,    .    ,    ,    ,    ,    ,
+,    S1   ,    ,    ,   [.-_] ,    ,    ,    E0   ,
+,    ,    ,    ,    ,    .    ,    ,    ,    ,    ,
+```
+
+Where `-` and `_` are roads for `0` and `1` groups respectively.
+This may be too restrictive, even if still possible,
+so one could imagine a third dimension to allow the paths
+to "jump" over each other in the extra dimension.
+
+
+```
+,    ,    ,    .    ,    .    ,    ,    ,    ,    ,
+,    S    ,    .    ,   [.-_] ,    ,    ,    E    ,
+,    ,    ,    .    ,    .    ,    ,    ,    ,    ,
+,    ,    ,    .    ,    .    ,    ,    ,    ,    ,
+,    ,    ,    .    ,    .    .    .    ,    ,    ,
+,    ,    ,    .    ,    ,    ,    .    ,    ,    ,
+,    ,    ,    .    ,    ,    ,    .    ,    ,    ,
+,    ,    ,    .    .    .    ,    .    ,    ,    ,
+,    ,    ,    .    .    .    ,    .    ,    ,    ,
+,    ,    ,   [.-]  ,    ,    ,    .    ,    ,    ,
+,    ,    ,    .    ,    ,    ,    .    ,    ,    ,
+```
+
+Where the path has to loop "back" before going through the
+other choke point.
+
+Assuming one can identify "constrained" tiles, then
+doing all pairs shortest path, by some energy metric
+to extend paths, is at least a proof of concept
+to allow a topological graph to be superimposed
+over the tiles in question.
+
+So, as a rough first pass at a heuristic extension:
+
+* Chop up the grid into larger blocks, `3x3x3` say:
+  - shove blocks together with various boundary conditions
+    and run a small BP algorithm on them to determine
+    which blocks are admissible and get an indication
+    of which tiles within the block are dependent/correlated
+    with each other
+* From the list of flagged tiles (tiles that are either constrained,
+  flagged as important or whatever else), run an all pairs
+  shortest path, choosing some "background" tile as
+  the 0 energy cost path (for example, the `,` tile above)
+* From the all pairs shortest path, construct an induced
+  graph that gives a topological description of which
+  tiles are neighbors
+* From the topological induced graph, run BP, under some
+  canonical cell construction or description, to determine,
+  either directly or by weighting the individual tile
+  probability, which tiles should be chosen from the
+  constrained set.
 
 
 ---
@@ -277,6 +534,11 @@ References
 * [Splash Belief Propagation](https://www.youtube.com/watch?v=m8QXn5DWu3M)
 * [Relax, Compensate, Recover BP](youtube.com/watch?v=dMUFfLKIylQ)
 
+Misc Notes
+---
+
+* [Arborescence](https://en.wikipedia.org/wiki/Arborescence_(graph_theory))
+* [Chu-Liu/Edmond's Algorithm](https://en.wikipedia.org/wiki/Edmonds%27_algorithm)
 
 ###### 2022-08-16
 

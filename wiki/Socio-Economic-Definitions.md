@@ -188,7 +188,7 @@ intention of changing them.
 
 > Monism
 
-> A concept that there exists only a single reality of which the physical world is an aspect of. Specifically, monism denies the existence of a mind
+* A concept that there exists only a single reality of which the physical world is an aspect of. Specifically, monism denies the existence of a mind
   body duality or other aspects of duality.
 
 ([src](https://en.wikipedia.org/wiki/Monism))
