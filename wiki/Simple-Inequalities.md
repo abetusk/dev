@@ -11,7 +11,7 @@ a closed interval between $x_0$ to $x$, then:
 $$
 \begin{array}{l}
 \exists x _ * , & x _ 0 \le x _ * \le x , \\
-f(x) & = [ \sum_ { k=0 } ^ { n } \frac { f ^ { (k) }( x_0 ) } { k! } (x-x_0) ^ { k } ] + \frac { f ^ { (n+1) } ( x _ * ) } { (n+1)! } (x-x_0) ^ { n+1 } \\
+f(x) & = [ \sum _ { k=0 } ^ { n } \frac { f ^ { (k) }( x_0 ) } { k! } (x-x_0) ^ { k } ] + \frac { f ^ { (n+1) } ( x _ * ) } { (n+1)! } (x-x_0) ^ { n+1 } \\
 \end{array}
 $$
 
