@@ -21,7 +21,7 @@ By restricting to an interval where you know the remainder term is of one sign, 
 
 ---
 
-**Claim**: $ 1 \ge x \ge 0 , 1 - x \ge e ^ { -x } $
+**Claim**: $1 \ge x \ge 0 , 1 - x \ge e ^ { -x }$
 
 
 $$
@@ -39,7 +39,7 @@ $$
 
 ---
 
-**Claim**: $ \frac { \pi } { 2 } \ge x \ge 0, x \ge sin(x) $
+**Claim**: $\frac { \pi } { 2 } \ge x \ge 0, x \ge sin(x)$
 
 $$
 \begin{array}{llr}
