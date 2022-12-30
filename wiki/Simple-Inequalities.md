@@ -21,19 +21,19 @@ By restricting to an interval where you know the remainder term is of one sign, 
 
 ---
 
-### $ 1 \ge x \ge 0, 1-x \ge e^{-x} $
+### $ 1 \ge x \ge 0, 1-x \ge e ^ { -x } $
 
 
 $$
 \begin{array}{llr}
-e^{-x} & = 1 - x e^{x_*} \\
-\forall x_*, & 0 \ge x_* \ge 1, \\
- &  0 \ge e^{-x_*} \le 1 \\
- \to & -e^{-x_*} \le -1 \\
- \to & -x e^{-x_*} \le -x  & (x \ge 0) \\
- \to & 1 - x e^{-x_*} \le 1 - x  \\
- \to & e^{-x} \le 1 - x \\
- \to & 1 - x \ge e^{-x} 
+e ^ { -x } & = 1 - x e ^ { x _ * } \\
+\forall x _ * , & 0 \ge x _ * \ge 1, \\
+ &  0 \ge e ^ { -x _ * } \le 1 \\
+ \to & -e ^ { -x _ * } \le -1 \\
+ \to & -x e ^ { -x _ * } \le -x  & (x \ge 0) \\
+ \to & 1 - x e ^ { -x _ * } \le 1 - x  \\
+ \to & e ^ { -x } \le 1 - x \\
+ \to & 1 - x \ge e ^ { -x } 
 \end{array}
 $$
 
