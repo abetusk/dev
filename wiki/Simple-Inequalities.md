@@ -21,7 +21,7 @@ By restricting to an interval where you know the remainder term is of one sign, 
 
 ---
 
-### $ 1 \ge x \ge 0, 1-x \ge e ^ { -x } $
+*Claim*: $ 1 \ge x \ge 0, 1-x \ge e ^ { -x } $
 
 
 $$
@@ -39,18 +39,18 @@ $$
 
 ---
 
-### $ \frac{\pi}{2} \ge x \ge 0, x \ge sin(x) $
+*Claim*: $ \frac{\pi}{2} \ge x \ge 0, x \ge sin(x) $
 
 $$
 \begin{array}{llr}
-\sin(x) & = x - \frac{x^3}{3!} \cos(x_*) \\
-\forall x_*, & 0 \le x_* \le \frac{\pi}{2}, \\
- & 0 \le \cos(x_*) \le 1 \\
-\to & \frac{x^3}{3!} \cos(x_*) \ge 0 & (\frac{\pi}{2} \ge x \ge 0) \\
-\to & -\frac{x^3}{3!} \cos(x_*) \le 0 \\
-\to & x-\frac{x^3}{3!} \cos(x_*) \le x \\
-\to & \sin(x)  \le x \\
-\to & x \ge \sin(x)  \\
+\sin(x) & = x - \frac { x ^ 3 } { 3! } \cos( x _ * ) \\
+\forall x _ * , & 0 \le x _ * \le \frac { \pi } { 2 }, \\
+ & 0 \le \cos( x _ * ) \le 1 \\
+\to & \frac { x ^ 3 } { 3! } \cos( x _ * ) \ge 0 & (\frac { \pi } { 2 } \ge x \ge 0) \\
+\to & -\frac { x ^ 3 } { 3! } \cos( x _ * ) \le 0 \\
+\to & x -\frac { x ^ 3 } { 3! } \cos( x _ * ) \le x \\
+\to & \sin( x )  \le x \\
+\to & x \ge \sin( x )  \\
 \end{array}
 $$
 
