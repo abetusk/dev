@@ -11,7 +11,7 @@ a closed interval between $x_0$ to $x$, then:
 $$
 \begin{array}{l}
 \exists x _ * , & x _ 0 \le x _ * \le x , \\
-f(x) & = [ \sum _ { k=0 } ^ { n } \frac { f ^ { (k) }( x_0 ) } { k! } (x-x_0) ^ { k } ] + \frac { f ^ { (n+1) } ( x _ * ) } { (n+1)! } (x-x_0) ^ { n+1 } \\
+f(x) & = [ {\sum} _ { k=0 } ^ { n } \frac { f ^ { (k) }( x_0 ) } { k! } (x-x_0) ^ { k } ] + \frac { f ^ { (n+1) } ( x _ * ) } { (n+1)! } (x-x_0) ^ { n+1 } \\
 \end{array}
 $$
 
@@ -64,7 +64,7 @@ n \ge k & \to & -n \le -k \\
  & \to & n(k - 1) \le k(n - 1) \\
  & \to & \frac{n}{k} \le \frac{n - 1}{k-1} \\
  & \to & \frac{n}{k} \le \frac{ n - 1}{k-1} \\
- & \to & ( \frac { n } { k } ) ^ k \le \prod ^ { k-1 }  _ { j=0 }  \frac { n-j } { k-j } \\
+ & \to & ( \frac { n } { k } ) ^ k \le {\prod} ^ { k-1 }  _ { j=0 }  \frac { n-j } { k-j } \\
  & \to &  (\frac{n}{k})^k \le { n \choose k } \\
 \end{array}
 $$
