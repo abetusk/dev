@@ -496,7 +496,7 @@ So, as a rough first pass at a heuristic extension:
 Appendix
 ---
 
-Mutual information:
+#### Mutual information
 
 $$
 \begin{align}
@@ -523,6 +523,9 @@ $$
 
 which is just the entropy of $X$.
 
+#### Free Energy
+
+Consider ...
 
 
 References

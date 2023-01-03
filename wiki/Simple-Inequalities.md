@@ -1,6 +1,16 @@
 Simple Inequalities
 ===
 
+$$
+\begin{align}
+x_0 \le x \le x_1 &, \ \ \   x_0 , x, x_1 \in \mathbb{R} \\
+f(x_0) \ge g(x_0), & \ \ \ f'(x) \ge g'(x) \\
+\to & \ \ \ f(x) \ge g(x)
+\end{align}
+$$
+
+---
+
 For (real), bounded, continuous functions of one variable,
 explicit formulas for the error term of the remainder on the Taylor
 series can be used to get bounds on functions.
@@ -21,7 +31,7 @@ By restricting to an interval where you know the remainder term is of one sign, 
 
 ---
 
-**Claim**: $1 \ge x \ge 0 , 1 - x \ge e ^ { -x }$
+**Claim**: $0 \le x \le 1 , 1 - x \le e ^ { -x }$
 
 
 $$
@@ -29,11 +39,11 @@ $$
 e ^ { -x } & = 1 - x e ^ { x _ * } \\
 \forall x _ * , & 0 \ge x _ * \ge 1, \\
  &  0 \ge e ^ { -x _ * } \le 1 \\
- \to & -e ^ { -x _ * } \le -1 \\
- \to & -x e ^ { -x _ * } \le -x  & (x \ge 0) \\
- \to & 1 - x e ^ { -x _ * } \le 1 - x  \\
- \to & e ^ { -x } \le 1 - x \\
- \to & 1 - x \ge e ^ { -x } 
+ \to & -e ^ { -x _ * } \ge -1 \\
+ \to & -x e ^ { -x _ * } \ge -x  & (x \ge 0) \\
+ \to & 1 - x e ^ { -x _ * } \ge 1 - x  \\
+ \to & e ^ { -x } \ge 1 - x \\
+ \to & 1 - x \le e ^ { -x } 
 \end{array}
 $$
 
