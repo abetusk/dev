@@ -57,10 +57,10 @@ We can use the method of Lagrange multipliers by using the two equations above a
 
 $$
 \begin{align}
-\vec{p} & = ( p_0, p_i, \cdots, p_{N-1} ) \\
-L( \vec{p}, \alpha, \beta ) & = S_{*} - \alpha [ (\sum_{i} p_i) - 1 ] - \beta [ (\sum_{i} p_i E_i) - E ] \\
- & = - \sum_{i} p_i \ln(p_i) - \alpha [ (\sum_{i} p_i) - 1 ] - \beta [ (\sum_{i} p_i E_i) - E ] \\
-\frac{\partial}{\partial p_i} L = & -ln(p_i) - 1 - \alpha - \beta E_i = 0 \\
+\vec{p} & = ( p_0, p_i, \cdots, p_{N-1} ) \\\\
+L( \vec{p}, \alpha, \beta ) & = S_{*} - \alpha [ (\sum_{i} p_i) - 1 ] - \beta [ (\sum_{i} p_i E_i) - E ] \\\\
+ & = - \sum_{i} p_i \ln(p_i) - \alpha [ (\sum_{i} p_i) - 1 ] - \beta [ (\sum_{i} p_i E_i) - E ] \\\\
+\frac{\partial}{\partial p_i} L = & -ln(p_i) - 1 - \alpha - \beta E_i = 0 \\\\
 \to \ \ & p_i = e^{-(1+\alpha)} e^{-\beta E_i}
 \end{align}
 $$
@@ -75,9 +75,9 @@ And using one of the constraints, we can rewrite equations to get rid of the $\a
 
 $$
 \begin{align}
-\sum_{i} p_i & = 1  \\
-\to \ \ & \sum_{i} e^{ -\beta E_i } = e^{1 + \alpha} \\
-\to \ \ & \sum_{i} e^{ \frac{E_i}{T} } = Z(T) \\
+\sum_{i} p_i & = 1  \\\\
+\to \ \ & \sum_{i} e^{ -\beta E_i } = e^{1 + \alpha} \\\\
+\to \ \ & \sum_{i} e^{ \frac{E_i}{T} } = Z(T) \\\\
 \to \ \ & Z(T) = e^{1 + \alpha}
 \end{align}
 $$
@@ -146,7 +146,7 @@ Where $H(p,q)$ is called the "cross entropy":
 
 $$
 \begin{align}
-H(p) & = - \sum_{i} p_i \ln(p_i) \\
+H(p) & = - \sum_{i} p_i \ln(p_i) \\\\
 H(p,q) & = - \sum_{i} p_i \ln(q_i)
 \end{align}
 $$
@@ -159,7 +159,7 @@ Helmholtz free energy is defined as the average energy minus the entropy:
 
 $$
 \begin{align}
-F_H & = U - TS \\
+F_H & = U - TS \\\\
  & = \sum_{i} p_i E_i + T \sum_{i} p_i \ln(p_i)
 \end{align}
 $$
@@ -168,8 +168,8 @@ Under equilibrium (?) recall
 
 $$
 \begin{align}
-\ \ & p_i  = \frac{e^{ -\frac{E_i}{T} } }{Z}\\
-\to \ \ & E_i  = -T \ln(p_i) - T \ln(Z)\\
+\ \ & p_i  = \frac{e^{ -\frac{E_i}{T} } }{Z} \\\\
+\to \ \ & E_i  = -T \ln(p_i) - T \ln(Z) \\\\
 \end{align}
 $$
 
@@ -178,8 +178,8 @@ Shuffling around, we find:
 $$
 \begin{align}
 F_H & = U - TS \\
- & = \sum_{i} p_i E_i + T \sum_{i} p_i \ln(p_i) \\
- & = - T \sum_{i} p_i \ln(p_i) - T \ln(Z) \sum_{i} p_i + T \sum_{i} p_i \ln(p_i) \\
+ & = \sum_{i} p_i E_i + T \sum_{i} p_i \ln(p_i) \\\\
+ & = - T \sum_{i} p_i \ln(p_i) - T \ln(Z) \sum_{i} p_i + T \sum_{i} p_i \ln(p_i) \\\\
  & = - T \ln(Z)
 \end{align}
 $$
@@ -191,8 +191,8 @@ For the sake of clarity:
 
 $$
 \begin{align}
-F_H & = U - TS \\
-F_H & = -T \ln(Z) \\
+F_H & = U - TS \\\\
+F_H & = -T \ln(Z) \\\\
 \end{align}
 $$
 
@@ -205,7 +205,7 @@ untouched, we get the Gibbs free energy:
 
 $$
 \begin{align}
-F_G & = \sum_{i} q_i E_i - T S_q \\
+F_G & = \sum_{i} q_i E_i - T S_q \\\\
  & = \sum_{i} q_i E_i + T \sum_{i} q_i \ln(q_i)
 \end{align}
 $$
@@ -214,9 +214,9 @@ Rearranging:
 
 $$
 \begin{align}
- F_G & = \sum_{i} q_i E_i + T \sum_{i} q_i \ln(q_i) \\
- & = -T \sum_{i} q_i \ln(p_i) - T \ln(Z) + T \sum_{i} q_i \ln(q_i) \\
- & = T \sum_{i} q_i \ln( \frac{q_i}{p_i} ) - T \ln(Z) \\
+ F_G & = \sum_{i} q_i E_i + T \sum_{i} q_i \ln(q_i) \\\\
+ & = -T \sum_{i} q_i \ln(p_i) - T \ln(Z) + T \sum_{i} q_i \ln(q_i) \\\\
+ & = T \sum_{i} q_i \ln( \frac{q_i}{p_i} ) - T \ln(Z) \\\\
 \end{align}
 $$
 
@@ -240,18 +240,18 @@ Statement without proof.
 $$
 \begin{align}
 & f,g \in C^1 & \\
-& f:  \mathbb{R}^n   \mapsto \mathbb{R} & \\
-& g: \mathbb{R}^n  \mapsto \mathbb{R}^m & \ \ \ (m < n) \\ 
+& f:  \mathbb{R}^n   \mapsto \mathbb{R} & \\\\
+& g: \mathbb{R}^n  \mapsto \mathbb{R}^m & \ \ \ (m < n) \\\\
 &D h(x) = [ \frac{\partial h_j}{\partial x_k} ] &
 \end{align}
 $$
 
 $$
 \begin{align}
-\text{maximize: } & f(x) \\
-\text{ subject to: } & g(x)=0 \\
-\to \ \  &  x^* \text{ optimal} \\
-& \exists \lambda^* \in \mathbb{R}^m \\
+\text{maximize: } & f(x) \\\\
+\text{ subject to: } & g(x)=0 \\\\
+\to \ \  &  x^* \text{ optimal} \\\\
+& \exists \lambda^* \in \mathbb{R}^m \\\\
 \text{s.t. } \  & D f(x^{\*}) = {\lambda^{\*}}^{\intercal} D g(x^{\*})
 \end{align}
 $$
