@@ -73,8 +73,8 @@ we can derive a probability for each microstate.</p>
 write down some equations:</p>
 <p>$$
 \begin{array}{ll}
-1 = &amp; \sum_{i} p_i \
-E = &amp; \sum_{i} p_i E_i \
+1 = &amp; \sum_{i} p_i \\
+E = &amp; \sum_{i} p_i E_i \\
 S_{*} = &amp; - \sum_{i} p_i \ln(p_i)
 \end{array}
 $$</p>
@@ -91,10 +91,10 @@ of $E_i$ chosen/fixed and an average fixed energy, $E$.</p>
 We can use the method of Lagrange multipliers by using the two equations above as the constraints:</p>
 <p>$$
 \begin{align}
-\vec{p} &amp; = ( p_0, p_i, \cdots, p_{N-1} ) \
-L( \vec{p}, \alpha, \beta ) &amp; = S_{*} - \alpha [ (\sum_{i} p_i) - 1 ] - \beta [ (\sum_{i} p_i E_i) - E ] \
- &amp; = - \sum_{i} p_i \ln(p_i) - \alpha [ (\sum_{i} p_i) - 1 ] - \beta [ (\sum_{i} p_i E_i) - E ] \
-\frac{\partial}{\partial p_i} L = &amp; -ln(p_i) - 1 - \alpha - \beta E_i = 0 \
+\vec{p} &amp; = ( p_0, p_i, \cdots, p_{N-1} ) \\
+L( \vec{p}, \alpha, \beta ) &amp; = S_{*} - \alpha [ (\sum_{i} p_i) - 1 ] - \beta [ (\sum_{i} p_i E_i) - E ] \\
+ &amp; = - \sum_{i} p_i \ln(p_i) - \alpha [ (\sum_{i} p_i) - 1 ] - \beta [ (\sum_{i} p_i E_i) - E ] \\
+\frac{\partial}{\partial p_i} L = &amp; -ln(p_i) - 1 - \alpha - \beta E_i = 0 \\
 \to \ \ &amp; p_i = e^{-(1+\alpha)} e^{-\beta E_i}
 \end{align}
 $$</p>
@@ -105,9 +105,9 @@ $$</p>
 <p>And using one of the constraints, we can rewrite equations to get rid of the $\alpha$ term:</p>
 <p>$$
 \begin{align}
-\sum_{i} p_i &amp; = 1  \
-\to \ \ &amp; \sum_{i} e^{ -\beta E_i } = e^{1 + \alpha} \
-\to \ \ &amp; \sum_{i} e^{ \frac{E_i}{T} } = Z(T) \
+\sum_{i} p_i &amp; = 1  \\
+\to \ \ &amp; \sum_{i} e^{ -\beta E_i } = e^{1 + \alpha} \\
+\to \ \ &amp; \sum_{i} e^{ \frac{E_i}{T} } = Z(T) \\
 \to \ \ &amp; Z(T) = e^{1 + \alpha}
 \end{align}
 $$</p>
@@ -156,7 +156,7 @@ $$</p>
 <p>Where $H(p,q)$ is called the "cross entropy":</p>
 <p>$$
 \begin{align}
-H(p) &amp; = - \sum_{i} p_i \ln(p_i) \
+H(p) &amp; = - \sum_{i} p_i \ln(p_i) \\
 H(p,q) &amp; = - \sum_{i} p_i \ln(q_i)
 \end{align}
 $$</p>
@@ -165,23 +165,23 @@ $$</p>
 <p>Helmholtz free energy is defined as the average energy minus the entropy:</p>
 <p>$$
 \begin{align}
-F_H &amp; = U - TS \
+F_H &amp; = U - TS \\
  &amp; = \sum_{i} p_i E_i + T \sum_{i} p_i \ln(p_i)
 \end{align}
 $$</p>
 <p>Under equilibrium (?) recall</p>
 <p>$$
 \begin{align}
-\ \ &amp; p_i  = \frac{e^{ -\frac{E_i}{T} } }{Z}\
-\to \ \ &amp; E_i  = -T \ln(p_i) - T \ln(Z)\
+\ \ &amp; p_i  = \frac{e^{ -\frac{E_i}{T} } }{Z} \\
+\to \ \ &amp; E_i  = -T \ln(p_i) - T \ln(Z) \\
 \end{align}
 $$</p>
 <p>Shuffling around, we find:</p>
 <p>$$
 \begin{align}
-F_H &amp; = U - TS \
- &amp; = \sum_{i} p_i E_i + T \sum_{i} p_i \ln(p_i) \
- &amp; = - T \sum_{i} p_i \ln(p_i) - T \ln(Z) \sum_{i} p_i + T \sum_{i} p_i \ln(p_i) \
+F_H &amp; = U - TS \\
+ &amp; = \sum_{i} p_i E_i + T \sum_{i} p_i \ln(p_i) \\
+ &amp; = - T \sum_{i} p_i \ln(p_i) - T \ln(Z) \sum_{i} p_i + T \sum_{i} p_i \ln(p_i) \\
  &amp; = - T \ln(Z)
 \end{align}
 $$</p>
@@ -190,8 +190,8 @@ modified by temperature, to the average energy minus the entropy.</p>
 <p>For the sake of clarity:</p>
 <p>$$
 \begin{align}
-F_H &amp; = U - TS \
-F_H &amp; = -T \ln(Z) \
+F_H &amp; = U - TS \\
+F_H &amp; = -T \ln(Z) \\
 \end{align}
 $$</p>
 <hr />
@@ -200,16 +200,16 @@ $$</p>
 untouched, we get the Gibbs free energy:</p>
 <p>$$
 \begin{align}
-F_G &amp; = \sum_{i} q_i E_i - T S_q \
+F_G &amp; = \sum_{i} q_i E_i - T S_q \\
  &amp; = \sum_{i} q_i E_i + T \sum_{i} q_i \ln(q_i)
 \end{align}
 $$</p>
 <p>Rearranging:</p>
 <p>$$
 \begin{align}
- F_G &amp; = \sum_{i} q_i E_i + T \sum_{i} q_i \ln(q_i) \
- &amp; = -T \sum_{i} q_i \ln(p_i) - T \ln(Z) + T \sum_{i} q_i \ln(q_i) \
- &amp; = T \sum_{i} q_i \ln( \frac{q_i}{p_i} ) - T \ln(Z) \
+ F_G &amp; = \sum_{i} q_i E_i + T \sum_{i} q_i \ln(q_i) \\
+ &amp; = -T \sum_{i} q_i \ln(p_i) - T \ln(Z) + T \sum_{i} q_i \ln(q_i) \\
+ &amp; = T \sum_{i} q_i \ln( \frac{q_i}{p_i} ) - T \ln(Z) \\
 \end{align}
 $$</p>
 <p>$$
@@ -223,19 +223,19 @@ the "divergence" of the probability distributions.</p>
 <p>Statement without proof.</p>
 <p>$$
 \begin{align}
-&amp; f,g \in C^1 &amp; \
-&amp; f:  \mathbb{R}^n   \mapsto \mathbb{R} &amp; \
-&amp; g: \mathbb{R}^n  \mapsto \mathbb{R}^m &amp; \ \ \ (m &lt; n) \ 
-&amp;D h(x) = [ \frac{\partial h_j}{\partial x_k} ] &amp;
+&amp; f,g \in C^1 &amp; \\
+&amp; f:  \mathbb{R}^n   \mapsto \mathbb{R} &amp; \\
+&amp; g: \mathbb{R}^n  \mapsto \mathbb{R}^m &amp; \ \ \ (m &lt; n) \\
+&amp; D h(x) = [ \frac{\partial h_j}{\partial x_k} ] &amp;
 \end{align}
 $$</p>
 <p>$$
 \begin{align}
-\text{maximize: } &amp; f(x) \
-\text{ subject to: } &amp; g(x)=0 \
-\to \ \  &amp;  x^<em> \text{ optimal} \
-&amp; \exists \lambda^</em> \in \mathbb{R}^m \
-\text{s.t. } \  &amp; D f(x^{*}) = {\lambda^{*}}^{\intercal} D g(x^{*})
+\text{ maximize: } &amp; f(x) \\
+\text{ subject to: } &amp; g(x)=0 \\
+\to \ \  &amp;  x ^ * \text{ optimal } \\
+&amp; \exists \lambda ^ * \in \mathbb{ R } ^ m \\
+\text{ s.t. } \  &amp; D f(x ^ { * }) = { \lambda ^ { * } } ^ { \intercal } D g(x ^ { * })
 \end{align}
 $$</p>
 <p>In other words, subject to the constrained surface $g$, the maximum point on $f$ is achieved when when
@@ -246,15 +246,25 @@ the gradient of $f$ is equal and opposite to the constraint surface, $g$.</p>
 If a system is comprised of $T$ symbols, where each is assumed to be independent of each other,
 and if $T$ large, then $T \cdot p_k \cdot n$ is approximately integral and we can express
 the number of ways of arranging $T$ symbols as:</p>
-<p>$$ { T \cdot n \choose (T \cdot p_0 \cdot n), (T \cdot p_1 \cdot n), \dots, (T \cdot p_{n-1} \cdot n) } $$</p>
-<p>$$ = \frac{(T \cdot n)!}{ {\prod}<em> { k=0 } ^ { n-1 } (T \cdot p</em>{k} \cdot n)!} $$</p>
+<p>$$
+{ T \cdot n \choose (T \cdot p_0 \cdot n), (T \cdot p_1 \cdot n), \dots, (T \cdot p_{n-1} \cdot n) }
+$$</p>
+<p>$$
+= \frac{(T \cdot n)!}{ {\prod} _ { k=0 } ^ { n-1 } (T \cdot p _ k \cdot n)!}
+$$</p>
 <p>The number of bits to describe the number of configurations is (with $\lg(\cdot) = \log_2(\cdot)$ ):</p>
-<p>$$ \lg( \frac{(T \cdot n)!}{ {\prod}<em> {k=0}^{n-1} (T \cdot p</em>{k} \cdot n)!} ) $$</p>
+<p>$$
+\lg( \frac{(T \cdot n)!}{ {\prod} _ { k=0 } ^ { n-1 } (T \cdot p _ k \cdot n)!} )
+$$</p>
 <p>Which, after some algebra, reduces to:</p>
-<p>$$ = - T \sum_{k=0}^{n-1} p_k \lg(p_k) $$</p>
+<p>$$
+= - T \sum _ { k=0 } ^ { n-1 } p _ k \lg(p _ k)
+$$</p>
 <p>Define the entropy, $S$, to be the average number of bits needed to represent our system at a particular
 point in time (that is, the average number of bits per symbol), we find:</p>
-<p>$$ S = - \sum_{k=0}^{n-1} p_k \lg(p_k) $$</p>
+<p>$$
+S = - \sum _ { k=0 } ^ { n-1 } p _ k \lg(p _ k)
+$$</p>
 <h2 id="references">References</h2>
 <ul>
 <li><a href="https://www.youtube.com/watch?v=rhFkYjaM5kE&amp;list=PL_IkS0viawhr3HcKH607rXbVqy28W_gB7&amp;index=4">susskind</a></li>

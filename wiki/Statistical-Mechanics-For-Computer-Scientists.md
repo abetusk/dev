@@ -16,7 +16,7 @@ That is if a system has $N$ possible states, each occurring with probability $p_
 the number of bits to describe the system is:
 
 $$
-S = - \sum_{i=0}^{N-1} p_i \cdot \lg( p_i )
+S _ { * } = - \sum_{i=0}^{N-1} p_i \cdot \lg( p_i )
 $$
 
 With $\lg(\cdot) = \frac{ \ln(\cdot) }{ \ln(2) }$.
@@ -37,7 +37,7 @@ $$
 \begin{array}{ll}
 1 = & \sum_{i} p_i \\\\
 E = & \sum_{i} p_i E_i \\\\
-S_{*} = & - \sum_{i} p_i \ln(p_i)
+S = & - \sum_{i} p_i \ln(p_i)
 \end{array}
 $$
 
@@ -49,16 +49,16 @@ In the above, we make a few assumptions:
 * We impose the constraint that the average energy, $E$, is fixed
 * The $p_i$ form a probability distribution
 
-In other words find the maximum entropy, $S_{*}$, subject to the constraints
+In other words find the maximum entropy, $S$, subject to the constraints
 of $E_i$ chosen/fixed and an average fixed energy, $E$.
 
-So, we want to maximize $S_{*}$ by varying each of the individual $p_i$'s.
+So, we want to maximize $S$ by varying each of the individual $p_i$'s.
 We can use the method of Lagrange multipliers by using the two equations above as the constraints:
 
 $$
 \begin{align}
 \vec{p} & = ( p_0, p_i, \cdots, p_{N-1} ) \\\\
-L( \vec{p}, \alpha, \beta ) & = S_{*} - \alpha [ (\sum_{i} p_i) - 1 ] - \beta [ (\sum_{i} p_i E_i) - E ] \\\\
+L( \vec{p}, \alpha, \beta ) & = S - \alpha [ (\sum_{i} p_i) - 1 ] - \beta [ (\sum_{i} p_i E_i) - E ] \\\\
  & = - \sum_{i} p_i \ln(p_i) - \alpha [ (\sum_{i} p_i) - 1 ] - \beta [ (\sum_{i} p_i E_i) - E ] \\\\
 \frac{\partial}{\partial p_i} L = & -ln(p_i) - 1 - \alpha - \beta E_i = 0 \\\\
 \to \ \ & p_i = e^{-(1+\alpha)} e^{-\beta E_i}
@@ -115,8 +115,8 @@ $$
 
 Let's say we introduce another distribution $q(\cdot)$ that we will use to find an encoding/decoding
 method on the symbols.
-If the symbols are transmitted at the rate of $p_i$ still but we're using $q_i$ to encode/decode them,
-we end up with (proportionally) $\lg(q_i)$ bits per symbols instead of (proportionally) $\ln(p_i)$
+If the symbols are transmitted at the rate of $p_i$ but we're using $q_i$ to encode/decode them,
+we end up with (proportionally) $\lg(q_i)$ bits per symbols instead of (proportionally) $\lg(p_i)$
 bits per symbol.
 
 We can write down the entropy of receiving these symbols with probability distribution $p_i$ but
@@ -131,7 +131,10 @@ how "bad" the $q_i$ encoding is in terms of how many extra bits we waste using t
 If we introduce more notation:
 
 $$
-D_{KL}(p || q) = \sum_{i} p_i \ln( \frac{p_i}{q_i} )
+\begin{align}
+S_q - S_p & = - [ \sum _ i p _ i \ln(q _ i) - \sum _ i p _ i \ln(p _ i) ] \\\\
+\to D_{KL}(p || q) & \stackrel{\text{def}}{=}  \sum _ i p _ i \ln( \frac{p _ i}{q _ i} )
+\end{align}
 $$
 
 Which is called the Kullback-Leibler Divergence.
