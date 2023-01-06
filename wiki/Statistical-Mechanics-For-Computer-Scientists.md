@@ -35,8 +35,8 @@ write down some equations:
 
 $$
 \begin{array}{ll}
-1 = & \sum_{i} p_i \\
-E = & \sum_{i} p_i E_i \\
+1 = & \sum_{i} p_i \\\\
+E = & \sum_{i} p_i E_i \\\\
 S_{*} = & - \sum_{i} p_i \ln(p_i)
 \end{array}
 $$
@@ -273,25 +273,27 @@ $$
 $$
 
 $$
-= \frac{(T \cdot n)!}{ {\prod}_ { k=0 } ^ { n-1 } (T \cdot p_{k} \cdot n)!}
+= \frac{(T \cdot n)!}{ {\prod} _ { k=0 } ^ { n-1 } (T \cdot p _ k \cdot n)!}
 $$
 
 The number of bits to describe the number of configurations is (with $\lg(\cdot) = \log_2(\cdot)$ ):
 
 $$
-\lg( \frac{(T \cdot n)!}{ {\prod}_ {k=0}^{n-1} (T \cdot p_{k} \cdot n)!} )
+\lg( \frac{(T \cdot n)!}{ {\prod} _ { k=0 } ^ { n-1 } (T \cdot p _ k \cdot n)!} )
 $$
 
 Which, after some algebra, reduces to:
 
 $$
-= - T \sum_{k=0}^{n-1} p_k \lg(p_k)
+= - T \sum _ { k=0 } ^ { n-1 } p _ k \lg(p _ k)
 $$
 
 Define the entropy, $S$, to be the average number of bits needed to represent our system at a particular
 point in time (that is, the average number of bits per symbol), we find:
 
-$$ S = - \sum_{k=0}^{n-1} p_k \lg(p_k) $$
+$$
+S = - \sum _ { k=0 } ^ { n-1 } p _ k \lg(p _ k)
+$$
 
 
 
