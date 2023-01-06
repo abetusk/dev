@@ -177,7 +177,7 @@ Shuffling around, we find:
 
 $$
 \begin{align}
-F_H & = U - TS \\
+F_H & = U - TS \\\\
  & = \sum_{i} p_i E_i + T \sum_{i} p_i \ln(p_i) \\\\
  & = - T \sum_{i} p_i \ln(p_i) - T \ln(Z) \sum_{i} p_i + T \sum_{i} p_i \ln(p_i) \\\\
  & = - T \ln(Z)
@@ -239,20 +239,20 @@ Statement without proof.
 
 $$
 \begin{align}
-& f,g \in C^1 & \\
+& f,g \in C^1 & \\\\
 & f:  \mathbb{R}^n   \mapsto \mathbb{R} & \\\\
 & g: \mathbb{R}^n  \mapsto \mathbb{R}^m & \ \ \ (m < n) \\\\
-&D h(x) = [ \frac{\partial h_j}{\partial x_k} ] &
+& D h(x) = [ \frac{\partial h_j}{\partial x_k} ] &
 \end{align}
 $$
 
 $$
 \begin{align}
-\text{maximize: } & f(x) \\\\
+\text{ maximize: } & f(x) \\\\
 \text{ subject to: } & g(x)=0 \\\\
-\to \ \  &  x^* \text{ optimal} \\\\
-& \exists \lambda^* \in \mathbb{R}^m \\\\
-\text{s.t. } \  & D f(x^{\*}) = {\lambda^{\*}}^{\intercal} D g(x^{\*})
+\to \ \  &  x ^ * \text{ optimal } \\\\
+& \exists \lambda ^ * \in \mathbb{ R } ^ m \\\\
+\text{ s.t. } \  & D f(x ^ { \* }) = { \lambda ^ { \* } } ^ { \intercal } D g(x ^ { \* })
 \end{align}
 $$
 
