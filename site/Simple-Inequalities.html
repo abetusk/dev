@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>dev blog</title>
 
-    <link rel="stylesheet" href="/dev/css/styles.css">
-    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/pygment_trac.css">
 
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({
@@ -15,8 +15,8 @@
         tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
       });
     </script>
-    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
-    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+    <script type="text/javascript" src="/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
 
     <meta name="viewport" content="width=device-width">
   </head>
@@ -28,7 +28,7 @@
 
         <table>
           <body>
-            <tr><td><a href="/dev/">./dev</a></td></tr>
+            <tr><td><a href="/">./dev</a></td></tr>
            <tr>
               <td>
                 <br /> <br /> <br />
@@ -39,7 +39,7 @@
                 Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
                 <br />
 
-                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/img/cc-by-sa-80x15.png" /></a>
                 </p>
               </td>
             </tr>
@@ -50,6 +50,14 @@
       <section>
 
         <h1 id="simple-inequalities">Simple Inequalities</h1>
+<p>$$
+\begin{align}
+x_0 \le x \le x_1 &amp;, \ \ \   x_0 , x, x_1 \in \mathbb{R} \
+f(x_0) \ge g(x_0), &amp; \ \ \ f'(x) \ge g'(x) \
+\to &amp; \ \ \ f(x) \ge g(x)
+\end{align}
+$$</p>
+<hr />
 <p>For (real), bounded, continuous functions of one variable,
 explicit formulas for the error term of the remainder on the Taylor
 series can be used to get bounds on functions.</p>
@@ -57,39 +65,47 @@ series can be used to get bounds on functions.</p>
 a closed interval between $x_0$ to $x$, then:</p>
 <p>$$
 \begin{array}{l}
-\exists x_<em>, &amp; x_0 \le x_</em> \le x, \
-f(x) &amp; = [ \sum_{k=0}^{n} \frac{f^{(k)}(x_0)}{k!} (x-x_0)^{k} ] + \frac{f^{(n+1)}(x_*)}{(n+1)!} (x-x_0)^{n+1} \
+\exists x _ <em> , &amp; x _ 0 \le x _ </em> \le x , \
+f(x) &amp; = [ {\sum} _ { k=0 } ^ { n } \frac { f ^ { (k) }( x_0 ) } { k! } (x-x_0) ^ { k } ] + \frac { f ^ { (n+1) } ( x _ * ) } { (n+1)! } (x-x_0) ^ { n+1 } \
 \end{array}
 $$</p>
 <p>Where the last term is the Lagrange form of the mean value form of the remainder (<a href="https://en.wikipedia.org/wiki/Taylor%27s_theorem">src</a>).</p>
 <p>By restricting to an interval where you know the remainder term is of one sign, you can get explicit inequalities (<a href="https://math.stackexchange.com/questions/78261/using-taylor-series-expansion-as-a-bound">mo</a>).</p>
 <hr />
-<h3 id="1-ge-x-ge-0-1-x-ge-e-x">$ 1 \ge x \ge 0, 1-x \ge e^{-x} $</h3>
+<p><strong>Claim</strong>: $0 \le x \le 1 , 1 - x \le e ^ { -x }$</p>
 <p>$$
 \begin{array}{llr}
-e^{-x} &amp; = 1 - x e^{x_<em>} \
-\forall x_</em>, &amp; 0 \ge x_<em> \ge 1, \
- &amp;  0 \ge e^{-x_</em>} \le 1 \
- \to &amp; -e^{-x_<em>} \le -1 \
- \to &amp; -x e^{-x_</em>} \le -x  &amp; (x \ge 0) \
- \to &amp; 1 - x e^{-x_*} \le 1 - x  \
- \to &amp; e^{-x} \le 1 - x \
- \to &amp; 1 - x \ge e^{-x} 
+e ^ { -x } &amp; = 1 - x e ^ { x _ <em> } \
+\forall x _ </em> , &amp; 0 \ge x _ <em> \ge 1, \
+ &amp;  0 \ge e ^ { -x _ </em> } \le 1 \
+ \to &amp; -e ^ { -x _ <em> } \ge -1 \
+ \to &amp; -x e ^ { -x _ </em> } \ge -x  &amp; (x \ge 0) \
+ \to &amp; 1 - x e ^ { -x _ * } \ge 1 - x  \
+ \to &amp; e ^ { -x } \ge 1 - x \
+ \to &amp; 1 - x \le e ^ { -x }
 \end{array}
 $$</p>
 <hr />
-<h3 id="fracpi2-ge-x-ge-0-x-ge-sinx">$ \frac{\pi}{2} \ge x \ge 0, x \ge sin(x) $</h3>
+<p><strong>Claim</strong>: $\frac { \pi } { 2 } \ge x \ge 0, x \ge sin(x)$</p>
 <p>$$
 \begin{array}{llr}
-\sin(x) &amp; = x - \frac{x^3}{3!} \cos(x_<em>) \
-\forall x_</em>, &amp; 0 \le x_<em> \le \frac{\pi}{2}, \
- &amp; 0 \le \cos(x_</em>) \le 1 \
-\to &amp; \frac{x^3}{3!} \cos(x_<em>) \ge 0 &amp; (\frac{\pi}{2} \ge x \ge 0) \
-\to &amp; -\frac{x^3}{3!} \cos(x_</em>) \le 0 \
-\to &amp; x-\frac{x^3}{3!} \cos(x_*) \le x \
-\to &amp; \sin(x)  \le x \
-\to &amp; x \ge \sin(x)  \
+\sin(x) &amp; = x - \frac { x ^ 3 } { 3! } \cos( x _ <em> ) \
+\forall x _ </em> , &amp; 0 \le x _ <em> \le \frac { \pi } { 2 }, \
+ &amp; 0 \le \cos( x _ </em> ) \le 1 \
+\to &amp; \frac { x ^ 3 } { 3! } \cos( x _ <em> ) \ge 0 &amp; (\frac { \pi } { 2 } \ge x \ge 0) \
+\to &amp; -\frac { x ^ 3 } { 3! } \cos( x _ </em> ) \le 0 \
+\to &amp; x -\frac { x ^ 3 } { 3! } \cos( x _ * ) \le x \
+\to &amp; \sin( x )  \le x \
+\to &amp; x \ge \sin( x )  \
 \end{array}
+$$</p>
+<hr />
+<p><strong>Claim</strong>: $0 &lt; x &lt; 1, \ln(1+x) &lt; x &lt; -\ln(1-x)$</p>
+<p>...</p>
+<p>$$
+$$
+\begin{array}{llr}</p>
+<p>\end{array}
 $$</p>
 <hr />
 <p>$$
@@ -98,8 +114,8 @@ n \ge k &amp; \to &amp; -n \le -k \
  &amp; \to &amp; nk - n \le nk - k \
  &amp; \to &amp; n(k - 1) \le k(n - 1) \
  &amp; \to &amp; \frac{n}{k} \le \frac{n - 1}{k-1} \
- &amp; \to &amp; \frac{n}{k} \le \frac{n - 1}{k-1} \
- &amp; \to &amp; (\frac{n}{k})^k \le \prod_{j=0}^{k-1} \frac{n-j}{k-j} \
+ &amp; \to &amp; \frac{n}{k} \le \frac{ n - 1}{k-1} \
+ &amp; \to &amp; ( \frac { n } { k } ) ^ k \le {\prod} ^ { k-1 }  _ { j=0 }  \frac { n-j } { k-j } \
  &amp; \to &amp;  (\frac{n}{k})^k \le { n \choose k } \
 \end{array}
 $$</p>
@@ -114,6 +130,6 @@ $$</p>
       -->
 
     </div>
-    <script src="/dev/js/scale.fix.js"></script>
+    <script src="/js/scale.fix.js"></script>
   </body
 </html>

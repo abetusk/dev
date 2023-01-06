@@ -262,3 +262,5 @@ from the resulting fair distribution.
 $$
 \Pr \\{ H T \\} = \Pr \\{ T H \\} = p (1-p) = (1-p) p
 $$
+
+###### 2018-06-29

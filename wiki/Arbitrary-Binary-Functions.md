@@ -57,3 +57,5 @@ $$
 Even when we overcount, we still can't the count large enough to represent all binary functions.
 
 [src](http://www.cs.utexas.edu/~panni/lec3.pdf)
+
+###### 2019-01-10

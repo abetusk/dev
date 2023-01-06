@@ -43,7 +43,7 @@ e ^ { -x } & = 1 - x e ^ { x _ * } \\
  \to & -x e ^ { -x _ * } \ge -x  & (x \ge 0) \\
  \to & 1 - x e ^ { -x _ * } \ge 1 - x  \\
  \to & e ^ { -x } \ge 1 - x \\
- \to & 1 - x \le e ^ { -x } 
+ \to & 1 - x \le e ^ { -x }
 \end{array}
 $$
 
@@ -61,6 +61,19 @@ $$
 \to & x -\frac { x ^ 3 } { 3! } \cos( x _ * ) \le x \\
 \to & \sin( x )  \le x \\
 \to & x \ge \sin( x )  \\
+\end{array}
+$$
+
+---
+
+**Claim**: $0 < x < 1, \ln(1+x) < x < -\ln(1-x)$
+
+...
+
+$$
+$$
+\begin{array}{llr}
+
 \end{array}
 $$
 
