@@ -268,17 +268,25 @@ If a system is comprised of $T$ symbols, where each is assumed to be independent
 and if $T$ large, then $T \cdot p_k \cdot n$ is approximately integral and we can express
 the number of ways of arranging $T$ symbols as:
 
-$$ { T \cdot n \choose (T \cdot p_0 \cdot n), (T \cdot p_1 \cdot n), \dots, (T \cdot p_{n-1} \cdot n) } $$
+$$
+{ T \cdot n \choose (T \cdot p_0 \cdot n), (T \cdot p_1 \cdot n), \dots, (T \cdot p_{n-1} \cdot n) }
+$$
 
-$$ = \frac{(T \cdot n)!}{ {\prod}_ { k=0 } ^ { n-1 } (T \cdot p_{k} \cdot n)!} $$
+$$
+= \frac{(T \cdot n)!}{ {\prod}_ { k=0 } ^ { n-1 } (T \cdot p_{k} \cdot n)!}
+$$
 
 The number of bits to describe the number of configurations is (with $\lg(\cdot) = \log_2(\cdot)$ ):
 
-$$ \lg( \frac{(T \cdot n)!}{ {\prod}_ {k=0}^{n-1} (T \cdot p_{k} \cdot n)!} ) $$
+$$
+\lg( \frac{(T \cdot n)!}{ {\prod}_ {k=0}^{n-1} (T \cdot p_{k} \cdot n)!} )
+$$
 
 Which, after some algebra, reduces to:
 
-$$ = - T \sum_{k=0}^{n-1} p_k \lg(p_k) $$
+$$
+= - T \sum_{k=0}^{n-1} p_k \lg(p_k)
+$$
 
 Define the entropy, $S$, to be the average number of bits needed to represent our system at a particular
 point in time (that is, the average number of bits per symbol), we find:
