@@ -29,7 +29,7 @@ all possible values of the remaining variables.
 That is:
 
 $$
-p( { \bf x } _ s  = { \bf b } _ s ) = \sum_{ { \bf x } /  x_s } \text{    } \prod_{ c \in \text{ clique( } G \text{ ) } } \phi_c ( { \bf x } _ c )
+p( { \bf x } _ s  = { \bf d } _ s ) = \sum_{ { \bf x } /  x_s } \text{    } \prod_{ c \in \text{ clique( } G \text{ ) } } \phi_c ( { \bf x } _ c )
 $$
 
 Where the term on the right fixes the values of ${ \bf x }_s$ where appropriate.
@@ -92,14 +92,14 @@ graph LR
 
 | | |
 |---|---|
-| $\mu_{i,j}(b) = \sum_{a \in D} f_{u,i}(a) \cdot f_{v,i}(a) \dots $ | ![Belief Propagation on Markov Random Field example](img/mrfbp_example.png) |
+| $\mu_{i,j}(d) = \sum_{a \in D} f_{u,i}(a) \cdot f_{v,i}(a) \dots $ | ![Belief Propagation on Markov Random Field example](img/mrfbp_example.png) |
 
 Each vertex, $i$, can be associated with a random variable, $X_i$, taking
 on (discrete) values chosen from some domain $D = \{ d_0, d_1, \cdots, d_{m-1} \}$ with
 a probability distribution function $g_i(\cdot)$.
 
 $$
-\mu_{i,j}^{t+1}(b) = \sum_{a \in D} f_{i,j}(a,b) \cdot g_i(a) \cdot \prod_{k \in N(i) \text{ \\\\ } j} \mu_{k,i}^{t}(a)
+\mu_{i,j}^{t+1}(d) = \sum_{a \in D} f_{i,j}(a,d) \cdot g_i(a) \cdot \prod_{k \in N(i) \text{ \\\\ } j} \mu_{k,i}^{t}(a)
 $$
 
 $$
@@ -107,7 +107,7 @@ P(X_i = a) \approx b^t_i(a) \propto g_i(a) \cdot \prod_{k \in N(i)} \mu^t_{k,i}(
 $$
 
 $$
-\sum_{b \in D} \mu_{i,j}^{t}(b) = 1,  \ \ \ \ \sum_{a \in D} b^t_i(a) = 1
+\sum_{b \in D} \mu_{i,j}^{t}(d) = 1,  \ \ \ \ \sum_{a \in D} b^t_i(a) = 1
 $$
 
 The product can be more compactly represented by a function $h^t_{i,j}(\cdot)$:
@@ -117,7 +117,7 @@ h^t_{i,j}(a) = g_i(a) \cdot \prod_{k \in N(i) \text{\\\\} j } \mu^t_{k,i}(a)
 $$
 
 $$
-\mu_{i,j}^{t+1}(b) = \sum_{a \in D} f_{i,j}(a,b) \cdot h^t_{i,j}(a)
+\mu_{i,j}^{t+1}(d) = \sum_{a \in D} f_{i,j}(a,d) \cdot h^t_{i,j}(a)
 $$
 
 One can recast this as a matrix multiplication:
