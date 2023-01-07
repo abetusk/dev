@@ -72,7 +72,7 @@ $$</p>
 all possible values of the remaining variables.
 That is:</p>
 <p>$$
-p( { \bf x } _ s  = { \bf b } _ s ) = \sum_{ { \bf x } /  x_s } \text{    } \prod_{ c \in \text{ clique( } G \text{ ) } } \phi_c ( { \bf x } _ c )
+p( { \bf x } _ s  = { \bf d } _ s ) = \sum_{ { \bf x } /  x_s } \text{    } \prod_{ c \in \text{ clique( } G \text{ ) } } \phi_c ( { \bf x } _ c )
 $$</p>
 <p>Where the term on the right fixes the values of ${ \bf x }_s$ where appropriate.</p>
 <p>This problem is NP-Complete in general.
@@ -127,7 +127,7 @@ graph LR
 </thead>
 <tbody>
 <tr>
-<td>$\mu_{i,j}(b) = \sum_{a \in D} f_{u,i}(a) \cdot f_{v,i}(a) \dots $</td>
+<td>$\mu_{i,j}(d) = \sum_{a \in D} f_{u,i}(a) \cdot f_{v,i}(a) \dots $</td>
 <td><img alt="Belief Propagation on Markov Random Field example" src="img/mrfbp_example.png" /></td>
 </tr>
 </tbody>
@@ -136,20 +136,20 @@ graph LR
 on (discrete) values chosen from some domain $D = { d_0, d_1, \cdots, d_{m-1} }$ with
 a probability distribution function $g_i(\cdot)$.</p>
 <p>$$
-\mu_{i,j}^{t+1}(b) = \sum_{a \in D} f_{i,j}(a,b) \cdot g_i(a) \cdot \prod_{k \in N(i) \text{ \\ } j} \mu_{k,i}^{t}(a)
+\mu_{i,j}^{t+1}(d) = \sum_{a \in D} f_{i,j}(a,d) \cdot g_i(a) \cdot \prod_{k \in N(i) \text{ \\ } j} \mu_{k,i}^{t}(a)
 $$</p>
 <p>$$
 P(X_i = a) \approx b^t_i(a) \propto g_i(a) \cdot \prod_{k \in N(i)} \mu^t_{k,i}(a)
 $$</p>
 <p>$$
-\sum_{b \in D} \mu_{i,j}^{t}(b) = 1,  \ \ \ \ \sum_{a \in D} b^t_i(a) = 1
+\sum_{b \in D} \mu_{i,j}^{t}(d) = 1,  \ \ \ \ \sum_{a \in D} b^t_i(a) = 1
 $$</p>
 <p>The product can be more compactly represented by a function $h^t_{i,j}(\cdot)$:</p>
 <p>$$
 h^t_{i,j}(a) = g_i(a) \cdot \prod_{k \in N(i) \text{\\} j } \mu^t_{k,i}(a)
 $$</p>
 <p>$$
-\mu_{i,j}^{t+1}(b) = \sum_{a \in D} f_{i,j}(a,b) \cdot h^t_{i,j}(a)
+\mu_{i,j}^{t+1}(d) = \sum_{a \in D} f_{i,j}(a,d) \cdot h^t_{i,j}(a)
 $$</p>
 <p>One can recast this as a matrix multiplication:</p>
 <p>$$ \begin{bmatrix} f_{i,j}(d_0,d_0) &amp; f_{i,j}(d_1,d_0) &amp;  \cdots &amp; f_{i,j}(d_{m-1},d_0) \\ f_{i,j}(d_0,d_1) &amp; f_{i,j}(d_1,d_1) &amp;  \cdots &amp; f_{i,j}(d_{m-1},d_1) \\ \vdots  &amp; \vdots &amp; \ddots &amp; \vdots &amp; \\ f_{i,j}(d_0,d_{m-1}) &amp; f_{i,j}(d_1,d_{m-1}) &amp;  \cdots &amp; f_{i,j}(d_{m-1},d_{m-1}) \end{bmatrix} \begin{bmatrix} h_{i,j}^{t}(d_0) \\ h_{i,j}^{t}(d_1) \\ \vdots \\ h_{i,j}^{t}(d_{m-1}) \end{bmatrix} = \begin{bmatrix} \mu_{i,j}^{t+1}(d_0) \\ \mu_{i,j}^{t+1}(d_1) \\ \vdots \\ \mu_{i,j}^{t+1}(d_{m-1}) \end{bmatrix}
