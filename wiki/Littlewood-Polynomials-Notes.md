@@ -148,18 +148,50 @@ The points below the unit disc could also be discarded but the gaps are easier
 to see when they're left in, which introduces a mirror symmetry in the complex
 logarithm plot.
 
-![complex logarithm littlewood polynomial](img/ln_littlewood_d11.png)
+![complex logarithm Littlewood polynomial](img/ln_littlewood_d11.png)
 
 The lines correspond to the first few Farey sequence numbers with a factor of $\pi$.
 
-If we have $p(z)=0$ and $z = u^m$, then we also have $p(u^m)=0$, creating another
-polynomial $q(\cdot)$ of $\deg(p) \cdot m$.
-That is $q(u)=p(u^m)=p(z)=q(z^{\frac{1}{m}})$.
+One observation is that if we have a polynomial, $p_0(z)$, of $\deg(p_0) = d$, with
+root $p_0(z_0)=0$, then this implies the existence of another Littlewood polynomial,
+$p_1(z)$ with $\deg(p_1) = \frac{d}{\alpha}$ (for $\frac{d}{\alpha} \in \mathbb{Z}$)  and $p_1(z_0^{\alpha}) = 0$.
 
-This provides another form of symmetry, even if it's only "probabilistic" in nature.
+For example, consider:
 
-I suspect this is the reason for the holes around the $|z|=1$ line but I'm having
-a hard time coming up with a good reason.
+$$
+\begin{align}
+ p_0(z) & = 1 + z \\
+ p_0(z_0) & = 0 \\
+\to p_1(z) & = 1 + z^2 \\
+\to p_1(z_0^{\frac{1}{2}}) & = 1 + (z_0^{\frac{1}{1}})^2 \\
+ & = 1 + z_0 = 0
+\end{align}
+$$
+
+If we collect roots for Littlewood polynomials of finite degree $n$, this means
+that for all polynomials of $\lfloor \frac{\deg(d)}{2} \rfloor$ ($d \le n$), there is a
+corresponding Littlewood polynomial of $deg(d)$ that share half of its roots under
+the $(\cdot)^\frac{1}{2}$ transformation.
+The same with $\lfloor \frac{\deg(d)}{3} \rfloor$, $\lfloor \frac{\deg(d)}{5} \rfloor$,
+$\lfloor \frac{\deg(d)}{7} \rfloor$, etc.
+
+The roots of $p_0(z)$ get 'squashed' by a factor of $\alpha$ when they become roots
+of $p_1(z)$, giving the plot another more subtle symmetry.
+That is, for every root (of unit length)  $e^{i \theta}$, there are other roots $e^{ i \alpha \theta }$
+and $e^{ - k \alpha \theta }$, for $k$ cycling through all the possibilities.
+
+If the "dead zone" of roots around $\{ 1, -1 \}$ is taken as a given, this explains
+the other "holes" around the $|z| = 1$ circle, as the roots fan out to the other locations
+along the circle and why it's a Farey sequence.
+The number of polynomials that can be scaled up by $2$ is more than can be scaled up by $3$ which
+is more than can be scaled up by $5$, etc.
+
+Where there's a "dead zone" around the $\{ 1, -1 \}$ points ist still something that I don't understand.
+
+---
+
+As `some guy on the street` notices, if $p(z)$ and $q(z)$ are Littlewood polynomials, with $\deg(q) = d-1$, then
+$q(z) \cdot p(z^d)$ is also Littlewood.
 
 ---
 
