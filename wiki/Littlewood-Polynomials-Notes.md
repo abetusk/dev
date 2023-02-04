@@ -9,6 +9,9 @@ for a restricted degree $n$ yields pretty pictures.
 
 ![littlewood polynomial degree 11](img/littlewood_d11.png)
 
+Each point represents a complex root of a polynomial $p(z) = \sum_{k=0}^{11} c_k z^k$, where
+$c_k \in \{ -1, 0, 1 \}$.
+
 ---
 
 **Claim**:
@@ -160,10 +163,10 @@ For example, consider:
 
 $$
 \begin{align}
- p_0(z) & = 1 + z \\
- p_0(z_0) & = 0 \\
-\to p_1(z) & = 1 + z^2 \\
-\to p_1(z_0^{\frac{1}{2}}) & = 1 + (z_0^{\frac{1}{1}})^2 \\
+ p_0(z) & = 1 + z \\\\
+ p_0(z_0) & = 0 \\\\
+\to p_1(z) & = 1 + z^2 \\\\
+\to p_1(z_0^{\frac{1}{2}}) & = 1 + (z_0^{\frac{1}{1}})^2 \\\\
  & = 1 + z_0 = 0
 \end{align}
 $$
@@ -195,6 +198,24 @@ $q(z) \cdot p(z^d)$ is also Littlewood.
 
 ---
 
+Some questions I have (they might be known, I just don't know them) are how what are the sizes of the dead zone
+holes and how do they scale as the degree increases.
+
+One way to attack this is to plot the minimum distance between roots that fall along the Farey sequence angle
+proportions (excluding purely real roots) and/or to plot the frequency/falloff.
+
+Most likely, once the initial dead zone around $z = 1$ is understood, then the rest should follow, though this
+would need confirmation.
+In terms of an initial heuristic argument for the size of the dead zone around $z=1$, the root $z_0=1$ might
+be privileged because of the way the coefficients are chosen.
+
+Any polynomial which has an equal number of coefficients equal to 1 as -1 must have a root at $z=1$.
+Doing a quick estimate with Stirling's approximation tells us that there should roughly be $O(\frac{1}{\sqrt{d}})$
+of these polynomials for a given degree $d$.
+This, combined with the fact that roots tend to "repel", by some heuristic measure, might give us enough information
+to get an understanding of the dead zone around $z=1$.
+
+---
 
 
 References
@@ -206,5 +227,6 @@ References
 * [Iterated Function System](https://en.wikipedia.org/wiki/Iterated_function_system#Definition)
 * [Heighway dragon](https://en.wikipedia.org/wiki/Dragon_curve#Heighway_dragon)
 * [mpsolve](https://github.com/robol/MPSolve)
+* [Zeros of Polynomials with 0,1 Coefficients by Odlyzko and Poonen](https://github.com/abetusk/papers/blob/release/MathMisc/zeros-polynomial-0-1_odlyzko_poonen.pdf)
 
 ###### 2022-01-20

@@ -16,6 +16,7 @@ if [[ "$1" != "" ]] ; then
   export D="$1"
 fi
 
-gcc littlewoodp.c -o littlewoodp
-./littlewoodp $D | xargs -n1 -I{} mpsolve -p '{}' | tr -d '(),' | sort -u > lwp-d$D.gp
+gcc -O3 littlewoodp.c -o littlewoodp
+#./littlewoodp $D | xargs -n1 -I{} mpsolve -p '{}' | tr -d '(),' | sort -u > lwp-d$D.gp
+./littlewoodp $D | xargs -n1 -I{} mpsolve -p '{}' | tr -d '(),' > lwp-d$D.gp
 cat lwp-d$D.gp | ./clog.py > ln_lwp-d$D.gp

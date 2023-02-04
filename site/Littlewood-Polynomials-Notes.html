@@ -55,6 +55,8 @@ a finite set of ${-1,1}$.</p>
 <p>Plotting the roots of augmented Littlewood polynomials (allowing for 0 as a coefficient)
 for a restricted degree $n$ yields pretty pictures.</p>
 <p><img alt="littlewood polynomial degree 11" src="img/littlewood_d11.png" /></p>
+<p>Each point represents a complex root of a polynomial $p(z) = \sum_{k=0}^{11} c_k z^k$, where
+$c_k \in { -1, 0, 1 }$.</p>
 <hr />
 <p><strong>Claim</strong>:</p>
 <p>$$
@@ -165,10 +167,10 @@ $p_1(z)$ with $\deg(p_1) = \frac{d}{\alpha}$ (for $\frac{d}{\alpha} \in \mathbb{
 <p>For example, consider:</p>
 <p>$$
 \begin{align}
- p_0(z) &amp; = 1 + z \
- p_0(z_0) &amp; = 0 \
-\to p_1(z) &amp; = 1 + z^2 \
-\to p_1(z_0^{\frac{1}{2}}) &amp; = 1 + (z_0^{\frac{1}{1}})^2 \
+ p_0(z) &amp; = 1 + z \\
+ p_0(z_0) &amp; = 0 \\
+\to p_1(z) &amp; = 1 + z^2 \\
+\to p_1(z_0^{\frac{1}{2}}) &amp; = 1 + (z_0^{\frac{1}{1}})^2 \\
  &amp; = 1 + z_0 = 0
 \end{align}
 $$</p>
@@ -192,6 +194,20 @@ is more than can be scaled up by $5$, etc.</p>
 <p>As <code>some guy on the street</code> notices, if $p(z)$ and $q(z)$ are Littlewood polynomials, with $\deg(q) = d-1$, then
 $q(z) \cdot p(z^d)$ is also Littlewood.</p>
 <hr />
+<p>Some questions I have (they might be known, I just don't know them) are how what are the sizes of the dead zone
+holes and how do they scale as the degree increases.</p>
+<p>One way to attack this is to plot the minimum distance between roots that fall along the Farey sequence angle
+proportions (excluding purely real roots) and/or to plot the frequency/falloff.</p>
+<p>Most likely, once the initial dead zone around $z = 1$ is understood, then the rest should follow, though this
+would need confirmation.
+In terms of an initial heuristic argument for the size of the dead zone around $z=1$, the root $z_0=1$ might
+be privileged because of the way the coefficients are chosen.</p>
+<p>Any polynomial which has an equal number of coefficients equal to 1 as -1 must have a root at $z=1$.
+Doing a quick estimate with Stirling's approximation tells us that there should roughly be $O(\frac{1}{\sqrt{d}})$
+of these polynomials for a given degree $d$.
+This, combined with the fact that roots tend to "repel", by some heuristic measure, might give us enough information
+to get an understanding of the dead zone around $z=1$.</p>
+<hr />
 <h2 id="references">References</h2>
 <ul>
 <li><a href="https://math.ucr.edu/home/baez/roots/">Baez: The Beauty of Roots</a></li>
@@ -200,6 +216,7 @@ $q(z) \cdot p(z^d)$ is also Littlewood.</p>
 <li><a href="https://en.wikipedia.org/wiki/Iterated_function_system#Definition">Iterated Function System</a></li>
 <li><a href="https://en.wikipedia.org/wiki/Dragon_curve#Heighway_dragon">Heighway dragon</a></li>
 <li><a href="https://github.com/robol/MPSolve">mpsolve</a></li>
+<li><a href="https://github.com/abetusk/papers/blob/release/MathMisc/zeros-polynomial-0-1_odlyzko_poonen.pdf">Zeros of Polynomials with 0,1 Coefficients by Odlyzko and Poonen</a></li>
 </ul>
 <h6 id="2022-01-20">2022-01-20</h6>
 
