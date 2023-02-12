@@ -1,0 +1,44 @@
+#!/bin/bash
+
+echo ""
+echo "### Small Tarot"
+echo ""
+echo "|   |   |   |   |   |   |"
+echo "|---|---|---|---|---|---|"
+
+ls -v preview/l_* | \
+  sed 's/^\(.*\)/![\1](\1)/' | \
+  paste - - - - - - | \
+  tr '\t' '|' | \
+  sed 's/|/ | /g' | \
+  sed 's/^/| /' | \
+  sed 's/$/ |/'
+
+echo ""
+echo "### Tiny Tarot"
+echo ""
+echo "|   |   |   |   |   |   |"
+echo "|---|---|---|---|---|---|"
+
+ls -v preview/m_* | \
+  sed 's/^\(.*\)/![\1](\1)/' | \
+  paste - - - - - - | \
+  tr '\t' '|' | \
+  sed 's/|/ | /g' | \
+  sed 's/^/| /' | \
+  sed 's/$/ |/'
+
+echo ""
+echo "### Tinyest Tarot"
+echo ""
+echo "|   |   |   |   |   |   |"
+echo "|---|---|---|---|---|---|"
+
+ls -v preview/s_* | \
+  sed 's/^\(.*\)/![\1](\1)/' | \
+  paste - - - - - - | \
+  tr '\t' '|' | \
+  sed 's/|/ | /g' | \
+  sed 's/^/| /' | \
+  sed 's/$/ |/'
+

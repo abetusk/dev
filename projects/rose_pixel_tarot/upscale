@@ -1,0 +1,20 @@
+#!/bin/bash
+
+file img/* | grep ' 13 x' > 13.list
+file img/* | grep ' 34 x' > 34.list
+file img/* | grep ' 42 x' > 42.list
+
+cut -f1 -d':' 13.list | \
+  cut -f2 -d'/' | \
+  xargs -n1 -I{} convert img/{} -scale '1000%' preview/s_{}
+
+cut -f1 -d':' 34.list | \
+  cut -f2 -d'/' | \
+  xargs -n1 -I{} convert img/{} -scale '400%' preview/m_{}
+
+cut -f1 -d':' 42.list | \
+  cut -f2 -d'/' | \
+  xargs -n1 -I{} convert img/{} -scale '300%' preview/l_{}
+
+
+
