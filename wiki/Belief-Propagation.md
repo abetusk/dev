@@ -141,6 +141,11 @@ Where $F_{i,j} = U \cdot S \cdot V$.
 
 The matrix multiplication that was $O(m^2)$ now becomes two matrix multiplications of order $O(r \cdot m)$ for a potential speedup of $\sim \frac{m}{r}$.
 
+Note that if the $F$ matrix has any symmetry, there are potential efficiency gains by exploiting that symmetry.
+In the above, when $F$ is of low rank, the SVD is exploiting the "symmetry' of having many zero eigenvalues.
+There is a well known optimization if the implied function has certain translational symmetry properties, allowing
+the multiplication to be done via a fast Fourier transform, producing an $O(m \lg m)$ calculation over the $O(m^2)$.
+
 ---
 
 #### Sum-Product Belief Propagation
@@ -209,7 +214,7 @@ Some other random notes:
   talks about how the superblocks (generalized belief propagation (GBP)?) idea wasn't meant to make it
   more efficient but was done for other, theoretical, reasons
 
-#### Scalable detection of statistically significantcommunities and hierarchies, using messagepassing for modularity
+#### Scalable detection of statistically significant communities and hierarchies, using message passing for modularity
 
 * [talk](https://www.youtube.com/watch?v=jzN37cqkB0c&list=LL)
 * [paper](https://www.pnas.org/doi/epdf/10.1073/pnas.1409770111)

@@ -42,6 +42,10 @@ S = & - \sum_{i} p_i \ln(p_i)
 $$
 
 Where we use $S_{*}$ to differentiate between the entropy defined with $\lg(\cdot)$ instead of $\ln(\cdot)$
+For the derivations below, it's easier to work in natural logarithm ($\ln(\cdot)$) rather than the logarithm
+base 2 ($\lg(\cdot)$) in addition to what is used in the physics literature.
+The choice of base for the logarithm should only contribute a constant factor and shouldn't take away
+from the broader ideas.
 
 In the above, we make a few assumptions:
 
@@ -96,6 +100,12 @@ $$
 
 Is called a Boltzmann distribution.
 Another name is Gibbs distribution.
+
+$Z(T)$ is often called the partition function and acts as a renormalization constant.
+
+Because of the partition function's ($Z(T)$) relation to temperature and energy, among
+other derived quantities, interrogating the partition function through the use of derivatives
+of different variables can produce information about the underlying system.
 
 ---
 
