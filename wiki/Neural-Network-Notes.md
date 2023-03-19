@@ -19,10 +19,13 @@ Some common activation functions:
 $$
 \begin{align}
 \text{ReLU}(x)  & = \max(0, x) \\
-\sigma(x) &= \frac{1}{1 + e ^ { - x } } \\
-s(x) &= \ln(1 + e ^ { x } )
+\sigma(x) &= \frac{1}{1 + e ^ { - \beta \cdot x } } \\
+s(x) &= \frac{1}{\beta} \ln(1 + e ^ { \beta \cdot x } ) \\
+\text{softmax}( \vec{ x } ) &= [ \frac{e ^ {x _ j}}{ \sum ^ {n-1} _ {j=0} e ^ { x _ j } } ]
 \end{align}
 $$
+
+Where $\beta$ controls the width or 'ramp up' region for ReLU and the sigmoid function.
 
 Call $g(x) = f _ { L-1 } ( W _ { L-1 } f _ { L-2 } ( W _ { L-2} \cdots f _ 0 ( W _ 0 x ) \cdots ) )$,
 then we want to minimize:
