@@ -47,3 +47,4 @@ dev
 * [Useful Tables](Useful-Tables.md) 2022-08-09
 * [Belief Propagation](Belief-Propagation.md) 2022-08-16
 * [Probability Defintions](Probability-Definitions.md) 2023-03-24
+* [Ribbon Tile Puzzle (spoilers)](Puzzle-Ribbon-Tiles.md) 2023-04-02

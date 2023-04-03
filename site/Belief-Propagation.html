@@ -163,7 +163,54 @@ $$</p>
 $$</p>
 <p>Where $F_{i,j} = U \cdot S \cdot V$.</p>
 <p>The matrix multiplication that was $O(m^2)$ now becomes two matrix multiplications of order $O(r \cdot m)$ for a potential speedup of $\sim \frac{m}{r}$.</p>
+<p>Note that if the $F$ matrix has any symmetry, there are potential efficiency gains by exploiting that symmetry.
+In the above, when $F$ is of low rank, the SVD is exploiting the "symmetry' of having many zero eigenvalues.
+There is a well known optimization if the implied function has certain translational symmetry properties, allowing
+the multiplication to be done via a fast Fourier transform, producing an $O(m \lg m)$ calculation over the $O(m^2)$.</p>
 <hr />
+<h4 id="bethe-free-energy">Bethe Free Energy</h4>
+<p>(wip)</p>
+<p>Belief Propagation (BP) can be thought of as an algorithm that finds a fixed
+point of the Bethe Free Energy, $F_\beta$:</p>
+<p>$$
+\begin{array}{ll}
+\phi _ {i,j} (d _ 0, d _ 1 ) = &amp; f ( d _ 0, d _ 1 ) g ( d _ 0 ) g ( d _ 1 ) \
+b _ {i,j} (d _ 0,d _ 1)  = &amp; \alpha \phi _ {i,j} ( d _ 0, d _ 1 )  \prod _ { k \in N(i) / j } \mu _ {k,i} ( d_0) \prod _ { l \in N(j) / i } \mu _ {l,j} (d _ 1) \
+F _ {\beta} (f, g)  = &amp; \sum _ {i,j} \sum _ {d _ 0, d _ 1} b _ {i,j} ( d _ 0, d _ 1 ) [ \ln(b _ {i,j} (d _ 0, d _ 1 )) - \ln( \phi _ {i,j} ( d _ 0 ) ) ] \
+ &amp; - \sum _ {i} (q _ i - 1) \sum _ d b _ i (d)  [ \ln ( b _ i ( d ) ) - \ln( g ( d ) ) ] 
+\end{array}
+$$</p>
+<p>Where $\alpha$ is a normalization constant, $q_i$ is the degree of the MRF variable at site $i$ and
+$f$, $g$, $b$ etc. are as above (pair wise function, singleton function, belief, etc.).</p>
+<p>Imposing the constraints:</p>
+<p>$$
+\begin{array}{l}
+\sum _ d b _ i (d) = 1 \
+\sum _ { d _ 0 } b _ {i,j} ( d _ 0, d _ 1 ) = b _ j ( d _ 1 )
+\end{array}
+$$</p>
+<p>Allows us to use Lagrange multipliers $\lambda _ {i,j} ( d )$ for the
+$\sum _ { d _ 0 } b _ {i,j} ( d _ 0, d _ 1 ) = b _ j ( d _ 1 )$ constraint,
+$\gamma _ i$ for the $\sum _ d b _ i (d) = 1$ constraint and $\gamma _ {i,j}$
+for the $\sum _ {d} \mu _ {i,j} (d) = 1$ constraint:</p>
+<p>$$
+\begin{array}{ll}
+L = &amp; F _ {\beta} \
+ &amp; - \lambda _ {i,j} (d_1) \left[ \left( \sum _ { d _ 0 } b _ {i,j} ( d _ 0, d _ 1 ) \right) - b _ j ( d _ 1 ) \right] \
+ &amp; - \gamma _ i \left[ \sum _ d b _ i (d) - 1 \right] \
+ &amp; - \gamma _ {i,j} \left[ \sum _ {d} \mu _ {i,j} (d) - 1 \right] \
+\end{array}
+$$</p>
+<p>$$
+\begin{array}{rl}
+\frac{ \partial L }{ \partial b _ {i,j} ( d _ 0, d _ 1 ) }  = &amp; 0 \
+\to &amp; \ln b _ {i,j} (d _ 0, d _ 1) = \ln( \phi _ {i,j} (d _ 0, d _ 1) ) + \lambda _ {i,j}(d _ 1) + \lambda _ {j,i}(d _ 0) + \gamma _ {i,j} - 1 \
+\frac{ \partial L }{ \partial b _ i (d _ 0) }  = &amp; 0 \
+\to &amp; (q _ i - 1)( \ln b _ i ( d _ 0 ) + 1)  = \ln g ( d _ 0) + \sum _ {j \in N(i) } \lambda _ {j,i} (d _ 1) + \gamma _ i \
+\lambda _ {i,j} ( d _ 1 ) = &amp; \ln \prod _ {k \in N(j) / i } \mu _ {k,j} ( d _ 1 )  \
+\to &amp; ???
+\end{array}
+$$</p>
 <h4 id="sum-product-belief-propagation">Sum-Product Belief Propagation</h4>
 <p>$$
 G(V,E)
@@ -220,7 +267,7 @@ this is not the case and it's not clear that this method will do better (and mig
   talks about how the superblocks (generalized belief propagation (GBP)?) idea wasn't meant to make it
   more efficient but was done for other, theoretical, reasons</li>
 </ul>
-<h4 id="scalable-detection-of-statistically-significantcommunities-and-hierarchies-using-messagepassing-for-modularity">Scalable detection of statistically significantcommunities and hierarchies, using messagepassing for modularity</h4>
+<h4 id="scalable-detection-of-statistically-significant-communities-and-hierarchies-using-message-passing-for-modularity">Scalable detection of statistically significant communities and hierarchies, using message passing for modularity</h4>
 <ul>
 <li><a href="https://www.youtube.com/watch?v=jzN37cqkB0c&amp;list=LL">talk</a></li>
 <li><a href="https://www.pnas.org/doi/epdf/10.1073/pnas.1409770111">paper</a></li>

@@ -47,6 +47,7 @@ nav:
   - "Littlewood-Polynomials-Notes.md"
   - "Useful-Tables.md"
   - "Belief-Propagation.md"
+  - "Puzzle-Ribbon-Tiles.md"
 
 docs_dir: 'wiki'
 use_directory_urls: false

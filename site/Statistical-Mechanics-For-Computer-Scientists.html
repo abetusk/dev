@@ -78,7 +78,11 @@ E = &amp; \sum_{i} p_i E_i \\
 S = &amp; - \sum_{i} p_i \ln(p_i)
 \end{array}
 $$</p>
-<p>Where we use $S_{*}$ to differentiate between the entropy defined with $\lg(\cdot)$ instead of $\ln(\cdot)$</p>
+<p>Where we use $S_{*}$ to differentiate between the entropy defined with $\lg(\cdot)$ instead of $\ln(\cdot)$
+For the derivations below, it's easier to work in natural logarithm ($\ln(\cdot)$) rather than the logarithm
+base 2 ($\lg(\cdot)$) in addition to what is used in the physics literature.
+The choice of base for the logarithm should only contribute a constant factor and shouldn't take away
+from the broader ideas.</p>
 <p>In the above, we make a few assumptions:</p>
 <ul>
 <li>Each of the microstate energies, $E_i$, is fixed and unchanging</li>
@@ -121,6 +125,10 @@ p_i \propto e^{ -\frac{E_i}{\kappa T} }
 $$</p>
 <p>Is called a Boltzmann distribution.
 Another name is Gibbs distribution.</p>
+<p>$Z(T)$ is often called the partition function and acts as a renormalization constant.</p>
+<p>Because of the partition function's ($Z(T)$) relation to temperature and energy, among
+other derived quantities, interrogating the partition function through the use of derivatives
+of different variables can produce information about the underlying system.</p>
 <hr />
 <h3 id="kullback-leibler-divergence">Kullback-Leibler Divergence</h3>
 <p>We want to talk about "free energy" but we will need the idea of

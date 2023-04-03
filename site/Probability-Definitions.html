@@ -54,6 +54,19 @@
 <p>$$
 H(p) = - \sum_{x} p(x) \lg p(x)
 $$</p>
+<h2 id="conditional-entropy">Conditional Entropy</h2>
+<p>$$</p>
+<p>H(X | Y) = \sum _ {x,y} p(x,y) \lg \left( \frac{p(x,y)}{p(x)} \right)
+$$</p>
+<h2 id="mutual-information">Mutual Information</h2>
+<p>$$
+\begin{array}{ll}
+I(X;Y) &amp; = H(X) - H(X | Y) \
+ &amp; = D _ {KL} \left[ \ p(x , y) \ || \ p(x) \cdot p(y) \ \right] \
+ &amp; = D _ {KL} \left[ \ p(x | y) \ || \ p(x) \ \right] \
+ &amp; = D _ {KL} \left[ \ p(y | x) \ || \ p(y) \ \right] \
+\end{array}
+$$</p>
 <h2 id="cross-entropy">Cross Entropy</h2>
 <p>$$
 H(p,q) = - \sum_{x} p(x) \lg q(x)
@@ -61,7 +74,7 @@ $$</p>
 <h2 id="kullback-leilbler-divergence">Kullback-Leilbler Divergence</h2>
 <p>$$
 \begin{array}{ll}
-D_{KL} (p ||q) &amp; = - \sum_{k} p(x) \lg \frac{q(x)}{p(x)} \\
+D_{KL} (p || q) &amp; = - \sum_{k} p(x) \lg \frac{q(x)}{p(x)} \\
  &amp; = - \left( \sum_{x} p(x) \lg q(x) - p(x) \lg p(x) \right)
 \end{array}
 $$</p>
