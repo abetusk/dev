@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>dev blog</title>
+
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js", "TeX/AMSsymbols.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <header>
+        <h1>Dev Blog</h1>
+
+        <table>
+          <body>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
+           <tr>
+              <td>
+                <br /> <br /> <br />
+                <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+
+                <br />
+                <p>
+                Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
+                <br />
+
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
+                </p>
+              </td>
+            </tr>
+          </body>
+        </table>
+
+      </header>
+      <section>
+
+        <h1 id="neural-network-notes">Neural Network Notes</h1>
+<p>$$
+\begin{align}
+x \in \mathbb{R} ^ n &amp; - \text{ input } \
+y \in \mathbb{R} ^ m &amp; - \text{ output (training) data } \
+C &amp; - \text{ loss function } \
+L &amp; - \text{ number of layers } \
+W ^ l = ( w ^ l _ { j, k } ) &amp; - \text{ weight } \
+f _ l &amp; - \text{ activation function }  \
+z _ l &amp; - \text{ weighted input at level } l \
+a _ l &amp; - \text{ activation output at level } l \
+\end{align}
+$$</p>
+<p>Some common activation functions:</p>
+<p>$$
+\begin{align}
+\text{ReLU}(x)  &amp; = \max(0, x) \
+\sigma(x) &amp;= \frac{1}{1 + e ^ { - \beta \cdot x } } \
+s(x) &amp;= \frac{1}{\beta} \ln(1 + e ^ { \beta \cdot x } ) \
+\text{softmax}( \vec{ x } ) &amp;= [ \frac{e ^ {x _ j}}{ \sum ^ {n-1} _ {j=0} e ^ { x _ j } } ]
+\end{align}
+$$</p>
+<p>Where $\beta$ controls the width or 'ramp up' region for ReLU and the sigmoid function.</p>
+<p>Call $g(x) = f _ { L-1 } ( W _ { L-1 } f _ { L-2 } ( W _ { L-2} \cdots f _ 0 ( W _ 0 x ) \cdots ) )$,
+then we want to minimize:</p>
+<p>$$
+C(y, g(x))
+$$</p>
+<p>Backpropagation proceeds by updating weights based on gradient descent:</p>
+<p>$$
+\frac{ d C }{ d a _ { L-1 }} \circ \frac{ d a _ { L-1 } }{ d z _ { L-1 } }
+ \circ \frac{ d z _ { L-1 } }{ d a _ { L-2 } } \circ \frac{ d a _ { L-2 } }{ d z _ { L-2 } } \circ
+ \cdots \circ \frac{ d a _ 0 }{ d z _ 0 } \cdot \frac{ d  z _ 0 } { d x }
+$$</p>
+<p>Where $\circ$ is the Hadamard product.</p>
+<p>TO BE CONTINUED...</p>
+<h2 id="autoencoders">Autoencoders</h2>
+<p>$$
+\begin{align}
+\phi &amp; : X \to F \
+\psi &amp; : F \to X \
+\phi, \psi &amp; = \text{argmin} _ { \phi, \psi } | X - ( \psi \circ \phi ) X |^2
+\end{align}
+$$</p>
+<p>$$
+\begin{align}
+z &amp;= \sigma( W x + b ) \
+x &amp;= \sigma'( W' z + b' ) \
+L(x,x') &amp; = \text{ loss function } \
+ &amp; = |x - \sigma'(W'(\sigma(Wx + b)) + b') |^2 \
+\end{align}
+$$</p>
+<p>Some common loss functions:</p>
+<p>$$
+\begin{align}
+L _ {MSE} (x,\bar{x}) &amp; = \frac{1}{M} \sum ^ {M-1} _ {i=0} | x_i - \bar{x} _ i |^2 \
+L _ {CE} (x,\bar{x}) &amp; = - \frac{1}{M} \sum ^ {M-1} _ {i=0} \sum ^ { N-1 } _ {j=0} [ x _ {j,i} \ln( \bar{x} _ {j,i} ) + (1-x _ {j,i}) \ln( 1 - \bar{x} _ {j,i} ) ] \
+\end{align}
+$$</p>
+<p>Where $F$ is called the "latent space".</p>
+<p>Regularization is a method to make sure answers meet some sparsity condition.
+Here are two:</p>
+<p>$$
+\begin{align}
+\ell _ 2 \text{ reg } &amp; : L(x,\bar{x})  + \lambda \sum _ i \theta ^ 2 _ i   \
+\ell _ 1 \text{ reg } &amp; : L(x,\bar{x})  + \lambda \sum _ i |a ^ h _ i |   \
+\end{align}
+$$</p>
+<p>Where $\theta$ are the presumably the weights and $a ^ h _ i$ are the activations of position $i$ at level $h$.</p>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://mattmazur.com/2015/03/17/a-step-by-step-backpropagation-example/">0</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Autoencoder">1</a></li>
+<li><a href="https://arxiv.org/pdf/2201.03898.pdf">2</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Backpropagation">3</a></li>
+</ul>
+<h6 id="2023-03-18">2023-03-18</h6>
+
+      </section>
+
+      <!--
+      <footer>
+        <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+      </footer>
+      -->
+
+    </div>
+    <script src="/dev/js/scale.fix.js"></script>
+  </body
+</html>

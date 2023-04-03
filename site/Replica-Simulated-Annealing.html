@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>dev blog</title>
+
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js", "TeX/AMSsymbols.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <header>
+        <h1>Dev Blog</h1>
+
+        <table>
+          <body>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
+           <tr>
+              <td>
+                <br /> <br /> <br />
+                <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+
+                <br />
+                <p>
+                Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
+                <br />
+
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
+                </p>
+              </td>
+            </tr>
+          </body>
+        </table>
+
+      </header>
+      <section>
+
+        <h1 id="replicated-simulated-annealing">Replicated Simulated Annealing</h1>
+<p>$$
+\begin{array}{cl}
+ y \propto \frac{1}{T} \ \ \   &amp; \beta, \gamma \in \mathbb{R}  \
+\sigma \in { \sigma_0, \sigma_1, \cdots, \sigma_{N-1} } &amp; S = { q_0, q_1, \cdots, q_{M-1}  }^N \
+P( \sigma ; \beta , y, \gamma ) &amp; =  (\frac{1}{Z(\beta,y,\gamma) } ) \cdot e^{y \Phi(\sigma,\beta,\gamma)}   \
+\Phi(\sigma,\beta,\gamma) &amp; =  \ln( \sum_{\sigma'} e^{-\beta E(\sigma') - \gamma d(\sigma,\sigma')}) \
+Z(y,\beta,\gamma) &amp; = \sum _ {\sigma \in S} \exp( y \Phi _ {\beta, \gamma} ( \sigma ) )
+\end{array}
+$$</p>
+<p>In the above,
+$y$ is formally inverse temperature ($\frac{1}{T}$), $\Phi(\cdots)$ is the local free entropy and
+$\sigma$ is a configuration of $N$ cells, each of which can take on one of $M$ values, with
+$E(\cdot)$ being the energy function of a particular configuration.</p>
+<p>The distance function, $d(\cdot,\cdot)$, should be monotonically increasing.</p>
+<p>If we take $y \ge 2, y \in \mathbb{Z} _ { + }$, then</p>
+<p>$$
+\begin{array}{cl}
+Z(y,\beta,\gamma) &amp; = \sum _ { \sigma \in S } \exp( y \Phi _ { \beta, \gamma } ( \sigma ) ) \
+ &amp; = \sum _ { \sigma \in S } \exp( \sum _ { a=1 } ^ {y} \Phi _ { \beta, \gamma } ( \sigma ) ) \
+ &amp; = \sum _ { \sigma \in S } \prod _ {a=1} ^ y \sum _ { \sigma^a } \exp( - \beta E( \sigma^a ) - \gamma d( \sigma, \sigma^a ) )
+\end{array}
+$$</p>
+<p>Define:</p>
+<p>TO BE CONTINUED...</p>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://github.com/abetusk/papers/blob/release/ComputationalPhysics/remarks-replicated-simulated-annealing_gripon-lowe-vermet.pdf">Remarks on RSA</a></li>
+<li><a href="https://github.com/abetusk/papers/blob/release/ComputationalPhysics/limits-simulated-annealing-sparse-hard-inference_angelini-ricci_tersenghi.pdf">Limits of SA on hard inference</a></li>
+</ul>
+<h6 id="2023-03-18">2023-03-18</h6>
+
+      </section>
+
+      <!--
+      <footer>
+        <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+      </footer>
+      -->
+
+    </div>
+    <script src="/dev/js/scale.fix.js"></script>
+  </body
+</html>

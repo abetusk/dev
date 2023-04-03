@@ -1,0 +1,36 @@
+#!/bin/bash
+
+cat lwp-d2.gp | ./xf | ocdf -b 128 > d2-a-len.gp
+cat lwp-d2.gp | grep -P ' 0\.e' | ./xf | ocdf -b 128 > d2-z-len.gp
+
+cat lwp-d3.gp | ./xf | ocdf -b 128 > d3-a-len.gp
+cat lwp-d3.gp | grep -P ' 0\.e' | ./xf | ocdf -b 128 > d3-z-len.gp
+
+cat lwp-d4.gp | ./xf | ocdf -b 128 > d4-a-len.gp
+cat lwp-d4.gp | grep -P ' 0\.e' | ./xf | ocdf -b 128 > d4-z-len.gp
+
+cat lwp-d5.gp | ./xf | ocdf -b 128 > d5-a-len.gp
+cat lwp-d5.gp | grep -P ' 0\.e' | ./xf | ocdf -b 128 > d5-z-len.gp
+
+
+cat lwp-d6.gp | ./xf | ocdf -b 128 > d6-a-len.gp
+cat lwp-d6.gp | grep -P ' 0\.e' | ./xf | ocdf -b 128 > d6-z-len.gp
+
+cat lwp-d6.gp | ./xf | ocdf -b 128 > d6-a-len.gp
+cat lwp-d6.gp | grep -P ' 0\.e' | ./xf | ocdf -b 128 > d6-z-len.gp
+
+cat lwp-d7.gp | ./xf | ocdf -b 128 > d7-a-len.gp
+cat lwp-d7.gp | grep -P ' 0\.e' | ./xf | ocdf -b 128 > d7-z-len.gp
+cat lwp-d7.gp | grep -P ' 0\.e' | ./xf 2 0.25 | ocdf -b 128 > d7-zr-len.gp
+
+cat lwp-d8.gp | ./xf | ocdf -b 128 > d8-a-len.gp
+cat lwp-d8.gp | grep -P ' 0\.e' | ./xf | ocdf -b 128 > d8-z-len.gp
+cat lwp-d8.gp | grep -P ' 0\.e' | ./xf 2 0.25 | ocdf -b 128 > d8-zr-len.gp
+
+cat lwp-d9.gp | ./xf | ocdf -b 128 > d9-a-len.gp
+cat lwp-d9.gp | grep -P ' 0\.e' | ./xf | ocdf -b 128 > d9-z-len.gp
+cat lwp-d9.gp | grep -P ' 0\.e' | ./xf 2 0.25 | ocdf -b 128 > d9-zr-len.gp
+
+
+
+

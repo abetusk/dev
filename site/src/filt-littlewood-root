@@ -1,0 +1,19 @@
+#!/usr/bin/python3
+
+import sys
+import math
+
+for line in sys.stdin:
+  line = line.strip()
+  tok = line.split(" ")
+  if len(tok)!=2:
+    print(line)
+    continue
+
+  a = float(tok[0])
+  b = float(tok[1])
+
+  if (b<0.0): continue
+  if (b>(math.pi/2.0)): continue
+
+  print(line)

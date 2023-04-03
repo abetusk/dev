@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>dev blog</title>
+
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js", "TeX/AMSsymbols.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <header>
+        <h1>Dev Blog</h1>
+
+        <table>
+          <body>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
+           <tr>
+              <td>
+                <br /> <br /> <br />
+                <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+
+                <br />
+                <p>
+                Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
+                <br />
+
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
+                </p>
+              </td>
+            </tr>
+          </body>
+        </table>
+
+      </header>
+      <section>
+
+        <hr />
+<p>Consider an $n \times n$ grid tiled by ribbon tiles of length $n$, where
+a ribbon tile of length $n$ is defined to be a contiguous path with
+only 'right' or 'up' moves.</p>
+<p>Here is the problem statement:</p>
+<p><img alt="ribbon tile puzzle formulation" src="img/ribbon_tile_puzzle.jpg" /></p>
+<p>The puzzle asks for a straight forward proof that there are $n!$ configuration
+of these ribbon tiles.</p>
+<hr />
+<p>Here is one proof:</p>
+<p><img alt="ribbon7" src="img/ribbon7_wavefront_b.png" /></p>
+<p>Rotate the grid 45 degrees so that the first ribbon starts at the bottom
+diamond and all ribbons have a "left" and "right" choice if they can be extended.
+The first position has only one option for a ribbon start.
+The next two positions have a choice of either being extended into by
+the first ribbon or starting a new ribbon.</p>
+<p>At each subsequent layer below the midpoint of the rotated grid, there will
+be one open slot with all other ribbon tiles occupying the other positions.
+Past the midpoint, all choices will be forced until the grid is completely filled.</p>
+<p>Since at each height, $h$, below the midpoint of the rotated grid there are $h$
+choices to start a new ribbon, there are $n!$ different tilings.</p>
+<hr />
+<p><img alt="ribbon4" src="img/ribbon4.png" /></p>
+<p><img alt="ribbon5" src="img/ribbon5.png" /></p>
+<p>This puzzle is credited to Chris Moore but
+seen in "Handbook of Enumerative Combinatorics" by Miklos Bona.
+Personally seen at <a href="https://twitter.com/akivaw/status/1640920344197251072/photo/1">tw</a></p>
+<h6 id="2023-03-31">2023-03-31</h6>
+
+      </section>
+
+      <!--
+      <footer>
+        <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+      </footer>
+      -->
+
+    </div>
+    <script src="/dev/js/scale.fix.js"></script>
+  </body
+</html>

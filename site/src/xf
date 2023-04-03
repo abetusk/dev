@@ -1,0 +1,41 @@
+#!/usr/bin/python3
+#
+# To the extent possible under law, the person who associated CC0 with
+# this file has waived all copyright and related or neighboring rights
+# to this file.
+#
+
+
+import sys
+import os
+import re
+import math
+
+verbosity = 0
+
+alpha = 2.0
+beta = 1.0/alpha
+
+if len(sys.argv) > 1:
+  alpha = float(sys.argv[1])
+  if len(sys.argv) > 2:
+    beta = float(sys.argv[2])
+  else:
+    beta = 1.0/alpha
+
+if verbosity > 0:
+  print("# alpha:", alpha, "beta:", beta)
+
+for line in sys.stdin:
+  line = line.strip()
+  if len(line)==0: continue
+  if line[0]=='#': continue
+
+  tok = line.split(" ")
+
+  s = 0.0
+  for t in tok:
+    s += math.pow(float(t), alpha)
+
+  t = math.pow(s, beta)
+  print(t, 1)
