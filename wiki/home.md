@@ -46,3 +46,4 @@ dev
 * [Littlewood Polynomials Notes](Littlewood-Polynomials-Notes.md) 2022-01-20
 * [Useful Tables](Useful-Tables.md) 2022-08-09
 * [Belief Propagation](Belief-Propagation.md) 2022-08-16
+* [Probability Defintions](Probability-Definitions.md) 2023-03-24

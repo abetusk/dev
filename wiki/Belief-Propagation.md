@@ -148,6 +148,61 @@ the multiplication to be done via a fast Fourier transform, producing an $O(m \l
 
 ---
 
+#### Bethe Free Energy
+
+(wip)
+
+Belief Propagation (BP) can be thought of as an algorithm that finds a fixed
+point of the Bethe Free Energy, $F_\beta$:
+
+$$
+\begin{array}{ll}
+\phi _ {i,j} (d _ 0, d _ 1 ) = & f ( d _ 0, d _ 1 ) g ( d _ 0 ) g ( d _ 1 ) \\
+b _ {i,j} (d _ 0,d _ 1)  = & \alpha \phi _ {i,j} ( d _ 0, d _ 1 )  \prod _ { k \in N(i) / j } \mu _ {k,i} ( d_0) \prod _ { l \in N(j) / i } \mu _ {l,j} (d _ 1) \\
+F _ {\beta} (f, g)  = & \sum _ {i,j} \sum _ {d _ 0, d _ 1} b _ {i,j} ( d _ 0, d _ 1 ) [ \ln(b _ {i,j} (d _ 0, d _ 1 )) - \ln( \phi _ {i,j} ( d _ 0 ) ) ] \\
+ & - \sum _ {i} (q _ i - 1) \sum _ d b _ i (d)  [ \ln ( b _ i ( d ) ) - \ln( g ( d ) ) ] 
+\end{array}
+$$
+
+Where $\alpha$ is a normalization constant, $q_i$ is the degree of the MRF variable at site $i$ and
+$f$, $g$, $b$ etc. are as above (pair wise function, singleton function, belief, etc.).
+
+Imposing the constraints:
+
+$$
+\begin{array}{l}
+\sum _ d b _ i (d) = 1 \\
+\sum _ { d _ 0 } b _ {i,j} ( d _ 0, d _ 1 ) = b _ j ( d _ 1 )
+\end{array}
+$$
+
+Allows us to use Lagrange multipliers $\lambda _ {i,j} ( d )$ for the
+$\sum _ { d _ 0 } b _ {i,j} ( d _ 0, d _ 1 ) = b _ j ( d _ 1 )$ constraint,
+$\gamma _ i$ for the $\sum _ d b _ i (d) = 1$ constraint and $\gamma _ {i,j}$
+for the $\sum _ {d} \mu _ {i,j} (d) = 1$ constraint:
+
+$$
+\begin{array}{ll}
+L = & F _ {\beta} \\
+ & - \lambda _ {i,j} (d_1) \left[ \left( \sum _ { d _ 0 } b _ {i,j} ( d _ 0, d _ 1 ) \right) - b _ j ( d _ 1 ) \right] \\
+ & - \gamma _ i \left[ \sum _ d b _ i (d) - 1 \right] \\
+ & - \gamma _ {i,j} \left[ \sum _ {d} \mu _ {i,j} (d) - 1 \right] \\
+\end{array}
+$$
+
+
+$$
+\begin{array}{rl}
+\frac{ \partial L }{ \partial b _ {i,j} ( d _ 0, d _ 1 ) }  = & 0 \\
+\to & \ln b _ {i,j} (d _ 0, d _ 1) = \ln( \phi _ {i,j} (d _ 0, d _ 1) ) + \lambda _ {i,j}(d _ 1) + \lambda _ {j,i}(d _ 0) + \gamma _ {i,j} - 1 \\
+\frac{ \partial L }{ \partial b _ i (d _ 0) }  = & 0 \\
+\to & (q _ i - 1)( \ln b _ i ( d _ 0 ) + 1)  = \ln g ( d _ 0) + \sum _ {j \in N(i) } \lambda _ {j,i} (d _ 1) + \gamma _ i \\
+\lambda _ {i,j} ( d _ 1 ) = & \ln \prod _ {k \in N(j) / i } \mu _ {k,j} ( d _ 1 )  \\
+\to & ???
+\end{array}
+$$
+
+
 #### Sum-Product Belief Propagation
 
 $$
