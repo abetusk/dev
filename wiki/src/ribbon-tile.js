@@ -37,6 +37,8 @@ function _irnd(n) {
   return Math.floor(fxrand()*n);
 }
 
+// in bounds
+//
 function _ib(pos, n) {
   if ((pos.x >= 0) &&
       (pos.y >= 0) &&
@@ -48,6 +50,8 @@ function _ib(pos, n) {
   return false;
 }
 
+// linear increasing permutation schedule
+//
 function perm_lin_inc(n) {
   let p = [];
   for (let ii=0; ii<n; ii++) {
@@ -64,6 +68,9 @@ function _pusha(aa, a) {
   aa.push(v);
 }
 
+// enumerate linear increasing permutation
+// array
+//
 function enum_f(n) {
   let res = [];
 
