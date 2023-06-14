@@ -11,13 +11,19 @@
 #
 
 export D=32
-export M=10000
+export M=1000
 
 if [[ "$1" != "" ]] ; then
   export D="$1"
 fi
 
+mkdir -p data
+
 
 gcc -O3 littlewoodp.c -o littlewoodp
-./littlewoodp $D $M | xargs -n1 -I{} mpsolve -p '{}' | tr -d '(),' > lwp-d${D}_i${M}.gp
-cat lwp-d${D}_i${M}.gp | ./clog.py > ln_lwp-d${D}_i{$M}.gp
+
+for D in `seq 10 256` ; do
+  echo "# $D"
+  ./littlewoodp $D $M | xargs -n1 -I{} mpsolve -p '{}' | tr -d '(),' > data/lwp-d${D}_i${M}.gp
+  cat data/lwp-d${D}_i${M}.gp | ./clog.py > data/ln_lwp-d${D}_i${M}.gp
+done

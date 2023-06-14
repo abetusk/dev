@@ -1,6 +1,13 @@
 MaslowCNC Notes
 ===
 
+2023-06-13
+---
+
+* Original Maslow CNC had 12v 5a DC power supply.
+* 7PPR encoder
+* 30kg.cm
+
 2017-11-03
 ---
 
