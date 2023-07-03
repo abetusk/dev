@@ -587,6 +587,52 @@ which is just the entropy of $X$.
 
 Consider ...
 
+#### Belief Propagation on Trees
+
+Belief propagation is exact on trees.
+The algorithm is roughly as follows:
+
+* Assign a privileged non-leaf node as the root
+* Starting from the leaf nodes inwards to the root, calculate
+  the marginal probability in a breadth first seach way
+* Once the maximum a posteriori (MAP) is calculated for the root node,
+  work outward from the root back to the leaves to calculate the true
+  marginals
+
+The analogy to string matching is that to find a concrete alignment, one
+must first find the global score, then work backwards from the score
+to find a string alignment.
+In this case, BP on a tree must find the MAP and then work backwards,
+filling in the individual variable estimates once the MAP has been calculated.
+
+![bp tree example](src/bp-tree-example.svg)
+
+Call the join probability distribution function $f(\cdot,\cdot)$ with
+each node taking on one of $M$ possible values.
+For concreteness, the joint distribution is the same regardless of the
+node pairs in question (sort of a homogeniety condition), with each
+node drawn from the same domain of integers from $\[0, M-1\]$.
+
+Starting at the leaves and working inwards, we introduce temporary
+functions $u_i(\cdot)$:
+
+$$
+\begin{align}
+u_0 ( v_6 ) & = \sum _ { v_0 = 0 } ^ { M - 1 } f( v_0, v_6 ) \\
+u_1 ( v_6 ) & = \sum _ { v_1 = 0 } ^ { M - 1 } f( v_1, v_6 ) \\
+u_2 ( v_5 ) & = \sum _ { v_2 = 0 } ^ { M - 1 } f( v_2, v_5 ) \\
+u_3 ( v_5 ) & = \sum _ { v_3 = 0 } ^ { M - 1 } f( v_2, v_5 ) \\
+u_4 ( v_5 ) & = \sum _ { v_4 = 0 } ^ { M - 1 } f( v_4, v_5 ) \\
+u_6 ( v_7 ) & = \sum _ { v_6 = 0 } ^ { M - 1 } f( v_6, v_7 ) \cdot u_0(v_6) \cdot u_1(v_6) \\
+u_5 ( v_7 ) & = \sum _ { v_5 = 0 } ^ { M - 1 } f( v_5, v_7 ) \cdot u_3(v_5) \cdot u_4(v_5) \\
+u_7 & = \sum _ { v_7 = 0 } ^ { M - 1 } u_6(v_7) \cdot u_5(v_7)
+\end{align}
+$$
+
+$u_7$ now holds the calculated MAP for the example graph.
+Once we have the MAP for $u_7$, and thus the whole graph, we can then use it to inform the rest of the
+nodes by 
+
 
 References
 ---
