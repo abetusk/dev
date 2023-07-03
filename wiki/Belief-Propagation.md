@@ -608,24 +608,24 @@ filling in the individual variable estimates once the MAP has been calculated.
 ![bp tree example](src/bp-tree-example.svg)
 
 Call the join probability distribution function $f(\cdot,\cdot)$ with
-each node taking on one of $M$ possible values.
+each node taking on one of $D$ possible values.
 For concreteness, the joint distribution is the same regardless of the
 node pairs in question (sort of a homogeniety condition), with each
-node drawn from the same domain of integers from $\[0, M-1\]$.
+node drawn from the same domain of integers from $\[0, D-1\]$.
 
 Starting at the leaves and working inwards, we introduce temporary
 functions $u_i(\cdot)$:
 
 $$
 \begin{align}
-u_0 ( v_6 ) & = \sum _ { v_0 = 0 } ^ { M - 1 } f( v_0, v_6 ) \\
-u_1 ( v_6 ) & = \sum _ { v_1 = 0 } ^ { M - 1 } f( v_1, v_6 ) \\
-u_2 ( v_5 ) & = \sum _ { v_2 = 0 } ^ { M - 1 } f( v_2, v_5 ) \\
-u_3 ( v_5 ) & = \sum _ { v_3 = 0 } ^ { M - 1 } f( v_2, v_5 ) \\
-u_4 ( v_5 ) & = \sum _ { v_4 = 0 } ^ { M - 1 } f( v_4, v_5 ) \\
-u_6 ( v_7 ) & = \sum _ { v_6 = 0 } ^ { M - 1 } f( v_6, v_7 ) \cdot u_0(v_6) \cdot u_1(v_6) \\
-u_5 ( v_7 ) & = \sum _ { v_5 = 0 } ^ { M - 1 } f( v_5, v_7 ) \cdot u_3(v_5) \cdot u_4(v_5) \\
-u_7 & = \sum _ { v_7 = 0 } ^ { M - 1 } u_6(v_7) \cdot u_5(v_7)
+u_0 ( v_6 ) & = \sum _ { v_0 = 0 } ^ { D - 1 } f( v_0, v_6 ) \\
+u_1 ( v_6 ) & = \sum _ { v_1 = 0 } ^ { D - 1 } f( v_1, v_6 ) \\
+u_2 ( v_5 ) & = \sum _ { v_2 = 0 } ^ { D - 1 } f( v_2, v_5 ) \\
+u_3 ( v_5 ) & = \sum _ { v_3 = 0 } ^ { D - 1 } f( v_2, v_5 ) \\
+u_4 ( v_5 ) & = \sum _ { v_4 = 0 } ^ { D - 1 } f( v_4, v_5 ) \\
+u_6 ( v_7 ) & = \sum _ { v_6 = 0 } ^ { D - 1 } f( v_6, v_7 ) \cdot u_0(v_6) \cdot u_1(v_6) \\
+u_5 ( v_7 ) & = \sum _ { v_5 = 0 } ^ { D - 1 } f( v_5, v_7 ) \cdot u_3(v_5) \cdot u_4(v_5) \\
+u_7 & = \sum _ { v_7 = 0 } ^ { D - 1 } u_6(v_7) \cdot u_5(v_7)
 \end{align}
 $$
 
