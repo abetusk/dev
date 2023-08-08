@@ -347,7 +347,7 @@ on all but one edge, join them to another chopped section and see if a solution 
 be found (by running BP, sampling with MCMC or some other method).
 If a solution is always/almost always found and not found either when attached to other segments
 or in isolation, then use that information to try and correlate "key" tiles inside.
-This correlation can be used to modify the single tile probability function ($g(\cdot)$)
+This correlation can be used to modify the single tile probability function ( $g (\cdot )$ )
 do heuristically prefer these tiles when running BP proper.
 
 As an example, consider this ASCII map:
