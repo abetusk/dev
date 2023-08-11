@@ -1,4 +1,4 @@
-Belief Propagation
+Thanks. Belief Propagation
 ===
 
 Introduction
@@ -90,9 +90,17 @@ graph LR
   u((u)) & v((v)) --> i((i)) -.-> j((j)))
 ```
 
-| | |
-|---|---|
-| $\mu_{i,j}(d) = \sum_{a \in D} f_{u,i}(a) \cdot f_{v,i}(a) \dots $ | ![Belief Propagation on Markov Random Field example](img/mrfbp_example.png) |
+---
+
+<p align="center">
+  <img style="width:30%;" src="img/mrfbp_example.png">
+</p>
+
+$$
+\mu_{i,j}(d) = \sum_{a \in D} f_{u,i}(a) \cdot f_{v,i}(a) \dots
+$$
+
+---
 
 Each vertex, $i$, can be associated with a random variable, $X_i$, taking
 on (discrete) values chosen from some domain $D = \{ d_0, d_1, \cdots, d_{m-1} \}$ with
