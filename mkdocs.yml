@@ -48,6 +48,7 @@ nav:
   - "Useful-Tables.md"
   - "Belief-Propagation.md"
   - "Puzzle-Ribbon-Tiles.md"
+  - "Kullback-Leibler-Divergence.md"
 
 docs_dir: 'wiki'
 use_directory_urls: false

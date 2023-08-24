@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>dev blog</title>
+
+    <link rel="stylesheet" href="/dev/css/styles.css">
+    <link rel="stylesheet" href="/dev/css/pygment_trac.css">
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js", "TeX/AMSsymbols.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script type="text/javascript" src="/dev/js/MathJax.js"></script>
+    <!-- <script type="text/javascript" src="/dev/js/MathJax.js?config=TeX-AMS_HTML""></script> -->
+
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <header>
+        <h1>Dev Blog</h1>
+
+        <table>
+          <body>
+            <tr><td><a href="/dev/">./dev</a></td></tr>
+           <tr>
+              <td>
+                <br /> <br /> <br />
+                <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+
+                <br />
+                <p>
+                Where applicable, all content is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA</a>.
+                <br />
+
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="/dev/img/cc-by-sa-80x15.png" /></a>
+                </p>
+              </td>
+            </tr>
+          </body>
+        </table>
+
+      </header>
+      <section>
+
+        <h1 id="permutation-group">Permutation Group</h1>
+<p>Consider a group $G$ that acts on a set $X$.
+(Without loss of generality?) assume $X$ consists of $N$ array elements,
+each of which is $n$ long with each entry drawn from $m$ values.</p>
+<p>The permutation group element, $g \in G$, acts on elements $x \in X$ by
+permuting the elements $g \cdot x \in X$.</p>
+<p>As a canonical example, consider a $3 \times 3$ grid with two colors and
+the group symmetries of a square:</p>
+<p>Call two elements of $X$ similar, $x \sim _ G y$ if $\exists \ g \in G \ s.t. y = g \cdot x$.</p>
+<p>Call the orbit of an element $x$, $O _ x = { y : g \in G, y = g \cdot x \in X }$.</p>
+<p>Call the stabilizer of an $x$, $S _ x = { g : g \in G, g \cdot x = x }$.</p>
+<hr />
+<p>Claim: $\sim _ G$ is an equivalence relation</p>
+<p>$$
+\begin{array}{ll}
+ \varepsilon \in G &amp; \to \varepsilon \cdot x = x \
+ &amp; x \sim _ G x \
+x \sim _ G y, &amp; \to g \cdot x = y \
+ &amp; \to x = g^{-1} y \
+ &amp; \to y \sim _ G x \
+x \sim _ G y, &amp; y \sim _ G z \
+ &amp; \to g \cdot x = y, \ \  h \cdot y = z \
+ &amp; \to g \cdot x = h^{-1} z \
+ &amp; \to h \cdot g \cdot x = z \
+ &amp; \to x \sim _ G z \
+\end{array}
+$$</p>
+<hr />
+<p>Claim: $S  _ x \le G$</p>
+<p>$$
+\begin{array}{ll}
+\varepsilon \in S_x, &amp; \varepsilon \cdot x = x \
+g \in S_x \to g^{-1} \in S_x, &amp; g \cdot x = x \
+ &amp; \to g^{-1} \cdot g \cdot x = g^{-1} x \
+ &amp; \to x = g^{-1} x \
+\end{array}
+$$</p>
+<hr />
+<p>Claim: $|O _ x| \times |S _ x| = |G|$</p>
+<p>We must show $|O _ x| = | [ G : S _ x ] |$</p>
+<p>$$
+\begin{array}{ll}
+g S _ x = h S _ x &amp; \iff h^{-1} g S _ x = S _ x \
+ &amp; \iff h^{-1} g \in S _ x \
+ &amp; \iff h^{-1} g x = x \
+ &amp; \iff  g \cdot x = h \cdot x \
+\end{array}
+$$</p>
+<hr />
+<p>Claim: $\frac{1}{|G|} \sum _ {x \in X} |S _ x|$ is the number of distinct orbits</p>
+<p>Suppose $k$ orbits, ${ O _ {x _ 0}, O _ {x _ 1}, O _ { x _ 2}, \dots , O _ { x _ { k-1} } }$</p>
+<p>$$
+\begin{array}{ll}
+\sum _ {x \in O _ { x _ j } } |S _ {x}|  &amp;  = \sum _ {x \in O _ {x _ j} } \frac{ |G| }{ |O _ x| } \
+ &amp; = \sum _ {x \in O _ {x _ j} } \frac{ |G| }{ |O _ {x _ j}| } \
+ &amp; = |G| \
+\frac{1}{|G|} \sum _ {x \in X} |S _ x| &amp; = \frac{1}{|G|} \sum _ {j=0}^{k-1} \sum _ {x \in O _ {x _ j}} |S _ x| \
+ &amp; = \frac{1}{|G|} \sum _ {j=0}^{k-1} |G| \
+ &amp; = k
+\end{array}
+$$</p>
+<h2 id="burnsides-theorem-frobenius">Burnside's Theorem (Frobenius)</h2>
+<p>$$
+\begin{array}{l}
+\text{Fix}(g) = { x \in X | g \cdot x = x } \
+\sum _ { g \in G } | \text{Fix}(g) | = \sum _ {x \in X} | S _ x |
+\end{array}
+$$</p>
+<h6 id="2023-04-18">2023-04-18</h6>
+
+      </section>
+
+      <!--
+      <footer>
+        <p><small> Original theme by <a href="https://github.com/orderedlist">orderedlist</a> (CC-BY-SA)</small></p>
+      </footer>
+      -->
+
+    </div>
+    <script src="/dev/js/scale.fix.js"></script>
+  </body
+</html>

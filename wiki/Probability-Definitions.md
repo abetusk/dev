@@ -50,8 +50,6 @@ $$
 Maximum Likelihood Estimation
 ---
 
-$$
-\text
-$$
+todo
 
 ###### 2020-06-12

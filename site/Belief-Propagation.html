@@ -49,7 +49,7 @@
       </header>
       <section>
 
-        <h1 id="belief-propagation">Belief Propagation</h1>
+        <h1 id="thanks-belief-propagation">Thanks. Belief Propagation</h1>
 <h2 id="introduction">Introduction</h2>
 <p>For a set of random variables, ${ \bf x } = ( x_0, x_1, x_2, \cdots, x_{ n-1 } )$,
 and a given probability distribution over those random variables, $p( { \bf x } )$,
@@ -118,20 +118,15 @@ vertex $i$ and $j$ could have values $x_i$ and $x_j$.</p>
 graph LR
   u((u)) &amp; v((v)) --&gt; i((i)) -.-&gt; j((j)))
 </code></pre>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>$\mu_{i,j}(d) = \sum_{a \in D} f_{u,i}(a) \cdot f_{v,i}(a) \dots $</td>
-<td><img alt="Belief Propagation on Markov Random Field example" src="img/mrfbp_example.png" /></td>
-</tr>
-</tbody>
-</table>
+<hr />
+<p align="center">
+  <img style="width:30%;" src="img/mrfbp_example.png">
+</p>
+
+<p>$$
+\mu_{i,j}(d) = \sum_{a \in D} f_{u,i}(a) \cdot f_{v,i}(a) \dots
+$$</p>
+<hr />
 <p>Each vertex, $i$, can be associated with a random variable, $X_i$, taking
 on (discrete) values chosen from some domain $D = { d_0, d_1, \cdots, d_{m-1} }$ with
 a probability distribution function $g_i(\cdot)$.</p>
@@ -333,7 +328,7 @@ on all but one edge, join them to another chopped section and see if a solution 
 be found (by running BP, sampling with MCMC or some other method).
 If a solution is always/almost always found and not found either when attached to other segments
 or in isolation, then use that information to try and correlate "key" tiles inside.
-This correlation can be used to modify the single tile probability function ($g(\cdot)$)
+This correlation can be used to modify the single tile probability function ( $g (\cdot )$ )
 do heuristically prefer these tiles when running BP proper.</p>
 <p>As an example, consider this ASCII map:</p>
 <pre><code>,    ,    ,    ,    ,    .    ,    ,    ,    ,    ,
@@ -518,6 +513,45 @@ $$</p>
 <p>which is just the entropy of $X$.</p>
 <h4 id="free-energy">Free Energy</h4>
 <p>Consider ...</p>
+<h4 id="belief-propagation-on-trees">Belief Propagation on Trees</h4>
+<p>Belief propagation is exact on trees.
+The algorithm is roughly as follows:</p>
+<ul>
+<li>Assign a privileged non-leaf node as the root</li>
+<li>Starting from the leaf nodes inwards to the root, calculate
+  the marginal probability in a breadth first seach way</li>
+<li>Once the maximum a posteriori (MAP) is calculated for the root node,
+  work outward from the root back to the leaves to calculate the true
+  marginals</li>
+</ul>
+<p>The analogy to string matching is that to find a concrete alignment, one
+must first find the global score, then work backwards from the score
+to find a string alignment.
+In this case, BP on a tree must find the MAP and then work backwards,
+filling in the individual variable estimates once the MAP has been calculated.</p>
+<p><img alt="bp tree example" src="src/bp-tree-example.svg" /></p>
+<p>Call the join probability distribution function $f(\cdot,\cdot)$ with
+each node taking on one of $D$ possible values.
+For concreteness, the joint distribution is the same regardless of the
+node pairs in question (sort of a homogeniety condition), with each
+node drawn from the same domain of integers from $[0, D-1]$.</p>
+<p>Starting at the leaves and working inwards, we introduce temporary
+functions $u_i(\cdot)$:</p>
+<p>$$
+\begin{align}
+u_0 ( v_6 ) &amp; = \sum _ { v_0 = 0 } ^ { D - 1 } f( v_0, v_6 ) \
+u_1 ( v_6 ) &amp; = \sum _ { v_1 = 0 } ^ { D - 1 } f( v_1, v_6 ) \
+u_2 ( v_5 ) &amp; = \sum _ { v_2 = 0 } ^ { D - 1 } f( v_2, v_5 ) \
+u_3 ( v_5 ) &amp; = \sum _ { v_3 = 0 } ^ { D - 1 } f( v_2, v_5 ) \
+u_4 ( v_5 ) &amp; = \sum _ { v_4 = 0 } ^ { D - 1 } f( v_4, v_5 ) \
+u_6 ( v_7 ) &amp; = \sum _ { v_6 = 0 } ^ { D - 1 } f( v_6, v_7 ) \cdot u_0(v_6) \cdot u_1(v_6) \
+u_5 ( v_7 ) &amp; = \sum _ { v_5 = 0 } ^ { D - 1 } f( v_5, v_7 ) \cdot u_3(v_5) \cdot u_4(v_5) \
+u_7 &amp; = \sum _ { v_7 = 0 } ^ { D - 1 } u_6(v_7) \cdot u_5(v_7)
+\end{align}
+$$</p>
+<p>$u_7$ now holds the calculated MAP for the example graph.
+Once we have the MAP for $u_7$, and thus the whole graph, we can then use it to inform the rest of the
+nodes by </p>
 <h2 id="references">References</h2>
 <ul>
 <li><a href="https://en.wikipedia.org/wiki/Island_algorithm">Island algorithm</a></li>
