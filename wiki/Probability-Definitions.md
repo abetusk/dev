@@ -1,6 +1,17 @@
 Probability Definitions
 ===
 
+Random Variable
+---
+
+For input space $\Omega$ and output space $G$, a random variable
+is a function that, for each "event" $\omega \in \Omega$, assigns a probability
+and value $g(\omega) \in G$:
+
+$$
+X = g(\omega) \text{, with probability ) p _ { \omega }
+$$
+
 Shannon Entropy
 ---
 
@@ -12,7 +23,6 @@ Conditional Entropy
 ---
 
 $$
-
 H(X | Y) = \sum _ {x,y} p(x,y) \lg \left( \frac{p(x,y)}{p(x)} \right)
 $$
 
@@ -21,10 +31,19 @@ Mutual Information
 
 $$
 \begin{array}{ll}
-I(X;Y) & = H(X) - H(X | Y) \\
- & = D _ {KL} \left[ \ p(x , y) \ || \ p(x) \cdot p(y) \ \right] \\
- & = D _ {KL} \left[ \ p(x | y) \ || \ p(x) \ \right] \\
- & = D _ {KL} \left[ \ p(y | x) \ || \ p(y) \ \right] \\
+I(X;Y) & = H(X) - H(X | Y) \\\\
+ & = D _ {KL} \left[ \ p(x , y) \ || \ p(x) \cdot p(y) \ \right] \\\\
+ & = D _ {KL} \left[ \ p(x | y) \ || \ p(x) \ \right] \\\\
+ & = D _ {KL} \left[ \ p(y | x) \ || \ p(y) \ \right] \\\\
+\end{array}
+$$
+
+Expectation on Transformed Random Variable
+---
+
+$$
+\begin{array}{ll}
+E [ f ( X ) ] = \sum _ { k } p _ k f( x _ k )
 \end{array}
 $$
 
