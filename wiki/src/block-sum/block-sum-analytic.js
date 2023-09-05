@@ -2,6 +2,14 @@
 // LICENSE: CC0
 //
 
+// -->
+//
+//  0  1  2  3  4  5  6  7
+//  ----------------------
+//  1 -1 -1  1 -1  1  1 -1
+//  +  -  -  +  -  +  +  -
+//
+
 
 function cell2pos( cell, n ) {
   cell = Math.floor(cell);
