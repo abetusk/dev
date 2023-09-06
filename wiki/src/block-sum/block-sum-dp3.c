@@ -198,10 +198,6 @@ int sum_dp3(int *B, int *M, int n, int s) {
           by = y + d_idx[c_idx][1];
           bz = z + d_idx[c_idx][2];
 
-          if (B[ bz*n_b*n_b + by*n_b + bx ] < 0) {
-            printf("!!!!!\n");
-          }
-
           if (c_idx < 7) {
             B[ z*n_b*n_b + y*n_b + x ] += coef[c_idx]*B[ bz*n_b*n_b + by*n_b + bx ];
           }
@@ -213,6 +209,7 @@ int sum_dp3(int *B, int *M, int n, int s) {
           B[ z*n_b*n_b + y*n_b + x ] += -coef[c_idx]*M[ zz*n*n + yy*n + xx ];
 
           //debug
+          /*
           printf("B[%i][%i][%i] += %cB[%i][%i][%i]{%i} %c M[%i][%i][%i]{%i} ==> {...%i}\n",
               x,y,z,
               (coef[c_idx] > 0) ? '+' : '-',
@@ -222,12 +219,10 @@ int sum_dp3(int *B, int *M, int n, int s) {
               xx,yy,zz,
               M[ zz*n*n + yy*n + xx ],
               B[ z*n_b*n_b + y*n_b + x ]);
+              */
 
 
         }
-
-        //debug
-        printf("\n");
 
       }
     }
@@ -243,8 +238,8 @@ int main(int argc, char **argv) {
 
   srand(123);
 
-  s = 3;
-  n = 6;
+  s = 16;
+  n = 128;
   n_b = n - s + 1;
 
   Bcheck = (int *)malloc(sizeof(int)*n_b*n_b*n_b);
@@ -270,8 +265,10 @@ int main(int argc, char **argv) {
     }
   }
 
-  printf(">>>M\n");
-  _printM3(M, n);
+  //printf(">>>M\n");
+  //_printM3(M, n);
+
+  printf("bcheck start\n"); fflush(stdout);
 
   for (z=0; z<n_b; z++) {
     for (y=0; y<n_b; y++) {
@@ -290,62 +287,22 @@ int main(int argc, char **argv) {
     }
   }
 
-  printf(">>>Bcheck\n");
-  _printM3(Bcheck, n_b);
+  printf("bcheck end\n"); fflush(stdout);
 
-  printf(">>>>B (before)\n");
-  _printM3(B, n_b);
+  //printf(">>>Bcheck\n");
+  //_printM3(Bcheck, n_b);
 
+  //printf(">>>>B (before)\n");
+  //_printM3(B, n_b);
+
+  printf("B start\n"); fflush(stdout);
   sum_dp3(B,M,n,s);
+  printf("B end\n"); fflush(stdout);
 
-  printf(">>>>B\n");
-  _printM3(B, n_b);
+  //printf(">>>>B\n");
+  //_printM3(B, n_b);
 
-  exit(0);
+  printf("check: %i\n", checkM3(Bcheck, B, n_b));
 
-  // initial  setup
-
-  B[0] = 0;
-  for (j=0; j<s; j++) {
-    for (i=0; i<s; i++) {
-      B[0] += M[ j*n + i];
-    }
-  }
-
-  for (i=1; i<n_b; i++) {
-    B[ 0*n_b + i ] = B[ 0*n_b + (i-1) ];
-    for (j=0; j<s; j++) {
-      B[ 0*n_b + i ] += M[ j*n + (i+s-1) ] - M[ j*n + (i-1) ];
-    }
-  }
-
-  for (j=1; j<n_b; j++) {
-    B[ j*n_b + 0 ] = B[ (j-1)*n_b + 0 ];
-    for (i=0; i<s; i++) {
-      B[ j*n_b + 0 ] += M[ (j+s-1)*n + i ] - M[ (j-1)*n + i ];
-    }
-  }
-
-  for (j=1; j<n_b; j++) {
-    for (i=1; i<n_b; i++) {
-      B[ j*n_b + i ] = 0
-        + B[ (j-1)*n_b + i ]
-        + B[     j*n_b + (i-1) ]
-        - B[ (j-1)*n_b + (i-1) ]
-        + M[ (j  -1)*n + (i  -1) ]
-        - M[ (j+s-1)*n + (i  -1) ]
-        - M[ (j  -1)*n + (i+s-1) ]
-        + M[ (j+s-1)*n + (i+s-1) ];
-    }
-  }
-
-
-  printf("Bcheck...\n");
-  _printM3(Bcheck, n_b);
-
-  printf("B...\n");
-  _printM3(B, n_b);
-
-  printf(">>> %i\n", checkM3(Bcheck, B, n_b));
 
 }
