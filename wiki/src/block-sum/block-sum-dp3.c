@@ -9,7 +9,7 @@
 void _printM3(int *M, int n) {
   int x,y,z;
 
-  printf("M[%i][%i][%i]:\n", n, n, n);
+  printf("[%i][%i][%i]:\n", n, n, n);
 
   for (z=0; z<n; z++) {
     for (y=0; y<n; y++) {
@@ -39,11 +39,12 @@ int checkM3(int *A, int *B, int n) {
 int sum_dp3(int *B, int *M, int n, int s) {
   int i, j, c_idx;
   int x, y, z, xx, yy, zz;
+  int bx,by,bz,mx,my,mz;
   int n_b = n-s+1;
 
   //              0  1  2  3  4  5  6  7
-  //              +  -  +  +  -  +  +  -
-  int coef[8] = { 1,-1, 1, 1,-1, 1, 1,-1 };
+  //              +  -  -  +  -  +  +  -
+  int coef[8] = { 1,-1,-1, 1,-1, 1, 1,-1 };
 
   int d_idx[8][3] = {
     { -1, -1, -1 },
@@ -57,15 +58,12 @@ int sum_dp3(int *B, int *M, int n, int s) {
   };
 
 
-  for (i=0; i<8; i++) {
-    printf(" %i: %2i {%2i,%2i,%2i}\n", i, coef[i],
-        d_idx[i][0], d_idx[i][1], d_idx[i][2]);
-  }
-  printf("\n");
-
-  // init initial B
+  // init boundaries of B
   //
 
+  // first 0,0,0
+  // O( s * s )
+  //
   B[0] = 0;
   for (z=0; z<s; z++) {
     for (y=0; y<s; y++) {
@@ -75,27 +73,161 @@ int sum_dp3(int *B, int *M, int n, int s) {
     }
   }
 
-  //WIP
+  // z axis init
+  // O( n_b * s * s )
+  //
+  x = 0;
+  y = 0;
+  for (z=1; z<n_b; z++) {
+    B[ z*n_b*n_b + y*n_b + x ] = B[ (z-1)*n_b*n_b + y*n_b + x ];
+    for (yy=0; yy<s; yy++) {
+      for (xx=0; xx<s; xx++) {
+        B[ z*n_b*n_b + y*n_b + x ] += M[ (z+s-1)*n*n + yy*n + xx ] - M[ (z-1)*n*n + yy*n + xx ];
+      }
+    }
+  }
 
-  return 0;
+  // y axis init
+  // O( n_b * s * s )
+  //
+  x = 0;
+  z = 0;
+  for (y=1; y<n_b; y++) {
+    B[ z*n_b*n_b + y*n_b + x ] = B[ z*n_b*n_b + (y-1)*n_b + x ];
+    for (zz=0; zz<s; zz++) {
+      for (xx=0; xx<s; xx++) {
+        B[ z*n_b*n_b + y*n_b + x ] += M[ zz*n*n + (y+s-1)*n + xx ] - M[ zz*n*n + (y-1)*n + xx ];
+      }
+    }
+  }
 
+  // x axis init
+  // O( n_b * s * s )
+  //
+  y = 0;
+  z = 0;
+  for (x=1; x<n_b; x++) {
+    B[ z*n_b*n_b + y*n_b + x ] = B[ z*n_b*n_b + y*n_b + (x-1) ];
+    for (zz=0; zz<s; zz++) {
+      for (yy=0; yy<s; yy++) {
+        B[ z*n_b*n_b + y*n_b + x ] += M[ zz*n*n + yy*n + (x+s-1) ] - M[ zz*n*n + yy*n + (x-1) ];
+      }
+    }
+  }
+
+  // xy,z=0 plane init
+  // O( n_b * n_b * s )
+  //
+  z = 0;
+  for (y=1; y<n_b; y++) {
+    for (x=1; x<n_b; x++) {
+      B[ z*n_b*n_b + y*n_b + x ] = 
+          B[ z*n_b*n_b + (y-1)*n_b + x     ]
+        + B[ z*n_b*n_b + (y  )*n_b + (x-1) ]
+        - B[ z*n_b*n_b + (y-1)*n_b + (x-1) ];
+
+      for (zz=0; zz<s; zz++) {
+        B[ z*n_b*n_b + y*n_b + x ] +=
+            M[ zz*n*n +   (y-1)*n +   (x-1) ]
+          - M[ zz*n*n + (y+s-1)*n +   (x-1) ]
+          - M[ zz*n*n +   (y-1)*n + (x+s-1) ]
+          + M[ zz*n*n + (y+s-1)*n + (x+s-1) ];
+
+      }
+    }
+  }
+
+  // xz, y=0 plane init
+  // O( n_b * n_b *s )
+  //
+  y = 0;
+  for (z=1; z<n_b; z++) {
+    for (x=1; x<n_b; x++) {
+      B[ z*n_b*n_b + y*n_b + x ] = 
+          B[ (z-1)*n_b*n_b + y*n_b + x     ]
+        + B[   (z)*n_b*n_b + y*n_b + (x-1) ]
+        - B[ (z-1)*n_b*n_b + y*n_b + (x-1) ];
+
+      for (yy=0; yy<s; yy++) {
+        B[ z*n_b*n_b + y*n_b + x ] +=
+            M[   (z-1)*n*n + yy*n +   (x-1) ]
+          - M[ (z+s-1)*n*n + yy*n +   (x-1) ]
+          - M[   (z-1)*n*n + yy*n + (x+s-1) ]
+          + M[ (z+s-1)*n*n + yy*n + (x+s-1) ];
+
+      }
+    }
+  }
+
+  // yz, x=0 plane init
+  // O( n_b * n_b *s )
+  //
+  x = 0;
+  for (z=1; z<n_b; z++) {
+    for (y=1; y<n_b; y++) {
+      B[ z*n_b*n_b + y*n_b + x ] = 
+          B[ (z-1)*n_b*n_b +   (y)*n_b + x ]
+        + B[   (z)*n_b*n_b + (y-1)*n_b + x ]
+        - B[ (z-1)*n_b*n_b + (y-1)*n_b + x ];
+
+      for (xx=0; xx<s; xx++) {
+        B[ z*n_b*n_b + y*n_b + x ] +=
+            M[   (z-1)*n*n +   (y-1)*n + xx ]
+          - M[ (z+s-1)*n*n +   (y-1)*n + xx ]
+          - M[   (z-1)*n*n + (y+s-1)*n + xx ]
+          + M[ (z+s-1)*n*n + (y+s-1)*n + xx ];
+
+      }
+    }
+  }
+
+
+
+  // rest of the grid.
+  //
+  // O( n_b * n_b * n_b )
+  //
 
   for (z=1; z<n_b; z++) {
     for (y=1; y<n_b; y++) {
       for (x=1; x<n_b; x++) {
 
+        B[ z*n_b*n_b + y*n_b + x ] = 0;
         for (c_idx=0; c_idx<8; c_idx++) {
-          xx = x + d_idx[c_idx][0];
-          yy = y + d_idx[c_idx][1];
-          zz = z + d_idx[c_idx][2];
-          B[ z*n_b*n_b + y*n_b + x ] += coef[c_idx]*B[ zz*n_b*n_b + yy*n_b + xx ];
+          bx = x + d_idx[c_idx][0];
+          by = y + d_idx[c_idx][1];
+          bz = z + d_idx[c_idx][2];
 
-          xx = x - 1 - s*d_idx[c_idx][0];
-          yy = y - 1 - s*d_idx[c_idy][1];
-          zz = z - 1 - s*d_idx[c_idx][2];
-          B[ z*n_b*n_b + y*n_b + x ] += -coef[c_idx]*M[ zz*n*n + yy*n*n + xx ];
+          if (B[ bz*n_b*n_b + by*n_b + bx ] < 0) {
+            printf("!!!!!\n");
+          }
+
+          if (c_idx < 7) {
+            B[ z*n_b*n_b + y*n_b + x ] += coef[c_idx]*B[ bz*n_b*n_b + by*n_b + bx ];
+          }
+
+          xx = x - 1 + s*(d_idx[c_idx][0]+1);
+          yy = y - 1 + s*(d_idx[c_idx][1]+1);
+          zz = z - 1 + s*(d_idx[c_idx][2]+1);
+
+          B[ z*n_b*n_b + y*n_b + x ] += -coef[c_idx]*M[ zz*n*n + yy*n + xx ];
+
+          //debug
+          printf("B[%i][%i][%i] += %cB[%i][%i][%i]{%i} %c M[%i][%i][%i]{%i} ==> {...%i}\n",
+              x,y,z,
+              (coef[c_idx] > 0) ? '+' : '-',
+              bx,by,bz,
+              B[ bz*n_b*n_b + by*n_b + bx ],
+              (coef[c_idx] < 0) ? '+' : '-',
+              xx,yy,zz,
+              M[ zz*n*n + yy*n + xx ],
+              B[ z*n_b*n_b + y*n_b + x ]);
+
 
         }
+
+        //debug
+        printf("\n");
 
       }
     }
@@ -118,6 +250,16 @@ int main(int argc, char **argv) {
   Bcheck = (int *)malloc(sizeof(int)*n_b*n_b*n_b);
   B = (int *)malloc(sizeof(int)*n_b*n_b*n_b);
   M = (int *)malloc(sizeof(int)*n*n*n);
+
+  for (z=0; z<n_b; z++) {
+    for (y=0; y<n_b; y++) {
+      for (x=0; x<n_b; x++) {
+        Bcheck[z*n_b*n_b + y*n_b + x ] = -1;
+        B[z*n_b*n_b + y*n_b + x ] = -100000;
+      }
+    }
+  }
+
 
 
   for (z=0; z<n; z++) {
@@ -151,7 +293,13 @@ int main(int argc, char **argv) {
   printf(">>>Bcheck\n");
   _printM3(Bcheck, n_b);
 
+  printf(">>>>B (before)\n");
+  _printM3(B, n_b);
+
   sum_dp3(B,M,n,s);
+
+  printf(">>>>B\n");
+  _printM3(B, n_b);
 
   exit(0);
 
