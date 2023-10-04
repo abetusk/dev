@@ -88,6 +88,37 @@
 </tr>
 </tbody>
 </table>
+<hr />
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ssh -i key -D local -f -C -q -N user@remote.host</code></td>
+<td>Open an ssh tunnel with SOCKSv5 proxy enabled (<code>-D</code> socks, <code>-f</code> fork, <code>-C</code> compress, <code>-q</code> quiet, <code>-N</code> no command)</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ssh -i ~/.ssh/priv.key -D 8080 -f -C -q -N user@remote.host</code></td>
+<td>Send localhost port <code>8080</code> out through <code>remote.host</code></td>
+</tr>
+</tbody>
+</table>
+<p>Browser should have a <code>Configure Proxy Access</code> somewhere which should be set to <code>SOCKS v5</code>, <code>localhost</code>/<code>127.0.0.1</code> as host
+and the appropriate port (<code>8080</code>).</p>
 <h6 id="2019-09-24">2019-09-24</h6>
 
       </section>

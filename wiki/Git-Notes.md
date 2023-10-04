@@ -49,6 +49,13 @@ git checkout fin-branch
 git merge --no-ff alt-branch
 ```
 
+### Adding Upstream Branch
+
+```bash
+git remote -v
+git remote add upstream {remote.git}
+```
+
 ### Merging/Syncing Forked Repository
 
 ```bash

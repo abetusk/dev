@@ -52,21 +52,34 @@
       <section>
 
         <h1 id="probability-definitions">Probability Definitions</h1>
+<h2 id="random-variable">Random Variable</h2>
+<p>For input space $\Omega$ and output space $G$, a random variable
+is a function that, for each "event" $\omega \in \Omega$, assigns a probability
+and value $g(\omega) \in G$:</p>
+<p>$$
+X = g(\omega) \text{, with probability ) p _ { \omega }
+$$</p>
 <h2 id="shannon-entropy">Shannon Entropy</h2>
 <p>$$
 H(p) = - \sum_{x} p(x) \lg p(x)
 $$</p>
 <h2 id="conditional-entropy">Conditional Entropy</h2>
-<p>$$</p>
-<p>H(X | Y) = \sum _ {x,y} p(x,y) \lg \left( \frac{p(x,y)}{p(x)} \right)
+<p>$$
+H(X | Y) = \sum _ {x,y} p(x,y) \lg \left( \frac{p(x,y)}{p(x)} \right)
 $$</p>
 <h2 id="mutual-information">Mutual Information</h2>
 <p>$$
 \begin{array}{ll}
-I(X;Y) &amp; = H(X) - H(X | Y) \
- &amp; = D _ {KL} \left[ \ p(x , y) \ || \ p(x) \cdot p(y) \ \right] \
- &amp; = D _ {KL} \left[ \ p(x | y) \ || \ p(x) \ \right] \
- &amp; = D _ {KL} \left[ \ p(y | x) \ || \ p(y) \ \right] \
+I(X;Y) &amp; = H(X) - H(X | Y) \\
+ &amp; = D _ {KL} \left[ \ p(x , y) \ || \ p(x) \cdot p(y) \ \right] \\
+ &amp; = D _ {KL} \left[ \ p(x | y) \ || \ p(x) \ \right] \\
+ &amp; = D _ {KL} \left[ \ p(y | x) \ || \ p(y) \ \right] \\
+\end{array}
+$$</p>
+<h2 id="expectation-on-transformed-random-variable">Expectation on Transformed Random Variable</h2>
+<p>$$
+\begin{array}{ll}
+E [ f ( X ) ] = \sum _ { k } p _ k f( x _ k )
 \end{array}
 $$</p>
 <h2 id="cross-entropy">Cross Entropy</h2>
