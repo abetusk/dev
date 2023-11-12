@@ -284,32 +284,32 @@ $$</p>
 We call the transition probability:</p>
 <p>$$
 P( s_t \to s_{t+1} ) = \begin{cases}
-  e^{- \beta ( E_{s_t} - E_{s_{t+1}} ) } &amp; , &amp; E_{s_{t+1}} &gt; E_{s_t} \ 
-  1 &amp; , &amp; E_{s_{t+1}} \le E_{s_t} \
+  e^{- \beta ( E_{s_t} - E_{s_{t+1}} ) } &amp; , &amp; E_{s_{t+1}} &gt; E_{s_t} \\
+  1 &amp; , &amp; E_{s_{t+1}} \le E_{s_t} \\
 \end{cases}
 $$</p>
 <p>Recall $\beta = \frac{1}{T}$.</p>
 <p>Call the number of possible transition states from one state to the other $N(\cdot)$:</p>
 <p>$$
 \begin{array}{ll}
-N( s_t \to s_{t+1} ) &amp; \propto N_{s_t} e^{ -\beta ( E_{s_{t+1}} - E_{s_t} ) } \
+N( s_t \to s_{t+1} ) &amp; \propto N_{s_t} e^{ -\beta ( E_{s_{t+1}} - E_{s_t} ) } \\
 N( s_{t+1} \to s_t ) &amp; \propto N_{s_{t+1}}
 \end{array}
 $$</p>
 <p>If we assume:</p>
 <p>$$
-N_{s_t} &gt; 0, $N_{s_{t+1}} &gt; 0 \
+N_{s_t} &gt; 0, $N_{s_{t+1}} &gt; 0 \\
 N( s_t \to s_{t+1} ) = N( s_{t+1} \to s_t )
 $$</p>
 <p>Then:</p>
 <p>$$
 \begin{array}{ll}
- &amp; N( s_t \to s_{t+1} ) - N( s_{t+1} \to s_t ) = N_{s_t} e^{ -\beta ( E_{s_{t+1}} - E_{s_t} ) } - N_{s_{t+1}} \
-\to &amp; 0 = N_{s_t} e^{ -\beta ( E_{s_{t+1}} - E_{s_t} ) } - N_{s_{t+1}} \
-\to &amp; 0 = N_{s_t} ( \frac{ e^{ -\beta E_{s_{t+1}} }}{ e^{ - \beta E_{s_t} } }  - \frac{ N_{s_{t+1}} }{ N_{s_t} } ) \
-\to &amp; 0 = \frac{ e^{ -\beta E_{s_{t+1}} }}{ e^{ - \beta E_{s_t} } }  - \frac{ N_{s_{t+1}} }{ N_{s_t} } \
-\to &amp; \frac{ N_{s_{t+1}} }{ N_{s_t} } = \frac{ e^{ -\beta E_{s_{t+1}} }}{ e^{ - \beta E_{s_t} } } \
-\to &amp;  N_{s_{t+1}} e^{ - \beta E_{s_t} } = N_{s_t} e^{ -\beta E_{s_{t+1}} }   \
+ &amp; N( s_t \to s_{t+1} ) - N( s_{t+1} \to s_t ) = N_{s_t} e^{ -\beta ( E_{s_{t+1}} - E_{s_t} ) } - N_{s_{t+1}} \\
+\to &amp; 0 = N_{s_t} e^{ -\beta ( E_{s_{t+1}} - E_{s_t} ) } - N_{s_{t+1}} \\
+\to &amp; 0 = N_{s_t} ( \frac{ e^{ -\beta E_{s_{t+1}} }}{ e^{ - \beta E_{s_t} } }  - \frac{ N_{s_{t+1}} }{ N_{s_t} } ) \\
+\to &amp; 0 = \frac{ e^{ -\beta E_{s_{t+1}} }}{ e^{ - \beta E_{s_t} } }  - \frac{ N_{s_{t+1}} }{ N_{s_t} } \\
+\to &amp; \frac{ N_{s_{t+1}} }{ N_{s_t} } = \frac{ e^{ -\beta E_{s_{t+1}} }}{ e^{ - \beta E_{s_t} } } \\
+\to &amp;  N_{s_{t+1}} e^{ - \beta E_{s_t} } = N_{s_t} e^{ -\beta E_{s_{t+1}} }   \\
 \end{array}
 $$</p>
 <p>Which is a detailed balance condition ensuring it be an ergodic process.</p>

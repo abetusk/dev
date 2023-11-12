@@ -318,8 +318,8 @@ We call the transition probability:
 
 $$
 P( s_t \to s_{t+1} ) = \begin{cases}
-  e^{- \beta ( E_{s_t} - E_{s_{t+1}} ) } & , & E_{s_{t+1}} > E_{s_t} \\ 
-  1 & , & E_{s_{t+1}} \le E_{s_t} \\
+  e^{- \beta ( E_{s_t} - E_{s_{t+1}} ) } & , & E_{s_{t+1}} > E_{s_t} \\\\
+  1 & , & E_{s_{t+1}} \le E_{s_t} \\\\
 \end{cases}
 $$
 
@@ -329,7 +329,7 @@ Call the number of possible transition states from one state to the other $N(\cd
 
 $$
 \begin{array}{ll}
-N( s_t \to s_{t+1} ) & \propto N_{s_t} e^{ -\beta ( E_{s_{t+1}} - E_{s_t} ) } \\
+N( s_t \to s_{t+1} ) & \propto N_{s_t} e^{ -\beta ( E_{s_{t+1}} - E_{s_t} ) } \\\\
 N( s_{t+1} \to s_t ) & \propto N_{s_{t+1}}
 \end{array}
 $$
@@ -337,7 +337,7 @@ $$
 If we assume:
 
 $$
-N_{s_t} > 0, $N_{s_{t+1}} > 0 \\
+N_{s_t} > 0, $N_{s_{t+1}} > 0 \\\\
 N( s_t \to s_{t+1} ) = N( s_{t+1} \to s_t )
 $$
 
@@ -345,12 +345,12 @@ Then:
 
 $$
 \begin{array}{ll}
- & N( s_t \to s_{t+1} ) - N( s_{t+1} \to s_t ) = N_{s_t} e^{ -\beta ( E_{s_{t+1}} - E_{s_t} ) } - N_{s_{t+1}} \\
-\to & 0 = N_{s_t} e^{ -\beta ( E_{s_{t+1}} - E_{s_t} ) } - N_{s_{t+1}} \\
-\to & 0 = N_{s_t} ( \frac{ e^{ -\beta E_{s_{t+1}} }}{ e^{ - \beta E_{s_t} } }  - \frac{ N_{s_{t+1}} }{ N_{s_t} } ) \\
-\to & 0 = \frac{ e^{ -\beta E_{s_{t+1}} }}{ e^{ - \beta E_{s_t} } }  - \frac{ N_{s_{t+1}} }{ N_{s_t} } \\
-\to & \frac{ N_{s_{t+1}} }{ N_{s_t} } = \frac{ e^{ -\beta E_{s_{t+1}} }}{ e^{ - \beta E_{s_t} } } \\
-\to &  N_{s_{t+1}} e^{ - \beta E_{s_t} } = N_{s_t} e^{ -\beta E_{s_{t+1}} }   \\
+ & N( s_t \to s_{t+1} ) - N( s_{t+1} \to s_t ) = N_{s_t} e^{ -\beta ( E_{s_{t+1}} - E_{s_t} ) } - N_{s_{t+1}} \\\\
+\to & 0 = N_{s_t} e^{ -\beta ( E_{s_{t+1}} - E_{s_t} ) } - N_{s_{t+1}} \\\\
+\to & 0 = N_{s_t} ( \frac{ e^{ -\beta E_{s_{t+1}} }}{ e^{ - \beta E_{s_t} } }  - \frac{ N_{s_{t+1}} }{ N_{s_t} } ) \\\\
+\to & 0 = \frac{ e^{ -\beta E_{s_{t+1}} }}{ e^{ - \beta E_{s_t} } }  - \frac{ N_{s_{t+1}} }{ N_{s_t} } \\\\
+\to & \frac{ N_{s_{t+1}} }{ N_{s_t} } = \frac{ e^{ -\beta E_{s_{t+1}} }}{ e^{ - \beta E_{s_t} } } \\\\
+\to &  N_{s_{t+1}} e^{ - \beta E_{s_t} } = N_{s_t} e^{ -\beta E_{s_{t+1}} }   \\\\
 \end{array}
 $$
 
