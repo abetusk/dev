@@ -309,6 +309,52 @@ S = - \sum _ { k=0 } ^ { n-1 } p _ k \lg(p _ k)
 $$
 
 
+### Metropolis Hastings Algorithm
+
+In this context, we sometimes want to sample from the Boltzmann distribution distribution.
+
+Call a state of the system $s_t$ with the energy of the state $E_{s_t}$.
+We call the transition probability:
+
+$$
+P( s_t \to s_{t+1} ) = \begin{cases}
+  e^{- \beta ( E_{s_t} - E_{s_{t+1}} ) } & , & E_{s_{t+1}} > E_{s_t} \\ 
+  1 & , & E_{s_{t+1}} \le E_{s_t} \\
+\end{cases}
+$$
+
+Recall $\beta = \frac{1}{T}$.
+
+Call the number of possible transition states from one state to the other $N(\cdot)$:
+
+$$
+\begin{array}{ll}
+N( s_t \to s_{t+1} ) & \propto N_{s_t} e^{ -\beta ( E_{s_{t+1}} - E_{s_t} ) } \\
+N( s_{t+1} \to s_t ) & \propto N_{s_{t+1}}
+\end{array}
+$$
+
+If we assume:
+
+$$
+N_{s_t} > 0, $N_{s_{t+1}} > 0 \\
+N( s_t \to s_{t+1} ) = N( s_{t+1} \to s_t )
+$$
+
+Then:
+
+$$
+\begin{array}{ll}
+ & N( s_t \to s_{t+1} ) - N( s_{t+1} \to s_t ) = N_{s_t} e^{ -\beta ( E_{s_{t+1}} - E_{s_t} ) } - N_{s_{t+1}} \\
+\to & 0 = N_{s_t} e^{ -\beta ( E_{s_{t+1}} - E_{s_t} ) } - N_{s_{t+1}} \\
+\to & 0 = N_{s_t} ( \frac{ e^{ -\beta E_{s_{t+1}} }}{ e^{ - \beta E_{s_t} } }  - \frac{ N_{s_{t+1}} }{ N_{s_t} } ) \\
+\to & 0 = \frac{ e^{ -\beta E_{s_{t+1}} }}{ e^{ - \beta E_{s_t} } }  - \frac{ N_{s_{t+1}} }{ N_{s_t} } \\
+\to & \frac{ N_{s_{t+1}} }{ N_{s_t} } = \frac{ e^{ -\beta E_{s_{t+1}} }}{ e^{ - \beta E_{s_t} } } \\
+\to &  N_{s_{t+1}} e^{ - \beta E_{s_t} } = N_{s_t} e^{ -\beta E_{s_{t+1}} }   \\
+\end{array}
+$$
+
+Which is a detailed balance condition ensuring it be an ergodic process.
 
 
 References
@@ -319,5 +365,10 @@ References
 * [Gibbs free energy](https://en.wikipedia.org/wiki/Gibbs_free_energy)
 * [Kullback-Leibler Divergence](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence)
 * [Lagrange Multipliers](https://en.wikipedia.org/wiki/Lagrange_multiplier)
+* [Stationary Distribution](https://en.wikipedia.org/wiki/Stationary_distribution)
+* [Stationary Ergodic Process](https://en.wikipedia.org/wiki/Stationary_ergodic_process)
+* [Ergodic Process](https://en.wikipedia.org/wiki/Stationary_ergodic_process)
+* [Detailed Balance](https://en.wikipedia.org/wiki/Detailed_balance)
+* [Complexity and Criticality by K. Christensen and N. Moloney](https://github.com/abetusk/papers/blob/release/books/Complexity-and-Criticality-Advanced-Physics-Texts-.pdf)
 
 ###### 2022-11-05
