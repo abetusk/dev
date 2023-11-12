@@ -49,3 +49,4 @@ dev
 * [Probability Defintions](Probability-Definitions.md) 2023-03-24
 * [Ribbon Tile Puzzle (spoilers)](Puzzle-Ribbon-Tiles.md) 2023-04-02
 * [Kullback-Leibler Divergence](Kullback-Leibler-Divergence.md) 2023-08-22
+* [Statistical Mechanics for Computer Scientists](Statistical-Mechanics-For-Computer-Scientists.md) 2023-11-12

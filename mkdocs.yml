@@ -49,6 +49,7 @@ nav:
   - "Belief-Propagation.md"
   - "Puzzle-Ribbon-Tiles.md"
   - "Kullback-Leibler-Divergence.md"
+  - "Statistical-Mechanics-For-Computer-Scientists.md"
 
 docs_dir: 'wiki'
 use_directory_urls: false
