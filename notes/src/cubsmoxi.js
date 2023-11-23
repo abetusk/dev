@@ -204,6 +204,39 @@ function general_rule(m) {
 
 }
 
+function general_rule_score(m) {
+
+  let score = {
+    "rule3" : { "description": "start and end on tonic", "val": 0 },
+    "rule4" : { "description": "do not exceed major 10th", "val": 0 }
+  };
+
+  let n = m.tune.length;
+  if (n==0) { return score; }
+  if (m.tune[0].note == m.tune[n-1].note) {
+    score["rule3"].val = 1;
+  }
+
+  let min_note = -1,
+      max_note = -1;
+  for (let i=0; i<n; i++) {
+    let inote = note2midi( m.tune[i].note );
+
+    if (min_note<0) { min_note = inote; }
+    if (max_note<0) { max_note = intoe; }
+
+    if (min_note > inote) { min_note = inote; }
+    if (max_note < inote) { max_note = inote; }
+  }
+
+  if ((max_note - min_note) <= 10) {
+    score["rule4"].val = 1;
+  }
+
+
+}
+
+
 
 function _play() {
   var res = 4;
@@ -336,11 +369,11 @@ function ex_1_1_sample() {
 
   var score = ex_1_1(m);
 
-  console.log("##", score);
+  console.log("## score:", score);
   melody_to_sonicpi(m);
 }
 
-////ex_1_1_sample();
+ex_1_1_sample();
 
 //-------------
 //-------------
