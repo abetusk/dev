@@ -25,8 +25,8 @@ Cosine
 
 $$
 \begin{array}{ll}
-||X|| \cdot ||Y|| \cos(\theta) & = \frac{\sum _ {i=0}^{n-1} x _ i \cdot y _ i}{ \left( \sum _ {i=0}^{n-1} x _ i ^ 2 \right)^{\frac{1}{2}} \cdot 
-  \left( \sum _ {i=0}^{n-1} y _ i ^ 2 \right)^{\frac{1}{2}} }
+||X|| \cdot ||Y|| \cos(\theta) & = \frac{ {\sum} ^{n-1} _ {i=0}  x _ i \cdot y _ i}{ \left( {\sum} _ {i=0}^{n-1} x _ i ^ 2 \right)^{\frac{1}{2}} \cdot 
+  \left( {\sum} _ {i=0}^{n-1} y _ i ^ 2 \right)^{\frac{1}{2}} }
 \end{array}
 $$
 
@@ -37,7 +37,7 @@ Euclidean
 
 $$
 \begin{array}{ll}
-|| X - Y || _ {2} & = \left( \sum _ {i=0} ^ {n-1} | x _ i - y _ i |^2 \right)^{\frac{1}{2}}
+|| X - Y || _ {2} & = \left( {\sum} _ {i=0} ^ {n-1} | x _ i - y _ i |^2 \right)^{\frac{1}{2}}
 \end{array}
 $$
 
@@ -46,7 +46,7 @@ Manhattan
 
 $$
 \begin{array}{ll}
-|| X - Y || _ {1} & = \sum _ {i=0} ^ {n-1} | x _ i - y _ i |
+|| X - Y || _ {1} & = {\sum} _ {i=0} ^ {n-1} | x _ i - y _ i |
 \end{array}
 $$
 
@@ -56,7 +56,7 @@ Minkowski
 
 $$
 \begin{array}{ll}
-|| X - Y || _ {q} & = \left( \sum _ {i=0} ^ {n-1} | x _ i - y _ i |^q \right)^{\frac{1}{q}}
+|| X - Y || _ {q} & = \left( {\sum} _ {i=0} ^ {n-1} | x _ i - y _ i |^q \right)^{\frac{1}{q}}
 \end{array}
 $$
 
