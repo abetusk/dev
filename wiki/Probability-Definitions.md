@@ -9,7 +9,7 @@ is a function that, for each "event" $\omega \in \Omega$, assigns a probability
 and value $g(\omega) \in G$:
 
 $$
-X = g(\omega) \text{, with probability ) p _ { \omega }
+X = g(\omega) \text{, with probability } p _ { \omega }
 $$
 
 Shannon Entropy
