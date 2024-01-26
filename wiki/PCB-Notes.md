@@ -78,4 +78,69 @@ SMD Sizes
 |---|
 | ![surface mount cheat sheet](img/smd_cheat_sheet.png) |
 
+---
+
+Common Designator Meanings
+---
+
+| Designator | Component type |
+|---|---|
+| A | Separable assembly, Sub-assembly (e.g. printed circuit assembly) |
+| AN, AS | Antenna |
+| AR | Amplifier |
+| AT | Attenuator, Isolator |
+| BR | Bridge rectifier |
+| B, BT | Battery |
+| BZ | Buzzer |
+| C | Capacitor |
+| CB | Circuit breaker, Supercapacitor |
+| CN | Capacitor network |
+| D, | CR Diode (all types, including LED), Thyristor |
+| DL | Delay line |
+| DS | Display, General light source, Lamp, Signal light |
+| F | Fuse |
+| FB | Ferrite bead |
+| FD | Fiducial |
+| FL | Filter |
+| G | Generator, Oscillator |
+| GN | General network |
+| H | Hardware, Screws, Nuts, Washers |
+| HY | Circulator, Directional coupler |
+| IR | Infrared diode |
+| J | Jack (least-movable connector of a connector pair), Jack connector (connector may have male pin contacts and/or female socket contacts) |
+| JP | Jumper (Link) |
+| K | Relay, Contactor |
+| L | Inductor, Coil, Ferrite bead |
+| LS | Loudspeaker, Buzzer |
+| M | Mosfet, Motor, Meter, Measuring device |
+| MH | Mounting hole |
+| MK | Microphone |
+| MP | Mechanical part (including screws and fasteners) |
+| OP | Opto-isolator, Operational amplifier |
+| P | Plug (most-movable connector of a connector pair), Plug connector (connector may have male pin contacts and/or female socket contacts) |
+| PS | Power supply |
+| Q | Transistor (all types) |
+| R | Resistor |
+| RLA, RY | Relay |
+| RN | Resistor network |
+| RT | Thermistor |
+| RV | Varistor, Variable resistor |
+| S, SW | Switch (all types, including buttons) |
+| T | Transformer, Incorrectly used as transistor (see “Q”) |
+| TC | Thermocouple |
+| TP | Test point |
+| TR | Transistor, Transducer |
+| TUN | Tuner |
+| U | Integrated circuit (IC), Inseparable assembly |
+| V | Vacuum tube |
+| VR | Voltage regulator (voltage reference), Variable resistor (potentiometer or rheostat), PTC |
+| W | Cable, Wire, Busbar |
+| X | Socket connector for another item not P or J, paired with the letter symbol for that item (XV for vacuum tube socket, XF for fuse holder, XA for printed circuit assembly connector, XU for integrated circuit connector, XDS for light socket, etc.) |
+| XMER | Transformer |
+| XTAL | Crystal |
+| Y | Crystal, Oscillator |
+| Z | Zener Diode |
+
+([digikey](https://forum.digikey.com/t/pcb-markings-reference-designator-meanings-part-identification/24464), [wp](https://en.wikipedia.org/wiki/Reference_designator))
+
 ###### 2018-02-03
