@@ -144,7 +144,7 @@ $$
 1 - A(x)
 $$
 
-$b _ n = \mathbb{P}\{ S _ i \ne (0,0), i \in [1 \dots n] \}$, or, the chance of never visiting the origin
+$b _ n = \mathbb{P}\\{ S _ i \ne (0,0), i \in [1 \dots n] \\}$, or, the chance of never visiting the origin
 in $n$ steps.
 
 Summing over paths where the origin hasn't been visited in $n$ steps but the walk has been killed on the $n+1$ step
