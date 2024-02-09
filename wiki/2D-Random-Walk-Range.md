@@ -23,11 +23,11 @@ Glossary:
 |---|
 | $\bar 0 = (0,0) \in \mathbb{Z}^2$ |
 | $e _ 1 = (1,0), e _ 2 = (0,1)$ |
-| $\mathbb{P}\{ X _ k = \sigma e _ i \} = \frac{1}{4}, \sigma \in \{-1,1\}, i \in \{1,2\}$ | 
+| $\mathbb{P}\\{ X _ k = \sigma e _ i \\} = \frac{1}{4}, \sigma \in \\{-1,1\\}, i \in \\{1,2\\}$ | 
 | $S _ n = {\sum} _ {k=1} ^ {n} X _ k$ |
-| $p _ n ( s, t ) = \mathbb{P} \{ S _ n = t | S _ 0 = s \}, s,t \in \mathbb{Z}^2$ |
+| $p _ n ( s, t ) = \mathbb{P} \\{ S _ n = t \| S _ 0 = s \\} , s,t \in \mathbb{Z}^2$ |
 | $u _ n ( s )$, probability visiting $s \in \mathbb{Z}^2$ for the first time |
-| $R _ n = | S _ 0 \cup S _ 1 \cup S _ 2 \cup \cdots \cup S _ n |$
+| $R _ n = \| S _ 0 \cup S _ 1 \cup S _ 2 \cup \cdots \cup S _ n \|$ |
 | $\gamma _ n$, indicator if $n$-th step is a unique visited spot ($1$ if so, $0$ otherwise) |
 | $b _ n = \mathbb{E} [ \gamma _ n ]$ |
 | $G(x) = {\sum} _ {n=0} ^ {\infty} x^n p _ n ( {\bar 0})$ |
@@ -59,8 +59,8 @@ $$
 \begin{array}{ll}
 \mathbb{E}[ \gamma _ n ] & = \mathbb{P} \{ \text{new site visited on n-th step} \} \\
  \to & = \mathbb{P} \{ S _ n \ne S _ {n-1}, S _ n \ne S _ {n-2}, \cdots S _ {n} \ne S _ 1, S _ n \ne S _ 0  \} \\
- \to & = \mathbb{P} \{ X _ n \ne (0,0), X _ n + X _ {n-1} \ne (0,0), \cdots \sum _ {k=1} ^ {n} X _ k \ne (0,0) \} \\
- \to & = \mathbb{P} \{ X _ 1 \ne (0,0), X _ 1 + X _ {2} \ne (0,0), \cdots \sum _ {k=1} ^ {n} X _ k \ne (0,0) \} \\
+ \to & = \mathbb{P} \{ X _ n \ne (0,0), X _ n + X _ {n-1} \ne (0,0), \cdots {\sum} _ {k=1} ^ {n} X _ k \ne (0,0) \} \\
+ \to & = \mathbb{P} \{ X _ 1 \ne (0,0), X _ 1 + X _ {2} \ne (0,0), \cdots {\sum} _ {k=1} ^ {n} X _ k \ne (0,0) \} \\
  \to & = \mathbb{P} \{ S _ i \ne (0, 0) , i \in [1 \dots n] \}
 \end{array}
 $$
@@ -97,11 +97,11 @@ proof:
 
 $$
 \begin{array}{ll}
-G(x) & = {\sum} _ {n=0} ^ {\infty} x^n p _ n({\bar 0}) \\
- & = p _ 0 ({\bar 0})  +   {\sum} _ {n=1} ^ {\infty} x^n \left( {\sum} _ {k=1} ^ {n} p _ k ({\bar 0}) u _ {n-k} ({\bar 0})  \right) \\
- & = p _ 0 ({\bar 0}) +  {\sum} _ {n=1} ^ {\infty} \left( {\sum} _ {k=1} ^ {n} x ^ k p _ k ({\bar 0}) x ^ {n-k} u _ {n-k} ({\bar 0})  \right) \\
- & = p _ 0 ({\bar 0}) + \left( {\sum} _ {n=0} ^ {\infty} x ^ n p _ n ({\bar 0}) \right) \left( {\sum _ {n=1} ^ {\infty}  x ^ {n} u _ {n} ({\bar 0})  \right) \\
- & = p _ 0 ({\bar 0}) + G(x) F(x) \\
+G(x) & = {\sum} _ {n=0} ^ {\infty} x^n p _ n({\bar 0}) \\\\
+ & = p _ 0 ({\bar 0})  +   {\sum} _ {n=1} ^ {\infty} x^n \left( {\sum} _ {k=1} ^ {n} p _ k ({\bar 0}) u _ {n-k} ({\bar 0})  \right) \\\\
+ & = p _ 0 ({\bar 0}) +  {\sum} _ {n=1} ^ {\infty} \left( {\sum} _ {k=1} ^ {n} x ^ k p _ k ({\bar 0}) x ^ {n-k} u _ {n-k} ({\bar 0})  \right) \\\\
+ & =  p _ 0 ({\bar 0}) + \left( {\sum} _ {n=0} ^ {\infty} x ^ n p _ n ({\bar 0}) \right) \left( {\sum} _ {n=1} ^ {\infty}  x ^ {n} u _ {n} ({\bar 0}) \right)  \\\\
+ & = p _ 0 ({\bar 0}) + G(x) F(x) \\\\
  \to & G(x) = \frac{1}{ 1 - F(x) } 
 \end{array}
 $$
