@@ -38,6 +38,9 @@ can be determined from the initial configuration:
 | $\Delta h _ {y'}$ | $1$ | $\rlap{0}/$ | $\rlap{0}/$ |
 | $\Delta h _ {z'}$ | $\rlap{0}/$ | $\rlap{0}/$ | $\rlap{0}/$ |
 
+If the height of the altered subtree changes, nodes above will
+need to be recursively updated in the same way.
+
 Deletion
 ---
 
