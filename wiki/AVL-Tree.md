@@ -57,7 +57,7 @@ can be determined from the $z$'s balance factor before rotation:
 
 
 | $\Delta h _ z$ | $-1$ | $\rlap{0}/$ | $1$ | $-1$ | $\rlap{0}/$ | $1$ |
-|---|---|---|---|
+|---|---|---|---|---|---|---|
 | $\Delta h _ {x}$  | $-2$ | $-2$ | $-2$ | $2$ | $2$ | $2$ |
 | $\Delta h _ {y}$  | $1$ | $1$ | $1$ | $-1$ | $-1$ | $-1$ |
 | $h _ \beta$  | $h _ z -1$ | $h _ z -1$ | $h _ z -2$ | $h _ z -1$ | $h _ z -1$ | $h _ z -2$ |
