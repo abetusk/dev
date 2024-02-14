@@ -57,7 +57,7 @@ where $h _ {x _ 0} = h$.
 | $\Delta h _ {y'}$ | $0$   | $1$   | $0$   | $-1$  |
 | $h _ { x' }$      | $h$   | $h+1$ | $h$   | $h+1$ |
 | $h _ { y' }$      | $h+1$ | $h+2$ | $h+1$ | $h+2$ |
-| $\Delta h _ {p}$  | $0$   | $1$   | $0$   | $1$   |
+| $\Delta h _ {p'}$  | $0$   | $1$   | $0$   | $1$   |
 
 When doing a simple rotate where the appropriate child
 of the current subtree's root is not completely balanced,
