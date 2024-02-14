@@ -98,6 +98,8 @@ above table.
 Deletion
 ---
 
+![avl deletion](img/avl_del.svg)
+
 Deletion of the node $z$ has three main cases (as per [CLR](https://en.wikipedia.org/wiki/Introduction_to_Algorithms)):
 
 * $z$ is a leaf, in which case the parents point to $z$ can be set to `null`
