@@ -46,8 +46,23 @@ need to be recursively updated in the same way.
 
 #### Single Rotation
 
-...
+let $x _ 0$ and $y _ 0$ be the nodes before the insertion,
+where $ h _ {x _ 0} = h$.
 
+|   |   |   |   |   |
+|---|---|---|---|---|
+| $\Delta h _ {x}$  | $-2$  | $-2$  | $2$   | $2$   |
+| $\Delta h _ {y}$  | $-1$  | $0$   | $1$   | $0$   |
+| $\Delta h _ {x'}$ | $0$   | $-1$  | $0$   | $1$   |
+| $\Delta h _ {y'}$ | $0$   | $1$   | $0$   | $-1$  |
+| $h _ { x' }$      | $h$   | $h+1$ | $h$   | $h+1$ |
+| $h _ { y' }$      | $h+1$ | $h+2$ | $h+1$ | $h+2$ |
+| $\Delta h _ {p}$  | $0$   | $1$   | $0$   | $1$   |
+
+When doing a simple rotate where the appropriate child
+of the current subtree's root is not completely balanced,
+a height change needs to be communicated recursively up
+the tree.
 
 
 #### Double Rotation
@@ -66,6 +81,13 @@ can be determined from the $z$'s balance factor before rotation:
 | $\Delta h _ {y'}$ | $\rlap{0}/$ | $\rlap{0}/$ | $-1$ | $1$ | $\rlap{0}/$ | $\rlap{0}/$ |
 | $\Delta h _ {z'}$ | $\rlap{0}/$ | $\rlap{0}/$ | $\rlap{0}/$ | $\rlap{0}/$ | $\rlap{0}/$ | $\rlap{0}/$ |
 | $\Delta h _ {p'}$ | $\rlap{0}/$ | $\rlap{0}/$ | $\rlap{0}/$ | $\rlap{0}/$ | $\rlap{0}/$ | $\rlap{0}/$ |
+
+For brevity, here is a restriction of the table to highlight the nodes we care about most:
+
+| $\Delta h _ z$ | $-1$ | $\rlap{0}/$ | $1$ | $-1$ | $\rlap{0}/$ | $1$ |
+|---|---|---|---|---|---|---|
+| $\Delta h _ {x'}$ | $1$ | $\rlap{0}/$ | $\rlap{0}/$ | $\rlap{0}/$ | $\rlap{0}/$ | $-1$ |
+| $\Delta h _ {y'}$ | $\rlap{0}/$ | $\rlap{0}/$ | $-1$ | $1$ | $\rlap{0}/$ | $\rlap{0}/$ |
 
 Note that in the case of a double rotation, before the addition of a node, the height $h _ x = h _ z + 1$.
 Regardless of which double rotation is done, what value $\Delta h _ {x}$, $\Delta h _ {y}$, $h _ {\beta}$
