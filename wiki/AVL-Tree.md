@@ -47,7 +47,7 @@ need to be recursively updated in the same way.
 #### Single Rotation
 
 let $x _ 0$ and $y _ 0$ be the nodes before the insertion,
-where $ h _ {x _ 0} = h$.
+where $h _ {x _ 0} = h$.
 
 |   |   |   |   |   |
 |---|---|---|---|---|
