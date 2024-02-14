@@ -3,12 +3,21 @@ AVL Tree
 
 Adelson-Velsky and Landis ([AVL](https://en.wikipedia.org/wiki/AVL_tree)).
 
+AVL trees are surprisingly subtle when it comes to their update rules.
+This is a short note on some of those subtleties when implementing
+AVL trees.
+
+AVL Condition
+---
+
 The AVL condition is to make sure the balance factor (BF) of every node
 stays within $\{-1,0,1\}$.
 That is, the height of every nodes children differs by at most 1.
 
 For every insertion and deletion, the BF is restored through a series
 of tree rotations.
+Tree rotations restore the BF locally, recursively applying any
+height changes up the tree, issuing tree rotations as necessary.
 
 Insertion
 ---
@@ -22,24 +31,47 @@ To fix up, a series of rotations are done.
 ![AVL Tree Rotations](img/avl_rot.svg)
 
 Here, the `--`, `-`, `+`, `==` and $\rlap{0}/$ signify
-whether the node is left heavy, right heavy or balanced,
+whether the node is left heavy requiring a rotation, left
+heavy without the need for a rotation,, right heavy without
+the need for a rotation, right
+heavy with the need for a rotation or balanced,
 respectively.
 
-The last condition can be represented as a double rotation,
+The last condition row in can be represented as a double rotation,
 with $z$ rotated with $y$, then $z$ rotated
 with $x$.
 
-In the case of a double rotation, the node's AVL condition
-can be determined from the initial configuration:
-
-| $\Delta h _ z$ | $-1$ | $\rlap{0}/$ | $1$ |
-|---|---|---|---|
-| $\Delta h _ {x'}$ | $\rlap{0}/$ | $\rlap{0}/$ | $-1$ |
-| $\Delta h _ {y'}$ | $1$ | $\rlap{0}/$ | $\rlap{0}/$ |
-| $\Delta h _ {z'}$ | $\rlap{0}/$ | $\rlap{0}/$ | $\rlap{0}/$ |
-
 If the height of the altered subtree changes, nodes above will
 need to be recursively updated in the same way.
+
+#### Single Rotation
+
+...
+
+
+
+#### Double Rotation
+
+In the case of a double rotation, the rotated nodes' balance factor, $x'$, $y'$ and $z'$,
+can be determined from the $z$'s balance factor before rotation:
+
+
+| $\Delta h _ z$ | $-1$ | $\rlap{0}/$ | $1$ | $-1$ | $\rlap{0}/$ | $1$ |
+|---|---|---|---|
+| $\Delta h _ {x}$  | $-2$ | $-2$ | $-2$ | $2$ | $2$ | $2$ |
+| $\Delta h _ {y}$  | $1$ | $1$ | $1$ | $-1$ | $-1$ | $-1$ |
+| $h _ \beta$  | $h _ z -1$ | $h _ z -1$ | $h _ z -2$ | $h _ z -1$ | $h _ z -1$ | $h _ z -2$ |
+| $h _ \gamma$ | $h _ z -2$ | $h _ z -1$ | $h _ z -1$ | $h _ z -2$ | $h _ z -1$ | $h _ z -1$ |
+| $\Delta h _ {x'}$ | $1$ | $\rlap{0}/$ | $\rlap{0}/$ | $\rlap{0}/$ | $\rlap{0}/$ | $-1$ |
+| $\Delta h _ {y'}$ | $\rlap{0}/$ | $\rlap{0}/$ | $-1$ | $1$ | $\rlap{0}/$ | $\rlap{0}/$ |
+| $\Delta h _ {z'}$ | $\rlap{0}/$ | $\rlap{0}/$ | $\rlap{0}/$ | $\rlap{0}/$ | $\rlap{0}/$ | $\rlap{0}/$ |
+| $\Delta h _ {p'}$ | $\rlap{0}/$ | $\rlap{0}/$ | $\rlap{0}/$ | $\rlap{0}/$ | $\rlap{0}/$ | $\rlap{0}/$ |
+
+Note that in the case of a double rotation, before the addition of a node, the height $h _ x = h _ z + 1$.
+Regardless of which double rotation is done, what value $\Delta h _ {x}$, $\Delta h _ {y}$, $h _ {\beta}$
+or $h _ {\gamma}$, the resulting height of $h _ {z'}$ will always be $h _ z + 1$, requiring no height
+change to to communicated back up to the parent tree corresponding to $\Delta h _ {p'} = \rlap{0}/$ in the
+above table.
 
 Deletion
 ---
