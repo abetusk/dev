@@ -208,5 +208,72 @@ last two lines of the above.
 
 In the above, root is also updated appropriately.
 
+The last line, `retrace` is described below.
+
+#### Retrace
+
+There are some basic statements about the state of the tree during the recursion:
+
+* Should a parent node's balance factor be changed, this necessarily corresponds
+  to a sub-tree height change that will be communicated to the retrace function.
+  Without a height change, the parent node's balance factor wouldn't have been
+  altered in the first place.
+* Not immediately obvious but the height of the root node of the sub-tree after a rotation
+  will only ever result in the same height before the insert or delete operation
+  or be changed in the appropriate direction. The height change is non increasing
+  in magnitude as it's shuttled up the tree.
+
+This means that if we are in the `retrace` function and considering a
+node whose balance factor is $\{-1,0,1\}$ without a height change
+communication, we don't need to rotate the sub-tree and only
+need to recursively go up, communicating the height change as necessary.
+More specifically, if no height change is communicated and the node is
+balanced, no height change needs to be communicated up the tree.
+If the height change is negative and the balance factor is $0$, we
+need to keep communicating the negative height change up.
+If the height change is positive and the balance factor is $\{-1,1\}$,
+we need to keep communicating the height change up the tree.
+
+In the case of an unbalanced node, the sub-tree should be re-balanced
+with the parent node's height changing with the height change communicated.
+
+
+Once an addition has been carried out and a rotation has potentially
+occurred, the parent nodes need to be updated recursively.
+This step can be referred to as a `retrace` step.
+
+Tree rotations will leave the considered sub-tree in a consistent
+state but still might leave some parent nodes in an unbalanced state.
+Just knowing the balance factor of a node when recursively updating
+the tree from an insertion or deletion does is not enough information
+to properly handle rebalancing, the relative sub-tree height change
+also needs to be known.
+That is, not only does the balance factor of the current node
+need to be considered, the balance factor transition needs to
+be considered to account for height changes.
+
+The height change will only ever be at most one, limiting the
+balance factor of each node up the recursion.
+
+After rebalancing the current sub-tree, the balance factor of
+the parent is adjusted before recurring.
+The change of the height of the sub-tree indicates what communicated
+height change is given to the parent.
+
+When landing on a node during the recursion, it must have been
+in a consistent state previous to balance factor alteration,
+so it was one of $\{-1,0,1\}$.
+
+| Transition        | $\Delta T = -1$ | $\Delta T = 1$ | Action |
+|-------------------|-----------------|----------------|--------|
+| $- \to \rlap{0}/$ | $-$             | $\rlap{0}/$    | retrace( parent, $-\delta( \Delta T + 1)$ ) |
+| $+ \to \rlap{0}/$ | $-$             | $\rlap{0}/$    | retrace( parent, $-\delta( \Delta T + 1)$ ) |
+| $\rlap{0}/ \to -$ | $\rlap{0}/$     | $+$            | retrace( parent, $\delta( \Delta T - 1)$ ) |
+| $\rlap{0}/ \to +$ | $\rlap{0}/$     | $+$            | retrace( parent, $\delta( \Delta T - 1)$ ) |
+| $+ \to ++$        | $\rlap{0}/$     | $+$            |
+| $- \to --$        | $\rlap{0}/$     | $+$            |
+
+
+
 
 ###### 2024-02-13
