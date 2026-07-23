@@ -126,34 +126,34 @@ For $\alpha$ the root of a polynomial of degree $n$:
 
 $$
 \begin{array}{cc}
-\forall p(x) = \sum_{k=0}^{n} c_k x^k, & c_k \in \mathbb{Z}, \\ \\ p(\alpha) = 0 \\\\
+\forall P(x) = \sum_{k=0}^{n} c_k x^k, & c_k \in \mathbb{Z}, \\ \\ P(\alpha) = 0 \\\\
 \exists A > 0, & \forall p,q \in \mathbb{Z}\_{+} \\\\
-| \alpha - \frac{p}{a}|  > \frac{A}{q^n}
+| \alpha - \frac{p}{q}|  > \frac{A}{q^n}
 \end{array}
 $$
 
-$\alpha_k$ the roots of $p(x)$ above, with $\alpha$ distinct from the rest, and $M$ is the maximum value of $|p'(x)|$ on the interval $[\alpha-1,\alpha+1]$:
+$\alpha _ k$ the roots of $P(x)$ above, with $\alpha$ distinct from the rest, and $M$ is the maximum value of $|P'(x)|$ on the interval $[\alpha-1,\alpha+1]$:
 
 $$
 A < \text{min} \left( 1, \frac{1}{M}, | \alpha - \alpha_1|, | \alpha - \alpha_2|, \cdots, |\alpha - \alpha_{n-1}| \right)
 $$
 
-Assume, for contradiction, some $p,q$, with $p(\frac{p}{q}) \ne 0 $ s.t.:
+Assume, for contradiction, some $p,q$, with $P(\frac{p}{q}) \ne 0 $ s.t.:
 
 $$
-| \alpha - \frac{p}{a} | \le \frac{A}{q^n} \le A < \text{min} \left( 1, \frac{1}{M}, | \alpha - \alpha_1|, | \alpha - \alpha_2|, \cdots, |\alpha - \alpha_{n-1}| \right)
+| \alpha - \frac{p}{q} | \le \frac{A}{q^n} \le A < \text{min} \left( 1, \frac{1}{M}, | \alpha - \alpha_1|, | \alpha - \alpha_2|, \cdots, |\alpha - \alpha_{n-1}| \right)
 $$
 
 My the mean value theorem:
 
 $$
 \begin{array}{cc}
-& p(\alpha) - p(\frac{p}{q}) = (\alpha - \frac{p}{q}) \cdot p'(x_0) \\\\
-\to & | \alpha - \frac{p}{q}| = \frac{ |p(\alpha) - p(\frac{p}{q}) }{ | p'(x_0) | }  \\\\
-\to & | \alpha - \frac{p}{q}| = | \frac{p(\frac{p}{q})}{ p'(x_0) } | \\\\
-\to & | \alpha - \frac{p}{q}| = | \frac{ \sum_{k=0}^{n} c_k p^k q^{-k} }{ p'(x_0) } |  \\\\
-\to & | \alpha - \frac{p}{q}| = \frac{1}{q^n} | \frac{ \sum_{k=0}^{n} c_k p^k q^{n-k} }{ p'(x_0) } |  \ge \frac{ \frac{1}{q^n} }{ p'(x_0) } \\\\
-\to & | \alpha - \frac{p}{q}| \ge \frac{ \frac{1}{q^n} }{ p'(x_0) } \ge \frac{ \frac{1}{q^n} }{ M } > \frac{A}{q^n} \ge | \alpha - \frac{p}{q} | \\\\
+& P(\alpha) - P(\frac{p}{q}) = (\alpha - \frac{p}{q}) \cdot P'(x_0) \\\\
+\to & | \alpha - \frac{p}{q}| = \frac{ |P(\alpha) - P(\frac{p}{q}) }{ | P'(x_0) | }  \\\\
+\to & | \alpha - \frac{p}{q}| = | \frac{P(\frac{p}{q})}{ P'(x_0) } | \\\\
+\to & | \alpha - \frac{p}{q}| = | \frac{ \sum_{k=0}^{n} c_k p^k q^{-k} }{ P'(x_0) } |  \\\\
+\to & | \alpha - \frac{p}{q}| = \frac{1}{q^n} | \frac{ \sum_{k=0}^{n} c_k p^k q^{n-k} }{ P'(x_0) } |  \ge \frac{ \frac{1}{q^n} }{ P'(x_0) } \\\\
+\to & | \alpha - \frac{p}{q}| \ge \frac{ \frac{1}{q^n} }{ P'(x_0) } \ge \frac{ \frac{1}{q^n} }{ M } > \frac{A}{q^n} \ge | \alpha - \frac{p}{q} | \\\\
 \to & | \alpha - \frac{p}{q}|  > | \alpha - \frac{p}{q} | \\\\
 \end{array}
 $$
