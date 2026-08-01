@@ -1,0 +1,75 @@
+#!/bin/bash
+#
+
+VERBOSE=1
+
+BASE_DIR="/mnt/vid_drive"
+BASE_DIR="/root/vid_drive"
+LOGFILE="/root/info/vidrecord.log"
+PIDFILE="/root/info/vidrecord.pid"
+WATCHFILE="/root/info/vidrecord.watch"
+
+dt_cutoff=`date --date='2 days ago' +'%Y_%m_%d'`
+
+date_lt() {
+  a=$1
+  b=$2
+
+  y0=`echo "$a" | cut -f1 -d_ | bc`
+  y1=`echo "$b" | cut -f1 -d_ | bc`
+
+  m0=`echo "$a" | cut -f2 -d_ | bc`
+  m1=`echo "$b" | cut -f2 -d_ | bc`
+
+  d0=`echo "$a" | cut -f3 -d_ | bc`
+  d1=`echo "$b" | cut -f3 -d_ | bc`
+
+  if [[ $y0 -lt $y1 ]] ; then
+    echo t
+    return
+  fi
+
+  if [[ $m0 -lt $m1 ]] ; then
+    echo t
+    return
+  fi
+
+  if [[ $d0 -lt $d1 ]] ; then
+    echo t
+    return
+  fi
+
+  echo f
+
+}
+export date_lt
+
+
+# move raw vid files into their own directory
+#
+for vidfn in `/usr/bin/ls $BASE_DIR | grep .vid` ; do
+  b=`basename $vidfn .vid`
+
+  fn_dt=`echo "$b" | cut -f1-3 -d_`
+
+  v=`date_lt $fn_dt $dt_cutoff`
+  if [[ "$v" == "f" ]] ; then
+    echo "skipping $vidfn"
+    continue
+  fi
+
+  dstdir=${BASE_DIR}"/$fn_dt"
+  mkdir -p $dstdir
+  echo $vidfn "($b) $dstdir"
+
+  mv ${BASE_DIR}/${vidfn} ${dstdir}
+done
+
+
+# delete old video file directories
+#
+for vid_dir in `/usr/bin/ls $BASE_DIR | grep -P '^\d\d\d\d_\d\d_\d\d$'` ; do
+  echo ">>> $vid_dir"
+done
+
+
