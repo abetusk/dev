@@ -78,12 +78,12 @@
 <h2 id="entropy">Entropy</h2>
 <p>Entropy can be defined as the number of bits it takes to describe a system.</p>
 <p>Given $n$ symbols, each occurring with probability $p_k$ for $k \in (0, 1, \dots, n-1)$, we ask how many configurations are there for a very long message, say of $T$ transmitted symbols.</p>
-<p>For the sake of clarity, we assume $T$ large and $T \cdot p_k \cdot n$ is integral.</p>
-<p>The number of ways to arrange $T \cdot n$ elements comprised of $n$ symbols each occurring with $T \cdot p_k \cdot n$ frequency is the multinomial:</p>
-<p>$$ { T \cdot n \choose (T \cdot p_0 \cdot n), (T \cdot p_1 \cdot n), \dots, (T \cdot p_{n-1} \cdot n) } $$ $$ = \frac{(T \cdot n)!}{\prod_{k=0}^{n-1} (T \cdot p_k \cdot n)!} $$</p>
+<p>For the sake of clarity, we assume $T$ large and $T \cdot p_k$ is integral.</p>
+<p>The number of ways to arrange $T$ elements comprised of $n$ symbols each occurring with $T \cdot p_k$ frequency is the multinomial:</p>
+<p>$$ { T \choose (T \cdot p_0), (T \cdot p_1), \dots, (T \cdot p_{n-1}) } $$ $$ = \frac{T!}{\prod_{k=0}^{n-1} (T \cdot p_k)!} $$</p>
 <p>If we concern ourselves with the bits it takes to represent the total number of configurations, we find (where $\lg(\cdot) = \log_2(\cdot)$):</p>
-<p>$$ \lg( \frac{(T \cdot n)!}{\prod_{k=0}^{n-1} (T \cdot p_k \cdot n)!} ) $$ $$ = \lg( (T \cdot n)! ) - \sum_{k=0}^{n-1} \lg( (T \cdot p_k \cdot n)! ) $$</p>
-<p>$$ \approx (T \cdot n) lg( T \cdot n ) - (T \cdot n) - \sum_{k=0}^{n-1} [ (T \cdot p_k \cdot n) \lg(T \cdot p_k \cdot n) - (T \cdot p_k \cdot n) ] $$</p>
+<p>$$ \lg( \frac{T!}{\prod_{k=0}^{n-1} (T \cdot p_k)!} ) $$ $$ = \lg( T! ) - \sum_{k=0}^{n-1} \lg( (T \cdot p_k)! ) $$</p>
+<p>$$ \approx T lg( T ) - T - \sum_{k=0}^{n-1} [ (T \cdot p_k) \lg(T \cdot p_k) - (T \cdot p_k) ] $$</p>
 <p>By definition, $\sum_{k=0}^{n-1} p_k = 1$, we can reduce to find:</p>
 <p>$$ = - T \sum_{k=0}^{n-1} p_k \lg(p_k) $$</p>
 <p>We define $H$ to be our entropy, the average number of bits needed to represent our system. Since the above is the total number of bits needed, we divide by $T$ to find the average:</p>

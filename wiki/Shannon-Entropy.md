@@ -15,21 +15,21 @@ Given $n$ symbols, each occurring with probability $p_k$ for $k \in \(0, 1, \dot
 we ask how many configurations are there for a very long message, say of $T$
 transmitted symbols.
 
-For the sake of clarity, we assume $T$ large and $T \cdot p_k \cdot n$ is integral.
+For the sake of clarity, we assume $T$ large and $T \cdot p_k$ is integral.
 
-The number of ways to arrange $T \cdot n$ elements comprised of $n$ symbols each
-occurring with $T \cdot p_k \cdot n$ frequency is the multinomial:
+The number of ways to arrange $T$ elements comprised of $n$ symbols each
+occurring with $T \cdot p_k$ frequency is the multinomial:
 
-$$ { T \cdot n \choose (T \cdot p_0 \cdot n), (T \cdot p_1 \cdot n), \dots, (T \cdot p_{n-1} \cdot n) } $$
-$$ = \frac{(T \cdot n)!}{\prod_{k=0}^{n-1} (T \cdot p_k \cdot n)!} $$
+$$ { T \choose (T \cdot p_0), (T \cdot p_1), \dots, (T \cdot p_{n-1}) } $$
+$$ = \frac{T!}{\prod_{k=0}^{n-1} (T \cdot p_k)!} $$
 
 If we concern ourselves with the bits it takes to represent the total number of
 configurations, we find (where $\lg(\cdot) = \log_2(\cdot)$):
 
-$$ \lg( \frac{(T \cdot n)!}{\prod_{k=0}^{n-1} (T \cdot p_k \cdot n)!} ) $$
-$$ = \lg( (T \cdot n)! ) - \sum_{k=0}^{n-1} \lg( (T \cdot p_k \cdot n)! ) $$
+$$ \lg( \frac{T!}{\prod_{k=0}^{n-1} (T \cdot p_k)!} ) $$
+$$ = \lg( T! ) - \sum_{k=0}^{n-1} \lg( (T \cdot p_k)! ) $$
 
-$$ \approx (T \cdot n) lg( T \cdot n ) - (T \cdot n) - \sum_{k=0}^{n-1} [ (T \cdot p_k \cdot n) \lg(T \cdot p_k \cdot n) - (T \cdot p_k \cdot n) ] $$
+$$ \approx T lg( T ) - T  - \sum_{k=0}^{n-1} [ (T \cdot p_k) \lg(T \cdot p_k) - (T \cdot p_k) ] $$
 
 By definition, $\sum_{k=0}^{n-1} p_k = 1$, we can reduce to find:
 
