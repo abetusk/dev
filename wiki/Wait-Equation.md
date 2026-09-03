@@ -20,6 +20,7 @@ $$
 
 Note that the original formulation had extra factors which have been subsumed
 to create $(C = D / v _ 0)$, $(e^{\tau} = (1+r)^{1/k})$.
+Relativistic effects are ignored here.
 
 When $w << \infty$, the wait time drops exponentially.
 As $w \to \infty$, the time to reach the goal vanishes due to the exponential so is
@@ -37,6 +38,29 @@ $$
  \to  & w _ { * }  &= \frac{ \ln(\tau) + \ln(C) }{\tau} \\
 \end{array}
 $$
+
+
+The problem can be changed to one of investment time.
+
+Consider an initial pool of wealth, $W _ 0$, that can be
+put into an investment fund with an annual percentage rate
+increase of $\rho$.
+
+Consider an investment that will yield higher
+returns with an initial buy-in cost of $W _ 1$
+but whose buy-in cost is being reduced by an exponential
+annual percentage rate factor, $\sigma$.
+
+The wait cost is then:
+
+$$
+\begin{array}{ll}
+I(y) & = W _ 0 \int _ 0 ^ y e ^ {\rho t} dt - W _ 1 e^{-\sigma y} \\
+ & = \frac{W _ 0}{\rho} ( e^{\rho y} - 1 ) - W _ 1 e ^ {-\sigma y} \\
+ & = W _ 0 [ \frac{1}{\rho} ( e^{\rho y} - 1 ) - \frac{W _ 1 }{W _ 0} e ^ {-\sigma y} ] \\
+\end{array}
+$$
+
 
 
 
