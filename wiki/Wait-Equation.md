@@ -18,7 +18,8 @@ T(w) & = w + C e^{-\tau w} \\
 \end{array}
 $$
 
-Note that the original formulation had extra factors which have been subsumed to create $(C = D / v _ 0)$, $(e^{-\tau} = (1+r)^{1/k})$.
+Note that the original formulation had extra factors which have been subsumed
+to create $(C = D / v _ 0)$, $(e^{\tau} = (1+r)^{1/k})$.
 
 When $w << \infty$, the wait time drops exponentially.
 As $w \to \infty$, the time to reach the goal vanishes due to the exponential so is
